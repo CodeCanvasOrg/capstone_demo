@@ -1,0 +1,23 @@
+{
+  "extends": "@adonisjs/tsconfig/tsconfig.client.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "paths": {
+      "@/": ["./"],
+      "@/*": ["./*"],
+      "@generated/*": ["../.adonisjs/client/*"],
+      "#controllers/*": ["../app/controllers/*"],
+      "#middleware/*": ["../app/middleware/*"],
+      "#models/*": ["../app/models/*"],
+      "#transformers/*": ["../app/transformers/*"],
+      "#validators/*": ["../app/validators/*"]
+    }
+  },
+  "include": [
+    "./**/*.ts",
+    "./**/*.tsx",
+    "../.adonisjs/client/**/*.ts",
+    "../.adonisjs/server/**/*.ts"
+  ]
+}

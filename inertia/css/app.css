@@ -1,0 +1,309 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+|--------------------------------------------------------------------------
+| Design tokens
+|--------------------------------------------------------------------------
+| Named colors from the capstone design system.
+*/
+@theme {
+  --color-yellow: #f5c400;
+  --color-yellow-light: #fdf7d4;
+  --color-paper: #fdfdf5;
+  --color-ink: #0f0f0d;
+  --color-ink-muted: #5c5c52;
+  --color-ink-faint: #9c9c8e;
+  --color-border-strong: #9c9c6a;
+  --font-sans: 'Instrument Sans', system-ui, sans-serif;
+  --font-serif: 'DM Serif Display', Georgia, serif;
+}
+
+@theme inline {
+  --font-heading: var(--font-serif);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Light theme (paper)
+|--------------------------------------------------------------------------
+*/
+:root {
+  --background: #fdfdf5;
+  --foreground: #0f0f0d;
+  --card: #ffffff;
+  --card-foreground: #0f0f0d;
+  --popover: #fdfdf5;
+  --popover-foreground: #0f0f0d;
+  --primary: #f5c400;
+  --primary-foreground: #0f0f0d;
+  --secondary: #fdf7d4;
+  --secondary-foreground: #0f0f0d;
+  --muted: #f0f0e0;
+  --muted-foreground: #5c5c52;
+  --accent: #fdf7d4;
+  --accent-foreground: #0f0f0d;
+  --destructive: oklch(0.53 0.2 27);
+  --border: #d4d4aa;
+  --input: #d4d4aa;
+  --ring: #f5c400;
+  --chart-1: #f5c400;
+  --chart-2: #9c9c6a;
+  --chart-3: #5c5c52;
+  --chart-4: #fdf7d4;
+  --chart-5: #0f0f0d;
+  --radius: 0rem;
+  --sidebar: #fdfdf5;
+  --sidebar-foreground: #0f0f0d;
+  --sidebar-primary: #f5c400;
+  --sidebar-primary-foreground: #0f0f0d;
+  --sidebar-accent: #fdf7d4;
+  --sidebar-accent-foreground: #0f0f0d;
+  --sidebar-border: #d4d4aa;
+  --sidebar-ring: #f5c400;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Dark theme (ink)
+|--------------------------------------------------------------------------
+*/
+.dark {
+  --background: #0f0f0d;
+  --foreground: #f6f6e8;
+  --card: #17170f;
+  --card-foreground: #f6f6e8;
+  --popover: #17170f;
+  --popover-foreground: #f6f6e8;
+  --primary: #f5c400;
+  --primary-foreground: #0f0f0d;
+  --secondary: #26261c;
+  --secondary-foreground: #f6f6e8;
+  --muted: #1d1d15;
+  --muted-foreground: #9c9c8e;
+  --accent: #26261c;
+  --accent-foreground: #f6f6e8;
+  --destructive: oklch(0.64 0.2 27);
+  --border: #3c3c2a;
+  --input: #3c3c2a;
+  --ring: #f5c400;
+  --chart-1: #f5c400;
+  --chart-2: #9c9c6a;
+  --chart-3: #f6f6e8;
+  --chart-4: #5c5c52;
+  --chart-5: #17170f;
+  --sidebar: #15150f;
+  --sidebar-foreground: #f6f6e8;
+  --sidebar-primary: #f5c400;
+  --sidebar-primary-foreground: #0f0f0d;
+  --sidebar-accent: #26261c;
+  --sidebar-accent-foreground: #f6f6e8;
+  --sidebar-border: #3c3c2a;
+  --sidebar-ring: #f5c400;
+}
+
+@layer base {
+  /*
+    | The design system uses sharp corners everywhere.
+    */
+  * {
+    border-radius: 0 !important;
+  }
+
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  html {
+    @apply font-sans;
+  }
+
+  html,
+  body,
+  #root {
+    background-color: var(--background);
+    font-family: var(--font-sans);
+    color: var(--foreground);
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| TipTap editor styles
+|--------------------------------------------------------------------------
+*/
+.tiptap-editor .ProseMirror {
+  outline: none;
+  min-height: 100%;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--foreground);
+}
+
+.tiptap-editor .ProseMirror p {
+  margin-bottom: 1em;
+}
+
+.tiptap-editor .ProseMirror h1 {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  line-height: 1.2;
+  margin-bottom: 0.75em;
+  margin-top: 1.5em;
+}
+
+.tiptap-editor .ProseMirror h2 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  line-height: 1.3;
+  margin-bottom: 0.5em;
+  margin-top: 1.25em;
+}
+
+.tiptap-editor .ProseMirror h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.5em;
+  margin-top: 1.25em;
+  text-transform: uppercase;
+}
+
+.tiptap-editor .ProseMirror ul,
+.tiptap-editor .ProseMirror ol {
+  padding-left: 1.5em;
+  margin-bottom: 1em;
+}
+
+.tiptap-editor .ProseMirror li {
+  margin-bottom: 0.25em;
+}
+
+.tiptap-editor .ProseMirror blockquote {
+  border-left: 3px solid #f5c400;
+  padding-left: 1em;
+  margin-left: 0;
+  color: var(--color-ink-muted);
+  font-style: italic;
+}
+
+.tiptap-editor .ProseMirror code {
+  background: #f0f0e0;
+  padding: 0.125em 0.375em;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.875em;
+}
+
+.tiptap-editor .ProseMirror pre {
+  background: #0f0f0d;
+  color: #fafae6;
+  padding: 1em;
+  overflow-x: auto;
+  margin-bottom: 1em;
+}
+
+.tiptap-editor .ProseMirror pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+}
+
+.tiptap-editor .ProseMirror strong {
+  font-weight: 700;
+}
+
+.tiptap-editor .ProseMirror em {
+  font-style: italic;
+}
+
+.tiptap-editor .ProseMirror p.is-editor-empty:first-child::before {
+  color: var(--color-ink-faint);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.dark .tiptap-editor .ProseMirror blockquote {
+  color: var(--color-ink-faint);
+}
+
+.dark .tiptap-editor .ProseMirror code {
+  background: #26261c;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Scrollbar
+|--------------------------------------------------------------------------
+*/
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4d4aa;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9c9c6a;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #3c3c2a;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #9c9c6a;
+}
