@@ -5,14 +5,14 @@ import type { AuthorizerResponse } from '@adonisjs/bouncer/types'
 
 export default class DocumentPolicy extends BasePolicy {
   edit(user: User, document: Document): AuthorizerResponse {
-    return user.id === document.user_id
+    return user.id === document.userId
   }
 
   update(user: User, document: Document): AuthorizerResponse {
-    return user.id === document.user_id
+    return user.id === document.userId
   }
 
   delete(user: User, document: Document): AuthorizerResponse {
-    return user.id === document.user_id
+    return user.id === document.userId
   }
 }

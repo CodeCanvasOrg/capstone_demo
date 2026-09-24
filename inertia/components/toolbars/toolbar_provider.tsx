@@ -1,7 +1,10 @@
 'use client'
 
 import type { Editor } from '@tiptap/react'
+import type { StarterKitOptions } from '@tiptap/starter-kit'
 import React from 'react'
+
+export type { StarterKitOptions }
 
 export interface ToolbarContextProps {
   editor: Editor

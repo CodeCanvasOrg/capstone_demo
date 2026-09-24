@@ -20,4 +20,15 @@ export interface ApiDefinition {
     update: typeof routes['documents.update']
     destroy: typeof routes['documents.destroy']
   }
+  documentVersions: {
+    store: typeof routes['documentVersions.store']
+  }
+  shares: {
+    store: typeof routes['shares.store']
+    update: typeof routes['shares.update']
+    destroy: typeof routes['shares.destroy']
+  }
+  documentShares: {
+    index: typeof routes['document_shares.index']
+  }
 }

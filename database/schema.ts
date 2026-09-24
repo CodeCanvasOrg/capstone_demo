@@ -8,7 +8,7 @@ import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
 export class DocumentShareSchema extends BaseModel {
-  static $columns = ['createdAt', 'documentId', 'id', 'updatedAt', 'userId'] as const
+  static $columns = ['createdAt', 'documentId', 'id', 'role', 'updatedAt', 'userId'] as const
   $columns = DocumentShareSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
@@ -16,6 +16,8 @@ export class DocumentShareSchema extends BaseModel {
   declare documentId: string
   @column({ isPrimary: true })
   declare id: string
+  @column()
+  declare role: string | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
   @column()

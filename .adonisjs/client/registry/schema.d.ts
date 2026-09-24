@@ -151,4 +151,64 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/documents_controller').default['destroy']>>>
     }
   }
+  'documentVersions.store': {
+    methods: ["POST"]
+    pattern: '/documents/:documentId/versions'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/document_version').documentVersionValidator)>>
+      paramsTuple: [ParamValue]
+      params: { documentId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/document_version').documentVersionValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_versions_controller').default['handle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_versions_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'shares.store': {
+    methods: ["POST"]
+    pattern: '/documents/:documentId/shares'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/document_share').documentShareValidator)>>
+      paramsTuple: [ParamValue]
+      params: { documentId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/document_share').documentShareValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_shares_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_shares_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'shares.update': {
+    methods: ["PUT","PATCH"]
+    pattern: '/documents/:documentId/shares/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/document_share').documentShareRoleValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { documentId: ParamValue; id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/document_share').documentShareRoleValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_shares_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_shares_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'shares.destroy': {
+    methods: ["DELETE"]
+    pattern: '/documents/:documentId/shares/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { documentId: ParamValue; id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_shares_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_shares_controller').default['destroy']>>>
+    }
+  }
+  'document_shares.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/documents/shares'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_shares_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_shares_controller').default['index']>>>
+    }
+  }
 }

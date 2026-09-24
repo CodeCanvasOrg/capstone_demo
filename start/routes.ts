@@ -29,5 +29,21 @@ router
 
     // Documents
     router.resource('documents', () => import('#controllers/documents_controller')).except(['show'])
+    router
+      .group(() => {
+        // Creating document versions for version control
+        router
+          .post('/versions', [() => import('#controllers/document_versions_controller'), 'handle'])
+          .as('documentVersions.store')
+        // Sharing documents
+        router
+          .resource('/shares', () => import('#controllers/document_shares_controller'))
+          .except(['index', 'show', 'edit', 'create'])
+      })
+      .prefix('documents/:documentId')
+    router.get('documents/shares', [
+      () => import('#controllers/document_shares_controller'),
+      'index',
+    ])
   })
   .use(middleware.auth())

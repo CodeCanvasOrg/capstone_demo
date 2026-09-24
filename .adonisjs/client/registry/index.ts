@@ -78,6 +78,36 @@ const routes = {
     tokens: [{"old":"/documents/:id","type":0,"val":"documents","end":""},{"old":"/documents/:id","type":1,"val":"id","end":""}],
     types: placeholder as Registry['documents.destroy']['types'],
   },
+  'documentVersions.store': {
+    methods: ["POST"],
+    pattern: '/documents/:documentId/versions',
+    tokens: [{"old":"/documents/:documentId/versions","type":0,"val":"documents","end":""},{"old":"/documents/:documentId/versions","type":1,"val":"documentId","end":""},{"old":"/documents/:documentId/versions","type":0,"val":"versions","end":""}],
+    types: placeholder as Registry['documentVersions.store']['types'],
+  },
+  'shares.store': {
+    methods: ["POST"],
+    pattern: '/documents/:documentId/shares',
+    tokens: [{"old":"/documents/:documentId/shares","type":0,"val":"documents","end":""},{"old":"/documents/:documentId/shares","type":1,"val":"documentId","end":""},{"old":"/documents/:documentId/shares","type":0,"val":"shares","end":""}],
+    types: placeholder as Registry['shares.store']['types'],
+  },
+  'shares.update': {
+    methods: ["PUT","PATCH"],
+    pattern: '/documents/:documentId/shares/:id',
+    tokens: [{"old":"/documents/:documentId/shares/:id","type":0,"val":"documents","end":""},{"old":"/documents/:documentId/shares/:id","type":1,"val":"documentId","end":""},{"old":"/documents/:documentId/shares/:id","type":0,"val":"shares","end":""},{"old":"/documents/:documentId/shares/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['shares.update']['types'],
+  },
+  'shares.destroy': {
+    methods: ["DELETE"],
+    pattern: '/documents/:documentId/shares/:id',
+    tokens: [{"old":"/documents/:documentId/shares/:id","type":0,"val":"documents","end":""},{"old":"/documents/:documentId/shares/:id","type":1,"val":"documentId","end":""},{"old":"/documents/:documentId/shares/:id","type":0,"val":"shares","end":""},{"old":"/documents/:documentId/shares/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['shares.destroy']['types'],
+  },
+  'document_shares.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/documents/shares',
+    tokens: [{"old":"/documents/shares","type":0,"val":"documents","end":""},{"old":"/documents/shares","type":0,"val":"shares","end":""}],
+    types: placeholder as Registry['document_shares.index']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }

@@ -4,23 +4,14 @@ import { useForm, type SetDataAction } from '@inertiajs/react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { DOCUMENT_STATUSES, STATUS_META, type DocumentStatus } from './status'
+import { type DocumentStatus } from './status'
 
 export type DocumentFormData = {
   title: string
   description: string | null
   status: DocumentStatus | null
 }
-
-const NO_STATUS = 'none'
 
 type DocumentFormSlot = {
   data: DocumentFormData
@@ -63,29 +54,6 @@ function DocumentFormFields({ data, setData, errors, processing }: DocumentFormS
           placeholder="Write a short description…"
         />
         {errors.description && <FieldError>{errors.description}</FieldError>}
-      </div>
-
-      <div className="flex flex-col gap-1.5">
-        <Label htmlFor="status">Status</Label>
-        <Select
-          value={data.status ?? NO_STATUS}
-          onValueChange={(value) =>
-            setData('status', value === NO_STATUS ? null : (value as DocumentStatus))
-          }
-        >
-          <SelectTrigger id="status" className="w-full">
-            <SelectValue placeholder="Select a status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value={NO_STATUS}>No status</SelectItem>
-            {DOCUMENT_STATUSES.map((status) => (
-              <SelectItem key={status} value={status}>
-                {STATUS_META[status].label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        {errors.status && <FieldError>{errors.status}</FieldError>}
       </div>
 
       <div className="flex items-center gap-2 pt-1">

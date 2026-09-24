@@ -9,8 +9,12 @@ export default class extends BaseSchema {
       table.uuid('document_id').references('documents.id').notNullable().onDelete('CASCADE')
       table.integer('user_id').notNullable().references('users.id').onDelete('CASCADE')
 
+      table.enum('role', ['view', 'edit'])
+
       table.timestamp('created_at')
       table.timestamp('updated_at')
+
+      table.unique(['user_id', 'document_id'])
     })
   }
 

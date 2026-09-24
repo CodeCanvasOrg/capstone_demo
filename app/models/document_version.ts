@@ -3,6 +3,7 @@ import { belongsTo, column } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import User from './user.ts'
 import Document from './document.ts'
+import { DateTime } from 'luxon'
 
 export default class DocumentVersion extends DocumentVersionSchema {
   @column({ isPrimary: true })
@@ -13,6 +14,18 @@ export default class DocumentVersion extends DocumentVersionSchema {
 
   @column()
   declare documentId: string
+
+  @column()
+  declare version: number | null
+
+  @column()
+  declare content: any
+
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
 
   @belongsTo(() => User)
   declare user: BelongsTo<typeof User>

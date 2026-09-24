@@ -1,20 +1,11 @@
 import Document from '#models/document'
 import DocumentPolicy from '#policies/document_policy'
+import initDocumentContent from '#services/documents/init_tiptap_doc'
+import DocumentTransformer from '#transformers/document_transformer'
 import { documentValidator } from '#validators/documents'
 import type { HttpContext } from '@adonisjs/core/http'
-export default class DocumentsController {
-  private serialize(document: Document) {
-    return {
-      id: document.id,
-      user_id: document.userId,
-      title: document.title,
-      description: document.description,
-      status: document.status,
-      createdAt: document.createdAt?.toISO() ?? null,
-      updatedAt: document.updatedAt?.toISO() ?? null,
-    }
-  }
 
+export default class DocumentsController {
   /**
    * Display a list of resource
    */
@@ -22,7 +13,7 @@ export default class DocumentsController {
     const documents = await auth.user!.related('documents').query().orderBy('updatedAt', 'desc')
 
     return inertia.render('documents/index', {
-      documents: documents.map((document) => this.serialize(document)),
+      documents: DocumentTransformer.transform(documents),
     })
   }
 
@@ -37,9 +28,12 @@ export default class DocumentsController {
    * Handle form submission for the create action
    */
   async store({ auth, request, response }: HttpContext) {
-    const { ...payload } = await request.validateUsing(documentValidator)
+    const { status, ...payload } = await request.validateUsing(documentValidator)
 
-    const document = await auth.user!.related('documents').create({ ...payload })
+    const document = await auth.user!.related('documents').create({ ...payload, status: 'pending' })
+    await document
+      .related('documentVersions')
+      .create({ content: initDocumentContent(), version: 1, userId: auth.user?.id })
 
     return response.redirect().toRoute('documents.edit', {
       id: document.id,
@@ -50,11 +44,18 @@ export default class DocumentsController {
    * Edit individual record
    */
   async edit({ params, bouncer, inertia }: HttpContext) {
-    const document = await Document.findByOrFail({ id: params.id })
+    const document = await Document.query()
+      .where('id', params.id)
+      .preload('user')
+      .preload('documentShares', (share) => share.preload('user'))
+      .preload('documentVersions', (version) => version.preload('user').orderBy('version', 'desc'))
+      .firstOrFail()
 
     await bouncer.with(DocumentPolicy).authorize('edit', document)
 
-    return inertia.render('documents/edit', { document: this.serialize(document) })
+    return inertia.render('documents/edit', {
+      document: DocumentTransformer.transform(document),
+    })
   }
 
   /**

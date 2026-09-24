@@ -6,14 +6,24 @@
 /// <reference path="./manifest.d.ts" />
 import type { InferData, InferVariants } from '@adonisjs/core/types/transformers'
 import type { InferSharedProps, InferFlashData } from '@adonisjs/inertia/types'
+import type DocumentShareTransformer from '#transformers/document_share_transformer'
 import type DocumentTransformer from '#transformers/document_transformer'
+import type DocumentVersionTransformer from '#transformers/document_version_transformer'
 import type UserTransformer from '#transformers/user_transformer'
 import type InertiaMiddleware from '#middleware/inertia_middleware'
 
 export namespace Data {
+  export type DocumentShare = InferData<DocumentShareTransformer>
+  export namespace DocumentShare {
+    export type Variants = InferVariants<DocumentShareTransformer>
+  }
   export type Document = InferData<DocumentTransformer>
   export namespace Document {
     export type Variants = InferVariants<DocumentTransformer>
+  }
+  export type DocumentVersion = InferData<DocumentVersionTransformer>
+  export namespace DocumentVersion {
+    export type Variants = InferVariants<DocumentVersionTransformer>
   }
   export type User = InferData<UserTransformer>
   export namespace User {

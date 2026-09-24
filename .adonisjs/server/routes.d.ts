@@ -16,6 +16,10 @@ export type ScannedRoutes = {
     'documents.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'documents.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'documents.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'documentVersions.store': { paramsTuple: [ParamValue]; params: {'documentId': ParamValue} }
+    'shares.store': { paramsTuple: [ParamValue]; params: {'documentId': ParamValue} }
+    'shares.update': { paramsTuple: [ParamValue,ParamValue]; params: {'documentId': ParamValue,'id': ParamValue} }
+    'shares.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'documentId': ParamValue,'id': ParamValue} }
   }
   GET: {
     'home': { paramsTuple?: []; params?: {} }
@@ -38,15 +42,20 @@ export type ScannedRoutes = {
     'session.store': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }
     'documents.store': { paramsTuple?: []; params?: {} }
+    'documentVersions.store': { paramsTuple: [ParamValue]; params: {'documentId': ParamValue} }
+    'shares.store': { paramsTuple: [ParamValue]; params: {'documentId': ParamValue} }
   }
   PUT: {
     'documents.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'shares.update': { paramsTuple: [ParamValue,ParamValue]; params: {'documentId': ParamValue,'id': ParamValue} }
   }
   PATCH: {
     'documents.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'shares.update': { paramsTuple: [ParamValue,ParamValue]; params: {'documentId': ParamValue,'id': ParamValue} }
   }
   DELETE: {
     'documents.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'shares.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'documentId': ParamValue,'id': ParamValue} }
   }
 }
 declare module '@adonisjs/core/types/http' {

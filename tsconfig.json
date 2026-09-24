@@ -4,6 +4,7 @@
     "rootDir": "./",
     "jsx": "react",
     "outDir": "./build",
+    "allowImportingTsExtensions": true,
   },
   "references": [{ "path": "./tsconfig.inertia.json" }]
 }
