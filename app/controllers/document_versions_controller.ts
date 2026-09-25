@@ -25,6 +25,8 @@ export default class DocumentVersionsController {
     }
 
     document.related('documentVersions').create(payload)
+    document.merge({ status: 'editing' })
+    await document.save()
 
     return response.redirect().toRoute('documents.edit', {
       id: document.id,

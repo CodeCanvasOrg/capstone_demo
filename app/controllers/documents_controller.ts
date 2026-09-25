@@ -35,6 +35,9 @@ export default class DocumentsController {
     await document
       .related('documentVersions')
       .create({ content: documentContent, version: 1, userId: auth.user?.id })
+    // If generation is successful
+    document.merge({ status: 'draft' })
+    await document.save()
 
     return response.redirect().toRoute('documents.edit', {
       id: document.id,

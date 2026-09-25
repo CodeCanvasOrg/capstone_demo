@@ -1,6 +1,6 @@
 import Document from '#models/document'
 import DocumentPolicy from '#policies/document_policy'
-import ExportPdfService from '#services/pdf_service'
+import ExportPdfService from '#services/exports/pdf_service'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class ExportPdfsController {
