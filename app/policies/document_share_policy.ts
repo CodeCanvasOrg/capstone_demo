@@ -9,11 +9,11 @@ export default class DocumentSharePolicy extends BasePolicy {
     return user.id === document.userId
   }
 
-  update(user: User, document: DocumentShare): AuthorizerResponse {
-    return user.id === document.userId
+  update(user: User, documentShare: DocumentShare): AuthorizerResponse {
+    return user.id === documentShare.document.userId
   }
 
-  delete(user: User, document: DocumentShare): AuthorizerResponse {
-    return user.id === document.userId
+  delete(user: User, documentShare: DocumentShare): AuthorizerResponse {
+    return user.id === documentShare.document.userId
   }
 }

@@ -21,7 +21,7 @@ export default class DocumentVersionsController {
     const payload = {
       ...validated,
       version: (latestVersion.version ?? 0) + 1,
-      userId: userId,
+      userId,
     }
 
     document.related('documentVersions').create(payload)

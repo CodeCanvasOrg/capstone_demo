@@ -21,7 +21,7 @@ export default class DocumentSharesController {
 
     await bouncer.with(DocumentSharePolicy).authorize('store', document)
 
-    const { emails, role } = await request.validateUsing(documentShareValidator)
+    const { emails } = await request.validateUsing(documentShareValidator)
 
     const emailList = emails
       .split(',')
@@ -77,7 +77,10 @@ export default class DocumentSharesController {
   }
 
   async destroy({ params, response, bouncer }: HttpContext) {
-    const documentShare = await DocumentShare.findByOrFail({ id: params.id })
+    const documentShare = await DocumentShare.query()
+      .where('id', params.id)
+      .preload('document', (document) => document.preload('user'))
+      .firstOrFail()
 
     await bouncer.with(DocumentSharePolicy).authorize('delete', documentShare)
 

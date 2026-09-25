@@ -29,11 +29,12 @@ export default class DocumentsController {
    */
   async store({ auth, request, response }: HttpContext) {
     const { status, ...payload } = await request.validateUsing(documentValidator)
+    const documentContent = await initDocumentContent(payload)
 
     const document = await auth.user!.related('documents').create({ ...payload, status: 'pending' })
     await document
       .related('documentVersions')
-      .create({ content: initDocumentContent(), version: 1, userId: auth.user?.id })
+      .create({ content: documentContent, version: 1, userId: auth.user?.id })
 
     return response.redirect().toRoute('documents.edit', {
       id: document.id,
