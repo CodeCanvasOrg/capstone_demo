@@ -28,6 +28,7 @@ export interface ApiDefinition {
     update: typeof routes['shares.update']
     destroy: typeof routes['shares.destroy']
   }
+  exportPdfs: typeof routes['export_pdfs']
   documentShares: {
     index: typeof routes['document_shares.index']
   }

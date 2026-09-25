@@ -2,6 +2,7 @@ import { type Data } from '@generated/data'
 import { Form, Link } from '@adonisjs/inertia/react'
 import { ArrowLeft, Trash2 } from 'lucide-react'
 
+import ExportDropdown from '@/components/documents/export_dropdown'
 import { DocumentMeta } from '@/components/documents/document_meta'
 import DocumentEditor from '@/components/documents/editor'
 import DocumentShareForm from '@/components/document_shares/form'
@@ -36,7 +37,8 @@ export default function Edit({ document }: InertiaProps<{ document: Data.Documen
             <ArrowLeft className="size-4" />
             Back to documents
           </Link>
-          <div className="ml-auto">
+          <div className="ml-auto flex items-center gap-2">
+            <ExportDropdown document={document} />
             <DocumentShareForm document={document} shares={shares} />
           </div>
         </div>

@@ -3,6 +3,7 @@
 import { useRouter } from '@adonisjs/inertia/react'
 import { EditorContent, type JSONContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import { Markdown } from '@tiptap/markdown'
 import { LoaderCircle, Minus, Plus, XCircle } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
@@ -60,6 +61,7 @@ const extensions = [
       levels: [1, 2, 3, 4],
     },
   }),
+  Markdown,
 ]
 
 type SaveState = 'idle' | 'saving' | 'error'

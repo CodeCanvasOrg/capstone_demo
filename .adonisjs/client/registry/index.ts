@@ -102,6 +102,12 @@ const routes = {
     tokens: [{"old":"/documents/:documentId/shares/:id","type":0,"val":"documents","end":""},{"old":"/documents/:documentId/shares/:id","type":1,"val":"documentId","end":""},{"old":"/documents/:documentId/shares/:id","type":0,"val":"shares","end":""},{"old":"/documents/:documentId/shares/:id","type":1,"val":"id","end":""}],
     types: placeholder as Registry['shares.destroy']['types'],
   },
+  'export_pdfs': {
+    methods: ["GET","HEAD"],
+    pattern: '/documents/:documentId/export/pdf',
+    tokens: [{"old":"/documents/:documentId/export/pdf","type":0,"val":"documents","end":""},{"old":"/documents/:documentId/export/pdf","type":1,"val":"documentId","end":""},{"old":"/documents/:documentId/export/pdf","type":0,"val":"export","end":""},{"old":"/documents/:documentId/export/pdf","type":0,"val":"pdf","end":""}],
+    types: placeholder as Registry['export_pdfs']['types'],
+  },
   'document_shares.index': {
     methods: ["GET","HEAD"],
     pattern: '/documents/shares',

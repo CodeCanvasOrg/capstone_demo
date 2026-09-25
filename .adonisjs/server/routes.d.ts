@@ -20,6 +20,7 @@ export type ScannedRoutes = {
     'shares.store': { paramsTuple: [ParamValue]; params: {'documentId': ParamValue} }
     'shares.update': { paramsTuple: [ParamValue,ParamValue]; params: {'documentId': ParamValue,'id': ParamValue} }
     'shares.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'documentId': ParamValue,'id': ParamValue} }
+    'export_pdfs': { paramsTuple: [ParamValue]; params: {'documentId': ParamValue} }
   }
   GET: {
     'home': { paramsTuple?: []; params?: {} }
@@ -28,6 +29,7 @@ export type ScannedRoutes = {
     'documents.index': { paramsTuple?: []; params?: {} }
     'documents.create': { paramsTuple?: []; params?: {} }
     'documents.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'export_pdfs': { paramsTuple: [ParamValue]; params: {'documentId': ParamValue} }
   }
   HEAD: {
     'home': { paramsTuple?: []; params?: {} }
@@ -36,6 +38,7 @@ export type ScannedRoutes = {
     'documents.index': { paramsTuple?: []; params?: {} }
     'documents.create': { paramsTuple?: []; params?: {} }
     'documents.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'export_pdfs': { paramsTuple: [ParamValue]; params: {'documentId': ParamValue} }
   }
   POST: {
     'new_account.store': { paramsTuple?: []; params?: {} }

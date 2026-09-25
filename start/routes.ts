@@ -37,8 +37,10 @@ router
           .as('documentVersions.store')
         // Sharing documents
         router
-          .resource('/shares', () => import('#controllers/document_shares_controller'))
+          .resource('/shares', controllers.DocumentShares)
           .except(['index', 'show', 'edit', 'create'])
+        // Exporting Documents
+        router.get('/export/pdf', [controllers.ExportPdfs, 'handle'])
       })
       .prefix('documents/:documentId')
     router.get('documents/shares', [

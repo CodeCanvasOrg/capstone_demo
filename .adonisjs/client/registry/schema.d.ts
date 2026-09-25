@@ -199,6 +199,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_shares_controller').default['destroy']>>>
     }
   }
+  'export_pdfs': {
+    methods: ["GET","HEAD"]
+    pattern: '/documents/:documentId/export/pdf'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { documentId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['handle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['handle']>>>
+    }
+  }
   'document_shares.index': {
     methods: ["GET","HEAD"]
     pattern: '/documents/shares'
