@@ -25,15 +25,7 @@ export class DocumentShareSchema extends BaseModel {
 }
 
 export class DocumentVersionSchema extends BaseModel {
-  static $columns = [
-    'content',
-    'createdAt',
-    'documentId',
-    'id',
-    'updatedAt',
-    'userId',
-    'version',
-  ] as const
+  static $columns = ['content', 'createdAt', 'documentId', 'id', 'updatedAt', 'userId', 'version'] as const
   $columns = DocumentVersionSchema.$columns
   @column()
   declare content: any | null
@@ -52,15 +44,7 @@ export class DocumentVersionSchema extends BaseModel {
 }
 
 export class DocumentSchema extends BaseModel {
-  static $columns = [
-    'createdAt',
-    'description',
-    'id',
-    'status',
-    'title',
-    'updatedAt',
-    'userId',
-  ] as const
+  static $columns = ['createdAt', 'description', 'id', 'status', 'title', 'updatedAt', 'userId'] as const
   $columns = DocumentSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
@@ -76,6 +60,27 @@ export class DocumentSchema extends BaseModel {
   declare updatedAt: DateTime | null
   @column()
   declare userId: number
+}
+
+export class FileSchema extends BaseModel {
+  static $columns = ['createdAt', 'documentId', 'filename', 'filetype', 'id', 'objectKey', 'objectUrl', 'updatedAt'] as const
+  $columns = FileSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare documentId: string
+  @column()
+  declare filename: string | null
+  @column()
+  declare filetype: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare objectKey: string | null
+  @column()
+  declare objectUrl: string | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
 }
 
 export class UserSchema extends BaseModel {

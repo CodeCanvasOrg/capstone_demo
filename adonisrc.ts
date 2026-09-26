@@ -63,6 +63,7 @@ export default defineConfig({
     () => import('#providers/api_provider'),
     () => import('@adonisjs/ally/ally_provider'),
     () => import('@adonisjs/bouncer/bouncer_provider'),
+    () => import('@adonisjs/drive/drive_provider'),
   ],
 
   /*

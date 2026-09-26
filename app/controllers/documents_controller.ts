@@ -53,6 +53,7 @@ export default class DocumentsController {
       .preload('user')
       .preload('documentShares', (share) => share.preload('user'))
       .preload('documentVersions', (version) => version.preload('user').orderBy('version', 'desc'))
+      .preload('files')
       .firstOrFail()
 
     await bouncer.with(DocumentPolicy).authorize('edit', document)

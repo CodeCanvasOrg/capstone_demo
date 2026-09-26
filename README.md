@@ -10,7 +10,7 @@
 
 ### Core
 
-* Odonis
+* Adonis
 * TypeScript
 * React
 * PostgreSQL (Supabase)
@@ -19,7 +19,7 @@
 
 ## Authentication
 
-* Wasp Auth
+* Adonis Auth
 * bcrypt — password hashing
 
 ### AI / RAG

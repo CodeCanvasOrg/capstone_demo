@@ -4,6 +4,7 @@ import User from '#models/user'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import DocumentVersion from './document_version.ts'
 import DocumentShare from './document_share.ts'
+import File from './file.ts'
 import { DateTime } from 'luxon'
 
 export default class Document extends DocumentSchema {
@@ -36,4 +37,7 @@ export default class Document extends DocumentSchema {
 
   @hasMany(() => DocumentShare)
   declare documentShares: HasMany<typeof DocumentShare>
+
+  @hasMany(() => File)
+  declare files: HasMany<typeof File>
 }

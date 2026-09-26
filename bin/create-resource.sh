@@ -9,6 +9,6 @@ if [ -z "$NAME" ]; then
   exit 1
 fi
 
-node ace make:controller "$NAME"
-node ace make:validator "$NAME"
-node ace make:transformer "$NAME"
+bun --bun ace make:controller "$NAME"
+bun --bun ace make:validator "$NAME"
+bun --bun ace make:transformer "$NAME"
