@@ -5,7 +5,28 @@ type UserInput = {
   description: string | null
 }
 
-export default async function initDocumentContent({ title, description }: UserInput) {
+type FileProps = {
+  filename: string
+  objectKey: string
+  objectUrl: string
+  chunks: Chunk[]
+}
+
+type Chunk = {
+  chunkIndex: number
+  content: string
+  embedding: number[]
+  fileKey?: string
+}
+
+export default async function initDocumentContent(
+  { title, description }: UserInput,
+  files: FileProps[]
+) {
   const openRouterService = new OpenRouterService()
-  return await openRouterService.generateDocumentInit(title, description ?? '')
+  return await openRouterService.generateDocumentInit(
+    title,
+    description ?? '',
+    files.flatMap((file) => file.chunks)
+  )
 }

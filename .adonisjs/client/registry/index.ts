@@ -114,6 +114,12 @@ const routes = {
     tokens: [{"old":"/documents/shares","type":0,"val":"documents","end":""},{"old":"/documents/shares","type":0,"val":"shares","end":""}],
     types: placeholder as Registry['document_shares.index']['types'],
   },
+  'uploads': {
+    methods: ["POST"],
+    pattern: '/files/uploads',
+    tokens: [{"old":"/files/uploads","type":0,"val":"files","end":""},{"old":"/files/uploads","type":0,"val":"uploads","end":""}],
+    types: placeholder as Registry['uploads']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }

@@ -32,4 +32,5 @@ export interface ApiDefinition {
   documentShares: {
     index: typeof routes['document_shares.index']
   }
+  uploads: typeof routes['uploads']
 }

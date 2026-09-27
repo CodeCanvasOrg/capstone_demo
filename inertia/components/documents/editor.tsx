@@ -176,7 +176,7 @@ export default function DocumentEditor({ documentId, initialContent }: DocumentE
             <Minus className="size-4" />
           </Button>
           <Select value={String(zoom)} onValueChange={(value) => setZoom(Number(value) as Zoom)}>
-            <SelectTrigger className="h-7 w-[70px] gap-1 border-0 bg-transparent px-2 text-xs shadow-none hover:bg-muted focus:ring-0">
+            <SelectTrigger className="h-7 w-70px gap-1 border-0 bg-transparent px-2 text-xs shadow-none hover:bg-muted focus:ring-0">
               <SelectValue />
             </SelectTrigger>
             <SelectContent align="end">

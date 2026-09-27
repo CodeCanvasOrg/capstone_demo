@@ -47,5 +47,6 @@ router
       () => import('#controllers/document_shares_controller'),
       'index',
     ])
+    router.post('files/uploads', [controllers.Uploads, 'handle'])
   })
   .use(middleware.auth())

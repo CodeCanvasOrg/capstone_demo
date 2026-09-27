@@ -21,6 +21,7 @@ export type ScannedRoutes = {
     'shares.update': { paramsTuple: [ParamValue,ParamValue]; params: {'documentId': ParamValue,'id': ParamValue} }
     'shares.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'documentId': ParamValue,'id': ParamValue} }
     'export_pdfs': { paramsTuple: [ParamValue]; params: {'documentId': ParamValue} }
+    'uploads': { paramsTuple?: []; params?: {} }
   }
   GET: {
     'home': { paramsTuple?: []; params?: {} }
@@ -47,6 +48,7 @@ export type ScannedRoutes = {
     'documents.store': { paramsTuple?: []; params?: {} }
     'documentVersions.store': { paramsTuple: [ParamValue]; params: {'documentId': ParamValue} }
     'shares.store': { paramsTuple: [ParamValue]; params: {'documentId': ParamValue} }
+    'uploads': { paramsTuple?: []; params?: {} }
   }
   PUT: {
     'documents.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }

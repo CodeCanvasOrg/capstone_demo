@@ -42,6 +42,7 @@ export function DocumentMeta({ document }: { document: Data.Document }) {
       title: form.data.title,
       description: form.data.description === '' ? null : form.data.description,
       status,
+      files: null,
     }
 
     if (
@@ -72,6 +73,7 @@ export function DocumentMeta({ document }: { document: Data.Document }) {
         title: form.data.title,
         description: form.data.description === '' ? null : form.data.description,
         status: next,
+        files: null,
       },
       {
         preserveScroll: true,
@@ -83,7 +85,7 @@ export function DocumentMeta({ document }: { document: Data.Document }) {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-[90rem] flex-col gap-3 px-4 py-8 md:px-10">
+    <div className="mx-auto flex w-full max-w-90rem flex-col gap-3 px-4 py-8 md:px-10">
       <div className="flex items-start gap-4">
         <input
           aria-label="Document title"

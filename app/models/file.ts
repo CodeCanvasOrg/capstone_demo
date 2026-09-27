@@ -1,8 +1,9 @@
 import { FileSchema } from '#database/schema'
-import { belongsTo, column } from '@adonisjs/lucid/orm'
+import { belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 import Document from './document.ts'
-import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
+import Chunk from './chunk.ts'
 
 export default class File extends FileSchema {
   @column({ isPrimary: true })
@@ -28,4 +29,7 @@ export default class File extends FileSchema {
 
   @belongsTo(() => Document)
   declare document: BelongsTo<typeof Document>
+
+  @hasMany(() => Chunk)
+  declare chunks: HasMany<typeof Chunk>
 }

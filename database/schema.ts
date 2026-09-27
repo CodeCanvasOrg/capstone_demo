@@ -7,6 +7,27 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class ChunkSchema extends BaseModel {
+  static $columns = ['chunkIndex', 'content', 'createdAt', 'embedding', 'fileId', 'fileKey', 'id', 'updatedAt'] as const
+  $columns = ChunkSchema.$columns
+  @column()
+  declare chunkIndex: number | null
+  @column()
+  declare content: string | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare embedding: string | null
+  @column()
+  declare fileId: string
+  @column()
+  declare fileKey: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class DocumentShareSchema extends BaseModel {
   static $columns = ['createdAt', 'documentId', 'id', 'role', 'updatedAt', 'userId'] as const
   $columns = DocumentShareSchema.$columns

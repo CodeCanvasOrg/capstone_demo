@@ -223,4 +223,16 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_shares_controller').default['index']>>>
     }
   }
+  'uploads': {
+    methods: ["POST"]
+    pattern: '/files/uploads'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/upload').fileValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/upload').fileValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/uploads_controller').default['handle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/uploads_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
 }

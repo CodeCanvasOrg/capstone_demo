@@ -182,7 +182,7 @@ function TiptapImage(props: NodeViewProps) {
       className={cn(
         'relative flex flex-col rounded-md border-2 border-transparent',
         selected ? 'border-blue-300' : '',
-        node.attrs.align === 'left' && 'left-0 -translate-x-0',
+        node.attrs.align === 'left' && 'left-0 translate-x-0',
         node.attrs.align === 'center' && 'left-1/2 -translate-x-1/2',
         node.attrs.align === 'right' && 'left-full -translate-x-full'
       )}
@@ -197,7 +197,7 @@ function TiptapImage(props: NodeViewProps) {
         {editor?.isEditable && (
           <>
             <div
-              className="absolute inset-y-0 z-20 flex w-[25px] cursor-col-resize items-center justify-start p-2"
+              className="absolute inset-y-0 z-20 flex w-25px cursor-col-resize items-center justify-start p-2"
               style={{ left: 0 }}
               onMouseDown={(event) => {
                 handleResizingPosition({ e: event, position: 'left' })

@@ -28,7 +28,7 @@ export default function Edit({ document }: InertiaProps<{ document: Data.Documen
 
   return (
     <div className="min-h-screen">
-      <header className="sticky top-0 z-30 border-b border-border/60 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
+      <header className="sticky top-0 z-30 border-b border-border/60 bg-background/90 backdrop-blur supports-backdrop-filter:bg-background/75">
         <div className="flex h-14 w-full items-center gap-2 px-4 md:px-10">
           <Link
             route="documents.index"
@@ -51,7 +51,7 @@ export default function Edit({ document }: InertiaProps<{ document: Data.Documen
 
         <DocumentEditor documentId={document.id} initialContent={latestContent} />
 
-        <div className="mx-auto w-full max-w-[90rem] px-4 pb-16 pt-10 md:px-10">
+        <div className="mx-auto w-full max-w-90rem px-4 pb-16 pt-10 md:px-10">
           <AlertDialog>
             <div className="flex items-center justify-between gap-4 border-t border-border pt-6">
               <div className="flex flex-col gap-1">

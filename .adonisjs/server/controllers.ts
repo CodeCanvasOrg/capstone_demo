@@ -4,11 +4,11 @@
  */
 
 export const controllers = {
+  DocumentShares: () => import('#controllers/document_shares_controller'),
+  DocumentVersions: () => import('#controllers/document_versions_controller'),
   Documents: () => import('#controllers/documents_controller'),
+  ExportPdfs: () => import('#controllers/export_pdfs_controller'),
   NewAccount: () => import('#controllers/new_account_controller'),
   Session: () => import('#controllers/session_controller'),
-  DocumentVersions: () => import('#controllers/document_versions_controller'),
-  DocumentShares: () => import('#controllers/document_shares_controller'),
-  ExportPdfs: () => import('#controllers/export_pdfs_controller'),
   Uploads: () => import('#controllers/uploads_controller'),
 }

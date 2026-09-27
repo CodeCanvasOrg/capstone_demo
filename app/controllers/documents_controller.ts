@@ -1,9 +1,12 @@
 import Document from '#models/document'
 import DocumentPolicy from '#policies/document_policy'
+import FileService from '#services/documents/files_service'
 import initDocumentContent from '#services/documents/init_tiptap_doc'
 import DocumentTransformer from '#transformers/document_transformer'
 import { documentValidator } from '#validators/documents'
 import type { HttpContext } from '@adonisjs/core/http'
+import logger from '@adonisjs/core/services/logger'
+import db from '@adonisjs/lucid/services/db'
 
 export default class DocumentsController {
   /**
@@ -28,20 +31,52 @@ export default class DocumentsController {
    * Handle form submission for the create action
    */
   async store({ auth, request, response }: HttpContext) {
-    const { status, ...payload } = await request.validateUsing(documentValidator)
-    const documentContent = await initDocumentContent(payload)
+    const { status, files, ...payload } = await request.validateUsing(documentValidator)
 
-    const document = await auth.user!.related('documents').create({ ...payload, status: 'pending' })
-    await document
-      .related('documentVersions')
-      .create({ content: documentContent, version: 1, userId: auth.user?.id })
-    // If generation is successful
-    document.merge({ status: 'draft' })
-    await document.save()
+    const trx = await db.transaction()
 
-    return response.redirect().toRoute('documents.edit', {
-      id: document.id,
-    })
+    try {
+      // Process Uploaded Files
+      const processedFiles = files
+        ? await Promise.all(files.map((file) => FileService.processFile(file)))
+        : []
+
+      const documentContent = await initDocumentContent(payload, processedFiles)
+
+      // Create Document records
+      const document = await auth
+        .user!.related('documents')
+        .create({ ...payload, status: 'pending' }, { client: trx })
+      await document
+        .related('documentVersions')
+        .create({ content: documentContent, version: 1, userId: auth.user?.id }, { client: trx })
+
+      // Files transaction
+      for (const processedFile of processedFiles) {
+        const { chunks, ...fileParams } = processedFile
+        const file = await document.related('files').create(fileParams, { client: trx })
+        await file.related('chunks').createMany(
+          processedFile.chunks.map((chunk) => ({
+            ...chunk,
+            embedding: chunk.embedding.toString(),
+          })),
+          { client: trx }
+        )
+      }
+
+      // If generation is successful
+      document.merge({ status: 'draft' })
+      await document.save()
+      await trx.commit()
+
+      return response.redirect().toRoute('documents.edit', {
+        id: document.id,
+      })
+    } catch (error) {
+      await trx.rollback()
+      logger.error({ err: error }, 'Failed to create document')
+      return response.redirect().toRoute('documents.create')
+    }
   }
 
   /**
