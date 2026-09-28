@@ -68,10 +68,12 @@ export const ImagePlaceholder = Node.create<ImagePlaceholderOptions>({
 
   addCommands() {
     return {
-      insertImagePlaceholder: () => (props: CommandProps) => {
-        return props.commands.insertContent({
-          type: 'image-placeholder',
-        })
+      insertImagePlaceholder: () => {
+        return (props: CommandProps) => {
+          return props.commands.insertContent({
+            type: 'image-placeholder',
+          })
+        }
       },
     }
   },

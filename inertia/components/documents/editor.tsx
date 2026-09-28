@@ -29,6 +29,9 @@ import { OrderedListToolbar } from '@/components/toolbars/ordered_list'
 import { RedoToolbar } from '@/components/toolbars/redo'
 import { StrikeThroughToolbar } from '@/components/toolbars/strikethrough'
 import { UndoToolbar } from '@/components/toolbars/undo'
+import { ImageExtension } from '../extensions/image'
+import { ImagePlaceholder } from '../extensions/image_placeholder'
+import { ImagePlaceholderToolbar } from '../toolbars/image_placeholder_toolbar'
 
 const extensions = [
   StarterKit.configure({
@@ -62,6 +65,8 @@ const extensions = [
     },
   }),
   Markdown,
+  ImageExtension,
+  ImagePlaceholder,
 ]
 
 type SaveState = 'idle' | 'saving' | 'error'
@@ -146,6 +151,7 @@ export default function DocumentEditor({ documentId, initialContent }: DocumentE
             <HorizontalRuleToolbar />
             <BlockquoteToolbar />
             <HardBreakToolbar />
+            <ImagePlaceholderToolbar />
           </div>
         </ToolbarProvider>
 
