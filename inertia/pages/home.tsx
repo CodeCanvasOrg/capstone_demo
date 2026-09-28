@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 
 export default function Home() {
@@ -13,12 +13,14 @@ export default function Home() {
           Transform Your Success into <span className="text-primary">Impactful Case Studies</span>
         </h1>
         <p className="max-w-2xl text-lg text-muted-foreground">
-          Humblebee helps you showcase your best work with professional, data-driven case studies 
+          Humblebee helps you showcase your best work with professional, data-driven case studies
           that convert prospects into clients.
         </p>
         <div className="flex gap-4 mt-4">
           <Button size="lg">Get Started</Button>
-          <Button size="lg" variant="outline">View Templates</Button>
+          <Button size="lg" variant="outline">
+            View Templates
+          </Button>
         </div>
       </div>
 

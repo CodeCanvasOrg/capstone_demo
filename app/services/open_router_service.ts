@@ -30,12 +30,8 @@ export default class OpenRouterService {
     })
   }
 
-  async generateDocumentInit(title: string, description: string, chunks: Chunk[]) {
-    const vectors = chunks.map((chunk) => chunk.embedding)
-    const relatedVectors = await this.embeddService.similaritySearch(description, vectors)
-    const relatedChunks = relatedVectors.map((vector) => chunks[vector.index])
-
-    const context = await this.createContext(relatedChunks)
+  async generateDocumentInit(title: string, description: string, chunks: Chunk[] = []) {
+    const context = chunks.length ? await this.createRelevantContext(description, chunks) : ''
 
     const promptTemplate = getInitPrompt()
 
@@ -48,6 +44,14 @@ export default class OpenRouterService {
     })
 
     return result
+  }
+
+  private async createRelevantContext(description: string, chunks: Chunk[]) {
+    const vectors = chunks.map((chunk) => chunk.embedding)
+    const relatedVectors = await this.embeddService.similaritySearch(description, vectors)
+    const relatedChunks = relatedVectors.map((vector) => chunks[vector.index])
+
+    return await this.createContext(relatedChunks)
   }
 
   private async createContext(chunks: Chunk[]) {

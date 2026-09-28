@@ -97,10 +97,15 @@ test.group('StructuredModelOutputService | getStructuredOutput', () => {
 test.group('StructuredModelOutputService | getInitPrompt', () => {
   test('renders the title and description into the prompt messages', async ({ assert }) => {
     const prompt = getInitPrompt()
-    const value = await prompt.invoke({ title: 'Marketing Plan', description: 'Launch strategy' })
+    const value = await prompt.invoke({
+      title: 'Marketing Plan',
+      description: 'Launch strategy',
+      context: 'Source material',
+    })
     const rendered = value.messages.map((message) => String(message.content)).join('\n')
 
     assert.include(rendered, 'Marketing Plan')
     assert.include(rendered, 'Launch strategy')
+    assert.include(rendered, 'Source material')
   })
 })
