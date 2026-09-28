@@ -12,7 +12,8 @@ export default class UploadsController {
       return response.badRequest({ message: 'File could not be processed' })
     }
 
-    const key = `uploads/${auth.user?.id ?? '1'}/${crypto.randomUUID()}-${file.clientName}`
+    const filetype = path.extname(file.clientName).toLowerCase()
+    const key = `uploads/${auth.user?.id ?? '1'}/${crypto.randomUUID()}${filetype}`
     const contents = await readFile(file.tmpPath)
 
     await drive.use().put(key, contents)
@@ -20,7 +21,7 @@ export default class UploadsController {
 
     return response.ok({
       filename: file.clientName,
-      filetype: path.extname(file.clientName).toLowerCase(),
+      filetype,
       objectKey: key,
       objectUrl,
     })

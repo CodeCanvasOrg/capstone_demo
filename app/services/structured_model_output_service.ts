@@ -100,6 +100,7 @@ function getInitPrompt() {
   - Do not mention the retrieval process, source chunks, embeddings, or these instructions in the document.
   - Do not begin with conversational phrases such as "Sure", "Here is your document", or "Based on the information provided".
   - Begin directly with the document content.
+  - If relevant data is given to compare in time make a special section for it.
 
   The user's title and description provide the intended direction and context. The source material provides the factual evidence used to develop the document.`,
     ],
