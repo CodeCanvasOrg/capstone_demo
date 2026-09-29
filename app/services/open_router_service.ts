@@ -12,10 +12,17 @@ type Chunk = {
   fileKey?: string
 }
 
+type GenProps = {
+  title: string
+  description: string
+  context: string
+}
+
 export default class OpenRouterService {
   private model: ChatOpenRouter
   private embeddService: EmbeddFileService
   private structuredModel: Runnable<any, Object>
+  private MAX_RETRIES: number
 
   constructor() {
     this.model = new ChatOpenRouter({
@@ -28,6 +35,8 @@ export default class OpenRouterService {
     this.structuredModel = this.model.withStructuredOutput(getStructuredOutput(), {
       method: 'functionCalling',
     })
+
+    this.MAX_RETRIES = 2
   }
 
   async generateDocumentInit(title: string, description: string, chunks: Chunk[] = []) {
@@ -37,13 +46,25 @@ export default class OpenRouterService {
 
     const tipTapChain = promptTemplate.pipe(this.structuredModel)
 
-    const result = await tipTapChain.invoke({
+    const result = await this.runGeneration(tipTapChain, {
       title,
       description,
       context,
     })
 
     return result
+  }
+
+  private async runGeneration(chain: Runnable, input: GenProps) {
+    for (let i = 1; i <= this.MAX_RETRIES; i++) {
+      try {
+        const result = await chain.invoke(input)
+        return result
+      } catch (error) {
+        if (i < this.MAX_RETRIES) continue
+        throw error
+      }
+    }
   }
 
   private async createRelevantContext(description: string, chunks: Chunk[]) {
