@@ -1,11 +1,12 @@
 import type DocumentVersion from '#models/document_version'
+import Image from '@tiptap/extension-image'
 import { generateHTML } from '@tiptap/html'
 import StarterKit from '@tiptap/starter-kit'
 import { chromium } from 'playwright'
 
 export default class ExportPdfService {
   static async generate(version: DocumentVersion) {
-    const extensions = [StarterKit]
+    const extensions = [StarterKit, Image]
     const contentHtml = generateHTML(version.content, extensions)
 
     const html = `
