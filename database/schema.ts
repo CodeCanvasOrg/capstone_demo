@@ -28,6 +28,21 @@ export class ChunkSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class DocumentFileSchema extends BaseModel {
+  static $columns = ['createdAt', 'documentId', 'filesId', 'id', 'updatedAt'] as const
+  $columns = DocumentFileSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare documentId: string
+  @column()
+  declare filesId: string
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class DocumentShareSchema extends BaseModel {
   static $columns = ['createdAt', 'documentId', 'id', 'role', 'updatedAt', 'userId'] as const
   $columns = DocumentShareSchema.$columns
@@ -84,12 +99,10 @@ export class DocumentSchema extends BaseModel {
 }
 
 export class FileSchema extends BaseModel {
-  static $columns = ['createdAt', 'documentId', 'filename', 'filetype', 'id', 'objectKey', 'objectUrl', 'updatedAt'] as const
+  static $columns = ['createdAt', 'filename', 'filetype', 'id', 'objectKey', 'objectUrl', 'updatedAt', 'userId'] as const
   $columns = FileSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
-  @column()
-  declare documentId: string
   @column()
   declare filename: string | null
   @column()
@@ -102,6 +115,8 @@ export class FileSchema extends BaseModel {
   declare objectUrl: string | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+  @column()
+  declare userId: number
 }
 
 export class UserSchema extends BaseModel {

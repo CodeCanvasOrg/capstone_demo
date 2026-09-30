@@ -33,4 +33,12 @@ export interface ApiDefinition {
     index: typeof routes['document_shares.index']
   }
   uploads: typeof routes['uploads']
+  files: {
+    index: typeof routes['files.index']
+    create: typeof routes['files.create']
+    store: typeof routes['files.store']
+    edit: typeof routes['files.edit']
+    update: typeof routes['files.update']
+    destroy: typeof routes['files.destroy']
+  }
 }

@@ -1,5 +1,6 @@
 import { UserSchema } from '#database/schema'
 import Document from '#models/document'
+import File from '#models/file'
 import hash from '@adonisjs/core/services/hash'
 import { compose } from '@adonisjs/core/helpers'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
@@ -24,6 +25,9 @@ export default class User extends compose(UserSchema, withAuthFinder(hash)) {
 
   @hasMany(() => DocumentShare)
   declare documentShares: HasMany<typeof DocumentShare>
+
+  @hasMany(() => File)
+  declare files: HasMany<typeof File>
 
   get initials() {
     const [first, last] = this.fullName ? this.fullName.split(' ') : this.email.split('@')

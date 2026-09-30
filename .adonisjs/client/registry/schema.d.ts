@@ -235,4 +235,76 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/uploads_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'files.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/files'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/files_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/files_controller').default['index']>>>
+    }
+  }
+  'files.create': {
+    methods: ["GET","HEAD"]
+    pattern: '/files/create'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/files_controller').default['create']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/files_controller').default['create']>>>
+    }
+  }
+  'files.store': {
+    methods: ["POST"]
+    pattern: '/files'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/file').filesValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/file').filesValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/files_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/files_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'files.edit': {
+    methods: ["GET","HEAD"]
+    pattern: '/files/:id/edit'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/files_controller').default['edit']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/files_controller').default['edit']>>>
+    }
+  }
+  'files.update': {
+    methods: ["PUT","PATCH"]
+    pattern: '/files/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/file').fileValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/file').fileValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/files_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/files_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'files.destroy': {
+    methods: ["DELETE"]
+    pattern: '/files/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/files_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/files_controller').default['destroy']>>>
+    }
+  }
 }

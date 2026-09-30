@@ -6,7 +6,7 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid('id').primary().defaultTo(this.raw('gen_random_uuid()'))
-      table.uuid('document_id').references('documents.id').notNullable().onDelete('CASCADE')
+      table.integer('user_id').references('users.id').notNullable().onDelete('CASCADE')
 
       table.string('filename')
       table.string('filetype')

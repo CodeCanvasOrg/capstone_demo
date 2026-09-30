@@ -120,6 +120,42 @@ const routes = {
     tokens: [{"old":"/files/uploads","type":0,"val":"files","end":""},{"old":"/files/uploads","type":0,"val":"uploads","end":""}],
     types: placeholder as Registry['uploads']['types'],
   },
+  'files.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/files',
+    tokens: [{"old":"/files","type":0,"val":"files","end":""}],
+    types: placeholder as Registry['files.index']['types'],
+  },
+  'files.create': {
+    methods: ["GET","HEAD"],
+    pattern: '/files/create',
+    tokens: [{"old":"/files/create","type":0,"val":"files","end":""},{"old":"/files/create","type":0,"val":"create","end":""}],
+    types: placeholder as Registry['files.create']['types'],
+  },
+  'files.store': {
+    methods: ["POST"],
+    pattern: '/files',
+    tokens: [{"old":"/files","type":0,"val":"files","end":""}],
+    types: placeholder as Registry['files.store']['types'],
+  },
+  'files.edit': {
+    methods: ["GET","HEAD"],
+    pattern: '/files/:id/edit',
+    tokens: [{"old":"/files/:id/edit","type":0,"val":"files","end":""},{"old":"/files/:id/edit","type":1,"val":"id","end":""},{"old":"/files/:id/edit","type":0,"val":"edit","end":""}],
+    types: placeholder as Registry['files.edit']['types'],
+  },
+  'files.update': {
+    methods: ["PUT","PATCH"],
+    pattern: '/files/:id',
+    tokens: [{"old":"/files/:id","type":0,"val":"files","end":""},{"old":"/files/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['files.update']['types'],
+  },
+  'files.destroy': {
+    methods: ["DELETE"],
+    pattern: '/files/:id',
+    tokens: [{"old":"/files/:id","type":0,"val":"files","end":""},{"old":"/files/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['files.destroy']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }

@@ -22,6 +22,12 @@ export type ScannedRoutes = {
     'shares.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'documentId': ParamValue,'id': ParamValue} }
     'export_pdfs': { paramsTuple: [ParamValue]; params: {'documentId': ParamValue} }
     'uploads': { paramsTuple?: []; params?: {} }
+    'files.index': { paramsTuple?: []; params?: {} }
+    'files.create': { paramsTuple?: []; params?: {} }
+    'files.store': { paramsTuple?: []; params?: {} }
+    'files.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'files.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'files.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   GET: {
     'home': { paramsTuple?: []; params?: {} }
@@ -31,6 +37,9 @@ export type ScannedRoutes = {
     'documents.create': { paramsTuple?: []; params?: {} }
     'documents.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'export_pdfs': { paramsTuple: [ParamValue]; params: {'documentId': ParamValue} }
+    'files.index': { paramsTuple?: []; params?: {} }
+    'files.create': { paramsTuple?: []; params?: {} }
+    'files.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   HEAD: {
     'home': { paramsTuple?: []; params?: {} }
@@ -40,6 +49,9 @@ export type ScannedRoutes = {
     'documents.create': { paramsTuple?: []; params?: {} }
     'documents.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'export_pdfs': { paramsTuple: [ParamValue]; params: {'documentId': ParamValue} }
+    'files.index': { paramsTuple?: []; params?: {} }
+    'files.create': { paramsTuple?: []; params?: {} }
+    'files.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   POST: {
     'new_account.store': { paramsTuple?: []; params?: {} }
@@ -49,18 +61,22 @@ export type ScannedRoutes = {
     'documentVersions.store': { paramsTuple: [ParamValue]; params: {'documentId': ParamValue} }
     'shares.store': { paramsTuple: [ParamValue]; params: {'documentId': ParamValue} }
     'uploads': { paramsTuple?: []; params?: {} }
+    'files.store': { paramsTuple?: []; params?: {} }
   }
   PUT: {
     'documents.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'shares.update': { paramsTuple: [ParamValue,ParamValue]; params: {'documentId': ParamValue,'id': ParamValue} }
+    'files.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   PATCH: {
     'documents.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'shares.update': { paramsTuple: [ParamValue,ParamValue]; params: {'documentId': ParamValue,'id': ParamValue} }
+    'files.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   DELETE: {
     'documents.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'shares.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'documentId': ParamValue,'id': ParamValue} }
+    'files.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
 }
 declare module '@adonisjs/core/types/http' {

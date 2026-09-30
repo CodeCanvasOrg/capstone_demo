@@ -47,6 +47,9 @@ router
       () => import('#controllers/document_shares_controller'),
       'index',
     ])
+
+    // Files routes
     router.post('files/uploads', [controllers.Uploads, 'handle'])
+    router.resource('files', controllers.Files).except(['show']).as('files')
   })
   .use(middleware.auth())

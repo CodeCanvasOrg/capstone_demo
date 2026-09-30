@@ -6,3 +6,9 @@ export const fileSchema = vine.object({
   objectKey: vine.string(),
   objectUrl: vine.string(),
 })
+
+export const fileValidator = vine.create(fileSchema)
+
+export const filesValidator = vine.create({
+  files: vine.array(fileSchema),
+})

@@ -49,6 +49,9 @@ export default function Layout({ children }: { children: ReactElement<Data.Share
                   <Button asChild variant="ghost" size="sm">
                     <Link route="documents.index">Documents</Link>
                   </Button>
+                  <Button asChild variant="ghost" size="sm">
+                    <Link route="files.index">Files</Link>
+                  </Button>
                   <span className="mx-1 flex size-7 items-center justify-center bg-primary text-sm font-semibold text-primary-foreground">
                     {children.props.user.initials}
                   </span>

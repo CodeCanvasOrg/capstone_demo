@@ -7,6 +7,7 @@ import { PDFParse } from 'pdf-parse'
 import path from 'node:path'
 import type Stream from 'node:stream'
 import EmbeddFileService from './embedd_file_service.ts'
+import File from '#models/file'
 
 type FileProps = {
   filename: string
@@ -160,7 +161,7 @@ export default class FileService {
 
   private static async saveToDrive(file: Buffer) {
     try {
-      const key = `uploads/processed/${crypto.randomUUID()}-image-file`
+      const key = File.createFileName('uploads/processed', 'image-file.png')
       await drive.use().put(key, file)
 
       return key

@@ -54,7 +54,8 @@ export default class DocumentsController {
       // Files transaction
       for (const processedFile of processedFiles) {
         const { chunks, ...fileParams } = processedFile
-        const file = await document.related('files').create(fileParams, { client: trx })
+        const file = await auth.user!.related('files').create(fileParams, { client: trx })
+        await document.related('files').attach([file.id], trx)
         await file.related('chunks').createMany(
           processedFile.chunks.map((chunk) => ({
             ...chunk,

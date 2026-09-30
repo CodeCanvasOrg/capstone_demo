@@ -92,7 +92,6 @@ export default function FileUploadForm({
       }
 
       const uploaded = (await response.json()) as FileUpload
-      console.log(uploaded)
       onSubmit(uploaded)
       return true
     } catch {
@@ -102,17 +101,17 @@ export default function FileUploadForm({
   }
 
   async function uploadPending() {
-    if (uploading) return
+    if (uploading || pendingFiles.length === 0) return
 
     setUploading(true)
-    const failed: number[] = []
+    const failed: File[] = []
 
-    for (const file of pendingFiles) {
+    for (const file of [...pendingFiles]) {
       const uploaded = await uploadFile(file)
-      if (!uploaded) failed.push(pendingFiles.indexOf(file))
+      if (!uploaded) failed.push(file)
     }
 
-    setPendingFiles((current) => current.filter((_, index) => !failed.includes(index)))
+    setPendingFiles((current) => current.filter((file) => failed.includes(file)))
     setUploading(false)
   }
 

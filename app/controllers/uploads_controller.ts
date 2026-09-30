@@ -3,6 +3,7 @@ import drive from '@adonisjs/drive/services/main'
 import type { HttpContext } from '@adonisjs/core/http'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
+import File from '#models/file'
 
 export default class UploadsController {
   async handle({ request, auth, response }: HttpContext) {
@@ -13,7 +14,7 @@ export default class UploadsController {
     }
 
     const filetype = path.extname(file.clientName).toLowerCase()
-    const key = `uploads/${auth.user?.id ?? '1'}/${crypto.randomUUID()}${filetype}`
+    const key = File.createFileName(`uploads/${auth.user?.id ?? '1'}`, filetype)
     const contents = await readFile(file.tmpPath)
 
     await drive.use().put(key, contents)

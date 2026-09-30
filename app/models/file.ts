@@ -1,16 +1,14 @@
 import { FileSchema } from '#database/schema'
-import { belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
+import { belongsTo, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
 import Document from './document.ts'
-import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
+import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
 import Chunk from './chunk.ts'
+import User from './user.ts'
 
 export default class File extends FileSchema {
   @column({ isPrimary: true })
   declare id: string
-
-  @column()
-  declare documentId: string
 
   @column()
   declare filename: string | null
@@ -27,9 +25,21 @@ export default class File extends FileSchema {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
-  @belongsTo(() => Document)
-  declare document: BelongsTo<typeof Document>
+  @belongsTo(() => User)
+  declare user: BelongsTo<typeof User>
 
   @hasMany(() => Chunk)
   declare chunks: HasMany<typeof Chunk>
+
+  @manyToMany(() => Document, {
+    pivotTable: 'document_files',
+    pivotForeignKey: 'files_id',
+    pivotRelatedForeignKey: 'document_id',
+    pivotTimestamps: true,
+  })
+  declare documents: ManyToMany<typeof Document>
+
+  static createFileName(dir: string, end?: string) {
+    return `${dir}/${crypto.randomUUID()}-${end ?? 'file'}`
+  }
 }
