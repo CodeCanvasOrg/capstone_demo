@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { DOCUMENT_STATUSES, STATUS_META, type DocumentStatus } from './status'
+import { GenerationStatusBadge } from './status'
 
 const NO_STATUS = 'none'
 
@@ -52,12 +53,16 @@ export function DocumentMeta({ document }: { document: Data.Document }) {
       return
     }
 
+    form.clearErrors()
     setSaveState('saving')
     router.put({ route: 'documents.update', routeParams: { id: document.id } }, normalized, {
       preserveScroll: true,
       preserveState: true,
       onSuccess: () => setSaveState('idle'),
-      onError: () => setSaveState('error'),
+      onError: (errors: Record<string, string>) => {
+        form.setError(errors)
+        setSaveState('error')
+      },
     })
   }
 
@@ -66,6 +71,7 @@ export function DocumentMeta({ document }: { document: Data.Document }) {
       return
     }
 
+    form.clearErrors()
     setSaveState('saving')
     router.put(
       { route: 'documents.update', routeParams: { id: document.id } },
@@ -79,21 +85,26 @@ export function DocumentMeta({ document }: { document: Data.Document }) {
         preserveScroll: true,
         preserveState: true,
         onSuccess: () => setSaveState('idle'),
-        onError: () => setSaveState('error'),
+        onError: (errors: Record<string, string>) => {
+          form.setError(errors)
+          setSaveState('error')
+        },
       }
     )
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-90rem flex-col gap-3 px-4 py-8 md:px-10">
-      <div className="flex items-start gap-4">
+    <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-8 md:px-10">
+      <div className="flex flex-wrap items-start gap-3">
         <input
           aria-label="Document title"
+          aria-invalid={Boolean(form.errors.title)}
+          aria-describedby={form.errors.title ? 'document-title-error' : undefined}
           placeholder="Untitled document"
           value={form.data.title}
           onChange={(event) => form.setData('title', event.target.value)}
           onBlur={() => persist()}
-          className="min-w-0 flex-1 rounded-md border-0 bg-transparent px-1 py-1 font-serif text-5xl font-medium leading-tight text-foreground outline-none transition decoration-foreground/20 decoration-2 underline-offset-4 placeholder:text-muted-foreground/40 hover:underline focus:bg-muted/40 focus:ring-0"
+          className="min-w-0 flex-1 rounded-md border-0 bg-transparent px-1 py-1 font-serif text-3xl sm:text-5xl font-medium leading-tight text-foreground outline-none transition decoration-foreground/20 decoration-2 underline-offset-4 placeholder:text-muted-foreground hover:underline focus:bg-muted/40 focus-visible:ring-2 focus-visible:ring-ring"
         />
         <Select
           value={status ?? NO_STATUS}
@@ -104,7 +115,10 @@ export function DocumentMeta({ document }: { document: Data.Document }) {
             updateStatus(selected === NO_STATUS ? null : (selected as DocumentStatus))
           }}
         >
-          <SelectTrigger className="mt-1 w-auto gap-1.5 border-0 bg-transparent px-2 text-sm text-muted-foreground shadow-none hover:bg-muted hover:text-foreground focus:ring-0">
+          <SelectTrigger
+            aria-label="Document status"
+            className="mt-1 w-auto gap-1.5 border-0 bg-transparent px-2 text-sm text-muted-foreground shadow-none hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
+          >
             <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent align="end">
@@ -115,24 +129,33 @@ export function DocumentMeta({ document }: { document: Data.Document }) {
             ))}
           </SelectContent>
         </Select>
+        <GenerationStatusBadge status={document.generationStatus} />
       </div>
 
       <textarea
         aria-label="Document description"
+        aria-invalid={Boolean(form.errors.description)}
+        aria-describedby={form.errors.description ? 'document-description-error' : undefined}
         placeholder="Add a description…"
         value={form.data.description ?? ''}
         onChange={(event) => form.setData('description', event.target.value)}
         onBlur={() => persist()}
         rows={1}
-        className="field-sizing-content min-w-0 resize-none rounded-md border-0 bg-transparent px-1 py-0.5 font-serif text-2xl text-muted-foreground outline-none transition placeholder:text-muted-foreground/40 hover:bg-muted/40 focus:bg-muted/40 focus:ring-0"
+        className="field-sizing-content min-w-0 resize-none rounded-md border-0 bg-transparent px-1 py-0.5 font-serif text-2xl text-muted-foreground outline-none transition placeholder:text-muted-foreground hover:bg-muted/40 focus:bg-muted/40 focus-visible:ring-2 focus-visible:ring-ring"
       />
 
-      {form.errors.title && <p className="px-1 text-sm text-destructive">{form.errors.title}</p>}
+      {form.errors.title && (
+        <p id="document-title-error" role="alert" className="px-1 text-sm text-destructive">
+          {form.errors.title}
+        </p>
+      )}
       {form.errors.description && (
-        <p className="px-1 text-sm text-destructive">{form.errors.description}</p>
+        <p id="document-description-error" role="alert" className="px-1 text-sm text-destructive">
+          {form.errors.description}
+        </p>
       )}
 
-      <div className="mt-1 flex justify-end px-1">
+      <div aria-live="polite" className="mt-1 flex justify-end px-1">
         {saveState === 'saving' ? (
           <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
             <LoaderCircle className="size-3 animate-spin" />

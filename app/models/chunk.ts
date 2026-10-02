@@ -21,7 +21,22 @@ export default class Chunk extends ChunkSchema {
   declare fileKey: string | null
 
   @column()
-  declare embedding: string
+  declare embedding: string | null
+
+  @column()
+  declare runId: string | null
+
+  @column()
+  declare fileRevisionId: string | null
+
+  @column()
+  declare kind: 'text' | 'image'
+
+  @column()
+  declare tokenCount: number
+
+  @column()
+  declare contentHash: string | null
 
   getEmbedding(): number[] {
     if (!this.embedding) return []

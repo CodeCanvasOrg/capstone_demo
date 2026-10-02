@@ -21,6 +21,7 @@ export default await Env.create(new URL('../', import.meta.url), {
   // App
   APP_KEY: Env.schema.secret(),
   APP_URL: Env.schema.string({ format: 'url', tld: false }),
+  APP_NAME: Env.schema.string(),
 
   // Session
   SESSION_DRIVER: Env.schema.enum(['cookie', 'memory', 'database'] as const),
@@ -35,6 +36,7 @@ export default await Env.create(new URL('../', import.meta.url), {
   DB_USER: Env.schema.string(),
   DB_PASSWORD: Env.schema.string.optional(),
   DB_DATABASE: Env.schema.string(),
+  DB_URL: Env.schema.string(),
 
   /*
   |----------------------------------------------------------
@@ -45,7 +47,7 @@ export default await Env.create(new URL('../', import.meta.url), {
   GOOGLE_CLIENT_SECRET: Env.schema.string(),
 
   // Open Router API key
-  OPENROUTER_API_KEY: Env.schema.string(),
+  OPENROUTER_API_KEY: Env.schema.secret(),
 
   /*
   |----------------------------------------------------------
@@ -58,4 +60,18 @@ export default await Env.create(new URL('../', import.meta.url), {
   SUPABASE_STORAGE_REGION: Env.schema.string(),
   SUPABASE_STORAGE_BUCKET: Env.schema.string(),
   SUPABASE_ENDPOINT: Env.schema.string(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring @adonisjs/queue
+  |----------------------------------------------------------
+  */
+  QUEUE_DRIVER: Env.schema.enum(['redis', 'sync'] as const),
+
+  REDIS_HOST: Env.schema.string({ format: 'host' }),
+  REDIS_PORT: Env.schema.number(),
+  REDIS_PASSWORD: Env.schema.secret.optional(),
+
+  RAG_PIPELINE_VERSION: Env.schema.string(),
+  RAG_EMBEDDING_DIMENSIONS: Env.schema.number(),
 })

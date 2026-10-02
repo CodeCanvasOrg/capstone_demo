@@ -24,7 +24,7 @@ export default class DocumentVersionsController {
       userId,
     }
 
-    document.related('documentVersions').create(payload)
+    await document.related('documentVersions').create(payload)
     document.merge({ status: 'editing' })
     await document.save()
 

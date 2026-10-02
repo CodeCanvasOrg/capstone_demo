@@ -3,15 +3,18 @@ import { OpenAIEmbeddings } from '@langchain/openai'
 import { similarity } from 'ml-distance'
 
 export default class EmbeddFileService {
+  private readonly MIN_SIMILARITY = 0.15
+
   private embeddingModel: OpenAIEmbeddings
 
   constructor() {
     this.embeddingModel = new OpenAIEmbeddings({
-      openAIApiKey: openRouterApiConfig.apiKey,
+      openAIApiKey: openRouterApiConfig.apiKey.release(),
       configuration: {
         baseURL: 'https://openrouter.ai/api/v1',
       },
       model: openRouterApiConfig.embeddingModel,
+      dimensions: openRouterApiConfig.embeddingDimensions,
     })
   }
 
@@ -21,14 +24,19 @@ export default class EmbeddFileService {
     return vector
   }
 
+  async embeddTexts(texts: string[]) {
+    return this.embeddingModel.embedDocuments(texts)
+  }
+
   async similaritySearch(query: string, vectors: number[][]) {
     const vectorQuery = await this.embeddText(query)
 
     const search = vectors
       .map((vector, index) => ({
         index,
-        similarity: 1 - similarity.cosine(vectorQuery, vector),
+        similarity: similarity.cosine(vectorQuery, vector),
       }))
+      .filter(({ similarity: score }) => Number.isFinite(score) && score >= this.MIN_SIMILARITY)
       .sort((a, b) => b.similarity - a.similarity)
       .slice(0, 20)
 

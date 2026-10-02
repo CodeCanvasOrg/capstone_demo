@@ -1,13 +1,16 @@
 import openRouterApiConfig from '#config/open_router'
-import { ChatOpenRouter } from '@langchain/openrouter'
-import { getStructuredOutput, getInitPrompt } from './structured_model_output_service.ts'
+import { HumanMessage } from '@langchain/core/messages'
 import type { Runnable } from '@langchain/core/runnables'
-import { Document } from '@langchain/core/documents'
+import { ChatOpenRouter } from '@langchain/openrouter'
+import {
+  attachChunkMetadata,
+  type SourceChunk,
+  type TipTapDocument,
+} from './documents/chunk_metadata_service.ts'
 import EmbeddFileService from './documents/embedd_file_service.ts'
+import { getInitPrompt, getStructuredOutput } from './structured_model_output_service.ts'
 
-type Chunk = {
-  chunkIndex: number
-  content: string
+type Chunk = SourceChunk & {
   embedding: number[]
   fileKey?: string
 }
@@ -18,16 +21,28 @@ type GenProps = {
   context: string
 }
 
+type ImageUrlContent = {
+  type: 'image_url'
+  image_url: { url: string; detail: 'auto' }
+}
+
+type TextContent = {
+  type: 'text'
+  text: string
+}
+
+const MAX_SOURCE_IMAGES = 4
+
 export default class OpenRouterService {
   private model: ChatOpenRouter
   private embeddService: EmbeddFileService
   private structuredModel: Runnable<any, Object>
-  private MAX_RETRIES: number
+  private MAX_ATTEMPTS: number
 
   constructor() {
     this.model = new ChatOpenRouter({
       model: openRouterApiConfig.model,
-      apiKey: openRouterApiConfig.apiKey,
+      apiKey: openRouterApiConfig.apiKey.release(),
     })
 
     this.embeddService = new EmbeddFileService()
@@ -36,64 +51,133 @@ export default class OpenRouterService {
       method: 'functionCalling',
     })
 
-    this.MAX_RETRIES = 2
+    this.MAX_ATTEMPTS = 3
   }
 
   async generateDocumentInit(title: string, description: string, chunks: Chunk[] = []) {
-    const context = chunks.length ? await this.createRelevantContext(description, chunks) : ''
+    const relevantChunks = chunks.length ? await this.findRelevantChunks(description, chunks) : []
+    return this.generateDocumentWithEvidence(title, description, relevantChunks)
+  }
 
-    const promptTemplate = getInitPrompt()
-
-    const tipTapChain = promptTemplate.pipe(this.structuredModel)
-
-    const result = await this.runGeneration(tipTapChain, {
+  async generateDocumentWithEvidence(
+    title: string,
+    description: string,
+    relevantChunks: SourceChunk[]
+  ) {
+    const context = this.createContext(relevantChunks)
+    const promptMessages = await getInitPrompt().formatMessages({
       title,
       description,
       context,
-    })
+    } satisfies GenProps)
 
-    return result
+    const humanMessage = promptMessages[promptMessages.length - 1]
+    const humanText = typeof humanMessage.content === 'string' ? humanMessage.content : ''
+    const multimodalContent: Array<TextContent | ImageUrlContent> = [
+      {
+        type: 'text',
+        text: humanText,
+      },
+    ]
+
+    for (const chunk of relevantChunks) {
+      const modelFileUrl = chunk.modelFileUrl ?? chunk.fileUrl
+      if (
+        !chunk.mediaType?.startsWith('image/') ||
+        !modelFileUrl ||
+        !this.isWebUrl(modelFileUrl)
+      ) {
+        continue
+      }
+
+      if (
+        multimodalContent.filter((block) => block.type === 'image_url').length >= MAX_SOURCE_IMAGES
+      ) {
+        break
+      }
+
+      multimodalContent.push({
+        type: 'text',
+        text: `Visual evidence for source chunk ${chunk.id} from ${chunk.fileName}.`,
+      })
+      multimodalContent.push({
+        type: 'image_url',
+        image_url: { url: modelFileUrl, detail: 'auto' },
+      })
+    }
+
+    const messages = [
+      ...promptMessages.slice(0, -1),
+      new HumanMessage({ content: multimodalContent as never }),
+    ]
+
+    const result = await this.runGeneration(this.structuredModel, messages)
+
+    return attachChunkMetadata(result as TipTapDocument, relevantChunks)
   }
 
-  private async runGeneration(chain: Runnable, input: GenProps) {
-    for (let i = 1; i <= this.MAX_RETRIES; i++) {
+  private async runGeneration(chain: Runnable, input: unknown) {
+    for (let i = 1; i <= this.MAX_ATTEMPTS; i++) {
       try {
-        const result = await chain.invoke(input)
-        return result
+        return await chain.invoke(input)
       } catch (error) {
-        if (i < this.MAX_RETRIES) continue
+        if (i < this.MAX_ATTEMPTS && this.isRetryable(error)) {
+          const delay = 250 * 2 ** (i - 1)
+          const jitter = Math.random() * delay * 0.3
+          await new Promise((resolve) => setTimeout(resolve, delay + jitter))
+          continue
+        }
+
         throw error
       }
     }
   }
 
-  private async createRelevantContext(description: string, chunks: Chunk[]) {
-    const vectors = chunks.map((chunk) => chunk.embedding)
-    const relatedVectors = await this.embeddService.similaritySearch(description, vectors)
-    const relatedChunks = relatedVectors.map((vector) => chunks[vector.index])
+  private async findRelevantChunks(description: string, chunks: Chunk[]) {
+    const candidateChunks = chunks.filter(
+      (chunk) => chunk.embedding.length > 0 && chunk.content.trim()
+    )
+    if (candidateChunks.length === 0) return []
 
-    return await this.createContext(relatedChunks)
+    const related = await this.embeddService.similaritySearch(
+      description,
+      candidateChunks.map((c) => c.embedding)
+    )
+    return related.map(({ index }) => candidateChunks[index]).filter((chunk) => chunk !== undefined)
   }
 
-  private async createContext(chunks: Chunk[]) {
-    const documents = chunks.map(
-      (chunk) =>
-        new Document({
-          pageContent: chunk.content,
-          metadata: {
-            filekey: chunk.fileKey,
-            chunkIndex: chunk.chunkIndex,
-          },
-        })
-    )
-
-    const context = documents
+  private createContext(chunks: SourceChunk[]) {
+    return chunks
       .map(
-        (document) =>
-          `[Source: ${document.metadata.filekey}, Chunk: ${document.metadata.chunkIndex}]\n${document.pageContent}`
+        (chunk) =>
+          `[Source chunk ID: ${chunk.id}; File: ${chunk.fileName}; Chunk: ${chunk.chunkIndex + 1}${chunk.pageNumber ? `; Page: ${chunk.pageNumber}` : ''}]\n${chunk.content}`
       )
       .join('\n\n')
+  }
 
-    return context
+  private isWebUrl(value: string) {
+    try {
+      const url = new URL(value)
+      return url.protocol === 'https:' || url.protocol === 'http:'
+    } catch {
+      return false
+    }
+  }
+
+  private isRetryable(error: unknown) {
+    if (!error || typeof error !== 'object') return false
+
+    const value = error as {
+      status?: number
+      statusCode?: number
+      code?: string
+      cause?: { code?: string }
+    }
+    const status = value.status ?? value.statusCode
+
+    if (status === 429 || (typeof status === 'number' && status >= 500)) return true
+
+    const networkCodes = new Set(['ECONNRESET', 'ECONNREFUSED', 'ETIMEDOUT', 'EAI_AGAIN'])
+    return networkCodes.has(value.code ?? '') || networkCodes.has(value.cause?.code ?? '')
   }
 }

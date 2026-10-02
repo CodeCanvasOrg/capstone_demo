@@ -1,4 +1,5 @@
 import OpenRouterService from '#services/open_router_service'
+import type { SourceChunk } from './chunk_metadata_service.ts'
 
 type UserInput = {
   title: string
@@ -12,9 +13,7 @@ type FileProps = {
   chunks: Chunk[]
 }
 
-type Chunk = {
-  chunkIndex: number
-  content: string
+type Chunk = SourceChunk & {
   embedding: number[]
   fileKey?: string
 }

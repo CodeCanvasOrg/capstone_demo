@@ -8,8 +8,8 @@ export const controllers = {
   DocumentVersions: () => import('#controllers/document_versions_controller'),
   Documents: () => import('#controllers/documents_controller'),
   ExportPdfs: () => import('#controllers/export_pdfs_controller'),
+  Files: () => import('#controllers/files_controller'),
   NewAccount: () => import('#controllers/new_account_controller'),
   Session: () => import('#controllers/session_controller'),
   Uploads: () => import('#controllers/uploads_controller'),
-  Files: () => import('#controllers/files_controller'),
 }

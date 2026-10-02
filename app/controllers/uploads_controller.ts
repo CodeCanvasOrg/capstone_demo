@@ -1,9 +1,8 @@
-import { fileValidator } from '#validators/upload'
-import drive from '@adonisjs/drive/services/main'
 import type { HttpContext } from '@adonisjs/core/http'
 import { readFile } from 'node:fs/promises'
-import path from 'node:path'
-import File from '#models/file'
+
+import UploadService from '#services/upload_service'
+import { fileValidator } from '#validators/upload'
 
 export default class UploadsController {
   async handle({ request, auth, response }: HttpContext) {
@@ -13,18 +12,11 @@ export default class UploadsController {
       return response.badRequest({ message: 'File could not be processed' })
     }
 
-    const filetype = path.extname(file.clientName).toLowerCase()
-    const key = File.createFileName(`uploads/${auth.user?.id ?? '1'}`, filetype)
-    const contents = await readFile(file.tmpPath)
-
-    await drive.use().put(key, contents)
-    const objectUrl = await drive.use().getUrl(key)
-
-    return response.ok({
+    const uploaded = await new UploadService().upload(auth.user!, {
       filename: file.clientName,
-      filetype,
-      objectKey: key,
-      objectUrl,
+      contents: await readFile(file.tmpPath),
     })
+
+    return response.ok(uploaded)
   }
 }

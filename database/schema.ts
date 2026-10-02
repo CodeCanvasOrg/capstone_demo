@@ -7,13 +7,63 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class ChunkBlockSchema extends BaseModel {
+  static $columns = ['charEnd', 'charStart', 'chunkId', 'createdAt', 'documentBlockId', 'id', 'rowEnd', 'rowStart', 'updatedAt'] as const
+  $columns = ChunkBlockSchema.$columns
+  @column()
+  declare charEnd: number | null
+  @column()
+  declare charStart: number | null
+  @column()
+  declare chunkId: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare documentBlockId: string
+  @column({ isPrimary: true })
+  declare id: bigint | number
+  @column()
+  declare rowEnd: number | null
+  @column()
+  declare rowStart: number | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+}
+
+export class ChunkEmbeddingSchema extends BaseModel {
+  static $columns = ['chunkId', 'createdAt', 'dimensions', 'embedding', 'id', 'inputHash', 'model', 'updatedAt', 'version'] as const
+  $columns = ChunkEmbeddingSchema.$columns
+  @column()
+  declare chunkId: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare dimensions: number
+  @column()
+  declare embedding: any
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare inputHash: string
+  @column()
+  declare model: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare version: string
+}
+
 export class ChunkSchema extends BaseModel {
-  static $columns = ['chunkIndex', 'content', 'createdAt', 'embedding', 'fileId', 'fileKey', 'id', 'updatedAt'] as const
+  static $columns = ['chunkIndex', 'content', 'contentHash', 'contentTsv', 'createdAt', 'embedding', 'fileId', 'fileKey', 'fileRevisionId', 'id', 'kind', 'runId', 'tokenCount', 'updatedAt'] as const
   $columns = ChunkSchema.$columns
   @column()
   declare chunkIndex: number | null
   @column()
   declare content: string | null
+  @column()
+  declare contentHash: string | null
+  @column()
+  declare contentTsv: string | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
   @column()
@@ -22,10 +72,47 @@ export class ChunkSchema extends BaseModel {
   declare fileId: string
   @column()
   declare fileKey: string | null
+  @column()
+  declare fileRevisionId: string | null
   @column({ isPrimary: true })
   declare id: string
+  @column()
+  declare kind: string
+  @column()
+  declare runId: string | null
+  @column()
+  declare tokenCount: number
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+}
+
+export class DocumentBlockSchema extends BaseModel {
+  static $columns = ['blockType', 'confidence', 'createdAt', 'extractionMethod', 'id', 'orderIndex', 'processingRunId', 'rawReference', 'sectionPath', 'sourceLocator', 'text', 'updatedAt'] as const
+  $columns = DocumentBlockSchema.$columns
+  @column()
+  declare blockType: string
+  @column()
+  declare confidence: number | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare extractionMethod: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare orderIndex: number
+  @column()
+  declare processingRunId: string
+  @column()
+  declare rawReference: string | null
+  @column()
+  declare sectionPath: any
+  @column()
+  declare sourceLocator: any
+  @column()
+  declare text: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
 }
 
 export class DocumentFileSchema extends BaseModel {
@@ -80,12 +167,18 @@ export class DocumentVersionSchema extends BaseModel {
 }
 
 export class DocumentSchema extends BaseModel {
-  static $columns = ['createdAt', 'description', 'id', 'status', 'title', 'updatedAt', 'userId'] as const
+  static $columns = ['createdAt', 'description', 'generationError', 'generationLeaseAt', 'generationStatus', 'id', 'status', 'title', 'updatedAt', 'userId'] as const
   $columns = DocumentSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
   @column()
   declare description: string | null
+  @column()
+  declare generationError: string | null
+  @column.dateTime()
+  declare generationLeaseAt: DateTime | null
+  @column()
+  declare generationStatus: string
   @column({ isPrimary: true })
   declare id: string
   @column()
@@ -96,6 +189,31 @@ export class DocumentSchema extends BaseModel {
   declare updatedAt: DateTime | null
   @column()
   declare userId: number
+}
+
+export class FileRevisionSchema extends BaseModel {
+  static $columns = ['byteSize', 'createdAt', 'fileId', 'id', 'mime', 'retrievedAt', 'revision', 'sourceHash', 'sourceUrl', 'updatedAt'] as const
+  $columns = FileRevisionSchema.$columns
+  @column()
+  declare byteSize: bigint | number | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare fileId: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare mime: string | null
+  @column.dateTime()
+  declare retrievedAt: DateTime | null
+  @column()
+  declare revision: number
+  @column()
+  declare sourceHash: string | null
+  @column()
+  declare sourceUrl: string | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
 }
 
 export class FileSchema extends BaseModel {
@@ -117,6 +235,39 @@ export class FileSchema extends BaseModel {
   declare updatedAt: DateTime | null
   @column()
   declare userId: number
+}
+
+export class ProcessingRunSchema extends BaseModel {
+  static $columns = ['completedAt', 'createdAt', 'embeddingDimensions', 'embeddingModel', 'error', 'fileRevisionId', 'id', 'leaseAt', 'pipelineVersion', 'stageTimings', 'startedAt', 'status', 'updatedAt', 'warnings'] as const
+  $columns = ProcessingRunSchema.$columns
+  @column.dateTime()
+  declare completedAt: DateTime | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare embeddingDimensions: number | null
+  @column()
+  declare embeddingModel: string | null
+  @column()
+  declare error: string | null
+  @column()
+  declare fileRevisionId: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column.dateTime()
+  declare leaseAt: DateTime | null
+  @column()
+  declare pipelineVersion: string
+  @column()
+  declare stageTimings: any
+  @column.dateTime()
+  declare startedAt: DateTime | null
+  @column()
+  declare status: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare warnings: any
 }
 
 export class UserSchema extends BaseModel {

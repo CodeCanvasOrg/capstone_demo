@@ -25,14 +25,24 @@ function getStructuredOutput() {
         'heading',
         'text',
         'bulletList',
+        'orderedList',
         'listItem',
         'blockquote',
         'codeBlock',
+        'horizontalRule',
+        'image',
+        'sourceCitation',
       ]),
       text: z.string().optional().describe("Only used if type is 'text'"),
       attrs: z
         .object({
-          level: z.number().min(1).max(6).optional().describe('Used for heading nodes (1-6)'),
+          level: z.number().min(1).max(4).optional().describe('Used for heading nodes (1-4)'),
+          sourceChunkId: z
+            .string()
+            .optional()
+            .describe('Use only IDs shown in the source material for image and citation nodes'),
+          alt: z.string().optional().describe('Short accessible description for an image node'),
+          title: z.string().optional().describe('Optional image caption'),
         })
         .optional(),
       marks: z.array(TiptapMarkSchema).optional(),
@@ -67,6 +77,9 @@ function getInitPrompt() {
   - Preserve important technical or domain-specific terminology when appropriate.
   - Combine information from multiple sources when they describe the same topic.
   - Avoid introducing factual claims that are not supported by the provided source material.
+  - Cite factual paragraphs by placing one or more sourceCitation nodes after the relevant text. Each citation node must use attrs.sourceChunkId copied exactly from a supplied chunk ID.
+  - When a supplied image is useful to the document, include an image node with attrs.sourceChunkId set to that image chunk's ID. Do not invent image URLs or src attributes; the application adds the trusted URL.
+  - Do not create citations or image nodes for IDs that are not present in the source material.
 
   If the source material does not contain enough information to support a specific claim, do not invent details. Prefer a general statement or omit the claim entirely.
 
@@ -88,6 +101,8 @@ function getInitPrompt() {
      - Numbered lists when describing sequential steps, processes, or priorities
 
   The structure should be determined by the actual content. Do not force unnecessary sections or headings.
+
+  Use only these TipTap nodes: paragraph, heading, text, bulletList, orderedList, listItem, blockquote, codeBlock, horizontalRule, image, sourceCitation. A sourceCitation is an inline source marker; it is not prose. An image is inserted as a block and must refer to a supplied image chunk.
 
   ## Writing Guidelines
 

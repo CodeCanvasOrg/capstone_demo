@@ -50,6 +50,34 @@ export const ImageExtension = Image.extend({
       align: {
         default: 'center',
       },
+      sourceChunkId: {
+        default: null,
+        renderHTML: () => ({}),
+      },
+      chunkText: {
+        default: null,
+        renderHTML: () => ({}),
+      },
+      fileName: {
+        default: null,
+        renderHTML: () => ({}),
+      },
+      fileUrl: {
+        default: null,
+        renderHTML: () => ({}),
+      },
+      mediaType: {
+        default: null,
+        renderHTML: () => ({}),
+      },
+      chunkIndex: {
+        default: null,
+        renderHTML: () => ({}),
+      },
+      pageNumber: {
+        default: null,
+        renderHTML: () => ({}),
+      },
     }
   },
 
