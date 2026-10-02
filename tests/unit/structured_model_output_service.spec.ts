@@ -50,9 +50,42 @@ test.group('StructuredModelOutputService | getStructuredOutput', () => {
     assert.isFalse(parsed.success)
   })
 
+  test('accepts ordered lists and horizontal rules supported by the editor', ({ assert }) => {
+    const schema = getStructuredOutput()
+    const parsed = schema.safeParse({
+      type: 'doc',
+      content: [
+        { type: 'orderedList', content: [{ type: 'listItem', content: [{ type: 'paragraph' }] }] },
+        { type: 'horizontalRule' },
+      ],
+    })
+
+    assert.isTrue(parsed.success)
+  })
+
+  test('accepts image and source citation nodes with a source chunk ID', ({ assert }) => {
+    const schema = getStructuredOutput()
+    const parsed = schema.safeParse({
+      type: 'doc',
+      content: [
+        { type: 'image', attrs: { sourceChunkId: 'image-chunk-1', alt: 'Product diagram' } },
+        { type: 'sourceCitation', attrs: { sourceChunkId: 'text-chunk-2' } },
+      ],
+    })
+
+    assert.isTrue(parsed.success)
+    assert.deepEqual(parsed.data, {
+      type: 'doc',
+      content: [
+        { type: 'image', attrs: { sourceChunkId: 'image-chunk-1', alt: 'Product diagram' } },
+        { type: 'sourceCitation', attrs: { sourceChunkId: 'text-chunk-2' } },
+      ],
+    })
+  })
+
   test('rejects unsupported node types', ({ assert }) => {
     const schema = getStructuredOutput()
-    const parsed = schema.safeParse({ type: 'doc', content: [{ type: 'image' }] })
+    const parsed = schema.safeParse({ type: 'doc', content: [{ type: 'table' }] })
 
     assert.isFalse(parsed.success)
   })
@@ -107,5 +140,7 @@ test.group('StructuredModelOutputService | getInitPrompt', () => {
     assert.include(rendered, 'Marketing Plan')
     assert.include(rendered, 'Launch strategy')
     assert.include(rendered, 'Source material')
+    assert.include(rendered, 'sourceCitation')
+    assert.include(rendered, 'sourceChunkId')
   })
 })

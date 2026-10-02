@@ -71,6 +71,7 @@ export function DocumentForm({ document }: { document?: Data.Document }) {
         status: (document.status as DocumentStatus | null) ?? null,
         files:
           document.files?.map((file) => ({
+            id: file.id,
             filename: file.filename ?? '',
             filetype: file.filetype,
             objectKey: file.objectKey ?? '',
@@ -90,7 +91,6 @@ export function DocumentForm({ document }: { document?: Data.Document }) {
     if (document) {
       router.put({ route: 'documents.update', routeParams: { id: document.id } }, form.data)
     } else {
-      console.log(form.data)
       router.post({ route: 'documents.store' }, form.data)
     }
   }

@@ -8,7 +8,15 @@ export default class FilesController {
    * Display a list of resource
    */
   async index({ auth, inertia }: HttpContext) {
-    const files = await auth.user!.related('files').query().orderBy('createdAt', 'desc')
+    const files = await auth
+      .user!.related('files')
+      .query()
+      .preload('revisions', (revision) => {
+        revision
+          .orderBy('revision', 'desc')
+          .preload('processingRuns', (run) => run.orderBy('createdAt', 'desc'))
+      })
+      .orderBy('createdAt', 'desc')
 
     return inertia.render('files/index', {
       files: FileTransformer.transform(files),
@@ -32,7 +40,11 @@ export default class FilesController {
       return response.redirect().back()
     }
 
-    await auth.user!.related('files').createMany(files)
+    const fileIds = files.map((file) => file.id)
+    const ownedFiles = await auth.user!.related('files').query().whereIn('id', fileIds)
+    if (ownedFiles.length !== new Set(fileIds).size) {
+      return response.forbidden({ message: 'One or more uploaded files are unavailable' })
+    }
 
     return response.redirect().toRoute('files.index')
   }
@@ -46,6 +58,11 @@ export default class FilesController {
       .query()
       .where('id', params.id)
       .preload('documents')
+      .preload('revisions', (revision) => {
+        revision
+          .orderBy('revision', 'desc')
+          .preload('processingRuns', (run) => run.orderBy('createdAt', 'desc'))
+      })
       .firstOrFail()
 
     await bouncer.with(FilePolicy).authorize('update', file)

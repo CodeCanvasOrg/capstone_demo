@@ -1,17 +1,22 @@
 import { FileImage, FileText, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { ProcessingStatusBadge } from '@/components/documents/status'
 
 export type FileUpload = {
+  id: string
   filename: string
   filetype: string | null
   objectKey: string
   objectUrl: string
+  processingStatus?: 'uploaded' | 'processing' | 'ready' | 'failed'
 }
+
+export type FilePreview = Omit<FileUpload, 'id'> & { id?: string }
 
 const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg']
 
 type FileCardProps = {
-  file: FileUpload
+  file: FilePreview
   onRemove?: () => void
   disabled?: boolean
 }
@@ -41,9 +46,10 @@ export default function FileCard({ file, onRemove, disabled }: FileCardProps) {
         <p className="truncate text-sm font-medium" title={file.filename}>
           {file.filename || 'Untitled file'}
         </p>
-        <p className="text-xs text-muted-foreground">
-          {file.filetype?.replace('.', '').toUpperCase() ?? 'File'}
-        </p>
+        <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+          <span>{file.filetype?.replace('.', '').toUpperCase() ?? 'File'}</span>
+          {file.processingStatus && <ProcessingStatusBadge status={file.processingStatus} />}
+        </div>
       </div>
 
       {onRemove && (

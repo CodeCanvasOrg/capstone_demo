@@ -1,6 +1,7 @@
 import { type Data } from '@generated/data'
-import { Link } from '@adonisjs/inertia/react'
+import { Link, useRouter } from '@adonisjs/inertia/react'
 import { FileText, Plus } from 'lucide-react'
+import { useEffect } from 'react'
 import { type InertiaProps } from '@/types'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -8,6 +9,21 @@ import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components
 import FileIndexCard from '@/components/files/index_card'
 
 export default function Index({ files }: InertiaProps<{ files: Data.File[] }>) {
+  const router = useRouter()
+  const hasPendingProcessing = files.some(
+    (file) => file.processingStatus === 'uploaded' || file.processingStatus === 'processing'
+  )
+
+  useEffect(() => {
+    if (!hasPendingProcessing) return
+
+    const interval = setInterval(() => {
+      router.visit({ href: window.location.href }, { only: ['files'], preserveScroll: true })
+    }, 2500)
+
+    return () => clearInterval(interval)
+  }, [hasPendingProcessing, router])
+
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-14">
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
@@ -55,6 +71,7 @@ export default function Index({ files }: InertiaProps<{ files: Data.File[] }>) {
                 <TableRow>
                   <TableHead className="pl-5">File</TableHead>
                   <TableHead>Type</TableHead>
+                  <TableHead>Indexing</TableHead>
                   <TableHead className="hidden sm:table-cell">Uploaded</TableHead>
                   <TableHead className="pr-5 text-right">Actions</TableHead>
                 </TableRow>

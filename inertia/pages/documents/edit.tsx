@@ -1,11 +1,13 @@
 import { type Data } from '@generated/data'
-import { Form, Link } from '@adonisjs/inertia/react'
-import { ArrowLeft, Trash2 } from 'lucide-react'
+import { Form, Link, useRouter } from '@adonisjs/inertia/react'
+import { ArrowLeft, CircleAlert, LoaderCircle, Trash2 } from 'lucide-react'
+import { useEffect } from 'react'
 
 import ExportDropdown from '@/components/documents/export_dropdown'
 import { DocumentMeta } from '@/components/documents/document_meta'
 import DocumentEditor from '@/components/documents/editor'
 import DocumentShareForm from '@/components/document_shares/form'
+import { GenerationStatusBadge } from '@/components/documents/status'
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -17,14 +19,29 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert_dialog'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { type InertiaProps } from '@/types'
 
 const EMPTY_DOC = { type: 'doc', content: [] }
 
 export default function Edit({ document }: InertiaProps<{ document: Data.Document }>) {
+  const router = useRouter()
   const shares = document.documentShares ?? []
   const versions = document.documentVersions ?? []
   const latestContent = versions[0]?.content ?? EMPTY_DOC
+  const generationStatus = document.generationStatus ?? 'ready'
+  const isReady = generationStatus === 'ready'
+  const isFailed = generationStatus === 'failed'
+
+  useEffect(() => {
+    if (isReady || isFailed) return
+
+    const interval = setInterval(() => {
+      router.visit({ href: window.location.href }, { only: ['document'], preserveScroll: true })
+    }, 2500)
+
+    return () => clearInterval(interval)
+  }, [generationStatus, isFailed, isReady, router])
 
   return (
     <div className="min-h-screen">
@@ -38,7 +55,7 @@ export default function Edit({ document }: InertiaProps<{ document: Data.Documen
             Back to documents
           </Link>
           <div className="ml-auto flex items-center gap-2">
-            <ExportDropdown document={document} />
+            {isReady && <ExportDropdown document={document} />}
             <DocumentShareForm document={document} shares={shares} />
           </div>
         </div>
@@ -49,7 +66,41 @@ export default function Edit({ document }: InertiaProps<{ document: Data.Documen
           <DocumentMeta document={document} />
         </div>
 
-        <DocumentEditor documentId={document.id} initialContent={latestContent} />
+        {isReady ? (
+          <DocumentEditor documentId={document.id} initialContent={latestContent} />
+        ) : (
+          <Card className="mx-auto my-12 w-[min(100%-2rem,56rem)]">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <span className="flex size-10 items-center justify-center rounded-xl bg-muted text-muted-foreground">
+                  {isFailed ? (
+                    <CircleAlert className="size-4" />
+                  ) : (
+                    <LoaderCircle className="size-4 animate-spin" />
+                  )}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <CardTitle>
+                    {isFailed ? 'Document preparation failed' : 'Preparing your document'}
+                  </CardTitle>
+                  <CardDescription className="mt-1">
+                    {isFailed
+                      ? 'The source files could not be processed. Their status is saved so the failure can be diagnosed.'
+                      : 'Indexing your source files and drafting the document. This page updates automatically.'}
+                  </CardDescription>
+                </div>
+                <GenerationStatusBadge status={generationStatus} />
+              </div>
+            </CardHeader>
+            {isFailed && document.generationError && (
+              <CardContent>
+                <p className="break-words rounded-lg bg-destructive/5 p-3 text-sm text-destructive">
+                  {document.generationError}
+                </p>
+              </CardContent>
+            )}
+          </Card>
+        )}
 
         <div className="mx-auto w-full max-w-90rem px-4 pb-16 pt-10 md:px-10">
           <AlertDialog>

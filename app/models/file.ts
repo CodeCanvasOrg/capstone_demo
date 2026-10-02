@@ -5,6 +5,7 @@ import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relat
 import { DateTime } from 'luxon'
 import Chunk from './chunk.ts'
 import User from './user.ts'
+import FileRevision from './file_revision.ts'
 
 export default class File extends FileSchema {
   @column({ isPrimary: true })
@@ -30,6 +31,9 @@ export default class File extends FileSchema {
 
   @hasMany(() => Chunk)
   declare chunks: HasMany<typeof Chunk>
+
+  @hasMany(() => FileRevision)
+  declare revisions: HasMany<typeof FileRevision>
 
   @manyToMany(() => Document, {
     pivotTable: 'document_files',

@@ -10,9 +10,9 @@ import {
 } from 'react'
 import { Loader2, UploadCloud } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import FileCard, { type FileUpload } from './card.tsx'
+import FileCard, { type FilePreview, type FileUpload } from './card.tsx'
 
-const ACCEPTED_EXTENSIONS = ['pdf', 'docx', 'png', 'jpg', 'jpeg']
+const ACCEPTED_EXTENSIONS = ['pdf', 'docx', 'md', 'markdown', 'txt', 'png', 'jpg', 'jpeg']
 const MAX_FILE_SIZE = 10 * 1024 * 1024
 
 function getXsrfToken() {
@@ -49,7 +49,7 @@ function isValidFile(file: File) {
   return true
 }
 
-function toPendingCard(file: File): FileUpload {
+function toPendingCard(file: File): FilePreview {
   return {
     filename: file.name,
     filetype: `.${file.name.split('.').pop()?.toLowerCase() ?? ''}`,
@@ -196,7 +196,7 @@ export default function FileUploadForm({
           ref={inputRef}
           type="file"
           multiple
-          accept=".pdf,.docx,.png,.jpg,.jpeg"
+          accept=".pdf,.docx,.md,.markdown,.txt,.png,.jpg,.jpeg"
           className="sr-only"
           onChange={handleChange}
         />

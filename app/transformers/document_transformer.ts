@@ -13,6 +13,8 @@ export default class DocumentTransformer extends BaseTransformer<Document> {
         'title',
         'description',
         'status',
+        'generationStatus',
+        'generationError',
         'createdAt',
         'updatedAt',
       ]),

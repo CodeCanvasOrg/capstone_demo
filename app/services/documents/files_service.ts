@@ -1,59 +1,133 @@
-import drive from '@adonisjs/drive/services/main'
-import type Tesseract from 'tesseract.js'
-import { createWorker } from 'tesseract.js'
-import mammoth from 'mammoth'
-import { RecursiveCharacterTextSplitter } from '@langchain/textsplitters'
-import { PDFParse } from 'pdf-parse'
+import { createHash, randomUUID } from 'node:crypto'
+import { mkdir } from 'node:fs/promises'
 import path from 'node:path'
 import type Stream from 'node:stream'
-import EmbeddFileService from './embedd_file_service.ts'
+
+import drive from '@adonisjs/drive/services/main'
+import app from '@adonisjs/core/services/app'
+import logger from '@adonisjs/core/services/logger'
+import { DOMParser } from '@xmldom/xmldom'
+import mammoth from 'mammoth'
+import { PDFParse } from 'pdf-parse'
+import { createWorker, type Worker } from 'tesseract.js'
+
 import File from '#models/file'
+import type { CanonicalBlock, SourceLocator } from './rag_types.ts'
 
 type FileProps = {
+  id: string
   filename: string
   objectKey: string
-  objectUrl: string
 }
 
-type Chunk = {
-  chunkIndex: number
-  content: string
-  embedding: number[]
-  fileKey?: string
+type SourceInfo = {
+  fileKey: string
+  fileUrl: string
+  fileName: string
+  mediaType: string
+  ownerId: number
+}
+
+type OcrResult = {
+  text: string
+  confidence: number | null
+}
+
+const FILE_MEDIA_TYPES: Record<string, string> = {
+  '.pdf': 'application/pdf',
+  '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  '.md': 'text/markdown',
+  '.markdown': 'text/markdown',
+  '.txt': 'text/plain',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+}
+
+const IMAGE_EXTENSIONS: Record<string, string> = {
+  'image/png': 'png',
+  'image/jpeg': 'jpg',
+  'image/gif': 'gif',
+  'image/webp': 'webp',
 }
 
 export default class FileService {
-  static async processFile({ filename, objectKey, objectUrl }: FileProps) {
+  static async processFile({ id, filename, objectKey }: FileProps, ownerId: number) {
     const fileExtName = path.extname(objectKey).toLowerCase()
+    const mediaType = FILE_MEDIA_TYPES[fileExtName]
+
+    if (!mediaType) throw new Error(`Unsupported file type: ${fileExtName}`)
+    if (!objectKey.startsWith(`uploads/${ownerId}/`)) {
+      throw new Error('File does not belong to the authenticated user')
+    }
+
+    const fileUrl = await drive.use().getUrl(objectKey)
+    const source: SourceInfo = {
+      fileKey: objectKey,
+      fileUrl,
+      fileName: filename,
+      mediaType,
+      ownerId,
+    }
     const stream = await drive.use().getStream(objectKey)
     const file = await this.constructStream(stream)
-    let chunks: Chunk[]
+    const generatedAssetKeys: string[] = []
 
-    switch (fileExtName) {
+    try {
+      const blocks = await this.extractBlocks(file, source, fileExtName, generatedAssetKeys)
+
+      return {
+        id,
+        filename,
+        filetype: fileExtName,
+        objectKey,
+        objectUrl: fileUrl,
+        mimeType: mediaType,
+        sourceHash: createHash('sha256').update(file).digest('hex'),
+        byteSize: file.byteLength,
+        blocks,
+        generatedAssetKeys,
+      }
+    } catch (error) {
+      await this.cleanupGeneratedAssets(generatedAssetKeys)
+      throw error
+    }
+  }
+
+  static async cleanupGeneratedAssets(objectKeys: string[]) {
+    const results = await Promise.allSettled(objectKeys.map((key) => drive.use().delete(key)))
+    results.forEach((result, index) => {
+      if (result.status === 'rejected') {
+        logger.warn(
+          { err: result.reason, objectKey: objectKeys[index] },
+          'Could not clean up an uncommitted extracted image'
+        )
+      }
+    })
+  }
+
+  private static async extractBlocks(
+    file: Buffer,
+    source: SourceInfo,
+    extension: string,
+    generatedAssetKeys: string[]
+  ): Promise<CanonicalBlock[]> {
+    switch (extension) {
       case '.pdf':
-        chunks = await this.processPdf(file)
-        break
+        return this.processPdf(file, source, generatedAssetKeys)
       case '.docx':
-        chunks = await this.processDocx(file)
-        break
-      // case 'pptx':
-      //   chunks = await this.processPptx(file)
-      //   break
+        return this.processDocx(file, source, generatedAssetKeys)
+      case '.md':
+      case '.markdown':
+        return this.processMarkdown(file, source)
+      case '.txt':
+        return this.processPlainText(file, source)
       case '.jpg':
       case '.jpeg':
       case '.png':
-        chunks = await this.processImage(file, objectKey)
-        break
+        return this.processImage(file, source)
       default:
-        throw new Error(`Unsupported file type: ${fileExtName}`)
-    }
-
-    return {
-      filename,
-      filetype: fileExtName,
-      objectKey,
-      objectUrl,
-      chunks,
+        throw new Error(`Unsupported file type: ${extension}`)
     }
   }
 
@@ -67,106 +141,405 @@ export default class FileService {
     return Buffer.concat(chunks)
   }
 
-  private static async processPdf(file: Buffer): Promise<Chunk[]> {
+  private static async processPdf(
+    file: Buffer,
+    source: SourceInfo,
+    generatedAssetKeys: string[]
+  ): Promise<CanonicalBlock[]> {
     const parser = new PDFParse(new Uint8Array(file))
 
-    const resultText = await parser.getText()
-    const textChunks = await this.splitText(resultText.text)
-    const resultImages = await parser.getImage({
-      imageThreshold: 100,
-      imageBuffer: true,
-      imageDataUrl: false,
-    })
-
-    if (!resultImages) return textChunks
-
-    const images = resultImages.pages.flatMap((page) =>
-      page.images.map((image) => Buffer.from(image.data))
-    )
-
-    // Process pdf Images
-    const worker = await createWorker('eng')
-    const imagesChunks: Chunk[] = []
     try {
-      for (const image of images) {
-        const key = await this.saveToDrive(image)
-        const chunks = await this.processImage(image, key, worker)
-        imagesChunks.push(...chunks)
+      const resultText = await parser.getText()
+      const blocks: CanonicalBlock[] = []
+
+      for (const page of resultText.pages) {
+        const text = page.text.trim()
+        if (!text) continue
+
+        blocks.push(
+          this.makeBlock('paragraph', text, source, 'pdf-text', {
+            pageNumber: page.num,
+          })
+        )
       }
+
+      if (blocks.length === 0 && resultText.text.trim()) {
+        blocks.push(this.makeBlock('paragraph', resultText.text.trim(), source, 'pdf-text'))
+      }
+
+      const resultImages = await parser.getImage({
+        imageThreshold: 100,
+        imageBuffer: true,
+        imageDataUrl: false,
+      })
+      const images = resultImages.pages.flatMap((page) =>
+        page.images.map((image) => ({ data: Buffer.from(image.data), pageNumber: page.pageNumber }))
+      )
+
+      if (images.length > 0) {
+        const worker = await this.createOcrWorker()
+
+        try {
+          for (const image of images) {
+            const storedImage = await this.saveToDrive(image.data, source.ownerId)
+            generatedAssetKeys.push(storedImage.key)
+            const ocr = await this.recognizeImage(image.data, worker)
+            const locator = this.locator(source, {
+              fileKey: storedImage.key,
+              fileUrl: storedImage.url,
+              mediaType: 'image/png',
+              pageNumber: image.pageNumber,
+            })
+
+            blocks.push({
+              id: randomUUID(),
+              blockType: 'image',
+              text: ocr.text || `Image evidence from ${source.fileName}`,
+              orderIndex: blocks.length,
+              sectionPath: [],
+              sourceLocator: locator,
+              extractionMethod: 'tesseract-ocr',
+              confidence: ocr.confidence,
+            })
+          }
+        } finally {
+          await worker.terminate()
+        }
+      }
+
+      return blocks
+    } finally {
+      await parser.destroy()
+    }
+  }
+
+  private static async processDocx(
+    file: Buffer,
+    source: SourceInfo,
+    generatedAssetKeys: string[]
+  ): Promise<CanonicalBlock[]> {
+    const result = await mammoth.convertToHtml({ buffer: file })
+    const document = new DOMParser().parseFromString(result.value, 'text/html')
+    const blocks: CanonicalBlock[] = []
+    let worker: Worker | null = null
+
+    const collectImages = (node: HtmlNode): HtmlNode[] => {
+      if (node.nodeType === 1 && node.nodeName.toLowerCase() === 'img') return [node]
+      return childNodes(node).flatMap(collectImages)
+    }
+
+    const visit = async (node: HtmlNode): Promise<void> => {
+      if (node.nodeType !== 1) {
+        for (const child of childNodes(node)) await visit(child)
+        return
+      }
+
+      const tag = node.nodeName.toLowerCase()
+      if (tag === 'img') {
+        const dataUri = node.getAttribute('src') ?? ''
+        const match = /^data:(image\/(?:png|jpeg|gif|webp));base64,([\s\S]+)$/i.exec(dataUri)
+        if (!match) return
+
+        const mediaType = match[1].toLowerCase()
+        const imageBytes = Buffer.from(match[2], 'base64')
+        const storedImage = await this.saveToDrive(imageBytes, source.ownerId, mediaType)
+        generatedAssetKeys.push(storedImage.key)
+
+        let ocr: OcrResult = { text: '', confidence: null }
+        try {
+          worker ??= await this.createOcrWorker()
+          ocr = await this.recognizeImage(imageBytes, worker)
+        } catch (error) {
+          logger.warn(
+            { err: error, fileName: source.fileName },
+            'Could not OCR an embedded DOCX image; retaining the image source'
+          )
+        }
+
+        blocks.push({
+          id: randomUUID(),
+          blockType: 'image',
+          text: ocr.text || `Image evidence from ${source.fileName}`,
+          orderIndex: blocks.length,
+          sectionPath: [],
+          sourceLocator: this.locator(source, {
+            fileKey: storedImage.key,
+            fileUrl: storedImage.url,
+            mediaType,
+          }),
+          extractionMethod: ocr.text ? 'mammoth-image-ocr' : 'mammoth-image',
+          confidence: ocr.confidence,
+        })
+        return
+      }
+
+      if (/^h[1-6]$/.test(tag)) {
+        const text = this.normalizeText(node.textContent ?? '')
+        if (text) {
+          blocks.push(
+            this.makeBlock('heading', text, source, 'mammoth-html', {
+              element: `heading-${blocks.length + 1}`,
+              headingLevel: Number(tag.slice(1)),
+            })
+          )
+        }
+        return
+      }
+
+      if (tag === 'p' || tag === 'li' || tag === 'pre') {
+        const text = this.normalizeText(node.textContent ?? '')
+        if (text) {
+          blocks.push(
+            this.makeBlock(
+              tag === 'li' ? 'list_item' : tag === 'pre' ? 'code' : 'paragraph',
+              text,
+              source,
+              'mammoth-html',
+              { element: `element-${blocks.length + 1}` }
+            )
+          )
+        }
+        for (const image of collectImages(node)) await visit(image)
+        return
+      }
+
+      if (tag === 'tr') {
+        const cells = childNodes(node)
+          .filter((child) => ['th', 'td'].includes(child.nodeName.toLowerCase()))
+          .map((cell) => this.normalizeText(cell.textContent ?? ''))
+          .filter(Boolean)
+        if (cells.length) {
+          blocks.push(
+            this.makeBlock('table_row', cells.join(' | '), source, 'mammoth-html', {
+              element: `table-row-${blocks.length + 1}`,
+            })
+          )
+        }
+        for (const image of collectImages(node)) await visit(image)
+        return
+      }
+
+      for (const child of childNodes(node)) await visit(child)
+    }
+
+    const root = document.documentElement as unknown as HtmlNode | null
+    try {
+      if (root) await visit(root)
+      return blocks
+    } finally {
+      await (worker as Worker | null)?.terminate()
+    }
+  }
+
+  private static processMarkdown(file: Buffer, source: SourceInfo) {
+    const lines = file.toString('utf8').split(/\r?\n/)
+    const blocks: CanonicalBlock[] = []
+    let paragraph: string[] = []
+    let code: string[] | null = null
+    let paragraphStart = 1
+    let codeStart = 1
+
+    const flushParagraph = () => {
+      const text = paragraph.join(' ').trim()
+      if (text) {
+        blocks.push(
+          this.makeBlock('paragraph', text, source, 'markdown', { lineNumber: paragraphStart })
+        )
+      }
+      paragraph = []
+    }
+
+    for (const [index, line] of lines.entries()) {
+      const lineNumber = index + 1
+      const trimmed = line.trim()
+
+      if (trimmed.startsWith('```')) {
+        flushParagraph()
+        if (code) {
+          blocks.push(
+            this.makeBlock('code', code.join('\n'), source, 'markdown', { lineNumber: codeStart })
+          )
+          code = null
+        } else {
+          code = []
+          codeStart = lineNumber + 1
+        }
+        continue
+      }
+
+      if (code) {
+        code.push(line)
+        continue
+      }
+
+      const heading = /^(#{1,6})\s+(.+)$/.exec(trimmed)
+      if (heading) {
+        flushParagraph()
+        blocks.push(
+          this.makeBlock('heading', heading[2].trim(), source, 'markdown', {
+            lineNumber,
+            headingLevel: heading[1].length,
+          })
+        )
+        continue
+      }
+
+      if (!trimmed) {
+        flushParagraph()
+        continue
+      }
+
+      if (/^\|?\s*:?-{3,}/.test(trimmed)) continue
+      if (trimmed.includes('|')) {
+        flushParagraph()
+        blocks.push(
+          this.makeBlock(
+            'table_row',
+            trimmed
+              .replace(/^\||\|$/g, '')
+              .split('|')
+              .map((cell) => cell.trim())
+              .join(' | '),
+            source,
+            'markdown',
+            { lineNumber }
+          )
+        )
+        continue
+      }
+
+      const listItem = /^(?:[-*+]\s+|\d+[.)]\s+)(.+)$/.exec(trimmed)
+      if (listItem) {
+        flushParagraph()
+        blocks.push(this.makeBlock('list_item', listItem[1], source, 'markdown', { lineNumber }))
+        continue
+      }
+
+      if (paragraph.length === 0) paragraphStart = lineNumber
+      paragraph.push(trimmed)
+    }
+
+    if (code) {
+      blocks.push(
+        this.makeBlock('code', code.join('\n'), source, 'markdown', { lineNumber: codeStart })
+      )
+    }
+    flushParagraph()
+    return blocks
+  }
+
+  private static processPlainText(file: Buffer, source: SourceInfo) {
+    return file
+      .toString('utf8')
+      .split(/\n\s*\n/)
+      .map((text) => text.trim())
+      .filter(Boolean)
+      .map((text, index) =>
+        this.makeBlock('paragraph', text, source, 'plain-text', {
+          element: `paragraph-${index + 1}`,
+        })
+      )
+  }
+
+  private static async processImage(file: Buffer, source: SourceInfo): Promise<CanonicalBlock[]> {
+    const worker = await this.createOcrWorker()
+
+    try {
+      const result = await this.recognizeImage(file, worker)
+      return [
+        {
+          id: randomUUID(),
+          blockType: 'image',
+          text: result.text || `Image evidence from ${source.fileName}`,
+          orderIndex: 0,
+          sectionPath: [],
+          sourceLocator: this.locator(source),
+          extractionMethod: 'tesseract-ocr',
+          confidence: result.confidence,
+        },
+      ]
     } finally {
       await worker.terminate()
     }
-
-    // Setup everything together
-    const chunks = [...textChunks, ...imagesChunks].map((chunk, index) => ({
-      ...chunk,
-      chunkIndex: index,
-    }))
-
-    return chunks
   }
 
-  private static async processDocx(file: Buffer): Promise<Chunk[]> {
-    const resultText = await mammoth.extractRawText({ buffer: file })
-    const text = resultText.value
+  private static async recognizeImage(image: Buffer, worker: Worker): Promise<OcrResult> {
+    const response = await worker.recognize(image)
+    const text = response.data.text.trim()
+    const confidence = Number.isFinite(response.data.confidence) ? response.data.confidence : null
 
-    const textChunks = await this.splitText(text)
-
-    return textChunks
+    return { text, confidence }
   }
 
-  // private static async processPptx(file: Buffer): Promise<Chunk[]> {
-  //   const parser = new PptxParser(file)
-  // }
+  private static async createOcrWorker() {
+    const cachePath = app.tmpPath('tesseract')
+    await mkdir(cachePath, { recursive: true })
 
-  private static async processImage(
-    image: string | Buffer,
-    imageKey?: string,
-    worker?: Tesseract.Worker
-  ): Promise<Chunk[]> {
-    // Assuming as the main language
-    const useWorker = worker ?? (await createWorker('eng'))
-
-    try {
-      const response = await useWorker.recognize(image)
-      const data = response.data.text
-
-      return this.splitText(data, imageKey)
-    } finally {
-      if (!worker) await useWorker.terminate()
-    }
-  }
-
-  private static async splitText(text: string, imageKey?: string) {
-    const embeddFileService = new EmbeddFileService()
-
-    // Split data
-    const splitter = new RecursiveCharacterTextSplitter({
-      chunkSize: 1000,
-      chunkOverlap: 200,
+    return createWorker('eng', undefined, {
+      langPath: app.makePath(),
+      cachePath,
+      gzip: false,
     })
-
-    const chunks = await splitter.createDocuments([text])
-    const promises = chunks.map(async (chunk, index) => ({
-      chunkIndex: index,
-      content: chunk.pageContent,
-      fileKey: imageKey,
-      embedding: await embeddFileService.embeddText(chunk.pageContent),
-    }))
-
-    const chunksInput = await Promise.all(promises)
-
-    return chunksInput
   }
 
-  private static async saveToDrive(file: Buffer) {
-    try {
-      const key = File.createFileName('uploads/processed', 'image-file.png')
-      await drive.use().put(key, file)
-
-      return key
-    } catch {
-      return ''
+  private static makeBlock(
+    blockType: CanonicalBlock['blockType'],
+    text: string,
+    source: SourceInfo,
+    extractionMethod: string,
+    locator: Record<string, unknown> = {}
+  ): CanonicalBlock {
+    return {
+      id: randomUUID(),
+      blockType,
+      text,
+      orderIndex: 0,
+      sectionPath: [],
+      sourceLocator: this.locator(source, locator),
+      extractionMethod,
+      confidence: null,
     }
   }
+
+  private static locator(source: SourceInfo, extra: Record<string, unknown> = {}): SourceLocator {
+    return {
+      fileKey: source.fileKey,
+      fileUrl: source.fileUrl,
+      fileName: source.fileName,
+      mediaType: source.mediaType,
+      ...extra,
+    }
+  }
+
+  private static normalizeText(text: string) {
+    return text
+      .replace(/\u00a0/g, ' ')
+      .replace(/[\t\r\n ]+/g, ' ')
+      .trim()
+  }
+
+  private static async saveToDrive(file: Buffer, ownerId: number, mediaType = 'image/png') {
+    const extension = IMAGE_EXTENSIONS[mediaType] ?? 'png'
+    const key = File.createFileName(`uploads/${ownerId}/processed`, `image.${extension}`)
+    await drive.use().put(key, file, { contentType: mediaType })
+
+    return {
+      key,
+      url: await drive.use().getUrl(key),
+    }
+  }
+}
+
+type HtmlNode = {
+  nodeType: number
+  nodeName: string
+  textContent: string | null
+  getAttribute(name: string): string | null
+  childNodes: { length: number; item(index: number): HtmlNode | null }
+}
+
+function childNodes(node: HtmlNode): HtmlNode[] {
+  return Array.from({ length: node.childNodes.length }, (_, index) =>
+    node.childNodes.item(index)
+  ).filter((child): child is HtmlNode => child !== null)
 }

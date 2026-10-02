@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { DOCUMENT_STATUSES, STATUS_META, type DocumentStatus } from './status'
+import { GenerationStatusBadge } from './status'
 
 const NO_STATUS = 'none'
 
@@ -115,6 +116,7 @@ export function DocumentMeta({ document }: { document: Data.Document }) {
             ))}
           </SelectContent>
         </Select>
+        <GenerationStatusBadge status={document.generationStatus} />
       </div>
 
       <textarea

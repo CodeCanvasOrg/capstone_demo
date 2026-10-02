@@ -52,8 +52,7 @@ export default function UserForm() {
         />
         {files.length === 0 && (
           <p className="text-sm text-muted-foreground">
-            Select your files above and press upload. Once they finish uploading they are listed
-            here, ready to be added to your library.
+            Upload your files here, then select them when creating a document.
           </p>
         )}
         {errors.files && <p className="text-sm text-destructive">{errors.files}</p>}

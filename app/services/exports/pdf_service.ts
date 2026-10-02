@@ -1,12 +1,55 @@
 import type DocumentVersion from '#models/document_version'
+import { Node, mergeAttributes } from '@tiptap/core'
 import Image from '@tiptap/extension-image'
 import { generateHTML } from '@tiptap/html'
 import StarterKit from '@tiptap/starter-kit'
 import { chromium } from 'playwright'
 
+const SourceCitationExtension = Node.create({
+  name: 'sourceCitation',
+  group: 'inline',
+  inline: true,
+  atom: true,
+  selectable: false,
+  addAttributes() {
+    return {
+      sourceChunkId: {
+        default: null,
+        renderHTML: (attributes) => ({ 'data-source-chunk-id': attributes.sourceChunkId }),
+      },
+      chunkText: { default: null, renderHTML: () => ({}) },
+      fileName: { default: null, renderHTML: () => ({}) },
+      fileUrl: { default: null, renderHTML: () => ({}) },
+      mediaType: { default: null, renderHTML: () => ({}) },
+      chunkIndex: { default: null, renderHTML: () => ({}) },
+      pageNumber: { default: null, renderHTML: () => ({}) },
+    }
+  },
+  renderHTML({ node, HTMLAttributes }) {
+    const chunkNumber =
+      typeof node.attrs.chunkIndex === 'number' ? ` · chunk ${node.attrs.chunkIndex + 1}` : ''
+    const page = typeof node.attrs.pageNumber === 'number' ? ` · page ${node.attrs.pageNumber}` : ''
+    const attributes = mergeAttributes(HTMLAttributes, {
+      'data-source-citation': 'true',
+      'class': 'tiptap-source-citation',
+    })
+    const label = `${node.attrs.fileName || 'Source'}${chunkNumber}${page}`
+
+    if (typeof node.attrs.fileUrl === 'string') {
+      return [
+        'a',
+        { ...attributes, href: node.attrs.fileUrl, target: '_blank', rel: 'noreferrer' },
+        label,
+      ]
+    }
+
+    return ['span', attributes, label]
+  },
+})
+
 export default class ExportPdfService {
   static async generate(version: DocumentVersion) {
-    const extensions = [StarterKit, Image]
+    const extensions = [StarterKit, Image, SourceCitationExtension]
     const contentHtml = generateHTML(version.content, extensions)
 
     const html = `

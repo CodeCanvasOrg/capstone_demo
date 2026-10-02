@@ -31,6 +31,7 @@ import { StrikeThroughToolbar } from '@/components/toolbars/strikethrough'
 import { UndoToolbar } from '@/components/toolbars/undo'
 import { ImageExtension } from '../extensions/image'
 import { ImagePlaceholder } from '../extensions/image_placeholder'
+import { SourceCitation } from '../extensions/source_citation'
 import { ImagePlaceholderToolbar } from '../toolbars/image_placeholder_toolbar'
 
 const extensions = [
@@ -66,6 +67,7 @@ const extensions = [
   }),
   Markdown,
   ImageExtension,
+  SourceCitation,
   ImagePlaceholder,
 ]
 

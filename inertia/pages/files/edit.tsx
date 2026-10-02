@@ -2,9 +2,9 @@ import { type Data } from '@generated/data'
 import { Link, useRouter } from '@adonisjs/inertia/react'
 import { useForm } from '@inertiajs/react'
 import { ArrowLeft, CalendarDays, ExternalLink, FileImage, FileText, Save } from 'lucide-react'
-import { type FormEvent } from 'react'
+import { type FormEvent, useEffect } from 'react'
 
-import { StatusBadge } from '@/components/documents/status'
+import { ProcessingStatusBadge, StatusBadge } from '@/components/documents/status'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -41,12 +41,24 @@ export default function Edit({ file }: InertiaProps<{ file: Data.File }>) {
   const documents = file.documents ?? []
   const filename = file.filename || 'Untitled file'
   const isImage = file.filetype ? IMAGE_TYPES.includes(file.filetype.toLowerCase()) : false
+  const processingStatus = file.processingStatus ?? 'uploaded'
+  const isProcessing = processingStatus === 'uploaded' || processingStatus === 'processing'
   const form = useForm<FileFormData>({
     filename: file.filename ?? '',
     filetype: file.filetype,
     objectKey: file.objectKey ?? '',
     objectUrl: file.objectUrl ?? '',
   })
+
+  useEffect(() => {
+    if (!isProcessing) return
+
+    const interval = setInterval(() => {
+      router.visit({ href: window.location.href }, { only: ['file'], preserveScroll: true })
+    }, 2500)
+
+    return () => clearInterval(interval)
+  }, [isProcessing, router])
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -84,9 +96,12 @@ export default function Edit({ file }: InertiaProps<{ file: Data.File }>) {
               {filename}
             </p>
           </div>
-          <Badge variant="outline" className="h-6 px-2.5">
-            {getFileType(file.filetype)}
-          </Badge>
+          <div className="flex flex-wrap items-center gap-2">
+            <ProcessingStatusBadge status={processingStatus} />
+            <Badge variant="outline" className="h-6 px-2.5">
+              {getFileType(file.filetype)}
+            </Badge>
+          </div>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
@@ -171,6 +186,36 @@ export default function Edit({ file }: InertiaProps<{ file: Data.File }>) {
           </div>
 
           <aside className="flex flex-col gap-6">
+            <Card>
+              <CardHeader className="border-b border-border/70">
+                <div className="flex items-center justify-between gap-3">
+                  <CardTitle>Indexing status</CardTitle>
+                  <ProcessingStatusBadge status={processingStatus} />
+                </div>
+                <CardDescription>
+                  {isProcessing
+                    ? 'This file is being prepared for document generation.'
+                    : processingStatus === 'ready'
+                      ? 'The file is ready to use as source material.'
+                      : 'The file could not be prepared for retrieval.'}
+                </CardDescription>
+              </CardHeader>
+              {(file.processingError || file.processingWarnings?.length) && (
+                <CardContent className="flex flex-col gap-3 pt-4">
+                  {file.processingError && (
+                    <p className="break-words rounded-lg bg-destructive/5 p-3 text-sm text-destructive">
+                      {file.processingError}
+                    </p>
+                  )}
+                  {file.processingWarnings?.map((warning) => (
+                    <p key={warning} className="text-xs text-muted-foreground">
+                      {warning}
+                    </p>
+                  ))}
+                </CardContent>
+              )}
+            </Card>
+
             <Card>
               <CardHeader className="border-b border-border/70">
                 <div className="flex items-start justify-between gap-3">

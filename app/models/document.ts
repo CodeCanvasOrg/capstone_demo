@@ -23,6 +23,15 @@ export default class Document extends DocumentSchema {
   @column()
   declare status: string | null
 
+  @column()
+  declare generationStatus: 'uploaded' | 'processing' | 'generating' | 'ready' | 'failed'
+
+  @column()
+  declare generationError: string | null
+
+  @column.dateTime()
+  declare generationLeaseAt: DateTime | null
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

@@ -20,7 +20,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown_menu'
 import { TableCell, TableRow } from '@/components/ui/table'
-import { StatusBadge } from '@/components/documents/status'
+import { GenerationStatusBadge, StatusBadge } from '@/components/documents/status'
 
 function formatDate(value: string) {
   return new Date(value).toLocaleDateString(undefined, {
@@ -54,7 +54,10 @@ export default function DocumentCard({ document }: DocumentCardProps) {
         </Link>
       </TableCell>
       <TableCell>
-        <StatusBadge status={document.status} />
+        <div className="flex flex-wrap items-center gap-2">
+          <StatusBadge status={document.status} />
+          <GenerationStatusBadge status={document.generationStatus} />
+        </div>
       </TableCell>
       <TableCell className="hidden text-sm text-muted-foreground sm:table-cell">
         {document.updatedAt ? formatDate(document.updatedAt) : '—'}

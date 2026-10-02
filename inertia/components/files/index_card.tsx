@@ -13,6 +13,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert_dialog'
 import { Badge } from '@/components/ui/badge'
+import { ProcessingStatusBadge } from '@/components/documents/status'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -85,6 +86,10 @@ export default function FileIndexCard({ file }: FileIndexCardProps) {
 
       <TableCell>
         <Badge variant="outline">{file.filetype?.replace('.', '').toUpperCase() ?? 'FILE'}</Badge>
+      </TableCell>
+
+      <TableCell>
+        <ProcessingStatusBadge status={file.processingStatus} />
       </TableCell>
 
       <TableCell className="hidden text-sm text-muted-foreground sm:table-cell">
