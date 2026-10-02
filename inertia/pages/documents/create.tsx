@@ -1,3 +1,6 @@
+import { Head } from '@inertiajs/react'
+import { PageIntro } from '@/components/page_intro'
+import { Reveal } from '@/components/reveal'
 import { Link } from '@adonisjs/inertia/react'
 import { ArrowLeft } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
@@ -14,18 +17,20 @@ export default function Create() {
         Back to documents
       </Link>
 
-      <div className="mb-6 flex flex-col gap-2">
-        <h1 className="font-serif text-3xl">New document</h1>
-        <p className="text-sm text-muted-foreground">
-          Give your document a title, description and status to get started.
-        </p>
-      </div>
+      <Head title="New document" />
+      <PageIntro
+        eyebrow="Create a story"
+        title="New document"
+        description="Give your story a direction, then add the source files for your draft."
+      />
 
-      <Card>
-        <CardContent className="px-5">
-          <DocumentForm />
-        </CardContent>
-      </Card>
+      <Reveal>
+        <Card className="border-t-2 border-t-primary py-7">
+          <CardContent className="px-5">
+            <DocumentForm />
+          </CardContent>
+        </Card>
+      </Reveal>
     </div>
   )
 }

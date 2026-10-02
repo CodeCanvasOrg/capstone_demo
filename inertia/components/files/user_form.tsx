@@ -2,7 +2,6 @@ import { Link, useRouter } from '@adonisjs/inertia/react'
 import { useState } from 'react'
 import { FilePlus2, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
 import { type FileUpload } from './card'
 import FileUploadForm from './form'
 
@@ -43,7 +42,7 @@ export default function UserForm() {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-1.5">
-        <Label>Files</Label>
+        <p className="text-sm font-medium">Source files</p>
         <FileUploadForm
           files={files}
           onSubmit={(file) => setFiles((current) => [...current, file])}
@@ -55,10 +54,14 @@ export default function UserForm() {
             Upload your files here, then select them when creating a document.
           </p>
         )}
-        {errors.files && <p className="text-sm text-destructive">{errors.files}</p>}
+        {errors.files && (
+          <p role="alert" className="text-sm text-destructive">
+            {errors.files}
+          </p>
+        )}
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2 border-t border-border pt-5">
         <Button type="button" onClick={handleSubmit} disabled={submitting || files.length === 0}>
           {submitting ? <Loader2 className="animate-spin" /> : <FilePlus2 />}
           {submitting

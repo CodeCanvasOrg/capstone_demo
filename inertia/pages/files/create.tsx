@@ -1,3 +1,6 @@
+import { Head } from '@inertiajs/react'
+import { PageIntro } from '@/components/page_intro'
+import { Reveal } from '@/components/reveal'
 import { Link } from '@adonisjs/inertia/react'
 import { ArrowLeft } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
@@ -14,18 +17,20 @@ export default function Create() {
         Back to files
       </Link>
 
-      <div className="mb-6 flex flex-col gap-2">
-        <h1 className="font-serif text-3xl">Upload files</h1>
-        <p className="text-sm text-muted-foreground">
-          Add one or many files to your library so you can attach them to documents later.
-        </p>
-      </div>
+      <Head title="Upload files" />
+      <PageIntro
+        eyebrow="Build your library"
+        title="Upload files"
+        description="Add source documents, notes, or images. Your files can support more than one document."
+      />
 
-      <Card>
-        <CardContent className="px-5">
-          <UserForm />
-        </CardContent>
-      </Card>
+      <Reveal>
+        <Card className="border-t-2 border-t-primary py-7">
+          <CardContent className="px-5">
+            <UserForm />
+          </CardContent>
+        </Card>
+      </Reveal>
     </div>
   )
 }

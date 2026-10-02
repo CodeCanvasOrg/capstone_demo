@@ -8,7 +8,7 @@ import { createInertiaApp, type ResolvedComponent } from '@inertiajs/react'
 import { TuyauProvider } from '@adonisjs/inertia/react'
 import { resolvePageComponent } from '@adonisjs/inertia/helpers'
 
-const appName = import.meta.env.VITE_APP_NAME || 'AdonisJS'
+const appName = import.meta.env.VITE_APP_NAME || 'REACT'
 
 createInertiaApp({
   title: (title) => (title ? `${title} - ${appName}` : appName),
@@ -27,6 +27,6 @@ createInertiaApp({
     )
   },
   progress: {
-    color: '#4B5563',
+    color: 'var(--primary)',
   },
 })

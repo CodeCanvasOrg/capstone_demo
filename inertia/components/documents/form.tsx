@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { type Data } from '@generated/data'
 import { Link, useRouter } from '@adonisjs/inertia/react'
 import { useForm, type SetDataAction } from '@inertiajs/react'
@@ -23,7 +24,11 @@ type DocumentFormSlot = {
 }
 
 function FieldError({ children }: { children: React.ReactNode }) {
-  return <p className="text-sm text-destructive">{children}</p>
+  return (
+    <p role="alert" className="text-sm text-destructive">
+      {children}
+    </p>
+  )
 }
 
 function DocumentFormFields({ data, setData, errors }: DocumentFormSlot) {
@@ -32,12 +37,13 @@ function DocumentFormFields({ data, setData, errors }: DocumentFormSlot) {
       <div className="flex flex-col gap-1.5">
         <Label htmlFor="title">Title</Label>
         <Input
+          className="border-muted-foreground bg-background"
           id="title"
           name="title"
           value={data.title ?? ''}
           onChange={(event) => setData('title', event.target.value)}
           aria-invalid={errors.title ? 'true' : undefined}
-          placeholder="Untitled document"
+          placeholder="e.g. A better onboarding experience"
         />
         {errors.title && <FieldError>{errors.title}</FieldError>}
       </div>
@@ -45,6 +51,7 @@ function DocumentFormFields({ data, setData, errors }: DocumentFormSlot) {
       <div className="flex flex-col gap-1.5">
         <Label htmlFor="description">Description</Label>
         <Textarea
+          className="border-muted-foreground bg-background"
           id="description"
           name="description"
           rows={5}
@@ -53,7 +60,7 @@ function DocumentFormFields({ data, setData, errors }: DocumentFormSlot) {
             setData('description', event.target.value === '' ? null : event.target.value)
           }
           aria-invalid={errors.description ? 'true' : undefined}
-          placeholder="Write a short description…"
+          placeholder="What should this document tell the reader?"
         />
         {errors.description && <FieldError>{errors.description}</FieldError>}
       </div>
@@ -63,6 +70,7 @@ function DocumentFormFields({ data, setData, errors }: DocumentFormSlot) {
 
 export function DocumentForm({ document }: { document?: Data.Document }) {
   const router = useRouter()
+  const [submitting, setSubmitting] = useState(false)
 
   const initialData: DocumentFormData = document
     ? {
@@ -88,10 +96,21 @@ export function DocumentForm({ document }: { document?: Data.Document }) {
   const form = useForm<DocumentFormData>(initialData)
 
   function handleSubmit() {
+    if (submitting) return
+    form.clearErrors()
+    setSubmitting(true)
+    const options = {
+      onError: (errors: Record<string, string>) => form.setError(errors),
+      onFinish: () => setSubmitting(false),
+    }
     if (document) {
-      router.put({ route: 'documents.update', routeParams: { id: document.id } }, form.data)
+      router.put(
+        { route: 'documents.update', routeParams: { id: document.id } },
+        form.data,
+        options
+      )
     } else {
-      router.post({ route: 'documents.store' }, form.data)
+      router.post({ route: 'documents.store' }, form.data, options)
     }
   }
 
@@ -107,7 +126,10 @@ export function DocumentForm({ document }: { document?: Data.Document }) {
       </form>
 
       <div className="flex flex-col gap-1.5">
-        <Label>Files</Label>
+        <p className="text-sm font-medium">Source files</p>
+        <p className="text-xs text-muted-foreground">
+          Add the material your draft should draw from.
+        </p>
         <FileUploadForm
           files={form.data.files ?? []}
           onSubmit={(file) => form.setData('files', [...(form.data.files ?? []), file])}
@@ -117,13 +139,20 @@ export function DocumentForm({ document }: { document?: Data.Document }) {
               (form.data.files ?? []).filter((_, i) => i !== index)
             )
           }
-          disabled={form.processing}
+          disabled={submitting}
         />
+        {form.errors.files && <FieldError>{form.errors.files}</FieldError>}
       </div>
 
-      <div className="flex items-center gap-2 pt-1">
-        <Button type="button" onClick={handleSubmit} disabled={form.processing}>
-          {form.processing ? 'Saving…' : 'Save document'}
+      <div className="flex flex-wrap items-center gap-2 border-t border-border pt-5">
+        <Button type="button" onClick={handleSubmit} disabled={submitting}>
+          {submitting
+            ? document
+              ? 'Saving…'
+              : 'Creating…'
+            : document
+              ? 'Save changes'
+              : 'Create document'}
         </Button>
         <Button asChild variant="outline">
           <Link route="documents.index">Cancel</Link>
