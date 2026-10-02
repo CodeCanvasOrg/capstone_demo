@@ -36,14 +36,14 @@ type DocumentCardProps = {
 
 export default function DocumentCard({ document }: DocumentCardProps) {
   return (
-    <TableRow>
-      <TableCell className="py-3 pl-5">
+    <TableRow role="row">
+      <TableCell role="cell" className="py-3 pl-5">
         <Link
           route="documents.edit"
           routeParams={{ id: document.id }}
-          className="group flex min-w-0 flex-col gap-0.5"
+          className="group flex min-w-0 flex-col gap-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
         >
-          <span className="font-medium group-hover:underline">
+          <span className="block truncate font-medium group-hover:underline">
             {document.title || 'Untitled document'}
           </span>
           {document.description && (
@@ -53,16 +53,16 @@ export default function DocumentCard({ document }: DocumentCardProps) {
           )}
         </Link>
       </TableCell>
-      <TableCell>
+      <TableCell role="cell">
         <div className="flex flex-wrap items-center gap-2">
           <StatusBadge status={document.status} />
           <GenerationStatusBadge status={document.generationStatus} />
         </div>
       </TableCell>
-      <TableCell className="hidden text-sm text-muted-foreground sm:table-cell">
+      <TableCell role="cell" className="hidden text-sm text-muted-foreground sm:table-cell">
         {document.updatedAt ? formatDate(document.updatedAt) : '—'}
       </TableCell>
-      <TableCell className="pr-5 text-right">
+      <TableCell role="cell" className="pr-5 text-right">
         <AlertDialog>
           <DropdownMenu>
             <DropdownMenuTrigger asChild className={cn('rounded-none focus-visible:outline-none')}>
@@ -100,9 +100,11 @@ export default function DocumentCard({ document }: DocumentCardProps) {
                 <Button variant="outline">Cancel</Button>
               </AlertDialogCancel>
               <Form route="documents.destroy" routeParams={{ id: document.id }}>
-                <Button type="submit" variant="destructive">
-                  Delete
-                </Button>
+                {({ processing }) => (
+                  <Button type="submit" variant="destructive" disabled={processing}>
+                    {processing ? 'Deleting…' : 'Delete'}
+                  </Button>
+                )}
               </Form>
             </AlertDialogFooter>
           </AlertDialogContent>

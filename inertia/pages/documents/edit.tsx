@@ -1,3 +1,4 @@
+import { Head } from '@inertiajs/react'
 import { type Data } from '@generated/data'
 import { Form, Link, useRouter } from '@adonisjs/inertia/react'
 import { ArrowLeft, CircleAlert, LoaderCircle, Trash2 } from 'lucide-react'
@@ -37,7 +38,10 @@ export default function Edit({ document }: InertiaProps<{ document: Data.Documen
     if (isReady || isFailed) return
 
     const interval = setInterval(() => {
-      router.visit({ href: window.location.href }, { only: ['document'], preserveScroll: true })
+      router.visit(
+        { href: window.location.href },
+        { only: ['document'], preserveScroll: true, preserveState: true }
+      )
     }, 2500)
 
     return () => clearInterval(interval)
@@ -45,8 +49,9 @@ export default function Edit({ document }: InertiaProps<{ document: Data.Documen
 
   return (
     <div className="min-h-screen">
-      <header className="sticky top-0 z-30 border-b border-border/60 bg-background/90 backdrop-blur supports-backdrop-filter:bg-background/75">
-        <div className="flex h-14 w-full items-center gap-2 px-4 md:px-10">
+      <Head title={document.title || 'Untitled document'} />
+      <header className="sm:sticky top-0 z-30 border-b border-border/60 bg-background/90 backdrop-blur supports-backdrop-filter:bg-background/75">
+        <div className="mx-auto flex min-h-14 max-w-6xl flex-wrap items-center gap-2 px-4 py-2 md:px-10">
           <Link
             route="documents.index"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
@@ -61,15 +66,15 @@ export default function Edit({ document }: InertiaProps<{ document: Data.Documen
         </div>
       </header>
 
-      <main className="w-full">
-        <div className="border-b border-border/60">
+      <div className="w-full">
+        <div className="border-b border-border/60 bg-secondary/30">
           <DocumentMeta document={document} />
         </div>
 
         {isReady ? (
           <DocumentEditor documentId={document.id} initialContent={latestContent} />
         ) : (
-          <Card className="mx-auto my-12 w-[min(100%-2rem,56rem)]">
+          <Card role="status" aria-live="polite" className="mx-auto my-12 w-[min(100%-2rem,56rem)]">
             <CardHeader>
               <div className="flex items-center gap-3">
                 <span className="flex size-10 items-center justify-center rounded-xl bg-muted text-muted-foreground">
@@ -94,7 +99,10 @@ export default function Edit({ document }: InertiaProps<{ document: Data.Documen
             </CardHeader>
             {isFailed && document.generationError && (
               <CardContent>
-                <p className="break-words rounded-lg bg-destructive/5 p-3 text-sm text-destructive">
+                <p
+                  role="alert"
+                  className="break-words rounded-lg bg-destructive/5 p-3 text-sm text-destructive"
+                >
                   {document.generationError}
                 </p>
               </CardContent>
@@ -102,9 +110,9 @@ export default function Edit({ document }: InertiaProps<{ document: Data.Documen
           </Card>
         )}
 
-        <div className="mx-auto w-full max-w-90rem px-4 pb-16 pt-10 md:px-10">
+        <div className="mx-auto w-full max-w-6xl px-4 pb-16 pt-10 md:px-10">
           <AlertDialog>
-            <div className="flex items-center justify-between gap-4 border-t border-border pt-6">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6">
               <div className="flex flex-col gap-1">
                 <h2 className="font-medium">Delete document</h2>
                 <p className="text-sm text-muted-foreground">
@@ -132,15 +140,17 @@ export default function Edit({ document }: InertiaProps<{ document: Data.Documen
                   <Button variant="outline">Cancel</Button>
                 </AlertDialogCancel>
                 <Form route="documents.destroy" routeParams={{ id: document.id }}>
-                  <Button type="submit" variant="destructive">
-                    Delete
-                  </Button>
+                  {({ processing }) => (
+                    <Button type="submit" variant="destructive" disabled={processing}>
+                      {processing ? 'Deleting…' : 'Delete'}
+                    </Button>
+                  )}
                 </Form>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
         </div>
-      </main>
+      </div>
     </div>
   )
 }

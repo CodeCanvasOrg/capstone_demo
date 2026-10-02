@@ -46,8 +46,8 @@ export default function FileIndexCard({ file }: FileIndexCardProps) {
   const name = file.filename || 'Untitled file'
 
   return (
-    <TableRow>
-      <TableCell className="py-3 pl-5">
+    <TableRow role="row">
+      <TableCell role="cell" className="py-3 pl-5">
         <div className="flex min-w-0 items-center gap-3">
           {isImage && file.objectUrl ? (
             <img
@@ -70,7 +70,7 @@ export default function FileIndexCard({ file }: FileIndexCardProps) {
               <Link
                 route="files.edit"
                 routeParams={{ id: file.id }}
-                className="truncate font-medium hover:underline"
+                className="truncate font-medium hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                 title={name}
               >
                 {name}
@@ -84,19 +84,19 @@ export default function FileIndexCard({ file }: FileIndexCardProps) {
         </div>
       </TableCell>
 
-      <TableCell>
+      <TableCell role="cell">
         <Badge variant="outline">{file.filetype?.replace('.', '').toUpperCase() ?? 'FILE'}</Badge>
       </TableCell>
 
-      <TableCell>
+      <TableCell role="cell">
         <ProcessingStatusBadge status={file.processingStatus} />
       </TableCell>
 
-      <TableCell className="hidden text-sm text-muted-foreground sm:table-cell">
+      <TableCell role="cell" className="hidden text-sm text-muted-foreground sm:table-cell">
         {file.createdAt ? formatDate(file.createdAt) : '—'}
       </TableCell>
 
-      <TableCell className="pr-5 text-right">
+      <TableCell role="cell" className="pr-5 text-right">
         <AlertDialog>
           <DropdownMenu>
             <DropdownMenuTrigger asChild className={cn('rounded-none focus-visible:outline-none')}>
@@ -135,9 +135,11 @@ export default function FileIndexCard({ file }: FileIndexCardProps) {
                 <Button variant="outline">Cancel</Button>
               </AlertDialogCancel>
               <Form route="files.destroy" routeParams={{ id: file.id }}>
-                <Button type="submit" variant="destructive">
-                  Delete
-                </Button>
+                {({ processing }) => (
+                  <Button type="submit" variant="destructive" disabled={processing}>
+                    {processing ? 'Deleting…' : 'Delete'}
+                  </Button>
+                )}
               </Form>
             </AlertDialogFooter>
           </AlertDialogContent>

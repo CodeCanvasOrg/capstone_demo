@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
+import { Skeleton } from '@/components/ui/skeleton'
 import { ToolbarProvider } from '@/components/toolbars/toolbar_provider'
 import { BlockquoteToolbar } from '@/components/toolbars/blockquote'
 import { BoldToolbar } from '@/components/toolbars/bold'
@@ -131,12 +132,21 @@ export default function DocumentEditor({ documentId, initialContent }: DocumentE
   }, [])
 
   if (!editor) {
-    return null
+    return (
+      <div
+        className="mx-auto max-w-3xl space-y-5 px-4 py-10"
+        role="status"
+        aria-label="Loading document editor"
+      >
+        <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-96 w-full" />
+      </div>
+    )
   }
 
   return (
     <div className="w-full">
-      <div className="sticky top-14 z-20 flex items-center gap-1 border-b border-border/60 bg-background/95 px-4 py-1.5 backdrop-blur md:px-10">
+      <div className="sticky top-0 sm:top-14 z-20 flex flex-wrap items-center gap-2 border-b border-border/60 bg-background/95 px-4 py-1.5 backdrop-blur md:px-10">
         <ToolbarProvider editor={editor}>
           <div className="flex flex-wrap items-center gap-1">
             <UndoToolbar />
@@ -158,19 +168,23 @@ export default function DocumentEditor({ documentId, initialContent }: DocumentE
         </ToolbarProvider>
 
         <div className="ml-auto flex items-center gap-1.5">
-          {saveState === 'saving' ? (
-            <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <LoaderCircle className="size-3 animate-spin" />
-              Saving…
-            </span>
-          ) : saveState === 'error' ? (
-            <span className="flex items-center gap-1.5 text-xs text-destructive">
-              <XCircle className="size-3" />
-              Failed to save
-            </span>
-          ) : (
-            <span className="hidden text-xs text-muted-foreground sm:block">All changes saved</span>
-          )}
+          <span aria-live="polite">
+            {saveState === 'saving' ? (
+              <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <LoaderCircle className="size-3 animate-spin" />
+                Saving…
+              </span>
+            ) : saveState === 'error' ? (
+              <span className="flex items-center gap-1.5 text-xs text-destructive">
+                <XCircle className="size-3" />
+                Failed to save
+              </span>
+            ) : (
+              <span className="hidden text-xs text-muted-foreground sm:block">
+                All changes saved
+              </span>
+            )}
+          </span>
 
           <Separator orientation="vertical" className="mx-2 h-7" />
 
@@ -184,7 +198,10 @@ export default function DocumentEditor({ documentId, initialContent }: DocumentE
             <Minus className="size-4" />
           </Button>
           <Select value={String(zoom)} onValueChange={(value) => setZoom(Number(value) as Zoom)}>
-            <SelectTrigger className="h-7 w-70px gap-1 border-0 bg-transparent px-2 text-xs shadow-none hover:bg-muted focus:ring-0">
+            <SelectTrigger
+              aria-label="Document zoom"
+              className="h-7 w-20 gap-1 border-0 bg-transparent px-2 text-xs shadow-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
+            >
               <SelectValue />
             </SelectTrigger>
             <SelectContent align="end">
@@ -207,14 +224,17 @@ export default function DocumentEditor({ documentId, initialContent }: DocumentE
         </div>
       </div>
 
-      <div className="flex w-full justify-center px-4 py-10">
+      <div className="flex w-full justify-center bg-muted/40 px-4 py-8 sm:py-12">
         <div
-          className="w-[210mm] max-w-full bg-card text-card-foreground"
+          className="w-[210mm] max-w-full border border-border bg-card text-card-foreground shadow-sm"
           style={{ zoom: zoom / 100 }}
         >
           <div
-            className="tiptap-editor min-h-[240mm] w-full cursor-text px-10 py-14 sm:px-16"
-            onClick={() => editor?.chain().focus().run()}
+            className="tiptap-editor min-h-[240mm] w-full cursor-text px-5 py-10 sm:px-16 sm:py-14"
+            onClick={(event) => {
+              // Inline controls and portalled popovers manage their own focus.
+              if (event.target === event.currentTarget) editor.chain().focus().run()
+            }}
           >
             <EditorContent editor={editor} />
           </div>

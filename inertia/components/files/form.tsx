@@ -101,7 +101,7 @@ export default function FileUploadForm({
   }
 
   async function uploadPending() {
-    if (uploading || pendingFiles.length === 0) return
+    if (disabled || uploading || pendingFiles.length === 0) return
 
     setUploading(true)
     const failed: File[] = []
@@ -123,7 +123,7 @@ export default function FileUploadForm({
   function handleDragEnter(event: DragEvent<HTMLDivElement>) {
     event.preventDefault()
     dragCounter.current += 1
-    if (!uploading) setDragging(true)
+    if (!disabled && !uploading) setDragging(true)
   }
 
   function handleDragLeave(event: DragEvent<HTMLDivElement>) {
@@ -139,7 +139,7 @@ export default function FileUploadForm({
     event.preventDefault()
     dragCounter.current = 0
     setDragging(false)
-    if (!uploading) stageFiles(event.dataTransfer.files)
+    if (!disabled && !uploading) stageFiles(event.dataTransfer.files)
   }
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
@@ -161,10 +161,12 @@ export default function FileUploadForm({
   const isDisabled = disabled || uploading
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3" aria-busy={uploading}>
       <div
         role="button"
-        tabIndex={0}
+        tabIndex={isDisabled ? -1 : 0}
+        aria-label="Choose or drop source files"
+        aria-disabled={isDisabled}
         onClick={openPicker}
         onKeyDown={handleKeyDown}
         onDragEnter={handleDragEnter}
@@ -172,39 +174,40 @@ export default function FileUploadForm({
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         className={cn(
-          'flex cursor-pointer flex-col items-center gap-2 border border-dashed px-4 py-8 text-center transition-colors',
-          dragging ? 'border-foreground bg-muted' : 'border-border hover:bg-muted/50',
+          'flex cursor-pointer flex-col items-center gap-3 border border-dashed px-4 py-10 text-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
+          dragging
+            ? 'border-foreground bg-secondary'
+            : 'border-muted-foreground bg-secondary/30 hover:bg-secondary',
           isDisabled && 'pointer-events-none opacity-60'
         )}
       >
-        <UploadCloud className="size-6 text-muted-foreground" />
+        <span className="flex size-12 items-center justify-center border border-border bg-card">
+          <UploadCloud aria-hidden="true" className="size-5" />
+        </span>
         <p className="text-sm font-medium">{uploading ? 'Uploading…' : 'Drag & drop files here'}</p>
         <p className="text-xs text-muted-foreground">or</p>
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          onClick={(event) => {
-            event.stopPropagation()
-            openPicker()
-          }}
-        >
-          {uploading ? <Loader2 className="animate-spin" /> : <UploadCloud />}
+        <span className="border border-border bg-card px-3 py-2 text-sm font-medium">
           Browse files
-        </Button>
+        </span>
+        <p className="text-xs text-muted-foreground">
+          PDF, DOCX, text, Markdown, or images · Up to 10 MB each
+        </p>
         <input
           ref={inputRef}
           type="file"
           multiple
           accept=".pdf,.docx,.md,.markdown,.txt,.png,.jpg,.jpeg"
           className="sr-only"
+          tabIndex={-1}
+          aria-label="Source files"
+          disabled={isDisabled}
           onChange={handleChange}
         />
       </div>
 
       {pendingFiles.length > 0 && (
         <div className="flex flex-col gap-3">
-          <ul className="flex flex-col gap-2">
+          <ul aria-live="polite" className="flex flex-col gap-2">
             {pendingFiles.map((file, index) => (
               <li key={`${file.name}-${file.lastModified}-${index}`}>
                 <FileCard
@@ -229,7 +232,7 @@ export default function FileUploadForm({
       )}
 
       {files.length > 0 && (
-        <ul className="flex flex-col gap-2">
+        <ul aria-live="polite" className="flex flex-col gap-2">
           {files.map((file, index) => (
             <li key={`${file.objectKey}-${index}`}>
               <FileCard file={file} onRemove={() => onRemove(index)} disabled={isDisabled} />
