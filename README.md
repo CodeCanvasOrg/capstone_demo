@@ -1,5 +1,27 @@
 # Project Demo
 
+## Getting Started
+
+Set up and run the project with the helper script:
+
+```bash
+./bin/run-dev.sh
+```
+
+The script will:
+
+1. Check for [Bun](https://bun.com) and install it if missing.
+2. Install project dependencies with `bun install`.
+3. Start the development server with `bun run dev`.
+
+If the script is not executable, run it with `bash bin/run-dev.sh` (or make it executable first with `chmod +x bin/run-dev.sh`).
+
+Before running, copy `.env.example` to `.env` and fill in the required values:
+
+```bash
+cp .env.example .env
+```
+
 ## Projected Scope
 
 - Basic auth behaviour
