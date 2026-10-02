@@ -4,6 +4,7 @@ export type SourceChunk = {
   content: string
   fileName: string
   fileUrl: string | null
+  modelFileUrl?: string | null
   mediaType: string | null
   pageNumber?: number | null
 }

@@ -81,10 +81,11 @@ export default class OpenRouterService {
     ]
 
     for (const chunk of relevantChunks) {
+      const modelFileUrl = chunk.modelFileUrl ?? chunk.fileUrl
       if (
         !chunk.mediaType?.startsWith('image/') ||
-        !chunk.fileUrl ||
-        !this.isWebUrl(chunk.fileUrl)
+        !modelFileUrl ||
+        !this.isWebUrl(modelFileUrl)
       ) {
         continue
       }
@@ -101,7 +102,7 @@ export default class OpenRouterService {
       })
       multimodalContent.push({
         type: 'image_url',
-        image_url: { url: chunk.fileUrl, detail: 'auto' },
+        image_url: { url: modelFileUrl, detail: 'auto' },
       })
     }
 

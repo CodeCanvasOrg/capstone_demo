@@ -198,6 +198,18 @@ export default class RetrievalService {
       ...rankedRows.filter(isUsableImage),
       ...supplementalImages.rows.filter((row) => !rankedImageIds.has(row.id)),
     ].slice(0, MAX_SOURCE_IMAGES)
+    const imageFileKeys = [
+      ...new Set(imageRows.flatMap((row) => (row.file_key ? [row.file_key] : []))),
+    ]
+    const signedImageUrls = new Map<string, string>()
+    await Promise.all(
+      imageFileKeys.map(async (fileKey) => {
+        signedImageUrls.set(
+          fileKey,
+          await drive.use().getSignedUrl(fileKey, { expiresIn: 30 * 60 })
+        )
+      })
+    )
     const textRows = rankedRows.filter((row) => row.kind !== 'image')
     const maxTextChunks = MAX_CONTEXT_CHUNKS - imageRows.length
     const imageReserve = Math.min(tokenBudget / 2, imageRows.length * MAX_CHUNK_TOKENS)
@@ -232,6 +244,9 @@ export default class RetrievalService {
         content: row.content,
         fileName: row.file_name,
         fileUrl: row.file_url,
+        modelFileUrl: row.file_key
+          ? (signedImageUrls.get(row.file_key) ?? row.file_url)
+          : row.file_url,
         mediaType: row.media_type,
         pageNumber: row.page_number === null ? null : Number(row.page_number),
       }
