@@ -35,12 +35,28 @@ export interface ApiDefinition {
   documentIssues: {
     store: typeof routes['documentIssues.store']
     update: typeof routes['documentIssues.update']
+    index: typeof routes['documentIssues.index']
   }
   projects: {
     index: typeof routes['projects.index']
     store: typeof routes['projects.store']
     show: typeof routes['projects.show']
     update: typeof routes['projects.update']
+  }
+  documentReviews: {
+    store: typeof routes['documentReviews.store']
+    approve: typeof routes['documentReviews.approve']
+  }
+  exportPdfs: {
+    preview: typeof routes['exportPdfs.preview']
+    store: typeof routes['exportPdfs.store']
+    download: typeof routes['exportPdfs.download']
+  }
+  assets: {
+    derived: typeof routes['assets.derived']
+    download: typeof routes['assets.download']
+    evidence: typeof routes['assets.evidence']
+    evidenceAsset: typeof routes['assets.evidenceAsset']
   }
   documents: {
     index: typeof routes['documents.index']
@@ -57,11 +73,6 @@ export interface ApiDefinition {
     generate: typeof routes['documentTasks.generate']
     sources: typeof routes['documentTasks.sources']
     show: typeof routes['documentTasks.show']
-  }
-  assets: {
-    download: typeof routes['assets.download']
-    evidence: typeof routes['assets.evidence']
-    evidenceAsset: typeof routes['assets.evidenceAsset']
   }
   files: {
     retry: typeof routes['files.retry']

@@ -1,3 +1,7 @@
+import DocumentWorkflowTransformer from '#transformers/document_workflow_transformer'
+import File from '#models/file'
+import ReadinessService from '#services/documents/readiness_service'
+import DocumentApproval from '#models/document_approval'
 import DocumentIssue from '#models/document_issue'
 import DocumentIssueTransformer from '#transformers/document_issue_transformer'
 import EvidenceService from '#services/documents/evidence_service'
@@ -91,7 +95,15 @@ export default class DocumentsController {
     const issues = await DocumentIssue.query()
       .where({ workspaceId: workspaceAccess!.workspaceId, documentId: document.id })
       .orderBy('createdAt', 'desc')
+    const state = await new ReadinessService().inspect(document)
+    const approvalHistory = await DocumentApproval.query()
+      .where({ workspaceId: workspaceAccess!.workspaceId, documentId: document.id })
+      .orderBy('createdAt', 'desc')
+      .limit(20)
+    const availableFiles = await workspaceFiles(workspaceAccess!.workspaceId)
     return inertia.render('documents/edit', {
+      workflow: DocumentWorkflowTransformer.transform({ state, approvalHistory }),
+      availableFiles: FileTransformer.transform(availableFiles, workspaceAccess!.actorId),
       issues: DocumentIssueTransformer.transform(issues),
       document: DocumentTransformer.transform(document, workspaceAccess!.actorId),
     })
@@ -116,4 +128,15 @@ export default class DocumentsController {
       .redirect()
       .toRoute('documents.index', { workspaceId: workspaceAccess!.workspaceId })
   }
+}
+
+async function workspaceFiles(workspaceId: string) {
+  return File.query()
+    .where('workspaceId', workspaceId)
+    .preload('revisions', (rev) =>
+      rev
+        .orderBy('revision', 'desc')
+        .preload('processingRuns', (run) => run.orderBy('createdAt', 'desc'))
+    )
+    .orderBy('filename')
 }

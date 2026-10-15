@@ -1,0 +1,27 @@
+import { Job } from '@adonisjs/queue'
+import type { JobOptions } from '@adonisjs/queue/types'
+import TaskService from '#services/workspaces/task_service'
+import DocumentExportService from '#services/exports/document_export_service'
+export default class RenderDocument extends Job<{ version: 1; taskId: string }> {
+  static options: JobOptions = { queue: 'documents', timeout: '5m' }
+  async execute() {
+    if (this.payload.version !== 1 || typeof this.payload.taskId !== 'string') return
+    const service = new TaskService()
+    const lease = await service.claim(this.payload.taskId)
+    if (!lease || lease.task.kind !== 'render') return
+    const heartbeat = setInterval(() => {
+      void service.renew(lease).catch(() => {})
+    }, 30000)
+    heartbeat.unref()
+    try {
+      await new DocumentExportService().render(lease)
+    } catch (error) {
+      await service.fail(
+        lease,
+        !!error && typeof error === 'object' && 'status' in error && error.status === 409
+      )
+    } finally {
+      clearInterval(heartbeat)
+    }
+  }
+}

@@ -19,14 +19,29 @@ export type SourcePin = {
   embeddingModel: string
 }
 export type TaskPayload = {
+  approvalId?: string
+  versionId?: string
+  brandVersion?: string
   pins?: SourcePin[]
   inputHash?: string
   baseVersionId?: string | null
   selectionRevision?: number
 }
 export type TaskLease = { task: WorkspaceTask; context: WorkspaceAccessContext; token: string }
+const canonical = (value: unknown): unknown =>
+  Array.isArray(value)
+    ? value.map(canonical)
+    : value && typeof value === 'object'
+      ? Object.fromEntries(
+          Object.entries(value)
+            .sort(([left], [right]) => left.localeCompare(right))
+            .map(([key, item]) => [key, canonical(item)])
+        )
+      : value
 export const fingerprint = (value: unknown) =>
-  createHash('sha256').update(JSON.stringify(value)).digest('hex')
+  createHash('sha256')
+    .update(JSON.stringify(canonical(value)))
+    .digest('hex')
 export default class TaskService {
   async create(
     context: WorkspaceAccessContext,
@@ -222,14 +237,21 @@ export default class TaskService {
   async show(context: WorkspaceAccessContext, id: string) {
     if (!uuid(id)) throw missingResource()
     const task = await WorkspaceTask.query()
-      .where({ id, workspaceId: context.workspaceId, actorId: context.actorId })
+      .where({ id, workspaceId: context.workspaceId })
       .firstOrFail()
     return {
       id: task.id,
       kind: task.kind,
       status: task.status,
       error: task.safeError,
-      result: task.result,
+      result:
+        task.kind === 'render' && task.status === 'succeeded'
+          ? {
+              downloadUrl: `/workspaces/${context.workspaceId}/documents/${task.documentId}/exports/${task.id}/download`,
+            }
+          : task.kind === 'generate' && task.result.versionId
+            ? { versionId: task.result.versionId }
+            : {},
     }
   }
 }

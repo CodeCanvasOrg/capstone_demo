@@ -7,10 +7,14 @@
 import type { InferData, InferVariants } from '@adonisjs/core/types/transformers'
 import type { InferSharedProps, InferFlashData } from '@adonisjs/inertia/types'
 import type ChunkTransformer from '#transformers/chunk_transformer'
+import type DocumentApprovalTransformer from '#transformers/document_approval_transformer'
 import type DocumentIssueTransformer from '#transformers/document_issue_transformer'
+import type DocumentReadinessTransformer from '#transformers/document_readiness_transformer'
+import type DocumentReviewTransformer from '#transformers/document_review_transformer'
 import type DocumentShareTransformer from '#transformers/document_share_transformer'
 import type DocumentTransformer from '#transformers/document_transformer'
 import type DocumentVersionTransformer from '#transformers/document_version_transformer'
+import type DocumentWorkflowTransformer from '#transformers/document_workflow_transformer'
 import type FileTransformer from '#transformers/file_transformer'
 import type ProjectTransformer from '#transformers/project_transformer'
 import type UserTransformer from '#transformers/user_transformer'
@@ -24,9 +28,21 @@ export namespace Data {
   export namespace Chunk {
     export type Variants = InferVariants<ChunkTransformer>
   }
+  export type DocumentApproval = InferData<DocumentApprovalTransformer>
+  export namespace DocumentApproval {
+    export type Variants = InferVariants<DocumentApprovalTransformer>
+  }
   export type DocumentIssue = InferData<DocumentIssueTransformer>
   export namespace DocumentIssue {
     export type Variants = InferVariants<DocumentIssueTransformer>
+  }
+  export type DocumentReadiness = InferData<DocumentReadinessTransformer>
+  export namespace DocumentReadiness {
+    export type Variants = InferVariants<DocumentReadinessTransformer>
+  }
+  export type DocumentReview = InferData<DocumentReviewTransformer>
+  export namespace DocumentReview {
+    export type Variants = InferVariants<DocumentReviewTransformer>
   }
   export type DocumentShare = InferData<DocumentShareTransformer>
   export namespace DocumentShare {
@@ -39,6 +55,10 @@ export namespace Data {
   export type DocumentVersion = InferData<DocumentVersionTransformer>
   export namespace DocumentVersion {
     export type Variants = InferVariants<DocumentVersionTransformer>
+  }
+  export type DocumentWorkflow = InferData<DocumentWorkflowTransformer>
+  export namespace DocumentWorkflow {
+    export type Variants = InferVariants<DocumentWorkflowTransformer>
   }
   export type File = InferData<FileTransformer>
   export namespace File {

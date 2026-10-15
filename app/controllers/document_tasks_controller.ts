@@ -1,3 +1,4 @@
+import WorkflowService from '#services/documents/workflow_service'
 import type { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
 import Document from '#models/document'
@@ -58,7 +59,10 @@ export default class DocumentTasksController {
         .where({ id: params.documentId, workspaceId: context.workspaceId })
         .forUpdate()
         .firstOrFail()
-      if (document.selectionRevision !== input.selectionRevision)
+      if (
+        document.currentVersionId !== input.baseVersionId ||
+        document.selectionRevision !== input.selectionRevision
+      )
         throw conflict('The source selection changed. Reload it before retrying.')
       const ids = [...new Set(input.fileIds)]
       const files = await File.query({ client: trx })
@@ -80,6 +84,12 @@ export default class DocumentTasksController {
             files_id: id,
           }))
         )
+      await new WorkflowService().invalidate(
+        document,
+        context.actorId,
+        'Selected source files changed',
+        trx
+      )
       document.merge({
         sourceMode: input.sourceMode,
         selectionRevision: document.selectionRevision + 1,

@@ -56,7 +56,7 @@ export async function source(
     embedding_model: config.embeddingModel,
     embedding_dimensions: config.embeddingDimensions,
     stage_timings: {},
-    warnings: [],
+    warnings: JSON.stringify([]),
   })
   await db.table('document_blocks').insert({
     id: blockId,
@@ -65,7 +65,7 @@ export async function source(
     block_type: image ? 'image' : 'paragraph',
     text: 'Private evidence',
     order_index: 0,
-    section_path: [],
+    section_path: JSON.stringify([]),
     source_locator: {
       fileKey: file.objectKey,
       fileUrl: 'https://old-public.invalid/file',

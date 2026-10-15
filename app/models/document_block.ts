@@ -26,7 +26,7 @@ export default class DocumentBlock extends DocumentBlockSchema {
   @column()
   declare orderIndex: number
 
-  @column()
+  @column({ prepare: (value: string[]) => JSON.stringify(value) })
   declare sectionPath: string[]
 
   @column()

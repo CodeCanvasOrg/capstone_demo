@@ -48,7 +48,7 @@ const SourceCitationExtension = Node.create({
 })
 
 export default class ExportPdfService {
-  static async generate(version: DocumentVersion) {
+  static async generate(version: DocumentVersion, { preview = false }: { preview?: boolean } = {}) {
     const extensions = [StarterKit, Image, SourceCitationExtension]
     const contentHtml = generateHTML(version.content, extensions)
 
@@ -65,7 +65,7 @@ export default class ExportPdfService {
       }
 
       body {
-      font-family: Arial, sans-serif;
+      font-family: Manrope, Arial, sans-serif;
       font-size: 11pt;
       line-height: 1.6;
       color: #111827;
@@ -114,6 +114,7 @@ export default class ExportPdfService {
 
       <body>
       <article>
+      ${preview ? '<p style="font-size:10pt;font-weight:bold;border-bottom:2px solid #f6d900;padding-bottom:12px">PREVIEW · NOT APPROVED FOR FINAL EXPORT</p>' : ''}
       ${contentHtml}
       </article>
       </body>
@@ -125,6 +126,7 @@ export default class ExportPdfService {
     try {
       const page = await browser.newPage()
 
+      await page.route('**/*', (route) => route.abort())
       await page.setContent(html, {
         waitUntil: 'networkidle',
       })
@@ -132,6 +134,10 @@ export default class ExportPdfService {
       return await page.pdf({
         format: 'A4',
         printBackground: true,
+        displayHeaderFooter: preview,
+        headerTemplate: '<span></span>',
+        footerTemplate:
+          '<div style="font-family:Arial;font-size:8px;width:100%;text-align:center">PREVIEW · NOT APPROVED</div>',
         margin: {
           top: '20mm',
           right: '20mm',

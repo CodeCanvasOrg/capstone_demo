@@ -136,6 +136,45 @@ export class ChunkSchema extends BaseModel {
   declare workspaceId: string | null
 }
 
+export class DocumentApprovalSchema extends BaseModel {
+  static $columns = [
+    'approvedById',
+    'createdAt',
+    'documentId',
+    'id',
+    'invalidatedAt',
+    'invalidationReason',
+    'reviewId',
+    'updatedAt',
+    'versionId',
+    'warningAcknowledgments',
+    'workspaceId',
+  ] as const
+  $columns = DocumentApprovalSchema.$columns
+  @column()
+  declare approvedById: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare documentId: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column.dateTime()
+  declare invalidatedAt: DateTime | null
+  @column()
+  declare invalidationReason: string | null
+  @column()
+  declare reviewId: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare versionId: string
+  @column()
+  declare warningAcknowledgments: any
+  @column()
+  declare workspaceId: string
+}
+
 export class DocumentBlockSchema extends BaseModel {
   static $columns = [
     'blockType',
@@ -253,6 +292,45 @@ export class DocumentIssueSchema extends BaseModel {
   declare workspaceId: string
 }
 
+export class DocumentReviewSchema extends BaseModel {
+  static $columns = [
+    'createdAt',
+    'documentId',
+    'id',
+    'inputHash',
+    'invalidatedAt',
+    'invalidationReason',
+    'sourcePins',
+    'submittedById',
+    'updatedAt',
+    'versionId',
+    'workspaceId',
+  ] as const
+  $columns = DocumentReviewSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare documentId: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare inputHash: string
+  @column.dateTime()
+  declare invalidatedAt: DateTime | null
+  @column()
+  declare invalidationReason: string | null
+  @column()
+  declare sourcePins: any
+  @column()
+  declare submittedById: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare versionId: string
+  @column()
+  declare workspaceId: string
+}
+
 export class DocumentShareSchema extends BaseModel {
   static $columns = ['createdAt', 'documentId', 'id', 'role', 'updatedAt', 'userId'] as const
   $columns = DocumentShareSchema.$columns
@@ -308,6 +386,8 @@ export class DocumentVersionSchema extends BaseModel {
 
 export class DocumentSchema extends BaseModel {
   static $columns = [
+    'activeApprovalId',
+    'activeReviewId',
     'createdAt',
     'currentVersionId',
     'description',
@@ -331,6 +411,10 @@ export class DocumentSchema extends BaseModel {
     'workspaceId',
   ] as const
   $columns = DocumentSchema.$columns
+  @column()
+  declare activeApprovalId: string | null
+  @column()
+  declare activeReviewId: string | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
   @column()
@@ -577,6 +661,75 @@ export class UserSchema extends BaseModel {
   declare password: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+}
+
+export class VersionAcceptanceSchema extends BaseModel {
+  static $columns = [
+    'actorId',
+    'createdAt',
+    'documentId',
+    'id',
+    'mutationId',
+    'requestHash',
+    'updatedAt',
+    'versionId',
+    'workspaceId',
+  ] as const
+  $columns = VersionAcceptanceSchema.$columns
+  @column()
+  declare actorId: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare documentId: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare mutationId: string
+  @column()
+  declare requestHash: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare versionId: string
+  @column()
+  declare workspaceId: string
+}
+
+export class WorkflowEventSchema extends BaseModel {
+  static $columns = [
+    'actorId',
+    'createdAt',
+    'documentId',
+    'id',
+    'mutationId',
+    'operation',
+    'requestHash',
+    'result',
+    'updatedAt',
+    'workspaceId',
+  ] as const
+  $columns = WorkflowEventSchema.$columns
+  @column()
+  declare actorId: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare documentId: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare mutationId: string
+  @column()
+  declare operation: string
+  @column()
+  declare requestHash: string
+  @column()
+  declare result: any
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare workspaceId: string
 }
 
 export class WorkspaceInvitationSchema extends BaseModel {

@@ -1,3 +1,4 @@
+import RenderDocument from '../../jobs/render_document.ts'
 import TaskDispatch from '#models/task_dispatch'
 import WorkspaceTask from '#models/workspace_task'
 import ProcessFile from '../../jobs/process_file.ts'
@@ -18,6 +19,8 @@ export default class TaskDispatchService {
         if (task.kind === 'ingest') await ProcessFile.dispatch({ version: 1, taskId: task.id })
         else if (task.kind === 'generate')
           await GenerateDocument.dispatch({ version: 1, taskId: task.id })
+        else if (task.kind === 'render')
+          await RenderDocument.dispatch({ version: 1, taskId: task.id })
         else continue
         intent.merge({
           dispatchedAt: DateTime.utc(),

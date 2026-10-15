@@ -1,3 +1,4 @@
+import WorkflowService from '#services/documents/workflow_service'
 import db from '@adonisjs/lucid/services/db'
 import Document from '#models/document'
 import File from '#models/file'
@@ -114,7 +115,17 @@ export default class DocumentService {
         input.title !== document.title ||
         (input.description ?? null) !== document.description ||
         (input.projectInformation &&
-          JSON.stringify(input.projectInformation) !== JSON.stringify(document.projectInformation))
+          INFORMATION_FIELDS.some(
+            (key) =>
+              (input.projectInformation?.[key] ?? '') !== (document.projectInformation?.[key] ?? '')
+          ))
+      if (changesContent)
+        await new WorkflowService().invalidate(
+          document,
+          context.actorId,
+          'Project information changed',
+          trx
+        )
       document.merge({
         title: input.title,
         description: input.description ?? null,

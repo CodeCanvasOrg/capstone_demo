@@ -23,7 +23,7 @@ export default class ProcessingRun extends ProcessingRunSchema {
   @column()
   declare stageTimings: Record<string, number>
 
-  @column()
+  @column({ prepare: (value: string[]) => JSON.stringify(value) })
   declare warnings: string[]
 
   @column()

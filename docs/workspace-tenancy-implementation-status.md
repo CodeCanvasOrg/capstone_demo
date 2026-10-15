@@ -40,8 +40,15 @@ Checks: typecheck passed; lint passed; 26 tests passed (19 existing unit and 7 n
 - Document deadlines validate real calendar dates. Workspace-scoped issues retain creator/updater/resolver timestamps, revision conflicts, open/resolved state and blocking flags.
 - Verification: typecheck and lint passed; all 44 tests passed. Mail is faked in functional tests; the failure test invokes the real delivery service with a failing transport adapter and confirms the retained invitation. No external recipient was emailed.
 
+## Verified review and export safeguards
+
+- Added exact-version reviews, owner approval audits, workflow events and durable save acceptance identities, including no-op saves.
+- Content/input/source/blocking-issue changes invalidate active review/approval; deadline-only changes preserve them. Readiness exposes four 25% stages with reasons and explicit input-only evidence warnings.
+- Final PDFs use attributed render tasks with approval checks at request, render, publication and download. A stale render is discarded; private artifacts cannot bypass current approval. Previews carry a visible unapproved label. Rendering blocks network access and embeds only authorized image bytes.
+- Verification: typecheck/lint passed; all 49 tests passed. Includes JSONB source-pin persistence, warning acknowledgments, owner-only actions, no-op replay, and a blocker added during render preventing publication/download. Real Chromium rendering and UI checks remain in the final verification phase.
+
 ## Remaining implementation
 
-exact-version review/approval/export; complete HumbleBeeAI redesign; browser and end-to-end cutover verification. Nullable tenant columns are intentionally additive until migration audit/cutover gates are complete.
+complete HumbleBeeAI redesign; browser and end-to-end cutover verification. Nullable tenant columns are intentionally additive until migration audit/cutover gates are complete.
 
 Production conflict mapping, SMTP identity/credentials, bucket policy and artwork remain rollout inputs. This file records actual work, not a claim that the entire feature is ready.

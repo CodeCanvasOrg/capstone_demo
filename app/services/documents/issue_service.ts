@@ -1,3 +1,4 @@
+import WorkflowService from '#services/documents/workflow_service'
 import db from '@adonisjs/lucid/services/db'
 import { DateTime } from 'luxon'
 import Document from '#models/document'
@@ -63,6 +64,12 @@ export default class IssueService {
         issue.state === 'open' &&
         ['approved', 'in_review'].includes(document.status ?? '')
       ) {
+        await new WorkflowService().invalidate(
+          document,
+          context.actorId,
+          'An open blocking issue was recorded',
+          trx
+        )
         document.status = 'edited'
         await document.save()
       }

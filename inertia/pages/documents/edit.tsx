@@ -28,7 +28,12 @@ const EMPTY_DOC = { type: 'doc', content: [] }
 
 export default function Edit({
   document,
-}: InertiaProps<{ issues?: Data.DocumentIssue[]; document: Data.Document }>) {
+}: InertiaProps<{
+  workflow: Data.DocumentWorkflow
+  availableFiles: Data.File[]
+  issues?: Data.DocumentIssue[]
+  document: Data.Document
+}>) {
   const workspaceId = useWorkspaceId()
   const router = useRouter()
   const shares = document.documentShares ?? []

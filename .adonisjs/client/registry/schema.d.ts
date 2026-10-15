@@ -21,7 +21,7 @@ export interface Registry {
   }
   'invitationAcceptances.store': {
     methods: ["POST"]
-    pattern: '/invitations/:token'
+    pattern: '/invitations/:token/accept'
     types: {
       body: {}
       paramsTuple: [ParamValue]
@@ -295,6 +295,90 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/projects_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'documentIssues.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/issues'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_issues_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_issues_controller').default['index']>>>
+    }
+  }
+  'documentReviews.store': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/reviews'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/document_review').reviewValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/document_review').reviewValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_reviews_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_reviews_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'documentReviews.approve': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/approvals'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/document_review').approvalValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/document_review').approvalValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_reviews_controller').default['approve']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_reviews_controller').default['approve']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'exportPdfs.preview': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/preview/pdf'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['preview']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['preview']>>>
+    }
+  }
+  'exportPdfs.store': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/exports/pdf'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/document_review').exportValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/document_review').exportValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['handle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'exportPdfs.download': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/exports/:taskId/download'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue; taskId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['download']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['download']>>>
+    }
+  }
+  'assets.derived': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/files/:id/revisions/:revisionId/assets/:assetId'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue, ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; id: ParamValue; revisionId: ParamValue; assetId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/assets_controller').default['derived']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/assets_controller').default['derived']>>>
+    }
+  }
   'documents.index': {
     methods: ["GET","HEAD"]
     pattern: '/workspaces/:workspaceId/documents'
@@ -381,7 +465,7 @@ export interface Registry {
   }
   'documentTasks.generate': {
     methods: ["POST"]
-    pattern: '/workspaces/:workspaceId/documents/:documentId/generate'
+    pattern: '/workspaces/:workspaceId/documents/:documentId/generation'
     types: {
       body: ExtractBody<InferInput<(typeof import('#validators/document_task').generateValidator)>>
       paramsTuple: [ParamValue, ParamValue]

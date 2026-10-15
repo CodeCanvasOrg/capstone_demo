@@ -6,7 +6,7 @@ router
   .get('/invitations/:token', [controllers.InvitationAcceptances, 'show'])
   .as('invitationAcceptances.show')
 router
-  .post('/invitations/:token', [controllers.InvitationAcceptances, 'store'])
+  .post('/invitations/:token/accept', [controllers.InvitationAcceptances, 'store'])
   .use(middleware.auth())
   .as('invitationAcceptances.store')
 router.get('/', [controllers.Entry, 'handle']).as('home')
@@ -53,12 +53,36 @@ router
         router.post('/projects', [controllers.Projects, 'store']).as('projects.store')
         router.get('/projects/:projectId', [controllers.Projects, 'show']).as('projects.show')
         router.patch('/projects/:projectId', [controllers.Projects, 'update']).as('projects.update')
+        router
+          .get('/documents/:documentId/issues', [controllers.DocumentIssues, 'index'])
+          .as('documentIssues.index')
+        router
+          .post('/documents/:documentId/reviews', [controllers.DocumentReviews, 'store'])
+          .as('documentReviews.store')
+        router
+          .post('/documents/:documentId/approvals', [controllers.DocumentReviews, 'approve'])
+          .as('documentReviews.approve')
+        router
+          .get('/documents/:documentId/preview/pdf', [controllers.ExportPdfs, 'preview'])
+          .as('exportPdfs.preview')
+        router
+          .post('/documents/:documentId/exports/pdf', [controllers.ExportPdfs, 'handle'])
+          .as('exportPdfs.store')
+        router
+          .get('/documents/:documentId/exports/:taskId/download', [
+            controllers.ExportPdfs,
+            'download',
+          ])
+          .as('exportPdfs.download')
+        router
+          .get('/files/:id/revisions/:revisionId/assets/:assetId', [controllers.Assets, 'derived'])
+          .as('assets.derived')
         router.resource('documents', controllers.Documents).except(['show'])
         router
           .post('/documents/:documentId/versions', [controllers.DocumentVersions, 'handle'])
           .as('documentVersions.store')
         router
-          .post('/documents/:documentId/generate', [controllers.DocumentTasks, 'generate'])
+          .post('/documents/:documentId/generation', [controllers.DocumentTasks, 'generate'])
           .as('documentTasks.generate')
         router
           .put('/documents/:documentId/sources', [controllers.DocumentTasks, 'sources'])

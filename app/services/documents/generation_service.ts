@@ -1,3 +1,4 @@
+import WorkflowService from '#services/documents/workflow_service'
 import db from '@adonisjs/lucid/services/db'
 import Document from '#models/document'
 import DocumentVersion from '#models/document_version'
@@ -98,6 +99,12 @@ export default class GenerationService {
         },
         trx
       )
+      await new WorkflowService().invalidate(
+        document,
+        context.actorId,
+        'Generation was requested',
+        trx
+      )
       document.merge({
         generationTaskId: created.id,
         generationStatus: 'processing',
@@ -188,6 +195,12 @@ export default class GenerationService {
           requestHash: lease.task.requestHash,
         },
         { client: trx }
+      )
+      await new WorkflowService().invalidate(
+        current,
+        lease.context.actorId,
+        'Generated content was accepted',
+        trx
       )
       current.merge({
         currentVersionId: version.id,
