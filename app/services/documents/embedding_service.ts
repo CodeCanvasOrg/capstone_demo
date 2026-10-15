@@ -19,20 +19,27 @@ export default class EmbeddingService {
     dimensions: openRouterApiConfig.embeddingDimensions,
     batchSize: MAX_BATCH_ITEMS,
     maxRetries: 0,
+    timeout: 90000,
   })
 
-  async embedQuery(text: string) {
-    const vector = await this.withRetry(() => this.embeddingModel.embedQuery(text))
+  async embedQuery(text: string, guard?: () => Promise<void>) {
+    const vector = await this.withRetry(async () => {
+      await guard?.()
+      return this.embeddingModel.embedQuery(text)
+    })
     this.assertDimension(vector)
     return vector
   }
 
-  async embedTexts(texts: string[]) {
+  async embedTexts(texts: string[], guard?: () => Promise<void>) {
     const batches = this.splitBatches(texts)
     const vectors: number[][] = []
 
     for (const batch of batches) {
-      const result = await this.withRetry(() => this.embeddingModel.embedDocuments(batch))
+      const result = await this.withRetry(async () => {
+        await guard?.()
+        return this.embeddingModel.embedDocuments(batch)
+      })
       if (result.length !== batch.length) {
         throw new Error('Embedding provider returned a different number of vectors than inputs')
       }

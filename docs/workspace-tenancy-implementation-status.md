@@ -25,8 +25,16 @@ Checks: typecheck passed; lint passed; 26 tests passed (19 existing unit and 7 n
 - Version saves compare the base version and reject concurrent stale writes; mutation retries are duplicate-safe.
 - Verification: typecheck and lint passed; all 33 tests passed, including 14 functional tests.
 
+## Verified private assets and durable work
+
+- Private Drive configuration replaces public CDN delivery. Download/evidence routes authorize workspace membership before opening bytes; serializers omit storage keys and historical public URLs.
+- One selected-source relation scopes dense, lexical, supplementary image and source expansion paths. Generation pins file revision, processing run and configuration; provider URLs expire after 120 seconds.
+- Durable tasks/outbox retain actor, membership epoch, source/input/base-version pins, mutation identity, leases and bounded retries. Revocation cancels tasks; stale leases cannot publish. Recovery commands retain failed dispatch intents.
+- Old unattributed queue payloads are rejected. Original processing/generation jobs now execute persisted tasks; ingestion wakes persisted requests rather than inferring an owner.
+- Verification: typecheck/lint passed; all 39 tests passed. Tests include real PostgreSQL hybrid retrieval boundaries, private HTTP download authorization, duplicate claims, expired execution fencing and revoke/rejoin. Storage/model unit adapters are controlled test doubles; production bucket policy and real provider behavior remain unverified.
+
 ## Remaining implementation
 
-private storage and retrieval; durable actor/workspace tasks and revocation; SMTP invitation flow; metadata/issues; exact-version review/approval/export; complete HumbleBeeAI redesign; browser and end-to-end cutover verification. Nullable tenant columns are intentionally additive until migration audit/cutover gates are complete.
+SMTP invitation flow; metadata/issues; exact-version review/approval/export; complete HumbleBeeAI redesign; browser and end-to-end cutover verification. Nullable tenant columns are intentionally additive until migration audit/cutover gates are complete.
 
 Production conflict mapping, SMTP identity/credentials, bucket policy and artwork remain rollout inputs. This file records actual work, not a claim that the entire feature is ready.

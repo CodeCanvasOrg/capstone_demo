@@ -1,3 +1,5 @@
+import EvidenceService from '#services/documents/evidence_service'
+import ContentService from '#services/documents/content_service'
 import Document from '#models/document'
 import DocumentPolicy from '#policies/document_policy'
 import DocumentTransformer from '#transformers/document_transformer'
@@ -78,6 +80,12 @@ export default class DocumentsController {
         )
       )
       .firstOrFail()
+    for (const version of document.documentVersions)
+      version.content = await new EvidenceService().hydrate(
+        workspaceAccess!,
+        document.id,
+        new ContentService().normalize(version.content)
+      )
     return inertia.render('documents/edit', {
       document: DocumentTransformer.transform(document, workspaceAccess!.actorId),
     })

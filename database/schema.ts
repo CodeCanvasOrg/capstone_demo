@@ -267,6 +267,7 @@ export class DocumentSchema extends BaseModel {
     'generationError',
     'generationLeaseAt',
     'generationStatus',
+    'generationTaskId',
     'id',
     'legacyApprovalUnverified',
     'legacyStatus',
@@ -296,6 +297,8 @@ export class DocumentSchema extends BaseModel {
   declare generationLeaseAt: DateTime | null
   @column()
   declare generationStatus: string
+  @column()
+  declare generationTaskId: string | null
   @column({ isPrimary: true })
   declare id: string
   @column()
@@ -474,6 +477,33 @@ export class ProjectSchema extends BaseModel {
   declare workspaceId: string
 }
 
+export class TaskDispatchSchema extends BaseModel {
+  static $columns = [
+    'attempts',
+    'createdAt',
+    'dispatchedAt',
+    'id',
+    'safeError',
+    'taskId',
+    'updatedAt',
+  ] as const
+  $columns = TaskDispatchSchema.$columns
+  @column()
+  declare attempts: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare dispatchedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare safeError: string | null
+  @column()
+  declare taskId: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+}
+
 export class UserSchema extends BaseModel {
   static $columns = [
     'createdAt',
@@ -575,6 +605,72 @@ export class WorkspaceMembershipSchema extends BaseModel {
   declare updatedAt: DateTime
   @column()
   declare userId: number
+  @column()
+  declare workspaceId: string
+}
+
+export class WorkspaceTaskSchema extends BaseModel {
+  static $columns = [
+    'actorId',
+    'attempts',
+    'createdAt',
+    'documentId',
+    'fileId',
+    'id',
+    'kind',
+    'leaseExpiresAt',
+    'leaseToken',
+    'membershipEpoch',
+    'membershipId',
+    'mutationId',
+    'payload',
+    'requestHash',
+    'result',
+    'runId',
+    'safeError',
+    'status',
+    'updatedAt',
+    'workspaceId',
+  ] as const
+  $columns = WorkspaceTaskSchema.$columns
+  @column()
+  declare actorId: number
+  @column()
+  declare attempts: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare documentId: string | null
+  @column()
+  declare fileId: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare kind: string
+  @column.dateTime()
+  declare leaseExpiresAt: DateTime | null
+  @column()
+  declare leaseToken: string | null
+  @column()
+  declare membershipEpoch: number
+  @column()
+  declare membershipId: string
+  @column()
+  declare mutationId: string
+  @column()
+  declare payload: any
+  @column()
+  declare requestHash: string
+  @column()
+  declare result: any
+  @column()
+  declare runId: string | null
+  @column()
+  declare safeError: string | null
+  @column()
+  declare status: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
   @column()
   declare workspaceId: string
 }

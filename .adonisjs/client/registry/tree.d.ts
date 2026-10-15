@@ -40,8 +40,18 @@ export interface ApiDefinition {
   documentVersions: {
     store: typeof routes['documentVersions.store']
   }
-  uploads: typeof routes['uploads']
+  documentTasks: {
+    generate: typeof routes['documentTasks.generate']
+    sources: typeof routes['documentTasks.sources']
+    show: typeof routes['documentTasks.show']
+  }
+  assets: {
+    download: typeof routes['assets.download']
+    evidence: typeof routes['assets.evidence']
+    evidenceAsset: typeof routes['assets.evidenceAsset']
+  }
   files: {
+    retry: typeof routes['files.retry']
     index: typeof routes['files.index']
     create: typeof routes['files.create']
     store: typeof routes['files.store']
@@ -49,6 +59,7 @@ export interface ApiDefinition {
     update: typeof routes['files.update']
     destroy: typeof routes['files.destroy']
   }
+  uploads: typeof routes['uploads']
   legacy: {
     document: typeof routes['legacy.document']
     export: typeof routes['legacy.export']

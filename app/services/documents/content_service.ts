@@ -4,7 +4,17 @@ import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
 
 export default class ContentService {
   normalize(value: unknown): TipTapDocument {
-    if (JSON.stringify(value).length > 2_000_000)
+    const stack: { value: unknown; depth: number }[] = [{ value, depth: 0 }]
+    let count = 0
+    while (stack.length) {
+      const item = stack.pop()!
+      if (item.depth > 50 || ++count > 50000)
+        throw new Exception('Document is too deeply nested', { status: 422 })
+      if (item.value && typeof item.value === 'object')
+        for (const child of Object.values(item.value))
+          stack.push({ value: child, depth: item.depth + 1 })
+    }
+    if (JSON.stringify(value).length > 2000000)
       throw new Exception('Document is too large', { status: 422 })
     const result = getStructuredOutput().safeParse(value)
     if (!result.success)

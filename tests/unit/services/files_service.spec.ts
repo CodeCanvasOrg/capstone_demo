@@ -3,6 +3,13 @@ import { Readable } from 'node:stream'
 import FileService from '#services/documents/files_service'
 import drive from '@adonisjs/drive/services/main'
 
+const context = {
+  actorId: 1,
+  workspaceId: '00000000-0000-4000-8000-000000000001',
+  membershipId: '00000000-0000-4000-8000-000000000002',
+  membershipEpoch: 0,
+}
+const guard = async () => {}
 type MockFileService = {
   processImage: (
     image: string | Buffer,
@@ -16,7 +23,6 @@ const mockDriveStream = (buffer: Buffer) => {
   drive.use = () =>
     ({
       getStream: () => Promise.resolve(Readable.from([buffer])),
-      getUrl: () => Promise.resolve('https://files.example.test/test.png'),
     }) as any
 
   return () => {
@@ -27,6 +33,7 @@ const mockDriveStream = (buffer: Buffer) => {
 test.group('FileService', () => {
   test('throws error for unsupported file type', async ({ assert }) => {
     const fileProps = {
+      uploaderId: 1,
       id: 'test-file-id',
       filename: 'test.csv',
       objectKey: 'test.csv',
@@ -37,7 +44,7 @@ test.group('FileService', () => {
 
     try {
       await assert.rejects(
-        () => FileService.processFile(fileProps, 1),
+        () => FileService.processFile(fileProps, context, guard),
         'Unsupported file type: .csv'
       )
     } finally {
@@ -50,18 +57,21 @@ test.group('FileService', () => {
       () =>
         FileService.processFile(
           {
+            uploaderId: 1,
             id: 'other-file-id',
             filename: 'other-user.png',
             objectKey: 'uploads/2/other-user.png',
           },
-          1
+          context,
+          guard
         ),
-      'File does not belong to the authenticated user'
+      'File storage reference is outside its workspace lineage'
     )
   })
 
   test('processes images correctly', async ({ assert }) => {
     const fileProps = {
+      uploaderId: 1,
       id: 'test-file-id',
       filename: 'test.png',
       objectKey: 'uploads/1/test.png',
@@ -92,11 +102,14 @@ test.group('FileService', () => {
     ]
 
     try {
-      const result = await FileService.processFile(fileProps, 1)
+      const result = await FileService.processFile(fileProps, context, guard)
 
       assert.equal(result.filename, fileProps.filename)
       assert.equal(result.filetype, '.png')
-      assert.equal(result.blocks[0].sourceLocator.fileUrl, 'https://files.example.test/test.png')
+      assert.equal(
+        result.blocks[0].sourceLocator.fileUrl,
+        `/workspaces/${context.workspaceId}/files/${fileProps.id}/download`
+      )
       assert.equal(result.blocks[0].sourceLocator.mediaType, 'image/png')
       assert.isTrue(Array.isArray(result.blocks))
       assert.lengthOf(result.blocks, 1)

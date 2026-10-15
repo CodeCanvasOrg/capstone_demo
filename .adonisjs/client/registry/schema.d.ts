@@ -295,6 +295,90 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_versions_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'documentTasks.generate': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/generate'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/document_task').generateValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/document_task').generateValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_tasks_controller').default['generate']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_tasks_controller').default['generate']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'documentTasks.sources': {
+    methods: ["PUT"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/sources'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/document_task').sourceSelectionValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/document_task').sourceSelectionValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_tasks_controller').default['sources']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_tasks_controller').default['sources']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'documentTasks.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/tasks/:taskId'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; taskId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_tasks_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_tasks_controller').default['show']>>>
+    }
+  }
+  'assets.download': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/files/:id/download'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/assets_controller').default['download']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/assets_controller').default['download']>>>
+    }
+  }
+  'files.retry': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/files/:id/retry'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/document_task').generateValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/document_task').generateValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_tasks_controller').default['retry']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_tasks_controller').default['retry']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'assets.evidence': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/evidence/:chunkId'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue; chunkId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/assets_controller').default['evidence']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/assets_controller').default['evidence']>>>
+    }
+  }
+  'assets.evidenceAsset': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/evidence/:chunkId/asset'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue; chunkId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/assets_controller').default['asset']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/assets_controller').default['asset']>>>
+    }
+  }
   'uploads': {
     methods: ["POST"]
     pattern: '/workspaces/:workspaceId/files/uploads'

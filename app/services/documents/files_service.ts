@@ -12,12 +12,14 @@ import { PDFParse } from 'pdf-parse'
 import { createWorker, type Worker } from 'tesseract.js'
 
 import File from '#models/file'
+import type { WorkspaceAccessContext } from '#services/workspaces/access_service'
 import type { CanonicalBlock, SourceLocator } from './rag_types.ts'
 
 type FileProps = {
   id: string
   filename: string
   objectKey: string
+  uploaderId: number
 }
 
 type SourceInfo = {
@@ -25,7 +27,8 @@ type SourceInfo = {
   fileUrl: string
   fileName: string
   mediaType: string
-  ownerId: number
+  storageRoot: string
+  guard: () => Promise<void>
 }
 
 type OcrResult = {
@@ -52,22 +55,31 @@ const IMAGE_EXTENSIONS: Record<string, string> = {
 }
 
 export default class FileService {
-  static async processFile({ id, filename, objectKey }: FileProps, ownerId: number) {
+  static async processFile(
+    { id, filename, objectKey, uploaderId }: FileProps,
+    context: WorkspaceAccessContext,
+    guard: () => Promise<void>
+  ) {
     const fileExtName = path.extname(objectKey).toLowerCase()
     const mediaType = FILE_MEDIA_TYPES[fileExtName]
 
     if (!mediaType) throw new Error(`Unsupported file type: ${fileExtName}`)
-    if (!objectKey.startsWith(`uploads/${ownerId}/`)) {
-      throw new Error('File does not belong to the authenticated user')
+    if (
+      !objectKey.startsWith(`workspaces/${context.workspaceId}/`) &&
+      !objectKey.startsWith(`uploads/${uploaderId}/`)
+    ) {
+      throw new Error('File storage reference is outside its workspace lineage')
     }
 
-    const fileUrl = await drive.use().getUrl(objectKey)
+    await guard()
+    const fileUrl = `/workspaces/${context.workspaceId}/files/${id}/download`
     const source: SourceInfo = {
       fileKey: objectKey,
       fileUrl,
       fileName: filename,
       mediaType,
-      ownerId,
+      storageRoot: `workspaces/${context.workspaceId}/derived/${id}`,
+      guard,
     }
     const stream = await drive.use().getStream(objectKey)
     const file = await this.constructStream(stream)
@@ -181,7 +193,7 @@ export default class FileService {
 
         try {
           for (const image of images) {
-            const storedImage = await this.saveToDrive(image.data, source.ownerId)
+            const storedImage = await this.saveToDrive(image.data, source.storageRoot, source.guard)
             generatedAssetKeys.push(storedImage.key)
             const ocr = await this.recognizeImage(image.data, worker)
             const locator = this.locator(source, {
@@ -242,7 +254,12 @@ export default class FileService {
 
         const mediaType = match[1].toLowerCase()
         const imageBytes = Buffer.from(match[2], 'base64')
-        const storedImage = await this.saveToDrive(imageBytes, source.ownerId, mediaType)
+        const storedImage = await this.saveToDrive(
+          imageBytes,
+          source.storageRoot,
+          source.guard,
+          mediaType
+        )
         generatedAssetKeys.push(storedImage.key)
 
         let ocr: OcrResult = { text: '', confidence: null }
@@ -518,14 +535,20 @@ export default class FileService {
       .trim()
   }
 
-  private static async saveToDrive(file: Buffer, ownerId: number, mediaType = 'image/png') {
+  private static async saveToDrive(
+    file: Buffer,
+    storageRoot: string,
+    guard: () => Promise<void>,
+    mediaType = 'image/png'
+  ) {
     const extension = IMAGE_EXTENSIONS[mediaType] ?? 'png'
-    const key = File.createFileName(`uploads/${ownerId}/processed`, `image.${extension}`)
-    await drive.use().put(key, file, { contentType: mediaType })
+    const key = File.createFileName(storageRoot, `image.${extension}`)
+    await guard()
+    await drive.use().put(key, file, { contentType: mediaType, visibility: 'private' })
 
     return {
       key,
-      url: await drive.use().getUrl(key),
+      url: '',
     }
   }
 }

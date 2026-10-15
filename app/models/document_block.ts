@@ -1,10 +1,11 @@
-import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import { DocumentBlockSchema } from '#database/schema'
+import { belongsTo, column } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
 import ProcessingRun from './processing_run.ts'
 import type { CanonicalBlock, SourceLocator } from '#services/documents/rag_types'
 
-export default class DocumentBlock extends BaseModel {
+export default class DocumentBlock extends DocumentBlockSchema {
   static table = 'document_blocks'
 
   @column({ isPrimary: true })

@@ -34,7 +34,7 @@ export default class FileTransformer extends BaseTransformer<File> {
         delete: this.actorId === this.resource.userId,
       },
       processingStatus: revisionsAreLoaded ? (processingStatus ?? 'uploaded') : undefined,
-      processingError: latestRun?.error ?? null,
+      processingError: latestRun?.error ? 'Processing failed. Retry is available.' : null,
       processingWarnings: latestRun?.warnings ?? [],
       chunks:
         'chunks' in this.resource.$preloaded

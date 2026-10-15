@@ -30,10 +30,12 @@ export default class DocumentTransformer extends BaseTransformer<Document> {
         'description',
         'status',
         'generationStatus',
-        'generationError',
         'createdAt',
         'updatedAt',
       ]),
+      generationError: this.resource.generationError
+        ? 'Generation could not finish. Start a new request.'
+        : null,
       capabilities: {
         edit: this.actorId !== undefined,
         delete: this.actorId === this.resource.userId,

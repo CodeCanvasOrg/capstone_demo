@@ -24,6 +24,7 @@ export type TipTapDocument = {
 
 function isWebUrl(value: string | null): value is string {
   if (!value) return false
+  if (/^\/workspaces\/[0-9a-f-]+\/(files|documents)\//i.test(value)) return true
 
   try {
     const url = new URL(value)

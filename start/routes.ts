@@ -35,6 +35,21 @@ router
         router
           .post('/documents/:documentId/versions', [controllers.DocumentVersions, 'handle'])
           .as('documentVersions.store')
+        router
+          .post('/documents/:documentId/generate', [controllers.DocumentTasks, 'generate'])
+          .as('documentTasks.generate')
+        router
+          .put('/documents/:documentId/sources', [controllers.DocumentTasks, 'sources'])
+          .as('documentTasks.sources')
+        router.get('/tasks/:taskId', [controllers.DocumentTasks, 'show']).as('documentTasks.show')
+        router.get('/files/:id/download', [controllers.Assets, 'download']).as('assets.download')
+        router.post('/files/:id/retry', [controllers.DocumentTasks, 'retry']).as('files.retry')
+        router
+          .get('/documents/:documentId/evidence/:chunkId', [controllers.Assets, 'evidence'])
+          .as('assets.evidence')
+        router
+          .get('/documents/:documentId/evidence/:chunkId/asset', [controllers.Assets, 'asset'])
+          .as('assets.evidenceAsset')
         router.post('files/uploads', [controllers.Uploads, 'handle'])
         router.resource('files', controllers.Files).except(['show']).as('files')
       })

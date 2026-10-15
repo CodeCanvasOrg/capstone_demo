@@ -1,11 +1,6 @@
 import env from '#start/env'
 import { defineConfig, services } from '@adonisjs/drive'
 
-const publicStorageUrl = new URL(
-  `/storage/v1/object/public/${env.get('SUPABASE_STORAGE_BUCKET')}/`,
-  env.get('SUPABASE_ENDPOINT')
-).toString()
-
 const driveConfig = defineConfig({
   default: env.get('DRIVE_DISK'),
 
@@ -22,8 +17,7 @@ const driveConfig = defineConfig({
       region: env.get('SUPABASE_STORAGE_REGION'),
       bucket: env.get('SUPABASE_STORAGE_BUCKET'),
       endpoint: env.get('SUPABASE_ENDPOINT'),
-      cdnUrl: publicStorageUrl,
-      visibility: 'public',
+      visibility: 'private',
     }),
   },
 })

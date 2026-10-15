@@ -1,10 +1,11 @@
-import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
+import { FileRevisionSchema } from '#database/schema'
+import { belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
 import File from './file.ts'
 import ProcessingRun from './processing_run.ts'
 
-export default class FileRevision extends BaseModel {
+export default class FileRevision extends FileRevisionSchema {
   static table = 'file_revisions'
 
   @column({ isPrimary: true })

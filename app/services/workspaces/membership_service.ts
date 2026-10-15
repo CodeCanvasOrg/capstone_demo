@@ -31,6 +31,16 @@ export default class MembershipService {
       if (member.revokedAt) return
       member.merge({ revokedAt: DateTime.utc(), authorizationEpoch: member.authorizationEpoch + 1 })
       await member.save()
+      await trx
+        .from('workspace_tasks')
+        .where('membership_id', member.id)
+        .whereIn('status', ['queued', 'running'])
+        .update({
+          status: 'cancelled',
+          lease_token: null,
+          lease_expires_at: null,
+          safe_error: 'Access was revoked',
+        })
     })
   }
 }

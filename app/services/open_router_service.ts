@@ -43,6 +43,7 @@ export default class OpenRouterService {
     this.model = new ChatOpenRouter({
       model: openRouterApiConfig.model,
       apiKey: openRouterApiConfig.apiKey.release(),
+      maxRetries: 0,
     })
 
     this.embeddService = new EmbeddFileService()
@@ -62,7 +63,8 @@ export default class OpenRouterService {
   async generateDocumentWithEvidence(
     title: string,
     description: string,
-    relevantChunks: SourceChunk[]
+    relevantChunks: SourceChunk[],
+    guard?: () => Promise<void>
   ) {
     const context = this.createContext(relevantChunks)
     const promptMessages = await getInitPrompt().formatMessages({
@@ -107,15 +109,16 @@ export default class OpenRouterService {
       new HumanMessage({ content: multimodalContent as never }),
     ]
 
-    const result = await this.runGeneration(this.structuredModel, messages)
+    const result = await this.runGeneration(this.structuredModel, messages, guard)
 
     return attachChunkMetadata(result as TipTapDocument, relevantChunks)
   }
 
-  private async runGeneration(chain: Runnable, input: unknown) {
+  private async runGeneration(chain: Runnable, input: unknown, guard?: () => Promise<void>) {
     for (let i = 1; i <= this.MAX_ATTEMPTS; i++) {
       try {
-        return await chain.invoke(input)
+        await guard?.()
+        return await chain.invoke(input, { signal: AbortSignal.timeout(90000) })
       } catch (error) {
         if (i < this.MAX_ATTEMPTS && this.isRetryable(error)) {
           const delay = 250 * 2 ** (i - 1)

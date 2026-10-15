@@ -150,6 +150,48 @@ const routes = {
     tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/versions","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/versions","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/versions","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/versions","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/versions","type":0,"val":"versions","end":""}],
     types: placeholder as Registry['documentVersions.store']['types'],
   },
+  'documentTasks.generate': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/generate',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/generate","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/generate","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/generate","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/generate","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/generate","type":0,"val":"generate","end":""}],
+    types: placeholder as Registry['documentTasks.generate']['types'],
+  },
+  'documentTasks.sources': {
+    methods: ["PUT"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/sources',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/sources","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/sources","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/sources","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/sources","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/sources","type":0,"val":"sources","end":""}],
+    types: placeholder as Registry['documentTasks.sources']['types'],
+  },
+  'documentTasks.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/tasks/:taskId',
+    tokens: [{"old":"/workspaces/:workspaceId/tasks/:taskId","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/tasks/:taskId","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/tasks/:taskId","type":0,"val":"tasks","end":""},{"old":"/workspaces/:workspaceId/tasks/:taskId","type":1,"val":"taskId","end":""}],
+    types: placeholder as Registry['documentTasks.show']['types'],
+  },
+  'assets.download': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/files/:id/download',
+    tokens: [{"old":"/workspaces/:workspaceId/files/:id/download","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/files/:id/download","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/files/:id/download","type":0,"val":"files","end":""},{"old":"/workspaces/:workspaceId/files/:id/download","type":1,"val":"id","end":""},{"old":"/workspaces/:workspaceId/files/:id/download","type":0,"val":"download","end":""}],
+    types: placeholder as Registry['assets.download']['types'],
+  },
+  'files.retry': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/files/:id/retry',
+    tokens: [{"old":"/workspaces/:workspaceId/files/:id/retry","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/files/:id/retry","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/files/:id/retry","type":0,"val":"files","end":""},{"old":"/workspaces/:workspaceId/files/:id/retry","type":1,"val":"id","end":""},{"old":"/workspaces/:workspaceId/files/:id/retry","type":0,"val":"retry","end":""}],
+    types: placeholder as Registry['files.retry']['types'],
+  },
+  'assets.evidence': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/evidence/:chunkId',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/evidence/:chunkId","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/evidence/:chunkId","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/evidence/:chunkId","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/evidence/:chunkId","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/evidence/:chunkId","type":0,"val":"evidence","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/evidence/:chunkId","type":1,"val":"chunkId","end":""}],
+    types: placeholder as Registry['assets.evidence']['types'],
+  },
+  'assets.evidenceAsset': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/evidence/:chunkId/asset',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/evidence/:chunkId/asset","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/evidence/:chunkId/asset","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/evidence/:chunkId/asset","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/evidence/:chunkId/asset","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/evidence/:chunkId/asset","type":0,"val":"evidence","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/evidence/:chunkId/asset","type":1,"val":"chunkId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/evidence/:chunkId/asset","type":0,"val":"asset","end":""}],
+    types: placeholder as Registry['assets.evidenceAsset']['types'],
+  },
   'uploads': {
     methods: ["POST"],
     pattern: '/workspaces/:workspaceId/files/uploads',

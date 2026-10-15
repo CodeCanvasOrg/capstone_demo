@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto'
 import db from '@adonisjs/lucid/services/db'
 import Document from '#models/document'
 import DocumentVersion from '#models/document_version'
+import EvidenceService from '#services/documents/evidence_service'
 import ContentService from '#services/documents/content_service'
 import AccessService, {
   conflict,
@@ -14,7 +15,11 @@ export default class VersionService {
     id: string,
     input: { content: unknown; baseVersionId: string | null; mutationId: string }
   ) {
-    const content = new ContentService().normalize(input.content)
+    const content = await new EvidenceService().hydrate(
+      context,
+      id,
+      new ContentService().normalize(input.content)
+    )
     const requestHash = createHash('sha256')
       .update(JSON.stringify({ content, baseVersionId: input.baseVersionId }))
       .digest('hex')
@@ -41,7 +46,13 @@ export default class VersionService {
         : null
       if (
         latest &&
-        JSON.stringify(new ContentService().normalize(latest.content)) === JSON.stringify(content)
+        JSON.stringify(
+          await new EvidenceService().hydrate(
+            context,
+            id,
+            new ContentService().normalize(latest.content)
+          )
+        ) === JSON.stringify(content)
       )
         return latest
       const version = await DocumentVersion.create(

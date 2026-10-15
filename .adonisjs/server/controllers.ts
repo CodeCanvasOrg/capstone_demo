@@ -4,7 +4,9 @@
  */
 
 export const controllers = {
+  Assets: () => import('#controllers/assets_controller'),
   DocumentShares: () => import('#controllers/document_shares_controller'),
+  DocumentTasks: () => import('#controllers/document_tasks_controller'),
   DocumentVersions: () => import('#controllers/document_versions_controller'),
   Documents: () => import('#controllers/documents_controller'),
   Entry: () => import('#controllers/entry_controller'),
