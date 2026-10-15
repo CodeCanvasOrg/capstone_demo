@@ -82,11 +82,7 @@ export default class OpenRouterService {
 
     for (const chunk of relevantChunks) {
       const modelFileUrl = chunk.modelFileUrl ?? chunk.fileUrl
-      if (
-        !chunk.mediaType?.startsWith('image/') ||
-        !modelFileUrl ||
-        !this.isWebUrl(modelFileUrl)
-      ) {
+      if (!chunk.mediaType?.startsWith('image/') || !modelFileUrl || !this.isWebUrl(modelFileUrl)) {
         continue
       }
 
