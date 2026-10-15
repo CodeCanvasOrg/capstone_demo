@@ -205,6 +205,54 @@ export class DocumentFileSchema extends BaseModel {
   declare workspaceId: string | null
 }
 
+export class DocumentIssueSchema extends BaseModel {
+  static $columns = [
+    'blocking',
+    'createdAt',
+    'createdById',
+    'description',
+    'documentId',
+    'id',
+    'resolvedAt',
+    'resolvedById',
+    'revision',
+    'state',
+    'title',
+    'updatedAt',
+    'updatedById',
+    'workspaceId',
+  ] as const
+  $columns = DocumentIssueSchema.$columns
+  @column()
+  declare blocking: boolean
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare createdById: number
+  @column()
+  declare description: string | null
+  @column()
+  declare documentId: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column.dateTime()
+  declare resolvedAt: DateTime | null
+  @column()
+  declare resolvedById: number | null
+  @column()
+  declare revision: number
+  @column()
+  declare state: string
+  @column()
+  declare title: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare updatedById: number
+  @column()
+  declare workspaceId: string
+}
+
 export class DocumentShareSchema extends BaseModel {
   static $columns = ['createdAt', 'documentId', 'id', 'role', 'updatedAt', 'userId'] as const
   $columns = DocumentShareSchema.$columns
@@ -536,13 +584,16 @@ export class WorkspaceInvitationSchema extends BaseModel {
     'acceptedAt',
     'acceptedUserId',
     'createdAt',
+    'deliveryAttempts',
     'deliveryState',
+    'deliveryTokenEncrypted',
     'email',
     'emailVerifiedAt',
     'expiresAt',
     'id',
     'inviterId',
     'revokedAt',
+    'sentAt',
     'tokenHash',
     'updatedAt',
     'workspaceId',
@@ -555,7 +606,11 @@ export class WorkspaceInvitationSchema extends BaseModel {
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
   @column()
+  declare deliveryAttempts: number
+  @column()
   declare deliveryState: string
+  @column()
+  declare deliveryTokenEncrypted: string | null
   @column()
   declare email: string
   @column.dateTime()
@@ -568,6 +623,8 @@ export class WorkspaceInvitationSchema extends BaseModel {
   declare inviterId: number
   @column.dateTime()
   declare revokedAt: DateTime | null
+  @column.dateTime()
+  declare sentAt: DateTime | null
   @column()
   declare tokenHash: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })

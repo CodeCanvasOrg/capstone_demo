@@ -1,3 +1,5 @@
+import DocumentIssue from '#models/document_issue'
+import DocumentIssueTransformer from '#transformers/document_issue_transformer'
 import EvidenceService from '#services/documents/evidence_service'
 import ContentService from '#services/documents/content_service'
 import Document from '#models/document'
@@ -86,7 +88,11 @@ export default class DocumentsController {
         document.id,
         new ContentService().normalize(version.content)
       )
+    const issues = await DocumentIssue.query()
+      .where({ workspaceId: workspaceAccess!.workspaceId, documentId: document.id })
+      .orderBy('createdAt', 'desc')
     return inertia.render('documents/edit', {
+      issues: DocumentIssueTransformer.transform(issues),
       document: DocumentTransformer.transform(document, workspaceAccess!.actorId),
     })
   }

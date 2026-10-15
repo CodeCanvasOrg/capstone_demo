@@ -7,6 +7,30 @@ import type { InferInput, SimpleError } from '@vinejs/vine/types'
 export type ParamValue = string | number | bigint | boolean
 
 export interface Registry {
+  'invitationAcceptances.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/invitations/:token'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { token: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/invitation_acceptances_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/invitation_acceptances_controller').default['show']>>>
+    }
+  }
+  'invitationAcceptances.store': {
+    methods: ["POST"]
+    pattern: '/invitations/:token'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { token: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/invitation_acceptances_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/invitation_acceptances_controller').default['store']>>>
+    }
+  }
   'home': {
     methods: ["GET","HEAD"]
     pattern: '/'
@@ -161,6 +185,66 @@ export interface Registry {
       query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/workspace_members_controller').default['destroy']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/workspace_members_controller').default['destroy']>>>
+    }
+  }
+  'workspaceInvitations.store': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/invitations'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/workspace_invitation').invitationValidator)>>
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/workspace_invitation').invitationValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/workspace_invitations_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/workspace_invitations_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'workspaceInvitations.resend': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/invitations/:invitationId/resend'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; invitationId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/workspace_invitations_controller').default['resend']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/workspace_invitations_controller').default['resend']>>>
+    }
+  }
+  'workspaceInvitations.destroy': {
+    methods: ["DELETE"]
+    pattern: '/workspaces/:workspaceId/invitations/:invitationId'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; invitationId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/workspace_invitations_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/workspace_invitations_controller').default['destroy']>>>
+    }
+  }
+  'documentIssues.store': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/issues'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/document_issue').issueValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/document_issue').issueValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_issues_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_issues_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'documentIssues.update': {
+    methods: ["PATCH"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/issues/:issueId'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/document_issue').issueUpdateValidator)>>
+      paramsTuple: [ParamValue, ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue; issueId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/document_issue').issueUpdateValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_issues_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_issues_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'projects.index': {

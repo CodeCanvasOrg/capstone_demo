@@ -6,6 +6,18 @@ import type { ApiDefinition } from './tree.d.ts'
 const placeholder: any = {}
 
 const routes = {
+  'invitationAcceptances.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/invitations/:token',
+    tokens: [{"old":"/invitations/:token","type":0,"val":"invitations","end":""},{"old":"/invitations/:token","type":1,"val":"token","end":""}],
+    types: placeholder as Registry['invitationAcceptances.show']['types'],
+  },
+  'invitationAcceptances.store': {
+    methods: ["POST"],
+    pattern: '/invitations/:token',
+    tokens: [{"old":"/invitations/:token","type":0,"val":"invitations","end":""},{"old":"/invitations/:token","type":1,"val":"token","end":""}],
+    types: placeholder as Registry['invitationAcceptances.store']['types'],
+  },
   'home': {
     methods: ["GET","HEAD"],
     pattern: '/',
@@ -83,6 +95,36 @@ const routes = {
     pattern: '/workspaces/:workspaceId/members/:membershipId',
     tokens: [{"old":"/workspaces/:workspaceId/members/:membershipId","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/members/:membershipId","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/members/:membershipId","type":0,"val":"members","end":""},{"old":"/workspaces/:workspaceId/members/:membershipId","type":1,"val":"membershipId","end":""}],
     types: placeholder as Registry['workspace_members.destroy']['types'],
+  },
+  'workspaceInvitations.store': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/invitations',
+    tokens: [{"old":"/workspaces/:workspaceId/invitations","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/invitations","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/invitations","type":0,"val":"invitations","end":""}],
+    types: placeholder as Registry['workspaceInvitations.store']['types'],
+  },
+  'workspaceInvitations.resend': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/invitations/:invitationId/resend',
+    tokens: [{"old":"/workspaces/:workspaceId/invitations/:invitationId/resend","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/invitations/:invitationId/resend","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/invitations/:invitationId/resend","type":0,"val":"invitations","end":""},{"old":"/workspaces/:workspaceId/invitations/:invitationId/resend","type":1,"val":"invitationId","end":""},{"old":"/workspaces/:workspaceId/invitations/:invitationId/resend","type":0,"val":"resend","end":""}],
+    types: placeholder as Registry['workspaceInvitations.resend']['types'],
+  },
+  'workspaceInvitations.destroy': {
+    methods: ["DELETE"],
+    pattern: '/workspaces/:workspaceId/invitations/:invitationId',
+    tokens: [{"old":"/workspaces/:workspaceId/invitations/:invitationId","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/invitations/:invitationId","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/invitations/:invitationId","type":0,"val":"invitations","end":""},{"old":"/workspaces/:workspaceId/invitations/:invitationId","type":1,"val":"invitationId","end":""}],
+    types: placeholder as Registry['workspaceInvitations.destroy']['types'],
+  },
+  'documentIssues.store': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/issues',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/issues","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/issues","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/issues","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/issues","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/issues","type":0,"val":"issues","end":""}],
+    types: placeholder as Registry['documentIssues.store']['types'],
+  },
+  'documentIssues.update': {
+    methods: ["PATCH"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/issues/:issueId',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/issues/:issueId","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/issues/:issueId","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/issues/:issueId","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/issues/:issueId","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/issues/:issueId","type":0,"val":"issues","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/issues/:issueId","type":1,"val":"issueId","end":""}],
+    types: placeholder as Registry['documentIssues.update']['types'],
   },
   'projects.index': {
     methods: ["GET","HEAD"],

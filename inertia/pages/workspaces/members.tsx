@@ -1,6 +1,11 @@
 import { Head } from '@inertiajs/react'
 import type { Data } from '@generated/data'
-export default function Members({ members }: { members: Data.WorkspaceMembership[] }) {
+export default function Members({
+  members,
+}: {
+  members: Data.WorkspaceMembership[]
+  invitations?: Data.WorkspaceInvitation[]
+}) {
   return (
     <div className="mx-auto max-w-4xl space-y-6 p-6 md:p-10">
       <Head title="Workspace members" />

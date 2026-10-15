@@ -7,12 +7,15 @@ export default class SessionController {
     return inertia.render('auth/login', {})
   }
 
-  async store({ request, auth, response }: HttpContext) {
+  async store({ request, auth, response, session }: HttpContext) {
     const { email, password } = await request.validateUsing(loginValidator)
-    const user = await User.verifyCredentials(email, password)
+    const user = await User.verifyCredentials(email.trim().toLowerCase(), password)
 
     await auth.use('web').login(user)
-    response.redirect().toRoute('home')
+    const intended = session.get('invitationReturnTo')
+    if (typeof intended === 'string' && /^\/invitations\/[a-f0-9]{64}$/i.test(intended))
+      return response.redirect().toPath(intended)
+    return response.redirect().toRoute('home')
   }
 
   async destroy({ auth, response }: HttpContext) {

@@ -2,6 +2,10 @@
 import type { routes } from './index.ts'
 
 export interface ApiDefinition {
+  invitationAcceptances: {
+    show: typeof routes['invitationAcceptances.show']
+    store: typeof routes['invitationAcceptances.store']
+  }
   home: typeof routes['home']
   newAccount: {
     create: typeof routes['new_account.create']
@@ -22,6 +26,15 @@ export interface ApiDefinition {
   workspaceMembers: {
     index: typeof routes['workspace_members.index']
     destroy: typeof routes['workspace_members.destroy']
+  }
+  workspaceInvitations: {
+    store: typeof routes['workspaceInvitations.store']
+    resend: typeof routes['workspaceInvitations.resend']
+    destroy: typeof routes['workspaceInvitations.destroy']
+  }
+  documentIssues: {
+    store: typeof routes['documentIssues.store']
+    update: typeof routes['documentIssues.update']
   }
   projects: {
     index: typeof routes['projects.index']

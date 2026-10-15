@@ -2,6 +2,13 @@ import { middleware } from '#start/kernel'
 import { controllers } from '#generated/controllers'
 import router from '@adonisjs/core/services/router'
 
+router
+  .get('/invitations/:token', [controllers.InvitationAcceptances, 'show'])
+  .as('invitationAcceptances.show')
+router
+  .post('/invitations/:token', [controllers.InvitationAcceptances, 'store'])
+  .use(middleware.auth())
+  .as('invitationAcceptances.store')
 router.get('/', [controllers.Entry, 'handle']).as('home')
 router
   .group(() => {
@@ -27,6 +34,21 @@ router
         router
           .delete('/members/:membershipId', [controllers.WorkspaceMembers, 'destroy'])
           .as('workspace_members.destroy')
+        router
+          .post('/invitations', [controllers.WorkspaceInvitations, 'store'])
+          .as('workspaceInvitations.store')
+        router
+          .post('/invitations/:invitationId/resend', [controllers.WorkspaceInvitations, 'resend'])
+          .as('workspaceInvitations.resend')
+        router
+          .delete('/invitations/:invitationId', [controllers.WorkspaceInvitations, 'destroy'])
+          .as('workspaceInvitations.destroy')
+        router
+          .post('/documents/:documentId/issues', [controllers.DocumentIssues, 'store'])
+          .as('documentIssues.store')
+        router
+          .patch('/documents/:documentId/issues/:issueId', [controllers.DocumentIssues, 'update'])
+          .as('documentIssues.update')
         router.get('/projects', [controllers.Projects, 'index']).as('projects.index')
         router.post('/projects', [controllers.Projects, 'store']).as('projects.store')
         router.get('/projects/:projectId', [controllers.Projects, 'show']).as('projects.show')

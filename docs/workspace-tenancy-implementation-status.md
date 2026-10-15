@@ -33,8 +33,15 @@ Checks: typecheck passed; lint passed; 26 tests passed (19 existing unit and 7 n
 - Old unattributed queue payloads are rejected. Original processing/generation jobs now execute persisted tasks; ingestion wakes persisted requests rather than inferring an owner.
 - Verification: typecheck/lint passed; all 39 tests passed. Tests include real PostgreSQL hybrid retrieval boundaries, private HTTP download authorization, duplicate claims, expired execution fencing and revoke/rejoin. Storage/model unit adapters are controlled test doubles; production bucket policy and real provider behavior remain unverified.
 
+## Verified invitations and editor metadata
+
+- Installed/configured Adonis Mail through Ace; SMTP supports authenticated deployment and local delivery capture. Invitations carry encrypted delivery material, hashed expiring single-use tokens, owner controls and retryable delivery state.
+- Acceptance requires the addressed authenticated account, is transactional and duplicate-safe, and advances authorization epoch when explicitly rejoining. GET only previews; login/signup preserve the invitation destination.
+- Document deadlines validate real calendar dates. Workspace-scoped issues retain creator/updater/resolver timestamps, revision conflicts, open/resolved state and blocking flags.
+- Verification: typecheck and lint passed; all 44 tests passed. Mail is faked in functional tests; the failure test invokes the real delivery service with a failing transport adapter and confirms the retained invitation. No external recipient was emailed.
+
 ## Remaining implementation
 
-SMTP invitation flow; metadata/issues; exact-version review/approval/export; complete HumbleBeeAI redesign; browser and end-to-end cutover verification. Nullable tenant columns are intentionally additive until migration audit/cutover gates are complete.
+exact-version review/approval/export; complete HumbleBeeAI redesign; browser and end-to-end cutover verification. Nullable tenant columns are intentionally additive until migration audit/cutover gates are complete.
 
 Production conflict mapping, SMTP identity/credentials, bucket policy and artwork remain rollout inputs. This file records actual work, not a claim that the entire feature is ready.
