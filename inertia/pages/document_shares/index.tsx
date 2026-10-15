@@ -1,3 +1,4 @@
+import { useWorkspaceId } from '@/providers/workspace_provider'
 import { type Data } from '@generated/data'
 import { Link } from '@adonisjs/inertia/react'
 import { FileText, Plus } from 'lucide-react'
@@ -8,6 +9,7 @@ import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components
 import DocumentCard from '@/components/documents/document_card'
 
 export default function Index({ documents }: InertiaProps<{ documents: Data.Document[] }>) {
+  const workspaceId = useWorkspaceId()
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-14">
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
@@ -35,7 +37,7 @@ export default function Index({ documents }: InertiaProps<{ documents: Data.Docu
               </p>
             </div>
             <Button asChild>
-              <Link route="documents.create">
+              <Link route="documents.create" routeParams={{ workspaceId }}>
                 <Plus />
                 Create document
               </Link>

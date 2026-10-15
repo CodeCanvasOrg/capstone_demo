@@ -1,3 +1,4 @@
+import { useWorkspaceId } from '@/providers/workspace_provider'
 import { cn } from 'cn'
 import { toast } from 'sonner'
 import {
@@ -54,7 +55,7 @@ function toPendingCard(file: File): FilePreview {
     filename: file.name,
     filetype: `.${file.name.split('.').pop()?.toLowerCase() ?? ''}`,
     objectKey: '',
-    objectUrl: '',
+    downloadUrl: '',
   }
 }
 
@@ -64,6 +65,7 @@ export default function FileUploadForm({
   onRemove,
   disabled,
 }: FileUploadFormProps) {
+  const workspaceId = useWorkspaceId()
   const inputRef = useRef<HTMLInputElement>(null)
   const dragCounter = useRef(0)
   const [dragging, setDragging] = useState(false)
@@ -81,7 +83,7 @@ export default function FileUploadForm({
     formData.append('file', file)
 
     try {
-      const response = await fetch('/files/uploads', {
+      const response = await fetch(`/workspaces/${workspaceId}/files/uploads`, {
         method: 'POST',
         headers: { 'X-XSRF-TOKEN': getXsrfToken() },
         body: formData,
@@ -234,7 +236,7 @@ export default function FileUploadForm({
       {files.length > 0 && (
         <ul aria-live="polite" className="flex flex-col gap-2">
           {files.map((file, index) => (
-            <li key={`${file.objectKey}-${index}`}>
+            <li key={`${file.id}-${index}`}>
               <FileCard file={file} onRemove={() => onRemove(index)} disabled={isDisabled} />
             </li>
           ))}

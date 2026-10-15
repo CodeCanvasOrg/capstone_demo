@@ -1,3 +1,4 @@
+import { useWorkspaceId } from '@/providers/workspace_provider'
 import { Head } from '@inertiajs/react'
 import { PageIntro } from '@/components/page_intro'
 import { Reveal } from '@/components/reveal'
@@ -10,7 +11,14 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import DocumentCard from '@/components/documents/document_card'
 
-export default function Index({ documents }: InertiaProps<{ documents: Data.Document[] }>) {
+export default function Index({
+  documents,
+}: InertiaProps<{
+  documents: Data.Document[]
+  pagination?: { total: number; currentPage: number; lastPage: number; perPage: number }
+  filters?: { q: string; status?: string; project?: string }
+}>) {
+  const workspaceId = useWorkspaceId()
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-14">
       <Head title="Documents" />
@@ -20,7 +28,7 @@ export default function Index({ documents }: InertiaProps<{ documents: Data.Docu
         description="Shape your ideas into documents you can refine and share."
         action={
           <Button asChild>
-            <Link route="documents.create">
+            <Link route="documents.create" routeParams={{ workspaceId }}>
               <Plus />
               New document
             </Link>
@@ -50,7 +58,7 @@ export default function Index({ documents }: InertiaProps<{ documents: Data.Docu
                 </p>
               </div>
               <Button asChild>
-                <Link route="documents.create">
+                <Link route="documents.create" routeParams={{ workspaceId }}>
                   <Plus />
                   Create document
                 </Link>

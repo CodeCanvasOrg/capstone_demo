@@ -1,3 +1,4 @@
+import { useWorkspaceId } from '@/providers/workspace_provider'
 import { type Data } from '@generated/data'
 import { Form, Link } from '@adonisjs/inertia/react'
 import { MoreHorizontal } from 'lucide-react'
@@ -35,12 +36,13 @@ type DocumentCardProps = {
 }
 
 export default function DocumentCard({ document }: DocumentCardProps) {
+  const workspaceId = useWorkspaceId()
   return (
     <TableRow role="row">
       <TableCell role="cell" className="py-3 pl-5">
         <Link
           route="documents.edit"
-          routeParams={{ id: document.id }}
+          routeParams={{ workspaceId, id: document.id }}
           className="group flex min-w-0 flex-col gap-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
         >
           <span className="block truncate font-medium group-hover:underline">
@@ -72,7 +74,7 @@ export default function DocumentCard({ document }: DocumentCardProps) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem asChild>
-                <Link route="documents.edit" routeParams={{ id: document.id }}>
+                <Link route="documents.edit" routeParams={{ workspaceId, id: document.id }}>
                   Edit
                 </Link>
               </DropdownMenuItem>
@@ -99,7 +101,7 @@ export default function DocumentCard({ document }: DocumentCardProps) {
               <AlertDialogCancel asChild>
                 <Button variant="outline">Cancel</Button>
               </AlertDialogCancel>
-              <Form route="documents.destroy" routeParams={{ id: document.id }}>
+              <Form route="documents.destroy" routeParams={{ workspaceId, id: document.id }}>
                 {({ processing }) => (
                   <Button type="submit" variant="destructive" disabled={processing}>
                     {processing ? 'Deleting…' : 'Delete'}

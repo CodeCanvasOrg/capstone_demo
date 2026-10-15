@@ -6,8 +6,8 @@ export type FileUpload = {
   id: string
   filename: string
   filetype: string | null
-  objectKey: string
-  objectUrl: string
+  objectKey?: string
+  downloadUrl: string | null
   processingStatus?: 'uploaded' | 'processing' | 'ready' | 'failed'
 }
 
@@ -26,9 +26,9 @@ export default function FileCard({ file, onRemove, disabled }: FileCardProps) {
 
   return (
     <div className="flex items-center gap-3 border border-border bg-card py-2.5 pr-2.5 pl-3">
-      {isImage && file.objectUrl ? (
+      {isImage && file.downloadUrl ? (
         <img
-          src={file.objectUrl}
+          src={file.downloadUrl}
           alt=""
           className="size-9 shrink-0 border border-border object-cover"
         />

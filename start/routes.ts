@@ -1,55 +1,83 @@
-/*
-|--------------------------------------------------------------------------
-| Routes file
-|--------------------------------------------------------------------------
-|
-| The routes file is used for defining the HTTP routes.
-|
-*/
-
 import { middleware } from '#start/kernel'
 import { controllers } from '#generated/controllers'
 import router from '@adonisjs/core/services/router'
 
-router.on('/').renderInertia('home', {}).as('home')
-
+router.get('/', [controllers.Entry, 'handle']).as('home')
 router
   .group(() => {
     router.get('signup', [controllers.NewAccount, 'create'])
     router.post('signup', [controllers.NewAccount, 'store'])
-
     router.get('login', [controllers.Session, 'create'])
     router.post('login', [controllers.Session, 'store'])
   })
   .use(middleware.guest())
-
 router
   .group(() => {
     router.post('logout', [controllers.Session, 'destroy'])
-
-    // Documents
-    router.resource('documents', () => import('#controllers/documents_controller')).except(['show'])
+    router.get('/workspaces', [controllers.Workspaces, 'index']).as('workspaces.index')
+    router.post('/workspaces', [controllers.Workspaces, 'store']).as('workspaces.store')
     router
       .group(() => {
-        // Creating document versions for version control
+        router.get('/', [controllers.Workspaces, 'show']).as('workspaces.show')
+        router.patch('/', [controllers.Workspaces, 'update']).as('workspaces.update')
+        router.post('/selection', [controllers.Workspaces, 'select']).as('workspaces.select')
         router
-          .post('/versions', [() => import('#controllers/document_versions_controller'), 'handle'])
+          .get('/members', [controllers.WorkspaceMembers, 'index'])
+          .as('workspace_members.index')
+        router
+          .delete('/members/:membershipId', [controllers.WorkspaceMembers, 'destroy'])
+          .as('workspace_members.destroy')
+        router.get('/projects', [controllers.Projects, 'index']).as('projects.index')
+        router.post('/projects', [controllers.Projects, 'store']).as('projects.store')
+        router.get('/projects/:projectId', [controllers.Projects, 'show']).as('projects.show')
+        router.patch('/projects/:projectId', [controllers.Projects, 'update']).as('projects.update')
+        router.resource('documents', controllers.Documents).except(['show'])
+        router
+          .post('/documents/:documentId/versions', [controllers.DocumentVersions, 'handle'])
           .as('documentVersions.store')
-        // Sharing documents
-        router
-          .resource('/shares', controllers.DocumentShares)
-          .except(['index', 'show', 'edit', 'create'])
-        // Exporting Documents
-        router.get('/export/pdf', [controllers.ExportPdfs, 'handle'])
+        router.post('files/uploads', [controllers.Uploads, 'handle'])
+        router.resource('files', controllers.Files).except(['show']).as('files')
       })
-      .prefix('documents/:documentId')
-    router.get('documents/shares', [
-      () => import('#controllers/document_shares_controller'),
-      'index',
-    ])
+      .prefix('/workspaces/:workspaceId')
+      .use(middleware.resolveWorkspace())
 
-    // Files routes
-    router.post('files/uploads', [controllers.Uploads, 'handle'])
-    router.resource('files', controllers.Files).except(['show']).as('files')
+    // GET compatibility is authorized against the resource's actual workspace.
+    router
+      .get('/documents/:id/edit', [controllers.LegacyResources, 'document'])
+      .as('legacy.document')
+    router
+      .get('/documents/:documentId/export/pdf', [controllers.LegacyResources, 'document'])
+      .as('legacy.export')
+    router.get('/files/:id/edit', [controllers.LegacyResources, 'file']).as('legacy.file')
+    router.get('/documents', [controllers.Entry, 'handle']).as('legacy.entry0')
+    router.get('/documents/create', [controllers.Entry, 'handle']).as('legacy.entry1')
+    router.get('/documents/shares', [controllers.Entry, 'handle']).as('legacy.entry2')
+    router.get('/files', [controllers.Entry, 'handle']).as('legacy.entry3')
+    router.get('/files/create', [controllers.Entry, 'handle']).as('legacy.entry4')
+    router
+      .post('/documents/:documentId/shares', [controllers.LegacyResources, 'retired'])
+      .as('shares.store')
+    router
+      .put('/documents/:documentId/shares/:id', [controllers.LegacyResources, 'retired'])
+      .as('shares.update')
+    router
+      .delete('/documents/:documentId/shares/:id', [controllers.LegacyResources, 'retired'])
+      .as('shares.destroy')
+    for (const prefix of ['documents', 'files']) {
+      router
+        .route(
+          `/${prefix}`,
+          ['POST', 'PUT', 'PATCH', 'DELETE'],
+          [controllers.LegacyResources, 'retired']
+        )
+        .as(`legacy.${prefix}.collection`)
+      router
+        .route(
+          `/${prefix}/*`,
+          ['POST', 'PUT', 'PATCH', 'DELETE'],
+          [controllers.LegacyResources, 'retired']
+        )
+        .as(`legacy.${prefix}.mutation`)
+    }
   })
   .use(middleware.auth())

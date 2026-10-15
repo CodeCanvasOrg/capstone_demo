@@ -1,0 +1,148 @@
+import db from '@adonisjs/lucid/services/db'
+import Document from '#models/document'
+import File from '#models/file'
+import Project from '#models/project'
+import AccessService, {
+  conflict,
+  missingResource,
+  type WorkspaceAccessContext,
+} from '#services/workspaces/access_service'
+import { Exception } from '@adonisjs/core/exceptions'
+import { DateTime } from 'luxon'
+
+export const INFORMATION_FIELDS = [
+  'overview',
+  'problemStatement',
+  'workCompleted',
+  'technicalApproach',
+  'tools',
+  'challenges',
+  'results',
+] as const
+export type ProjectInformation = Record<(typeof INFORMATION_FIELDS)[number], string>
+export const emptyInformation = (): ProjectInformation =>
+  Object.fromEntries(INFORMATION_FIELDS.map((key) => [key, ''])) as ProjectInformation
+export type DocumentInput = {
+  title: string
+  description?: string | null
+  projectId?: string | null
+  dueDate?: string | null
+  projectInformation?: Partial<ProjectInformation>
+  sourceMode?: 'files' | 'input_only'
+}
+
+export default class DocumentService {
+  async create(context: WorkspaceAccessContext, input: DocumentInput, fileIds: string[]) {
+    if (
+      input.dueDate &&
+      (!DateTime.fromISO(input.dueDate).isValid ||
+        DateTime.fromISO(input.dueDate).toISODate() !== input.dueDate)
+    )
+      throw new Exception('Invalid calendar deadline', { status: 422 })
+    return db.transaction(async (trx) => {
+      await new AccessService().lock(context, trx)
+      if (
+        input.projectId &&
+        !(await Project.query({ client: trx })
+          .where({ id: input.projectId, workspaceId: context.workspaceId })
+          .first())
+      )
+        throw missingResource()
+      const ids = [...new Set(fileIds)]
+      const files = await File.query({ client: trx })
+        .where('workspaceId', context.workspaceId)
+        .whereIn('id', ids)
+        .forUpdate()
+      if (files.length !== ids.length) throw missingResource()
+      if (input.sourceMode === 'input_only' && ids.length)
+        throw conflict('Input-only documents cannot select source files')
+      const document = await Document.create(
+        {
+          workspaceId: context.workspaceId,
+          userId: context.actorId,
+          title: input.title,
+          description: input.description ?? null,
+          projectId: input.projectId ?? null,
+          dueDate: input.dueDate ? DateTime.fromISO(input.dueDate) : null,
+          projectInformation: Object.fromEntries(
+            INFORMATION_FIELDS.map((key) => [key, input.projectInformation?.[key] ?? ''])
+          ),
+          sourceMode: input.sourceMode ?? 'files',
+          status: 'draft',
+          generationStatus: 'ready',
+        },
+        { client: trx }
+      )
+      if (ids.length)
+        await trx.table('document_files').insert(
+          ids.map((filesId) => ({
+            workspace_id: context.workspaceId,
+            document_id: document.id,
+            files_id: filesId,
+          }))
+        )
+      return document
+    })
+  }
+  async update(
+    context: WorkspaceAccessContext,
+    id: string,
+    input: DocumentInput & { metadataRevision: number }
+  ) {
+    if (
+      input.dueDate &&
+      (!DateTime.fromISO(input.dueDate).isValid ||
+        DateTime.fromISO(input.dueDate).toISODate() !== input.dueDate)
+    )
+      throw new Exception('Invalid calendar deadline', { status: 422 })
+    return db.transaction(async (trx) => {
+      await new AccessService().lock(context, trx)
+      const document = await Document.query({ client: trx })
+        .where({ id, workspaceId: context.workspaceId })
+        .forUpdate()
+        .firstOrFail()
+      if (document.metadataRevision !== input.metadataRevision)
+        throw conflict('This document changed. Keep your input and reload its latest metadata.')
+      if (
+        input.projectId &&
+        !(await Project.query({ client: trx })
+          .where({ id: input.projectId, workspaceId: context.workspaceId })
+          .first())
+      )
+        throw missingResource()
+      const changesContent =
+        input.title !== document.title ||
+        (input.description ?? null) !== document.description ||
+        (input.projectInformation &&
+          JSON.stringify(input.projectInformation) !== JSON.stringify(document.projectInformation))
+      document.merge({
+        title: input.title,
+        description: input.description ?? null,
+        projectId: input.projectId ?? null,
+        dueDate: input.dueDate ? DateTime.fromISO(input.dueDate) : null,
+        projectInformation: input.projectInformation
+          ? Object.fromEntries(
+              INFORMATION_FIELDS.map((key) => [key, input.projectInformation?.[key] ?? ''])
+            )
+          : document.projectInformation,
+        metadataRevision: document.metadataRevision + 1,
+      })
+      if (changesContent && ['in_review', 'approved'].includes(document.status ?? ''))
+        document.status = 'edited'
+      await document.save()
+      return document
+    })
+  }
+  async destroy(context: WorkspaceAccessContext, id: string) {
+    return db.transaction(async (trx) => {
+      await new AccessService().lock(context, trx)
+      const document = await Document.query({ client: trx })
+        .where({ id, workspaceId: context.workspaceId })
+        .forUpdate()
+        .firstOrFail()
+      if (document.userId !== context.actorId)
+        throw new Exception('Only the document owner can delete it', { status: 403 })
+      await document.delete()
+    })
+  }
+}

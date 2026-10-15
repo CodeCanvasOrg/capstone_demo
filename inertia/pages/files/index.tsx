@@ -1,3 +1,4 @@
+import { useWorkspaceId } from '@/providers/workspace_provider'
 import { Head } from '@inertiajs/react'
 import { PageIntro } from '@/components/page_intro'
 import { Reveal } from '@/components/reveal'
@@ -11,7 +12,14 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import FileIndexCard from '@/components/files/index_card'
 
-export default function Index({ files }: InertiaProps<{ files: Data.File[] }>) {
+export default function Index({
+  files,
+}: InertiaProps<{
+  files: Data.File[]
+  pagination?: { total: number; currentPage: number; lastPage: number; perPage: number }
+  filters?: { q: string; status?: string; project?: string }
+}>) {
+  const workspaceId = useWorkspaceId()
   const router = useRouter()
   const hasPendingProcessing = files.some(
     (file) => file.processingStatus === 'uploaded' || file.processingStatus === 'processing'
@@ -39,7 +47,7 @@ export default function Index({ files }: InertiaProps<{ files: Data.File[] }>) {
         description="Keep the documents, notes, and images behind your next story together."
         action={
           <Button asChild>
-            <Link route="files.create">
+            <Link route="files.create" routeParams={{ workspaceId }}>
               <Plus />
               Upload files
             </Link>
@@ -69,7 +77,7 @@ export default function Index({ files }: InertiaProps<{ files: Data.File[] }>) {
                 </p>
               </div>
               <Button asChild>
-                <Link route="files.create">
+                <Link route="files.create" routeParams={{ workspaceId }}>
                   <Plus />
                   Upload files
                 </Link>

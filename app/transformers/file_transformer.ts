@@ -4,6 +4,12 @@ import ChunkTransformer from './chunk_transformer.ts'
 import DocumentTransformer from './document_transformer.ts'
 
 export default class FileTransformer extends BaseTransformer<File> {
+  constructor(
+    resource: File,
+    private actorId?: number
+  ) {
+    super(resource)
+  }
   toObject() {
     const revisionsAreLoaded = 'revisions' in this.resource.$preloaded
     const latestRevision = revisionsAreLoaded ? this.resource.revisions[0] : undefined
@@ -16,10 +22,17 @@ export default class FileTransformer extends BaseTransformer<File> {
         'id',
         'filename',
         'filetype',
-        'objectUrl',
-        'objectKey',
+        'workspaceId',
+        'userId',
         'createdAt',
       ]),
+      downloadUrl: this.resource.workspaceId
+        ? `/workspaces/${this.resource.workspaceId}/files/${this.resource.id}/download`
+        : null,
+      capabilities: {
+        rename: this.actorId === this.resource.userId,
+        delete: this.actorId === this.resource.userId,
+      },
       processingStatus: revisionsAreLoaded ? (processingStatus ?? 'uploaded') : undefined,
       processingError: latestRun?.error ?? null,
       processingWarnings: latestRun?.warnings ?? [],
@@ -29,7 +42,7 @@ export default class FileTransformer extends BaseTransformer<File> {
           : undefined,
       documents:
         'documents' in this.resource.$preloaded
-          ? DocumentTransformer.transform(this.resource.documents)
+          ? DocumentTransformer.transform(this.resource.documents, this.actorId)
           : undefined,
     }
   }

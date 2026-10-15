@@ -1,3 +1,4 @@
+import { useWorkspaceId } from '@/providers/workspace_provider'
 import { Head } from '@inertiajs/react'
 import { type Data } from '@generated/data'
 import { Form, Link, useRouter } from '@adonisjs/inertia/react'
@@ -26,6 +27,7 @@ import { type InertiaProps } from '@/types'
 const EMPTY_DOC = { type: 'doc', content: [] }
 
 export default function Edit({ document }: InertiaProps<{ document: Data.Document }>) {
+  const workspaceId = useWorkspaceId()
   const router = useRouter()
   const shares = document.documentShares ?? []
   const versions = document.documentVersions ?? []
@@ -54,6 +56,7 @@ export default function Edit({ document }: InertiaProps<{ document: Data.Documen
         <div className="mx-auto flex min-h-14 max-w-6xl flex-wrap items-center gap-2 px-4 py-2 md:px-10">
           <Link
             route="documents.index"
+            routeParams={{ workspaceId }}
             className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             <ArrowLeft className="size-4" />
@@ -72,7 +75,11 @@ export default function Edit({ document }: InertiaProps<{ document: Data.Documen
         </div>
 
         {isReady ? (
-          <DocumentEditor documentId={document.id} initialContent={latestContent} />
+          <DocumentEditor
+            documentId={document.id}
+            initialContent={latestContent}
+            baseVersionId={document.currentVersionId}
+          />
         ) : (
           <Card role="status" aria-live="polite" className="mx-auto my-12 w-[min(100%-2rem,56rem)]">
             <CardHeader>
@@ -139,7 +146,7 @@ export default function Edit({ document }: InertiaProps<{ document: Data.Documen
                 <AlertDialogCancel asChild>
                   <Button variant="outline">Cancel</Button>
                 </AlertDialogCancel>
-                <Form route="documents.destroy" routeParams={{ id: document.id }}>
+                <Form route="documents.destroy" routeParams={{ workspaceId, id: document.id }}>
                   {({ processing }) => (
                     <Button type="submit" variant="destructive" disabled={processing}>
                       {processing ? 'Deleting…' : 'Delete'}

@@ -1,3 +1,4 @@
+import { useWorkspaceId } from '@/providers/workspace_provider'
 import { type Data } from '@generated/data'
 import { Link, useRouter } from '@adonisjs/inertia/react'
 import { useForm } from '@inertiajs/react'
@@ -18,8 +19,8 @@ import { type InertiaProps } from '@/types'
 type FileFormData = {
   filename: string
   filetype: string | null
-  objectKey: string
-  objectUrl: string
+  objectKey?: string
+  downloadUrl: string | null
 }
 
 const IMAGE_TYPES = ['.png', '.jpg', '.jpeg']
@@ -39,6 +40,7 @@ function getFileType(filetype: string | null) {
 }
 
 export default function Edit({ file }: InertiaProps<{ file: Data.File }>) {
+  const workspaceId = useWorkspaceId()
   const router = useRouter()
   const [submitting, setSubmitting] = useState(false)
   const documents = file.documents ?? []
@@ -49,8 +51,8 @@ export default function Edit({ file }: InertiaProps<{ file: Data.File }>) {
   const form = useForm<FileFormData>({
     filename: file.filename ?? '',
     filetype: file.filetype,
-    objectKey: file.objectKey ?? '',
-    objectUrl: file.objectUrl ?? '',
+    objectKey: file.id ?? '',
+    downloadUrl: file.downloadUrl ?? '',
   })
 
   useEffect(() => {
@@ -71,7 +73,7 @@ export default function Edit({ file }: InertiaProps<{ file: Data.File }>) {
     if (submitting) return
     form.clearErrors()
     setSubmitting(true)
-    router.put({ route: 'files.update', routeParams: { id: file.id } }, form.data, {
+    router.put({ route: 'files.update', routeParams: { workspaceId, id: file.id } }, form.data, {
       preserveScroll: true,
       onError: (errors: Record<string, string>) => form.setError(errors),
       onFinish: () => setSubmitting(false),
@@ -84,14 +86,15 @@ export default function Edit({ file }: InertiaProps<{ file: Data.File }>) {
         <div className="flex h-14 w-full items-center gap-2 px-4 md:px-10">
           <Link
             route="files.index"
+            routeParams={{ workspaceId }}
             className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             <ArrowLeft className="size-4" />
             Back to files
           </Link>
-          {file.objectUrl && (
+          {file.downloadUrl && (
             <Button asChild variant="outline" size="sm" className="ml-auto">
-              <a href={file.objectUrl} target="_blank" rel="noreferrer">
+              <a href={file.downloadUrl} target="_blank" rel="noreferrer">
                 <ExternalLink />
                 Open file
               </a>
@@ -125,9 +128,9 @@ export default function Edit({ file }: InertiaProps<{ file: Data.File }>) {
               </CardHeader>
               <CardContent className="p-0">
                 <div className="flex min-h-64 items-center justify-center bg-muted/30 p-6 md:min-h-80">
-                  {isImage && file.objectUrl ? (
+                  {isImage && file.downloadUrl ? (
                     <img
-                      src={file.objectUrl}
+                      src={file.downloadUrl}
                       alt={filename}
                       className="max-h-96 max-w-full rounded-xl object-contain shadow-sm"
                     />
@@ -143,7 +146,7 @@ export default function Edit({ file }: InertiaProps<{ file: Data.File }>) {
                       <div className="space-y-1">
                         <p className="font-medium">Preview unavailable</p>
                         <p className="text-sm text-muted-foreground">
-                          {file.objectUrl
+                          {file.downloadUrl
                             ? 'Open the file to view its contents.'
                             : 'This file does not have a preview link.'}
                         </p>
@@ -250,7 +253,7 @@ export default function Edit({ file }: InertiaProps<{ file: Data.File }>) {
                       <li key={document.id}>
                         <Link
                           route="documents.edit"
-                          routeParams={{ id: document.id }}
+                          routeParams={{ workspaceId, id: document.id }}
                           className="group flex min-w-0 items-start gap-3 rounded-xl border border-border/70 p-3 transition-colors hover:bg-muted/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                         >
                           <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
@@ -283,7 +286,9 @@ export default function Edit({ file }: InertiaProps<{ file: Data.File }>) {
                       </p>
                     </div>
                     <Button asChild variant="outline" size="sm">
-                      <Link route="documents.index">Browse documents</Link>
+                      <Link route="documents.index" routeParams={{ workspaceId }}>
+                        Browse documents
+                      </Link>
                     </Button>
                   </div>
                 )}

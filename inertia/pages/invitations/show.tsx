@@ -1,0 +1,8 @@
+export default function Show() {
+  return (
+    <div className="mx-auto max-w-xl p-10">
+      <h1 className="text-2xl font-semibold">Workspace invitation</h1>
+      <p className="mt-4">Sign in with the addressed account to accept an invitation.</p>
+    </div>
+  )
+}

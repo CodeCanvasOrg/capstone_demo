@@ -1,105 +1,68 @@
 import FilePolicy from '#policies/file_policy'
 import FileTransformer from '#transformers/file_transformer'
-import { fileValidator, filesValidator } from '#validators/file'
+import { fileValidator } from '#validators/file'
+import AccessService from '#services/workspaces/access_service'
+import LibraryService from '#services/files/library_service'
 import type { HttpContext } from '@adonisjs/core/http'
-
 export default class FilesController {
-  /**
-   * Display a list of resource
-   */
-  async index({ auth, inertia }: HttpContext) {
-    const files = await auth
-      .user!.related('files')
+  async index({ workspace, workspaceAccess, bouncer, request, inertia }: HttpContext) {
+    await bouncer.with(FilePolicy).authorize('create', workspaceAccess!.workspaceId)
+    const query = workspace!
+      .related('files')
       .query()
-      .preload('revisions', (revision) => {
+      .preload('revisions', (revision) =>
         revision
           .orderBy('revision', 'desc')
           .preload('processingRuns', (run) => run.orderBy('createdAt', 'desc'))
-      })
+      )
       .orderBy('createdAt', 'desc')
-
+    const q = String(request.input('q', '')).slice(0, 200)
+    if (q) query.whereILike('filename', `%${q.replaceAll('%', '\\%').replaceAll('_', '\\_')}%`)
+    const page = await query.paginate(
+      Math.min(100000, Math.max(1, Math.floor(Number(request.input('page', 1)) || 1))),
+      20
+    )
     return inertia.render('files/index', {
-      files: FileTransformer.transform(files),
+      files: FileTransformer.transform(page.all()),
+      pagination: page.getMeta(),
+      filters: { q },
     })
   }
-
-  /**
-   * Display form to create a new record
-   */
-  async create({ inertia }: HttpContext) {
+  async create({ workspaceAccess, bouncer, inertia }: HttpContext) {
+    await bouncer.with(FilePolicy).authorize('create', workspaceAccess!.workspaceId)
     return inertia.render('files/create', {})
   }
-
-  /**
-   * Handle form submission for the create action
-   */
-  async store({ request, auth, response }: HttpContext) {
-    const { files } = await request.validateUsing(filesValidator)
-
-    if (files.length === 0) {
-      return response.redirect().back()
-    }
-
-    const fileIds = files.map((file) => file.id)
-    const ownedFiles = await auth.user!.related('files').query().whereIn('id', fileIds)
-    if (ownedFiles.length !== new Set(fileIds).size) {
-      return response.forbidden({ message: 'One or more uploaded files are unavailable' })
-    }
-
-    return response.redirect().toRoute('files.index')
+  async store({ workspaceAccess, response }: HttpContext) {
+    return response.redirect().toRoute('files.index', { workspaceId: workspaceAccess!.workspaceId })
   }
-
-  /**
-   * Edit individual record
-   */
-  async edit({ params, auth, bouncer, inertia }: HttpContext) {
-    const file = await auth
-      .user!.related('files')
-      .query()
-      .where('id', params.id)
-      .preload('documents')
-      .preload('revisions', (revision) => {
-        revision
-          .orderBy('revision', 'desc')
-          .preload('processingRuns', (run) => run.orderBy('createdAt', 'desc'))
-      })
-      .firstOrFail()
-
-    await bouncer.with(FilePolicy).authorize('update', file)
-
+  async edit({ workspaceAccess, params, bouncer, inertia }: HttpContext) {
+    const file = await new AccessService().file(workspaceAccess!, params.id)
+    await bouncer.with(FilePolicy).authorize('view', file)
+    await file.load('documents', (query) =>
+      query.where('documents.workspace_id', workspaceAccess!.workspaceId)
+    )
+    await file.load('revisions', (revision) =>
+      revision
+        .orderBy('revision', 'desc')
+        .preload('processingRuns', (run) => run.orderBy('createdAt', 'desc'))
+    )
     return inertia.render('files/edit', {
-      file: FileTransformer.transform(file),
+      file: FileTransformer.transform(file, workspaceAccess!.actorId),
     })
   }
-
-  /**
-   * Handle form submission for the edit action
-   */
-  async update({ params, request, bouncer, auth, response }: HttpContext) {
-    const { ...payload } = await request.validateUsing(fileValidator)
-
-    const file = await auth.user!.related('files').query().where('id', params.id).firstOrFail()
-
+  async update({ workspaceAccess, params, request, bouncer, response }: HttpContext) {
+    const file = await new AccessService().file(workspaceAccess!, params.id)
     await bouncer.with(FilePolicy).authorize('update', file)
-
-    file.merge(payload)
-    await file.save()
-
-    return response.redirect().toRoute('files.edit', {
-      id: file.id,
-    })
+    const { filename } = await request.validateUsing(fileValidator)
+    await new LibraryService().change(workspaceAccess!, file.id, filename ?? '')
+    return response
+      .redirect()
+      .toRoute('files.edit', { workspaceId: workspaceAccess!.workspaceId, id: file.id })
   }
-
-  /**
-   * Delete record
-   */
-  async destroy({ params, auth, bouncer, response }: HttpContext) {
-    const file = await auth.user!.related('files').query().where('id', params.id).firstOrFail()
-
+  async destroy({ workspaceAccess, params, bouncer, response }: HttpContext) {
+    const file = await new AccessService().file(workspaceAccess!, params.id)
     await bouncer.with(FilePolicy).authorize('delete', file)
-
-    await file.delete()
-
-    return response.redirect().toRoute('files.index')
+    await new LibraryService().change(workspaceAccess!, file.id)
+    return response.redirect().toRoute('files.index', { workspaceId: workspaceAccess!.workspaceId })
   }
 }

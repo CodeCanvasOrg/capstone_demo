@@ -15,8 +15,8 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/entry_controller').default['handle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/entry_controller').default['handle']>>>
     }
   }
   'new_account.create': {
@@ -79,13 +79,145 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/session_controller').default['destroy']>>>
     }
   }
-  'documents.index': {
+  'workspaces.index': {
     methods: ["GET","HEAD"]
-    pattern: '/documents'
+    pattern: '/workspaces'
     types: {
       body: {}
       paramsTuple: []
       params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/workspaces_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/workspaces_controller').default['index']>>>
+    }
+  }
+  'workspaces.store': {
+    methods: ["POST"]
+    pattern: '/workspaces'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/workspace').createWorkspaceValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/workspace').createWorkspaceValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/workspaces_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/workspaces_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'workspaces.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/workspaces_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/workspaces_controller').default['show']>>>
+    }
+  }
+  'workspaces.update': {
+    methods: ["PATCH"]
+    pattern: '/workspaces/:workspaceId'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/workspace').createWorkspaceValidator)>>
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/workspace').createWorkspaceValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/workspaces_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/workspaces_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'workspaces.select': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/selection'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/workspaces_controller').default['select']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/workspaces_controller').default['select']>>>
+    }
+  }
+  'workspace_members.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/members'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/workspace_members_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/workspace_members_controller').default['index']>>>
+    }
+  }
+  'workspace_members.destroy': {
+    methods: ["DELETE"]
+    pattern: '/workspaces/:workspaceId/members/:membershipId'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; membershipId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/workspace_members_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/workspace_members_controller').default['destroy']>>>
+    }
+  }
+  'projects.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/projects'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/projects_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/projects_controller').default['index']>>>
+    }
+  }
+  'projects.store': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/projects'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/project').createProjectValidator)>>
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/project').createProjectValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/projects_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/projects_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'projects.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/projects/:projectId'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; projectId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/projects_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/projects_controller').default['show']>>>
+    }
+  }
+  'projects.update': {
+    methods: ["PATCH"]
+    pattern: '/workspaces/:workspaceId/projects/:projectId'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/project').createProjectValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; projectId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/project').createProjectValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/projects_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/projects_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'documents.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
       query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/documents_controller').default['index']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/documents_controller').default['index']>>>
@@ -93,11 +225,11 @@ export interface Registry {
   }
   'documents.create': {
     methods: ["GET","HEAD"]
-    pattern: '/documents/create'
+    pattern: '/workspaces/:workspaceId/documents/create'
     types: {
       body: {}
-      paramsTuple: []
-      params: {}
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
       query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/documents_controller').default['create']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/documents_controller').default['create']>>>
@@ -105,11 +237,11 @@ export interface Registry {
   }
   'documents.store': {
     methods: ["POST"]
-    pattern: '/documents'
+    pattern: '/workspaces/:workspaceId/documents'
     types: {
       body: ExtractBody<InferInput<(typeof import('#validators/documents').documentValidator)>>
-      paramsTuple: []
-      params: {}
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
       query: ExtractQuery<InferInput<(typeof import('#validators/documents').documentValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/documents_controller').default['store']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/documents_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
@@ -117,11 +249,11 @@ export interface Registry {
   }
   'documents.edit': {
     methods: ["GET","HEAD"]
-    pattern: '/documents/:id/edit'
+    pattern: '/workspaces/:workspaceId/documents/:id/edit'
     types: {
       body: {}
-      paramsTuple: [ParamValue]
-      params: { id: ParamValue }
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; id: ParamValue }
       query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/documents_controller').default['edit']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/documents_controller').default['edit']>>>
@@ -129,23 +261,23 @@ export interface Registry {
   }
   'documents.update': {
     methods: ["PUT","PATCH"]
-    pattern: '/documents/:id'
+    pattern: '/workspaces/:workspaceId/documents/:id'
     types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/documents').documentValidator)>>
-      paramsTuple: [ParamValue]
-      params: { id: ParamValue }
-      query: ExtractQuery<InferInput<(typeof import('#validators/documents').documentValidator)>>
+      body: ExtractBody<InferInput<(typeof import('#validators/documents').documentUpdateValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/documents').documentUpdateValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/documents_controller').default['update']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/documents_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'documents.destroy': {
     methods: ["DELETE"]
-    pattern: '/documents/:id'
+    pattern: '/workspaces/:workspaceId/documents/:id'
     types: {
       body: {}
-      paramsTuple: [ParamValue]
-      params: { id: ParamValue }
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; id: ParamValue }
       query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/documents_controller').default['destroy']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/documents_controller').default['destroy']>>>
@@ -153,38 +285,218 @@ export interface Registry {
   }
   'documentVersions.store': {
     methods: ["POST"]
-    pattern: '/documents/:documentId/versions'
+    pattern: '/workspaces/:workspaceId/documents/:documentId/versions'
     types: {
       body: ExtractBody<InferInput<(typeof import('#validators/document_version').documentVersionValidator)>>
-      paramsTuple: [ParamValue]
-      params: { documentId: ParamValue }
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
       query: ExtractQuery<InferInput<(typeof import('#validators/document_version').documentVersionValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_versions_controller').default['handle']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_versions_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'uploads': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/files/uploads'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/upload').fileValidator)>>
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/upload').fileValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/uploads_controller').default['handle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/uploads_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'files.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/files'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/files_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/files_controller').default['index']>>>
+    }
+  }
+  'files.create': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/files/create'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/files_controller').default['create']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/files_controller').default['create']>>>
+    }
+  }
+  'files.store': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/files'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/files_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/files_controller').default['store']>>>
+    }
+  }
+  'files.edit': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/files/:id/edit'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/files_controller').default['edit']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/files_controller').default['edit']>>>
+    }
+  }
+  'files.update': {
+    methods: ["PUT","PATCH"]
+    pattern: '/workspaces/:workspaceId/files/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/file').fileValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/file').fileValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/files_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/files_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'files.destroy': {
+    methods: ["DELETE"]
+    pattern: '/workspaces/:workspaceId/files/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/files_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/files_controller').default['destroy']>>>
+    }
+  }
+  'legacy.document': {
+    methods: ["GET","HEAD"]
+    pattern: '/documents/:id/edit'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['document']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['document']>>>
+    }
+  }
+  'legacy.export': {
+    methods: ["GET","HEAD"]
+    pattern: '/documents/:documentId/export/pdf'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { documentId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['document']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['document']>>>
+    }
+  }
+  'legacy.file': {
+    methods: ["GET","HEAD"]
+    pattern: '/files/:id/edit'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['file']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['file']>>>
+    }
+  }
+  'legacy.entry0': {
+    methods: ["GET","HEAD"]
+    pattern: '/documents'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/entry_controller').default['handle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/entry_controller').default['handle']>>>
+    }
+  }
+  'legacy.entry1': {
+    methods: ["GET","HEAD"]
+    pattern: '/documents/create'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/entry_controller').default['handle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/entry_controller').default['handle']>>>
+    }
+  }
+  'legacy.entry2': {
+    methods: ["GET","HEAD"]
+    pattern: '/documents/shares'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/entry_controller').default['handle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/entry_controller').default['handle']>>>
+    }
+  }
+  'legacy.entry3': {
+    methods: ["GET","HEAD"]
+    pattern: '/files'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/entry_controller').default['handle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/entry_controller').default['handle']>>>
+    }
+  }
+  'legacy.entry4': {
+    methods: ["GET","HEAD"]
+    pattern: '/files/create'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/entry_controller').default['handle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/entry_controller').default['handle']>>>
     }
   }
   'shares.store': {
     methods: ["POST"]
     pattern: '/documents/:documentId/shares'
     types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/document_share').documentShareValidator)>>
+      body: {}
       paramsTuple: [ParamValue]
       params: { documentId: ParamValue }
-      query: ExtractQuery<InferInput<(typeof import('#validators/document_share').documentShareValidator)>>
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_shares_controller').default['store']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_shares_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['retired']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['retired']>>>
     }
   }
   'shares.update': {
-    methods: ["PUT","PATCH"]
+    methods: ["PUT"]
     pattern: '/documents/:documentId/shares/:id'
     types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/document_share').documentShareRoleValidator)>>
+      body: {}
       paramsTuple: [ParamValue, ParamValue]
       params: { documentId: ParamValue; id: ParamValue }
-      query: ExtractQuery<InferInput<(typeof import('#validators/document_share').documentShareRoleValidator)>>
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_shares_controller').default['update']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_shares_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['retired']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['retired']>>>
     }
   }
   'shares.destroy': {
@@ -195,116 +507,56 @@ export interface Registry {
       paramsTuple: [ParamValue, ParamValue]
       params: { documentId: ParamValue; id: ParamValue }
       query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_shares_controller').default['destroy']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_shares_controller').default['destroy']>>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['retired']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['retired']>>>
     }
   }
-  'export_pdfs': {
-    methods: ["GET","HEAD"]
-    pattern: '/documents/:documentId/export/pdf'
+  'legacy.documents.collection': {
+    methods: ["POST","PUT","PATCH","DELETE"]
+    pattern: '/documents'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['retired']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['retired']>>>
+    }
+  }
+  'legacy.documents.mutation': {
+    methods: ["POST","PUT","PATCH","DELETE"]
+    pattern: '/documents/*'
     types: {
       body: {}
       paramsTuple: [ParamValue]
-      params: { documentId: ParamValue }
+      params: { '*': ParamValue[] }
       query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['handle']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['handle']>>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['retired']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['retired']>>>
     }
   }
-  'document_shares.index': {
-    methods: ["GET","HEAD"]
-    pattern: '/documents/shares'
-    types: {
-      body: {}
-      paramsTuple: []
-      params: {}
-      query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_shares_controller').default['index']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_shares_controller').default['index']>>>
-    }
-  }
-  'uploads': {
-    methods: ["POST"]
-    pattern: '/files/uploads'
-    types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/upload').fileValidator)>>
-      paramsTuple: []
-      params: {}
-      query: ExtractQuery<InferInput<(typeof import('#validators/upload').fileValidator)>>
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/uploads_controller').default['handle']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/uploads_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
-    }
-  }
-  'files.index': {
-    methods: ["GET","HEAD"]
+  'legacy.files.collection': {
+    methods: ["POST","PUT","PATCH","DELETE"]
     pattern: '/files'
     types: {
       body: {}
       paramsTuple: []
       params: {}
       query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/files_controller').default['index']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/files_controller').default['index']>>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['retired']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['retired']>>>
     }
   }
-  'files.create': {
-    methods: ["GET","HEAD"]
-    pattern: '/files/create'
-    types: {
-      body: {}
-      paramsTuple: []
-      params: {}
-      query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/files_controller').default['create']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/files_controller').default['create']>>>
-    }
-  }
-  'files.store': {
-    methods: ["POST"]
-    pattern: '/files'
-    types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/file').filesValidator)>>
-      paramsTuple: []
-      params: {}
-      query: ExtractQuery<InferInput<(typeof import('#validators/file').filesValidator)>>
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/files_controller').default['store']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/files_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
-    }
-  }
-  'files.edit': {
-    methods: ["GET","HEAD"]
-    pattern: '/files/:id/edit'
+  'legacy.files.mutation': {
+    methods: ["POST","PUT","PATCH","DELETE"]
+    pattern: '/files/*'
     types: {
       body: {}
       paramsTuple: [ParamValue]
-      params: { id: ParamValue }
+      params: { '*': ParamValue[] }
       query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/files_controller').default['edit']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/files_controller').default['edit']>>>
-    }
-  }
-  'files.update': {
-    methods: ["PUT","PATCH"]
-    pattern: '/files/:id'
-    types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/file').fileValidator)>>
-      paramsTuple: [ParamValue]
-      params: { id: ParamValue }
-      query: ExtractQuery<InferInput<(typeof import('#validators/file').fileValidator)>>
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/files_controller').default['update']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/files_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
-    }
-  }
-  'files.destroy': {
-    methods: ["DELETE"]
-    pattern: '/files/:id'
-    types: {
-      body: {}
-      paramsTuple: [ParamValue]
-      params: { id: ParamValue }
-      query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/files_controller').default['destroy']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/files_controller').default['destroy']>>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['retired']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/legacy_resources_controller').default['retired']>>>
     }
   }
 }

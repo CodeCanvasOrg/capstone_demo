@@ -17,8 +17,16 @@ This is a dedicated Git worktree of an isolated local clone, because the session
 
 Checks: typecheck passed; lint passed; 26 tests passed (19 existing unit and 7 new functional); migration run/schema generation and audit command passed; diff whitespace check passed.
 
+## Verified request tenancy
+
+- Canonical workspace routes and a server entry resolver replace the root landing page. Legacy authorized reads redirect; legacy mutations return 410.
+- Scoped HTTP lists, projects, documents, files, versions and server-derived workspace props use explicit membership context. Historical shares cannot grant access.
+- Members can edit documents; document owners retain deletion/approval and uploaders retain file mutation.
+- Version saves compare the base version and reject concurrent stale writes; mutation retries are duplicate-safe.
+- Verification: typecheck and lint passed; all 33 tests passed, including 14 functional tests.
+
 ## Remaining implementation
 
-Request tenancy and canonical routes; scoped lists/services; private storage and retrieval; durable actor/workspace tasks and revocation; SMTP invitation flow; metadata/issues; exact-version review/approval/export; complete HumbleBeeAI redesign; browser and end-to-end cutover verification. Nullable tenant columns are intentionally additive until migration audit/cutover gates are complete.
+private storage and retrieval; durable actor/workspace tasks and revocation; SMTP invitation flow; metadata/issues; exact-version review/approval/export; complete HumbleBeeAI redesign; browser and end-to-end cutover verification. Nullable tenant columns are intentionally additive until migration audit/cutover gates are complete.
 
 Production conflict mapping, SMTP identity/credentials, bucket policy and artwork remain rollout inputs. This file records actual work, not a claim that the entire feature is ready.

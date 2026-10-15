@@ -1,4 +1,5 @@
-'use client'
+import { useWorkspaceId } from '@/providers/workspace_provider'
+;('use client')
 
 import { useRouter } from '@adonisjs/inertia/react'
 import { EditorContent, type JSONContent, useEditor } from '@tiptap/react'
@@ -80,10 +81,20 @@ type Zoom = (typeof ZOOM_OPTIONS)[number]
 type DocumentEditorProps = {
   documentId: string
   initialContent: JSONContent | null
+  baseVersionId: string | null
 }
 
-export default function DocumentEditor({ documentId, initialContent }: DocumentEditorProps) {
+export default function DocumentEditor({
+  documentId,
+  initialContent,
+  baseVersionId,
+}: DocumentEditorProps) {
+  const workspaceId = useWorkspaceId()
   const router = useRouter()
+  const baseVersion = useRef(baseVersionId)
+  useEffect(() => {
+    baseVersion.current = baseVersionId
+  }, [baseVersionId])
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [saveState, setSaveState] = useState<SaveState>('idle')
   const [zoom, setZoom] = useState<Zoom>(100)
@@ -110,8 +121,8 @@ export default function DocumentEditor({ documentId, initialContent }: DocumentE
 
       saveTimer.current = setTimeout(() => {
         router.post(
-          { route: 'documentVersions.store', routeParams: { documentId } },
-          { content },
+          { route: 'documentVersions.store', routeParams: { workspaceId, documentId } },
+          { content, baseVersionId: baseVersion.current, mutationId: crypto.randomUUID() },
           {
             preserveScroll: true,
             preserveState: true,

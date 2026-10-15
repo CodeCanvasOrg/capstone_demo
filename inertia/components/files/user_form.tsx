@@ -1,3 +1,4 @@
+import { useWorkspaceId } from '@/providers/workspace_provider'
 import { Link, useRouter } from '@adonisjs/inertia/react'
 import { useState } from 'react'
 import { FilePlus2, Loader2 } from 'lucide-react'
@@ -12,6 +13,7 @@ export type UserFormData = {
 type UserFormErrors = Partial<Record<keyof UserFormData, string>>
 
 export default function UserForm() {
+  const workspaceId = useWorkspaceId()
   const router = useRouter()
   const [files, setFiles] = useState<FileUpload[]>([])
   const [errors, setErrors] = useState<UserFormErrors>({})
@@ -27,7 +29,7 @@ export default function UserForm() {
     setSubmitting(true)
 
     router.post(
-      { route: 'files.store' },
+      { route: 'files.store', routeParams: { workspaceId } },
       { files },
       {
         onError: (validationErrors: Record<string, string>) => {
@@ -71,7 +73,9 @@ export default function UserForm() {
               : 'Add files'}
         </Button>
         <Button asChild variant="outline">
-          <Link route="files.index">Cancel</Link>
+          <Link route="files.index" routeParams={{ workspaceId }}>
+            Cancel
+          </Link>
         </Button>
       </div>
     </div>

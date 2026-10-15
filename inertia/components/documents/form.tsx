@@ -1,3 +1,4 @@
+import { useWorkspaceId } from '@/providers/workspace_provider'
 import { useState } from 'react'
 import { type Data } from '@generated/data'
 import { Link, useRouter } from '@adonisjs/inertia/react'
@@ -69,6 +70,7 @@ function DocumentFormFields({ data, setData, errors }: DocumentFormSlot) {
 }
 
 export function DocumentForm({ document }: { document?: Data.Document }) {
+  const workspaceId = useWorkspaceId()
   const router = useRouter()
   const [submitting, setSubmitting] = useState(false)
 
@@ -82,8 +84,8 @@ export function DocumentForm({ document }: { document?: Data.Document }) {
             id: file.id,
             filename: file.filename ?? '',
             filetype: file.filetype,
-            objectKey: file.objectKey ?? '',
-            objectUrl: file.objectUrl ?? '',
+            objectKey: file.id ?? '',
+            downloadUrl: file.downloadUrl ?? '',
           })) ?? null,
       }
     : {
@@ -105,12 +107,12 @@ export function DocumentForm({ document }: { document?: Data.Document }) {
     }
     if (document) {
       router.put(
-        { route: 'documents.update', routeParams: { id: document.id } },
-        form.data,
+        { route: 'documents.update', routeParams: { workspaceId, id: document.id } },
+        { ...form.data, metadataRevision: document.metadataRevision },
         options
       )
     } else {
-      router.post({ route: 'documents.store' }, form.data, options)
+      router.post({ route: 'documents.store', routeParams: { workspaceId } }, form.data, options)
     }
   }
 
@@ -155,7 +157,9 @@ export function DocumentForm({ document }: { document?: Data.Document }) {
               : 'Create document'}
         </Button>
         <Button asChild variant="outline">
-          <Link route="documents.index">Cancel</Link>
+          <Link route="documents.index" routeParams={{ workspaceId }}>
+            Cancel
+          </Link>
         </Button>
       </div>
     </div>

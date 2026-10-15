@@ -6,10 +6,26 @@ import UserTransformer from './user_transformer.ts'
 import FileTransformer from './file_transformer.ts'
 
 export default class DocumentTransformer extends BaseTransformer<Document> {
+  constructor(
+    resource: Document,
+    private actorId?: number
+  ) {
+    super(resource)
+  }
   toObject() {
     return {
       ...this.pick(this.resource, [
         'id',
+        'workspaceId',
+        'userId',
+        'projectId',
+        'projectInformation',
+        'dueDate',
+        'sourceMode',
+        'currentVersionId',
+        'metadataRevision',
+        'selectionRevision',
+        'legacyApprovalUnverified',
         'title',
         'description',
         'status',
@@ -18,6 +34,11 @@ export default class DocumentTransformer extends BaseTransformer<Document> {
         'createdAt',
         'updatedAt',
       ]),
+      capabilities: {
+        edit: this.actorId !== undefined,
+        delete: this.actorId === this.resource.userId,
+        approve: this.actorId === this.resource.userId,
+      },
       user: UserTransformer.transform(this.whenLoaded(this.resource.user)),
       documentShares:
         'documentShares' in this.resource.$preloaded
@@ -29,7 +50,7 @@ export default class DocumentTransformer extends BaseTransformer<Document> {
           : undefined,
       files:
         'files' in this.resource.$preloaded
-          ? FileTransformer.transform(this.resource.files)
+          ? FileTransformer.transform(this.resource.files, this.actorId)
           : undefined,
     }
   }

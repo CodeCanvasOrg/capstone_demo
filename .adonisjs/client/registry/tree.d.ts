@@ -12,6 +12,23 @@ export interface ApiDefinition {
     store: typeof routes['session.store']
     destroy: typeof routes['session.destroy']
   }
+  workspaces: {
+    index: typeof routes['workspaces.index']
+    store: typeof routes['workspaces.store']
+    show: typeof routes['workspaces.show']
+    update: typeof routes['workspaces.update']
+    select: typeof routes['workspaces.select']
+  }
+  workspaceMembers: {
+    index: typeof routes['workspace_members.index']
+    destroy: typeof routes['workspace_members.destroy']
+  }
+  projects: {
+    index: typeof routes['projects.index']
+    store: typeof routes['projects.store']
+    show: typeof routes['projects.show']
+    update: typeof routes['projects.update']
+  }
   documents: {
     index: typeof routes['documents.index']
     create: typeof routes['documents.create']
@@ -23,15 +40,6 @@ export interface ApiDefinition {
   documentVersions: {
     store: typeof routes['documentVersions.store']
   }
-  shares: {
-    store: typeof routes['shares.store']
-    update: typeof routes['shares.update']
-    destroy: typeof routes['shares.destroy']
-  }
-  exportPdfs: typeof routes['export_pdfs']
-  documentShares: {
-    index: typeof routes['document_shares.index']
-  }
   uploads: typeof routes['uploads']
   files: {
     index: typeof routes['files.index']
@@ -40,5 +48,28 @@ export interface ApiDefinition {
     edit: typeof routes['files.edit']
     update: typeof routes['files.update']
     destroy: typeof routes['files.destroy']
+  }
+  legacy: {
+    document: typeof routes['legacy.document']
+    export: typeof routes['legacy.export']
+    file: typeof routes['legacy.file']
+    entry0: typeof routes['legacy.entry0']
+    entry1: typeof routes['legacy.entry1']
+    entry2: typeof routes['legacy.entry2']
+    entry3: typeof routes['legacy.entry3']
+    entry4: typeof routes['legacy.entry4']
+    documents: {
+      collection: typeof routes['legacy.documents.collection']
+      mutation: typeof routes['legacy.documents.mutation']
+    }
+    files: {
+      collection: typeof routes['legacy.files.collection']
+      mutation: typeof routes['legacy.files.mutation']
+    }
+  }
+  shares: {
+    store: typeof routes['shares.store']
+    update: typeof routes['shares.update']
+    destroy: typeof routes['shares.destroy']
   }
 }

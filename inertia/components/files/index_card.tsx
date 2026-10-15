@@ -1,3 +1,4 @@
+import { useWorkspaceId } from '@/providers/workspace_provider'
 import { type Data } from '@generated/data'
 import { Form, Link } from '@adonisjs/inertia/react'
 import { FileImage, FileText, MoreHorizontal } from 'lucide-react'
@@ -42,6 +43,7 @@ type FileIndexCardProps = {
 }
 
 export default function FileIndexCard({ file }: FileIndexCardProps) {
+  const workspaceId = useWorkspaceId()
   const isImage = isImageFile(file.filetype)
   const name = file.filename || 'Untitled file'
 
@@ -49,9 +51,9 @@ export default function FileIndexCard({ file }: FileIndexCardProps) {
     <TableRow role="row">
       <TableCell role="cell" className="py-3 pl-5">
         <div className="flex min-w-0 items-center gap-3">
-          {isImage && file.objectUrl ? (
+          {isImage && file.downloadUrl ? (
             <img
-              src={file.objectUrl}
+              src={file.downloadUrl}
               alt=""
               className="size-9 shrink-0 border border-border object-cover"
             />
@@ -66,10 +68,10 @@ export default function FileIndexCard({ file }: FileIndexCardProps) {
           )}
 
           <div className="flex min-w-0 flex-col gap-0.5">
-            {file.objectUrl ? (
+            {file.downloadUrl ? (
               <Link
                 route="files.edit"
-                routeParams={{ id: file.id }}
+                routeParams={{ workspaceId, id: file.id }}
                 className="truncate font-medium hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                 title={name}
               >
@@ -105,9 +107,9 @@ export default function FileIndexCard({ file }: FileIndexCardProps) {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              {file.objectUrl && (
+              {file.downloadUrl && (
                 <DropdownMenuItem asChild>
-                  <Link route="files.edit" routeParams={{ id: file.id }}>
+                  <Link route="files.edit" routeParams={{ workspaceId, id: file.id }}>
                     Edit
                   </Link>
                 </DropdownMenuItem>
@@ -134,7 +136,7 @@ export default function FileIndexCard({ file }: FileIndexCardProps) {
               <AlertDialogCancel asChild>
                 <Button variant="outline">Cancel</Button>
               </AlertDialogCancel>
-              <Form route="files.destroy" routeParams={{ id: file.id }}>
+              <Form route="files.destroy" routeParams={{ workspaceId, id: file.id }}>
                 {({ processing }) => (
                   <Button type="submit" variant="destructive" disabled={processing}>
                     {processing ? 'Deleting…' : 'Delete'}

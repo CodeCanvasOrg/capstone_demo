@@ -3,8 +3,30 @@ import type { TransactionClientContract } from '@adonisjs/lucid/types/database'
 import User from '#models/user'
 import Workspace from '#models/workspace'
 import WorkspaceMembership from '#models/workspace_membership'
+import AccessService, { type WorkspaceAccessContext } from '#services/workspaces/access_service'
+import { Exception } from '@adonisjs/core/exceptions'
 
 export default class WorkspaceService {
+  async rename(context: WorkspaceAccessContext, name: string) {
+    return db.transaction(async (trx) => {
+      const workspace = await Workspace.query({ client: trx })
+        .where('id', context.workspaceId)
+        .forUpdate()
+        .firstOrFail()
+      await new AccessService().lock(context, trx)
+      if (workspace.ownerUserId !== context.actorId)
+        throw new Exception('Only the workspace owner can rename it', { status: 403 })
+      return workspace.merge({ name }).save()
+    })
+  }
+  async select(context: WorkspaceAccessContext) {
+    return db.transaction(async (trx) => {
+      await new AccessService().lock(context, trx)
+      await User.query({ client: trx })
+        .where('id', context.actorId)
+        .update({ lastWorkspaceId: context.workspaceId })
+    })
+  }
   async register(payload: { fullName?: string | null; email: string; password: string }) {
     return db.transaction(async (trx) => {
       const user = await User.create(

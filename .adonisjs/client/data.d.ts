@@ -11,7 +11,10 @@ import type DocumentShareTransformer from '#transformers/document_share_transfor
 import type DocumentTransformer from '#transformers/document_transformer'
 import type DocumentVersionTransformer from '#transformers/document_version_transformer'
 import type FileTransformer from '#transformers/file_transformer'
+import type ProjectTransformer from '#transformers/project_transformer'
 import type UserTransformer from '#transformers/user_transformer'
+import type WorkspaceMembershipTransformer from '#transformers/workspace_membership_transformer'
+import type WorkspaceTransformer from '#transformers/workspace_transformer'
 import type InertiaMiddleware from '#middleware/inertia_middleware'
 
 export namespace Data {
@@ -35,9 +38,21 @@ export namespace Data {
   export namespace File {
     export type Variants = InferVariants<FileTransformer>
   }
+  export type Project = InferData<ProjectTransformer>
+  export namespace Project {
+    export type Variants = InferVariants<ProjectTransformer>
+  }
   export type User = InferData<UserTransformer>
   export namespace User {
     export type Variants = InferVariants<UserTransformer>
+  }
+  export type WorkspaceMembership = InferData<WorkspaceMembershipTransformer>
+  export namespace WorkspaceMembership {
+    export type Variants = InferVariants<WorkspaceMembershipTransformer>
+  }
+  export type Workspace = InferData<WorkspaceTransformer>
+  export namespace Workspace {
+    export type Variants = InferVariants<WorkspaceTransformer>
   }
   export type SharedProps = InferSharedProps<InertiaMiddleware>
   export type FlashMessages = InferFlashData<InertiaMiddleware>
