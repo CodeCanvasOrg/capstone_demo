@@ -1,5 +1,6 @@
 import { UserSchema } from '#database/schema'
 import Document from '#models/document'
+import WorkspaceMembership from '#models/workspace_membership'
 import File from '#models/file'
 import hash from '@adonisjs/core/services/hash'
 import { compose } from '@adonisjs/core/helpers'
@@ -28,6 +29,9 @@ export default class User extends compose(UserSchema, withAuthFinder(hash)) {
 
   @hasMany(() => File)
   declare files: HasMany<typeof File>
+
+  @hasMany(() => WorkspaceMembership)
+  declare workspaceMemberships: HasMany<typeof WorkspaceMembership>
 
   get initials() {
     const [first, last] = this.fullName ? this.fullName.split(' ') : this.email.split('@')
