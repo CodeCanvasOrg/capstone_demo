@@ -148,7 +148,20 @@ function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps>
                   </Link>
                 </Button>
               </SidebarGroupLabel>
-              <SidebarMenu>
+              <SidebarMenu className="hidden group-data-[collapsible=icon]:flex">
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild tooltip="New case study">
+                    <Link
+                      route="documents.create"
+                      routeParams={{ workspaceId: workspace.id }}
+                      aria-label="New case study"
+                    >
+                      <Plus aria-hidden="true" />
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+              <SidebarMenu className="group-data-[collapsible=icon]:hidden">
                 {(page.props.recentDocuments ?? []).map((doc) => (
                   <SidebarMenuItem key={doc.id}>
                     <SidebarMenuButton asChild className="h-auto min-h-12 py-2">
