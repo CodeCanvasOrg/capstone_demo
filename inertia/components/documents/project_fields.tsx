@@ -156,7 +156,7 @@ export function TitleField({
         onChange={(event) => onChange(event.target.value)}
         placeholder="Case-study title"
         disabled={disabled}
-        className="w-full rounded-md bg-transparent py-2 text-3xl font-semibold tracking-tight outline-none placeholder:text-muted-foreground/60 focus-visible:ring-2 focus-visible:ring-ring/40 disabled:opacity-50"
+        className="w-full rounded-md bg-transparent py-2 text-3xl font-semibold tracking-tight outline-none placeholder:text-muted-foreground/60 focus-visible:ring-2 focus-visible:ring-foreground/25 disabled:opacity-50"
         required
         maxLength={255}
       />

@@ -67,3 +67,11 @@ issue creation/editing, transformer output, resolve/reopen preservation, legacy
 plain-text behavior, conflict/isolation handling, and invalid-content rejection.
 Typecheck, lint, production build, and `git diff --check` pass. Browser appearance and keyboard interaction remain
 unverified.
+
+## Focus appearance refinement
+
+Titles and rich-text surfaces use neutral focus indicators instead of the yellow
+accent. Case-study/issue titles use the foreground token at low opacity; rich
+description and project-information editors use the muted-foreground token. The
+document canvas retains its existing focus appearance. This is a styling-only
+change; lint and diff checks verify it without adding behavior tests.
