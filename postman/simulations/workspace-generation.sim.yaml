@@ -1,0 +1,5 @@
+simulation: workspace-generation
+routing: path
+mocks:
+  - routeKey: openrouter
+    path: ../mocks/openrouter/config.yaml

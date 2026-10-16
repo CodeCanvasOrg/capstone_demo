@@ -1,3 +1,4 @@
+import workspaceConfig from '#config/workspaces'
 import db from '@adonisjs/lucid/services/db'
 import drive from '@adonisjs/drive/services/main'
 import { countTokens } from 'gpt-tokenizer'
@@ -69,7 +70,9 @@ export default class RetrievalService {
       const source = evidence.source(context, documentId, row)
       if (row.kind === 'image' && row.file_key) {
         await guard()
-        source.modelFileUrl = await drive.use().getSignedUrl(row.file_key, { expiresIn: 120 })
+        source.modelFileUrl = await drive
+          .use()
+          .getSignedUrl(row.file_key, { expiresIn: workspaceConfig.providerImageUrlSeconds })
       }
       selected.push(source)
       tokens += cost

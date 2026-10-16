@@ -1,0 +1,54 @@
+openapi: 3.0.3
+info:
+  title: OpenRouter client surface used by CodeCanvas
+  version: 1.0.0
+  description: Local verification contract derived from installed LangChain OpenRouter/OpenAI clients; not a complete vendor specification.
+servers:
+  - url: https://openrouter.ai/api/v1
+paths:
+  /embeddings:
+    post:
+      operationId: embeddings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [model, input]
+              properties:
+                model: {type: string}
+                input: {}
+                dimensions: {type: integer}
+      responses:
+        '200':
+          description: Indexed embedding vectors
+        '401':
+          description: Invalid provider credentials
+        '429':
+          description: Rate limited
+        '503':
+          description: Provider unavailable
+  /chat/completions:
+    post:
+      operationId: chatCompletions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [model, messages]
+              properties:
+                model: {type: string}
+                messages: {type: array, items: {type: object}}
+                tools: {type: array, items: {type: object}}
+      responses:
+        '200':
+          description: Chat completion with structured function call
+        '401':
+          description: Invalid provider credentials
+        '429':
+          description: Rate limited
+        '503':
+          description: Provider unavailable

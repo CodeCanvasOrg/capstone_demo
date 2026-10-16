@@ -399,6 +399,7 @@ export class DocumentSchema extends BaseModel {
     'id',
     'legacyApprovalUnverified',
     'legacyStatus',
+    'legacyTenancyMigratedAt',
     'metadataRevision',
     'projectId',
     'projectInformation',
@@ -437,6 +438,8 @@ export class DocumentSchema extends BaseModel {
   declare legacyApprovalUnverified: boolean
   @column()
   declare legacyStatus: string | null
+  @column.dateTime()
+  declare legacyTenancyMigratedAt: DateTime | null
   @column()
   declare metadataRevision: number
   @column()

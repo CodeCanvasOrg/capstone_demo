@@ -30,6 +30,7 @@ function getStructuredOutput() {
         'blockquote',
         'codeBlock',
         'horizontalRule',
+        'hardBreak',
         'image',
         'sourceCitation',
       ]),

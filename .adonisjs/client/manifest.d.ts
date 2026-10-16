@@ -13,3 +13,4 @@
 /// <reference path="../../config/open_router.ts" />
 /// <reference path="../../config/queue.ts" />
 /// <reference path="../../config/redis.ts" />
+/// <reference path="../../config/workspaces.ts" />

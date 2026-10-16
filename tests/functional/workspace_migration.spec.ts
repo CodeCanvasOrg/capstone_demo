@@ -99,3 +99,51 @@ test.group('Workspace migration', (group) => {
     )
   })
 })
+
+test.group('Workspace cutover gate', (group) => {
+  group.each.setup(async () => {
+    if (!env.get('TEST_DB_URL')?.endsWith('/capstone_tenancy_test'))
+      throw new Error('Disposable database required')
+    await db.rawQuery('TRUNCATE users CASCADE')
+  })
+  test('cutover rehearses database constraints transactionally and preserves the reviewed record identities', async ({
+    assert,
+  }) => {
+    const { default: CutoverService } = await import('#services/workspaces/cutover_service')
+    const user = await User.create({ email: 'cutover@example.test', password: 'test-password-123' })
+    await Document.create({ userId: user.id, title: 'Retained original' })
+    const migrations = new MigrationService()
+    const baseline = await migrations.audit()
+    const mapping = { auditFingerprint: baseline.fingerprint }
+    await migrations.backfill(mapping, true)
+    const result = await new CutoverService().finalize(baseline, mapping, false)
+    assert.isFalse(result.applied)
+    assert.isTrue(result.verified.valid)
+    assert.deepEqual(result.identities.documents, baseline.identities.documents)
+    const nullable = await db.rawQuery(
+      "SELECT is_nullable FROM information_schema.columns WHERE table_name='documents' AND column_name='workspace_id'"
+    )
+    assert.equal(nullable.rows[0].is_nullable, 'YES')
+    await Document.create({ userId: user.id, title: 'Changed after audit' })
+    await assert.rejects(
+      () => new CutoverService().finalize(baseline, mapping, true),
+      /Original records changed/
+    )
+  })
+  test('mapping schema rejects malformed decisions before any provisioning', async ({ assert }) => {
+    const user = await User.create({ email: 'mapping@example.test', password: 'test-password-123' })
+    const doc = await Document.create({ userId: user.id, title: 'Retained' })
+    const service = new MigrationService()
+    const baseline = await service.audit()
+    await assert.rejects(() =>
+      service.backfill(
+        {
+          auditFingerprint: baseline.fingerprint,
+          resourceWorkspaces: { documents: { [doc.id]: 'not-a-uuid' } },
+        },
+        true
+      )
+    )
+    assert.lengthOf(await Workspace.all(), 0)
+  })
+})

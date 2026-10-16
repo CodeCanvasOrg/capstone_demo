@@ -1,3 +1,4 @@
+import workspaceConfig from '#config/workspaces'
 import { Job } from '@adonisjs/queue'
 import type { JobOptions } from '@adonisjs/queue/types'
 import ProcessingService from '#services/documents/processing_service'
@@ -13,7 +14,7 @@ export default class ProcessFile extends Job<{ version: 1; taskId: string }> {
     if (!lease || lease.task.kind !== 'ingest') return
     const heartbeat = setInterval(() => {
       void tasks.renew(lease).catch(() => {})
-    }, 30000)
+    }, workspaceConfig.heartbeatMilliseconds)
     heartbeat.unref()
     try {
       await new ProcessingService().processRun(lease)

@@ -47,8 +47,26 @@ Checks: typecheck passed; lint passed; 26 tests passed (19 existing unit and 7 n
 - Final PDFs use attributed render tasks with approval checks at request, render, publication and download. A stale render is discarded; private artifacts cannot bypass current approval. Previews carry a visible unapproved label. Rendering blocks network access and embeds only authorized image bytes.
 - Verification: typecheck/lint passed; all 49 tests passed. Includes JSONB source-pin persistence, warning acknowledgments, owner-only actions, no-op replay, and a blocker added during render preventing publication/download. Real Chromium rendering and UI checks remain in the final verification phase.
 
-## Remaining implementation
+## Implemented HumbleBeeAI interface
 
-complete HumbleBeeAI redesign; browser and end-to-end cutover verification. Nullable tenant columns are intentionally additive until migration audit/cutover gates are complete.
+- Applied the supplied kit's OKLCH tokens, Manrope typography, neutral/yellow navigation, rounded controls and pill primary actions. Existing primitives and ButtonProps exports were preserved after reviewing shadcn preview/diff output; missing primitives were added selectively.
+- Added app-wide providers while preserving Tuyau and mirroring provider composition in the disabled SSR entry. Workspace context uses server-derived membership/capabilities and resets tenant content on switching. Unsaved forms/editor changes guard navigation.
+- Rebuilt authentication/invitation screens, searchable workspace switching/creation, workspace home/members/invitations, projects, case-study lists, shared uploads/file details and the document editor. Search is debounced/cancellable, lists paginate, processing updates pause when the tab is hidden, and owner-only controls follow server capabilities.
+- The editor has a centered paper canvas, workspace/recent-document navigation, responsive inspector sheets, seven-field project information, deadline, sources, issues, explainable readiness, exact-version review/approval, history, preview and final PDF controls. Unavailable historical evidence is hidden with an explicit notice.
+- Autosave serializes edits with an exact base version and stable mutation identity; conflicts retain the local draft and offer a local JSON download. Panel/navigation changes preserve or confirm unsaved input. Keyboard labels, focus handling, light/dark tokens and reduced-motion/transparency/contrast rules are implemented.
+- Prepared sources with outdated configuration can get a new attributed processing run. Historical evidence remains retained; source reprocessing invalidates affected workflow state. Terminal task reconciliation prevents indefinitely pending editor status.
 
-Production conflict mapping, SMTP identity/credentials, bucket policy and artwork remain rollout inputs. This file records actual work, not a claim that the entire feature is ready.
+## Implemented cutover safeguards
+
+- Audit fingerprints cover the existing graph, original IDs/counts and legacy storage inventory. Strict mapping validation rejects unknown or malformed decisions. Backfill retains legacy null status correctly and records a one-time marker so repeated runs preserve original status.
+- Added `workspaces:finalize` to verify the saved original ID hashes/counts, reject unresolved operational tenancy, and enforce tenant keys/evidence lineage/normalized account email uniqueness. Dry runs execute real DDL and roll back transactionally.
+- Added [rollout and recovery instructions](workspace-tenancy-rollout.md), including private bucket policy, reviewed conflict mapping, maintenance window, queue compatibility, worker supervision and bounded recovery commands. Production finalization has not run.
+
+## Final verification and limits
+
+- Typecheck, full lint, production build and diff whitespace checks passed. Installed migrations are completed on the disposable PostgreSQL database; route listing and generated types were refreshed.
+- **58 tests passed; 1 skipped (59 total).** Includes real PostgreSQL isolation/retrieval/migration constraints, HTTP editing/review/approval/export rejection, source reprocessing/replay, revoked tasks, private download authorization and deletion boundaries. Real SMTP delivery passed through local Mailpit with synthetic recipients.
+- Finalization DDL was rehearsed transactionally with rollback; no production database or storage bucket was changed. Actual storage/provider calls and PDF publication use controlled adapters where required by tests.
+- Local Chromium could not launch under the sandbox (`bootstrap_check_in ... Permission denied (1100)`). Browser-tool access to the local preview was declined. No alternative browser route was used. Visual rendering, responsive interaction and real Chromium PDF output remain unverified.
+- The checked-in Postman provider simulation could not start because local dataset files under `~/.postman/` were inaccessible. Its real-client transport test remains explicitly skipped. See [the simulation notes](../postman/README.md).
+- Production conflict mapping, authenticated SMTP identity/credentials, existing bucket/CDN privacy, queue drain and real provider/renderer smoke tests remain rollout inputs. The source implementation is delivered; these environment checks are not represented as completed.

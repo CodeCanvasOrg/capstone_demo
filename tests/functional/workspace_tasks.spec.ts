@@ -87,3 +87,30 @@ test.group('Workspace durable tasks', (group) => {
     assert.equal(cancelled.status, 'cancelled')
   })
 })
+
+test.group('Workspace terminal task reconciliation', (group) => {
+  group.each.setup(reset)
+  test('an exhausted generation cannot leave the editor polling forever', async ({ assert }) => {
+    const a = await account()
+    const service = new TaskService()
+    const task = await db.transaction((trx) =>
+      service.create(
+        a.context,
+        { kind: 'generate', documentId: a.document.id, mutationId: randomUUID(), payload: {} },
+        trx
+      )
+    )
+    await a.document.merge({ generationTaskId: task.id, generationStatus: 'processing' }).save()
+    task.merge({ attempts: 3 })
+    await task.save()
+    assert.isNull(await service.claim(task.id))
+    await a.document.refresh()
+    assert.equal(a.document.generationStatus, 'failed')
+    // A revoked task is repaired on the bounded supervisor pass as well.
+    await task.merge({ status: 'cancelled' }).save()
+    await a.document.merge({ generationStatus: 'processing' }).save()
+    await service.reconcile()
+    await a.document.refresh()
+    assert.equal(a.document.generationStatus, 'failed')
+  })
+})

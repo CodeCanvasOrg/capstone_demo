@@ -42,6 +42,7 @@ export default class OpenRouterService {
   constructor() {
     this.model = new ChatOpenRouter({
       model: openRouterApiConfig.model,
+      baseURL: openRouterApiConfig.baseUrl,
       apiKey: openRouterApiConfig.apiKey.release(),
       maxRetries: 0,
     })

@@ -1,3 +1,4 @@
+import workspaceConfig from '#config/workspaces'
 import RenderDocument from '../../jobs/render_document.ts'
 import TaskDispatch from '#models/task_dispatch'
 import WorkspaceTask from '#models/workspace_task'
@@ -5,9 +6,16 @@ import ProcessFile from '../../jobs/process_file.ts'
 import GenerateDocument from '../../jobs/generate_document.ts'
 import { DateTime } from 'luxon'
 export default class TaskDispatchService {
-  async dispatch(limit = 100) {
+  async dispatch(limit = workspaceConfig.dispatchBatchSize) {
     const intents = await TaskDispatch.query()
       .whereNull('dispatchedAt')
+      .whereExists((query) =>
+        query
+          .from('workspace_tasks')
+          .select('id')
+          .whereColumn('workspace_tasks.id', 'task_dispatches.task_id')
+          .whereIn('workspace_tasks.status', ['queued', 'running'])
+      )
       .orderBy('createdAt')
       .limit(limit)
     let sent = 0

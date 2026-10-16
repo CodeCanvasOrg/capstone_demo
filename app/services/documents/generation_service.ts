@@ -215,26 +215,6 @@ export default class GenerationService {
     })
   }
   async failed(lease: TaskLease, stale: boolean) {
-    try {
-      await db.transaction(async (trx) => {
-        await new TaskService().lock(lease, trx)
-        await Document.query({ client: trx })
-          .where({
-            id: lease.task.documentId!,
-            workspaceId: lease.context.workspaceId,
-            generationTaskId: lease.task.id,
-          })
-          .update({
-            generationStatus: 'failed',
-            generationError: stale
-              ? 'Inputs changed. Start a new generation.'
-              : 'Generation failed. Retry is available.',
-            generationLeaseAt: null,
-          })
-      })
-    } catch {
-      /* A revoked or expired worker cannot publish even a failure state. */
-    }
     await new TaskService().fail(lease, stale)
   }
 }

@@ -1,3 +1,4 @@
+import { z } from 'zod'
 import { createHash } from 'node:crypto'
 import db from '@adonisjs/lucid/services/db'
 import type { TransactionClientContract } from '@adonisjs/lucid/types/database'
@@ -5,21 +6,55 @@ import User from '#models/user'
 import Workspace from '#models/workspace'
 import WorkspaceMembership from '#models/workspace_membership'
 
-export type MigrationMapping = {
-  auditFingerprint: string
-  resourceWorkspaces?: { documents?: Record<string, string>; files?: Record<string, string> }
-  shareResolutions?: Record<string, { action: 'retire' | 'membership'; reason: string }>
-  quarantineChunks?: string[]
-}
+const mappingSchema = z
+  .object({
+    auditFingerprint: z.string().regex(/^[a-f0-9]{64}$/),
+    resourceWorkspaces: z
+      .object({
+        documents: z.record(z.uuid(), z.uuid()).optional(),
+        files: z.record(z.uuid(), z.uuid()).optional(),
+      })
+      .strict()
+      .optional(),
+    shareResolutions: z
+      .record(
+        z.uuid(),
+        z
+          .object({
+            action: z.enum(['retire', 'membership']),
+            reason: z.string().trim().min(1).max(2000),
+          })
+          .strict()
+      )
+      .optional(),
+    quarantineChunks: z.array(z.uuid()).optional(),
+  })
+  .strict()
+export const validateMapping = (value: unknown) => mappingSchema.parse(value)
+export type MigrationMapping = z.infer<typeof mappingSchema>
 
 export default class MigrationService {
   private async snapshot(trx: TransactionClientContract) {
-    const users = await trx.from('users').select('id', 'email').orderBy('id')
+    const users = await trx
+      .from('users')
+      .select('id', 'email', 'full_name', 'updated_at')
+      .orderBy('id')
     const documents = await trx
       .from('documents')
-      .select('id', 'user_id', 'workspace_id', 'status')
+      .select(
+        'id',
+        'user_id',
+        'workspace_id',
+        'status',
+        'project_id',
+        'current_version_id',
+        'updated_at'
+      )
       .orderBy('id')
-    const files = await trx.from('files').select('id', 'user_id', 'workspace_id').orderBy('id')
+    const files = await trx
+      .from('files')
+      .select('id', 'user_id', 'workspace_id', 'object_key', 'object_url', 'filename')
+      .orderBy('id')
     const shares = await trx
       .from('document_shares')
       .select('id', 'document_id', 'user_id', 'role')
@@ -48,7 +83,27 @@ export default class MigrationService {
       .from('chunk_blocks')
       .select('id', 'chunk_id', 'document_block_id', 'workspace_id')
       .orderBy('id')
+    const versions = await trx
+      .from('document_versions')
+      .select('id', 'document_id', 'workspace_id', 'version', 'content')
+      .orderBy('id')
+    const embeddings = await trx
+      .from('chunk_embeddings')
+      .select('id', 'chunk_id', 'workspace_id', 'model', 'version', 'dimensions', 'input_hash')
+      .orderBy('id')
+    const workspaces = await trx
+      .from('workspaces')
+      .select('id', 'owner_user_id', 'initial_for_user_id')
+      .orderBy('id')
+    const memberships = await trx
+      .from('workspace_memberships')
+      .select('id', 'workspace_id', 'user_id', 'role', 'authorization_epoch', 'revoked_at')
+      .orderBy('id')
     return {
+      versions,
+      embeddings,
+      workspaces,
+      memberships,
       users,
       documents,
       files,
@@ -124,26 +179,52 @@ export default class MigrationService {
     }
     return {
       fingerprint: createHash('sha256').update(JSON.stringify(snapshot)).digest('hex'),
+      identities: Object.fromEntries(
+        Object.entries(snapshot).map(([table, rows]) => [
+          table,
+          createHash('sha256')
+            .update(JSON.stringify(rows.map((row) => row.id)))
+            .digest('hex'),
+        ])
+      ),
+      storageInventory: {
+        filesWithStoredPublicLocator: snapshot.files.filter((file) => !!file.object_url).length,
+        filesWithLegacyKey: snapshot.files.filter(
+          (file) => !String(file.object_key ?? '').startsWith('workspaces/')
+        ).length,
+      },
       counts: Object.fromEntries(Object.entries(snapshot).map(([key, rows]) => [key, rows.length])),
       conflicts,
     }
   }
 
-  async audit() {
+  async audit(connection?: TransactionClientContract) {
+    if (connection) return this.report(await this.snapshot(connection))
     return db.transaction(async (trx) => {
       await trx.rawQuery('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ')
       return this.report(await this.snapshot(trx))
     })
   }
 
-  async backfill(mapping: MigrationMapping, apply: boolean) {
+  async backfill(input: MigrationMapping, apply: boolean) {
+    const mapping = mappingSchema.parse(input)
     const trx = await db.transaction()
     try {
       await trx.rawQuery(
-        'LOCK TABLE users, documents, files, document_shares, document_files, file_revisions, processing_runs, document_blocks, chunks, chunk_blocks, chunk_embeddings IN SHARE ROW EXCLUSIVE MODE'
+        'LOCK TABLE users, workspaces, workspace_memberships, document_versions, documents, files, document_shares, document_files, file_revisions, processing_runs, document_blocks, chunks, chunk_blocks, chunk_embeddings IN SHARE ROW EXCLUSIVE MODE'
       )
       const snapshot = await this.snapshot(trx)
       const report = this.report(snapshot)
+      for (const [kind, assignments] of Object.entries(mapping.resourceWorkspaces ?? {}))
+        for (const id of Object.keys(assignments ?? {}))
+          if (!snapshot[kind as 'documents' | 'files'].some((row) => row.id === id))
+            throw new Error(`Unknown mapped resource: ${kind}:${id}`)
+      for (const id of Object.keys(mapping.shareResolutions ?? {}))
+        if (!snapshot.shares.some((row) => row.id === id))
+          throw new Error(`Unknown mapped share: ${id}`)
+      for (const id of mapping.quarantineChunks ?? [])
+        if (!snapshot.chunks.some((row) => row.id === id))
+          throw new Error(`Unknown quarantined chunk: ${id}`)
       if (mapping.auditFingerprint !== report.fingerprint)
         throw new Error('Audit changed; regenerate the report and review the mapping')
       const unresolved = report.conflicts.filter((c) => {
@@ -158,6 +239,7 @@ export default class MigrationService {
         throw new Error(
           `Unresolved migration conflicts: ${unresolved.map((c) => c.key).join(', ')}`
         )
+      await trx.rawQuery('UPDATE users SET email=lower(trim(email))')
       const initial = new Map<number, string>()
       for (const row of snapshot.users) {
         const user = await User.findOrFail(row.id, { client: trx })
@@ -226,7 +308,7 @@ export default class MigrationService {
         'UPDATE chunks c SET workspace_id=f.workspace_id FROM files f WHERE c.file_id=f.id AND NOT c.tenancy_quarantined',
         'UPDATE chunk_blocks b SET workspace_id=c.workspace_id, run_id=c.run_id FROM chunks c WHERE b.chunk_id=c.id',
         'UPDATE chunk_embeddings e SET workspace_id=c.workspace_id FROM chunks c WHERE e.chunk_id=c.id',
-        "UPDATE documents SET legacy_status=status, legacy_approval_unverified=(status='approved'), status=CASE WHEN status='pending' THEN 'draft' WHEN status='editing' THEN 'edited' WHEN status='approved' THEN 'edited' ELSE COALESCE(status,'draft') END WHERE legacy_status IS NULL",
+        "UPDATE documents SET legacy_tenancy_migrated_at=CURRENT_TIMESTAMP, legacy_status=COALESCE(legacy_status,status), legacy_approval_unverified=(legacy_approval_unverified OR COALESCE(status='approved',false)), status=CASE WHEN status='pending' THEN 'draft' WHEN status='editing' THEN 'edited' WHEN status='approved' THEN 'edited' ELSE COALESCE(status,'draft') END WHERE legacy_tenancy_migrated_at IS NULL",
         'UPDATE documents d SET current_version_id=(SELECT v.id FROM document_versions v WHERE v.document_id=d.id ORDER BY v.version DESC LIMIT 1) WHERE current_version_id IS NULL',
       ]
       // Quarantine never invents run/revision lineage; retain the records and exclude them from retrieval.
@@ -237,6 +319,23 @@ export default class MigrationService {
           .update({ tenancy_quarantined: true, workspace_id: null })
       }
       for (const sql of updates) await trx.rawQuery(sql)
+      const preserved = this.report(await this.snapshot(trx))
+      for (const table of [
+        'users',
+        'documents',
+        'files',
+        'shares',
+        'attachments',
+        'chunks',
+        'revisions',
+        'runs',
+        'blocks',
+        'mappings',
+        'versions',
+        'embeddings',
+      ])
+        if (preserved.identities[table] !== report.identities[table])
+          throw new Error(`Migration changed original IDs: ${table}`)
       if (apply) await trx.commit()
       else await trx.rollback()
       return { ...report, applied: apply }
@@ -270,6 +369,18 @@ export default class MigrationService {
       const result = await query.count('* as total').first()
       missing[table] = Number(result?.total ?? 0)
     }
+    const invalid = await db.rawQuery<{ rows: { total: string }[] }>(
+      `SELECT count(*) AS total FROM chunks c LEFT JOIN file_revisions r ON r.id=c.file_revision_id AND r.workspace_id=c.workspace_id AND r.file_id=c.file_id LEFT JOIN processing_runs p ON p.id=c.run_id AND p.workspace_id=c.workspace_id AND p.file_revision_id=c.file_revision_id WHERE NOT c.tenancy_quarantined AND (r.id IS NULL OR p.id IS NULL)`
+    )
+    missing.evidenceLineage = Number(invalid.rows[0].total)
+    const initials = await db.rawQuery<{ rows: { total: string }[] }>(
+      `SELECT count(*) AS total FROM users u LEFT JOIN workspaces w ON w.initial_for_user_id=u.id WHERE w.id IS NULL`
+    )
+    missing.initialWorkspaces = Number(initials.rows[0].total)
+    const owners = await db.rawQuery<{ rows: { total: string }[] }>(
+      `SELECT count(*) AS total FROM workspaces w LEFT JOIN workspace_memberships m ON m.workspace_id=w.id AND m.user_id=w.owner_user_id AND m.role='owner' AND m.revoked_at IS NULL WHERE m.id IS NULL`
+    )
+    missing.activeWorkspaceOwners = Number(owners.rows[0].total)
     return { valid: Object.values(missing).every((count) => count === 0), missing }
   }
 }

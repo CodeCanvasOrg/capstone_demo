@@ -1,3 +1,4 @@
+import workspaceConfig from '#config/workspaces'
 import { randomBytes, createHash } from 'node:crypto'
 import db from '@adonisjs/lucid/services/db'
 import encryption from '@adonisjs/core/services/encryption'
@@ -66,7 +67,7 @@ export default class InvitationService {
         email: addressed,
         inviterId: context.actorId,
         tokenHash: tokenHash(token),
-        expiresAt: DateTime.utc().plus({ days: 7 }),
+        expiresAt: DateTime.utc().plus({ days: workspaceConfig.invitationDays }),
         deliveryState: 'pending',
         deliveryTokenEncrypted: encryption.encrypt(token),
         sentAt: null,

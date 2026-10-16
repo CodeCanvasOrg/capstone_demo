@@ -1,3 +1,4 @@
+import workspaceConfig from '#config/workspaces'
 import { createHash, randomUUID } from 'node:crypto'
 import { DateTime } from 'luxon'
 import db from '@adonisjs/lucid/services/db'
@@ -43,6 +44,31 @@ export const fingerprint = (value: unknown) =>
     .update(JSON.stringify(canonical(value)))
     .digest('hex')
 export default class TaskService {
+  private async publishTerminal(task: WorkspaceTask, trx: TransactionClientContract) {
+    if (task.kind === 'generate')
+      await trx
+        .from('documents')
+        .where({
+          workspace_id: task.workspaceId,
+          id: task.documentId!,
+          generation_task_id: task.id,
+        })
+        .update({
+          generation_status: 'failed',
+          generation_error: task.safeError ?? 'Generation could not finish',
+          generation_lease_at: null,
+        })
+    if (task.kind === 'ingest')
+      await trx
+        .from('processing_runs')
+        .where({ workspace_id: task.workspaceId, id: task.runId! })
+        .whereNot('status', 'ready')
+        .update({
+          status: 'failed',
+          error: task.safeError ?? 'Source preparation could not finish',
+          completed_at: DateTime.utc().toSQL(),
+        })
+  }
   async create(
     context: WorkspaceAccessContext,
     input: {
@@ -121,7 +147,7 @@ export default class TaskService {
       if (!['queued', 'running'].includes(task.status)) return null
       if (task.status === 'running' && task.leaseExpiresAt && task.leaseExpiresAt > DateTime.utc())
         return null
-      if (task.attempts >= 3) {
+      if (task.attempts >= workspaceConfig.maximumAttempts) {
         task.merge({
           status: 'failed',
           leaseToken: null,
@@ -129,6 +155,7 @@ export default class TaskService {
           safeError: 'Processing reached its retry limit',
         })
         await task.save()
+        await this.publishTerminal(task, trx)
         return null
       }
       const token = randomUUID()
@@ -136,7 +163,7 @@ export default class TaskService {
         status: 'running',
         attempts: task.attempts + 1,
         leaseToken: token,
-        leaseExpiresAt: DateTime.utc().plus({ seconds: 120 }),
+        leaseExpiresAt: DateTime.utc().plus({ seconds: workspaceConfig.leaseSeconds }),
         safeError: null,
       })
       await task.save()
@@ -164,7 +191,7 @@ export default class TaskService {
   async renew(lease: TaskLease) {
     await db.transaction(async (trx) => {
       const task = await this.lock(lease, trx)
-      task.leaseExpiresAt = DateTime.utc().plus({ seconds: 120 })
+      task.leaseExpiresAt = DateTime.utc().plus({ seconds: workspaceConfig.leaseSeconds })
       await task.save()
     })
   }
@@ -187,7 +214,7 @@ export default class TaskService {
         .forUpdate()
         .first()
       if (!task || task.status !== 'running' || task.leaseToken !== lease.token) return
-      if (task.kind === 'ingest' && task.attempts >= 3)
+      if (task.kind === 'ingest' && task.attempts >= workspaceConfig.maximumAttempts)
         await trx
           .from('processing_runs')
           .where({ id: task.runId!, workspace_id: task.workspaceId })
@@ -197,7 +224,11 @@ export default class TaskService {
             completed_at: DateTime.utc().toSQL(),
           })
       task.merge({
-        status: stale ? 'conflict' : task.attempts >= 3 ? 'failed' : 'queued',
+        status: stale
+          ? 'conflict'
+          : task.attempts >= workspaceConfig.maximumAttempts
+            ? 'failed'
+            : 'queued',
         leaseToken: null,
         leaseExpiresAt: null,
         safeError: stale
@@ -205,7 +236,9 @@ export default class TaskService {
           : 'Processing failed. Retry is available.',
       })
       await task.save()
-      if (!stale && task.attempts < 3)
+      if (['failed', 'conflict', 'cancelled'].includes(task.status))
+        await this.publishTerminal(task, trx)
+      if (!stale && task.attempts < workspaceConfig.maximumAttempts)
         await TaskDispatch.query({ client: trx })
           .where('taskId', task.id)
           .update({ dispatchedAt: null })
@@ -230,6 +263,12 @@ export default class TaskService {
     )
   }
   async reconcile() {
+    await db.rawQuery(
+      `WITH pending AS(SELECT d.id,t.safe_error FROM documents d JOIN workspace_tasks t ON t.id=d.generation_task_id AND t.workspace_id=d.workspace_id WHERE d.generation_status='processing' AND t.status IN('failed','conflict','cancelled') LIMIT 100) UPDATE documents d SET generation_status='failed',generation_error=COALESCE(p.safe_error,'Generation could not finish'),generation_lease_at=NULL FROM pending p WHERE p.id=d.id`
+    )
+    await db.rawQuery(
+      `WITH pending AS(SELECT pr.id,t.safe_error FROM processing_runs pr JOIN workspace_tasks t ON t.run_id=pr.id AND t.workspace_id=pr.workspace_id WHERE pr.status IN('queued','processing') AND t.status IN('failed','conflict','cancelled') AND NOT EXISTS(SELECT 1 FROM workspace_tasks active WHERE active.run_id=pr.id AND active.workspace_id=pr.workspace_id AND active.status IN('queued','running')) LIMIT 100) UPDATE processing_runs pr SET status='failed',error=COALESCE(p.safe_error,'Source preparation could not finish'),completed_at=CURRENT_TIMESTAMP FROM pending p WHERE p.id=pr.id`
+    )
     await db.rawQuery(
       `UPDATE task_dispatches d SET dispatched_at = NULL FROM workspace_tasks t WHERE t.id = d.task_id AND (t.status = 'queued' OR (t.status = 'running' AND t.lease_expires_at < CURRENT_TIMESTAMP))`
     )

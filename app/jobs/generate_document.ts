@@ -1,3 +1,4 @@
+import workspaceConfig from '#config/workspaces'
 import { Job } from '@adonisjs/queue'
 import type { JobOptions } from '@adonisjs/queue/types'
 import TaskService from '#services/workspaces/task_service'
@@ -11,7 +12,7 @@ export default class GenerateDocument extends Job<{ version: 1; taskId: string }
     if (!lease || lease.task.kind !== 'generate') return
     const heartbeat = setInterval(() => {
       void tasks.renew(lease).catch(() => {})
-    }, 30000)
+    }, workspaceConfig.heartbeatMilliseconds)
     heartbeat.unref()
     try {
       await new GenerationService().execute(lease)
