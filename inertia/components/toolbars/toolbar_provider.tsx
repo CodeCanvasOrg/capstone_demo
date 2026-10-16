@@ -1,6 +1,6 @@
 'use client'
 
-import type { Editor } from '@tiptap/react'
+import { useEditorState, type Editor } from '@tiptap/react'
 import type { StarterKitOptions } from '@tiptap/starter-kit'
 import React from 'react'
 
@@ -8,6 +8,7 @@ export type { StarterKitOptions }
 
 export interface ToolbarContextProps {
   editor: Editor
+  transaction?: number
 }
 
 export const ToolbarContext = React.createContext<ToolbarContextProps | null>(null)
@@ -18,7 +19,10 @@ interface ToolbarProviderProps {
 }
 
 export const ToolbarProvider = ({ editor, children }: ToolbarProviderProps) => {
-  return <ToolbarContext.Provider value={{ editor }}> {children} </ToolbarContext.Provider>
+  const transaction = useEditorState({ editor, selector: (state) => state.transactionNumber })
+  return (
+    <ToolbarContext.Provider value={{ editor, transaction }}> {children} </ToolbarContext.Provider>
+  )
 }
 
 export const useToolbar = () => {

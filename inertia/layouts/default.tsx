@@ -1,181 +1,215 @@
-import { WorkspaceProvider } from '@/providers/workspace_provider'
-import { useWorkspaceId } from '@/providers/workspace_provider'
-import { type Data } from '@generated/data'
-import { toast } from 'sonner'
-import { usePage } from '@inertiajs/react'
-import { type ReactElement, useEffect } from 'react'
-import { MotionConfig } from 'framer-motion'
-import { Menu, LogOut, Files, FileText, ArrowUpRight } from 'lucide-react'
-import { cn } from 'cn'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown_menu'
+import { type ReactElement, useEffect, useRef } from 'react'
+import { usePage, router } from '@inertiajs/react'
 import { Form, Link } from '@adonisjs/inertia/react'
-import { ThemeProvider } from '@/components/theme_provider'
+import { toast } from 'sonner'
+import { Home, FolderOpen, Files, Users, Plus, LogOut, FileText, ArrowUpRight } from 'lucide-react'
+import type { Data } from '@generated/data'
+import { WorkspacePicker } from '@/components/workspace_picker'
+import { WorkspaceProvider, useWorkspace } from '@/providers/workspace_provider'
+import { Brand } from '@/components/brand'
 import { ThemeToggle } from '@/components/theme_toggle'
 import { Button } from '@/components/ui/button'
-import { Toaster } from '@/components/ui/sonner'
-import { TooltipProvider } from '@/components/ui/tooltip'
+import {
+  SidebarProvider,
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarInset,
+  SidebarTrigger,
+  SidebarSeparator,
+  useSidebar,
+} from '@/components/ui/sidebar'
 
+function NavigationCompletion() {
+  const { setOpenMobile } = useSidebar()
+  useEffect(
+    () =>
+      router.on('navigate', (event) => {
+        const destination = new URL(event.detail.page.url, window.location.origin).pathname
+        if (destination === lastPath.current) return
+        lastPath.current = destination
+        setOpenMobile(false)
+        requestAnimationFrame(() => document.getElementById('main-content')?.focus())
+      }),
+    [setOpenMobile]
+  )
+  const lastPath = useRef(typeof window === 'undefined' ? '' : window.location.pathname)
+  return null
+}
+function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps> }) {
+  const { workspace } = useWorkspace()
+  const page = usePage<Data.SharedProps & { recentDocuments?: Data.RecentDocument[] }>()
+  const user = page.props.user
+  const base = workspace ? `/workspaces/${workspace.id}` : ''
+  useEffect(() => {
+    if (page.flash.error) toast.error(page.flash.error)
+    if (page.flash.success) toast.success(page.flash.success)
+  }, [page.flash])
+  const items = workspace
+    ? [
+        {
+          route: 'workspaces.show' as const,
+          label: 'Workspace home',
+          icon: Home,
+          active: page.url === base,
+        },
+        {
+          route: 'documents.index' as const,
+          label: 'All case studies',
+          icon: FileText,
+          active: page.url.startsWith(`${base}/documents`),
+        },
+        {
+          route: 'projects.index' as const,
+          label: 'Projects',
+          icon: FolderOpen,
+          active: page.url.startsWith(`${base}/projects`),
+        },
+        {
+          route: 'files.index' as const,
+          label: 'Files library',
+          icon: Files,
+          active: page.url.startsWith(`${base}/files`),
+        },
+        {
+          route: 'workspace_members.index' as const,
+          label: 'Members',
+          icon: Users,
+          active: page.url.startsWith(`${base}/members`),
+        },
+      ]
+    : []
+  return (
+    <SidebarProvider style={{ '--sidebar-width': '16rem' } as React.CSSProperties}>
+      <NavigationCompletion />
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-100 focus:rounded-lg focus:bg-primary focus:p-3 focus:text-primary-foreground"
+      >
+        Skip to content
+      </a>
+      <Sidebar collapsible="offcanvas" className="border-r">
+        <SidebarHeader className="gap-5 px-4 pt-6 pb-3">
+          <Link route="home" aria-label="CodeCanvas home">
+            <Brand />
+          </Link>
+          <WorkspacePicker />
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarMenu>
+              {items.map((item) => (
+                <SidebarMenuItem key={item.route}>
+                  <SidebarMenuButton asChild isActive={item.active} className="h-9 font-medium">
+                    <Link
+                      route={item.route}
+                      routeParams={{ workspaceId: workspace!.id }}
+                      aria-current={item.active ? 'page' : undefined}
+                    >
+                      <item.icon aria-hidden="true" />
+                      <span>{item.label}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroup>
+          <SidebarSeparator />
+          {workspace && (
+            <SidebarGroup>
+              <SidebarGroupLabel className="justify-between">
+                Recent documents
+                <Button variant="ghost" size="icon-xs" asChild>
+                  <Link
+                    route="documents.create"
+                    routeParams={{ workspaceId: workspace.id }}
+                    aria-label="New case study"
+                  >
+                    <Plus />
+                  </Link>
+                </Button>
+              </SidebarGroupLabel>
+              <SidebarMenu>
+                {(page.props.recentDocuments ?? []).map((doc) => (
+                  <SidebarMenuItem key={doc.id}>
+                    <SidebarMenuButton asChild className="h-auto min-h-12 py-2">
+                      <Link
+                        route="documents.edit"
+                        routeParams={{ workspaceId: workspace.id, id: doc.id }}
+                      >
+                        <FileText className="size-4" />
+                        <span className="min-w-0">
+                          <span className="block truncate text-xs font-medium">{doc.title}</span>
+                          <span className="block text-[.625rem] text-muted-foreground">
+                            {doc.status === 'approved' ? 'Approved' : 'In progress'}
+                          </span>
+                        </span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+              {!page.props.recentDocuments?.length && (
+                <p className="px-2 text-xs leading-5 text-muted-foreground">
+                  Your recent case studies will appear here.
+                </p>
+              )}
+            </SidebarGroup>
+          )}
+        </SidebarContent>
+        <SidebarFooter className="border-t p-4">
+          <div className="flex items-center gap-2">
+            <span className="grid size-8 shrink-0 place-items-center rounded-full border text-xs">
+              {user?.initials}
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-xs font-semibold">{user?.fullName || user?.email}</p>
+              <p className="text-[.625rem] capitalize text-muted-foreground">
+                {page.props.membership?.role ?? 'Account'}
+              </p>
+            </div>
+            <ThemeToggle />
+            <Form route="session.destroy">
+              <Button variant="ghost" size="icon-sm" type="submit" aria-label="Sign out">
+                <LogOut className="size-4" />
+              </Button>
+            </Form>
+          </div>
+        </SidebarFooter>
+      </Sidebar>
+      <SidebarInset className="min-w-0 bg-background">
+        <div className="flex h-12 items-center justify-between border-b bg-sidebar px-4 md:hidden">
+          <SidebarTrigger aria-label="Open workspace navigation" />
+          <span className="truncate text-xs font-semibold">{workspace?.name ?? 'CodeCanvas'}</span>
+          <ThemeToggle />
+        </div>
+        <main id="main-content" tabIndex={-1} className="min-w-0 flex-1 outline-none">
+          <div key={workspace?.id ?? 'account'}>{children}</div>
+        </main>
+        <footer className="flex items-center justify-between gap-3 border-t px-6 py-4 text-[.625rem] text-muted-foreground">
+          <span>HumbleBeeAI · Human direction. Intelligent systems.</span>
+          <Link
+            route="workspaces.index"
+            className="inline-flex items-center gap-1 hover:text-foreground"
+          >
+            Your workspaces
+            <ArrowUpRight className="size-3" />
+          </Link>
+        </footer>
+      </SidebarInset>
+    </SidebarProvider>
+  )
+}
 export default function Layout({ children }: { children: ReactElement<Data.SharedProps> }) {
-  const workspaceId = useWorkspaceId()
-  const { url, flash } = usePage()
-  useEffect(() => {
-    toast.dismiss()
-  }, [url])
-
-  useEffect(() => {
-    if (flash.error) {
-      toast.error(flash.error)
-    }
-    if (flash.success) {
-      toast.success(flash.success)
-    }
-  })
-
   return (
     <WorkspaceProvider>
-      <MotionConfig reducedMotion="user">
-        <ThemeProvider>
-          <TooltipProvider>
-            <a
-              href="#main-content"
-              className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-primary focus:p-3 focus:text-primary-foreground"
-            >
-              Skip to content
-            </a>
-            <header className="border-b border-border bg-background">
-              <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
-                <Link
-                  route="home"
-                  aria-label="REACT home"
-                  className="shrink-0 text-foreground transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-                >
-                  <svg
-                    className="w-20 sm:w-30"
-                    aria-hidden="true"
-                    width="120"
-                    height="24"
-                    viewBox="0 0 195 38"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M180 37.5v-30h-7.5V0H195v7.5h-7.5v30H180ZM150 15V7.5h-15V0h15v7.5h7.5V15H150Zm-15 22.5V30h-7.5V7.5h7.5V30h15v7.5h-15Zm15-7.5v-7.5h7.5V30H150ZM82.5 37.5v-30H90V0h15v7.5h7.5v30H105v-15H90v15h-7.5ZM90 15h15V7.8H90V15ZM45 37.5V0h22.5v7.5h-15V15h15v7.5h-15V30h15v7.5H45ZM0 37.5V0h22.5v7.5H30V15h-7.5v15H30v7.5h-7.5V30H15v-7.5H7.5v15H0ZM7.5 15h14.7V7.5H7.5V15Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </Link>
-                <nav aria-label="Main navigation" className="flex items-center gap-2">
-                  {children.props.user ? (
-                    <>
-                      <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
-                        <Link
-                          route="documents.index"
-                          routeParams={{ workspaceId }}
-                          aria-current={url.startsWith('/documents') ? 'page' : undefined}
-                          className={cn(
-                            url.startsWith('/documents') && 'bg-secondary text-secondary-foreground'
-                          )}
-                        >
-                          <FileText aria-hidden="true" className="size-4" />
-                          Documents
-                        </Link>
-                      </Button>
-                      <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
-                        <Link
-                          route="files.index"
-                          routeParams={{ workspaceId }}
-                          aria-current={url.startsWith('/files') ? 'page' : undefined}
-                          className={cn(
-                            url.startsWith('/files') && 'bg-secondary text-secondary-foreground'
-                          )}
-                        >
-                          <Files aria-hidden="true" className="size-4" />
-                          Files
-                        </Link>
-                      </Button>
-                      <span
-                        aria-label={`Signed in as ${children.props.user.initials}`}
-                        className="mx-1 hidden size-7 sm:flex items-center justify-center bg-primary text-sm font-semibold text-primary-foreground"
-                      >
-                        {children.props.user.initials}
-                      </span>
-                      <Form route="session.destroy" className="hidden sm:block">
-                        {({ processing }) => (
-                          <Button type="submit" variant="ghost" size="sm" disabled={processing}>
-                            {processing ? 'Signing out…' : 'Logout'}
-                          </Button>
-                        )}
-                      </Form>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            variant="outline"
-                            size="icon"
-                            className="sm:hidden"
-                            aria-label="Open navigation"
-                          >
-                            <Menu className="size-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem asChild>
-                            <Link route="documents.index" routeParams={{ workspaceId }}>
-                              <FileText aria-hidden="true" />
-                              Documents
-                            </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem asChild>
-                            <Link route="files.index" routeParams={{ workspaceId }}>
-                              <Files aria-hidden="true" />
-                              Files
-                            </Link>
-                          </DropdownMenuItem>
-                          <Form route="session.destroy">
-                            {({ processing }) => (
-                              <DropdownMenuItem
-                                asChild
-                                disabled={processing}
-                                onSelect={(event) => event.preventDefault()}
-                              >
-                                <button type="submit" className="w-full">
-                                  <LogOut aria-hidden="true" />
-                                  {processing ? 'Signing out…' : 'Logout'}
-                                </button>
-                              </DropdownMenuItem>
-                            )}
-                          </Form>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </>
-                  ) : (
-                    <>
-                      <Button asChild variant="ghost" size="sm">
-                        <Link route="session.create">Login</Link>
-                      </Button>
-                      <Button asChild variant="default" size="sm">
-                        <Link route="new_account.create">
-                          Get started
-                          <ArrowUpRight className="hidden size-4 sm:block" aria-hidden="true" />
-                        </Link>
-                      </Button>
-                    </>
-                  )}
-                  <ThemeToggle />
-                </nav>
-              </div>
-            </header>
-            <main id="main-content" tabIndex={-1}>
-              {children}
-            </main>
-            <Toaster position="top-center" richColors />
-          </TooltipProvider>
-        </ThemeProvider>
-      </MotionConfig>
+      <WorkspaceShell>{children}</WorkspaceShell>
     </WorkspaceProvider>
   )
 }

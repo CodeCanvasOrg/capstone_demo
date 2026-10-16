@@ -30,6 +30,39 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    * response to the client
    */
   async handle(error: unknown, ctx: HttpContext) {
+    const failure = error as {
+      status?: number
+      code?: string
+      message?: string
+      messages?: { field: string; message: string }[]
+    }
+    const status = typeof failure.status === 'number' ? failure.status : 500
+    if (ctx.request.accepts(['html', 'json']) === 'json') {
+      return ctx.response.status(status).send({
+        error: {
+          code: status >= 500 ? 'E_REQUEST_FAILED' : (failure.code ?? `E_HTTP_${status}`),
+          message:
+            status >= 500
+              ? 'The request could not finish. Please try again.'
+              : (failure.message ?? 'The request was rejected.'),
+          retryable: status >= 500,
+        },
+        ...(status === 422 && Array.isArray(failure.messages)
+          ? { errors: failure.messages.map(({ field, message }) => ({ field, message })) }
+          : {}),
+      })
+    }
+    if (status === 409 && ctx.request.header('X-Inertia')) {
+      ctx.session.flash(
+        'error',
+        failure.message ?? 'This item changed. Reload its latest state before retrying.'
+      )
+      return ctx.response.redirect().back()
+    }
+    if ([403, 404, 410].includes(status)) {
+      ctx.response.status(status)
+      return ctx.inertia.render('errors/access_problem', { status })
+    }
     return super.handle(error, ctx)
   }
 

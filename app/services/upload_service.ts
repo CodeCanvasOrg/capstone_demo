@@ -28,8 +28,8 @@ export default class UploadService {
   ) {
     const filetype = path.extname(filename).toLowerCase()
     const mime = MIME_TYPES[filetype]
-    if (!mime || contents.length > 20 * 1024 * 1024 || !contents.length)
-      throw new Exception('Choose a supported file up to 20 MB', { status: 422 })
+    if (!mime || contents.length > 10 * 1024 * 1024 || !contents.length)
+      throw new Exception('Choose a supported file up to 10 MB', { status: 422 })
     const objectKey = File.createFileName(`workspaces/${context.workspaceId}/originals`, filetype)
     const access = new AccessService()
     // Keep the membership lock through the private write; revocation serializes with it.

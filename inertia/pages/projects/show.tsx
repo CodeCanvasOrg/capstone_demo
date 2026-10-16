@@ -1,4 +1,5 @@
 import { Head } from '@inertiajs/react'
+import { CaseStudyList } from '@/components/documents/case_study_list'
 import { Form, Link } from '@adonisjs/inertia/react'
 import type { Data } from '@generated/data'
 import { useWorkspaceId } from '@/providers/workspace_provider'
@@ -14,22 +15,13 @@ export default function Show({
 }) {
   const workspaceId = useWorkspaceId()
   return (
-    <div className="mx-auto max-w-5xl space-y-8 p-6 md:p-10">
+    <div className="page-wrap space-y-8">
       <Head title={project.name} />
       <h1 className="text-3xl font-semibold">{project.name}</h1>
       <p className="text-muted-foreground">{project.description}</p>
       <section className="space-y-3">
         <h2 className="text-xl font-semibold">Case studies</h2>
-        {documents.map((document) => (
-          <Link
-            key={document.id}
-            route="documents.edit"
-            routeParams={{ workspaceId, id: document.id }}
-            className="block rounded-lg border p-4 hover:bg-accent"
-          >
-            {document.title}
-          </Link>
-        ))}
+        {!!documents.length && <CaseStudyList documents={documents} />}
         {!documents.length && (
           <p className="text-muted-foreground">No case studies in this project yet.</p>
         )}

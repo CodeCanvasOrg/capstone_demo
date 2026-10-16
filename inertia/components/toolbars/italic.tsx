@@ -18,6 +18,10 @@ const ItalicToolbar = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
+            type="button"
+            aria-label="Italic"
+            aria-pressed={editor?.isActive('italic') ?? false}
+            onMouseDown={(event) => event.preventDefault()}
             variant="ghost"
             size="icon"
             className={cn('h-8 w-8', editor?.isActive('italic') && 'bg-accent', className)}

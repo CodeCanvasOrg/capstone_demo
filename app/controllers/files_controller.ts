@@ -23,7 +23,7 @@ export default class FilesController {
       20
     )
     return inertia.render('files/index', {
-      files: FileTransformer.transform(page.all()),
+      files: FileTransformer.transform(page.all(), workspaceAccess!.actorId),
       pagination: page.getMeta(),
       filters: { q },
     })

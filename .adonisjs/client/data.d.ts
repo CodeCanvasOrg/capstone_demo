@@ -17,6 +17,7 @@ import type DocumentVersionTransformer from '#transformers/document_version_tran
 import type DocumentWorkflowTransformer from '#transformers/document_workflow_transformer'
 import type FileTransformer from '#transformers/file_transformer'
 import type ProjectTransformer from '#transformers/project_transformer'
+import type RecentDocumentTransformer from '#transformers/recent_document_transformer'
 import type UserTransformer from '#transformers/user_transformer'
 import type WorkspaceInvitationTransformer from '#transformers/workspace_invitation_transformer'
 import type WorkspaceMembershipTransformer from '#transformers/workspace_membership_transformer'
@@ -67,6 +68,10 @@ export namespace Data {
   export type Project = InferData<ProjectTransformer>
   export namespace Project {
     export type Variants = InferVariants<ProjectTransformer>
+  }
+  export type RecentDocument = InferData<RecentDocumentTransformer>
+  export namespace RecentDocument {
+    export type Variants = InferVariants<RecentDocumentTransformer>
   }
   export type User = InferData<UserTransformer>
   export namespace User {

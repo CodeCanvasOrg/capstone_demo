@@ -1,50 +1,45 @@
-import { useWorkspaceId } from '@/providers/workspace_provider'
-import { Head } from '@inertiajs/react'
-import { PageIntro } from '@/components/page_intro'
-import { Reveal } from '@/components/reveal'
-import { type Data } from '@generated/data'
-import { Link, useRouter } from '@adonisjs/inertia/react'
-import { FileText, Plus } from 'lucide-react'
+import { Head, router } from '@inertiajs/react'
+import { Link } from '@adonisjs/inertia/react'
+import type { Data } from '@generated/data'
 import { useEffect } from 'react'
-import { type InertiaProps } from '@/types'
+import { FileText, Plus, ArrowUpRight } from 'lucide-react'
+import { useWorkspaceId } from '@/providers/workspace_provider'
+import { PageIntro } from '@/components/page_intro'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import FileIndexCard from '@/components/files/index_card'
-
+import { ProcessingStatusBadge } from '@/components/documents/status'
+import {
+  CollectionSearch,
+  PaginationControls,
+  type Pagination,
+} from '@/components/collection_controls'
+import { EmptyState } from '@/components/empty_state'
 export default function Index({
   files,
-}: InertiaProps<{
+  pagination,
+  filters = { q: '' },
+}: {
   files: Data.File[]
-  pagination?: { total: number; currentPage: number; lastPage: number; perPage: number }
-  filters?: { q: string; status?: string; project?: string }
-}>) {
+  pagination?: Pagination
+  filters?: { q: string }
+}) {
   const workspaceId = useWorkspaceId()
-  const router = useRouter()
-  const hasPendingProcessing = files.some(
-    (file) => file.processingStatus === 'uploaded' || file.processingStatus === 'processing'
+  const processing = files.some((file) =>
+    ['uploaded', 'queued', 'processing'].includes(file.processingStatus ?? '')
   )
-
   useEffect(() => {
-    if (!hasPendingProcessing) return
-
+    if (!processing) return
     const interval = setInterval(() => {
-      router.visit(
-        { href: window.location.href },
-        { only: ['files'], preserveScroll: true, preserveState: true }
-      )
+      if (document.visibilityState === 'visible') router.reload({ only: ['files'] })
     }, 2500)
-
     return () => clearInterval(interval)
-  }, [hasPendingProcessing, router])
-
+  }, [processing])
   return (
-    <div className="mx-auto w-full max-w-5xl px-4 py-14">
-      <Head title="Files" />
+    <div className="page-wrap">
+      <Head title="Shared files" />
       <PageIntro
-        eyebrow="Your source library"
-        title="Files"
-        description="Keep the documents, notes, and images behind your next story together."
+        eyebrow="Workspace / Evidence"
+        title="The source of your stories."
+        description="One shared library for the documents, notes, and images behind your work."
         action={
           <Button asChild>
             <Link route="files.create" routeParams={{ workspaceId }}>
@@ -54,59 +49,57 @@ export default function Index({
           </Button>
         }
       />
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3 text-sm">
-        <p className="font-medium">
-          All files{' '}
-          <span className="ml-2 border border-border bg-card px-2 py-0.5 text-xs">
-            {files.length}
-          </span>
+      <div className="mb-5 flex flex-wrap items-center gap-4">
+        <div className="min-w-60 flex-1">
+          <CollectionSearch collection="files" q={filters.q} />
+        </div>
+        <p className="text-xs text-muted-foreground">
+          {pagination?.total ?? files.length} files · Shared with your team
         </p>
-        <p className="text-xs text-muted-foreground">Source material for your documents.</p>
       </div>
-      <Reveal>
-        {files.length === 0 ? (
-          <Card className="border border-border shadow-none">
-            <CardContent className="flex flex-col items-center gap-4 px-6 py-16 text-center">
-              <div className="flex size-14 items-center justify-center border border-border bg-secondary text-secondary-foreground">
-                <FileText className="size-5 text-muted-foreground" />
-              </div>
-              <div className="flex flex-col gap-1">
-                <h2 className="font-heading text-2xl">No files found</h2>
-                <p className="max-w-sm text-sm text-muted-foreground">
-                  Upload your first file to get started.
-                </p>
-              </div>
-              <Button asChild>
-                <Link route="files.create" routeParams={{ workspaceId }}>
-                  <Plus />
-                  Upload files
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
-        ) : (
-          <Card className="border border-border shadow-none">
-            <CardContent className="px-0 py-1">
-              <Table role="table" className="workspace-table">
-                <TableHeader role="rowgroup">
-                  <TableRow role="row">
-                    <TableHead className="pl-5">File</TableHead>
-                    <TableHead>Type</TableHead>
-                    <TableHead>Indexing</TableHead>
-                    <TableHead className="hidden sm:table-cell">Uploaded</TableHead>
-                    <TableHead className="pr-5 text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody role="rowgroup">
-                  {files.map((file) => (
-                    <FileIndexCard key={file.id} file={file} />
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        )}
-      </Reveal>
+      {files.length ? (
+        <ul className="divide-y overflow-hidden rounded-xl border bg-sidebar">
+          {files.map((file) => (
+            <li key={file.id}>
+              <Link
+                route="files.edit"
+                routeParams={{ workspaceId, id: file.id }}
+                className="flex items-center gap-4 p-5 hover:bg-accent"
+              >
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border bg-background">
+                  <FileText className="size-4" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-sm font-semibold">{file.filename}</span>
+                  <span className="mt-1 block text-[.625rem] text-muted-foreground">
+                    {file.filetype?.replace('.', '').toUpperCase()} ·{' '}
+                    {file.createdAt ? new Date(file.createdAt).toLocaleDateString() : ''}
+                  </span>
+                </span>
+                <ProcessingStatusBadge status={file.processingStatus} />
+                <ArrowUpRight className="hidden size-4 sm:block" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <EmptyState
+          title={filters.q ? 'No matching files' : 'Give the story its evidence'}
+          description={
+            filters.q
+              ? 'Try a different file name.'
+              : 'Upload project files once and use them across your workspace’s case studies.'
+          }
+          action={
+            <Button asChild>
+              <Link route="files.create" routeParams={{ workspaceId }}>
+                Upload files
+              </Link>
+            </Button>
+          }
+        />
+      )}
+      <PaginationControls pagination={pagination} collection="files" query={filters} />
     </div>
   )
 }

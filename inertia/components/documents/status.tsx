@@ -1,46 +1,44 @@
-import type { VariantProps } from 'class-variance-authority'
-import { Badge, type badgeVariants } from '@/components/ui/badge'
-
-export const DOCUMENT_STATUSES = ['pending', 'draft', 'editing', 'approved'] as const
-
-export type DocumentStatus = (typeof DOCUMENT_STATUSES)[number]
-export type BadgeVariant = NonNullable<VariantProps<typeof badgeVariants>['variant']>
-
-export type GenerationStatus = 'uploaded' | 'processing' | 'generating' | 'ready' | 'failed'
-
-export const STATUS_META: Record<DocumentStatus, { label: string; variant: BadgeVariant }> = {
-  pending: { label: 'Pending', variant: 'outline' },
-  draft: { label: 'Draft', variant: 'secondary' },
-  editing: { label: 'Editing', variant: 'default' },
-  approved: { label: 'Approved', variant: 'ghost' },
+import { Check, Clock, LoaderCircle, AlertCircle, PencilLine } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
+const statuses: Record<string, { label: string; icon: typeof Clock }> = {
+  pending: { label: 'Draft', icon: Clock },
+  draft: { label: 'Draft', icon: Clock },
+  editing: { label: 'Edited', icon: PencilLine },
+  edited: { label: 'Edited', icon: PencilLine },
+  in_review: { label: 'In review', icon: Clock },
+  approved: { label: 'Approved', icon: Check },
 }
-
 export function StatusBadge({ status }: { status: string | null }) {
-  if (!status || !(status in STATUS_META)) {
-    return <span className="text-sm text-muted-foreground">—</span>
-  }
-
-  const meta = STATUS_META[status as DocumentStatus]
-  return <Badge variant={meta.variant}>{meta.label}</Badge>
+  const item = statuses[status ?? 'draft'] ?? statuses.draft
+  return (
+    <Badge
+      variant="outline"
+      className={
+        status === 'approved' ? 'border-foreground/20 bg-primary/20 text-foreground' : 'bg-sidebar'
+      }
+    >
+      <item.icon aria-hidden="true" className="size-3" />
+      {item.label}
+    </Badge>
+  )
 }
-
-const GENERATION_STATUS_META: Record<GenerationStatus, { label: string; variant: BadgeVariant }> = {
-  uploaded: { label: 'Uploaded', variant: 'outline' },
-  processing: { label: 'Indexing', variant: 'outline' },
-  generating: { label: 'Generating', variant: 'secondary' },
-  ready: { label: 'Ready', variant: 'secondary' },
-  failed: { label: 'Failed', variant: 'destructive' },
-}
-
-export function GenerationStatusBadge({ status }: { status: string | null | undefined }) {
-  if (!status || !(status in GENERATION_STATUS_META)) {
-    return <span className="text-sm text-muted-foreground">—</span>
-  }
-
-  const meta = GENERATION_STATUS_META[status as GenerationStatus]
-  return <Badge variant={meta.variant}>{meta.label}</Badge>
-}
-
 export function ProcessingStatusBadge({ status }: { status: string | null | undefined }) {
-  return <GenerationStatusBadge status={status} />
+  const ready = status === 'ready'
+  const failed = status === 'failed' || status === 'outdated'
+  const Icon = ready ? Check : failed ? AlertCircle : LoaderCircle
+  return (
+    <Badge variant="outline" className="bg-sidebar">
+      <Icon aria-hidden="true" className={`size-3 ${!ready && !failed ? 'animate-spin' : ''}`} />
+      {ready
+        ? 'Prepared'
+        : failed
+          ? 'Needs attention'
+          : status === 'processing'
+            ? 'Preparing'
+            : 'Queued'}
+    </Badge>
+  )
+}
+export function GenerationStatusBadge({ status }: { status: string | null | undefined }) {
+  return <ProcessingStatusBadge status={status} />
 }

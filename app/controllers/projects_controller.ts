@@ -6,10 +6,20 @@ import ProjectTransformer from '#transformers/project_transformer'
 import DocumentTransformer from '#transformers/document_transformer'
 import { createProjectValidator } from '#validators/project'
 export default class ProjectsController {
-  async index({ workspace, workspaceAccess, bouncer, inertia }: HttpContext) {
+  async index({ workspace, workspaceAccess, bouncer, request, inertia }: HttpContext) {
     await bouncer.with(ProjectPolicy).authorize('create', workspaceAccess!.workspaceId)
-    const projects = await workspace!.related('projects').query().orderBy('updatedAt', 'desc')
-    return inertia.render('projects/index', { projects: ProjectTransformer.transform(projects) })
+    const q = String(request.input('q', '')).slice(0, 200)
+    const query = workspace!.related('projects').query().orderBy('updatedAt', 'desc')
+    if (q) query.whereILike('name', `%${q.replaceAll('%', '\\%').replaceAll('_', '\\_')}%`)
+    const projects = await query.paginate(
+      Math.min(100000, Math.max(1, Math.floor(Number(request.input('page', 1)) || 1))),
+      20
+    )
+    return inertia.render('projects/index', {
+      projects: ProjectTransformer.transform(projects.all()),
+      pagination: projects.getMeta(),
+      filters: { q },
+    })
   }
   async show({ workspaceAccess, workspace, params, bouncer, inertia }: HttpContext) {
     const project = await new AccessService().project(workspaceAccess!, params.projectId)

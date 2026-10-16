@@ -10,7 +10,7 @@ import UserForm from '@/components/files/user_form'
 export default function Create() {
   const workspaceId = useWorkspaceId()
   return (
-    <div className="mx-auto w-full max-w-2xl px-4 py-14">
+    <div className="page-wrap max-w-3xl">
       <Link
         route="files.index"
         routeParams={{ workspaceId }}
@@ -28,7 +28,7 @@ export default function Create() {
       />
 
       <Reveal>
-        <Card className="border-t-2 border-t-primary py-7">
+        <Card className="border bg-sidebar py-7">
           <CardContent className="px-5">
             <UserForm />
           </CardContent>

@@ -1,3 +1,5 @@
+import Document from '#models/document'
+import RecentDocumentTransformer from '#transformers/recent_document_transformer'
 import type { HttpContext } from '@adonisjs/core/http'
 import type { NextFn } from '@adonisjs/core/types/http'
 import UserTransformer from '#transformers/user_transformer'
@@ -29,7 +31,14 @@ export default class InertiaMiddleware extends BaseInertiaMiddleware {
           .preload('workspace')
           .orderBy('joinedAt', 'asc')
       : []
+    const recentDocuments = ctx.workspaceAccess
+      ? await Document.query()
+          .where('workspaceId', ctx.workspaceAccess.workspaceId)
+          .orderBy('updatedAt', 'desc')
+          .limit(6)
+      : []
     return {
+      recentDocuments: RecentDocumentTransformer.transform(recentDocuments),
       workspace: ctx.workspace ? WorkspaceTransformer.transform(ctx.workspace) : null,
       workspaces: WorkspaceTransformer.transform(memberships.map((m) => m.workspace)),
       membership: ctx.workspaceMembership

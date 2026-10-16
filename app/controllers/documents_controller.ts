@@ -1,5 +1,7 @@
+import { evidenceNodeCount } from '#services/documents/chunk_metadata_service'
 import DocumentWorkflowTransformer from '#transformers/document_workflow_transformer'
 import File from '#models/file'
+import Project from '#models/project'
 import ReadinessService from '#services/documents/readiness_service'
 import DocumentApproval from '#models/document_approval'
 import DocumentIssue from '#models/document_issue'
@@ -38,7 +40,10 @@ export default class DocumentsController {
       20
     )
     return inertia.render('documents/index', {
-      documents: DocumentTransformer.transform(page.all()),
+      documents: DocumentTransformer.transform(page.all(), workspaceAccess!.actorId),
+      projects: ProjectTransformer.transform(
+        await workspace!.related('projects').query().orderBy('name')
+      ),
       pagination: page.getMeta(),
       filters: { q, status: status ?? '', project: projectId ?? '' },
     })
@@ -86,12 +91,13 @@ export default class DocumentsController {
         )
       )
       .firstOrFail()
-    for (const version of document.documentVersions)
-      version.content = await new EvidenceService().hydrate(
-        workspaceAccess!,
-        document.id,
-        new ContentService().normalize(version.content)
-      )
+    let unavailableEvidence = false
+    for (const version of document.documentVersions) {
+      const original = new ContentService().normalize(version.content)
+      version.content = await new EvidenceService().hydrate(workspaceAccess!, document.id, original)
+      if (evidenceNodeCount(original) > evidenceNodeCount(version.content))
+        unavailableEvidence = true
+    }
     const issues = await DocumentIssue.query()
       .where({ workspaceId: workspaceAccess!.workspaceId, documentId: document.id })
       .orderBy('createdAt', 'desc')
@@ -102,6 +108,10 @@ export default class DocumentsController {
       .limit(20)
     const availableFiles = await workspaceFiles(workspaceAccess!.workspaceId)
     return inertia.render('documents/edit', {
+      unavailableEvidence,
+      projects: ProjectTransformer.transform(
+        await Project.query().where('workspaceId', workspaceAccess!.workspaceId).orderBy('name')
+      ),
       workflow: DocumentWorkflowTransformer.transform({ state, approvalHistory }),
       availableFiles: FileTransformer.transform(availableFiles, workspaceAccess!.actorId),
       issues: DocumentIssueTransformer.transform(issues),
@@ -116,6 +126,7 @@ export default class DocumentsController {
       document.id,
       await request.validateUsing(documentUpdateValidator)
     )
+    if (request.accepts(['html', 'json']) === 'json') return response.ok({ data: { saved: true } })
     return response
       .redirect()
       .toRoute('documents.edit', { workspaceId: workspaceAccess!.workspaceId, id: document.id })

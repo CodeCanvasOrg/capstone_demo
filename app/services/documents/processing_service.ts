@@ -17,6 +17,12 @@ export default class ProcessingService {
       .where({ id: lease.task.runId!, workspaceId: lease.context.workspaceId })
       .preload('revision', (revision) => revision.preload('file'))
       .firstOrFail()
+    if (
+      run.pipelineVersion !== openRouterApiConfig.pipelineVersion ||
+      run.embeddingModel !== openRouterApiConfig.embeddingModel ||
+      run.embeddingDimensions !== openRouterApiConfig.embeddingDimensions
+    )
+      throw new Error('Processing configuration changed; request a new preparation run')
     const file = run.revision.file
     if (file.id !== lease.task.fileId || file.workspaceId !== lease.context.workspaceId)
       throw new Error('Invalid processing lineage')

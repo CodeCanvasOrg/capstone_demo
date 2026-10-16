@@ -10,6 +10,7 @@ export default class DocumentReviewsController {
       params.documentId,
       await request.validateUsing(reviewValidator)
     )
+    if (request.accepts(['html', 'json']) === 'json') return response.ok({ data: { saved: true } })
     return response.redirect().back()
   }
   async approve({ workspaceAccess, params, request, response }: HttpContext) {
@@ -20,6 +21,7 @@ export default class DocumentReviewsController {
       await request.validateUsing(approvalValidator),
       true
     )
+    if (request.accepts(['html', 'json']) === 'json') return response.ok({ data: { saved: true } })
     return response.redirect().back()
   }
 }

@@ -18,6 +18,7 @@ declare module '@adonisjs/inertia/types' {
     'documents/create': ExtractProps<(typeof import('../../inertia/pages/documents/create.tsx'))['default']>
     'documents/edit': ExtractProps<(typeof import('../../inertia/pages/documents/edit.tsx'))['default']>
     'documents/index': ExtractProps<(typeof import('../../inertia/pages/documents/index.tsx'))['default']>
+    'errors/access_problem': ExtractProps<(typeof import('../../inertia/pages/errors/access_problem.tsx'))['default']>
     'errors/not_found': ExtractProps<(typeof import('../../inertia/pages/errors/not_found.tsx'))['default']>
     'errors/server_error': ExtractProps<(typeof import('../../inertia/pages/errors/server_error.tsx'))['default']>
     'errors/workspace_unavailable': ExtractProps<(typeof import('../../inertia/pages/errors/workspace_unavailable.tsx'))['default']>

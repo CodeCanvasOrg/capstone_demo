@@ -1,4 +1,4 @@
-import { useWorkspaceId } from '@/providers/workspace_provider'
+import { useWorkspaceId, useUnsavedChanges } from '@/providers/workspace_provider'
 import { cn } from 'cn'
 import { toast } from 'sonner'
 import {
@@ -72,6 +72,8 @@ export default function FileUploadForm({
   const [uploading, setUploading] = useState(false)
   const [pendingFiles, setPendingFiles] = useState<File[]>([])
 
+  useUnsavedChanges('file-upload', uploading || pendingFiles.length > 0)
+
   function stageFiles(list: FileList | null) {
     const accepted = Array.from(list ?? []).filter(isValidFile)
     if (accepted.length === 0) return
@@ -85,7 +87,10 @@ export default function FileUploadForm({
     try {
       const response = await fetch(`/workspaces/${workspaceId}/files/uploads`, {
         method: 'POST',
-        headers: { 'X-XSRF-TOKEN': getXsrfToken() },
+        headers: {
+          'X-XSRF-TOKEN': decodeURIComponent(getXsrfToken()),
+          'Accept': 'application/json',
+        },
         body: formData,
       })
 
@@ -176,14 +181,14 @@ export default function FileUploadForm({
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         className={cn(
-          'flex cursor-pointer flex-col items-center gap-3 border border-dashed px-4 py-10 text-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
+          'flex cursor-pointer flex-col items-center gap-3 rounded-xl border border-dashed px-4 py-10 text-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
           dragging
             ? 'border-foreground bg-secondary'
             : 'border-muted-foreground bg-secondary/30 hover:bg-secondary',
           isDisabled && 'pointer-events-none opacity-60'
         )}
       >
-        <span className="flex size-12 items-center justify-center border border-border bg-card">
+        <span className="flex size-12 items-center justify-center rounded-lg border border-border bg-card">
           <UploadCloud aria-hidden="true" className="size-5" />
         </span>
         <p className="text-sm font-medium">{uploading ? 'Uploading…' : 'Drag & drop files here'}</p>

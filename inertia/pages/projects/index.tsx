@@ -1,3 +1,8 @@
+import {
+  CollectionSearch,
+  PaginationControls,
+  type Pagination,
+} from '@/components/collection_controls'
 import { Head } from '@inertiajs/react'
 import { Form, Link } from '@adonisjs/inertia/react'
 import type { Data } from '@generated/data'
@@ -5,19 +10,34 @@ import { useWorkspaceId } from '@/providers/workspace_provider'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-export default function Index({ projects }: { projects: Data.Project[] }) {
+export default function Index({
+  projects,
+  pagination,
+  filters = { q: '' },
+}: {
+  projects: Data.Project[]
+  pagination?: Pagination
+  filters?: { q: string }
+}) {
   const workspaceId = useWorkspaceId()
   return (
-    <div className="mx-auto max-w-5xl space-y-8 p-6 md:p-10">
+    <div className="page-wrap space-y-8">
       <Head title="Projects" />
-      <h1 className="text-3xl font-semibold">Projects</h1>
+      <header>
+        <p className="eyebrow">Workspace / Projects</p>
+        <h1 className="mt-3 text-3xl font-semibold tracking-tight">Keep the work connected.</h1>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Group related case studies while keeping their evidence in one shared library.
+        </p>
+      </header>
+      <CollectionSearch collection="projects" q={filters.q} />
       <div className="grid gap-4 sm:grid-cols-2">
         {projects.map((project) => (
           <Link
             key={project.id}
             route="projects.show"
             routeParams={{ workspaceId, projectId: project.id }}
-            className="rounded-xl border bg-card p-6 hover:bg-accent"
+            className="rounded-xl border bg-sidebar p-6 hover:bg-accent"
           >
             <h2 className="font-semibold">{project.name}</h2>
             <p className="mt-2 text-sm text-muted-foreground">{project.description}</p>
@@ -29,6 +49,7 @@ export default function Index({ projects }: { projects: Data.Project[] }) {
           No projects yet. Create one to group your case studies.
         </p>
       )}
+      <PaginationControls pagination={pagination} collection="projects" query={filters} />
       <Form
         route="projects.store"
         routeParams={{ workspaceId }}

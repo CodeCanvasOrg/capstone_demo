@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label'
 export default function Index() {
   const { workspaces } = useWorkspace()
   return (
-    <div className="mx-auto max-w-3xl px-6 py-12">
+    <div className="page-wrap max-w-3xl">
       <Head title="Your workspaces" />
       <h1 className="mb-3 text-3xl font-semibold">Your workspaces</h1>
       <p className="mb-8 text-muted-foreground">
@@ -19,7 +19,7 @@ export default function Index() {
             key={workspace.id}
             route="workspaces.show"
             routeParams={{ workspaceId: workspace.id }}
-            className="rounded-xl border bg-card p-6 font-medium hover:bg-accent"
+            className="rounded-xl border bg-sidebar p-6 font-medium hover:bg-accent"
           >
             {workspace.name}
           </Link>

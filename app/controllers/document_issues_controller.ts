@@ -20,6 +20,7 @@ export default class DocumentIssuesController {
       params.documentId,
       await request.validateUsing(issueValidator)
     )
+    if (request.accepts(['html', 'json']) === 'json') return response.ok({ data: { saved: true } })
     return response.redirect().back()
   }
   async update({ workspaceAccess, params, request, response }: HttpContext) {
@@ -30,6 +31,7 @@ export default class DocumentIssuesController {
       await request.validateUsing(issueUpdateValidator),
       params.issueId
     )
+    if (request.accepts(['html', 'json']) === 'json') return response.ok({ data: { saved: true } })
     return response.redirect().back()
   }
 }

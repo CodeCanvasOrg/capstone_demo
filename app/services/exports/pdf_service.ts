@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises'
 import type DocumentVersion from '#models/document_version'
 import { Node, mergeAttributes } from '@tiptap/core'
 import Image from '@tiptap/extension-image'
@@ -52,6 +53,11 @@ export default class ExportPdfService {
     const extensions = [StarterKit, Image, SourceCitationExtension]
     const contentHtml = generateHTML(version.content, extensions)
 
+    const font = await readFile(
+      new URL(
+        import.meta.resolve('@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2')
+      )
+    )
     const html = `
       <!DOCTYPE html>
       <html>
@@ -59,6 +65,7 @@ export default class ExportPdfService {
       <meta charset="UTF-8" />
 
       <style>
+      @font-face {font-family:Manrope; font-style:normal; font-weight:200 800; src:url(data:font/woff2;base64,${font.toString('base64')}) format('woff2');}
       @page {
       size: A4;
       margin: 20mm;

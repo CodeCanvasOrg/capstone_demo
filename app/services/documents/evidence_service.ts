@@ -81,8 +81,8 @@ export default class EvidenceService {
       JOIN chunk_blocks cb ON cb.chunk_id=c.id AND cb.workspace_id=c.workspace_id AND cb.run_id=c.run_id
       JOIN document_blocks b ON b.id=cb.document_block_id AND b.workspace_id=cb.workspace_id AND b.processing_run_id=cb.run_id
       WHERE c.workspace_id=? AND c.id=ANY(?::uuid[]) AND NOT c.tenancy_quarantined
-      AND EXISTS(SELECT 1 FROM document_versions dv WHERE dv.workspace_id=c.workspace_id AND dv.document_id=? AND jsonb_path_exists(dv.content,'$.**.sourceChunkId ? (@ == $chunk)',jsonb_build_object('chunk',c.id::text))) ORDER BY c.id,b.order_index`,
-      [context.workspaceId, ids, documentId]
+      AND EXISTS(SELECT 1 FROM document_versions dv WHERE dv.workspace_id=c.workspace_id AND dv.document_id=? AND jsonb_path_exists(dv.content,?::jsonpath,jsonb_build_object('chunk',c.id::text))) ORDER BY c.id,b.order_index`,
+      [context.workspaceId, ids, documentId, '$.**.sourceChunkId ? (@ == $chunk)']
     )
     return result.rows
   }
