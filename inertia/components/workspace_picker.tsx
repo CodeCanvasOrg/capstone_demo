@@ -27,12 +27,12 @@ export function WorkspacePicker() {
           role="combobox"
           aria-expanded={open}
           aria-label="Choose workspace"
-          className="h-auto min-h-14 w-full justify-start gap-3 bg-transparent p-3 text-left"
+          className="h-10 w-full justify-start gap-2 border-transparent bg-transparent px-2 text-left group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0"
         >
-          <span className="grid size-8 shrink-0 place-items-center rounded-full bg-foreground text-xs font-bold text-background">
+          <span className="grid size-6 shrink-0 place-items-center rounded-full bg-foreground text-xs font-bold text-background">
             {workspace?.name.slice(0, 2).toUpperCase() ?? 'WS'}
           </span>
-          <span className="min-w-0 flex-1">
+          <span className="min-w-0 flex-1 group-data-[collapsible=icon]:hidden">
             <span className="block truncate text-xs font-semibold">
               {workspace?.name ?? 'Choose workspace'}
             </span>
@@ -40,7 +40,7 @@ export function WorkspacePicker() {
               {workspace?.ownerUserId === user?.id ? 'Owner' : 'Team workspace'}
             </span>
           </span>
-          <ChevronsUpDown className="size-4" />
+          <ChevronsUpDown className="size-3 group-data-[collapsible=icon]:hidden" />
         </Button>
       </PopoverTrigger>
       <PopoverContent align="start" className="w-72 p-0">

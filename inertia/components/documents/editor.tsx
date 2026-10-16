@@ -227,7 +227,7 @@ export default function DocumentEditor({
         </div>
       )}
       <div className="min-h-[80vh] px-3 py-6 sm:px-7 sm:py-9">
-        <div className="document-canvas tiptap-editor mx-auto border shadow-sm">
+        <div className="document-canvas tiptap-editor mx-auto">
           <EditorContent editor={editor} />
         </div>
       </div>

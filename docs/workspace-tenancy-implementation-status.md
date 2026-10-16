@@ -70,3 +70,7 @@ Checks: typecheck passed; lint passed; 26 tests passed (19 existing unit and 7 n
 - Local Chromium could not launch under the sandbox (`bootstrap_check_in ... Permission denied (1100)`). Browser-tool access to the local preview was declined. No alternative browser route was used. Visual rendering, responsive interaction and real Chromium PDF output remain unverified.
 - The checked-in Postman provider simulation could not start because local dataset files under `~/.postman/` were inaccessible. Its real-client transport test remains explicitly skipped. See [the simulation notes](../postman/README.md).
 - Production conflict mapping, authenticated SMTP identity/credentials, existing bucket/CDN privacy, queue drain and real provider/renderer smoke tests remain rollout inputs. The source implementation is delivered; these environment checks are not represented as completed.
+
+## Minimal creation revision, 16 October 2026
+
+The user's Linear references refine the initial redesign: conversational case-study creation, compact project dialogs with persisted TipTap descriptions, contextual project/case-study creation, in-place library selection/new uploads, flat content surfaces and a shadcn icon-collapsible sidebar. See [revision decisions and verification](minimal-creation-revision.md). The revision suite passes 61 tests with two opt-in integrations skipped; typecheck, lint and build pass. The earlier browser verification limitation remains in effect.

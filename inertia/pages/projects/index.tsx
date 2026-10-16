@@ -1,15 +1,14 @@
+import { Head } from '@inertiajs/react'
+import { Link } from '@adonisjs/inertia/react'
+import type { Data } from '@generated/data'
+import { FolderOpen, ChevronRight } from 'lucide-react'
 import {
   CollectionSearch,
   PaginationControls,
   type Pagination,
 } from '@/components/collection_controls'
-import { Head } from '@inertiajs/react'
-import { Form, Link } from '@adonisjs/inertia/react'
-import type { Data } from '@generated/data'
 import { useWorkspaceId } from '@/providers/workspace_provider'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { ProjectDialog } from '@/components/projects_dialog'
 export default function Index({
   projects,
   pagination,
@@ -21,59 +20,48 @@ export default function Index({
 }) {
   const workspaceId = useWorkspaceId()
   return (
-    <div className="page-wrap space-y-8">
+    <div className="minimal-page">
       <Head title="Projects" />
-      <header>
-        <p className="eyebrow">Workspace / Projects</p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight">Keep the work connected.</h1>
-        <p className="mt-3 text-sm text-muted-foreground">
-          Group related case studies while keeping their evidence in one shared library.
-        </p>
+      <header className="flex items-center justify-between gap-4">
+        <h1 className="text-lg font-semibold">Projects</h1>
+        <ProjectDialog />
       </header>
-      <CollectionSearch collection="projects" q={filters.q} />
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="mt-8 max-w-sm">
+        <CollectionSearch collection="projects" q={filters.q} />
+      </div>
+      <div className="mt-6 divide-y border-y">
         {projects.map((project) => (
           <Link
             key={project.id}
             route="projects.show"
             routeParams={{ workspaceId, projectId: project.id }}
-            className="rounded-xl border bg-sidebar p-6 hover:bg-accent"
+            className="group flex items-center gap-4 px-2 py-5 transition-colors hover:bg-muted/50"
           >
-            <h2 className="font-semibold">{project.name}</h2>
-            <p className="mt-2 text-sm text-muted-foreground">{project.description}</p>
+            <FolderOpen className="size-4 shrink-0 text-muted-foreground" />
+            <div className="min-w-0 flex-1">
+              <h2 className="truncate text-sm font-medium">{project.name}</h2>
+              {project.description && (
+                <p className="mt-1 truncate text-xs text-muted-foreground">{project.description}</p>
+              )}
+            </div>
+            <ChevronRight className="size-4 text-muted-foreground opacity-0 group-hover:opacity-100" />
           </Link>
         ))}
-      </div>
-      {!projects.length && (
-        <p className="text-muted-foreground">
-          No projects yet. Create one to group your case studies.
-        </p>
-      )}
-      <PaginationControls pagination={pagination} collection="projects" query={filters} />
-      <Form
-        route="projects.store"
-        routeParams={{ workspaceId }}
-        className="flex flex-col gap-3 rounded-xl border p-6"
-      >
-        {({ processing, errors }) => (
-          <>
-            <Label htmlFor="project-name">New project</Label>
-            <Input
-              id="project-name"
-              name="name"
-              required
-              maxLength={120}
-              aria-invalid={!!errors.name}
-            />
-            <Label htmlFor="project-description">Description (optional)</Label>
-            <Input id="project-description" name="description" maxLength={10000} />
-            {errors.name && <p role="alert">{errors.name}</p>}
-            <Button disabled={processing} className="self-start">
-              {processing ? 'Creating…' : 'Create project'}
-            </Button>
-          </>
+        {!projects.length && (
+          <div className="py-20 text-center">
+            <FolderOpen className="mx-auto mb-4 size-6 text-muted-foreground" />
+            <p className="text-sm">
+              {filters.q ? 'No matching projects' : 'A place for related stories.'}
+            </p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              {filters.q
+                ? 'Try a different search.'
+                : 'Create a project to bring your case studies together.'}
+            </p>
+          </div>
         )}
-      </Form>
+      </div>
+      <PaginationControls pagination={pagination} collection="projects" query={filters} />
     </div>
   )
 }

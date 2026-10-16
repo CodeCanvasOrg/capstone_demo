@@ -191,3 +191,18 @@
 
 .tiptap-editor .ProseMirror:focus-visible { outline:2px solid var(--ring); outline-offset:12px; }
 .tiptap-editor .ProseMirror > :first-child { margin-top:0; }
+
+/* Minimal creation surfaces: quiet hierarchy, rich content, compact controls. */
+.minimal-page { width:100%; max-width:72rem; margin-inline:auto; padding:clamp(1.25rem,3vw,2.5rem); }
+.rich-description .tiptap { min-height:12rem; font-size:.875rem; line-height:1.8; overflow-wrap:anywhere; outline:none; }
+.rich-description.is-compact .tiptap { min-height:5rem; }
+.rich-description.is-readonly .tiptap { min-height:0; }
+.rich-description .tiptap p + p { margin-top:.75em; }
+.rich-description .tiptap ul { list-style:disc; padding-left:1.3em; }
+.rich-description .tiptap ol { list-style:decimal; padding-left:1.3em; }
+.rich-description .tiptap h1,.rich-description .tiptap h2,.rich-description .tiptap h3 { font-weight:600; margin-block:1em .5em; }
+.rich-description .tiptap a { text-decoration:underline; text-underline-offset:3px; }
+.rich-description .tiptap blockquote { border-left:2px solid var(--border); padding-left:1em; }
+.rich-description .tiptap:focus-visible { outline:2px solid var(--ring); outline-offset:4px; border-radius:.25rem; }
+.document-canvas { min-height:45rem; background:transparent; border:0; padding-inline:clamp(.5rem,3vw,2.5rem); }
+[data-slot=sidebar][data-collapsible=icon] [data-slot=sidebar-group-label] { pointer-events:none; }

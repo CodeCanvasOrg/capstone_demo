@@ -1,14 +1,21 @@
 import { Head } from '@inertiajs/react'
 import { Form, Link } from '@adonisjs/inertia/react'
 import type { Data } from '@generated/data'
-import { ArrowUpRight, Plus, Folder, FileText, Users } from 'lucide-react'
+import { Plus, Folder, Settings2, ArrowRight } from 'lucide-react'
 import { useWorkspace } from '@/providers/workspace_provider'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { PageIntro } from '@/components/page_intro'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogTrigger,
+} from '@/components/ui/dialog'
 import { CaseStudyList } from '@/components/documents/case_study_list'
-import { EmptyState } from '@/components/empty_state'
+import { ProjectDialog } from '@/components/projects_dialog'
 export default function Home({
   documents,
   projects,
@@ -20,150 +27,113 @@ export default function Home({
   if (!workspace) return null
   const workspaceId = workspace.id
   return (
-    <div className="page-wrap space-y-10">
+    <div className="minimal-page max-w-5xl space-y-12">
       <Head title={workspace.name} />
-      <PageIntro
-        eyebrow="Workspace home"
-        title={workspace.name}
-        description="A shared place to turn project work into stories worth telling."
-        action={
-          <Button asChild>
-            <Link route="documents.create" routeParams={{ workspaceId }}>
-              <Plus />
-              New case study
+      <header className="flex items-center justify-between gap-4">
+        <h1 className="truncate text-lg font-semibold">{workspace.name}</h1>
+        {workspaceCapabilities?.manageMembers && (
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="ghost" size="icon-sm" aria-label="Workspace settings">
+                <Settings2 className="size-4" />
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Workspace settings</DialogTitle>
+                <DialogDescription>Update the name your team sees.</DialogDescription>
+              </DialogHeader>
+              <Form route="workspaces.update" routeParams={{ workspaceId }} className="space-y-4">
+                {({ processing, errors }) => (
+                  <>
+                    <Label htmlFor="rename-workspace">Workspace name</Label>
+                    <Input
+                      id="rename-workspace"
+                      name="name"
+                      defaultValue={workspace.name}
+                      required
+                      maxLength={120}
+                    />
+                    {errors.name && (
+                      <p role="alert" className="text-sm text-destructive">
+                        {errors.name}
+                      </p>
+                    )}
+                    <Button disabled={processing}>Save name</Button>
+                  </>
+                )}
+              </Form>
+            </DialogContent>
+          </Dialog>
+        )}
+      </header>
+      <Link
+        route="documents.create"
+        routeParams={{ workspaceId }}
+        className="group flex items-center justify-between rounded-xl border bg-muted/20 px-5 py-6 transition-colors hover:bg-muted/50"
+      >
+        <span>
+          <span className="block text-base font-medium tracking-tight">
+            What are you working on?
+          </span>
+          <span className="mt-1 block text-xs text-muted-foreground">
+            Start a conversation. Turn the work into a case study.
+          </span>
+        </span>
+        <span className="grid size-8 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
+          <ArrowRight className="size-4" />
+        </span>
+      </Link>
+      <section>
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <h2 className="text-sm font-medium">Recent case studies</h2>
+          <Button asChild variant="ghost" size="sm">
+            <Link route="documents.index" routeParams={{ workspaceId }}>
+              View all
+              <ArrowRight className="size-3" />
             </Link>
           </Button>
-        }
-      />
-      <div className="grid gap-3 sm:grid-cols-3">
-        {[
-          {
-            route: 'documents.index' as const,
-            label: 'Case studies',
-            description: 'Write, refine, and review',
-            Icon: FileText,
-          },
-          {
-            route: 'files.index' as const,
-            label: 'Shared files',
-            description: 'The evidence behind the story',
-            Icon: Folder,
-          },
-          {
-            route: 'workspace_members.index' as const,
-            label: 'Your team',
-            description: 'People in this workspace',
-            Icon: Users,
-          },
-        ].map(({ route, label, description, Icon }) => (
-          <Link
-            key={route}
-            route={route}
-            routeParams={{ workspaceId }}
-            className="group rounded-xl border bg-sidebar p-5 hover:bg-accent"
-          >
-            <div className="mb-5 flex justify-between">
-              <Icon className="size-5" />
-              <ArrowUpRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transform-none" />
-            </div>
-            <h2 className="font-semibold">{label}</h2>
-            <p className="mt-1 text-xs text-muted-foreground">{description}</p>
-          </Link>
-        ))}
-      </div>
-      <section>
-        <div className="mb-4 flex items-center justify-between gap-4">
-          <h2 className="text-lg font-semibold">Pick up where you left off</h2>
-          <Link
-            route="documents.index"
-            routeParams={{ workspaceId }}
-            className="text-xs underline underline-offset-4"
-          >
-            All case studies
-          </Link>
         </div>
         {documents.length ? (
           <CaseStudyList documents={documents} />
         ) : (
-          <EmptyState
-            title="Your first story starts here"
-            description="Add a case study, gather the project details, and connect its evidence."
-            action={
-              <Button asChild>
-                <Link route="documents.create" routeParams={{ workspaceId }}>
-                  Create case study
-                  <Plus />
-                </Link>
-              </Button>
-            }
-          />
+          <div className="border-y py-12 text-center">
+            <p className="text-sm text-muted-foreground">
+              A little context is all you need to begin.
+            </p>
+            <Button asChild variant="ghost" size="sm" className="mt-3">
+              <Link route="documents.create" routeParams={{ workspaceId }}>
+                <Plus className="size-3.5" />
+                New case study
+              </Link>
+            </Button>
+          </div>
         )}
       </section>
       <section>
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold">Projects</h2>
-          <Link
-            route="projects.index"
-            routeParams={{ workspaceId }}
-            className="text-xs underline underline-offset-4"
-          >
-            Manage projects
-          </Link>
+          <h2 className="text-sm font-medium">Projects</h2>
+          <ProjectDialog />
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="divide-y border-y">
           {projects.map((project) => (
             <Link
               key={project.id}
               route="projects.show"
               routeParams={{ workspaceId, projectId: project.id }}
-              className="rounded-xl border bg-sidebar p-5 hover:bg-accent"
+              className="flex items-center gap-3 px-2 py-4 text-sm hover:bg-muted/40"
             >
-              <Folder className="mb-4 size-5 text-muted-foreground" />
-              <h3 className="break-words font-semibold">{project.name}</h3>
-              <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
-                {project.description || 'Related case studies, kept together.'}
-              </p>
+              <Folder className="size-4 text-muted-foreground" />
+              <span className="truncate">{project.name}</span>
             </Link>
           ))}
+          {!projects.length && (
+            <p className="py-8 text-center text-xs text-muted-foreground">
+              Group related case studies in a project.
+            </p>
+          )}
         </div>
-        {!projects.length && (
-          <p className="rounded-xl border border-dashed p-6 text-sm text-muted-foreground">
-            Create a project to group related case studies. You can also keep them ungrouped.
-          </p>
-        )}
       </section>
-      {workspaceCapabilities?.manageMembers && (
-        <section className="rounded-xl border bg-sidebar p-5">
-          <Form
-            route="workspaces.update"
-            routeParams={{ workspaceId }}
-            className="flex flex-wrap items-end gap-3"
-          >
-            {({ processing, errors }) => (
-              <>
-                <div className="min-w-0 flex-1 space-y-2">
-                  <Label htmlFor="rename-workspace">Workspace name</Label>
-                  <Input
-                    id="rename-workspace"
-                    name="name"
-                    defaultValue={workspace.name}
-                    required
-                    maxLength={120}
-                  />
-                  {errors.name && (
-                    <p role="alert" className="text-sm text-destructive">
-                      {errors.name}
-                    </p>
-                  )}
-                </div>
-                <Button variant="outline" disabled={processing}>
-                  Save name
-                </Button>
-              </>
-            )}
-          </Form>
-        </section>
-      )}
     </div>
   )
 }

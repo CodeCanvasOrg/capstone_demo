@@ -1,7 +1,15 @@
 import { Head, router } from '@inertiajs/react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Data } from '@generated/data'
-import { SlidersHorizontal, Sparkles, Check, Download, ArrowLeft, LoaderCircle } from 'lucide-react'
+import {
+  SlidersHorizontal,
+  Plus,
+  Sparkles,
+  Check,
+  Download,
+  ArrowLeft,
+  LoaderCircle,
+} from 'lucide-react'
 import { Link } from '@adonisjs/inertia/react'
 import { urlFor } from '@/client'
 import { toast } from 'sonner'
@@ -234,6 +242,14 @@ export default function Edit({
               {document.title}
             </h1>
           </div>
+          <Button asChild variant="ghost" size="sm">
+            <Link
+              href={`${urlFor('documents.create', { workspaceId })}${document.projectId ? `?projectId=${document.projectId}` : ''}`}
+            >
+              <Plus className="size-3.5" />
+              New case study
+            </Link>
+          </Button>
           <StatusBadge status={document.status} />
           {!wide && (
             <Button

@@ -2,7 +2,7 @@ import { type ReactElement, useEffect, useRef } from 'react'
 import { usePage, router } from '@inertiajs/react'
 import { Form, Link } from '@adonisjs/inertia/react'
 import { toast } from 'sonner'
-import { Home, FolderOpen, Files, Users, Plus, LogOut, FileText, ArrowUpRight } from 'lucide-react'
+import { Home, FolderOpen, Files, Users, Plus, LogOut, FileText } from 'lucide-react'
 import type { Data } from '@generated/data'
 import { WorkspacePicker } from '@/components/workspace_picker'
 import { WorkspaceProvider, useWorkspace } from '@/providers/workspace_provider'
@@ -94,11 +94,18 @@ function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps>
       >
         Skip to content
       </a>
-      <Sidebar collapsible="offcanvas" className="border-r">
-        <SidebarHeader className="gap-5 px-4 pt-6 pb-3">
-          <Link route="home" aria-label="CodeCanvas home">
-            <Brand />
-          </Link>
+      <Sidebar collapsible="icon" className="border-r">
+        <SidebarHeader className="gap-3 px-3 pt-3 pb-2 group-data-[collapsible=icon]:px-2">
+          <div className="flex items-center justify-between gap-2">
+            <Link
+              route="home"
+              aria-label="CodeCanvas home"
+              className="group-data-[collapsible=icon]:hidden"
+            >
+              <Brand />
+            </Link>
+            <SidebarTrigger aria-label="Toggle workspace navigation" className="shrink-0" />
+          </div>
           <WorkspacePicker />
         </SidebarHeader>
         <SidebarContent>
@@ -106,11 +113,17 @@ function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps>
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.route}>
-                  <SidebarMenuButton asChild isActive={item.active} className="h-9 font-medium">
+                  <SidebarMenuButton
+                    asChild
+                    isActive={item.active}
+                    className="h-8 text-xs font-medium"
+                    tooltip={item.label}
+                  >
                     <Link
                       route={item.route}
                       routeParams={{ workspaceId: workspace!.id }}
                       aria-current={item.active ? 'page' : undefined}
+                      aria-label={item.label}
                     >
                       <item.icon aria-hidden="true" />
                       <span>{item.label}</span>
@@ -123,7 +136,7 @@ function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps>
           <SidebarSeparator />
           {workspace && (
             <SidebarGroup>
-              <SidebarGroupLabel className="justify-between">
+              <SidebarGroupLabel className="justify-between group-data-[collapsible=icon]:hidden">
                 Recent documents
                 <Button variant="ghost" size="icon-xs" asChild>
                   <Link
@@ -142,6 +155,7 @@ function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps>
                       <Link
                         route="documents.edit"
                         routeParams={{ workspaceId: workspace.id, id: doc.id }}
+                        aria-label={doc.title}
                       >
                         <FileText className="size-4" />
                         <span className="min-w-0">
@@ -156,35 +170,37 @@ function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps>
                 ))}
               </SidebarMenu>
               {!page.props.recentDocuments?.length && (
-                <p className="px-2 text-xs leading-5 text-muted-foreground">
+                <p className="px-2 text-xs leading-5 text-muted-foreground group-data-[collapsible=icon]:hidden">
                   Your recent case studies will appear here.
                 </p>
               )}
             </SidebarGroup>
           )}
         </SidebarContent>
-        <SidebarFooter className="border-t p-4">
+        <SidebarFooter className="p-3 group-data-[collapsible=icon]:p-2">
           <div className="flex items-center gap-2">
             <span className="grid size-8 shrink-0 place-items-center rounded-full border text-xs">
               {user?.initials}
             </span>
-            <div className="min-w-0 flex-1">
+            <div className="min-w-0 flex-1 group-data-[collapsible=icon]:hidden">
               <p className="truncate text-xs font-semibold">{user?.fullName || user?.email}</p>
               <p className="text-[.625rem] capitalize text-muted-foreground">
                 {page.props.membership?.role ?? 'Account'}
               </p>
             </div>
-            <ThemeToggle />
-            <Form route="session.destroy">
-              <Button variant="ghost" size="icon-sm" type="submit" aria-label="Sign out">
-                <LogOut className="size-4" />
-              </Button>
-            </Form>
+            <div className="flex items-center group-data-[collapsible=icon]:hidden">
+              <ThemeToggle />
+              <Form route="session.destroy">
+                <Button variant="ghost" size="icon-sm" type="submit" aria-label="Sign out">
+                  <LogOut className="size-4" />
+                </Button>
+              </Form>
+            </div>
           </div>
         </SidebarFooter>
       </Sidebar>
-      <SidebarInset className="min-w-0 bg-background">
-        <div className="flex h-12 items-center justify-between border-b bg-sidebar px-4 md:hidden">
+      <SidebarInset className="min-w-0 bg-sidebar">
+        <div className="flex h-11 items-center justify-between border-b bg-sidebar px-4 md:hidden">
           <SidebarTrigger aria-label="Open workspace navigation" />
           <span className="truncate text-xs font-semibold">{workspace?.name ?? 'CodeCanvas'}</span>
           <ThemeToggle />
@@ -192,16 +208,6 @@ function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps>
         <main id="main-content" tabIndex={-1} className="min-w-0 flex-1 outline-none">
           <div key={workspace?.id ?? 'account'}>{children}</div>
         </main>
-        <footer className="flex items-center justify-between gap-3 border-t px-6 py-4 text-[.625rem] text-muted-foreground">
-          <span>HumbleBeeAI · Human direction. Intelligent systems.</span>
-          <Link
-            route="workspaces.index"
-            className="inline-flex items-center gap-1 hover:text-foreground"
-          >
-            Your workspaces
-            <ArrowUpRight className="size-3" />
-          </Link>
-        </footer>
       </SidebarInset>
     </SidebarProvider>
   )

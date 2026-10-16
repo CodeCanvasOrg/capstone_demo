@@ -1,3 +1,5 @@
+import { RichTextEditor, textToRichText } from '@/components/rich_text_editor'
+import { SourcePicker } from '@/components/files/source_picker'
 import { useState, type FormEvent } from 'react'
 import type { Data } from '@generated/data'
 import { Link, Form } from '@adonisjs/inertia/react'
@@ -37,6 +39,9 @@ export function MetadataForm({
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState(document.title)
   const [description, setDescription] = useState(document.description ?? '')
+  const [descriptionContent, setDescriptionContent] = useState(
+    document.descriptionContent ?? textToRichText(document.description ?? '')
+  )
   const [information, setInformation] = useState<ProjectInformation>(document.projectInformation)
   const [dueDate, setDueDate] = useState(document.dueDate?.slice(0, 10) ?? '')
   const [projectId, setProjectId] = useState(document.projectId ?? '')
@@ -48,6 +53,9 @@ export function MetadataForm({
     if (next) {
       setTitle(document.title)
       setDescription(document.description ?? '')
+      setDescriptionContent(
+        document.descriptionContent ?? textToRichText(document.description ?? '')
+      )
       setInformation(document.projectInformation)
       setDueDate(document.dueDate?.slice(0, 10) ?? '')
       setProjectId(document.projectId ?? '')
@@ -62,6 +70,7 @@ export function MetadataForm({
       await action(urlFor('documents.update', { workspaceId, id: document.id }), 'PUT', {
         title,
         description: description.trim() ? description : null,
+        descriptionContent,
         projectInformation: information,
         dueDate: dueDate || null,
         projectId: projectId || null,
@@ -91,11 +100,16 @@ export function MetadataForm({
           <TitleField value={title} onChange={setTitle} />
           <div className="space-y-2">
             <Label htmlFor="description">Writing direction (optional)</Label>
-            <Textarea
-              id="description"
-              value={description}
-              onChange={(event) => setDescription(event.target.value)}
-              maxLength={20000}
+            <RichTextEditor
+              value={descriptionContent}
+              label="Writing direction"
+              onChange={(value, text) => {
+                setDescriptionContent(value)
+                setDescription(text)
+                setChanged(true)
+              }}
+              compact
+              disabled={disabled}
             />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -407,14 +421,15 @@ export function DocumentInspector({
       <section className="space-y-4 border-t p-5">
         <div className="flex items-center justify-between">
           <h2 className="eyebrow">Evidence</h2>
-          <Link
-            route="files.create"
-            routeParams={{ workspaceId }}
-            aria-label="Upload evidence"
-            className="rounded-lg border p-1"
-          >
-            <Plus className="size-3.5" />
-          </Link>
+          <SourcePicker
+            files={availableFiles}
+            selected={files}
+            onChange={(ids) => {
+              setFiles(ids)
+              if (ids.length) setSourceMode('files')
+            }}
+            disabled={disabled}
+          />
         </div>
         <p className="text-xs font-semibold">Case-study files</p>
         <label className="flex items-start gap-2 text-[.6875rem]">
@@ -430,37 +445,39 @@ export function DocumentInspector({
         </label>
         {sourceMode === 'files' && (
           <ul className="max-h-80 space-y-2 overflow-y-auto">
-            {availableFiles.map((file) => (
-              <li key={file.id} className="rounded-lg border p-3">
-                <label className="flex items-start gap-2">
-                  <Checkbox
-                    checked={files.includes(file.id)}
-                    disabled={disabled}
-                    onCheckedChange={(value) =>
-                      setFiles((current) =>
-                        value ? [...current, file.id] : current.filter((id) => id !== file.id)
-                      )
-                    }
-                  />
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[.6875rem] font-medium">
-                      {file.filename}
+            {availableFiles
+              .filter((file) => files.includes(file.id))
+              .map((file) => (
+                <li key={file.id} className="rounded-lg border p-3">
+                  <label className="flex items-start gap-2">
+                    <Checkbox
+                      checked={files.includes(file.id)}
+                      disabled={disabled}
+                      onCheckedChange={(value) =>
+                        setFiles((current) =>
+                          value ? [...current, file.id] : current.filter((id) => id !== file.id)
+                        )
+                      }
+                    />
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-[.6875rem] font-medium">
+                        {file.filename}
+                      </span>
+                      <span className="mt-1 block">
+                        <ProcessingStatusBadge status={file.processingStatus} />
+                      </span>
                     </span>
-                    <span className="mt-1 block">
-                      <ProcessingStatusBadge status={file.processingStatus} />
-                    </span>
-                  </span>
-                </label>
-                <Link
-                  route="files.edit"
-                  routeParams={{ workspaceId, id: file.id }}
-                  className="mt-2 inline-flex items-center gap-1 text-[.625rem] text-muted-foreground underline"
-                >
-                  <FileText className="size-3" />
-                  Inspect file
-                </Link>
-              </li>
-            ))}
+                  </label>
+                  <Link
+                    route="files.edit"
+                    routeParams={{ workspaceId, id: file.id }}
+                    className="mt-2 inline-flex items-center gap-1 text-[.625rem] text-muted-foreground underline"
+                  >
+                    <FileText className="size-3" />
+                    Inspect file
+                  </Link>
+                </li>
+              ))}
           </ul>
         )}
         {!availableFiles.length && sourceMode === 'files' && (
