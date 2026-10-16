@@ -206,3 +206,20 @@
 .rich-description .tiptap blockquote { border-left:2px solid var(--border); padding-left:1em; }
 .rich-description .tiptap:focus-visible { outline:2px solid var(--ring); outline-offset:4px; border-radius:.25rem; }
 [data-slot=sidebar][data-collapsible=icon] [data-slot=sidebar-group-label] { pointer-events:none; }
+
+/* One continuous metadata document; section labels are structural, bodies are free-form. */
+.information-document .tiptap { outline:none; font-size:.9375rem; line-height:1.85; overflow-wrap:anywhere; }
+.information-document .tiptap > section + section { margin-top:2rem; }
+.information-document .tiptap section > h2 { margin-bottom:.75rem; font-size:1.125rem; font-weight:650; line-height:1.4; letter-spacing:-.02em; }
+.information-document .information-body { min-height:3rem; }
+.information-document .information-body > * + * { margin-top:.75em; }
+.information-document .tiptap ul { list-style:disc; padding-left:1.5em; }
+.information-document .tiptap ol { list-style:decimal; padding-left:1.5em; }
+.information-document .tiptap li > p { margin:0; }
+.information-document .tiptap blockquote { border-left:2px solid var(--border); padding-left:1em; color:var(--muted-foreground); }
+.information-document .tiptap h3,.information-document .tiptap h4 { font-weight:600; line-height:1.4; }
+.information-document .tiptap code { border-radius:.25rem; background:var(--muted); padding:.125em .25em; font-size:.875em; }
+.information-document .tiptap pre { border-radius:.5rem; background:var(--muted); padding:1em; white-space:pre-wrap; }
+.information-document .tiptap a { text-decoration:underline; text-underline-offset:3px; }
+.information-document .tiptap p.is-empty::before { content:attr(data-placeholder); color:var(--muted-foreground); float:left; height:0; pointer-events:none; }
+.information-document .tiptap:focus-visible { outline:2px solid var(--ring); outline-offset:8px; border-radius:.25rem; }

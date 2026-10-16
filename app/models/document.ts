@@ -19,6 +19,7 @@ export default class Document extends DocumentSchema {
   declare title: string
 
   @column() declare descriptionContent: TipTapDocument | null
+  @column() declare projectInformationContent: TipTapDocument | null
 
   @column()
   declare description: string | null

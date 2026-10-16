@@ -404,6 +404,7 @@ export class DocumentSchema extends BaseModel {
     'metadataRevision',
     'projectId',
     'projectInformation',
+    'projectInformationContent',
     'selectionRevision',
     'sourceMode',
     'status',
@@ -449,6 +450,8 @@ export class DocumentSchema extends BaseModel {
   declare projectId: string | null
   @column()
   declare projectInformation: any
+  @column()
+  declare projectInformationContent: any | null
   @column()
   declare selectionRevision: number
   @column()

@@ -14,6 +14,7 @@ export const reviewInputHash = (doc: Document) =>
     description: doc.description,
     ...(doc.descriptionContent ? { descriptionContent: doc.descriptionContent } : {}),
     information: doc.projectInformation,
+    ...(doc.projectInformationContent ? { informationContent: doc.projectInformationContent } : {}),
     sourceMode: doc.sourceMode,
     selectionRevision: doc.selectionRevision,
   })

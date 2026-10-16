@@ -79,7 +79,7 @@ export function RichTextEditor({
       editor.commands.setContent(value, { emitUpdate: false })
   }, [editor, value])
   useEffect(() => {
-    editor?.setEditable(!readOnly && !disabled)
+    editor?.setEditable(!readOnly && !disabled, false)
   }, [editor, readOnly, disabled])
   return (
     <div

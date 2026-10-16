@@ -19,6 +19,7 @@ const fields = {
     .nullable()
     .optional(),
   projectInformation: projectInformation.optional(),
+  projectInformationContent: vine.any().nullable().optional(),
   sourceMode: vine.enum(['files', 'input_only']).optional(),
 }
 export const documentValidator = vine.create({

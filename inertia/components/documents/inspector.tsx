@@ -21,7 +21,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { ConfirmAction } from '@/components/confirm_action'
-import { ProjectFields, TitleField, type ProjectInformation } from './project_fields'
+import { ProjectFields, TitleField } from './project_fields'
+import { informationToContent } from '../../../shared/project_information.ts'
 import { ProcessingStatusBadge } from './status'
 export type Action = (url: string, method: string, body: unknown) => Promise<boolean>
 export function MetadataForm({
@@ -42,7 +43,9 @@ export function MetadataForm({
   const [descriptionContent, setDescriptionContent] = useState(
     document.descriptionContent ?? textToRichText(document.description ?? '')
   )
-  const [information, setInformation] = useState<ProjectInformation>(document.projectInformation)
+  const [informationContent, setInformationContent] = useState(
+    document.projectInformationContent ?? informationToContent(document.projectInformation)
+  )
   const [dueDate, setDueDate] = useState(document.dueDate?.slice(0, 10) ?? '')
   const [projectId, setProjectId] = useState(document.projectId ?? '')
   const [revision, setRevision] = useState(document.metadataRevision)
@@ -56,7 +59,9 @@ export function MetadataForm({
       setDescriptionContent(
         document.descriptionContent ?? textToRichText(document.description ?? '')
       )
-      setInformation(document.projectInformation)
+      setInformationContent(
+        document.projectInformationContent ?? informationToContent(document.projectInformation)
+      )
       setDueDate(document.dueDate?.slice(0, 10) ?? '')
       setProjectId(document.projectId ?? '')
       setRevision(document.metadataRevision)
@@ -71,7 +76,7 @@ export function MetadataForm({
         title,
         description: description.trim() ? description : null,
         descriptionContent,
-        projectInformation: information,
+        projectInformationContent: informationContent,
         dueDate: dueDate || null,
         projectId: projectId || null,
         metadataRevision: revision,
@@ -88,12 +93,12 @@ export function MetadataForm({
           Project information
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-h-[90dvh] overflow-y-auto sm:max-w-2xl">
+      <DialogContent className="max-h-[90dvh] overflow-y-auto px-6 py-8 sm:max-w-3xl sm:px-12 sm:py-10">
         <DialogHeader>
           <DialogTitle>Project information</DialogTitle>
           <DialogDescription>
-            Complete the seven project fields before review. Changing the writing inputs invalidates
-            an existing approval.
+            Capture the story behind your case study. Complete each section before review. Changing
+            the writing inputs invalidates an existing approval.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={submit} onChange={() => setChanged(true)} className="space-y-5">
@@ -139,13 +144,16 @@ export function MetadataForm({
               </select>
             </div>
           </div>
-          <ProjectFields
-            value={information}
-            onChange={(value) => {
-              setInformation(value)
-              setChanged(true)
-            }}
-          />
+          <div className="border-t pt-4">
+            <ProjectFields
+              value={informationContent}
+              disabled={disabled}
+              onChange={(value) => {
+                setInformationContent(value)
+                setChanged(true)
+              }}
+            />
+          </div>
           <Button disabled={disabled}>Save information</Button>
         </form>
       </DialogContent>

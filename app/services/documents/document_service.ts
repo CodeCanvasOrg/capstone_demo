@@ -1,5 +1,6 @@
 import { fingerprint } from '#services/workspaces/task_service'
 import RichTextService from '#services/rich_text_service'
+import ProjectInformationService from '#services/documents/project_information_service'
 import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
 import WorkflowService from '#services/documents/workflow_service'
 import db from '@adonisjs/lucid/services/db'
@@ -34,6 +35,7 @@ export type DocumentInput = {
   projectId?: string | null
   dueDate?: string | null
   projectInformation?: Partial<ProjectInformation>
+  projectInformationContent?: TipTapDocument | null
   sourceMode?: 'files' | 'input_only'
 }
 
@@ -46,6 +48,11 @@ export default class DocumentService {
   ) {
     if (input.descriptionContent)
       input = { ...input, ...new RichTextService().description(input.descriptionContent) }
+    if (input.projectInformationContent !== null && input.projectInformationContent !== undefined)
+      input = {
+        ...input,
+        ...new ProjectInformationService().normalize(input.projectInformationContent),
+      }
     if (
       input.dueDate &&
       (!DateTime.fromISO(input.dueDate).isValid ||
@@ -76,6 +83,7 @@ export default class DocumentService {
           title: input.title,
           description: input.description ?? null,
           descriptionContent: input.descriptionContent ?? null,
+          projectInformationContent: input.projectInformationContent ?? null,
           projectId: input.projectId ?? null,
           dueDate: input.dueDate ? DateTime.fromISO(input.dueDate) : null,
           projectInformation: Object.fromEntries(
@@ -106,6 +114,11 @@ export default class DocumentService {
   ) {
     if (input.descriptionContent)
       input = { ...input, ...new RichTextService().description(input.descriptionContent) }
+    if (input.projectInformationContent !== null && input.projectInformationContent !== undefined)
+      input = {
+        ...input,
+        ...new ProjectInformationService().normalize(input.projectInformationContent),
+      }
     if (
       input.dueDate &&
       (!DateTime.fromISO(input.dueDate).isValid ||
@@ -127,16 +140,23 @@ export default class DocumentService {
           .first())
       )
         throw missingResource()
+      const informationChanged =
+        input.projectInformation !== undefined &&
+        INFORMATION_FIELDS.some(
+          (key) =>
+            (input.projectInformation?.[key] ?? '') !== (document.projectInformation?.[key] ?? '')
+        )
+      const informationContent =
+        input.projectInformationContent === undefined && !informationChanged
+          ? document.projectInformationContent
+          : (input.projectInformationContent ?? null)
       const changesContent =
         input.title !== document.title ||
         (input.description ?? null) !== document.description ||
         (input.descriptionContent !== undefined &&
           fingerprint(input.descriptionContent) !== fingerprint(document.descriptionContent)) ||
-        (input.projectInformation &&
-          INFORMATION_FIELDS.some(
-            (key) =>
-              (input.projectInformation?.[key] ?? '') !== (document.projectInformation?.[key] ?? '')
-          ))
+        informationChanged ||
+        fingerprint(informationContent) !== fingerprint(document.projectInformationContent)
       if (changesContent)
         await new WorkflowService().invalidate(
           document,
@@ -159,6 +179,7 @@ export default class DocumentService {
               INFORMATION_FIELDS.map((key) => [key, input.projectInformation?.[key] ?? ''])
             )
           : document.projectInformation,
+        projectInformationContent: informationContent,
         metadataRevision: document.metadataRevision + 1,
       })
       if (changesContent && ['in_review', 'approved'].includes(document.status ?? ''))

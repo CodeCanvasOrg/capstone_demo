@@ -21,6 +21,7 @@ export default class DocumentTransformer extends BaseTransformer<Document> {
         'userId',
         'projectId',
         'projectInformation',
+        'projectInformationContent',
         'dueDate',
         'sourceMode',
         'currentVersionId',

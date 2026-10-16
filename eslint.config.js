@@ -6,7 +6,7 @@ export default configApp(...react, {
     // This pure ProseMirror helper is shared with the Node-based regression test.
     '@adonisjs/no-backend-import-in-frontend': [
       'error',
-      { allowed: ['../../../shared/writing_reveal.ts'] },
+      { allowed: ['../../../shared/writing_reveal.ts', '../../../shared/project_information.ts'] },
     ],
   },
 })

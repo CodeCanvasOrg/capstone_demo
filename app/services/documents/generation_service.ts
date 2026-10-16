@@ -21,6 +21,7 @@ export const generationInput = (doc: Document) => ({
   title: doc.title,
   description: doc.description,
   information: doc.projectInformation,
+  ...(doc.projectInformationContent ? { informationContent: doc.projectInformationContent } : {}),
   sourceMode: doc.sourceMode,
   selectionRevision: doc.selectionRevision,
   model: config.model,
