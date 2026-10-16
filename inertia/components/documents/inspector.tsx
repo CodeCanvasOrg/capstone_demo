@@ -1,4 +1,4 @@
-import { RichTextEditor, textToRichText } from '@/components/rich_text_editor'
+import { RichTextEditor, textToRichText, type RichText } from '@/components/rich_text_editor'
 import { SourcePicker } from '@/components/files/source_picker'
 import { useState, type FormEvent } from 'react'
 import type { Data } from '@generated/data'
@@ -8,7 +8,6 @@ import { urlFor } from '@/client'
 import { useWorkspaceId, useUnsavedChanges } from '@/providers/workspace_provider'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Progress } from '@/components/ui/progress'
@@ -39,10 +38,6 @@ export function MetadataForm({
   const workspaceId = useWorkspaceId()
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState(document.title)
-  const [description, setDescription] = useState(document.description ?? '')
-  const [descriptionContent, setDescriptionContent] = useState(
-    document.descriptionContent ?? textToRichText(document.description ?? '')
-  )
   const [informationContent, setInformationContent] = useState(
     document.projectInformationContent ?? informationToContent(document.projectInformation)
   )
@@ -55,10 +50,6 @@ export function MetadataForm({
     if (!next && changed && !window.confirm('Discard changes to project information?')) return
     if (next) {
       setTitle(document.title)
-      setDescription(document.description ?? '')
-      setDescriptionContent(
-        document.descriptionContent ?? textToRichText(document.description ?? '')
-      )
       setInformationContent(
         document.projectInformationContent ?? informationToContent(document.projectInformation)
       )
@@ -74,8 +65,8 @@ export function MetadataForm({
     if (
       await action(urlFor('documents.update', { workspaceId, id: document.id }), 'PUT', {
         title,
-        description: description.trim() ? description : null,
-        descriptionContent,
+        description: document.description,
+        descriptionContent: document.descriptionContent,
         projectInformationContent: informationContent,
         dueDate: dueDate || null,
         projectId: projectId || null,
@@ -93,30 +84,18 @@ export function MetadataForm({
           Project information
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-h-[90dvh] overflow-y-auto px-6 py-8 sm:max-w-3xl sm:px-12 sm:py-10">
-        <DialogHeader>
-          <DialogTitle>Project information</DialogTitle>
-          <DialogDescription>
+      <DialogContent className="max-h-[90dvh] overflow-y-auto px-6 py-8 sm:max-w-4xl sm:px-12 sm:py-10">
+        <DialogHeader className="text-left">
+          <DialogTitle className="pr-8 text-xs font-medium text-muted-foreground">
+            Project information
+          </DialogTitle>
+          <DialogDescription className="sr-only">
             Capture the story behind your case study. Complete each section before review. Changing
             the writing inputs invalidates an existing approval.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={submit} onChange={() => setChanged(true)} className="space-y-5">
-          <TitleField value={title} onChange={setTitle} />
-          <div className="space-y-2">
-            <Label htmlFor="description">Writing direction (optional)</Label>
-            <RichTextEditor
-              value={descriptionContent}
-              label="Writing direction"
-              onChange={(value, text) => {
-                setDescriptionContent(value)
-                setDescription(text)
-                setChanged(true)
-              }}
-              compact
-              disabled={disabled}
-            />
-          </div>
+          <TitleField value={title} onChange={setTitle} disabled={disabled} />
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="document-deadline">Deadline</Label>
@@ -124,6 +103,7 @@ export function MetadataForm({
                 id="document-deadline"
                 type="date"
                 value={dueDate}
+                disabled={disabled}
                 onChange={(event) => setDueDate(event.target.value)}
               />
             </div>
@@ -133,6 +113,7 @@ export function MetadataForm({
                 id="document-project"
                 className="form-select"
                 value={projectId}
+                disabled={disabled}
                 onChange={(event) => setProjectId(event.target.value)}
               >
                 <option value="">Ungrouped</option>
@@ -154,7 +135,12 @@ export function MetadataForm({
               }}
             />
           </div>
-          <Button disabled={disabled}>Save information</Button>
+          <div className="flex flex-col gap-4 border-t pt-5 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-xs text-muted-foreground">
+              Changes require a fresh review and approval.
+            </p>
+            <Button disabled={disabled}>Save information</Button>
+          </div>
         </form>
       </DialogContent>
     </Dialog>
@@ -176,19 +162,17 @@ export function IssuesPanel({
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [descriptionContent, setDescriptionContent] = useState<RichText>(textToRichText(''))
   const [blocking, setBlocking] = useState(false)
-  useUnsavedChanges(
-    'issue-form',
-    open &&
-      (title !== (editing?.title ?? '') ||
-        description !== (editing?.description ?? '') ||
-        blocking !== (editing?.blocking ?? false))
-  )
+  const [changed, setChanged] = useState(false)
+  useUnsavedChanges('issue-form', open && changed)
   function begin(issue: Data.DocumentIssue | null) {
     setEditing(issue)
     setTitle(issue?.title ?? '')
     setDescription(issue?.description ?? '')
+    setDescriptionContent(issue?.descriptionContent ?? textToRichText(issue?.description ?? ''))
     setBlocking(issue?.blocking ?? false)
+    setChanged(false)
     setOpen(true)
   }
   async function save(event: FormEvent) {
@@ -200,11 +184,14 @@ export function IssuesPanel({
       await action(url, editing ? 'PATCH' : 'POST', {
         title,
         description,
+        descriptionContent,
         blocking,
         ...(editing ? { state: editing.state, revision: editing.revision } : {}),
       })
-    )
+    ) {
+      setChanged(false)
       setOpen(false)
+    }
   }
   return (
     <section className="space-y-4 border-t p-5">
@@ -252,7 +239,6 @@ export function IssuesPanel({
                     'PATCH',
                     {
                       title: issue.title,
-                      description: issue.description,
                       blocking: issue.blocking,
                       state: issue.state === 'open' ? 'resolved' : 'open',
                       revision: issue.revision,
@@ -273,50 +259,65 @@ export function IssuesPanel({
       <Dialog
         open={open}
         onOpenChange={(value) => {
-          if (
-            !value &&
-            (title || description) &&
-            !window.confirm('Close the issue form and discard unsaved changes?')
-          )
-            return
+          if (!value && changed && !window.confirm('Discard unsaved changes to this issue?')) return
           setOpen(value)
         }}
       >
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{editing ? 'Edit issue' : 'Add issue'}</DialogTitle>
-            <DialogDescription>
+        <DialogContent className="max-h-[90dvh] gap-0 overflow-y-auto p-0 sm:max-w-4xl">
+          <DialogHeader className="px-6 pt-6 text-left sm:px-10">
+            <DialogTitle className="pr-8 text-xs font-medium text-muted-foreground">
+              {editing ? 'Edit issue' : 'New issue'}
+            </DialogTitle>
+            <DialogDescription className="sr-only">
               Make feedback clear and actionable for everyone in the workspace.
             </DialogDescription>
           </DialogHeader>
-          <form className="space-y-4" onSubmit={save}>
-            <div className="space-y-2">
-              <Label htmlFor="issue-title">Title</Label>
-              <Input
+          <form onSubmit={save} onChange={() => setChanged(true)}>
+            <div className="px-6 pt-7 sm:px-10">
+              <Label htmlFor="issue-title" className="sr-only">
+                Issue title
+              </Label>
+              <input
                 id="issue-title"
                 value={title}
                 onChange={(event) => setTitle(event.target.value)}
+                placeholder="Issue title"
+                disabled={disabled}
+                className="w-full rounded-md bg-transparent py-2 text-3xl font-semibold tracking-tight outline-none placeholder:text-muted-foreground/60 focus-visible:ring-2 focus-visible:ring-ring/40 disabled:opacity-50"
                 maxLength={255}
                 required
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="issue-description">Description</Label>
-              <Textarea
-                id="issue-description"
-                value={description}
-                onChange={(event) => setDescription(event.target.value)}
-                maxLength={10000}
+            <div className="mx-6 mt-5 border-t py-6 sm:mx-10">
+              <RichTextEditor
+                value={descriptionContent}
+                onChange={(value, text) => {
+                  setDescriptionContent(value)
+                  setDescription(text)
+                  setChanged(true)
+                }}
+                label="Issue description"
+                placeholder="Describe the issue, add context, or collect feedback…"
+                className="issue-document"
+                disabled={disabled}
               />
             </div>
-            <label className="flex items-center gap-2 text-sm">
-              <Checkbox
-                checked={blocking}
-                onCheckedChange={(value) => setBlocking(value === true)}
-              />
-              Blocks review and approval
-            </label>
-            <Button disabled={disabled}>Save issue</Button>
+            <div className="flex flex-col gap-4 rounded-b-2xl border-t bg-muted/20 px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-10">
+              <label className="flex items-center gap-2 text-sm">
+                <Checkbox
+                  checked={blocking}
+                  disabled={disabled}
+                  onCheckedChange={(value) => {
+                    setBlocking(value === true)
+                    setChanged(true)
+                  }}
+                />
+                Blocks review and approval
+              </label>
+              <Button disabled={disabled || !title.trim()}>
+                {disabled ? 'Saving…' : editing ? 'Save changes' : 'Create issue'}
+              </Button>
+            </div>
           </form>
         </DialogContent>
       </Dialog>

@@ -250,6 +250,7 @@ export class DocumentIssueSchema extends BaseModel {
     'createdAt',
     'createdById',
     'description',
+    'descriptionContent',
     'documentId',
     'id',
     'resolvedAt',
@@ -270,6 +271,8 @@ export class DocumentIssueSchema extends BaseModel {
   declare createdById: number
   @column()
   declare description: string | null
+  @column()
+  declare descriptionContent: any | null
   @column()
   declare documentId: string
   @column({ isPrimary: true })

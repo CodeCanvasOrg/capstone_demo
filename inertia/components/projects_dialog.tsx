@@ -61,7 +61,7 @@ export function ProjectDialog({ project }: { project?: Data.Project }) {
           {project ? 'Edit project' : 'New project'}
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-h-[90dvh] gap-0 overflow-y-auto p-0 sm:max-w-2xl">
+      <DialogContent className="max-h-[90dvh] gap-0 overflow-y-auto p-0 sm:max-w-3xl">
         <DialogHeader className="px-6 pt-6 text-left">
           <DialogTitle className="text-xs font-medium text-muted-foreground">
             {workspace?.name} <span className="mx-1">/</span>{' '}
@@ -110,7 +110,7 @@ export function ProjectDialog({ project }: { project?: Data.Project }) {
               </p>
             )}
           </div>
-          <div className="flex justify-end gap-2 border-t bg-muted/20 px-6 py-4">
+          <div className="flex justify-end gap-2 rounded-b-2xl border-t bg-muted/20 px-6 py-4">
             <Button
               type="button"
               variant="ghost"

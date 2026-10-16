@@ -6,6 +6,7 @@ export default class DocumentIssueTransformer extends BaseTransformer<DocumentIs
       'id',
       'title',
       'description',
+      'descriptionContent',
       'blocking',
       'state',
       'revision',

@@ -223,3 +223,9 @@
 .information-document .tiptap a { text-decoration:underline; text-underline-offset:3px; }
 .information-document .tiptap p.is-empty::before { content:attr(data-placeholder); color:var(--muted-foreground); float:left; height:0; pointer-events:none; }
 .information-document .tiptap:focus-visible { outline:2px solid var(--ring); outline-offset:8px; border-radius:.25rem; }
+.rich-description.issue-document .tiptap { min-height:clamp(16rem,40dvh,30rem); font-size:.9375rem; line-height:1.85; }
+.rich-description.issue-document .tiptap h1 { font-size:1.75rem; letter-spacing:-.025em; }
+.rich-description.issue-document .tiptap h2 { font-size:1.375rem; letter-spacing:-.02em; }
+.rich-description.issue-document .tiptap h3 { font-size:1.125rem; }
+.rich-description.issue-document .tiptap pre { border-radius:.5rem; background:var(--muted); padding:1em; white-space:pre-wrap; }
+.rich-description.issue-document .tiptap code { border-radius:.25rem; background:var(--muted); padding:.125em .25em; font-size:.875em; }

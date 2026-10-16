@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { EditorContent, useEditor, useEditorState, type JSONContent } from '@tiptap/react'
 import Placeholder from '@tiptap/extension-placeholder'
 import { Bold, Italic, List, ListOrdered, Undo2, Redo2 } from 'lucide-react'
-import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { projectInformationExtensions } from '../../../shared/project_information.ts'
@@ -131,7 +130,7 @@ export function ProjectFields({
       </div>
       <p id="information-document-help" className="mb-8 text-xs text-muted-foreground">
         Write freely under each heading. Use paragraphs, lists, or Markdown shortcuts to format your
-        notes.
+        notes. Complete each section before review.
       </p>
       <EditorContent editor={editor} />
     </section>
@@ -140,17 +139,24 @@ export function ProjectFields({
 export function TitleField({
   value,
   onChange,
+  disabled = false,
 }: {
   value: string
   onChange: (value: string) => void
+  disabled?: boolean
 }) {
   return (
     <div className="space-y-2">
-      <Label htmlFor="case-title">Case-study title</Label>
-      <Input
+      <Label htmlFor="case-title" className="sr-only">
+        Case-study title
+      </Label>
+      <input
         id="case-title"
         value={value}
         onChange={(event) => onChange(event.target.value)}
+        placeholder="Case-study title"
+        disabled={disabled}
+        className="w-full rounded-md bg-transparent py-2 text-3xl font-semibold tracking-tight outline-none placeholder:text-muted-foreground/60 focus-visible:ring-2 focus-visible:ring-ring/40 disabled:opacity-50"
         required
         maxLength={255}
       />
