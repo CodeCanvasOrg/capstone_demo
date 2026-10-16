@@ -391,6 +391,7 @@ export class DocumentSchema extends BaseModel {
     'createdAt',
     'currentVersionId',
     'description',
+    'descriptionContent',
     'dueDate',
     'generationError',
     'generationLeaseAt',
@@ -422,6 +423,8 @@ export class DocumentSchema extends BaseModel {
   declare currentVersionId: string | null
   @column()
   declare description: string | null
+  @column()
+  declare descriptionContent: any | null
   @column.date()
   declare dueDate: DateTime | null
   @column()
@@ -590,6 +593,7 @@ export class ProjectSchema extends BaseModel {
     'createdAt',
     'creatorId',
     'description',
+    'descriptionContent',
     'id',
     'name',
     'updatedAt',
@@ -602,6 +606,8 @@ export class ProjectSchema extends BaseModel {
   declare creatorId: number
   @column()
   declare description: string | null
+  @column()
+  declare descriptionContent: any | null
   @column({ isPrimary: true })
   declare id: string
   @column()

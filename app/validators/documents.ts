@@ -10,6 +10,7 @@ const projectInformation = vine.object({
 })
 const fields = {
   title: vine.string().trim().minLength(1).maxLength(255),
+  descriptionContent: vine.any().nullable().optional(),
   description: vine.string().maxLength(20000).nullable().optional(),
   projectId: vine.string().uuid().nullable().optional(),
   dueDate: vine

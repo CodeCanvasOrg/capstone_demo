@@ -31,6 +31,7 @@ export default class DocumentTransformer extends BaseTransformer<Document> {
         'legacyApprovalUnverified',
         'title',
         'description',
+        'descriptionContent',
         'status',
         'generationStatus',
         'createdAt',

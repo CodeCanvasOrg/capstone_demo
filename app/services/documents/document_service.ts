@@ -1,3 +1,6 @@
+import { fingerprint } from '#services/workspaces/task_service'
+import RichTextService from '#services/rich_text_service'
+import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
 import WorkflowService from '#services/documents/workflow_service'
 import db from '@adonisjs/lucid/services/db'
 import Document from '#models/document'
@@ -26,6 +29,7 @@ export const emptyInformation = (): ProjectInformation =>
 export type DocumentInput = {
   title: string
   description?: string | null
+  descriptionContent?: TipTapDocument | null
   projectId?: string | null
   dueDate?: string | null
   projectInformation?: Partial<ProjectInformation>
@@ -34,6 +38,8 @@ export type DocumentInput = {
 
 export default class DocumentService {
   async create(context: WorkspaceAccessContext, input: DocumentInput, fileIds: string[]) {
+    if (input.descriptionContent)
+      input = { ...input, ...new RichTextService().description(input.descriptionContent) }
     if (
       input.dueDate &&
       (!DateTime.fromISO(input.dueDate).isValid ||
@@ -63,6 +69,7 @@ export default class DocumentService {
           userId: context.actorId,
           title: input.title,
           description: input.description ?? null,
+          descriptionContent: input.descriptionContent ?? null,
           projectId: input.projectId ?? null,
           dueDate: input.dueDate ? DateTime.fromISO(input.dueDate) : null,
           projectInformation: Object.fromEntries(
@@ -90,6 +97,8 @@ export default class DocumentService {
     id: string,
     input: DocumentInput & { metadataRevision: number }
   ) {
+    if (input.descriptionContent)
+      input = { ...input, ...new RichTextService().description(input.descriptionContent) }
     if (
       input.dueDate &&
       (!DateTime.fromISO(input.dueDate).isValid ||
@@ -114,6 +123,8 @@ export default class DocumentService {
       const changesContent =
         input.title !== document.title ||
         (input.description ?? null) !== document.description ||
+        (input.descriptionContent !== undefined &&
+          fingerprint(input.descriptionContent) !== fingerprint(document.descriptionContent)) ||
         (input.projectInformation &&
           INFORMATION_FIELDS.some(
             (key) =>
@@ -129,6 +140,11 @@ export default class DocumentService {
       document.merge({
         title: input.title,
         description: input.description ?? null,
+        descriptionContent:
+          input.descriptionContent === undefined &&
+          (input.description ?? null) === document.description
+            ? document.descriptionContent
+            : (input.descriptionContent ?? null),
         projectId: input.projectId ?? null,
         dueDate: input.dueDate ? DateTime.fromISO(input.dueDate) : null,
         projectInformation: input.projectInformation

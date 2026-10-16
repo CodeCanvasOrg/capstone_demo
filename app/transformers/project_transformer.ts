@@ -8,6 +8,7 @@ export default class ProjectTransformer extends BaseTransformer<Project> {
       'workspaceId',
       'name',
       'description',
+      'descriptionContent',
       'createdAt',
       'updatedAt',
     ])

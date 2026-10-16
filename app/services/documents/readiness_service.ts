@@ -12,6 +12,7 @@ export const reviewInputHash = (doc: Document) =>
   fingerprint({
     title: doc.title,
     description: doc.description,
+    ...(doc.descriptionContent ? { descriptionContent: doc.descriptionContent } : {}),
     information: doc.projectInformation,
     sourceMode: doc.sourceMode,
     selectionRevision: doc.selectionRevision,

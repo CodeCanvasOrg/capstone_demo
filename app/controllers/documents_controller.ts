@@ -48,7 +48,7 @@ export default class DocumentsController {
       filters: { q, status: status ?? '', project: projectId ?? '' },
     })
   }
-  async create({ workspace, workspaceAccess, bouncer, inertia }: HttpContext) {
+  async create({ workspace, workspaceAccess, bouncer, inertia, request }: HttpContext) {
     await bouncer.with(DocumentPolicy).authorize('create', workspaceAccess!.workspaceId)
     const files = await workspace!
       .related('files')
@@ -59,7 +59,10 @@ export default class DocumentsController {
           .preload('processingRuns', (run) => run.orderBy('createdAt', 'desc'))
       )
     const projects = await workspace!.related('projects').query().orderBy('name')
+    const projectId = request.input('projectId')
+    if (projectId) await new AccessService().project(workspaceAccess!, projectId)
     return inertia.render('documents/create', {
+      initialProjectId: projectId ?? null,
       files: FileTransformer.transform(files, workspaceAccess!.actorId),
       projects: ProjectTransformer.transform(projects),
     })
