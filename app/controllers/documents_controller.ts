@@ -15,6 +15,7 @@ import FileTransformer from '#transformers/file_transformer'
 import ProjectTransformer from '#transformers/project_transformer'
 import { documentValidator, documentUpdateValidator } from '#validators/documents'
 import DocumentService from '#services/documents/document_service'
+import CreationService from '#services/documents/creation_service'
 import AccessService from '#services/workspaces/access_service'
 import type { HttpContext } from '@adonisjs/core/http'
 export default class DocumentsController {
@@ -70,7 +71,7 @@ export default class DocumentsController {
   async store({ workspaceAccess, request, bouncer, response }: HttpContext) {
     await bouncer.with(DocumentPolicy).authorize('create', workspaceAccess!.workspaceId)
     const { files, ...input } = await request.validateUsing(documentValidator)
-    const document = await new DocumentService().create(
+    const document = await new CreationService().document(
       workspaceAccess!,
       input,
       files?.map((file) => file.id) ?? []

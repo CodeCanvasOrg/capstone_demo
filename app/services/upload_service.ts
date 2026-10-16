@@ -10,7 +10,6 @@ import FileRevision from '#models/file_revision'
 import ProcessingRun from '#models/processing_run'
 import AccessService, { type WorkspaceAccessContext } from '#services/workspaces/access_service'
 import TaskService from '#services/workspaces/task_service'
-import TaskDispatchService from '#services/workspaces/task_dispatch_service'
 const MIME_TYPES: Record<string, string> = {
   '.pdf': 'application/pdf',
   '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
@@ -94,7 +93,6 @@ export default class UploadService {
         throw error
       }
     })
-    await new TaskDispatchService().dispatch()
     return {
       id: file.id,
       filename: file.filename,

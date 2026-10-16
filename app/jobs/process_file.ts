@@ -3,7 +3,6 @@ import { Job } from '@adonisjs/queue'
 import type { JobOptions } from '@adonisjs/queue/types'
 import ProcessingService from '#services/documents/processing_service'
 import TaskService from '#services/workspaces/task_service'
-import TaskDispatchService from '#services/workspaces/task_dispatch_service'
 export default class ProcessFile extends Job<{ version: 1; taskId: string }> {
   static options: JobOptions = { queue: 'documents', timeout: '20m' }
   async execute() {
@@ -23,6 +22,5 @@ export default class ProcessFile extends Job<{ version: 1; taskId: string }> {
     } finally {
       clearInterval(heartbeat)
     }
-    await new TaskDispatchService().dispatch()
   }
 }

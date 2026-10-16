@@ -1,6 +1,8 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import ProjectPolicy from '#policies/project_policy'
 import ProjectService from '#services/workspaces/project_service'
+import CreationService from '#services/documents/creation_service'
+import DocumentPolicy from '#policies/document_policy'
 import AccessService from '#services/workspaces/access_service'
 import ProjectTransformer from '#transformers/project_transformer'
 import DocumentTransformer from '#transformers/document_transformer'
@@ -38,10 +40,11 @@ export default class ProjectsController {
   async store({ workspaceAccess, request, bouncer, response }: HttpContext) {
     await bouncer.with(ProjectPolicy).authorize('create', workspaceAccess!.workspaceId)
     const input = await request.validateUsing(createProjectValidator)
-    const project = await new ProjectService().save(workspaceAccess!, input)
-    return response.redirect().toRoute('projects.show', {
+    await bouncer.with(DocumentPolicy).authorize('create', workspaceAccess!.workspaceId)
+    const document = await new CreationService().project(workspaceAccess!, input)
+    return response.redirect().toRoute('documents.edit', {
       workspaceId: workspaceAccess!.workspaceId,
-      projectId: project.id,
+      id: document.id,
     })
   }
   async update({ workspaceAccess, request, params, bouncer, response }: HttpContext) {

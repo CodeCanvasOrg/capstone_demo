@@ -11,6 +11,7 @@ import testUtils from '@adonisjs/core/services/test_utils'
 import { browserClient } from '@japa/browser-client'
 import { authBrowserClient } from '@adonisjs/auth/plugins/browser_client'
 import { sessionBrowserClient } from '@adonisjs/session/plugins/browser_client'
+import env from '#start/env'
 
 /**
  * This file is imported by the "bin/test.ts" entrypoint file
@@ -41,7 +42,14 @@ export const plugins: Config['plugins'] = [
  * The teardown functions are executed after all the tests
  */
 export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
-  setup: [],
+  setup: [
+    () => {
+      if (env.get('TEST_DB_URL') === env.get('DB_URL'))
+        throw new Error(
+          'Development and tests must use separate databases; refusing to reset shared data'
+        )
+    },
+  ],
   teardown: [],
 }
 

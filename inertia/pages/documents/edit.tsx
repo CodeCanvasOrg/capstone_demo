@@ -435,6 +435,9 @@ export default function Edit({
       )}
       <div className="flex min-w-0 items-start">
         <DocumentEditor
+          key={document.id}
+          title={document.title}
+          generationStatus={document.generationStatus}
           documentId={document.id}
           baseVersionId={document.currentVersionId}
           initialContent={version?.content ?? null}

@@ -207,7 +207,7 @@ export default class TaskService {
       return result
     })
   }
-  async fail(lease: TaskLease, stale = false) {
+  async fail(lease: TaskLease, stale = false, safeError?: string, permanent = false) {
     await db.transaction(async (trx) => {
       const task = await WorkspaceTask.query({ client: trx })
         .where('id', lease.task.id)
@@ -226,19 +226,19 @@ export default class TaskService {
       task.merge({
         status: stale
           ? 'conflict'
-          : task.attempts >= workspaceConfig.maximumAttempts
+          : permanent || task.attempts >= workspaceConfig.maximumAttempts
             ? 'failed'
             : 'queued',
         leaseToken: null,
         leaseExpiresAt: null,
         safeError: stale
           ? 'Inputs changed. Start a new request.'
-          : 'Processing failed. Retry is available.',
+          : (safeError ?? 'Processing failed. Retry is available.'),
       })
       await task.save()
       if (['failed', 'conflict', 'cancelled'].includes(task.status))
         await this.publishTerminal(task, trx)
-      if (!stale && task.attempts < workspaceConfig.maximumAttempts)
+      if (!stale && !permanent && task.attempts < workspaceConfig.maximumAttempts)
         await TaskDispatch.query({ client: trx })
           .where('taskId', task.id)
           .update({ dispatchedAt: null })
@@ -270,7 +270,7 @@ export default class TaskService {
       `WITH pending AS(SELECT pr.id,t.safe_error FROM processing_runs pr JOIN workspace_tasks t ON t.run_id=pr.id AND t.workspace_id=pr.workspace_id WHERE pr.status IN('queued','processing') AND t.status IN('failed','conflict','cancelled') AND NOT EXISTS(SELECT 1 FROM workspace_tasks active WHERE active.run_id=pr.id AND active.workspace_id=pr.workspace_id AND active.status IN('queued','running')) LIMIT 100) UPDATE processing_runs pr SET status='failed',error=COALESCE(p.safe_error,'Source preparation could not finish'),completed_at=CURRENT_TIMESTAMP FROM pending p WHERE p.id=pr.id`
     )
     await db.rawQuery(
-      `UPDATE task_dispatches d SET dispatched_at = NULL FROM workspace_tasks t WHERE t.id = d.task_id AND (t.status = 'queued' OR (t.status = 'running' AND t.lease_expires_at < CURRENT_TIMESTAMP))`
+      `UPDATE task_dispatches d SET dispatched_at = NULL FROM workspace_tasks t WHERE t.id = d.task_id AND ((t.status = 'queued' AND d.dispatched_at < CURRENT_TIMESTAMP - INTERVAL '30 seconds') OR (t.status = 'running' AND t.lease_expires_at < CURRENT_TIMESTAMP))`
     )
   }
   async show(context: WorkspaceAccessContext, id: string) {

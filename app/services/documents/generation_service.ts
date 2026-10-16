@@ -16,7 +16,7 @@ import TaskService, {
   type SourcePin,
   type TaskLease,
 } from '#services/workspaces/task_service'
-import TaskDispatchService from '#services/workspaces/task_dispatch_service'
+import type { TransactionClientContract } from '@adonisjs/lucid/types/database'
 export const generationInput = (doc: Document) => ({
   title: doc.title,
   description: doc.description,
@@ -31,9 +31,10 @@ export default class GenerationService {
     context: WorkspaceAccessContext,
     documentId: string,
     mutationId: string,
-    baseVersionId: string | null
+    baseVersionId: string | null,
+    client?: TransactionClientContract
   ) {
-    const task = await db.transaction(async (trx) => {
+    const request = async (trx: TransactionClientContract) => {
       await new AccessService().lock(context, trx)
       const document = await Document.query({ client: trx })
         .where({ id: documentId, workspaceId: context.workspaceId })
@@ -112,9 +113,8 @@ export default class GenerationService {
       })
       await document.save()
       return created
-    })
-    await new TaskDispatchService().dispatch()
-    return task
+    }
+    return client ? request(client) : db.transaction(request)
   }
   async execute(lease: TaskLease) {
     const tasks = new TaskService()
@@ -214,7 +214,13 @@ export default class GenerationService {
       return { versionId: version.id }
     })
   }
-  async failed(lease: TaskLease, stale: boolean) {
-    await new TaskService().fail(lease, stale)
+  async failed(lease: TaskLease, stale: boolean, error?: unknown) {
+    const status = OpenRouterService.status(error)
+    await new TaskService().fail(
+      lease,
+      stale,
+      status ? config.failureMessages[status] : undefined,
+      [401, 402, 403, 404].includes(status ?? 0)
+    )
   }
 }

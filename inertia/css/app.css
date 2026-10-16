@@ -73,7 +73,7 @@
 .page-wrap { width:100%; max-width:76rem; margin-inline:auto; padding:clamp(1.25rem,3vw,3rem); }
 .eyebrow { font-size:.625rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--muted-foreground); }
 .material { background:var(--sidebar); }
-.document-canvas { width:100%; max-width:48rem; min-height:65rem; padding:clamp(1.5rem,5vw,3.5rem); background:var(--document); border:1px solid var(--border); }
+.document-canvas { width:100%; max-width:64rem; min-height:70rem; padding:clamp(1.5rem,4vw,4rem); background:var(--document); border:1px solid var(--border); box-shadow:0 2px 12px oklch(0% 0 0 / .035); }
 .tiptap-editor .ProseMirror { overflow-wrap:anywhere; }
 .tiptap-editor .ProseMirror h1,.tiptap-editor .ProseMirror h2 { font-weight:600; letter-spacing:-.045em; }
 .tiptap-editor .ProseMirror img { max-width:100%; height:auto; border-radius:.75rem; }
@@ -190,7 +190,7 @@
 
 @layer components { .form-select { width:100%; min-height:2.5rem; border:1px solid var(--input); border-radius:.5rem; padding:.5rem .75rem; font:inherit; font-size:.875rem; background:var(--sidebar); color:var(--foreground); } .eyebrow { font-size:.625rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--subtitle); } }
 
-.tiptap-editor .ProseMirror:focus-visible { outline:2px solid var(--ring); outline-offset:12px; }
+.document-canvas .ProseMirror:focus-visible { outline:none; }
 .tiptap-editor .ProseMirror > :first-child { margin-top:0; }
 
 /* Minimal creation surfaces: quiet hierarchy, rich content, compact controls. */
@@ -205,5 +205,4 @@
 .rich-description .tiptap a { text-decoration:underline; text-underline-offset:3px; }
 .rich-description .tiptap blockquote { border-left:2px solid var(--border); padding-left:1em; }
 .rich-description .tiptap:focus-visible { outline:2px solid var(--ring); outline-offset:4px; border-radius:.25rem; }
-.document-canvas { min-height:45rem; background:transparent; border:0; padding-inline:clamp(.5rem,3vw,2.5rem); }
 [data-slot=sidebar][data-collapsible=icon] [data-slot=sidebar-group-label] { pointer-events:none; }

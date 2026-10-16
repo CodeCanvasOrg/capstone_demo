@@ -50,6 +50,8 @@ export default await Env.create(new URL('../', import.meta.url), {
   // Open Router API key
   OPENROUTER_API_KEY: Env.schema.secret(),
   OPENROUTER_BASE_URL: Env.schema.string.optional({ format: 'url', tld: false }),
+  OPENROUTER_MODEL: Env.schema.string.optional(),
+  OPENROUTER_EMBEDDING_MODEL: Env.schema.string.optional(),
 
   /*
   |----------------------------------------------------------

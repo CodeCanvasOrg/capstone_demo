@@ -13,6 +13,7 @@ import AccessService, {
 } from '#services/workspaces/access_service'
 import { Exception } from '@adonisjs/core/exceptions'
 import { DateTime } from 'luxon'
+import type { TransactionClientContract } from '@adonisjs/lucid/types/database'
 
 export const INFORMATION_FIELDS = [
   'overview',
@@ -37,7 +38,12 @@ export type DocumentInput = {
 }
 
 export default class DocumentService {
-  async create(context: WorkspaceAccessContext, input: DocumentInput, fileIds: string[]) {
+  async create(
+    context: WorkspaceAccessContext,
+    input: DocumentInput,
+    fileIds: string[],
+    client?: TransactionClientContract
+  ) {
     if (input.descriptionContent)
       input = { ...input, ...new RichTextService().description(input.descriptionContent) }
     if (
@@ -46,7 +52,7 @@ export default class DocumentService {
         DateTime.fromISO(input.dueDate).toISODate() !== input.dueDate)
     )
       throw new Exception('Invalid calendar deadline', { status: 422 })
-    return db.transaction(async (trx) => {
+    const create = async (trx: TransactionClientContract) => {
       await new AccessService().lock(context, trx)
       if (
         input.projectId &&
@@ -90,7 +96,8 @@ export default class DocumentService {
           }))
         )
       return document
-    })
+    }
+    return client ? create(client) : db.transaction(create)
   }
   async update(
     context: WorkspaceAccessContext,

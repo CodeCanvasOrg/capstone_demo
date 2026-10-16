@@ -34,6 +34,11 @@ type TextContent = {
 const MAX_SOURCE_IMAGES = 4
 
 export default class OpenRouterService {
+  static status(error: unknown): number | undefined {
+    if (!error || typeof error !== 'object') return undefined
+    const value = error as { status?: number; statusCode?: number }
+    return value.status ?? value.statusCode
+  }
   private model: ChatOpenRouter
   private embeddService: EmbeddFileService
   private structuredModel: Runnable<any, Object>

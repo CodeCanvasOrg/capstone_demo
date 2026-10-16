@@ -50,7 +50,7 @@ export function ProjectDialog({ project }: { project?: Data.Project }) {
       },
     }
     if (project)
-      form.put(urlFor('projects.update', { workspaceId, projectId: project.id }), options)
+      form.patch(urlFor('projects.update', { workspaceId, projectId: project.id }), options)
     else form.post(urlFor('projects.store', { workspaceId }), options)
   }
   return (
@@ -68,7 +68,7 @@ export function ProjectDialog({ project }: { project?: Data.Project }) {
             {project ? 'Edit project' : 'New project'}
           </DialogTitle>
           <DialogDescription className="sr-only">
-            Name the project and write a formatted description.
+            Name the project and write a brief. Creating a project opens its first AI case study.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={submit}>
@@ -121,7 +121,7 @@ export function ProjectDialog({ project }: { project?: Data.Project }) {
               Cancel
             </Button>
             <Button size="sm" disabled={form.processing || !form.data.name.trim()}>
-              {form.processing ? 'Saving…' : project ? 'Save changes' : 'Create project'}
+              {form.processing ? 'Opening…' : project ? 'Save changes' : 'Create project & draft'}
             </Button>
           </div>
         </form>

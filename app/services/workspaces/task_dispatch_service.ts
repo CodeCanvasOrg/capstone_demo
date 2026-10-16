@@ -23,6 +23,13 @@ export default class TaskDispatchService {
       const task = await WorkspaceTask.find(intent.taskId)
       if (!task || !['queued', 'running'].includes(task.status)) continue
       try {
+        // Save before dispatch: sync jobs may defer/fail and reset this marker themselves.
+        intent.merge({
+          dispatchedAt: DateTime.utc(),
+          attempts: intent.attempts + 1,
+          safeError: null,
+        })
+        await intent.save()
         // Delivery is at least once; the durable task lease makes duplicate execution safe.
         if (task.kind === 'ingest') await ProcessFile.dispatch({ version: 1, taskId: task.id })
         else if (task.kind === 'generate')
@@ -30,16 +37,10 @@ export default class TaskDispatchService {
         else if (task.kind === 'render')
           await RenderDocument.dispatch({ version: 1, taskId: task.id })
         else continue
-        intent.merge({
-          dispatchedAt: DateTime.utc(),
-          attempts: intent.attempts + 1,
-          safeError: null,
-        })
-        await intent.save()
         sent++
       } catch {
         intent.merge({
-          attempts: intent.attempts + 1,
+          dispatchedAt: null,
           safeError: 'Queue delivery failed; intent retained for retry',
         })
         await intent.save()

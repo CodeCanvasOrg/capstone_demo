@@ -3,6 +3,8 @@ import { Job } from '@adonisjs/queue'
 import type { JobOptions } from '@adonisjs/queue/types'
 import TaskService from '#services/workspaces/task_service'
 import GenerationService from '#services/documents/generation_service'
+import logger from '@adonisjs/core/services/logger'
+import OpenRouterService from '#services/open_router_service'
 export default class GenerateDocument extends Job<{ version: 1; taskId: string }> {
   static options: JobOptions = { queue: 'documents', timeout: '10m' }
   async execute() {
@@ -17,10 +19,14 @@ export default class GenerateDocument extends Job<{ version: 1; taskId: string }
     try {
       await new GenerationService().execute(lease)
     } catch (error) {
-      await new GenerationService().failed(
-        lease,
-        !!error && typeof error === 'object' && 'status' in error && error.status === 409
+      logger.error(
+        {
+          taskId: lease.task.id,
+          providerStatus: OpenRouterService.status(error),
+        },
+        'Document generation failed'
       )
+      await new GenerationService().failed(lease, OpenRouterService.status(error) === 409, error)
     } finally {
       clearInterval(heartbeat)
     }

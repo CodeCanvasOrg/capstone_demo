@@ -4,6 +4,7 @@ import DocumentVersionTransformer from './document_version_transformer.ts'
 import DocumentShareTransformer from './document_share_transformer.ts'
 import UserTransformer from './user_transformer.ts'
 import FileTransformer from './file_transformer.ts'
+import config from '#config/open_router'
 
 export default class DocumentTransformer extends BaseTransformer<Document> {
   constructor(
@@ -38,7 +39,9 @@ export default class DocumentTransformer extends BaseTransformer<Document> {
         'updatedAt',
       ]),
       generationError: this.resource.generationError
-        ? 'Generation could not finish. Start a new request.'
+        ? Object.values(config.failureMessages).includes(this.resource.generationError)
+          ? this.resource.generationError
+          : 'Generation could not finish. Start a new request.'
         : null,
       capabilities: {
         edit: this.actorId !== undefined,
