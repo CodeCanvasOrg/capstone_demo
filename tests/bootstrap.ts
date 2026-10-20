@@ -1,3 +1,7 @@
+import { shieldApiClient } from '@adonisjs/shield/plugins/api_client'
+import { apiClient } from '@japa/api-client'
+import { sessionApiClient } from '@adonisjs/session/plugins/api_client'
+import { authApiClient } from '@adonisjs/auth/plugins/api_client'
 import { assert } from '@japa/assert'
 import app from '@adonisjs/core/services/app'
 import type { Config } from '@japa/runner/types'
@@ -7,6 +11,7 @@ import testUtils from '@adonisjs/core/services/test_utils'
 import { browserClient } from '@japa/browser-client'
 import { authBrowserClient } from '@adonisjs/auth/plugins/browser_client'
 import { sessionBrowserClient } from '@adonisjs/session/plugins/browser_client'
+import env from '#start/env'
 
 /**
  * This file is imported by the "bin/test.ts" entrypoint file
@@ -18,6 +23,10 @@ import { sessionBrowserClient } from '@adonisjs/session/plugins/browser_client'
  */
 export const plugins: Config['plugins'] = [
   assert(),
+  apiClient(),
+  shieldApiClient(),
+  sessionApiClient(app),
+  authApiClient(app),
   pluginAdonisJS(app),
   dbAssertions(app),
   browserClient({ runInSuites: ['browser'] }),
@@ -33,7 +42,14 @@ export const plugins: Config['plugins'] = [
  * The teardown functions are executed after all the tests
  */
 export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
-  setup: [],
+  setup: [
+    () => {
+      if (env.get('TEST_DB_URL') === env.get('DB_URL'))
+        throw new Error(
+          'Development and tests must use separate databases; refusing to reset shared data'
+        )
+    },
+  ],
   teardown: [],
 }
 

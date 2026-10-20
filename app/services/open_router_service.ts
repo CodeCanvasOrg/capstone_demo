@@ -34,6 +34,11 @@ type TextContent = {
 const MAX_SOURCE_IMAGES = 4
 
 export default class OpenRouterService {
+  static status(error: unknown): number | undefined {
+    if (!error || typeof error !== 'object') return undefined
+    const value = error as { status?: number; statusCode?: number }
+    return value.status ?? value.statusCode
+  }
   private model: ChatOpenRouter
   private embeddService: EmbeddFileService
   private structuredModel: Runnable<any, Object>
@@ -42,7 +47,9 @@ export default class OpenRouterService {
   constructor() {
     this.model = new ChatOpenRouter({
       model: openRouterApiConfig.model,
+      baseURL: openRouterApiConfig.baseUrl,
       apiKey: openRouterApiConfig.apiKey.release(),
+      maxRetries: 0,
     })
 
     this.embeddService = new EmbeddFileService()
@@ -62,7 +69,8 @@ export default class OpenRouterService {
   async generateDocumentWithEvidence(
     title: string,
     description: string,
-    relevantChunks: SourceChunk[]
+    relevantChunks: SourceChunk[],
+    guard?: () => Promise<void>
   ) {
     const context = this.createContext(relevantChunks)
     const promptMessages = await getInitPrompt().formatMessages({
@@ -107,15 +115,16 @@ export default class OpenRouterService {
       new HumanMessage({ content: multimodalContent as never }),
     ]
 
-    const result = await this.runGeneration(this.structuredModel, messages)
+    const result = await this.runGeneration(this.structuredModel, messages, guard)
 
     return attachChunkMetadata(result as TipTapDocument, relevantChunks)
   }
 
-  private async runGeneration(chain: Runnable, input: unknown) {
+  private async runGeneration(chain: Runnable, input: unknown, guard?: () => Promise<void>) {
     for (let i = 1; i <= this.MAX_ATTEMPTS; i++) {
       try {
-        return await chain.invoke(input)
+        await guard?.()
+        return await chain.invoke(input, { signal: AbortSignal.timeout(90000) })
       } catch (error) {
         if (i < this.MAX_ATTEMPTS && this.isRetryable(error)) {
           const delay = 250 * 2 ** (i - 1)

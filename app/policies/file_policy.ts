@@ -1,14 +1,18 @@
+import { BasePolicy } from '@adonisjs/bouncer'
 import type User from '#models/user'
 import type File from '#models/file'
-import { BasePolicy } from '@adonisjs/bouncer'
-import type { AuthorizerResponse } from '@adonisjs/bouncer/types'
-
+import AccessService from '#services/workspaces/access_service'
 export default class FilePolicy extends BasePolicy {
-  async update(user: User, file: File): Promise<AuthorizerResponse> {
-    return user.id === file.userId
+  view(user: User, file: File) {
+    return new AccessService().active(user.id, file.workspaceId)
   }
-
-  async delete(user: User, file: File): Promise<AuthorizerResponse> {
-    return user.id === file.userId
+  create(user: User, workspaceId: string) {
+    return new AccessService().active(user.id, workspaceId)
+  }
+  async update(user: User, file: File) {
+    return user.id === file.userId && this.view(user, file)
+  }
+  async delete(user: User, file: File) {
+    return this.update(user, file)
   }
 }

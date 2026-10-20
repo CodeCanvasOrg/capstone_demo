@@ -1,36 +1,22 @@
 import { Head } from '@inertiajs/react'
-import { PageIntro } from '@/components/page_intro'
-import { Reveal } from '@/components/reveal'
-import { Link } from '@adonisjs/inertia/react'
-import { ArrowLeft } from 'lucide-react'
-import { Card, CardContent } from '@/components/ui/card'
+import type { Data } from '@generated/data'
 import { DocumentForm } from '@/components/documents/form'
-
-export default function Create() {
+export default function Create({
+  files,
+  projects,
+  initialProjectId,
+}: {
+  files: Data.File[]
+  projects: Data.Project[]
+  initialProjectId?: string | null
+}) {
   return (
-    <div className="mx-auto w-full max-w-2xl px-4 py-14">
-      <Link
-        route="documents.index"
-        className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-      >
-        <ArrowLeft className="size-4" />
-        Back to documents
-      </Link>
-
-      <Head title="New document" />
-      <PageIntro
-        eyebrow="Create a story"
-        title="New document"
-        description="Give your story a direction, then add the source files for your draft."
-      />
-
-      <Reveal>
-        <Card className="border-t-2 border-t-primary py-7">
-          <CardContent className="px-5">
-            <DocumentForm />
-          </CardContent>
-        </Card>
-      </Reveal>
+    <div className="flex min-h-[calc(100dvh-3rem)] flex-col">
+      <Head title="New case study" />
+      <header className="flex h-12 shrink-0 items-center border-b px-6 text-xs text-muted-foreground">
+        New case study
+      </header>
+      <DocumentForm files={files} projects={projects} initialProjectId={initialProjectId} />
     </div>
   )
 }

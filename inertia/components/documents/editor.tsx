@@ -1,245 +1,338 @@
-'use client'
-
-import { useRouter } from '@adonisjs/inertia/react'
+import { useWorkspaceId, useUnsavedChanges } from '@/providers/workspace_provider'
+import { router } from '@inertiajs/react'
 import { EditorContent, type JSONContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import { Markdown } from '@tiptap/markdown'
-import { LoaderCircle, Minus, Plus, XCircle } from 'lucide-react'
+import Placeholder from '@tiptap/extension-placeholder'
 import { useEffect, useRef, useState } from 'react'
-
+import { Save, Download, LoaderCircle } from 'lucide-react'
+import { urlFor } from '@/client'
+import { api, ApiError } from '@/lib/api'
 import { Button } from '@/components/ui/button'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { Separator } from '@/components/ui/separator'
-import { Skeleton } from '@/components/ui/skeleton'
 import { ToolbarProvider } from '@/components/toolbars/toolbar_provider'
-import { BlockquoteToolbar } from '@/components/toolbars/blockquote'
+import { LinkToolbar, BlockStyleToolbar } from '@/components/toolbars/link'
 import { BoldToolbar } from '@/components/toolbars/bold'
-import { BulletListToolbar } from '@/components/toolbars/bullet_list'
-import { CodeToolbar } from '@/components/toolbars/code'
-import { CodeBlockToolbar } from '@/components/toolbars/code_block'
-import { HardBreakToolbar } from '@/components/toolbars/hard_break'
-import { HorizontalRuleToolbar } from '@/components/toolbars/horizontal_rule'
 import { ItalicToolbar } from '@/components/toolbars/italic'
+import { BulletListToolbar } from '@/components/toolbars/bullet_list'
 import { OrderedListToolbar } from '@/components/toolbars/ordered_list'
-import { RedoToolbar } from '@/components/toolbars/redo'
-import { StrikeThroughToolbar } from '@/components/toolbars/strikethrough'
 import { UndoToolbar } from '@/components/toolbars/undo'
-import { ImageExtension } from '../extensions/image'
-import { ImagePlaceholder } from '../extensions/image_placeholder'
-import { SourceCitation } from '../extensions/source_citation'
-import { ImagePlaceholderToolbar } from '../toolbars/image_placeholder_toolbar'
-
+import { RedoToolbar } from '@/components/toolbars/redo'
+import { SourceCitation } from '@/components/extensions/source_citation'
+import { ImageExtension } from '@/components/extensions/image'
+import { writingReveal } from '../../../shared/writing_reveal.ts'
+const EMPTY = { type: 'doc', content: [{ type: 'paragraph' }] }
 const extensions = [
-  StarterKit.configure({
-    orderedList: {
-      HTMLAttributes: {
-        class: 'list-decimal',
-      },
-    },
-    bulletList: {
-      HTMLAttributes: {
-        class: 'list-disc',
-      },
-    },
-    code: {
-      HTMLAttributes: {
-        class: 'rounded-md bg-accent p-1',
-      },
-    },
-    horizontalRule: {
-      HTMLAttributes: {
-        class: 'my-2',
-      },
-    },
-    codeBlock: {
-      HTMLAttributes: {
-        class: 'rounded-md bg-muted p-3 text-sm',
-      },
-    },
-    heading: {
-      levels: [1, 2, 3, 4],
-    },
-  }),
-  Markdown,
-  ImageExtension,
+  StarterKit.configure({ heading: { levels: [1, 2, 3, 4] } }),
   SourceCitation,
-  ImagePlaceholder,
+  ImageExtension,
+  Placeholder.configure({ placeholder: 'Tell the story of the work…' }),
 ]
-
-type SaveState = 'idle' | 'saving' | 'error'
-
-const ZOOM_OPTIONS = [50, 75, 90, 100, 110, 120, 150, 200] as const
-type Zoom = (typeof ZOOM_OPTIONS)[number]
-
-type DocumentEditorProps = {
+type Pending = { content: JSONContent; baseVersionId: string | null; mutationId: string }
+export default function DocumentEditor({
+  documentId,
+  initialContent,
+  baseVersionId,
+  onDirtyChange,
+  generationStatus,
+  title,
+}: {
   documentId: string
   initialContent: JSONContent | null
-}
-
-export default function DocumentEditor({ documentId, initialContent }: DocumentEditorProps) {
-  const router = useRouter()
-  const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const [saveState, setSaveState] = useState<SaveState>('idle')
-  const [zoom, setZoom] = useState<Zoom>(100)
-
-  function zoomIn() {
-    setZoom((current) => ZOOM_OPTIONS.find((level) => level > current) ?? current)
-  }
-
-  function zoomOut() {
-    setZoom((current) => [...ZOOM_OPTIONS].reverse().find((level) => level < current) ?? current)
-  }
-
+  baseVersionId: string | null
+  onDirtyChange?: (dirty: boolean) => void
+  generationStatus?: string | null
+  title: string
+}) {
+  const workspaceId = useWorkspaceId()
+  const base = useRef(baseVersionId)
+  const lastServer = useRef(baseVersionId)
+  const accepted = useRef(new Set<string>())
+  const pending = useRef<Pending | null>(null)
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const busy = useRef(false)
+  const changed = useRef(false)
+  const mounted = useRef(true)
+  const blocked = useRef(false)
+  const [dirty, setDirty] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState('')
+  const [conflict, setConflict] = useState(false)
+  const [writing, setWriting] = useState(false)
+  const waitingForGeneration = useRef(generationStatus === 'processing')
+  const frame = useRef<number | null>(null)
+  const finishWriting = useRef<() => void>(() => {})
+  useUnsavedChanges(`editor-${documentId}`, dirty || saving)
+  useEffect(() => {
+    onDirtyChange?.(dirty || saving || writing)
+  }, [dirty, saving, writing, onDirtyChange])
+  const saveRef = useRef<() => Promise<void>>(async () => {})
   const editor = useEditor({
     extensions,
-    content: initialContent,
+    content: initialContent ?? EMPTY,
     immediatelyRender: false,
-    onUpdate: ({ editor: instance }) => {
-      const content = instance.getJSON()
-
-      setSaveState('saving')
-      if (saveTimer.current) {
-        clearTimeout(saveTimer.current)
-      }
-
-      saveTimer.current = setTimeout(() => {
-        router.post(
-          { route: 'documentVersions.store', routeParams: { documentId } },
-          { content },
-          {
-            preserveScroll: true,
-            preserveState: true,
-            onSuccess: () => setSaveState('idle'),
-            onError: () => setSaveState('error'),
-          }
-        )
-      }, 800)
+    editorProps: {
+      attributes: {
+        'aria-label': 'Case-study content',
+        'role': 'textbox',
+        'aria-multiline': 'true',
+      },
+    },
+    onUpdate: () => {
+      changed.current = true
+      setDirty(true)
+      if (timer.current) clearTimeout(timer.current)
+      if (!blocked.current) timer.current = setTimeout(() => void saveRef.current(), 1000)
     },
   })
-
   useEffect(() => {
-    return () => {
-      if (saveTimer.current) {
-        clearTimeout(saveTimer.current)
+    editor?.setEditable(generationStatus !== 'processing' && !writing, false)
+    if (generationStatus === 'processing') waitingForGeneration.current = true
+    if (generationStatus === 'failed') waitingForGeneration.current = false
+  }, [editor, generationStatus, writing])
+  useEffect(() => {
+    saveRef.current = async () => {
+      if (!editor || busy.current || blocked.current || !changed.current) return
+      busy.current = true
+      setSaving(true)
+      setError('')
+      const intent = pending.current ?? {
+        content: editor.getJSON(),
+        baseVersionId: base.current,
+        mutationId: crypto.randomUUID(),
+      }
+      pending.current = intent
+      try {
+        const result = await api<{ data: { version: { id: string } } }>(
+          urlFor('documentVersions.store', { workspaceId, documentId }),
+          'POST',
+          intent
+        )
+        if (!mounted.current) return
+        base.current = result.data.version.id
+        accepted.current.add(result.data.version.id)
+        pending.current = null
+        changed.current = JSON.stringify(editor.getJSON()) !== JSON.stringify(intent.content)
+        setDirty(changed.current)
+        router.reload({ only: ['document', 'workflow', 'recentDocuments'] })
+        if (changed.current) timer.current = setTimeout(() => void saveRef.current(), 1000)
+      } catch (reason) {
+        if (!mounted.current) return
+        setError(
+          !navigator.onLine
+            ? 'You are offline. Your local changes remain here. Retry when connected.'
+            : reason instanceof Error
+              ? reason.message
+              : 'Unable to save. Your changes remain here.'
+        )
+        if (reason instanceof ApiError && reason.status === 409) {
+          blocked.current = true
+          setConflict(true)
+          router.reload({ only: ['document', 'workflow'] })
+        }
+      } finally {
+        busy.current = false
+        if (mounted.current) setSaving(false)
       }
     }
+  }, [editor, workspaceId, documentId])
+  useEffect(() => {
+    if (!editor || lastServer.current === baseVersionId) return
+    lastServer.current = baseVersionId
+    if (baseVersionId && accepted.current.has(baseVersionId)) return
+    if (changed.current || busy.current) {
+      blocked.current = true
+      setConflict(true)
+      setError(
+        'Another member saved a newer version. Your local changes are still here. Download them before loading the latest version.'
+      )
+      if (timer.current) clearTimeout(timer.current)
+      return
+    }
+    base.current = baseVersionId
+    if (frame.current !== null) cancelAnimationFrame(frame.current)
+    const content = initialContent ?? EMPTY
+    if (
+      waitingForGeneration.current &&
+      baseVersionId &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      waitingForGeneration.current = false
+      const full = editor.schema.nodeFromJSON(content)
+      const length = full.content.size
+      const start = performance.now()
+      const duration = Math.min(4000, Math.max(1200, length * 2))
+      setWriting(true)
+      editor.setEditable(false, false)
+      finishWriting.current = () => {
+        if (frame.current !== null) cancelAnimationFrame(frame.current)
+        frame.current = null
+        editor
+          .chain()
+          .setContent(content, { emitUpdate: false })
+          .setMeta('addToHistory', false)
+          .run()
+        setWriting(false)
+      }
+      editor.chain().setContent(EMPTY, { emitUpdate: false }).setMeta('addToHistory', false).run()
+      const reveal = (now: number) => {
+        const progress = Math.min(1, (now - start) / duration)
+        if (progress === 1) {
+          finishWriting.current()
+          return
+        }
+        editor
+          .chain()
+          .setContent(writingReveal(full, progress), { emitUpdate: false })
+          .setMeta('addToHistory', false)
+          .run()
+        frame.current = requestAnimationFrame(reveal)
+      }
+      frame.current = requestAnimationFrame(reveal)
+    } else {
+      waitingForGeneration.current = false
+      setWriting(false)
+      editor.chain().setContent(content, { emitUpdate: false }).setMeta('addToHistory', false).run()
+    }
+  }, [baseVersionId, initialContent, editor])
+  useEffect(() => {
+    mounted.current = true
+    return () => {
+      mounted.current = false
+      if (timer.current) clearTimeout(timer.current)
+      if (frame.current !== null) cancelAnimationFrame(frame.current)
+    }
   }, [])
-
-  if (!editor) {
+  useEffect(() => {
+    if (!writing) return
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const update = () => {
+      if (media.matches) finishWriting.current()
+    }
+    media.addEventListener('change', update)
+    return () => media.removeEventListener('change', update)
+  }, [writing])
+  function downloadLocal() {
+    if (!editor) return
+    const url = URL.createObjectURL(
+      new Blob([JSON.stringify(editor.getJSON(), null, 2)], { type: 'application/json' })
+    )
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'case-study-local-draft.json'
+    link.click()
+    URL.revokeObjectURL(url)
+  }
+  function loadLatest() {
+    if (!window.confirm('Discard your local changes and load the latest saved version?')) return
+    blocked.current = false
+    pending.current = null
+    changed.current = false
+    base.current = baseVersionId
+    editor?.commands.setContent(initialContent ?? EMPTY, { emitUpdate: false })
+    setDirty(false)
+    setError('')
+    setConflict(false)
+  }
+  if (!editor)
     return (
-      <div
-        className="mx-auto max-w-3xl space-y-5 px-4 py-10"
-        role="status"
-        aria-label="Loading document editor"
-      >
-        <Skeleton className="h-10 w-full" />
-        <Skeleton className="h-96 w-full" />
+      <div role="status" className="p-10 text-sm text-muted-foreground">
+        Loading editor…
       </div>
     )
-  }
-
   return (
-    <div className="w-full">
-      <div className="sticky top-0 sm:top-14 z-20 flex flex-wrap items-center gap-2 border-b border-border/60 bg-background/95 px-4 py-1.5 backdrop-blur md:px-10">
+    <section className="min-w-0 flex-1">
+      <div className="sticky top-0 z-20 flex flex-wrap items-center gap-2 border-b bg-sidebar px-4 py-2">
         <ToolbarProvider editor={editor}>
-          <div className="flex flex-wrap items-center gap-1">
+          <div
+            className="flex flex-wrap items-center gap-0.5"
+            inert={writing || generationStatus === 'processing'}
+          >
             <UndoToolbar />
             <RedoToolbar />
-            <Separator orientation="vertical" className="mx-1 h-7" />
+            <span className="mx-2 h-5 border-l" />
+            <BlockStyleToolbar />
             <BoldToolbar />
             <ItalicToolbar />
-            <StrikeThroughToolbar />
-            <Separator orientation="vertical" className="mx-1 h-7" />
+            <LinkToolbar />
             <BulletListToolbar />
             <OrderedListToolbar />
-            <CodeToolbar />
-            <CodeBlockToolbar />
-            <HorizontalRuleToolbar />
-            <BlockquoteToolbar />
-            <HardBreakToolbar />
-            <ImagePlaceholderToolbar />
           </div>
         </ToolbarProvider>
-
-        <div className="ml-auto flex items-center gap-1.5">
-          <span aria-live="polite">
-            {saveState === 'saving' ? (
-              <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <LoaderCircle className="size-3 animate-spin" />
-                Saving…
-              </span>
-            ) : saveState === 'error' ? (
-              <span className="flex items-center gap-1.5 text-xs text-destructive">
-                <XCircle className="size-3" />
-                Failed to save
-              </span>
-            ) : (
-              <span className="hidden text-xs text-muted-foreground sm:block">
-                All changes saved
-              </span>
-            )}
+        <div className="ml-auto flex items-center gap-2">
+          <span role="status" className="text-[.625rem] text-muted-foreground">
+            {writing
+              ? 'Writing your draft…'
+              : generationStatus === 'processing'
+                ? 'Generating…'
+                : saving
+                  ? 'Saving…'
+                  : error
+                    ? 'Needs attention'
+                    : dirty
+                      ? 'Unsaved changes'
+                      : 'Saved'}
           </span>
-
-          <Separator orientation="vertical" className="mx-2 h-7" />
-
+          {writing && (
+            <Button variant="ghost" size="sm" onClick={() => finishWriting.current()}>
+              Show full draft
+            </Button>
+          )}
           <Button
             variant="ghost"
-            size="icon-sm"
-            onClick={zoomOut}
-            disabled={zoom === ZOOM_OPTIONS[0]}
-            aria-label="Zoom out"
+            size="sm"
+            disabled={!dirty || saving || conflict}
+            onClick={() => void saveRef.current()}
           >
-            <Minus className="size-4" />
-          </Button>
-          <Select value={String(zoom)} onValueChange={(value) => setZoom(Number(value) as Zoom)}>
-            <SelectTrigger
-              aria-label="Document zoom"
-              className="h-7 w-20 gap-1 border-0 bg-transparent px-2 text-xs shadow-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
-            >
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent align="end">
-              {ZOOM_OPTIONS.map((level) => (
-                <SelectItem key={level} value={String(level)}>
-                  {level}%
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <Button
-            variant="ghost"
-            size="icon-sm"
-            onClick={zoomIn}
-            disabled={zoom === ZOOM_OPTIONS[ZOOM_OPTIONS.length - 1]}
-            aria-label="Zoom in"
-          >
-            <Plus className="size-4" />
+            {saving ? <LoaderCircle className="animate-spin" /> : <Save />}Save
           </Button>
         </div>
       </div>
-
-      <div className="flex w-full justify-center bg-muted/40 px-4 py-8 sm:py-12">
-        <div
-          className="w-[210mm] max-w-full border border-border bg-card text-card-foreground shadow-sm"
-          style={{ zoom: zoom / 100 }}
-        >
-          <div
-            className="tiptap-editor min-h-[240mm] w-full cursor-text px-5 py-10 sm:px-16 sm:py-14"
-            onClick={(event) => {
-              // Inline controls and portalled popovers manage their own focus.
-              if (event.target === event.currentTarget) editor.chain().focus().run()
-            }}
-          >
-            <EditorContent editor={editor} />
+      {error && (
+        <div role="alert" className="space-y-3 border-b border-destructive/30 bg-sidebar p-4">
+          <p className="text-sm text-destructive">{error}</p>
+          <div className="flex flex-wrap gap-2">
+            <Button variant="outline" size="sm" onClick={downloadLocal}>
+              <Download />
+              Download local draft
+            </Button>
+            {conflict ? (
+              <Button variant="outline" size="sm" onClick={loadLatest}>
+                Load latest version
+              </Button>
+            ) : (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => void saveRef.current()}
+                disabled={saving}
+              >
+                Retry save
+              </Button>
+            )}
           </div>
         </div>
+      )}
+      <div className="min-h-[85vh] bg-background px-3 py-6 sm:px-7 sm:py-10">
+        <div
+          className="document-canvas tiptap-editor mx-auto"
+          aria-busy={writing || generationStatus === 'processing'}
+        >
+          <div className="mb-10 flex items-center justify-between gap-4 text-[.625rem] font-semibold tracking-widest text-muted-foreground uppercase">
+            <span>Case study</span>
+            <span>{baseVersionId ? 'Working draft' : 'First draft'}</span>
+          </div>
+          {!baseVersionId && (
+            <div className="mb-8">
+              <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h1>
+              <p className="mt-5 text-sm leading-6 text-muted-foreground">
+                {generationStatus === 'processing'
+                  ? 'We’re preparing your story. Your draft will appear here.'
+                  : 'Your document is ready to write.'}
+              </p>
+            </div>
+          )}
+          <EditorContent editor={editor} />
+        </div>
       </div>
-    </div>
+    </section>
   )
 }

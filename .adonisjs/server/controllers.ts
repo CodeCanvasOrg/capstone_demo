@@ -4,12 +4,23 @@
  */
 
 export const controllers = {
+  Assets: () => import('#controllers/assets_controller'),
+  DocumentIssues: () => import('#controllers/document_issues_controller'),
+  DocumentReviews: () => import('#controllers/document_reviews_controller'),
   DocumentShares: () => import('#controllers/document_shares_controller'),
+  DocumentTasks: () => import('#controllers/document_tasks_controller'),
   DocumentVersions: () => import('#controllers/document_versions_controller'),
   Documents: () => import('#controllers/documents_controller'),
+  Entry: () => import('#controllers/entry_controller'),
   ExportPdfs: () => import('#controllers/export_pdfs_controller'),
   Files: () => import('#controllers/files_controller'),
+  InvitationAcceptances: () => import('#controllers/invitation_acceptances_controller'),
+  LegacyResources: () => import('#controllers/legacy_resources_controller'),
   NewAccount: () => import('#controllers/new_account_controller'),
+  Projects: () => import('#controllers/projects_controller'),
   Session: () => import('#controllers/session_controller'),
   Uploads: () => import('#controllers/uploads_controller'),
+  WorkspaceInvitations: () => import('#controllers/workspace_invitations_controller'),
+  WorkspaceMembers: () => import('#controllers/workspace_members_controller'),
+  Workspaces: () => import('#controllers/workspaces_controller'),
 }

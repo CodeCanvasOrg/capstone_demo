@@ -1,35 +1,21 @@
+import { BasePolicy } from '@adonisjs/bouncer'
 import type User from '#models/user'
 import type Document from '#models/document'
-import { BasePolicy } from '@adonisjs/bouncer'
-import type { AuthorizerResponse } from '@adonisjs/bouncer/types'
-
+import AccessService from '#services/workspaces/access_service'
 export default class DocumentPolicy extends BasePolicy {
-  async edit(user: User, document: Document): Promise<AuthorizerResponse> {
-    return user.id === document.userId || (await this.canView(user, document))
+  edit(user: User, document: Document) {
+    return new AccessService().active(user.id, document.workspaceId)
   }
-
-  async update(user: User, document: Document): Promise<AuthorizerResponse> {
-    return user.id === document.userId || (await this.canEdit(user, document))
+  update(user: User, document: Document) {
+    return this.edit(user, document)
   }
-
-  delete(user: User, document: Document): AuthorizerResponse {
-    return user.id === document.userId
+  create(user: User, workspaceId: string) {
+    return new AccessService().active(user.id, workspaceId)
   }
-
-  private async canView(user: User, document: Document) {
-    const role = await document.related('documentShares').query().where('userId', user.id).first()
-
-    return role !== null
+  async delete(user: User, document: Document) {
+    return document.userId === user.id && this.edit(user, document)
   }
-
-  private async canEdit(user: User, document: Document) {
-    const role = await document
-      .related('documentShares')
-      .query()
-      .where('userId', user.id)
-      .where('role', 'edit')
-      .first()
-
-    return role !== null
+  async approve(user: User, document: Document) {
+    return document.userId === user.id && this.edit(user, document)
   }
 }

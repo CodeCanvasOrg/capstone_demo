@@ -1,84 +1,129 @@
 import { Head } from '@inertiajs/react'
+import { Link, useRouter } from '@adonisjs/inertia/react'
+import type { Data } from '@generated/data'
+import { Plus } from 'lucide-react'
+import { useWorkspaceId } from '@/providers/workspace_provider'
 import { PageIntro } from '@/components/page_intro'
-import { Reveal } from '@/components/reveal'
-import { type Data } from '@generated/data'
-import { Link } from '@adonisjs/inertia/react'
-import { FileText, Plus } from 'lucide-react'
-import { type InertiaProps } from '@/types'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import DocumentCard from '@/components/documents/document_card'
-
-export default function Index({ documents }: InertiaProps<{ documents: Data.Document[] }>) {
+import { CaseStudyList } from '@/components/documents/case_study_list'
+import {
+  CollectionSearch,
+  PaginationControls,
+  type Pagination,
+} from '@/components/collection_controls'
+import { EmptyState } from '@/components/empty_state'
+export default function Index({
+  documents,
+  pagination,
+  projects = [],
+  filters = { q: '', status: '', project: '' },
+}: {
+  projects?: Data.Project[]
+  documents: Data.Document[]
+  pagination?: Pagination
+  filters?: { q: string; status?: string; project?: string }
+}) {
+  const workspaceId = useWorkspaceId()
+  const router = useRouter()
+  const action = (
+    <Button asChild>
+      <Link route="documents.create" routeParams={{ workspaceId }}>
+        <Plus />
+        New case study
+      </Link>
+    </Button>
+  )
   return (
-    <div className="mx-auto w-full max-w-5xl px-4 py-14">
-      <Head title="Documents" />
+    <div className="page-wrap">
+      <Head title="Case studies" />
       <PageIntro
-        eyebrow="Your workspace"
-        title="Documents"
-        description="Shape your ideas into documents you can refine and share."
-        action={
-          <Button asChild>
-            <Link route="documents.create">
-              <Plus />
-              New document
-            </Link>
-          </Button>
-        }
+        eyebrow="Shared knowledge"
+        title="All case studies"
+        description="From a first idea to a story ready to share. Everyone in this workspace can contribute."
+        action={action}
       />
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3 text-sm">
-        <p className="font-medium">
-          All documents{' '}
-          <span className="ml-2 border border-border bg-card px-2 py-0.5 text-xs">
-            {documents.length}
-          </span>
-        </p>
-        <p className="text-xs text-muted-foreground">Your drafts, in one place.</p>
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+        <nav aria-label="Case study status" className="flex flex-wrap gap-1">
+          {[
+            ['', 'All'],
+            ['draft', 'Drafts'],
+            ['edited', 'Edited'],
+            ['in_review', 'In review'],
+            ['approved', 'Approved'],
+          ].map(([value, label]) => (
+            <Button
+              key={value}
+              variant={filters.status === value ? 'secondary' : 'ghost'}
+              size="sm"
+              asChild
+            >
+              <Link
+                href={`/workspaces/${workspaceId}/documents?${new URLSearchParams({ q: filters.q, status: value, project: filters.project ?? '' })}`}
+                aria-current={filters.status === value ? 'page' : undefined}
+              >
+                {label}
+              </Link>
+            </Button>
+          ))}
+        </nav>
+        <div className="w-full max-w-sm">
+          <CollectionSearch collection="documents" {...filters} />
+        </div>
       </div>
-      <Reveal>
-        {documents.length === 0 ? (
-          <Card className="border border-border shadow-none">
-            <CardContent className="flex flex-col items-center gap-4 px-6 py-16 text-center">
-              <div className="flex size-14 items-center justify-center border border-border bg-secondary text-secondary-foreground">
-                <FileText className="size-5 text-muted-foreground" />
-              </div>
-              <div className="flex flex-col gap-1">
-                <h2 className="font-heading text-2xl">No documents found</h2>
-                <p className="max-w-sm text-sm text-muted-foreground">
-                  Create your first document to get started.
-                </p>
-              </div>
-              <Button asChild>
-                <Link route="documents.create">
-                  <Plus />
-                  Create document
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
-        ) : (
-          <Card className="border border-border shadow-none">
-            <CardContent className="px-0 py-1">
-              <Table role="table" className="workspace-table">
-                <TableHeader role="rowgroup">
-                  <TableRow role="row">
-                    <TableHead className="pl-5">Document</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead className="hidden sm:table-cell">Updated</TableHead>
-                    <TableHead className="pr-5 text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody role="rowgroup">
-                  {documents.map((document) => (
-                    <DocumentCard key={document.id} document={document} />
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
+      <div className="mb-4 flex flex-wrap items-center gap-3">
+        <label htmlFor="project-filter" className="text-xs font-medium">
+          Project
+        </label>
+        <select
+          id="project-filter"
+          className="form-select max-w-64"
+          value={filters.project ?? ''}
+          onChange={(event) =>
+            router.visit(
+              { route: 'documents.index', routeParams: { workspaceId } },
+              {
+                data: { q: filters.q, status: filters.status ?? '', project: event.target.value },
+                preserveScroll: true,
+              }
+            )
+          }
+        >
+          <option value="">All projects</option>
+          <option value="ungrouped">Ungrouped</option>
+          {projects.map((project) => (
+            <option key={project.id} value={project.id}>
+              {project.name}
+            </option>
+          ))}
+        </select>
+        {(filters.q || filters.status || filters.project) && (
+          <Link route="documents.index" routeParams={{ workspaceId }} className="text-xs underline">
+            Clear filters
+          </Link>
         )}
-      </Reveal>
+      </div>
+      <p aria-live="polite" className="mb-3 text-xs text-muted-foreground">
+        {pagination?.total ?? documents.length} case studies
+        {filters.project === 'ungrouped' ? ' · Ungrouped' : ''}
+      </p>
+      {documents.length ? (
+        <CaseStudyList documents={documents} />
+      ) : (
+        <EmptyState
+          title={filters.q ? 'No matching case studies' : 'Your next story starts here'}
+          description={
+            filters.q
+              ? 'Try another search or clear the filters.'
+              : 'Create a case study, add the project context, and bring in the sources that support your story.'
+          }
+          action={action}
+        />
+      )}
+      <PaginationControls
+        pagination={pagination}
+        collection="documents"
+        query={{ q: filters.q, status: filters.status ?? '', project: filters.project ?? '' }}
+      />
     </div>
   )
 }

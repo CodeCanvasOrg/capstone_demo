@@ -26,7 +26,7 @@ test.group('OpenRouterService', () => {
     const service = new OpenRouterService() as unknown as TestableOpenRouterService
 
     assert.equal(service.model.model, openRouterApiConfig.model)
-    assert.equal(service.model.apiKey, openRouterApiConfig.apiKey)
+    assert.equal(service.model.apiKey, openRouterApiConfig.apiKey.release())
   })
 
   test('returns the structured document produced by the model', async ({ assert }) => {

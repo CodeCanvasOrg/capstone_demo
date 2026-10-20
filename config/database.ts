@@ -47,7 +47,9 @@ const dbConfig = defineConfig({
     pg: {
       client: 'pg',
       connection: {
-        connectionString: env.get('DB_URL'),
+        connectionString: app.inTest
+          ? (env.get('TEST_DB_URL') ?? env.get('DB_URL'))
+          : env.get('DB_URL'),
       },
       migrations: {
         naturalSort: true,

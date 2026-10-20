@@ -1,0 +1,63 @@
+import type { HttpContext } from '@adonisjs/core/http'
+import ProjectPolicy from '#policies/project_policy'
+import ProjectService from '#services/workspaces/project_service'
+import CreationService from '#services/documents/creation_service'
+import DocumentPolicy from '#policies/document_policy'
+import AccessService from '#services/workspaces/access_service'
+import ProjectTransformer from '#transformers/project_transformer'
+import DocumentTransformer from '#transformers/document_transformer'
+import { createProjectValidator } from '#validators/project'
+export default class ProjectsController {
+  async index({ workspace, workspaceAccess, bouncer, request, inertia }: HttpContext) {
+    await bouncer.with(ProjectPolicy).authorize('create', workspaceAccess!.workspaceId)
+    const q = String(request.input('q', '')).slice(0, 200)
+    const query = workspace!.related('projects').query().orderBy('updatedAt', 'desc')
+    if (q) query.whereILike('name', `%${q.replaceAll('%', '\\%').replaceAll('_', '\\_')}%`)
+    const projects = await query.paginate(
+      Math.min(100000, Math.max(1, Math.floor(Number(request.input('page', 1)) || 1))),
+      20
+    )
+    return inertia.render('projects/index', {
+      projects: ProjectTransformer.transform(projects.all()),
+      pagination: projects.getMeta(),
+      filters: { q },
+    })
+  }
+  async show({ workspaceAccess, workspace, params, bouncer, inertia }: HttpContext) {
+    const project = await new AccessService().project(workspaceAccess!, params.projectId)
+    await bouncer.with(ProjectPolicy).authorize('view', project)
+    const documents = await workspace!
+      .related('documents')
+      .query()
+      .where('projectId', project.id)
+      .preload('user')
+      .orderBy('updatedAt', 'desc')
+    return inertia.render('projects/show', {
+      project: ProjectTransformer.transform(project),
+      documents: DocumentTransformer.transform(documents, workspaceAccess!.actorId),
+    })
+  }
+  async store({ workspaceAccess, request, bouncer, response }: HttpContext) {
+    await bouncer.with(ProjectPolicy).authorize('create', workspaceAccess!.workspaceId)
+    const input = await request.validateUsing(createProjectValidator)
+    await bouncer.with(DocumentPolicy).authorize('create', workspaceAccess!.workspaceId)
+    const document = await new CreationService().project(workspaceAccess!, input)
+    return response.redirect().toRoute('documents.edit', {
+      workspaceId: workspaceAccess!.workspaceId,
+      id: document.id,
+    })
+  }
+  async update({ workspaceAccess, request, params, bouncer, response }: HttpContext) {
+    const project = await new AccessService().project(workspaceAccess!, params.projectId)
+    await bouncer.with(ProjectPolicy).authorize('update', project)
+    await new ProjectService().save(
+      workspaceAccess!,
+      await request.validateUsing(createProjectValidator),
+      project.id
+    )
+    return response.redirect().toRoute('projects.show', {
+      workspaceId: workspaceAccess!.workspaceId,
+      projectId: project.id,
+    })
+  }
+}

@@ -11,7 +11,7 @@ export default class EmbeddFileService {
     this.embeddingModel = new OpenAIEmbeddings({
       openAIApiKey: openRouterApiConfig.apiKey.release(),
       configuration: {
-        baseURL: 'https://openrouter.ai/api/v1',
+        baseURL: openRouterApiConfig.baseUrl,
       },
       model: openRouterApiConfig.embeddingModel,
       dimensions: openRouterApiConfig.embeddingDimensions,

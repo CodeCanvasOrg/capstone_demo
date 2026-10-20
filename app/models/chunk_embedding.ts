@@ -1,7 +1,8 @@
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { ChunkEmbeddingSchema } from '#database/schema'
+import { column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
-export default class ChunkEmbedding extends BaseModel {
+export default class ChunkEmbedding extends ChunkEmbeddingSchema {
   static table = 'chunk_embeddings'
   static primaryKey = 'id'
 

@@ -16,6 +16,10 @@ const BulletListToolbar = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
+            type="button"
+            aria-label="Bulleted list"
+            aria-pressed={editor?.isActive('bulletList') ?? false}
+            onMouseDown={(event) => event.preventDefault()}
             variant="ghost"
             size="icon"
             className={cn('h-8 w-8', editor?.isActive('bulletList') && 'bg-accent', className)}

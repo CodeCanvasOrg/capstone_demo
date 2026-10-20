@@ -1,0 +1,10 @@
+version: 1
+name: OpenRouter client surface used by CodeCanvas
+slug: openrouter-client-surface-used-b
+interceptRequests: true
+protocol: http
+port: 4901
+scenarios:
+  - name: default
+    path: ./default.js
+    default: true

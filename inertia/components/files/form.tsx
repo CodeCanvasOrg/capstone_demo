@@ -1,3 +1,4 @@
+import { useWorkspaceId, useUnsavedChanges } from '@/providers/workspace_provider'
 import { cn } from 'cn'
 import { toast } from 'sonner'
 import {
@@ -54,7 +55,7 @@ function toPendingCard(file: File): FilePreview {
     filename: file.name,
     filetype: `.${file.name.split('.').pop()?.toLowerCase() ?? ''}`,
     objectKey: '',
-    objectUrl: '',
+    downloadUrl: '',
   }
 }
 
@@ -64,11 +65,14 @@ export default function FileUploadForm({
   onRemove,
   disabled,
 }: FileUploadFormProps) {
+  const workspaceId = useWorkspaceId()
   const inputRef = useRef<HTMLInputElement>(null)
   const dragCounter = useRef(0)
   const [dragging, setDragging] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [pendingFiles, setPendingFiles] = useState<File[]>([])
+
+  useUnsavedChanges('file-upload', uploading || pendingFiles.length > 0)
 
   function stageFiles(list: FileList | null) {
     const accepted = Array.from(list ?? []).filter(isValidFile)
@@ -81,9 +85,12 @@ export default function FileUploadForm({
     formData.append('file', file)
 
     try {
-      const response = await fetch('/files/uploads', {
+      const response = await fetch(`/workspaces/${workspaceId}/files/uploads`, {
         method: 'POST',
-        headers: { 'X-XSRF-TOKEN': getXsrfToken() },
+        headers: {
+          'X-XSRF-TOKEN': decodeURIComponent(getXsrfToken()),
+          'Accept': 'application/json',
+        },
         body: formData,
       })
 
@@ -174,14 +181,14 @@ export default function FileUploadForm({
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         className={cn(
-          'flex cursor-pointer flex-col items-center gap-3 border border-dashed px-4 py-10 text-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
+          'flex cursor-pointer flex-col items-center gap-3 rounded-xl border border-dashed px-4 py-10 text-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
           dragging
             ? 'border-foreground bg-secondary'
             : 'border-muted-foreground bg-secondary/30 hover:bg-secondary',
           isDisabled && 'pointer-events-none opacity-60'
         )}
       >
-        <span className="flex size-12 items-center justify-center border border-border bg-card">
+        <span className="flex size-12 items-center justify-center rounded-lg border border-border bg-card">
           <UploadCloud aria-hidden="true" className="size-5" />
         </span>
         <p className="text-sm font-medium">{uploading ? 'Uploading…' : 'Drag & drop files here'}</p>
@@ -234,7 +241,7 @@ export default function FileUploadForm({
       {files.length > 0 && (
         <ul aria-live="polite" className="flex flex-col gap-2">
           {files.map((file, index) => (
-            <li key={`${file.objectKey}-${index}`}>
+            <li key={`${file.id}-${index}`}>
               <FileCard file={file} onRemove={() => onRemove(index)} disabled={isDisabled} />
             </li>
           ))}

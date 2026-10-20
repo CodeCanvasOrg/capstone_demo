@@ -1,10 +1,15 @@
+import Document from '#models/document'
+import RecentDocumentTransformer from '#transformers/recent_document_transformer'
 import type { HttpContext } from '@adonisjs/core/http'
 import type { NextFn } from '@adonisjs/core/types/http'
 import UserTransformer from '#transformers/user_transformer'
+import WorkspaceMembership from '#models/workspace_membership'
+import WorkspaceTransformer from '#transformers/workspace_transformer'
+import WorkspaceMembershipTransformer from '#transformers/workspace_membership_transformer'
 import BaseInertiaMiddleware from '@adonisjs/inertia/inertia_middleware'
 
 export default class InertiaMiddleware extends BaseInertiaMiddleware {
-  share(ctx: HttpContext) {
+  async share(ctx: HttpContext) {
     /**
      * The share method is called everytime an Inertia page is rendered. In
      * certain cases, a page may get rendered before the session middleware
@@ -19,7 +24,30 @@ export default class InertiaMiddleware extends BaseInertiaMiddleware {
      * Data shared with all Inertia pages. Make sure you are using
      * transformers for rich data-types like Models.
      */
+    const memberships = auth?.user
+      ? await WorkspaceMembership.query()
+          .where('userId', auth.user.id)
+          .whereNull('revokedAt')
+          .preload('workspace')
+          .orderBy('joinedAt', 'asc')
+      : []
+    const recentDocuments = ctx.workspaceAccess
+      ? await Document.query()
+          .where('workspaceId', ctx.workspaceAccess.workspaceId)
+          .orderBy('updatedAt', 'desc')
+          .limit(6)
+      : []
     return {
+      recentDocuments: RecentDocumentTransformer.transform(recentDocuments),
+      workspace: ctx.workspace ? WorkspaceTransformer.transform(ctx.workspace) : null,
+      workspaces: WorkspaceTransformer.transform(memberships.map((m) => m.workspace)),
+      membership: ctx.workspaceMembership
+        ? WorkspaceMembershipTransformer.transform(ctx.workspaceMembership)
+        : null,
+      workspaceCapabilities: {
+        manageMembers: !!ctx.workspace && ctx.workspace.ownerUserId === auth?.user?.id,
+        createDocuments: !!ctx.workspaceAccess,
+      },
       errors: ctx.inertia.always(this.getValidationErrors(ctx)),
       user: ctx.inertia.always(auth?.user ? UserTransformer.transform(auth.user) : undefined),
     }

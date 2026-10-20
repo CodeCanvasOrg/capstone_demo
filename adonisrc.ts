@@ -33,6 +33,7 @@ export default defineConfig({
     () => import('@adonisjs/inertia/commands'),
     () => import('@adonisjs/bouncer/commands'),
     () => import('@adonisjs/queue/commands'),
+    () => import('@adonisjs/mail/commands'),
   ],
 
   /*
@@ -67,6 +68,7 @@ export default defineConfig({
     () => import('@adonisjs/drive/drive_provider'),
     () => import('@adonisjs/queue/queue_provider'),
     () => import('@adonisjs/redis/redis_provider'),
+    () => import('@adonisjs/mail/mail_provider'),
   ],
 
   /*

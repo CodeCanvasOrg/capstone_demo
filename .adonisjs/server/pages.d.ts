@@ -18,11 +18,18 @@ declare module '@adonisjs/inertia/types' {
     'documents/create': ExtractProps<(typeof import('../../inertia/pages/documents/create.tsx'))['default']>
     'documents/edit': ExtractProps<(typeof import('../../inertia/pages/documents/edit.tsx'))['default']>
     'documents/index': ExtractProps<(typeof import('../../inertia/pages/documents/index.tsx'))['default']>
+    'errors/access_problem': ExtractProps<(typeof import('../../inertia/pages/errors/access_problem.tsx'))['default']>
     'errors/not_found': ExtractProps<(typeof import('../../inertia/pages/errors/not_found.tsx'))['default']>
     'errors/server_error': ExtractProps<(typeof import('../../inertia/pages/errors/server_error.tsx'))['default']>
+    'errors/workspace_unavailable': ExtractProps<(typeof import('../../inertia/pages/errors/workspace_unavailable.tsx'))['default']>
     'files/create': ExtractProps<(typeof import('../../inertia/pages/files/create.tsx'))['default']>
     'files/edit': ExtractProps<(typeof import('../../inertia/pages/files/edit.tsx'))['default']>
     'files/index': ExtractProps<(typeof import('../../inertia/pages/files/index.tsx'))['default']>
-    'home': ExtractProps<(typeof import('../../inertia/pages/home.tsx'))['default']>
+    'invitations/show': ExtractProps<(typeof import('../../inertia/pages/invitations/show.tsx'))['default']>
+    'projects/index': ExtractProps<(typeof import('../../inertia/pages/projects/index.tsx'))['default']>
+    'projects/show': ExtractProps<(typeof import('../../inertia/pages/projects/show.tsx'))['default']>
+    'workspaces/home': ExtractProps<(typeof import('../../inertia/pages/workspaces/home.tsx'))['default']>
+    'workspaces/index': ExtractProps<(typeof import('../../inertia/pages/workspaces/index.tsx'))['default']>
+    'workspaces/members': ExtractProps<(typeof import('../../inertia/pages/workspaces/members.tsx'))['default']>
   }
 }

@@ -1,10 +1,11 @@
-import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
+import { ProcessingRunSchema } from '#database/schema'
+import { belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
 import DocumentBlock from './document_block.ts'
 import FileRevision from './file_revision.ts'
 
-export default class ProcessingRun extends BaseModel {
+export default class ProcessingRun extends ProcessingRunSchema {
   static table = 'processing_runs'
 
   @column({ isPrimary: true })
@@ -22,7 +23,7 @@ export default class ProcessingRun extends BaseModel {
   @column()
   declare stageTimings: Record<string, number>
 
-  @column()
+  @column({ prepare: (value: string[]) => JSON.stringify(value) })
   declare warnings: string[]
 
   @column()

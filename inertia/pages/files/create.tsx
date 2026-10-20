@@ -1,3 +1,4 @@
+import { useWorkspaceId } from '@/providers/workspace_provider'
 import { Head } from '@inertiajs/react'
 import { PageIntro } from '@/components/page_intro'
 import { Reveal } from '@/components/reveal'
@@ -7,10 +8,12 @@ import { Card, CardContent } from '@/components/ui/card'
 import UserForm from '@/components/files/user_form'
 
 export default function Create() {
+  const workspaceId = useWorkspaceId()
   return (
-    <div className="mx-auto w-full max-w-2xl px-4 py-14">
+    <div className="page-wrap max-w-3xl">
       <Link
         route="files.index"
+        routeParams={{ workspaceId }}
         className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
         <ArrowLeft className="size-4" />
@@ -25,7 +28,7 @@ export default function Create() {
       />
 
       <Reveal>
-        <Card className="border-t-2 border-t-primary py-7">
+        <Card className="border bg-sidebar py-7">
           <CardContent className="px-5">
             <UserForm />
           </CardContent>

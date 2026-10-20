@@ -1,3 +1,4 @@
+import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
 import { DocumentSchema } from '#database/schema'
 import { belongsTo, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
 import User from '#models/user'
@@ -16,6 +17,9 @@ export default class Document extends DocumentSchema {
 
   @column()
   declare title: string
+
+  @column() declare descriptionContent: TipTapDocument | null
+  @column() declare projectInformationContent: TipTapDocument | null
 
   @column()
   declare description: string | null

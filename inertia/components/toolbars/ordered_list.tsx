@@ -15,6 +15,10 @@ const OrderedListToolbar = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
+            type="button"
+            aria-label="Numbered list"
+            aria-pressed={editor?.isActive('orderedList') ?? false}
+            onMouseDown={(event) => event.preventDefault()}
             variant="ghost"
             size="icon"
             className={cn('h-8 w-8', editor?.isActive('orderedList') && 'bg-accent', className)}

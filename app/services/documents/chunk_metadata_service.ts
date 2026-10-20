@@ -24,6 +24,7 @@ export type TipTapDocument = {
 
 function isWebUrl(value: string | null): value is string {
   if (!value) return false
+  if (/^\/workspaces\/[0-9a-f-]+\/(files|documents)\//i.test(value)) return true
 
   try {
     const url = new URL(value)
@@ -102,4 +103,12 @@ export function attachChunkMetadata(
     ...document,
     content: document.content.map(enrich).filter((node): node is TipTapNode => node !== null),
   }
+}
+
+/** Count visible evidence nodes without trusting any model-supplied metadata. */
+export function evidenceNodeCount(document: TipTapDocument): number {
+  const count = (node: TipTapNode): number =>
+    Number(node.type === 'sourceCitation' || node.type === 'image') +
+    (node.content?.reduce((total, child) => total + count(child), 0) ?? 0)
+  return document.content.reduce((total, node) => total + count(node), 0)
 }

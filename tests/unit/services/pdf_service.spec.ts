@@ -15,6 +15,7 @@ test.group('ExportPdfService', () => {
     // Mock Playwright to avoid launching a real browser in unit tests
     const mockBrowser = {
       newPage: async () => ({
+        route: async () => {},
         setContent: async () => {},
         pdf: async () => Buffer.from('mock-pdf-content'),
       }),

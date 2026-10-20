@@ -7,13 +7,109 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class ChunkBlockSchema extends BaseModel {
+  static $columns = [
+    'charEnd',
+    'charStart',
+    'chunkId',
+    'createdAt',
+    'documentBlockId',
+    'id',
+    'rowEnd',
+    'rowStart',
+    'runId',
+    'updatedAt',
+    'workspaceId',
+  ] as const
+  $columns = ChunkBlockSchema.$columns
+  @column()
+  declare charEnd: number | null
+  @column()
+  declare charStart: number | null
+  @column()
+  declare chunkId: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare documentBlockId: string
+  @column({ isPrimary: true })
+  declare id: bigint | number
+  @column()
+  declare rowEnd: number | null
+  @column()
+  declare rowStart: number | null
+  @column()
+  declare runId: string | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare workspaceId: string | null
+}
+
+export class ChunkEmbeddingSchema extends BaseModel {
+  static $columns = [
+    'chunkId',
+    'createdAt',
+    'dimensions',
+    'embedding',
+    'id',
+    'inputHash',
+    'model',
+    'updatedAt',
+    'version',
+    'workspaceId',
+  ] as const
+  $columns = ChunkEmbeddingSchema.$columns
+  @column()
+  declare chunkId: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare dimensions: number
+  @column()
+  declare embedding: any
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare inputHash: string
+  @column()
+  declare model: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare version: string
+  @column()
+  declare workspaceId: string | null
+}
+
 export class ChunkSchema extends BaseModel {
-  static $columns = ['chunkIndex', 'content', 'createdAt', 'embedding', 'fileId', 'fileKey', 'id', 'updatedAt'] as const
+  static $columns = [
+    'chunkIndex',
+    'content',
+    'contentHash',
+    'contentTsv',
+    'createdAt',
+    'embedding',
+    'fileId',
+    'fileKey',
+    'fileRevisionId',
+    'id',
+    'kind',
+    'runId',
+    'tenancyQuarantined',
+    'tokenCount',
+    'updatedAt',
+    'workspaceId',
+  ] as const
   $columns = ChunkSchema.$columns
   @column()
   declare chunkIndex: number | null
   @column()
   declare content: string | null
+  @column()
+  declare contentHash: string | null
+  @column()
+  declare contentTsv: string | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
   @column()
@@ -22,14 +118,117 @@ export class ChunkSchema extends BaseModel {
   declare fileId: string
   @column()
   declare fileKey: string | null
+  @column()
+  declare fileRevisionId: string | null
   @column({ isPrimary: true })
   declare id: string
+  @column()
+  declare kind: string
+  @column()
+  declare runId: string | null
+  @column()
+  declare tenancyQuarantined: boolean
+  @column()
+  declare tokenCount: number
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+  @column()
+  declare workspaceId: string | null
+}
+
+export class DocumentApprovalSchema extends BaseModel {
+  static $columns = [
+    'approvedById',
+    'createdAt',
+    'documentId',
+    'id',
+    'invalidatedAt',
+    'invalidationReason',
+    'reviewId',
+    'updatedAt',
+    'versionId',
+    'warningAcknowledgments',
+    'workspaceId',
+  ] as const
+  $columns = DocumentApprovalSchema.$columns
+  @column()
+  declare approvedById: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare documentId: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column.dateTime()
+  declare invalidatedAt: DateTime | null
+  @column()
+  declare invalidationReason: string | null
+  @column()
+  declare reviewId: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare versionId: string
+  @column()
+  declare warningAcknowledgments: any
+  @column()
+  declare workspaceId: string
+}
+
+export class DocumentBlockSchema extends BaseModel {
+  static $columns = [
+    'blockType',
+    'confidence',
+    'createdAt',
+    'extractionMethod',
+    'id',
+    'orderIndex',
+    'processingRunId',
+    'rawReference',
+    'sectionPath',
+    'sourceLocator',
+    'text',
+    'updatedAt',
+    'workspaceId',
+  ] as const
+  $columns = DocumentBlockSchema.$columns
+  @column()
+  declare blockType: string
+  @column()
+  declare confidence: number | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare extractionMethod: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare orderIndex: number
+  @column()
+  declare processingRunId: string
+  @column()
+  declare rawReference: string | null
+  @column()
+  declare sectionPath: any
+  @column()
+  declare sourceLocator: any
+  @column()
+  declare text: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare workspaceId: string | null
 }
 
 export class DocumentFileSchema extends BaseModel {
-  static $columns = ['createdAt', 'documentId', 'filesId', 'id', 'updatedAt'] as const
+  static $columns = [
+    'createdAt',
+    'documentId',
+    'filesId',
+    'id',
+    'updatedAt',
+    'workspaceId',
+  ] as const
   $columns = DocumentFileSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
@@ -41,6 +240,98 @@ export class DocumentFileSchema extends BaseModel {
   declare id: number
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+  @column()
+  declare workspaceId: string | null
+}
+
+export class DocumentIssueSchema extends BaseModel {
+  static $columns = [
+    'blocking',
+    'createdAt',
+    'createdById',
+    'description',
+    'descriptionContent',
+    'documentId',
+    'id',
+    'resolvedAt',
+    'resolvedById',
+    'revision',
+    'state',
+    'title',
+    'updatedAt',
+    'updatedById',
+    'workspaceId',
+  ] as const
+  $columns = DocumentIssueSchema.$columns
+  @column()
+  declare blocking: boolean
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare createdById: number
+  @column()
+  declare description: string | null
+  @column()
+  declare descriptionContent: any | null
+  @column()
+  declare documentId: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column.dateTime()
+  declare resolvedAt: DateTime | null
+  @column()
+  declare resolvedById: number | null
+  @column()
+  declare revision: number
+  @column()
+  declare state: string
+  @column()
+  declare title: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare updatedById: number
+  @column()
+  declare workspaceId: string
+}
+
+export class DocumentReviewSchema extends BaseModel {
+  static $columns = [
+    'createdAt',
+    'documentId',
+    'id',
+    'inputHash',
+    'invalidatedAt',
+    'invalidationReason',
+    'sourcePins',
+    'submittedById',
+    'updatedAt',
+    'versionId',
+    'workspaceId',
+  ] as const
+  $columns = DocumentReviewSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare documentId: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare inputHash: string
+  @column.dateTime()
+  declare invalidatedAt: DateTime | null
+  @column()
+  declare invalidationReason: string | null
+  @column()
+  declare sourcePins: any
+  @column()
+  declare submittedById: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare versionId: string
+  @column()
+  declare workspaceId: string
 }
 
 export class DocumentShareSchema extends BaseModel {
@@ -61,7 +352,18 @@ export class DocumentShareSchema extends BaseModel {
 }
 
 export class DocumentVersionSchema extends BaseModel {
-  static $columns = ['content', 'createdAt', 'documentId', 'id', 'updatedAt', 'userId', 'version'] as const
+  static $columns = [
+    'content',
+    'createdAt',
+    'documentId',
+    'id',
+    'mutationId',
+    'requestHash',
+    'updatedAt',
+    'userId',
+    'version',
+    'workspaceId',
+  ] as const
   $columns = DocumentVersionSchema.$columns
   @column()
   declare content: any | null
@@ -71,23 +373,92 @@ export class DocumentVersionSchema extends BaseModel {
   declare documentId: string
   @column({ isPrimary: true })
   declare id: string
+  @column()
+  declare mutationId: string | null
+  @column()
+  declare requestHash: string | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
   @column()
   declare userId: number | null
   @column()
   declare version: number | null
+  @column()
+  declare workspaceId: string | null
 }
 
 export class DocumentSchema extends BaseModel {
-  static $columns = ['createdAt', 'description', 'id', 'status', 'title', 'updatedAt', 'userId'] as const
+  static $columns = [
+    'activeApprovalId',
+    'activeReviewId',
+    'createdAt',
+    'currentVersionId',
+    'description',
+    'descriptionContent',
+    'dueDate',
+    'generationError',
+    'generationLeaseAt',
+    'generationStatus',
+    'generationTaskId',
+    'id',
+    'legacyApprovalUnverified',
+    'legacyStatus',
+    'legacyTenancyMigratedAt',
+    'metadataRevision',
+    'projectId',
+    'projectInformation',
+    'projectInformationContent',
+    'selectionRevision',
+    'sourceMode',
+    'status',
+    'title',
+    'updatedAt',
+    'userId',
+    'workspaceId',
+  ] as const
   $columns = DocumentSchema.$columns
+  @column()
+  declare activeApprovalId: string | null
+  @column()
+  declare activeReviewId: string | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
   @column()
+  declare currentVersionId: string | null
+  @column()
   declare description: string | null
+  @column()
+  declare descriptionContent: any | null
+  @column.date()
+  declare dueDate: DateTime | null
+  @column()
+  declare generationError: string | null
+  @column.dateTime()
+  declare generationLeaseAt: DateTime | null
+  @column()
+  declare generationStatus: string
+  @column()
+  declare generationTaskId: string | null
   @column({ isPrimary: true })
   declare id: string
+  @column()
+  declare legacyApprovalUnverified: boolean
+  @column()
+  declare legacyStatus: string | null
+  @column.dateTime()
+  declare legacyTenancyMigratedAt: DateTime | null
+  @column()
+  declare metadataRevision: number
+  @column()
+  declare projectId: string | null
+  @column()
+  declare projectInformation: any
+  @column()
+  declare projectInformationContent: any | null
+  @column()
+  declare selectionRevision: number
+  @column()
+  declare sourceMode: string
   @column()
   declare status: string | null
   @column()
@@ -96,10 +467,61 @@ export class DocumentSchema extends BaseModel {
   declare updatedAt: DateTime | null
   @column()
   declare userId: number
+  @column()
+  declare workspaceId: string | null
+}
+
+export class FileRevisionSchema extends BaseModel {
+  static $columns = [
+    'byteSize',
+    'createdAt',
+    'fileId',
+    'id',
+    'mime',
+    'retrievedAt',
+    'revision',
+    'sourceHash',
+    'sourceUrl',
+    'updatedAt',
+    'workspaceId',
+  ] as const
+  $columns = FileRevisionSchema.$columns
+  @column()
+  declare byteSize: bigint | number | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare fileId: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare mime: string | null
+  @column.dateTime()
+  declare retrievedAt: DateTime | null
+  @column()
+  declare revision: number
+  @column()
+  declare sourceHash: string | null
+  @column()
+  declare sourceUrl: string | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare workspaceId: string | null
 }
 
 export class FileSchema extends BaseModel {
-  static $columns = ['createdAt', 'filename', 'filetype', 'id', 'objectKey', 'objectUrl', 'updatedAt', 'userId'] as const
+  static $columns = [
+    'createdAt',
+    'filename',
+    'filetype',
+    'id',
+    'objectKey',
+    'objectUrl',
+    'updatedAt',
+    'userId',
+    'workspaceId',
+  ] as const
   $columns = FileSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
@@ -117,10 +539,128 @@ export class FileSchema extends BaseModel {
   declare updatedAt: DateTime | null
   @column()
   declare userId: number
+  @column()
+  declare workspaceId: string | null
+}
+
+export class ProcessingRunSchema extends BaseModel {
+  static $columns = [
+    'completedAt',
+    'createdAt',
+    'embeddingDimensions',
+    'embeddingModel',
+    'error',
+    'fileRevisionId',
+    'id',
+    'leaseAt',
+    'pipelineVersion',
+    'stageTimings',
+    'startedAt',
+    'status',
+    'updatedAt',
+    'warnings',
+    'workspaceId',
+  ] as const
+  $columns = ProcessingRunSchema.$columns
+  @column.dateTime()
+  declare completedAt: DateTime | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare embeddingDimensions: number | null
+  @column()
+  declare embeddingModel: string | null
+  @column()
+  declare error: string | null
+  @column()
+  declare fileRevisionId: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column.dateTime()
+  declare leaseAt: DateTime | null
+  @column()
+  declare pipelineVersion: string
+  @column()
+  declare stageTimings: any
+  @column.dateTime()
+  declare startedAt: DateTime | null
+  @column()
+  declare status: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare warnings: any
+  @column()
+  declare workspaceId: string | null
+}
+
+export class ProjectSchema extends BaseModel {
+  static $columns = [
+    'createdAt',
+    'creatorId',
+    'description',
+    'descriptionContent',
+    'id',
+    'name',
+    'updatedAt',
+    'workspaceId',
+  ] as const
+  $columns = ProjectSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare creatorId: number
+  @column()
+  declare description: string | null
+  @column()
+  declare descriptionContent: any | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare name: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare workspaceId: string
+}
+
+export class TaskDispatchSchema extends BaseModel {
+  static $columns = [
+    'attempts',
+    'createdAt',
+    'dispatchedAt',
+    'id',
+    'safeError',
+    'taskId',
+    'updatedAt',
+  ] as const
+  $columns = TaskDispatchSchema.$columns
+  @column()
+  declare attempts: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare dispatchedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare safeError: string | null
+  @column()
+  declare taskId: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
 }
 
 export class UserSchema extends BaseModel {
-  static $columns = ['createdAt', 'email', 'fullName', 'id', 'password', 'updatedAt'] as const
+  static $columns = [
+    'createdAt',
+    'email',
+    'fullName',
+    'id',
+    'lastWorkspaceId',
+    'password',
+    'updatedAt',
+  ] as const
   $columns = UserSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -130,8 +670,256 @@ export class UserSchema extends BaseModel {
   declare fullName: string | null
   @column({ isPrimary: true })
   declare id: number
+  @column()
+  declare lastWorkspaceId: string | null
   @column({ serializeAs: null })
   declare password: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+}
+
+export class VersionAcceptanceSchema extends BaseModel {
+  static $columns = [
+    'actorId',
+    'createdAt',
+    'documentId',
+    'id',
+    'mutationId',
+    'requestHash',
+    'updatedAt',
+    'versionId',
+    'workspaceId',
+  ] as const
+  $columns = VersionAcceptanceSchema.$columns
+  @column()
+  declare actorId: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare documentId: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare mutationId: string
+  @column()
+  declare requestHash: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare versionId: string
+  @column()
+  declare workspaceId: string
+}
+
+export class WorkflowEventSchema extends BaseModel {
+  static $columns = [
+    'actorId',
+    'createdAt',
+    'documentId',
+    'id',
+    'mutationId',
+    'operation',
+    'requestHash',
+    'result',
+    'updatedAt',
+    'workspaceId',
+  ] as const
+  $columns = WorkflowEventSchema.$columns
+  @column()
+  declare actorId: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare documentId: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare mutationId: string
+  @column()
+  declare operation: string
+  @column()
+  declare requestHash: string
+  @column()
+  declare result: any
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare workspaceId: string
+}
+
+export class WorkspaceInvitationSchema extends BaseModel {
+  static $columns = [
+    'acceptedAt',
+    'acceptedUserId',
+    'createdAt',
+    'deliveryAttempts',
+    'deliveryState',
+    'deliveryTokenEncrypted',
+    'email',
+    'emailVerifiedAt',
+    'expiresAt',
+    'id',
+    'inviterId',
+    'revokedAt',
+    'sentAt',
+    'tokenHash',
+    'updatedAt',
+    'workspaceId',
+  ] as const
+  $columns = WorkspaceInvitationSchema.$columns
+  @column.dateTime()
+  declare acceptedAt: DateTime | null
+  @column()
+  declare acceptedUserId: number | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare deliveryAttempts: number
+  @column()
+  declare deliveryState: string
+  @column()
+  declare deliveryTokenEncrypted: string | null
+  @column()
+  declare email: string
+  @column.dateTime()
+  declare emailVerifiedAt: DateTime | null
+  @column.dateTime()
+  declare expiresAt: DateTime
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare inviterId: number
+  @column.dateTime()
+  declare revokedAt: DateTime | null
+  @column.dateTime()
+  declare sentAt: DateTime | null
+  @column()
+  declare tokenHash: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare workspaceId: string
+}
+
+export class WorkspaceMembershipSchema extends BaseModel {
+  static $columns = [
+    'authorizationEpoch',
+    'createdAt',
+    'id',
+    'joinedAt',
+    'revokedAt',
+    'role',
+    'updatedAt',
+    'userId',
+    'workspaceId',
+  ] as const
+  $columns = WorkspaceMembershipSchema.$columns
+  @column()
+  declare authorizationEpoch: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: string
+  @column.dateTime()
+  declare joinedAt: DateTime
+  @column.dateTime()
+  declare revokedAt: DateTime | null
+  @column()
+  declare role: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare userId: number
+  @column()
+  declare workspaceId: string
+}
+
+export class WorkspaceTaskSchema extends BaseModel {
+  static $columns = [
+    'actorId',
+    'attempts',
+    'createdAt',
+    'documentId',
+    'fileId',
+    'id',
+    'kind',
+    'leaseExpiresAt',
+    'leaseToken',
+    'membershipEpoch',
+    'membershipId',
+    'mutationId',
+    'payload',
+    'requestHash',
+    'result',
+    'runId',
+    'safeError',
+    'status',
+    'updatedAt',
+    'workspaceId',
+  ] as const
+  $columns = WorkspaceTaskSchema.$columns
+  @column()
+  declare actorId: number
+  @column()
+  declare attempts: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare documentId: string | null
+  @column()
+  declare fileId: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare kind: string
+  @column.dateTime()
+  declare leaseExpiresAt: DateTime | null
+  @column()
+  declare leaseToken: string | null
+  @column()
+  declare membershipEpoch: number
+  @column()
+  declare membershipId: string
+  @column()
+  declare mutationId: string
+  @column()
+  declare payload: any
+  @column()
+  declare requestHash: string
+  @column()
+  declare result: any
+  @column()
+  declare runId: string | null
+  @column()
+  declare safeError: string | null
+  @column()
+  declare status: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare workspaceId: string
+}
+
+export class WorkspaceSchema extends BaseModel {
+  static $columns = [
+    'createdAt',
+    'id',
+    'initialForUserId',
+    'name',
+    'ownerUserId',
+    'updatedAt',
+  ] as const
+  $columns = WorkspaceSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare initialForUserId: number | null
+  @column()
+  declare name: string
+  @column()
+  declare ownerUserId: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
 }
