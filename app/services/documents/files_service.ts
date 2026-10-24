@@ -231,7 +231,11 @@ export default class FileService {
     generatedAssetKeys: string[]
   ): Promise<CanonicalBlock[]> {
     const result = await mammoth.convertToHtml({ buffer: file })
-    const document = new DOMParser().parseFromString(result.value, 'text/html')
+    // Mammoth returns a fragment; xmldom requires one document element, even when empty.
+    const document = new DOMParser().parseFromString(
+      `<html><body>${result.value}</body></html>`,
+      'text/html'
+    )
     const blocks: CanonicalBlock[] = []
     let worker: Worker | null = null
 

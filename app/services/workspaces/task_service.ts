@@ -1,4 +1,5 @@
 import workspaceConfig from '#config/workspaces'
+import TaskConflictException from '#exceptions/task_conflict_exception'
 import { createHash, randomUUID } from 'node:crypto'
 import { DateTime } from 'luxon'
 import db from '@adonisjs/lucid/services/db'
@@ -182,7 +183,7 @@ export default class TaskService {
       !task.leaseExpiresAt ||
       task.leaseExpiresAt <= DateTime.utc()
     )
-      throw conflict('This task no longer owns its execution lease')
+      throw new TaskConflictException('lease_lost')
     return task
   }
   async check(lease: TaskLease) {
@@ -231,9 +232,11 @@ export default class TaskService {
             : 'queued',
         leaseToken: null,
         leaseExpiresAt: null,
-        safeError: stale
-          ? 'Inputs changed. Start a new request.'
-          : (safeError ?? 'Processing failed. Retry is available.'),
+        safeError:
+          safeError ??
+          (stale
+            ? 'Inputs changed. Start a new request.'
+            : 'Processing failed. Retry is available.'),
       })
       await task.save()
       if (['failed', 'conflict', 'cancelled'].includes(task.status))

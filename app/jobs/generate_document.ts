@@ -21,12 +21,15 @@ export default class GenerateDocument extends Job<{ version: 1; taskId: string }
     } catch (error) {
       logger.error(
         {
+          err: error,
           taskId: lease.task.id,
-          providerStatus: OpenRouterService.status(error),
+          documentId: lease.task.documentId,
+          sourceRunIds: lease.task.payload.pins?.map((pin) => pin.runId),
+          errorStatus: OpenRouterService.status(error),
         },
         'Document generation failed'
       )
-      await new GenerationService().failed(lease, OpenRouterService.status(error) === 409, error)
+      await new GenerationService().failed(lease, error)
     } finally {
       clearInterval(heartbeat)
     }

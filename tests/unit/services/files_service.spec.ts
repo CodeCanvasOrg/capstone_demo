@@ -1,5 +1,7 @@
 import { test } from '@japa/runner'
 import { Readable } from 'node:stream'
+import { readFile } from 'node:fs/promises'
+import type { Worker } from 'tesseract.js'
 import FileService from '#services/documents/files_service'
 import drive from '@adonisjs/drive/services/main'
 
@@ -11,6 +13,7 @@ const context = {
 }
 const guard = async () => {}
 type MockFileService = {
+  createOcrWorker: () => Promise<Worker>
   processImage: (
     image: string | Buffer,
     source: { fileKey: string; fileUrl: string; fileName: string; mediaType: string }
@@ -31,6 +34,124 @@ const mockDriveStream = (buffer: Buffer) => {
 }
 
 test.group('FileService', () => {
+  test('retains all sibling DOCX blocks in document order', async ({ assert }) => {
+    const restoreDrive = mockDriveStream(
+      await readFile(new URL('../../fixtures/docx/mixed-blocks.docx', import.meta.url))
+    )
+    try {
+      const result = await FileService.processFile(
+        {
+          uploaderId: 1,
+          id: 'docx-file-id',
+          filename: 'mixed-blocks.docx',
+          objectKey: 'uploads/1/mixed-blocks.docx',
+        },
+        context,
+        guard
+      )
+      assert.deepEqual(
+        result.blocks.map(({ blockType, text }) => ({ blockType, text })),
+        [
+          { blockType: 'heading', text: 'Project overview' },
+          { blockType: 'paragraph', text: 'First paragraph & details.' },
+          { blockType: 'paragraph', text: 'Second paragraph.' },
+          { blockType: 'list_item', text: 'Evidence item' },
+          { blockType: 'table_row', text: 'Name | Value' },
+        ]
+      )
+      assert.equal(result.blocks[0].sourceLocator.headingLevel, 1)
+      assert.isTrue(result.blocks.every((block) => block.extractionMethod === 'mammoth-html'))
+      assert.isTrue(
+        result.blocks.every(
+          (block) => block.sourceLocator.fileKey === 'uploads/1/mixed-blocks.docx'
+        )
+      )
+    } finally {
+      restoreDrive()
+    }
+  })
+
+  test('accepts an empty DOCX without a parser error', async ({ assert }) => {
+    const restoreDrive = mockDriveStream(
+      await readFile(new URL('../../fixtures/docx/empty.docx', import.meta.url))
+    )
+    try {
+      const result = await FileService.processFile(
+        {
+          uploaderId: 1,
+          id: 'empty-docx',
+          filename: 'empty.docx',
+          objectKey: 'uploads/1/empty.docx',
+        },
+        context,
+        guard
+      )
+      assert.deepEqual(result.blocks, [])
+      assert.deepEqual(result.generatedAssetKeys, [])
+    } finally {
+      restoreDrive()
+    }
+  })
+
+  test('retains an embedded DOCX image between sibling paragraphs', async ({ assert }) => {
+    const buffer = await readFile(
+      new URL('../../fixtures/docx/embedded-image.docx', import.meta.url)
+    )
+    const originalUse = drive.use
+    const service = FileService as unknown as MockFileService
+    const originalWorker = service.createOcrWorker
+    const stored: { key: string; data: Buffer; options: unknown }[] = []
+    let recognized: unknown
+    let terminated = false
+    service.createOcrWorker = async () =>
+      ({
+        recognize: async (image: unknown) => {
+          recognized = image
+          return { data: { text: 'Image caption', confidence: 90 } }
+        },
+        terminate: async () => {
+          terminated = true
+        },
+      }) as unknown as Worker
+    drive.use = () =>
+      ({
+        getStream: async () => Readable.from([buffer]),
+        put: async (key: string, data: Buffer, options: unknown) => {
+          stored.push({ key, data, options })
+        },
+      }) as any
+    try {
+      const result = await FileService.processFile(
+        {
+          uploaderId: 1,
+          id: 'image-docx',
+          filename: 'image.docx',
+          objectKey: 'uploads/1/image.docx',
+        },
+        context,
+        guard
+      )
+      assert.deepEqual(
+        result.blocks.map((block) => [block.blockType, block.text]),
+        [
+          ['paragraph', 'Before image.'],
+          ['image', 'Image caption'],
+          ['paragraph', 'After image.'],
+        ]
+      )
+      assert.lengthOf(stored, 1)
+      assert.deepEqual(stored[0].options, { contentType: 'image/png', visibility: 'private' })
+      assert.deepEqual(recognized, stored[0].data)
+      assert.deepEqual(result.generatedAssetKeys, [stored[0].key])
+      assert.equal(result.blocks[1].sourceLocator.fileKey, stored[0].key)
+      assert.equal(result.blocks[1].extractionMethod, 'mammoth-image-ocr')
+      assert.isTrue(terminated)
+    } finally {
+      drive.use = originalUse
+      service.createOcrWorker = originalWorker
+    }
+  })
+
   test('throws error for unsupported file type', async ({ assert }) => {
     const fileProps = {
       uploaderId: 1,

@@ -1,4 +1,5 @@
 import WorkflowService from '#services/documents/workflow_service'
+import TaskConflictException from '#exceptions/task_conflict_exception'
 import db from '@adonisjs/lucid/services/db'
 import Document from '#models/document'
 import DocumentVersion from '#models/document_version'
@@ -61,11 +62,12 @@ export default class GenerationService {
           file_id: string
           revision_id: string
           run_id: string
+          status: string
           pipeline_version: string
           embedding_model: string
         }[]
       }>(
-        `SELECT f.id AS file_id,latest.* FROM document_files df JOIN files f ON f.id=df.files_id AND f.workspace_id=df.workspace_id JOIN LATERAL (SELECT fr.id AS revision_id,pr.id AS run_id,pr.pipeline_version,pr.embedding_model FROM file_revisions fr JOIN processing_runs pr ON pr.file_revision_id=fr.id AND pr.workspace_id=fr.workspace_id WHERE fr.file_id=f.id AND fr.workspace_id=f.workspace_id ORDER BY fr.revision DESC,pr.created_at DESC LIMIT 1) latest ON true WHERE df.document_id=? AND df.workspace_id=? ORDER BY f.id`,
+        `SELECT f.id AS file_id,latest.* FROM document_files df JOIN files f ON f.id=df.files_id AND f.workspace_id=df.workspace_id JOIN LATERAL (SELECT fr.id AS revision_id,pr.id AS run_id,pr.status,pr.pipeline_version,pr.embedding_model FROM file_revisions fr JOIN processing_runs pr ON pr.file_revision_id=fr.id AND pr.workspace_id=fr.workspace_id WHERE fr.file_id=f.id AND fr.workspace_id=f.workspace_id ORDER BY fr.revision DESC,pr.created_at DESC LIMIT 1) latest ON true WHERE df.document_id=? AND df.workspace_id=? ORDER BY f.id`,
         [documentId, context.workspaceId]
       )
       const count = await trx
@@ -79,6 +81,8 @@ export default class GenerationService {
         (document.sourceMode === 'input_only' && selected.rows.length)
       )
         throw conflict('Prepare the selected sources or explicitly select input-only writing')
+      if (selected.rows.some((row) => row.status === 'failed'))
+        throw new TaskConflictException('source_unavailable')
       const pins: SourcePin[] = selected.rows.map((row) => ({
         fileId: row.file_id,
         revisionId: row.revision_id,
@@ -127,7 +131,7 @@ export default class GenerationService {
       document.currentVersionId !== input.baseVersionId ||
       fingerprint(generationInput(document)) !== input.inputHash
     )
-      throw conflict('Generation inputs changed')
+      throw new TaskConflictException('inputs_changed')
     const pins = input.pins ?? []
     if (pins.length) {
       const rows = await db
@@ -139,7 +143,7 @@ export default class GenerationService {
         )
         .select('id', 'status')
       if (rows.length !== pins.length || rows.some((row) => row.status === 'failed'))
-        throw conflict('A selected source is unavailable')
+        throw new TaskConflictException('source_unavailable')
       if (rows.some((row) => row.status !== 'ready')) {
         await tasks.defer(lease)
         return
@@ -180,7 +184,7 @@ export default class GenerationService {
         current.currentVersionId !== input.baseVersionId ||
         fingerprint(generationInput(current)) !== input.inputHash
       )
-        throw conflict('Generation inputs changed')
+        throw new TaskConflictException('inputs_changed')
       const latest = await DocumentVersion.query({ client: trx })
         .where({ documentId: current.id, workspaceId: lease.context.workspaceId })
         .orderBy('version', 'desc')
@@ -215,12 +219,13 @@ export default class GenerationService {
       return { versionId: version.id }
     })
   }
-  async failed(lease: TaskLease, stale: boolean, error?: unknown) {
-    const status = OpenRouterService.status(error)
+  async failed(lease: TaskLease, error: unknown) {
+    const localConflict = error instanceof TaskConflictException
+    const status = localConflict ? undefined : OpenRouterService.status(error)
     await new TaskService().fail(
       lease,
-      stale,
-      status ? config.failureMessages[status] : undefined,
+      localConflict,
+      localConflict ? error.safeMessage : status ? config.failureMessages[status] : undefined,
       [401, 402, 403, 404].includes(status ?? 0)
     )
   }

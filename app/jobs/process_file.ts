@@ -3,6 +3,7 @@ import { Job } from '@adonisjs/queue'
 import type { JobOptions } from '@adonisjs/queue/types'
 import ProcessingService from '#services/documents/processing_service'
 import TaskService from '#services/workspaces/task_service'
+import logger from '@adonisjs/core/services/logger'
 export default class ProcessFile extends Job<{ version: 1; taskId: string }> {
   static options: JobOptions = { queue: 'documents', timeout: '20m' }
   async execute() {
@@ -17,7 +18,11 @@ export default class ProcessFile extends Job<{ version: 1; taskId: string }> {
     heartbeat.unref()
     try {
       await new ProcessingService().processRun(lease)
-    } catch {
+    } catch (error) {
+      logger.error(
+        { err: error, taskId: lease.task.id, runId: lease.task.runId },
+        'Source processing failed'
+      )
       await tasks.fail(lease)
     } finally {
       clearInterval(heartbeat)
