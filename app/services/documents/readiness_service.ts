@@ -27,6 +27,13 @@ export type ReadinessStage = {
 export default class ReadinessService {
   async inspect(document: Document, trx?: TransactionClientContract) {
     const connection = trx ?? db
+    const members = await connection
+      .from('workspace_memberships')
+      .where('workspace_id', document.workspaceId!)
+      .whereNull('revoked_at')
+      .count('* as total')
+      .first()
+    const reviewRequired = Number(members?.total) !== 1
     const selected = await connection.rawQuery<{
       rows: {
         file_id: string
@@ -207,7 +214,11 @@ export default class ReadinessService {
       pins,
       review,
       approval,
-      canSubmit: !information.length && sourcesReady && editorialPrerequisites,
+      reviewRequired,
+      canExport: reviewRequired ? approved : contentReady && !generation,
+      canSubmit: reviewRequired
+        ? !information.length && sourcesReady && editorialPrerequisites
+        : contentReady && !generation,
       approved,
     }
   }

@@ -451,6 +451,30 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/documents_controller').default['destroy']>>>
     }
   }
+  'documentImages.store': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/images'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/document_image').documentImageValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/document_image').documentImageValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_images_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_images_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'documentImages.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/images/:imageId'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue; imageId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_images_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_images_controller').default['show']>>>
+    }
+  }
   'documentVersions.store': {
     methods: ["POST"]
     pattern: '/workspaces/:workspaceId/documents/:documentId/versions'

@@ -79,6 +79,12 @@ router
           .as('assets.derived')
         router.resource('documents', controllers.Documents).except(['show'])
         router
+          .post('/documents/:documentId/images', [controllers.DocumentImages, 'store'])
+          .as('documentImages.store')
+        router
+          .get('/documents/:documentId/images/:imageId', [controllers.DocumentImages, 'show'])
+          .as('documentImages.show')
+        router
           .post('/documents/:documentId/versions', [controllers.DocumentVersions, 'handle'])
           .as('documentVersions.store')
         router

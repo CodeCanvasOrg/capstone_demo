@@ -5,6 +5,7 @@
 
 export const controllers = {
   Assets: () => import('#controllers/assets_controller'),
+  DocumentImages: () => import('#controllers/document_images_controller'),
   DocumentIssues: () => import('#controllers/document_issues_controller'),
   DocumentReviews: () => import('#controllers/document_reviews_controller'),
   DocumentShares: () => import('#controllers/document_shares_controller'),

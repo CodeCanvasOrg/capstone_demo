@@ -50,13 +50,9 @@ export default function Index({
         {!projects.length && (
           <div className="py-20 text-center">
             <FolderOpen className="mx-auto mb-4 size-6 text-muted-foreground" />
-            <p className="text-sm">
-              {filters.q ? 'No matching projects' : 'A place for related stories.'}
-            </p>
+            <p className="text-sm">{filters.q ? 'No matching projects' : 'No projects yet'}</p>
             <p className="mt-2 text-xs text-muted-foreground">
-              {filters.q
-                ? 'Try a different search.'
-                : 'Create a project to bring your case studies together.'}
+              {filters.q ? 'Try a different search.' : 'Group related case studies.'}
             </p>
           </div>
         )}

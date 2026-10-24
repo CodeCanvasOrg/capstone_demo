@@ -7,6 +7,7 @@ export const approvalValidator = vine.create({
   warningAcknowledgments: vine.array(vine.string().maxLength(128)).maxLength(200),
 })
 export const exportValidator = vine.create({
-  approvalId: vine.string().uuid(),
+  approvalId: vine.string().uuid().optional(),
+  baseVersionId: vine.string().uuid().optional(),
   mutationId: vine.string().uuid(),
 })

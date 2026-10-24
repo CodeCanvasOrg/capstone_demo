@@ -66,6 +66,10 @@ export interface ApiDefinition {
     update: typeof routes['documents.update']
     destroy: typeof routes['documents.destroy']
   }
+  documentImages: {
+    store: typeof routes['documentImages.store']
+    show: typeof routes['documentImages.show']
+  }
   documentVersions: {
     store: typeof routes['documentVersions.store']
   }

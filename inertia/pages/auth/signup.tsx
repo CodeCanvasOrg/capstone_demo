@@ -8,10 +8,7 @@ import { ArrowUpRight } from 'lucide-react'
 
 export default function Signup() {
   return (
-    <AuthShell
-      title="Start your next story."
-      description="Create your account and bring your work together."
-    >
+    <AuthShell title="Start your next story." description="Create your account.">
       <Head title="Sign up" />
       <Form route="new_account.store" className="flex flex-col gap-4">
         {({ errors, processing }) => (

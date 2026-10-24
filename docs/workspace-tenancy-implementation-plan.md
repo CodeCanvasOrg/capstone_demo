@@ -523,3 +523,8 @@ Wire invitation delivery to `mail` and retain documents processing/render tasks 
 | UI               | New contracts render without cross-workspace state; browser checks specified in the companion UI plan.                                                       |
 
 Use fake model/mail adapters for deterministic tests and a real Redis/database/private test-storage integration for transport/isolation scenarios. Report local/mocked evidence separately from remote bucket, actual SMTP, and manual browser evidence. Passing static checks alone is not visual or deployment verification.
+
+
+### Membership-aware export contract amendment (2026-10-24)
+
+The user approved direct export for exactly one active workspace member and mandatory checklist visibility/review for teams. This supersedes the approved-only export requirement above for solo workspaces. The PDF POST now accepts optional `approvalId` and optional `baseVersionId` with required `mutationId`; authorization selects the appropriate mode server-side. See [solo/team export contract](./solo-export-contract.md) for request, render, publication and download guarantees. Existing team approval requirements, workspace access and private artifact handling remain enforced.

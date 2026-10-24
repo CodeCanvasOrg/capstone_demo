@@ -4,6 +4,7 @@ import type { TransactionClientContract } from '@adonisjs/lucid/types/database'
 import { DateTime } from 'luxon'
 import { Exception } from '@adonisjs/core/exceptions'
 import Document from '#models/document'
+import Workspace from '#models/workspace'
 import DocumentReview from '#models/document_review'
 import DocumentApproval from '#models/document_approval'
 import WorkflowEvent from '#models/workflow_event'
@@ -60,6 +61,10 @@ export default class WorkflowService {
     approve = false
   ) {
     return db.transaction(async (trx) => {
+      await Workspace.query({ client: trx })
+        .where('id', context.workspaceId)
+        .forUpdate()
+        .firstOrFail()
       await new AccessService().lock(context, trx)
       const document = await Document.query({ client: trx })
         .where({ id: documentId, workspaceId: context.workspaceId })
@@ -94,7 +99,7 @@ export default class WorkflowService {
         if (
           !readiness.review ||
           readiness.review.id !== input.reviewId ||
-          !readiness.stages[2].complete
+          (readiness.reviewRequired && !readiness.stages[2].complete)
         )
           throw conflict('Submit this exact version for review before approving')
         const acknowledgments = [...new Set(input.warningAcknowledgments ?? [])].sort()

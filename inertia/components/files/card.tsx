@@ -19,9 +19,10 @@ type FileCardProps = {
   file: FilePreview
   onRemove?: () => void
   disabled?: boolean
+  removeLabel?: string
 }
 
-export default function FileCard({ file, onRemove, disabled }: FileCardProps) {
+export default function FileCard({ file, onRemove, disabled, removeLabel }: FileCardProps) {
   const isImage = file.filetype ? IMAGE_EXTENSIONS.includes(file.filetype) : false
 
   return (
@@ -59,7 +60,7 @@ export default function FileCard({ file, onRemove, disabled }: FileCardProps) {
           size="icon-sm"
           onClick={onRemove}
           disabled={disabled}
-          aria-label={`Remove ${file.filename}`}
+          aria-label={removeLabel ?? `Remove ${file.filename}`}
         >
           <X />
         </Button>

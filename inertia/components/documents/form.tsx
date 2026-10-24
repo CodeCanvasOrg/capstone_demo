@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useForm } from '@inertiajs/react'
 import type { Data } from '@generated/data'
-import { ArrowUp, FolderOpen, MessageSquare, Sparkles, LoaderCircle } from 'lucide-react'
+import { FolderOpen, MessageSquare, Sparkles, LoaderCircle } from 'lucide-react'
 import { urlFor } from '@/client'
 import { useWorkspaceId, useUnsavedChanges } from '@/providers/workspace_provider'
 import { Button } from '@/components/ui/button'
+import { Disclosure } from '@/components/disclosure'
 import { SourcePicker } from '@/components/files/source_picker'
 import {
   RichTextEditor,
@@ -56,12 +57,9 @@ export function DocumentForm({
         <div className="mb-5 flex size-9 items-center justify-center rounded-xl border text-muted-foreground">
           <MessageSquare className="size-4" />
         </div>
-        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-          What story are we telling?
-        </h1>
+        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">New case study</h1>
         <p className="mt-3 max-w-md text-sm leading-6 text-muted-foreground">
-          Describe your project and add any sources. Your document opens as soon as you send the
-          brief.
+          What did you work on?
         </p>
       </div>
       <div className="rounded-2xl border bg-sidebar p-4 shadow-xs">
@@ -72,8 +70,14 @@ export function DocumentForm({
             setComposer(value)
             setText(plain)
           }}
+          error={
+            form.errors.description ||
+            form.errors.descriptionContent ||
+            form.errors.title ||
+            form.errors.projectInformation
+          }
           label="Case-study brief"
-          placeholder="Tell us about the work, the challenge, and what changed…"
+          placeholder="The work, the challenge, the results…"
           compact
           disabled={form.processing}
         />
@@ -85,78 +89,104 @@ export function DocumentForm({
               onChange={setSelected}
               disabled={form.processing}
             />
-            <label className="inline-flex max-w-48 items-center gap-1 text-xs text-muted-foreground">
-              <FolderOpen className="size-3.5 shrink-0" />
-              <span className="sr-only">Project</span>
-              <select
-                aria-label="Project"
-                value={projectId}
-                onChange={(event) => setProjectId(event.target.value)}
-                disabled={form.processing}
-                className="min-w-0 max-w-40 bg-transparent py-1.5 outline-none"
-              >
-                <option value="">No project</option>
-                {projects.map((project) => (
-                  <option key={project.id} value={project.id}>
-                    {project.name}
-                  </option>
-                ))}
-              </select>
-            </label>
           </div>
           <Button
             type="button"
-            size="icon-sm"
-            aria-label="Create and generate case study"
+            size="sm"
+            aria-label="Create draft"
             onClick={create}
             disabled={form.processing || !text.trim() || text.length > 20000}
           >
             {form.processing ? (
               <LoaderCircle className="size-4 animate-spin" />
             ) : (
-              <ArrowUp className="size-4" />
+              <Sparkles className="size-4" />
             )}
+            {form.processing ? 'Creating…' : 'Create draft'}
           </Button>
         </div>
       </div>
+      {projects.length > 0 && (
+        <Disclosure
+          title="Project"
+          icon={FolderOpen}
+          summary={projects.find((project) => project.id === projectId)?.name ?? 'Optional'}
+          reveal={!!form.errors.projectId}
+        >
+          <label className="inline-flex max-w-48 items-center gap-1 text-xs text-muted-foreground">
+            <FolderOpen className="size-3.5 shrink-0" aria-hidden="true" />
+            <span className="sr-only">Project</span>
+            <select
+              aria-label="Project"
+              aria-invalid={!!form.errors.projectId}
+              aria-describedby={form.errors.projectId ? 'brief-project-error' : undefined}
+              value={projectId}
+              onChange={(event) => setProjectId(event.target.value)}
+              disabled={form.processing}
+              className="min-w-0 max-w-40 bg-transparent py-1.5 outline-none"
+            >
+              <option value="">No project</option>
+              {projects.map((project) => (
+                <option key={project.id} value={project.id}>
+                  {project.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          {form.errors.projectId && (
+            <p id="brief-project-error" role="alert" className="text-xs text-destructive">
+              {form.errors.projectId}
+            </p>
+          )}
+        </Disclosure>
+      )}
       <p className="mt-3 text-xs leading-5 text-muted-foreground">
         {selected.length
-          ? `${selected.length} sources attached · Your draft will use these files once preparation finishes.`
-          : 'Writing from your brief only · Attach files to include source evidence.'}
+          ? `${selected.length} sources · Prepare files before generation.`
+          : 'Brief only · No sources attached.'}
       </p>
       {text.length > 20000 && (
         <p role="alert" className="mt-2 text-xs text-destructive">
           Keep the brief under 20,000 characters.
         </p>
       )}
-      {Object.entries(form.errors).map(([key, error]) => (
-        <p role="alert" key={key} className="mt-2 text-xs text-destructive">
-          {error}
-        </p>
-      ))}
+      {Object.entries(form.errors)
+        .filter(
+          ([key]) =>
+            ![
+              'description',
+              'descriptionContent',
+              'title',
+              'projectInformation',
+              'projectId',
+            ].includes(key)
+        )
+        .map(([key, error]) => (
+          <p role="alert" key={key} className="mt-2 text-xs text-destructive">
+            {error}
+          </p>
+        ))}
       <div className="mt-8 grid gap-2 sm:grid-cols-3">
-        {['A project we delivered', 'A problem we solved', 'Results worth sharing'].map(
-          (example, index) => (
-            <button
-              key={example}
-              type="button"
-              disabled={form.processing}
-              className="rounded-lg border border-transparent p-3 text-left transition-colors hover:border-border hover:bg-muted/40"
-              onClick={() => {
-                const value = [
-                  'We built ',
-                  'We helped our team solve ',
-                  'Our project made a difference by ',
-                ][index]
-                setText(value)
-                setComposer(textToRichText(value))
-              }}
-            >
-              <Sparkles className="mb-3 size-3.5 text-muted-foreground" />
-              <span className="text-xs font-medium">{example}</span>
-            </button>
-          )
-        )}
+        {['Project', 'Challenge', 'Results'].map((example, index) => (
+          <button
+            key={example}
+            type="button"
+            disabled={form.processing}
+            className="rounded-lg border border-transparent p-3 text-left transition-colors hover:border-border hover:bg-muted/40"
+            onClick={() => {
+              const value = [
+                'We built ',
+                'We helped our team solve ',
+                'Our project made a difference by ',
+              ][index]
+              setText(value)
+              setComposer(textToRichText(value))
+            }}
+          >
+            <Sparkles className="mb-3 size-3.5 text-muted-foreground" />
+            <span className="text-xs font-medium">{example}</span>
+          </button>
+        ))}
       </div>
     </div>
   )

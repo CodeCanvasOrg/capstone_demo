@@ -1,0 +1,169 @@
+import path from 'node:path'
+import { randomUUID } from 'node:crypto'
+import { Exception } from '@adonisjs/core/exceptions'
+import logger from '@adonisjs/core/services/logger'
+import db from '@adonisjs/lucid/services/db'
+import drive from '@adonisjs/drive/services/main'
+import Document from '#models/document'
+import DocumentImage from '#models/document_image'
+import AccessService, {
+  missingResource,
+  uuid,
+  type WorkspaceAccessContext,
+} from '#services/workspaces/access_service'
+import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
+
+const invalidImage = () => new Exception('Choose a PNG or JPEG image up to 10 MB', { status: 422 })
+
+export default class DocumentImageService {
+  static mime(filename: string, bytes: Buffer) {
+    if (!bytes.length || bytes.length > 10 * 1024 * 1024) throw invalidImage()
+    const extension = path.extname(filename).toLowerCase()
+    if (
+      extension === '.png' &&
+      bytes.length >= 45 &&
+      bytes.subarray(0, 8).equals(Buffer.from('89504e470d0a1a0a', 'hex')) &&
+      bytes.toString('ascii', 12, 16) === 'IHDR' &&
+      bytes.readUInt32BE(8) === 13 &&
+      bytes.readUInt32BE(16) > 0 &&
+      bytes.readUInt32BE(20) > 0 &&
+      bytes.subarray(-12).equals(Buffer.from('0000000049454e44ae426082', 'hex'))
+    )
+      return 'image/png'
+    if (
+      ['.jpg', '.jpeg'].includes(extension) &&
+      bytes.length >= 20 &&
+      bytes[0] === 0xff &&
+      bytes[1] === 0xd8 &&
+      bytes[2] === 0xff &&
+      bytes[bytes.length - 2] === 0xff &&
+      bytes[bytes.length - 1] === 0xd9
+    ) {
+      // Walk the JPEG headers to require real dimensions and a scan, not just magic bytes.
+      let offset = 2
+      let dimensions = false
+      while (offset + 4 <= bytes.length) {
+        if (bytes[offset++] !== 0xff) break
+        while (offset < bytes.length && bytes[offset] === 0xff) offset++
+        if (offset + 3 > bytes.length) break
+        const marker = bytes[offset++]
+        const length = bytes.readUInt16BE(offset)
+        if (length < 2 || offset + length > bytes.length) break
+        if (
+          [0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7, 0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf].includes(
+            marker
+          )
+        ) {
+          dimensions =
+            length >= 8 && bytes.readUInt16BE(offset + 3) > 0 && bytes.readUInt16BE(offset + 5) > 0
+        }
+        if (marker === 0xda && dimensions && offset + length < bytes.length - 2) return 'image/jpeg'
+        offset += length
+      }
+    }
+    throw invalidImage()
+  }
+
+  receipt(image: DocumentImage) {
+    return {
+      id: image.id,
+      filename: image.filename,
+      mime: image.mime,
+      byteSize: image.byteSize,
+      src: `/workspaces/${image.workspaceId}/documents/${image.documentId}/images/${image.id}`,
+    }
+  }
+
+  async upload(
+    context: WorkspaceAccessContext,
+    documentId: string,
+    input: {
+      filename: string
+      contents: Buffer
+    }
+  ) {
+    const mime = DocumentImageService.mime(input.filename, input.contents)
+    const id = randomUUID()
+    const objectKey = `workspaces/${context.workspaceId}/documents/${documentId}/images/${id}.${mime === 'image/png' ? 'png' : 'jpg'}`
+    const disk = drive.use()
+    let written = false
+    try {
+      const image = await db.transaction(async (trx) => {
+        await new AccessService().lock(context, trx)
+        if (!uuid(documentId)) throw missingResource()
+        await Document.query({ client: trx })
+          .where({ id: documentId, workspaceId: context.workspaceId })
+          .forUpdate()
+          .firstOrFail()
+        written = true
+        await disk.put(objectKey, input.contents, { contentType: mime, visibility: 'private' })
+        return DocumentImage.create(
+          {
+            id,
+            workspaceId: context.workspaceId,
+            documentId,
+            uploaderId: context.actorId,
+            objectKey,
+            mime,
+            byteSize: input.contents.length,
+            filename: path.basename(input.filename).slice(0, 255),
+          },
+          { client: trx }
+        )
+      })
+      return this.receipt(image)
+    } catch (error) {
+      if (written)
+        await disk.delete(objectKey).catch((cleanupError) => {
+          logger.error(
+            { err: cleanupError, documentId, imageId: id },
+            'Unable to remove failed document image upload'
+          )
+        })
+      throw error
+    }
+  }
+
+  async asset(context: WorkspaceAccessContext, documentId: string, imageId: string) {
+    if (!uuid(documentId) || !uuid(imageId)) throw missingResource()
+    return db.transaction(async (trx) => {
+      await new AccessService().lock(context, trx)
+      await Document.query({ client: trx })
+        .where({ id: documentId, workspaceId: context.workspaceId })
+        .firstOrFail()
+      const image = await DocumentImage.query({ client: trx })
+        .where({ id: imageId, workspaceId: context.workspaceId, documentId })
+        .firstOrFail()
+      return { mime: image.mime, stream: await drive.use().getStream(image.objectKey) }
+    })
+  }
+
+  async references(context: WorkspaceAccessContext, documentId: string, value: TipTapDocument) {
+    const ids = new Set<string>()
+    const visit = (node: TipTapDocument['content'][number]) => {
+      const id = node.attrs?.documentImageId
+      if (id !== undefined && id !== null) {
+        if (node.type !== 'image' || !uuid(id) || node.attrs?.sourceChunkId) throw invalidImage()
+        ids.add(id)
+      }
+      node.content?.forEach(visit)
+    }
+    value.content.forEach(visit)
+    if (!ids.size) return new Map<string, ReturnType<DocumentImageService['receipt']>>()
+    return db.transaction(async (trx) => {
+      await new AccessService().lock(context, trx)
+      await Document.query({ client: trx })
+        .where({ id: documentId, workspaceId: context.workspaceId })
+        .firstOrFail()
+      const images = await DocumentImage.query({ client: trx })
+        .where({ workspaceId: context.workspaceId, documentId })
+        .whereIn('id', [...ids])
+      if (images.length !== ids.size)
+        throw new Exception(
+          'An image is unavailable for this document. Remove it or upload it again.',
+          { status: 422 }
+        )
+      return new Map(images.map((image) => [image.id, this.receipt(image)]))
+    })
+  }
+}

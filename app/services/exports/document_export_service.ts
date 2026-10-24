@@ -1,11 +1,13 @@
 import db from '@adonisjs/lucid/services/db'
 import drive from '@adonisjs/drive/services/main'
 import Document from '#models/document'
+import Workspace from '#models/workspace'
 import DocumentVersion from '#models/document_version'
 import WorkspaceTask from '#models/workspace_task'
-import ReadinessService from '#services/documents/readiness_service'
+import ReadinessService, { reviewInputHash } from '#services/documents/readiness_service'
 import ContentService from '#services/documents/content_service'
 import EvidenceService from '#services/documents/evidence_service'
+import DocumentImageService from '#services/documents/document_image_service'
 import ExportPdfService from '#services/exports/pdf_service'
 import AccessService, {
   conflict,
@@ -13,22 +15,34 @@ import AccessService, {
   missingResource,
   type WorkspaceAccessContext,
 } from '#services/workspaces/access_service'
-import TaskService, { type TaskLease } from '#services/workspaces/task_service'
+import TaskService, { fingerprint, type TaskLease } from '#services/workspaces/task_service'
 import TaskDispatchService from '#services/workspaces/task_dispatch_service'
 export default class DocumentExportService {
   async request(
     context: WorkspaceAccessContext,
     documentId: string,
-    input: { approvalId: string; mutationId: string }
+    input: { approvalId?: string; baseVersionId?: string; mutationId: string }
   ) {
     const task = await db.transaction(async (trx) => {
+      await Workspace.query({ client: trx })
+        .where('id', context.workspaceId)
+        .forUpdate()
+        .firstOrFail()
       await new AccessService().lock(context, trx)
       const doc = await Document.query({ client: trx })
         .where({ id: documentId, workspaceId: context.workspaceId })
         .forUpdate()
         .firstOrFail()
       const state = await new ReadinessService().inspect(doc, trx)
-      if (!state.approved || doc.activeApprovalId !== input.approvalId)
+      const solo = !state.reviewRequired && !input.approvalId
+      if (solo) {
+        if (
+          !state.canExport ||
+          !input.baseVersionId ||
+          doc.currentVersionId !== input.baseVersionId
+        )
+          throw conflict('Save the current draft before exporting')
+      } else if (!state.approved || doc.activeApprovalId !== input.approvalId)
         throw conflict('Approve the exact current version before final export')
       return new TaskService().create(
         context,
@@ -37,7 +51,8 @@ export default class DocumentExportService {
           documentId,
           mutationId: input.mutationId,
           payload: {
-            approvalId: input.approvalId,
+            exportMode: solo ? 'solo' : 'approved',
+            ...(solo ? { inputHash: reviewInputHash(doc) } : { approvalId: input.approvalId }),
             versionId: doc.currentVersionId!,
             pins: state.pins,
             brandVersion: 'humblebee-1',
@@ -54,12 +69,7 @@ export default class DocumentExportService {
     await tasks.check(lease)
     const doc = await new AccessService().document(lease.context, lease.task.documentId!)
     const state = await new ReadinessService().inspect(doc)
-    if (
-      !state.approved ||
-      doc.activeApprovalId !== lease.task.payload.approvalId ||
-      doc.currentVersionId !== lease.task.payload.versionId
-    )
-      throw conflict('Approval changed before rendering')
+    this.assertSnapshot(doc, state, lease.task.payload, 'Approval changed before rendering')
     const version = await DocumentVersion.query()
       .where({
         id: doc.currentVersionId!,
@@ -74,27 +84,32 @@ export default class DocumentExportService {
     const buffer = await ExportPdfService.generate({ content } as DocumentVersion)
     const key = `workspaces/${lease.context.workspaceId}/exports/${lease.task.id}.pdf`
     try {
-      await tasks.finish(lease, async (trx) => {
-        const current = await Document.query({ client: trx })
-          .where({ id: doc.id, workspaceId: lease.context.workspaceId })
-          .forUpdate()
-          .firstOrFail()
-        const currentState = await new ReadinessService().inspect(current, trx)
-        if (
-          !currentState.approved ||
-          current.activeApprovalId !== lease.task.payload.approvalId ||
-          current.currentVersionId !== lease.task.payload.versionId
-        )
-          throw conflict('Approval changed during rendering')
-        await drive
-          .use()
-          .put(key, buffer, { contentType: 'application/pdf', visibility: 'private' })
-        return {
-          artifactKey: key,
-          approvalId: current.activeApprovalId,
-          versionId: current.currentVersionId,
-        }
-      })
+      await tasks.finish(
+        lease,
+        async (trx) => {
+          const current = await Document.query({ client: trx })
+            .where({ id: doc.id, workspaceId: lease.context.workspaceId })
+            .forUpdate()
+            .firstOrFail()
+          const currentState = await new ReadinessService().inspect(current, trx)
+          this.assertSnapshot(
+            current,
+            currentState,
+            lease.task.payload,
+            'Approval changed during rendering'
+          )
+          await drive
+            .use()
+            .put(key, buffer, { contentType: 'application/pdf', visibility: 'private' })
+          return {
+            artifactKey: key,
+            exportMode: lease.task.payload.exportMode,
+            approvalId: current.activeApprovalId,
+            versionId: current.currentVersionId,
+          }
+        },
+        { lockWorkspace: true }
+      )
     } catch (error) {
       await drive
         .use()
@@ -106,6 +121,10 @@ export default class DocumentExportService {
   async download(context: WorkspaceAccessContext, documentId: string, taskId: string) {
     if (!uuid(taskId)) throw missingResource()
     return db.transaction(async (trx) => {
+      await Workspace.query({ client: trx })
+        .where('id', context.workspaceId)
+        .forUpdate()
+        .firstOrFail()
       await new AccessService().lock(context, trx)
       const doc = await Document.query({ client: trx })
         .where({ id: documentId, workspaceId: context.workspaceId })
@@ -121,12 +140,12 @@ export default class DocumentExportService {
         })
         .firstOrFail()
       const state = await new ReadinessService().inspect(doc, trx)
-      if (
-        !state.approved ||
-        doc.activeApprovalId !== task.result.approvalId ||
-        doc.currentVersionId !== task.result.versionId
+      this.assertSnapshot(
+        doc,
+        state,
+        { ...task.payload, ...task.result },
+        'This final export is no longer approved'
       )
-        throw conflict('This final export is no longer approved')
       if (typeof task.result.artifactKey !== 'string') throw missingResource()
       return {
         stream: await drive.use().getStream(task.result.artifactKey),
@@ -153,6 +172,30 @@ export default class DocumentExportService {
       throw conflict('The saved version changed during preview')
     return buffer
   }
+  private assertSnapshot(
+    doc: Document,
+    state: Awaited<ReturnType<ReadinessService['inspect']>>,
+    snapshot: Record<string, unknown>,
+    approvalMessage: string
+  ) {
+    if (snapshot.exportMode === 'solo') {
+      if (state.reviewRequired)
+        throw conflict('Review and approval are required in a shared workspace')
+      if (
+        !state.canExport ||
+        doc.currentVersionId !== snapshot.versionId ||
+        reviewInputHash(doc) !== snapshot.inputHash ||
+        !Array.isArray(snapshot.pins) ||
+        fingerprint(state.pins) !== fingerprint(snapshot.pins)
+      )
+        throw conflict('The draft changed. Request a new PDF.')
+    } else if (
+      !state.approved ||
+      doc.activeApprovalId !== snapshot.approvalId ||
+      doc.currentVersionId !== snapshot.versionId
+    )
+      throw conflict(approvalMessage)
+  }
   private async content(
     context: WorkspaceAccessContext,
     documentId: string,
@@ -166,9 +209,20 @@ export default class DocumentExportService {
       new ContentService().normalize(value)
     )
     const embed = async (node: (typeof content.content)[number]): Promise<void> => {
-      if (node.type === 'image' && typeof node.attrs?.sourceChunkId === 'string') {
+      if (
+        node.type === 'image' &&
+        (typeof node.attrs?.sourceChunkId === 'string' ||
+          typeof node.attrs?.documentImageId === 'string')
+      ) {
         await guard()
-        const asset = await service.asset(context, documentId, node.attrs.sourceChunkId)
+        const asset =
+          typeof node.attrs?.documentImageId === 'string'
+            ? await new DocumentImageService().asset(
+                context,
+                documentId,
+                node.attrs.documentImageId
+              )
+            : await service.asset(context, documentId, node.attrs!.sourceChunkId as string)
         if (!/^image\/(png|jpeg|gif|webp)$/.test(asset.mime))
           throw conflict('Unsupported export image')
         const chunks: Buffer[] = []

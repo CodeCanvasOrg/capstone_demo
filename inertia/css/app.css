@@ -78,7 +78,7 @@
 .tiptap-editor .ProseMirror h1,.tiptap-editor .ProseMirror h2 { font-weight:600; letter-spacing:-.045em; }
 .tiptap-editor .ProseMirror img { max-width:100%; height:auto; border-radius:.75rem; }
 .tiptap-editor .ProseMirror ul {list-style:disc;} .tiptap-editor .ProseMirror ol {list-style:decimal;}
-[data-slot=button]:active:not(:disabled) { transform:scale(.98); transition:transform 80ms ease-out; }
+[data-slot=button]:active:not(:disabled):not(:focus-visible) { transform:scale(.98); }
 [data-slot=button][data-variant=default] { border-radius:9999px; }
 [data-slot=card] { border-radius:1rem; box-shadow:none; }
 [data-slot=input],[data-slot=textarea],[data-slot=select-trigger] { border-radius:.5rem; }
@@ -229,3 +229,7 @@
 .rich-description.issue-document .tiptap h3 { font-size:1.125rem; }
 .rich-description.issue-document .tiptap pre { border-radius:.5rem; background:var(--muted); padding:1em; white-space:pre-wrap; }
 .rich-description.issue-document .tiptap code { border-radius:.25rem; background:var(--muted); padding:.125em .25em; font-size:.875em; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-slot=button]:active:not(:disabled) { transform:none; }
+}

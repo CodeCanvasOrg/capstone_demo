@@ -63,9 +63,12 @@ export default function Show({
           <CaseStudyList documents={documents} />
         ) : (
           <div className="py-16 text-center">
-            <p className="text-sm text-muted-foreground">Your first story starts here.</p>
+            <p className="text-sm text-muted-foreground">No case studies yet.</p>
             <Button asChild variant="ghost" className="mt-3">
-              <Link href={createUrl}>Create a case study</Link>
+              <Link href={createUrl}>
+                <Plus aria-hidden="true" />
+                New case study
+              </Link>
             </Button>
           </div>
         )}

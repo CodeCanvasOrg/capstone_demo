@@ -37,9 +37,7 @@ export default function Index({
     <div className="page-wrap">
       <Head title="Shared files" />
       <PageIntro
-        eyebrow="Workspace / Evidence"
-        title="The source of your stories."
-        description="One shared library for the documents, notes, and images behind your work."
+        title="Files"
         action={
           <Button asChild>
             <Link route="files.create" routeParams={{ workspaceId }}>
@@ -53,9 +51,7 @@ export default function Index({
         <div className="min-w-60 flex-1">
           <CollectionSearch collection="files" q={filters.q} />
         </div>
-        <p className="text-xs text-muted-foreground">
-          {pagination?.total ?? files.length} files · Shared with your team
-        </p>
+        <p className="text-xs text-muted-foreground">{pagination?.total ?? files.length} files</p>
       </div>
       {files.length ? (
         <ul className="divide-y overflow-hidden rounded-xl border bg-sidebar">
@@ -84,15 +80,12 @@ export default function Index({
         </ul>
       ) : (
         <EmptyState
-          title={filters.q ? 'No matching files' : 'Give the story its evidence'}
-          description={
-            filters.q
-              ? 'Try a different file name.'
-              : 'Upload project files once and use them across your workspace’s case studies.'
-          }
+          title={filters.q ? 'No matching files' : 'No files yet'}
+          description={filters.q ? 'Try a different file name.' : 'Add files to use as sources.'}
           action={
             <Button asChild>
               <Link route="files.create" routeParams={{ workspaceId }}>
+                <Plus aria-hidden="true" />
                 Upload files
               </Link>
             </Button>

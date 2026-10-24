@@ -2,6 +2,7 @@ import { type ReactElement, useEffect, useRef } from 'react'
 import { usePage, router } from '@inertiajs/react'
 import { Form, Link } from '@adonisjs/inertia/react'
 import { toast } from 'sonner'
+import { safeMessage } from '@/lib/api'
 import { Home, FolderOpen, Files, Users, Plus, LogOut, FileText } from 'lucide-react'
 import type { Data } from '@generated/data'
 import { WorkspacePicker } from '@/components/workspace_picker'
@@ -48,20 +49,24 @@ function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps>
   const user = page.props.user
   const base = workspace ? `/workspaces/${workspace.id}` : ''
   useEffect(() => {
-    if (page.flash.error) toast.error(page.flash.error)
+    if (page.flash.error)
+      toast.error(safeMessage(page.flash.error, 'This action could not finish. Try again.'), {
+        duration: Infinity,
+        closeButton: true,
+      })
     if (page.flash.success) toast.success(page.flash.success)
   }, [page.flash])
   const items = workspace
     ? [
         {
           route: 'workspaces.show' as const,
-          label: 'Workspace home',
+          label: 'Home',
           icon: Home,
           active: page.url === base,
         },
         {
           route: 'documents.index' as const,
-          label: 'All case studies',
+          label: 'Case studies',
           icon: FileText,
           active: page.url.startsWith(`${base}/documents`),
         },
@@ -73,7 +78,7 @@ function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps>
         },
         {
           route: 'files.index' as const,
-          label: 'Files library',
+          label: 'Files',
           icon: Files,
           active: page.url.startsWith(`${base}/files`),
         },
@@ -137,7 +142,7 @@ function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps>
           {workspace && (
             <SidebarGroup>
               <SidebarGroupLabel className="justify-between group-data-[collapsible=icon]:hidden">
-                Recent documents
+                Recent
                 <Button variant="ghost" size="icon-xs" asChild>
                   <Link
                     route="documents.create"
@@ -184,7 +189,7 @@ function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps>
               </SidebarMenu>
               {!page.props.recentDocuments?.length && (
                 <p className="px-2 text-xs leading-5 text-muted-foreground group-data-[collapsible=icon]:hidden">
-                  Your recent case studies will appear here.
+                  No recent case studies.
                 </p>
               )}
             </SidebarGroup>

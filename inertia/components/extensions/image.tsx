@@ -54,6 +54,10 @@ export const ImageExtension = Image.extend({
         default: null,
         renderHTML: () => ({}),
       },
+      documentImageId: {
+        default: null,
+        renderHTML: () => ({}),
+      },
       chunkText: {
         default: null,
         renderHTML: () => ({}),

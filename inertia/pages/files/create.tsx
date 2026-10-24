@@ -17,15 +17,11 @@ export default function Create() {
         className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
         <ArrowLeft className="size-4" />
-        Back to files
+        Files
       </Link>
 
       <Head title="Upload files" />
-      <PageIntro
-        eyebrow="Build your library"
-        title="Upload files"
-        description="Add source documents, notes, or images. Your files can support more than one document."
-      />
+      <PageIntro title="Upload files" />
 
       <Reveal>
         <Card className="border bg-sidebar py-7">

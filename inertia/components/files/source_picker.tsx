@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { Paperclip, Search } from 'lucide-react'
+import { Paperclip, Search, Library, Upload, Check } from 'lucide-react'
 import type { Data } from '@generated/data'
 import { useWorkspace } from '@/providers/workspace_provider'
 import { Button } from '@/components/ui/button'
@@ -53,13 +53,13 @@ export function SourcePicker({
       <DialogTrigger asChild>
         <Button type="button" variant="ghost" size="sm" disabled={disabled}>
           <Paperclip className="size-3.5" />
-          {selected.length ? `${selected.length} sources` : 'Attach sources'}
+          {selected.length ? `${selected.length} sources` : 'Sources'}
         </Button>
       </DialogTrigger>
       <DialogContent className="max-h-[85dvh] overflow-y-auto sm:max-w-xl">
         <DialogHeader>
           <DialogTitle>Add source files</DialogTitle>
-          <DialogDescription>Choose from this workspace or upload something new.</DialogDescription>
+          <DialogDescription>Choose files or upload new ones.</DialogDescription>
         </DialogHeader>
         <Tabs
           value={tab}
@@ -68,8 +68,14 @@ export function SourcePicker({
           }}
         >
           <TabsList>
-            <TabsTrigger value="library">Library</TabsTrigger>
-            <TabsTrigger value="upload">Upload new</TabsTrigger>
+            <TabsTrigger value="library">
+              <Library aria-hidden="true" className="size-4" />
+              Library
+            </TabsTrigger>
+            <TabsTrigger value="upload">
+              <Upload aria-hidden="true" className="size-4" />
+              Upload
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="library" className="space-y-3 pt-3">
             <div className="relative">
@@ -104,7 +110,7 @@ export function SourcePicker({
                 ))}
               {!options.length && (
                 <p className="py-10 text-center text-sm text-muted-foreground">
-                  No files yet. Upload your first source.
+                  No files yet. Upload a source.
                 </p>
               )}
               {!!options.length &&
@@ -128,14 +134,14 @@ export function SourcePicker({
               }}
             />
             <p className="text-xs leading-relaxed text-muted-foreground">
-              Uploaded files are added to this workspace’s library immediately and selected here.
-              Cancelling a draft does not delete them.
+              Uploads are saved to the library, even if you cancel this draft.
             </p>
           </TabsContent>
         </Tabs>
         <div className="flex items-center justify-between border-t pt-4">
           <span className="text-xs text-muted-foreground">{selected.length} selected</span>
           <Button type="button" size="sm" onClick={() => changeOpen(false)}>
+            <Check aria-hidden="true" />
             Done
           </Button>
         </div>
