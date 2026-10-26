@@ -8,7 +8,7 @@ import { ArrowUpRight } from 'lucide-react'
 
 export default function Login() {
   return (
-    <AuthShell title="Welcome back." description="Login to pick up where you left off.">
+    <AuthShell title="Welcome back." description="Sign in to your workspace.">
       <Head title="Login" />
       <Form route="session.store" className="flex flex-col gap-4">
         {({ errors, processing }) => (

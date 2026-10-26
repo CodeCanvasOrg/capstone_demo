@@ -31,18 +31,38 @@ function Snapshot({ version }: { version: Data.DocumentVersion }) {
     </div>
   )
 }
-export function VersionHistory({ versions }: { versions: Data.DocumentVersion[] }) {
+export function VersionHistory({
+  versions,
+  open,
+  onOpenChange,
+  returnFocus,
+}: {
+  versions: Data.DocumentVersion[]
+  returnFocus?: () => void
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
+}) {
   const [selected, setSelected] = useState<string | null>(null)
   const version = versions.find((item) => item.id === selected) ?? versions[0]
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="ghost" size="sm" disabled={!versions.length}>
-          <History />
-          History
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="max-h-[90dvh] overflow-y-auto sm:max-w-3xl">
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      {open === undefined && (
+        <DialogTrigger asChild>
+          <Button variant="ghost" size="sm" disabled={!versions.length}>
+            <History />
+            History
+          </Button>
+        </DialogTrigger>
+      )}
+      <DialogContent
+        onCloseAutoFocus={(event) => {
+          if (returnFocus) {
+            event.preventDefault()
+            returnFocus()
+          }
+        }}
+        className="max-h-[90dvh] overflow-y-auto sm:max-w-3xl"
+      >
         <DialogHeader>
           <DialogTitle>Saved versions</DialogTitle>
           <DialogDescription>

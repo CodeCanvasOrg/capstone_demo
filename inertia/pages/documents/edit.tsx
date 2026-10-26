@@ -3,39 +3,47 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Data } from '@generated/data'
 import {
   SlidersHorizontal,
-  Plus,
   Sparkles,
   Check,
   Download,
   ArrowLeft,
   LoaderCircle,
+  MoreHorizontal,
+  History,
+  FilePenLine,
+  Plus,
+  Trash2,
+  Send,
+  ListChecks,
 } from 'lucide-react'
-import { Link } from '@adonisjs/inertia/react'
+import { Form, Link } from '@adonisjs/inertia/react'
 import { urlFor } from '@/client'
-import { toast } from 'sonner'
-import { api } from '@/lib/api'
-import { useWorkspaceId, useWorkspace } from '@/providers/workspace_provider'
+import { api, ApiError, feedbackError, safeMessage } from '@/lib/api'
+import { useWorkspaceId } from '@/providers/workspace_provider'
+import { IconButton } from '@/components/icon_button'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetDescription,
-} from '@/components/ui/sheet'
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogTrigger,
 } from '@/components/ui/dialog'
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from '@/components/ui/dropdown_menu'
+import { ActionFeedback } from '@/components/action_feedback'
+import { ConfirmAction } from '@/components/confirm_action'
 import { VersionHistory } from '@/components/documents/version_history'
 import DocumentEditor from '@/components/documents/editor'
 import { DocumentInspector, MetadataForm, type Action } from '@/components/documents/inspector'
 import { StatusBadge } from '@/components/documents/status'
+
 type Task = { id: string; status: string; error?: string; result?: { downloadUrl?: string } }
 export default function Edit({
   document,
@@ -53,56 +61,58 @@ export default function Edit({
   projects: Data.Project[]
 }) {
   const workspaceId = useWorkspaceId()
-  const { dirtyKeys } = useWorkspace()
   const [dirty, setDirty] = useState(false)
   const [busy, setBusy] = useState(false)
-  const [error, setError] = useState('')
+  const inFlight = useRef(false)
+  const [error, setError] = useState<ApiError | null>(null)
   const [notice, setNotice] = useState('')
   const [panel, setPanel] = useState(false)
-  const [wide, setWide] = useState(false)
+  const [historyOpen, setHistoryOpen] = useState(false)
+  const [metadataOpen, setMetadataOpen] = useState(false)
+  const [deleteOpen, setDeleteOpen] = useState(false)
+  const [generateOpen, setGenerateOpen] = useState(false)
   const [approvalOpen, setApprovalOpen] = useState(false)
   const [ack, setAck] = useState<string[]>([])
   const [exportTask, setExportTask] = useState<Task | null>(null)
+  const [pollError, setPollError] = useState<ApiError | null>(null)
+  const [refresh, setRefresh] = useState(0)
   const mutation = useRef(new Map<string, { hash: string; id: string }>())
   const active = useRef(true)
+  const inspectorRef = useRef<HTMLElement>(null)
+  const moreRef = useRef<HTMLButtonElement>(null)
+  const primaryRef = useRef<HTMLButtonElement>(null)
   useEffect(() => {
     active.current = true
     return () => {
       active.current = false
     }
   }, [])
-  useEffect(() => {
-    const media = window.matchMedia('(min-width:1280px)')
-    const update = () => {
-      if (!dirtyKeys.some((key) => ['source-selection', 'issue-form'].includes(key)))
-        setWide(media.matches)
-    }
-    update()
-    media.addEventListener('change', update)
-    return () => media.removeEventListener('change', update)
-  }, [dirtyKeys])
   const reload = () =>
     router.reload({ only: ['document', 'workflow', 'availableFiles', 'issues', 'recentDocuments'] })
   const action: Action = async (url, method, body) => {
-    if (busy) return false
+    if (inFlight.current)
+      return { ok: false, error: new ApiError('Wait for the current request to finish.', 409) }
+    inFlight.current = true
     setBusy(true)
-    setError('')
     setNotice('')
     try {
-      await api(url, method, body)
+      const result = await api<{ data?: unknown }>(url, method, body)
+      if (!result.data || typeof result.data !== 'object')
+        throw new ApiError(
+          'The change could not be confirmed. Your input is still here. Try again.',
+          200,
+          {},
+          'E_INVALID_RESPONSE'
+        )
       if (active.current) {
         reload()
         setNotice('Changes saved.')
       }
-      return true
+      return { ok: true }
     } catch (reason) {
-      toast.error(reason instanceof Error ? reason.message : 'The request failed.')
-      if (active.current)
-        setError(
-          reason instanceof Error ? reason.message : 'The request failed. Your input is still here.'
-        )
-      return false
+      return { ok: false, error: feedbackError(reason) }
     } finally {
+      inFlight.current = false
       if (active.current) setBusy(false)
     }
   }
@@ -114,6 +124,7 @@ export default function Edit({
     return { ...body, mutationId: id }
   }
   async function review(approve = false) {
+    setError(null)
     const body = approve
       ? {
           baseVersionId: document.currentVersionId,
@@ -122,70 +133,87 @@ export default function Edit({
         }
       : { baseVersionId: document.currentVersionId }
     const route = approve ? 'documentReviews.approve' : 'documentReviews.store'
-    if (
-      await action(
-        urlFor(route, { workspaceId, documentId: document.id }),
-        'POST',
-        intent(route, body)
-      )
-    ) {
+    const result = await action(
+      urlFor(route, { workspaceId, documentId: document.id }),
+      'POST',
+      intent(route, body)
+    )
+    if (result.ok) {
       mutation.current.delete(route)
       setApprovalOpen(false)
-    }
+    } else if (active.current) setError(result.error)
   }
   async function generate() {
-    if (
-      document.currentVersionId &&
-      !window.confirm(
-        'Generate a new draft from the current writing inputs and selected evidence? Your saved versions remain in the version history.'
-      )
+    setError(null)
+    const result = await action(
+      urlFor('documentTasks.generate', { workspaceId, documentId: document.id }),
+      'POST',
+      intent('generate', { baseVersionId: document.currentVersionId })
     )
-      return
-    if (
-      await action(
-        urlFor('documentTasks.generate', { workspaceId, documentId: document.id }),
-        'POST',
-        intent('generate', { baseVersionId: document.currentVersionId })
-      )
-    )
+    if (result.ok) {
       mutation.current.delete('generate')
+      setGenerateOpen(false)
+    } else if (active.current) setError(result.error)
   }
   async function exportPdf() {
-    if (busy) return
+    if (inFlight.current) return
+    inFlight.current = true
     setBusy(true)
-    setError('')
+    setError(null)
     try {
       const result = await api<{ data: Task }>(
         urlFor('exportPdfs.store', { workspaceId, documentId: document.id }),
         'POST',
-        intent('export', { approvalId: workflow.approval?.id })
+        intent(
+          'export',
+          workflow.readiness.reviewRequired
+            ? { approvalId: workflow.approval?.id }
+            : { baseVersionId: document.currentVersionId }
+        )
       )
-      if (active.current) setExportTask(result.data)
+      if (!result.data?.id || !result.data.status) throw new Error('Unexpected export response')
+      if (active.current) {
+        setExportTask(result.data)
+        mutation.current.delete('export')
+        setPollError(null)
+      }
     } catch (reason) {
-      if (active.current)
-        setError(reason instanceof Error ? reason.message : 'The PDF request failed.')
+      if (active.current) {
+        setError(feedbackError(reason, 'The PDF could not be prepared. Try again.'))
+        reload()
+      }
     } finally {
+      inFlight.current = false
       if (active.current) setBusy(false)
     }
   }
+  const taskId = exportTask?.id
+  const taskStatus = exportTask?.status
   useEffect(() => {
-    if (!exportTask || !['queued', 'running'].includes(exportTask.status)) return
+    if (!taskId || !taskStatus || !['queued', 'running'].includes(taskStatus)) return
     const controller = new AbortController()
     let polling = false
+    let failed = false
     const poll = async () => {
-      if (polling || window.document.visibilityState === 'hidden') return
+      if (polling || failed || window.document.visibilityState === 'hidden') return
       polling = true
       try {
         const result = await api<{ data: Task }>(
-          urlFor('documentTasks.show', { workspaceId, taskId: exportTask.id }),
+          urlFor('documentTasks.show', { workspaceId, taskId }),
           'GET',
           undefined,
           controller.signal
         )
-        if (!controller.signal.aborted) setExportTask(result.data)
+        if (!result.data?.id || !result.data.status) throw new Error('Unexpected task response')
+        if (!controller.signal.aborted) {
+          setExportTask(result.data)
+          setPollError(null)
+        }
       } catch (reason) {
-        if (!controller.signal.aborted)
-          setError(reason instanceof Error ? reason.message : 'Unable to refresh PDF status.')
+        if (!controller.signal.aborted) {
+          failed = true
+          setPollError(feedbackError(reason, 'PDF status could not refresh. Try again.'))
+        }
       } finally {
         polling = false
       }
@@ -196,7 +224,7 @@ export default function Edit({
       controller.abort()
       clearInterval(interval)
     }
-  }, [exportTask, workspaceId])
+  }, [taskId, taskStatus, workspaceId, refresh])
   const processing = ['queued', 'processing', 'running'].includes(document.generationStatus ?? '')
   useEffect(() => {
     if (!processing) return
@@ -205,218 +233,331 @@ export default function Edit({
     }, 2500)
     return () => clearInterval(interval)
   }, [processing])
+  useEffect(() => {
+    const refreshWorkflow = () => {
+      if (window.document.visibilityState === 'visible')
+        router.reload({ only: ['document', 'workflow', 'issues', 'availableFiles'] })
+    }
+    const timer = setInterval(refreshWorkflow, 10000)
+    window.addEventListener('focus', refreshWorkflow)
+    return () => {
+      clearInterval(timer)
+      window.removeEventListener('focus', refreshWorkflow)
+    }
+  }, [])
   const disabled = busy || dirty || processing
   const version =
     document.documentVersions?.find((item) => item.id === document.currentVersionId) ??
     document.documentVersions?.[0]
+  const currentReview = !!workflow.review && !workflow.review.invalidatedAt
+  const canApprove = document.capabilities.approve && currentReview && !workflow.readiness.approved
+  const exporting = !!taskStatus && ['queued', 'running'].includes(taskStatus)
+  const reviewRequired = workflow.readiness.reviewRequired !== false
+  const blocker = workflow.readiness.stages.some((stage) => !stage.complete)
   const onDirty = useCallback((value: boolean) => setDirty(value), [])
-  const inspector = (
-    <DocumentInspector
-      key={document.id}
-      document={document}
-      workflow={workflow}
-      availableFiles={availableFiles}
-      issues={issues}
-      action={action}
-      disabled={disabled}
-    />
-  )
+  function showDetails() {
+    setPanel(true)
+    requestAnimationFrame(() => inspectorRef.current?.focus())
+  }
   return (
     <div className="min-w-0">
       <Head title={document.title} />
       <header className="border-b bg-sidebar px-4 py-4 sm:px-6">
         <div className="flex flex-wrap items-center gap-3">
-          <Link
-            route="documents.index"
-            routeParams={{ workspaceId }}
-            aria-label="Back to case studies"
-            className="rounded-lg border p-2"
-          >
-            <ArrowLeft className="size-4" />
-          </Link>
-          <div className="min-w-0 flex-1">
-            <p className="eyebrow">
-              Case study / {(document.status ?? 'draft').replaceAll('_', ' ')}
-            </p>
-            <h1 className="mt-1 truncate text-sm font-semibold" title={document.title}>
-              {document.title}
-            </h1>
-          </div>
-          <Button asChild variant="ghost" size="sm">
+          <Button asChild variant="outline" size="icon">
             <Link
-              href={`${urlFor('documents.create', { workspaceId })}${document.projectId ? `?projectId=${document.projectId}` : ''}`}
+              route="documents.index"
+              routeParams={{ workspaceId }}
+              aria-label="Back to case studies"
             >
-              <Plus className="size-3.5" />
-              New case study
+              <ArrowLeft />
             </Link>
           </Button>
+          <h1 className="min-w-0 flex-1 truncate text-sm font-semibold" title={document.title}>
+            {document.title}
+          </h1>
           <StatusBadge status={document.status} />
-          {!wide && (
+          <IconButton
+            icon={SlidersHorizontal}
+            label="Details"
+            className={reviewRequired ? 'hidden' : 'xl:hidden'}
+            aria-controls="document-details"
+            aria-expanded={panel}
+            onClick={() => (panel ? setPanel(false) : showDetails())}
+          />
+          {(!reviewRequired && version) || workflow.readiness.approved ? (
             <Button
-              variant="outline"
-              size="icon"
-              aria-label="Open document inspector"
-              onClick={() => setPanel(true)}
+              size="sm"
+              disabled={disabled || exporting || !workflow.readiness.canExport}
+              onClick={() => void exportPdf()}
             >
-              <SlidersHorizontal />
+              <Download />
+              {exporting ? 'Preparing…' : 'Download'}
+            </Button>
+          ) : !version ? (
+            <Button
+              ref={primaryRef}
+              size="sm"
+              disabled={disabled || !document.capabilities.edit}
+              onClick={() => void generate()}
+            >
+              <Sparkles />
+              {processing ? 'Generating…' : 'Generate'}
+            </Button>
+          ) : canApprove ? (
+            <Button
+              ref={primaryRef}
+              size="sm"
+              disabled={disabled || !workflow.readiness.canSubmit}
+              onClick={() => {
+                setAck([])
+                setError(null)
+                setApprovalOpen(true)
+              }}
+            >
+              <Check />
+              Approve
+            </Button>
+          ) : (
+            <Button
+              ref={primaryRef}
+              size="sm"
+              disabled={disabled || !workflow.readiness.canSubmit || currentReview}
+              onClick={() => void review()}
+            >
+              <Send aria-hidden="true" />
+              {currentReview ? 'In review' : 'Submit'}
             </Button>
           )}
-          <Button
-            variant="outline"
-            size="sm"
-            disabled={
-              disabled ||
-              !workflow.readiness.canSubmit ||
-              !!(workflow.review && !workflow.review.invalidatedAt)
-            }
-            onClick={() => void review()}
-          >
-            Submit for review
-          </Button>
-          {document.capabilities.approve &&
-            workflow.review &&
-            !workflow.review.invalidatedAt &&
-            !workflow.readiness.approved && (
-              <Dialog open={approvalOpen} onOpenChange={setApprovalOpen}>
-                <DialogTrigger asChild>
-                  <Button size="sm" disabled={disabled}>
-                    <Check />
-                    Approve version
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Approve this saved version?</DialogTitle>
-                    <DialogDescription>
-                      Only this exact version and its current source state will be approved. Later
-                      content changes invalidate this approval.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="space-y-4">
-                    {workflow.readiness.warnings.map((warning) => (
-                      <label
-                        key={warning.id}
-                        className="flex items-start gap-3 rounded-lg border p-4 text-sm"
-                      >
-                        <Checkbox
-                          checked={ack.includes(warning.id)}
-                          onCheckedChange={(value) =>
-                            setAck((current) =>
-                              value
-                                ? [...current, warning.id]
-                                : current.filter((id) => id !== warning.id)
-                            )
-                          }
-                        />
-                        {warning.text}
-                      </label>
-                    ))}
-                    <Button
-                      disabled={
-                        disabled ||
-                        workflow.readiness.warnings.some((warning) => !ack.includes(warning.id))
-                      }
-                      onClick={() => void review(true)}
-                    >
-                      Approve saved version {version?.version}
-                    </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            )}
-        </div>
-        <div className="mt-4 flex flex-wrap items-center gap-2">
-          <VersionHistory versions={document.documentVersions ?? []} />
-          <MetadataForm
-            document={document}
-            projects={projects}
-            action={action}
-            disabled={disabled}
-          />
-          <Button variant="ghost" size="sm" disabled={disabled} onClick={() => void generate()}>
-            <Sparkles />
-            Generate draft
-          </Button>
-          <div className="ml-auto flex flex-wrap items-center gap-2">
-            <Button variant="outline" size="sm" asChild disabled={dirty || !version}>
-              {version && !dirty ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <IconButton ref={moreRef} icon={MoreHorizontal} label="More" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="min-w-48">
+              <DropdownMenuItem
+                disabled={!document.documentVersions?.length}
+                onSelect={() => setHistoryOpen(true)}
+              >
+                <History />
+                History
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                disabled={disabled || !document.capabilities.edit}
+                onSelect={() => setMetadataOpen(true)}
+              >
+                <FilePenLine />
+                Information
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                disabled={disabled || !document.capabilities.edit}
+                onSelect={() => {
+                  setError(null)
+                  setGenerateOpen(true)
+                }}
+              >
+                <Sparkles />
+                {version ? 'Generate again' : 'Generate draft'}
+              </DropdownMenuItem>
+              <DropdownMenuItem disabled={dirty || !version} asChild>
                 <a
                   href={urlFor('exportPdfs.preview', { workspaceId, documentId: document.id })}
                   target="_blank"
                   rel="noreferrer"
                 >
+                  <Download />
                   Preview PDF
                 </a>
-              ) : (
-                <span>Preview PDF</span>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link
+                  href={`${urlFor('documents.create', { workspaceId })}${document.projectId ? `?projectId=${document.projectId}` : ''}`}
+                >
+                  <Plus />
+                  New case study
+                </Link>
+              </DropdownMenuItem>
+              {document.capabilities.delete && (
+                <DropdownMenuItem
+                  variant="destructive"
+                  disabled={busy}
+                  onSelect={() => setDeleteOpen(true)}
+                >
+                  <Trash2 />
+                  Delete case study
+                </DropdownMenuItem>
               )}
-            </Button>
-            <Button
-              variant={workflow.readiness.approved ? 'default' : 'outline'}
-              size="sm"
-              disabled={
-                disabled ||
-                !workflow.readiness.approved ||
-                exportTask?.status === 'running' ||
-                exportTask?.status === 'queued'
-              }
-              onClick={() => void exportPdf()}
-            >
-              <Download />
-              Final PDF
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+        {dirty ? (
+          <p role="status" className="mt-3 text-xs text-muted-foreground">
+            Save your changes to continue.
+          </p>
+        ) : reviewRequired && blocker && !workflow.readiness.approved ? (
+          <div className="mt-3 flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground">
+            <Button size="xs" variant="link" className="text-foreground" onClick={showDetails}>
+              <ListChecks aria-hidden="true" />
+              Checklist
             </Button>
           </div>
-        </div>
-        {dirty && (
-          <p className="mt-3 text-xs text-muted-foreground">
-            Save your content before changing project information, reviewing, generating, or
-            exporting.
-          </p>
+        ) : null}
+        {!approvalOpen && !generateOpen && (
+          <div className={error ? 'mt-3' : ''}>
+            <ActionFeedback error={error} />
+          </div>
         )}
       </header>
-      {error && (
-        <div
-          role="alert"
-          className="border-b border-destructive/30 bg-sidebar px-5 py-3 text-sm text-destructive"
+      <VersionHistory
+        versions={document.documentVersions ?? []}
+        open={historyOpen}
+        returnFocus={() => moreRef.current?.focus()}
+        onOpenChange={setHistoryOpen}
+      />
+      <MetadataForm
+        document={document}
+        projects={projects}
+        action={action}
+        disabled={disabled}
+        open={metadataOpen}
+        returnFocus={() => moreRef.current?.focus()}
+        onOpenChange={setMetadataOpen}
+      />
+      <ConfirmAction
+        title="Delete this case study?"
+        description="This permanently removes the case study and its versions. Shared files remain in the library."
+        open={deleteOpen}
+        returnFocus={() => moreRef.current?.focus()}
+        onOpenChange={setDeleteOpen}
+      >
+        <Form route="documents.destroy" routeParams={{ workspaceId, id: document.id }}>
+          {({ processing: deleting }) => (
+            <Button variant="destructive" disabled={deleting}>
+              {deleting ? 'Deleting…' : 'Delete case study'}
+            </Button>
+          )}
+        </Form>
+      </ConfirmAction>
+      <Dialog
+        open={generateOpen}
+        onOpenChange={(open) => {
+          if (!busy) setGenerateOpen(open)
+        }}
+      >
+        <DialogContent
+          onCloseAutoFocus={(event) => {
+            event.preventDefault()
+            moreRef.current?.focus()
+          }}
         >
-          {error}
-        </div>
-      )}
+          <DialogHeader>
+            <DialogTitle>{version ? 'Generate a new draft?' : 'Generate a draft?'}</DialogTitle>
+            <DialogDescription>
+              Uses your brief and sources. Saved versions stay in History.
+            </DialogDescription>
+          </DialogHeader>
+          <ActionFeedback error={error} />
+          <div className="flex justify-end gap-2">
+            <Button variant="outline" disabled={busy} onClick={() => setGenerateOpen(false)}>
+              Cancel
+            </Button>
+            <Button disabled={disabled} onClick={() => void generate()}>
+              <Sparkles aria-hidden="true" />
+              {busy ? 'Starting…' : 'Generate'}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+      <Dialog
+        open={approvalOpen}
+        onOpenChange={(open) => {
+          if (!busy) setApprovalOpen(open)
+        }}
+      >
+        <DialogContent
+          onCloseAutoFocus={(event) => {
+            event.preventDefault()
+            primaryRef.current?.focus()
+          }}
+        >
+          <DialogHeader>
+            <DialogTitle>Approve version {version?.version}?</DialogTitle>
+            <DialogDescription>
+              Changes to this version or its sources require a new approval.
+            </DialogDescription>
+          </DialogHeader>
+          <ActionFeedback error={error} />
+          {workflow.readiness.warnings.map((warning) => (
+            <label
+              key={warning.id}
+              className="flex items-start gap-3 rounded-lg border p-3 text-sm"
+            >
+              <Checkbox
+                checked={ack.includes(warning.id)}
+                onCheckedChange={(value) =>
+                  setAck((current) =>
+                    value === true
+                      ? [...current, warning.id]
+                      : current.filter((id) => id !== warning.id)
+                  )
+                }
+              />
+              {warning.text}
+            </label>
+          ))}
+          <Button
+            disabled={
+              disabled ||
+              !workflow.readiness.canSubmit ||
+              workflow.readiness.warnings.some((warning) => !ack.includes(warning.id))
+            }
+            onClick={() => void review(true)}
+          >
+            <Check aria-hidden="true" />
+            {busy ? 'Approving…' : 'Approve version'}
+          </Button>
+        </DialogContent>
+      </Dialog>
       {notice && (
         <p role="status" className="sr-only">
           {notice}
         </p>
       )}
       {exportTask && (
-        <div
-          role="status"
-          className="flex flex-wrap items-center gap-3 border-b bg-sidebar p-4 text-xs"
-        >
-          {['queued', 'running'].includes(exportTask.status) ? (
-            <>
-              <LoaderCircle className="size-4 animate-spin" />
-              Preparing approved PDF…
-            </>
-          ) : exportTask.status === 'succeeded' && exportTask.result?.downloadUrl ? (
-            <>
-              <Check className="size-4" />
-              Approved PDF is ready.
-              <Button size="sm" asChild>
-                <a href={exportTask.result.downloadUrl}>Download PDF</a>
-              </Button>
-            </>
-          ) : (
-            <span className="text-destructive">
-              {exportTask.error ||
-                'This export is no longer current. Request a new PDF after approval.'}
-            </span>
-          )}
+        <div className="space-y-3 border-b bg-sidebar p-4 text-xs">
+          <div role="status" className="flex flex-wrap items-center gap-3">
+            {exporting ? (
+              <>
+                <LoaderCircle aria-hidden="true" className="size-4 animate-spin" />
+                Preparing PDF…
+              </>
+            ) : exportTask.status === 'succeeded' && exportTask.result?.downloadUrl ? (
+              <>
+                <Check aria-hidden="true" className="size-4" />
+                PDF ready.
+                <Button size="sm" asChild>
+                  <a href={exportTask.result.downloadUrl}>Download PDF</a>
+                </Button>
+              </>
+            ) : (
+              <span className="text-destructive">
+                {safeMessage(exportTask.error, 'PDF preparation stopped. Request a new PDF.')}
+              </span>
+            )}
+          </div>
+          <ActionFeedback
+            error={pollError}
+            onRetry={() => {
+              setPollError(null)
+              setRefresh((value) => value + 1)
+            }}
+          />
         </div>
       )}
       {unavailableEvidence && (
-        <p role="status" className="border-b bg-primary/10 px-5 py-3 text-xs leading-relaxed">
-          Some evidence in the saved history is unavailable or cannot be verified. Those citations
-          and images are hidden. Inspect the source library before submitting another review.
+        <p role="status" className="border-b bg-primary/10 px-5 py-3 text-xs">
+          Some sources are unavailable. Their citations and images are hidden. Check the file
+          library before review.
         </p>
       )}
       {processing && (
@@ -424,16 +565,25 @@ export default function Edit({
           role="status"
           className="flex items-center gap-2 border-b bg-sidebar px-5 py-3 text-xs"
         >
-          <LoaderCircle className="size-4 animate-spin" />
-          Preparing an AI draft. Saved content remains available below.
+          <LoaderCircle aria-hidden="true" className="size-4 animate-spin" />
+          Generating… Saved content is safe.
         </div>
       )}
       {document.generationStatus === 'failed' && (
-        <p role="alert" className="border-b p-4 text-xs text-destructive">
-          {document.generationError || 'Draft generation failed. Your saved content is preserved.'}
-        </p>
+        <div className="space-y-2 border-b p-4">
+          <p role="alert" className="text-xs text-destructive">
+            {safeMessage(
+              document.generationError,
+              'Draft generation failed. Your saved content is safe.'
+            )}
+          </p>
+          <Button variant="outline" size="sm" disabled={disabled} onClick={() => void generate()}>
+            <Sparkles aria-hidden="true" />
+            Retry generation
+          </Button>
+        </div>
       )}
-      <div className="flex min-w-0 items-start">
+      <div className="flex min-w-0 flex-col items-start xl:flex-row">
         <DocumentEditor
           key={document.id}
           title={document.title}
@@ -443,35 +593,23 @@ export default function Edit({
           initialContent={version?.content ?? null}
           onDirtyChange={onDirty}
         />
-        {wide ? (
-          <aside
-            aria-label="Document inspector"
-            className="sticky top-0 max-h-dvh w-72 shrink-0 overflow-y-auto border-l bg-sidebar"
-          >
-            {inspector}
-          </aside>
-        ) : (
-          <Sheet
-            open={panel}
-            onOpenChange={(value) => {
-              if (
-                !value &&
-                dirtyKeys.some((key) => ['source-selection', 'issue-form'].includes(key)) &&
-                !window.confirm('Discard unsaved inspector changes?')
-              )
-                return
-              setPanel(value)
-            }}
-          >
-            <SheetContent className="w-[min(100vw,22rem)] gap-0 overflow-y-auto p-0">
-              <SheetHeader className="border-b p-5">
-                <SheetTitle>Document inspector</SheetTitle>
-                <SheetDescription>Properties, readiness, evidence, and issues.</SheetDescription>
-              </SheetHeader>
-              {inspector}
-            </SheetContent>
-          </Sheet>
-        )}
+        <aside
+          ref={inspectorRef}
+          id="document-details"
+          tabIndex={-1}
+          aria-label="Document details"
+          className={`${reviewRequired || panel ? 'block' : 'hidden'} order-first w-full shrink-0 border-b bg-sidebar outline-none xl:sticky xl:top-0 xl:order-last xl:block xl:max-h-dvh xl:w-72 xl:overflow-y-auto xl:border-b-0 xl:border-l`}
+        >
+          <DocumentInspector
+            key={document.id}
+            document={document}
+            workflow={workflow}
+            availableFiles={availableFiles}
+            issues={issues}
+            action={action}
+            disabled={disabled}
+          />
+        </aside>
       </div>
     </div>
   )

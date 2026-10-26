@@ -1,5 +1,6 @@
 import db from '@adonisjs/lucid/services/db'
 import drive from '@adonisjs/drive/services/main'
+import DocumentImageService from '#services/documents/document_image_service'
 import {
   missingResource,
   uuid,
@@ -122,9 +123,11 @@ export default class EvidenceService {
         ]
       : []
     const { attachChunkMetadata } = await import('#services/documents/chunk_metadata_service')
+    const images = await new DocumentImageService().references(context, documentId, value)
     return attachChunkMetadata(
       value,
-      rows.map((row) => this.source(context, documentId, row))
+      rows.map((row) => this.source(context, documentId, row)),
+      images
     )
   }
 }

@@ -4,9 +4,11 @@ import { EditorContent, type JSONContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder'
 import { useEffect, useRef, useState } from 'react'
-import { Save, Download, LoaderCircle } from 'lucide-react'
+import { Save, Download, LoaderCircle, RefreshCw, RotateCcw, ChevronsRight } from 'lucide-react'
 import { urlFor } from '@/client'
-import { api, ApiError } from '@/lib/api'
+import { api, ApiError, feedbackError } from '@/lib/api'
+import { ActionFeedback } from '@/components/action_feedback'
+import { IconButton } from '@/components/icon_button'
 import { Button } from '@/components/ui/button'
 import { ToolbarProvider } from '@/components/toolbars/toolbar_provider'
 import { LinkToolbar, BlockStyleToolbar } from '@/components/toolbars/link'
@@ -18,6 +20,7 @@ import { UndoToolbar } from '@/components/toolbars/undo'
 import { RedoToolbar } from '@/components/toolbars/redo'
 import { SourceCitation } from '@/components/extensions/source_citation'
 import { ImageExtension } from '@/components/extensions/image'
+import { DocumentImageUpload } from '@/components/documents/image_upload'
 import { writingReveal } from '../../../shared/writing_reveal.ts'
 const EMPTY = { type: 'doc', content: [{ type: 'paragraph' }] }
 const extensions = [
@@ -55,15 +58,17 @@ export default function DocumentEditor({
   const [dirty, setDirty] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
+  const [failure, setFailure] = useState<ApiError | null>(null)
   const [conflict, setConflict] = useState(false)
   const [writing, setWriting] = useState(false)
+  const [imagePending, setImagePending] = useState(false)
   const waitingForGeneration = useRef(generationStatus === 'processing')
   const frame = useRef<number | null>(null)
   const finishWriting = useRef<() => void>(() => {})
   useUnsavedChanges(`editor-${documentId}`, dirty || saving)
   useEffect(() => {
-    onDirtyChange?.(dirty || saving || writing)
-  }, [dirty, saving, writing, onDirtyChange])
+    onDirtyChange?.(dirty || saving || writing || imagePending)
+  }, [dirty, saving, writing, imagePending, onDirtyChange])
   const saveRef = useRef<() => Promise<void>>(async () => {})
   const editor = useEditor({
     extensions,
@@ -94,6 +99,7 @@ export default function DocumentEditor({
       busy.current = true
       setSaving(true)
       setError('')
+      setFailure(null)
       const intent = pending.current ?? {
         content: editor.getJSON(),
         baseVersionId: base.current,
@@ -116,12 +122,12 @@ export default function DocumentEditor({
         if (changed.current) timer.current = setTimeout(() => void saveRef.current(), 1000)
       } catch (reason) {
         if (!mounted.current) return
+        const saveError = feedbackError(reason, 'Unable to save. Your changes remain here.')
+        setFailure(saveError)
         setError(
           !navigator.onLine
             ? 'You are offline. Your local changes remain here. Retry when connected.'
-            : reason instanceof Error
-              ? reason.message
-              : 'Unable to save. Your changes remain here.'
+            : saveError.message
         )
         if (reason instanceof ApiError && reason.status === 409) {
           blocked.current = true
@@ -141,6 +147,7 @@ export default function DocumentEditor({
     if (changed.current || busy.current) {
       blocked.current = true
       setConflict(true)
+      setFailure(null)
       setError(
         'Another member saved a newer version. Your local changes are still here. Download them before loading the latest version.'
       )
@@ -230,6 +237,7 @@ export default function DocumentEditor({
     editor?.commands.setContent(initialContent ?? EMPTY, { emitUpdate: false })
     setDirty(false)
     setError('')
+    setFailure(null)
     setConflict(false)
   }
   if (!editor)
@@ -239,7 +247,7 @@ export default function DocumentEditor({
       </div>
     )
   return (
-    <section className="min-w-0 flex-1">
+    <section className="w-full min-w-0 flex-1 xl:w-auto">
       <div className="sticky top-0 z-20 flex flex-wrap items-center gap-2 border-b bg-sidebar px-4 py-2">
         <ToolbarProvider editor={editor}>
           <div
@@ -255,6 +263,13 @@ export default function DocumentEditor({
             <LinkToolbar />
             <BulletListToolbar />
             <OrderedListToolbar />
+            <DocumentImageUpload
+              editor={editor}
+              workspaceId={workspaceId}
+              documentId={documentId}
+              disabled={writing || generationStatus === 'processing' || conflict}
+              onPendingChange={setImagePending}
+            />
           </div>
         </ToolbarProvider>
         <div className="ml-auto flex items-center gap-2">
@@ -273,22 +288,23 @@ export default function DocumentEditor({
           </span>
           {writing && (
             <Button variant="ghost" size="sm" onClick={() => finishWriting.current()}>
-              Show full draft
+              <ChevronsRight aria-hidden="true" />
+              Show draft
             </Button>
           )}
-          <Button
+          <IconButton
+            label={saving ? 'Saving' : 'Save'}
+            icon={saving ? LoaderCircle : Save}
             variant="ghost"
-            size="sm"
+            className={saving ? '[&_svg]:animate-spin' : undefined}
             disabled={!dirty || saving || conflict}
             onClick={() => void saveRef.current()}
-          >
-            {saving ? <LoaderCircle className="animate-spin" /> : <Save />}Save
-          </Button>
+          />
         </div>
       </div>
       {error && (
-        <div role="alert" className="space-y-3 border-b border-destructive/30 bg-sidebar p-4">
-          <p className="text-sm text-destructive">{error}</p>
+        <div className="space-y-3 border-b border-destructive/30 bg-sidebar p-4">
+          <ActionFeedback error={failure ?? new ApiError(error, conflict ? 409 : 500)} />
           <div className="flex flex-wrap gap-2">
             <Button variant="outline" size="sm" onClick={downloadLocal}>
               <Download />
@@ -296,18 +312,20 @@ export default function DocumentEditor({
             </Button>
             {conflict ? (
               <Button variant="outline" size="sm" onClick={loadLatest}>
+                <RefreshCw aria-hidden="true" />
                 Load latest version
               </Button>
-            ) : (
+            ) : !failure || failure.retryable ? (
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => void saveRef.current()}
                 disabled={saving}
               >
+                <RotateCcw aria-hidden="true" />
                 Retry save
               </Button>
-            )}
+            ) : null}
           </div>
         </div>
       )}

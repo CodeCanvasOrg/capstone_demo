@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { ChatPromptTemplate } from '@langchain/core/prompts'
 
-function getStructuredOutput() {
+function getStructuredOutput({ editor = false }: { editor?: boolean } = {}) {
   // Tiptap JSON marks (e.g., bold, italic, link)
   const TiptapMarkSchema = z.object({
     type: z.enum(['bold', 'italic', 'strike', 'underline', 'code', 'link']),
@@ -44,6 +44,19 @@ function getStructuredOutput() {
             .describe('Use only IDs shown in the source material for image and citation nodes'),
           alt: z.string().optional().describe('Short accessible description for an image node'),
           title: z.string().optional().describe('Optional image caption'),
+          ...(editor
+            ? {
+                documentImageId: z.string().uuid().nullish(),
+                sourceChunkId: z.string().nullish(),
+                alt: z.string().max(2000).nullish(),
+                title: z.string().max(2000).nullish(),
+                width: z
+                  .union([z.number().finite().min(1).max(10000), z.enum(['100%', 'fit-content'])])
+                  .nullish(),
+                height: z.number().finite().min(1).max(10000).nullish(),
+                align: z.enum(['left', 'center', 'right']).nullish(),
+              }
+            : {}),
         })
         .optional(),
       marks: z.array(TiptapMarkSchema).optional(),

@@ -22,6 +22,13 @@ export type TipTapDocument = {
   content: TipTapNode[]
 }
 
+export type DocumentImageReference = {
+  id: string
+  src: string
+  filename: string
+  mime: string
+}
+
 function isWebUrl(value: string | null): value is string {
   if (!value) return false
   if (/^\/workspaces\/[0-9a-f-]+\/(files|documents)\//i.test(value)) return true
@@ -40,11 +47,28 @@ function isWebUrl(value: string | null): value is string {
  */
 export function attachChunkMetadata(
   document: TipTapDocument,
-  sourceChunks: SourceChunk[]
+  sourceChunks: SourceChunk[],
+  documentImages: ReadonlyMap<string, DocumentImageReference> = new Map()
 ): TipTapDocument {
   const chunksById = new Map(sourceChunks.map((chunk) => [chunk.id, chunk]))
 
   function enrich(node: TipTapNode): TipTapNode | null {
+    if (node.type === 'image' && typeof node.attrs?.documentImageId === 'string') {
+      const image = documentImages.get(node.attrs.documentImageId)
+      if (!image) return null
+      return {
+        type: 'image',
+        attrs: {
+          documentImageId: image.id,
+          src: image.src,
+          alt: typeof node.attrs.alt === 'string' ? node.attrs.alt : image.filename,
+          title: typeof node.attrs.title === 'string' ? node.attrs.title : null,
+          width: node.attrs.width ?? '100%',
+          height: node.attrs.height ?? null,
+          align: node.attrs.align ?? 'center',
+        },
+      }
+    }
     if (node.type === 'sourceCitation' || node.type === 'image') {
       const sourceChunkId = node.attrs?.sourceChunkId
       const source = typeof sourceChunkId === 'string' ? chunksById.get(sourceChunkId) : undefined
@@ -73,6 +97,9 @@ export function attachChunkMetadata(
             mediaType: source.mediaType,
             chunkIndex: source.chunkIndex,
             pageNumber: source.pageNumber ?? null,
+            width: node.attrs?.width ?? '100%',
+            height: node.attrs?.height ?? null,
+            align: node.attrs?.align ?? 'center',
           },
         }
       }

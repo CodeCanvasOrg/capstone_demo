@@ -9,13 +9,13 @@ export default function AccessProblem({ status = 404 }: { status?: number }) {
       <h1 className="mt-4 text-3xl font-semibold tracking-tight">This link is unavailable.</h1>
       <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
         {status === 410
-          ? 'The invitation or old action has expired, been revoked, or been replaced. Request a new invitation or open a current workspace.'
+          ? 'This link expired or was revoked. Request a new invitation.'
           : status === 403
             ? 'Your account does not have permission to perform this action.'
             : 'The item could not be found in a workspace you can access.'}
       </p>
       <Button asChild className="mt-8">
-        <Link route="home">Return to your workspace</Link>
+        <Link route="home">Back to home</Link>
       </Button>
     </section>
   )

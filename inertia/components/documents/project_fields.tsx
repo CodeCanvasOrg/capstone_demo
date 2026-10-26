@@ -10,10 +10,12 @@ export function ProjectFields({
   value,
   onChange,
   disabled = false,
+  error,
 }: {
   value: JSONContent
   onChange: (value: JSONContent) => void
   disabled?: boolean
+  error?: string
 }) {
   const editor = useEditor({
     extensions: [
@@ -55,7 +57,12 @@ export function ProjectFields({
   useEffect(() => {
     editor?.setEditable(!disabled, false)
     editor?.view.dom.setAttribute('aria-readonly', String(disabled))
-  }, [editor, disabled])
+    editor?.view.dom.setAttribute('aria-invalid', String(!!error))
+    editor?.view.dom.setAttribute(
+      'aria-describedby',
+      error ? 'information-document-error' : 'information-document-help'
+    )
+  }, [editor, disabled, error])
   const formats = [
     {
       label: 'Bold',
@@ -129,9 +136,13 @@ export function ProjectFields({
         </Button>
       </div>
       <p id="information-document-help" className="mb-8 text-xs text-muted-foreground">
-        Write freely under each heading. Use paragraphs, lists, or Markdown shortcuts to format your
-        notes. Complete each section before review.
+        Complete each section before review.
       </p>
+      {error && (
+        <p id="information-document-error" role="alert" className="mb-3 text-xs text-destructive">
+          {error}
+        </p>
+      )}
       <EditorContent editor={editor} />
     </section>
   )
@@ -140,10 +151,12 @@ export function TitleField({
   value,
   onChange,
   disabled = false,
+  error,
 }: {
   value: string
   onChange: (value: string) => void
   disabled?: boolean
+  error?: string
 }) {
   return (
     <div className="space-y-2">
@@ -152,6 +165,8 @@ export function TitleField({
       </Label>
       <input
         id="case-title"
+        aria-invalid={!!error}
+        aria-describedby={error ? 'case-title-error' : undefined}
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder="Case-study title"
@@ -160,6 +175,11 @@ export function TitleField({
         required
         maxLength={255}
       />
+      {error && (
+        <p id="case-title-error" role="alert" className="text-xs text-destructive">
+          {error}
+        </p>
+      )}
     </div>
   )
 }

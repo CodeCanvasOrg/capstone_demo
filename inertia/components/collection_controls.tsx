@@ -3,6 +3,7 @@ import { Link } from '@adonisjs/inertia/react'
 import { useWorkspaceId } from '@/providers/workspace_provider'
 import { router } from '@inertiajs/react'
 import { Search, ArrowLeft, ArrowRight } from 'lucide-react'
+import { IconButton } from '@/components/icon_button'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 export type Pagination = { total: number; currentPage: number; lastPage: number; perPage: number }
@@ -67,9 +68,7 @@ export function CollectionSearch({
           className="h-10 bg-sidebar pl-9"
         />
       </div>
-      <Button variant="outline" type="submit" className="h-10">
-        Search
-      </Button>
+      <IconButton icon={Search} label="Search" type="submit" className="size-10" />
     </form>
   )
 }
@@ -91,43 +90,43 @@ export function PaginationControls({
       aria-label="Pagination"
       className="mt-6 flex flex-wrap items-center justify-between gap-3 text-xs text-muted-foreground"
     >
-      <span>
-        {pagination.total} results · Page {pagination.currentPage} of {pagination.lastPage}
+      <span aria-label={`Page ${pagination.currentPage} of ${pagination.lastPage}`}>
+        {pagination.currentPage} / {pagination.lastPage}
       </span>
       <div className="flex gap-2">
         <Button
           variant="outline"
-          size="sm"
+          size="icon-sm"
+          aria-label="Previous page"
+          title="Previous page"
           asChild={pagination.currentPage > 1}
           disabled={pagination.currentPage === 1}
         >
           {pagination.currentPage > 1 ? (
             <Link href={url(pagination.currentPage - 1)}>
-              <ArrowLeft />
-              Previous
+              <ArrowLeft aria-hidden="true" />
             </Link>
           ) : (
             <>
-              <ArrowLeft />
-              Previous
+              <ArrowLeft aria-hidden="true" />
             </>
           )}
         </Button>
         <Button
           variant="outline"
-          size="sm"
+          size="icon-sm"
+          aria-label="Next page"
+          title="Next page"
           asChild={pagination.currentPage < pagination.lastPage}
           disabled={pagination.currentPage >= pagination.lastPage}
         >
           {pagination.currentPage < pagination.lastPage ? (
             <Link href={url(pagination.currentPage + 1)}>
-              Next
-              <ArrowRight />
+              <ArrowRight aria-hidden="true" />
             </Link>
           ) : (
             <>
-              Next
-              <ArrowRight />
+              <ArrowRight aria-hidden="true" />
             </>
           )}
         </Button>

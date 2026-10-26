@@ -1,7 +1,7 @@
 import { useWorkspaceId } from '@/providers/workspace_provider'
 import { type Data } from '@generated/data'
 import { Form, Link } from '@adonisjs/inertia/react'
-import { MoreHorizontal } from 'lucide-react'
+import { MoreHorizontal, PencilLine, Trash2 } from 'lucide-react'
 import { cn } from 'cn'
 import {
   AlertDialog,
@@ -75,6 +75,7 @@ export default function DocumentCard({ document }: DocumentCardProps) {
             <DropdownMenuContent align="end">
               <DropdownMenuItem asChild>
                 <Link route="documents.edit" routeParams={{ workspaceId, id: document.id }}>
+                  <PencilLine aria-hidden="true" />
                   Edit
                 </Link>
               </DropdownMenuItem>
@@ -83,6 +84,7 @@ export default function DocumentCard({ document }: DocumentCardProps) {
                   variant="destructive"
                   onSelect={(event) => event.preventDefault()}
                 >
+                  <Trash2 aria-hidden="true" />
                   Delete
                 </DropdownMenuItem>
               </AlertDialogTrigger>

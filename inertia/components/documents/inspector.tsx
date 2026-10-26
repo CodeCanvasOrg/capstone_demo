@@ -1,16 +1,32 @@
 import { RichTextEditor, textToRichText, type RichText } from '@/components/rich_text_editor'
 import { SourcePicker } from '@/components/files/source_picker'
-import { useState, type FormEvent } from 'react'
+import { useRef, useState, type FormEvent } from 'react'
 import type { Data } from '@generated/data'
-import { Link, Form } from '@adonisjs/inertia/react'
-import { Check, Plus, FileText, CalendarDays, UserRound, AlertCircle } from 'lucide-react'
+import { Link } from '@adonisjs/inertia/react'
+import {
+  Check,
+  Plus,
+  FileText,
+  CalendarDays,
+  UserRound,
+  AlertCircle,
+  Circle,
+  ListChecks,
+  MessageSquare,
+  Info,
+  Save,
+  RotateCcw,
+  PencilLine,
+} from 'lucide-react'
 import { urlFor } from '@/client'
 import { useWorkspaceId, useUnsavedChanges } from '@/providers/workspace_provider'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Progress } from '@/components/ui/progress'
+import { Disclosure } from '@/components/disclosure'
+import { ActionFeedback, FieldError, focusInvalid } from '@/components/action_feedback'
+import type { ActionResult, ApiError } from '@/lib/api'
 import {
   Dialog,
   DialogContent,
@@ -19,24 +35,32 @@ import {
   DialogDescription,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { ConfirmAction } from '@/components/confirm_action'
 import { ProjectFields, TitleField } from './project_fields'
 import { informationToContent } from '../../../shared/project_information.ts'
 import { ProcessingStatusBadge } from './status'
-export type Action = (url: string, method: string, body: unknown) => Promise<boolean>
+export type Action = (url: string, method: string, body: unknown) => Promise<ActionResult>
 export function MetadataForm({
   document,
   projects,
   action,
   disabled,
+  open: controlledOpen,
+  onOpenChange,
+  returnFocus,
 }: {
+  returnFocus?: () => void
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
   document: Data.Document
   projects: Data.Project[]
   action: Action
   disabled: boolean
 }) {
   const workspaceId = useWorkspaceId()
-  const [open, setOpen] = useState(false)
+  const [internalOpen, setInternalOpen] = useState(false)
+  const open = controlledOpen ?? internalOpen
+  const setOpen = onOpenChange ?? setInternalOpen
+  const [error, setError] = useState<ApiError | null>(null)
   const [title, setTitle] = useState(document.title)
   const [informationContent, setInformationContent] = useState(
     document.projectInformationContent ?? informationToContent(document.projectInformation)
@@ -45,6 +69,22 @@ export function MetadataForm({
   const [projectId, setProjectId] = useState(document.projectId ?? '')
   const [revision, setRevision] = useState(document.metadataRevision)
   const [changed, setChanged] = useState(false)
+  const [previousOpen, setPreviousOpen] = useState(open)
+  if (open !== previousOpen) {
+    setPreviousOpen(open)
+    if (open) {
+      setTitle(document.title)
+      setInformationContent(
+        document.projectInformationContent ?? informationToContent(document.projectInformation)
+      )
+      setDueDate(document.dueDate?.slice(0, 10) ?? '')
+      setProjectId(document.projectId ?? '')
+      setRevision(document.metadataRevision)
+      setChanged(false)
+      setError(null)
+    }
+  }
+
   useUnsavedChanges('project-information', open && changed)
   function begin(next: boolean) {
     if (!next && changed && !window.confirm('Discard changes to project information?')) return
@@ -57,13 +97,18 @@ export function MetadataForm({
       setProjectId(document.projectId ?? '')
       setRevision(document.metadataRevision)
       setChanged(false)
+      setError(null)
     }
     setOpen(next)
   }
   async function submit(event: FormEvent) {
     event.preventDefault()
-    if (
-      await action(urlFor('documents.update', { workspaceId, id: document.id }), 'PUT', {
+    setError(null)
+    const form = event.currentTarget as HTMLFormElement
+    const result = await action(
+      urlFor('documents.update', { workspaceId, id: document.id }),
+      'PUT',
+      {
         title,
         description: document.description,
         descriptionContent: document.descriptionContent,
@@ -71,20 +116,37 @@ export function MetadataForm({
         dueDate: dueDate || null,
         projectId: projectId || null,
         metadataRevision: revision,
-      })
-    ) {
+      }
+    )
+    if (result.ok) {
       setChanged(false)
+      setError(null)
       setOpen(false)
+    } else {
+      setError(result.error)
+      focusInvalid(form)
     }
   }
+
   return (
     <Dialog open={open} onOpenChange={begin}>
-      <DialogTrigger asChild>
-        <Button variant="outline" size="sm" disabled={disabled}>
-          Project information
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="max-h-[90dvh] overflow-y-auto px-6 py-8 sm:max-w-4xl sm:px-12 sm:py-10">
+      {controlledOpen === undefined && (
+        <DialogTrigger asChild>
+          <Button variant="outline" size="sm" disabled={disabled}>
+            <PencilLine aria-hidden="true" />
+            Information
+          </Button>
+        </DialogTrigger>
+      )}
+      <DialogContent
+        onCloseAutoFocus={(event) => {
+          if (returnFocus) {
+            event.preventDefault()
+            returnFocus()
+          }
+        }}
+        className="max-h-[90dvh] overflow-y-auto px-6 py-8 sm:max-w-4xl sm:px-12 sm:py-10"
+      >
         <DialogHeader className="text-left">
           <DialogTitle className="pr-8 text-xs font-medium text-muted-foreground">
             Project information
@@ -95,38 +157,61 @@ export function MetadataForm({
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={submit} onChange={() => setChanged(true)} className="space-y-5">
-          <TitleField value={title} onChange={setTitle} disabled={disabled} />
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="space-y-2">
-              <Label htmlFor="document-deadline">Deadline</Label>
-              <Input
-                id="document-deadline"
-                type="date"
-                value={dueDate}
-                disabled={disabled}
-                onChange={(event) => setDueDate(event.target.value)}
-              />
+          <ActionFeedback error={error} />
+          <TitleField
+            value={title}
+            onChange={setTitle}
+            disabled={disabled}
+            error={error?.details.title}
+          />
+          <Disclosure
+            title="More options"
+            summary={dueDate || (projectId ? 'Project selected' : 'Optional')}
+            reveal={!!(error?.details.dueDate || error?.details.projectId)}
+          >
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="document-deadline">Deadline</Label>
+                <Input
+                  id="document-deadline"
+                  aria-invalid={!!error?.details.dueDate}
+                  aria-describedby={error?.details.dueDate ? 'deadline-error' : undefined}
+                  type="date"
+                  value={dueDate}
+                  disabled={disabled}
+                  onChange={(event) => setDueDate(event.target.value)}
+                />
+                <FieldError id="deadline-error" message={error?.details.dueDate} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="document-project">Project</Label>
+                <select
+                  id="document-project"
+                  aria-invalid={!!error?.details.projectId}
+                  aria-describedby={error?.details.projectId ? 'project-error' : undefined}
+                  className="form-select"
+                  value={projectId}
+                  disabled={disabled}
+                  onChange={(event) => setProjectId(event.target.value)}
+                >
+                  <option value="">Ungrouped</option>
+                  {projects.map((project) => (
+                    <option key={project.id} value={project.id}>
+                      {project.name}
+                    </option>
+                  ))}
+                </select>
+                <FieldError id="project-error" message={error?.details.projectId} />
+              </div>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="document-project">Project</Label>
-              <select
-                id="document-project"
-                className="form-select"
-                value={projectId}
-                disabled={disabled}
-                onChange={(event) => setProjectId(event.target.value)}
-              >
-                <option value="">Ungrouped</option>
-                {projects.map((project) => (
-                  <option key={project.id} value={project.id}>
-                    {project.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
+          </Disclosure>
           <div className="border-t pt-4">
             <ProjectFields
+              error={
+                Object.entries(error?.details ?? {}).find(([key]) =>
+                  key.startsWith('projectInformation')
+                )?.[1]
+              }
               value={informationContent}
               disabled={disabled}
               onChange={(value) => {
@@ -139,7 +224,10 @@ export function MetadataForm({
             <p className="text-xs text-muted-foreground">
               Changes require a fresh review and approval.
             </p>
-            <Button disabled={disabled}>Save information</Button>
+            <Button disabled={disabled}>
+              <Save aria-hidden="true" />
+              {disabled ? 'Saving…' : 'Save'}
+            </Button>
           </div>
         </form>
       </DialogContent>
@@ -158,7 +246,10 @@ export function IssuesPanel({
   disabled: boolean
 }) {
   const workspaceId = useWorkspaceId()
+  const issueReturnFocus = useRef<HTMLElement | null>(null)
   const [editing, setEditing] = useState<Data.DocumentIssue | null>(null)
+  const [error, setError] = useState<ApiError | null>(null)
+  const [panelError, setPanelError] = useState<ApiError | null>(null)
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
@@ -167,6 +258,8 @@ export function IssuesPanel({
   const [changed, setChanged] = useState(false)
   useUnsavedChanges('issue-form', open && changed)
   function begin(issue: Data.DocumentIssue | null) {
+    issueReturnFocus.current = window.document.activeElement as HTMLElement | null
+    setError(null)
     setEditing(issue)
     setTitle(issue?.title ?? '')
     setDescription(issue?.description ?? '')
@@ -180,25 +273,34 @@ export function IssuesPanel({
     const url = editing
       ? urlFor('documentIssues.update', { workspaceId, documentId, issueId: editing.id })
       : urlFor('documentIssues.store', { workspaceId, documentId })
-    if (
-      await action(url, editing ? 'PATCH' : 'POST', {
-        title,
-        description,
-        descriptionContent,
-        blocking,
-        ...(editing ? { state: editing.state, revision: editing.revision } : {}),
-      })
-    ) {
+    const form = event.currentTarget as HTMLFormElement
+    const result = await action(url, editing ? 'PATCH' : 'POST', {
+      title,
+      description,
+      descriptionContent,
+      blocking,
+      ...(editing ? { state: editing.state, revision: editing.revision } : {}),
+    })
+    if (result.ok) {
       setChanged(false)
+      setError(null)
       setOpen(false)
+    } else {
+      setError(result.error)
+      focusInvalid(form)
     }
   }
+
   return (
-    <section className="space-y-4 border-t p-5">
+    <Disclosure
+      title="Issues"
+      icon={MessageSquare}
+      summary={`${issues.filter((issue) => issue.state === 'open').length} open`}
+      defaultOpen={issues.some((issue) => issue.state === 'open' && issue.blocking)}
+    >
+      <ActionFeedback error={panelError} />
       <div className="flex items-center justify-between">
-        <h2 className="eyebrow">
-          Issues · {issues.filter((issue) => issue.state === 'open').length} open
-        </h2>
+        <span className="text-xs text-muted-foreground">Feedback</span>
         <Button
           variant="ghost"
           size="icon-sm"
@@ -225,13 +327,13 @@ export function IssuesPanel({
                 )}
                 <span className="break-words">{issue.title}</span>
               </button>
-              <p className="mt-2 text-[.625rem] text-muted-foreground">
+              <p className="mt-2 text-xs text-muted-foreground">
                 {issue.blocking ? 'Blocks review' : 'Informational'} · {issue.state}
               </p>
               <Button
                 variant="ghost"
                 size="sm"
-                className="mt-2 h-7 px-2 text-[.625rem]"
+                className="mt-2 h-7 px-2 text-xs"
                 disabled={disabled}
                 onClick={() =>
                   void action(
@@ -243,18 +345,21 @@ export function IssuesPanel({
                       state: issue.state === 'open' ? 'resolved' : 'open',
                       revision: issue.revision,
                     }
-                  )
+                  ).then((result) => setPanelError(result.ok ? null : result.error))
                 }
               >
-                {issue.state === 'open' ? 'Mark resolved' : 'Reopen issue'}
+                {issue.state === 'open' ? (
+                  <Check aria-hidden="true" />
+                ) : (
+                  <RotateCcw aria-hidden="true" />
+                )}
+                {issue.state === 'open' ? 'Resolve' : 'Reopen'}
               </Button>
             </li>
           ))}
         </ul>
       ) : (
-        <p className="text-xs leading-relaxed text-muted-foreground">
-          Track feedback here. Open blocking issues prevent review and approval.
-        </p>
+        <p className="text-xs leading-relaxed text-muted-foreground">No issues.</p>
       )}
       <Dialog
         open={open}
@@ -263,7 +368,13 @@ export function IssuesPanel({
           setOpen(value)
         }}
       >
-        <DialogContent className="max-h-[90dvh] gap-0 overflow-y-auto p-0 sm:max-w-4xl">
+        <DialogContent
+          onCloseAutoFocus={(event) => {
+            event.preventDefault()
+            issueReturnFocus.current?.focus()
+          }}
+          className="max-h-[90dvh] gap-0 overflow-y-auto p-0 sm:max-w-4xl"
+        >
           <DialogHeader className="px-6 pt-6 text-left sm:px-10">
             <DialogTitle className="pr-8 text-xs font-medium text-muted-foreground">
               {editing ? 'Edit issue' : 'New issue'}
@@ -273,12 +384,17 @@ export function IssuesPanel({
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={save} onChange={() => setChanged(true)}>
+            <div className="px-6 pt-4 sm:px-10">
+              <ActionFeedback error={error} />
+            </div>
             <div className="px-6 pt-7 sm:px-10">
               <Label htmlFor="issue-title" className="sr-only">
                 Issue title
               </Label>
               <input
                 id="issue-title"
+                aria-invalid={!!error?.details.title}
+                aria-describedby={error?.details.title ? 'issue-title-error' : undefined}
                 value={title}
                 onChange={(event) => setTitle(event.target.value)}
                 placeholder="Issue title"
@@ -287,6 +403,7 @@ export function IssuesPanel({
                 maxLength={255}
                 required
               />
+              <FieldError id="issue-title-error" message={error?.details.title} />
             </div>
             <div className="mx-6 mt-5 border-t py-6 sm:mx-10">
               <RichTextEditor
@@ -296,6 +413,7 @@ export function IssuesPanel({
                   setDescription(text)
                   setChanged(true)
                 }}
+                error={error?.details.description || error?.details.descriptionContent}
                 label="Issue description"
                 placeholder="Describe the issue, add context, or collect feedback…"
                 className="issue-document"
@@ -315,13 +433,14 @@ export function IssuesPanel({
                 Blocks review and approval
               </label>
               <Button disabled={disabled || !title.trim()}>
-                {disabled ? 'Saving…' : editing ? 'Save changes' : 'Create issue'}
+                <Save aria-hidden="true" />
+                {disabled ? 'Saving…' : editing ? 'Save' : 'Add issue'}
               </Button>
             </div>
           </form>
         </DialogContent>
       </Dialog>
-    </section>
+    </Disclosure>
   )
 }
 export function DocumentInspector({
@@ -340,6 +459,7 @@ export function DocumentInspector({
   disabled: boolean
 }) {
   const workspaceId = useWorkspaceId()
+  const [sourceError, setSourceError] = useState<ApiError | null>(null)
   const [files, setFiles] = useState((document.files ?? []).map((file) => file.id))
   const [sourceMode, setSourceMode] = useState(document.sourceMode)
   const [baseline, setBaseline] = useState({
@@ -361,73 +481,43 @@ export function DocumentInspector({
     setBaseline({ ids, mode: document.sourceMode, revision: document.selectionRevision })
   }
   useUnsavedChanges('source-selection', selectionDirty)
+  const checklist = (
+    <ul className="space-y-4">
+      {workflow.readiness.stages.map((stage) => (
+        <li key={stage.key} className="flex items-center gap-3">
+          {stage.complete ? (
+            <Check aria-hidden="true" className="size-4 shrink-0" />
+          ) : (
+            <Circle aria-hidden="true" className="size-4 shrink-0 text-muted-foreground" />
+          )}
+          <span className="sr-only">{stage.complete ? 'Complete' : 'Incomplete'}:</span>
+          <h3 className="text-xs font-semibold">{stage.label}</h3>
+        </li>
+      ))}
+    </ul>
+  )
   return (
     <div className="text-sm">
-      <section className="space-y-4 p-5">
-        <h2 className="eyebrow">Properties</h2>
-        <dl className="space-y-4 text-[.6875rem]">
-          <div className="flex justify-between gap-3">
-            <dt className="flex items-center gap-2 text-muted-foreground">
-              <CalendarDays className="size-3.5" />
-              Created
-            </dt>
-            <dd>{document.createdAt ? new Date(document.createdAt).toLocaleDateString() : '—'}</dd>
-          </div>
-          <div className="flex justify-between gap-3">
-            <dt className="text-muted-foreground">Deadline</dt>
-            <dd>{document.dueDate?.slice(0, 10) || 'Not set'}</dd>
-          </div>
-          <div className="flex justify-between gap-3">
-            <dt className="flex items-center gap-2 text-muted-foreground">
-              <UserRound className="size-3.5" />
-              Owner
-            </dt>
-            <dd className="max-w-40 truncate">{document.user?.fullName || document.user?.email}</dd>
-          </div>
-          <div className="flex justify-between gap-3">
-            <dt className="text-muted-foreground">Version</dt>
-            <dd>{document.documentVersions?.[0]?.version ?? 'No saved content'}</dd>
-          </div>
-        </dl>
-      </section>
-      <section className="space-y-4 border-t p-5">
-        <div className="flex items-end justify-between">
-          <div>
-            <p className="eyebrow">Readiness checklist</p>
-            <p className="mt-2 text-xs font-medium">
-              {workflow.readiness.approved
-                ? 'Approved'
-                : workflow.review && !workflow.review.invalidatedAt
-                  ? 'In review'
-                  : 'Draft in progress'}
-            </p>
-          </div>
-          <strong className="text-xl tracking-tight">{workflow.readiness.percentage}%</strong>
-        </div>
-        <Progress value={workflow.readiness.percentage} aria-label="Checklist completion" />
-        <ol className="space-y-4">
-          {workflow.readiness.stages.map((stage, index) => (
-            <li key={stage.key} className="flex gap-3">
-              <span
-                className={`mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full border text-[.625rem] ${stage.complete ? 'border-foreground bg-foreground text-background' : 'bg-background'}`}
-              >
-                {stage.complete ? <Check className="size-3" /> : index + 1}
-              </span>
-              <div className="min-w-0">
-                <p className="text-[.6875rem] font-semibold">{stage.label}</p>
-                <p className="mt-1 text-[.625rem] leading-relaxed text-muted-foreground">
-                  {stage.complete ? 'Complete' : stage.reasons.join(' ') || 'Not complete'}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ol>
-        <p className="text-[.625rem] leading-relaxed text-muted-foreground">
-          Each stage contributes 25%. This checklist does not measure evidence accuracy or
-          processing time.
-        </p>
-      </section>
-      <section className="space-y-4 border-t p-5">
+      {workflow.readiness.reviewRequired !== false ? (
+        <section className="space-y-4 border-t p-5" aria-label="Review checklist">
+          <h2 className="flex items-center gap-2 text-xs font-semibold">
+            <ListChecks aria-hidden="true" className="size-4" />
+            Checklist
+          </h2>
+          {checklist}
+        </section>
+      ) : (
+        <Disclosure title="Checklist" icon={ListChecks}>
+          {checklist}
+        </Disclosure>
+      )}
+      <Disclosure
+        title="Sources"
+        icon={FileText}
+        summary={sourceMode === 'input_only' ? 'Brief only' : `${files.length} files`}
+        reveal={selectionDirty || !!sourceError}
+      >
+        <ActionFeedback error={sourceError} />
         <div className="flex items-center justify-between">
           <h2 className="eyebrow">Evidence</h2>
           <SourcePicker
@@ -440,8 +530,7 @@ export function DocumentInspector({
             disabled={disabled}
           />
         </div>
-        <p className="text-xs font-semibold">Case-study files</p>
-        <label className="flex items-start gap-2 text-[.6875rem]">
+        <label className="flex items-start gap-2 text-xs">
           <Checkbox
             checked={sourceMode === 'input_only'}
             disabled={disabled}
@@ -469,9 +558,7 @@ export function DocumentInspector({
                       }
                     />
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[.6875rem] font-medium">
-                        {file.filename}
-                      </span>
+                      <span className="block truncate text-xs font-medium">{file.filename}</span>
                       <span className="mt-1 block">
                         <ProcessingStatusBadge status={file.processingStatus} />
                       </span>
@@ -480,7 +567,7 @@ export function DocumentInspector({
                   <Link
                     route="files.edit"
                     routeParams={{ workspaceId, id: file.id }}
-                    className="mt-2 inline-flex items-center gap-1 text-[.625rem] text-muted-foreground underline"
+                    className="mt-2 inline-flex items-center gap-1 text-xs text-muted-foreground underline"
                   >
                     <FileText className="size-3" />
                     Inspect file
@@ -490,9 +577,7 @@ export function DocumentInspector({
           </ul>
         )}
         {!availableFiles.length && sourceMode === 'files' && (
-          <p className="text-xs text-muted-foreground">
-            Upload evidence or explicitly select input-only writing.
-          </p>
+          <p className="text-xs text-muted-foreground">Add files or use your brief.</p>
         )}
         {selectionDirty && (
           <Button
@@ -500,63 +585,81 @@ export function DocumentInspector({
             size="sm"
             disabled={disabled}
             onClick={async () => {
-              if (
-                await action(
-                  urlFor('documentTasks.sources', { workspaceId, documentId: document.id }),
-                  'PUT',
-                  { baseVersionId, selectionRevision, sourceMode, fileIds: files }
-                )
+              setSourceError(null)
+              const result = await action(
+                urlFor('documentTasks.sources', { workspaceId, documentId: document.id }),
+                'PUT',
+                { baseVersionId, selectionRevision, sourceMode, fileIds: files }
               )
+              setSourceError(result.ok ? null : result.error)
+              if (result.ok)
                 setBaseline({ ids: files, mode: sourceMode, revision: selectionRevision })
             }}
           >
-            Save source selection
+            <Save aria-hidden="true" />
+            Save sources
           </Button>
         )}
-        {workflow.readiness.warnings.map((warning) => (
-          <p
-            key={warning.id}
-            className="rounded-lg border border-primary/40 p-3 text-[.625rem] leading-relaxed"
-          >
-            {warning.text}
-          </p>
-        ))}
-      </section>
+      </Disclosure>
+      {workflow.readiness.warnings.length > 0 && (
+        <div className="space-y-2 border-t px-5 py-4">
+          {workflow.readiness.warnings.map((warning) => (
+            <p key={warning.id} className="text-xs leading-relaxed text-muted-foreground">
+              {warning.text}
+            </p>
+          ))}
+        </div>
+      )}
       <IssuesPanel issues={issues} action={action} documentId={document.id} disabled={disabled} />
-      <section className="space-y-3 border-t p-5">
-        <h2 className="eyebrow">Approval history</h2>
+      <Disclosure title="Details" icon={Info}>
+        <div className="space-y-4">
+          <dl className="space-y-4 text-xs">
+            <div className="flex justify-between gap-3">
+              <dt className="flex items-center gap-2 text-muted-foreground">
+                <CalendarDays className="size-3.5" />
+                Created
+              </dt>
+              <dd>
+                {document.createdAt ? new Date(document.createdAt).toLocaleDateString() : '—'}
+              </dd>
+            </div>
+            <div className="flex justify-between gap-3">
+              <dt className="text-muted-foreground">Deadline</dt>
+              <dd>{document.dueDate?.slice(0, 10) || 'Not set'}</dd>
+            </div>
+            <div className="flex justify-between gap-3">
+              <dt className="flex items-center gap-2 text-muted-foreground">
+                <UserRound className="size-3.5" />
+                Owner
+              </dt>
+              <dd className="max-w-40 truncate">
+                {document.user?.fullName || document.user?.email}
+              </dd>
+            </div>
+            <div className="flex justify-between gap-3">
+              <dt className="text-muted-foreground">Version</dt>
+              <dd>{document.documentVersions?.[0]?.version ?? 'No saved content'}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <h3 className="text-xs font-semibold">Approval history</h3>
         {workflow.approvalHistory.length ? (
           workflow.approvalHistory.map((approval) => (
-            <div key={approval.id} className="rounded-lg border p-3 text-[.625rem]">
+            <div key={approval.id} className="rounded-lg border p-3 text-xs">
               <p>
                 {approval.invalidatedAt ? 'Superseded approval' : 'Owner approved'} ·{' '}
                 {approval.createdAt ? new Date(approval.createdAt).toLocaleString() : '—'}
               </p>
               <p className="mt-1 break-words text-muted-foreground">
-                {approval.invalidationReason || 'Approved saved version'} · Owner #
-                {approval.approvedById}
+                {approval.invalidationReason || 'Approved saved version'}
               </p>
             </div>
           ))
         ) : (
-          <p className="text-xs text-muted-foreground">
-            Owner approvals appear here with their saved version.
-          </p>
+          <p className="text-xs text-muted-foreground">No approvals yet.</p>
         )}
-      </section>
-      {document.capabilities.delete && (
-        <section className="border-t p-5">
-          <ConfirmAction
-            trigger="Delete case study"
-            title="Delete case study?"
-            description="This permanently removes this case study and its versions. Files remain in the shared library."
-          >
-            <Form route="documents.destroy" routeParams={{ workspaceId, id: document.id }}>
-              <Button variant="destructive">Delete case study</Button>
-            </Form>
-          </ConfirmAction>
-        </section>
-      )}
+      </Disclosure>
     </div>
   )
 }

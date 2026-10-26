@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { useForm } from '@inertiajs/react'
 import type { Data } from '@generated/data'
-import { FolderOpen, Plus } from 'lucide-react'
+import { FolderOpen, Plus, Save } from 'lucide-react'
 import { urlFor } from '@/client'
 import { useUnsavedChanges, useWorkspace, useWorkspaceId } from '@/providers/workspace_provider'
 import { Button } from '@/components/ui/button'
@@ -86,10 +86,15 @@ export function ProjectDialog({ project }: { project?: Data.Project }) {
               maxLength={120}
               disabled={form.processing}
               aria-invalid={!!form.errors.name}
+              aria-describedby={form.errors.name ? 'project-dialog-name-error' : undefined}
               className="w-full bg-transparent text-2xl font-semibold tracking-tight outline-none placeholder:text-muted-foreground/60 focus-visible:rounded-sm"
             />
             {form.errors.name && (
-              <p role="alert" className="mt-2 text-xs text-destructive">
+              <p
+                id="project-dialog-name-error"
+                role="alert"
+                className="mt-2 text-xs text-destructive"
+              >
                 {form.errors.name}
               </p>
             )}
@@ -100,15 +105,11 @@ export function ProjectDialog({ project }: { project?: Data.Project }) {
               onChange={(value, text) =>
                 form.setData({ ...form.data, description: text, descriptionContent: value })
               }
+              error={form.errors.description || form.errors.descriptionContent}
               label="Project description"
-              placeholder="Write a description, a project brief, or collect ideas…"
+              placeholder="Project brief…"
               disabled={form.processing}
             />
-            {(form.errors.description || form.errors.descriptionContent) && (
-              <p role="alert" className="mt-2 text-xs text-destructive">
-                {form.errors.description || form.errors.descriptionContent}
-              </p>
-            )}
           </div>
           <div className="flex justify-end gap-2 rounded-b-2xl border-t bg-muted/20 px-6 py-4">
             <Button
@@ -121,7 +122,14 @@ export function ProjectDialog({ project }: { project?: Data.Project }) {
               Cancel
             </Button>
             <Button size="sm" disabled={form.processing || !form.data.name.trim()}>
-              {form.processing ? 'Opening…' : project ? 'Save changes' : 'Create project & draft'}
+              {project ? <Save aria-hidden="true" /> : <Plus aria-hidden="true" />}
+              {form.processing
+                ? project
+                  ? 'Saving…'
+                  : 'Creating…'
+                : project
+                  ? 'Save'
+                  : 'Create project & draft'}
             </Button>
           </div>
         </form>

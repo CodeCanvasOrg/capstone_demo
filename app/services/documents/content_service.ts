@@ -16,7 +16,7 @@ export default class ContentService {
     }
     if (JSON.stringify(value).length > 2000000)
       throw new Exception('Document is too large', { status: 422 })
-    const result = getStructuredOutput().safeParse(value)
+    const result = getStructuredOutput({ editor: true }).safeParse(value)
     if (!result.success)
       throw new Exception('Invalid document content', { status: 422, code: 'E_INVALID_CONTENT' })
     const document = result.data as TipTapDocument

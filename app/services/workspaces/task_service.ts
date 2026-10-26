@@ -5,6 +5,7 @@ import { DateTime } from 'luxon'
 import db from '@adonisjs/lucid/services/db'
 import type { TransactionClientContract } from '@adonisjs/lucid/types/database'
 import WorkspaceTask from '#models/workspace_task'
+import Workspace from '#models/workspace'
 import TaskDispatch from '#models/task_dispatch'
 import AccessService, {
   conflict,
@@ -21,6 +22,7 @@ export type SourcePin = {
   embeddingModel: string
 }
 export type TaskPayload = {
+  exportMode?: 'solo' | 'approved'
   approvalId?: string
   versionId?: string
   brandVersion?: string
@@ -198,9 +200,16 @@ export default class TaskService {
   }
   async finish(
     lease: TaskLease,
-    callback?: (trx: TransactionClientContract) => Promise<Record<string, unknown>>
+    callback?: (trx: TransactionClientContract) => Promise<Record<string, unknown>>,
+    options: { lockWorkspace?: boolean } = {}
   ) {
     return db.transaction(async (trx) => {
+      // Export publication must serialize with invitation acceptance and revocation.
+      if (options.lockWorkspace)
+        await Workspace.query({ client: trx })
+          .where('id', lease.context.workspaceId)
+          .forUpdate()
+          .firstOrFail()
       const task = await this.lock(lease, trx)
       const result = callback ? await callback(trx) : {}
       task.merge({ status: 'succeeded', result, leaseToken: null, leaseExpiresAt: null })

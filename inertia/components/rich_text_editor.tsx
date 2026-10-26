@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useId } from 'react'
 import { EditorContent, useEditor, useEditorState, type JSONContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { Bold, Italic, List } from 'lucide-react'
@@ -23,6 +23,7 @@ export function RichTextEditor({
   compact = false,
   disabled = false,
   className,
+  error,
 }: {
   value?: RichText | null
   onChange?: (value: RichText, text: string) => void
@@ -32,8 +33,10 @@ export function RichTextEditor({
   readOnly?: boolean
   compact?: boolean
   disabled?: boolean
+  error?: string
   className?: string
 }) {
+  const errorId = useId()
   const editor = useEditor({
     extensions: [
       StarterKit.configure({ heading: { levels: [1, 2, 3, 4] }, link: { openOnClick: readOnly } }),
@@ -81,6 +84,12 @@ export function RichTextEditor({
   useEffect(() => {
     editor?.setEditable(!readOnly && !disabled, false)
   }, [editor, readOnly, disabled])
+  useEffect(() => {
+    if (!editor) return
+    editor.view.dom.setAttribute('aria-invalid', String(!!error))
+    if (error) editor.view.dom.setAttribute('aria-describedby', errorId)
+    else editor.view.dom.removeAttribute('aria-describedby')
+  }, [editor, error, errorId])
   return (
     <div
       className={cn(
@@ -138,6 +147,11 @@ export function RichTextEditor({
           >
             {placeholder}
           </span>
+        )}
+        {error && (
+          <p id={errorId} role="alert" className="mb-2 text-xs text-destructive">
+            {error}
+          </p>
         )}
         <EditorContent editor={editor} />
       </div>

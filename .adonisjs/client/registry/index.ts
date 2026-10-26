@@ -228,6 +228,18 @@ const routes = {
     tokens: [{"old":"/workspaces/:workspaceId/documents/:id","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:id","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:id","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:id","type":1,"val":"id","end":""}],
     types: placeholder as Registry['documents.destroy']['types'],
   },
+  'documentImages.store': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/images',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/images","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images","type":0,"val":"images","end":""}],
+    types: placeholder as Registry['documentImages.store']['types'],
+  },
+  'documentImages.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/images/:imageId',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":0,"val":"images","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":1,"val":"imageId","end":""}],
+    types: placeholder as Registry['documentImages.show']['types'],
+  },
   'documentVersions.store': {
     methods: ["POST"],
     pattern: '/workspaces/:workspaceId/documents/:documentId/versions',

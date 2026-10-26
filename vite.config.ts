@@ -1,4 +1,5 @@
-import { defineConfig } from 'vite'
+import { realpathSync } from 'node:fs'
+import { defineConfig, searchForWorkspaceRoot } from 'vite'
 import react from '@vitejs/plugin-react'
 import adonisjs from '@adonisjs/vite/client'
 import tailwindcss from '@tailwindcss/vite'
@@ -30,6 +31,13 @@ export default defineConfig({
   },
 
   server: {
+    fs: {
+      allow: [
+        searchForWorkspaceRoot(import.meta.dirname),
+        // Worktrees may share dependencies through a node_modules symlink.
+        realpathSync(new URL('./node_modules', import.meta.url)),
+      ],
+    },
     watch: {
       ignored: ['**/storage/**', '**/tmp/**'],
     },

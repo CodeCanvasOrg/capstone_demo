@@ -36,12 +36,7 @@ export default function Index({
   return (
     <div className="page-wrap">
       <Head title="Case studies" />
-      <PageIntro
-        eyebrow="Shared knowledge"
-        title="All case studies"
-        description="From a first idea to a story ready to share. Everyone in this workspace can contribute."
-        action={action}
-      />
+      <PageIntro title="Case studies" action={action} />
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <nav aria-label="Case study status" className="flex flex-wrap gap-1">
           {[
@@ -110,11 +105,11 @@ export default function Index({
         <CaseStudyList documents={documents} />
       ) : (
         <EmptyState
-          title={filters.q ? 'No matching case studies' : 'Your next story starts here'}
+          title={filters.q ? 'No matching case studies' : 'No case studies yet'}
           description={
             filters.q
               ? 'Try another search or clear the filters.'
-              : 'Create a case study, add the project context, and bring in the sources that support your story.'
+              : 'Start with a brief and optional files.'
           }
           action={action}
         />

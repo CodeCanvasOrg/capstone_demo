@@ -1,3 +1,4 @@
+import { ArrowLeft } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from '@adonisjs/inertia/react'
 import { useWorkspaceId } from '@/providers/workspace_provider'
@@ -14,13 +15,13 @@ export default function UserForm() {
         onSubmit={(file) => setFiles((current) => [...current, file])}
         onRemove={(index) => setFiles((current) => current.filter((_, i) => i !== index))}
       />
-      <p className="text-xs leading-relaxed text-muted-foreground">
-        Uploaded files are saved immediately in this workspace’s shared library. Removing a file
-        from this list only dismisses its upload receipt.
-      </p>
+      {files.length > 0 && (
+        <p className="text-xs text-muted-foreground">Removing a receipt keeps the saved file.</p>
+      )}
       <Button asChild variant="outline">
         <Link route="files.index" routeParams={{ workspaceId }}>
-          Return to library
+          <ArrowLeft aria-hidden="true" />
+          Files
         </Link>
       </Button>
     </div>

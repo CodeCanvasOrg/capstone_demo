@@ -2,13 +2,15 @@ import { Head, router } from '@inertiajs/react'
 import { Form, Link } from '@adonisjs/inertia/react'
 import type { Data } from '@generated/data'
 import { useEffect, useState } from 'react'
-import { Download, FileText } from 'lucide-react'
+import { Download, FileText, Save, AlertTriangle } from 'lucide-react'
 import { useWorkspaceId, useUnsavedChanges } from '@/providers/workspace_provider'
 import { PageIntro } from '@/components/page_intro'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ProcessingStatusBadge } from '@/components/documents/status'
+import { Disclosure } from '@/components/disclosure'
+import { safeMessage } from '@/lib/api'
 import { ConfirmAction } from '@/components/confirm_action'
 export default function Edit({ file }: { file: Data.File }) {
   const workspaceId = useWorkspaceId()
@@ -26,14 +28,12 @@ export default function Edit({ file }: { file: Data.File }) {
     <div className="page-wrap">
       <Head title={file.filename ?? 'File details'} />
       <PageIntro
-        eyebrow="Shared files / Details"
         title={file.filename ?? 'Untitled file'}
-        description="Source material shared across this workspace."
         action={
           <Button asChild variant="outline">
             <a href={file.downloadUrl ?? '#'}>
               <Download />
-              Download original
+              Download
             </a>
           </Button>
         }
@@ -59,9 +59,7 @@ export default function Edit({ file }: { file: Data.File }) {
                   <p className="text-sm font-medium">
                     {file.filetype?.replace('.', '').toUpperCase()} source file
                   </p>
-                  <p className="text-xs text-muted-foreground">
-                    Download the original to inspect its contents.
-                  </p>
+                  <p className="text-xs text-muted-foreground">Download to view.</p>
                 </div>
               )}
             </div>
@@ -85,18 +83,22 @@ export default function Edit({ file }: { file: Data.File }) {
                       maxLength={255}
                       disabled={!file.capabilities.rename}
                       aria-invalid={!!errors.filename}
+                      aria-describedby={errors.filename ? 'filename-error' : undefined}
                     />
                     {errors.filename && (
-                      <p role="alert" className="text-sm text-destructive">
+                      <p id="filename-error" role="alert" className="text-sm text-destructive">
                         {errors.filename}
                       </p>
                     )}
                   </div>
                   {file.capabilities.rename ? (
-                    <Button disabled={saving || filename === file.filename}>Save file name</Button>
+                    <Button disabled={saving || filename === file.filename}>
+                      <Save aria-hidden="true" />
+                      Save
+                    </Button>
                   ) : (
                     <p className="text-xs text-muted-foreground">
-                      Only the uploading owner can rename or delete this file.
+                      Only the owner can rename or delete.
                     </p>
                   )}
                 </>
@@ -106,35 +108,52 @@ export default function Edit({ file }: { file: Data.File }) {
         </div>
         <aside className="space-y-6">
           <section className="space-y-4 rounded-xl border bg-sidebar p-5">
-            <h2 className="eyebrow">Source preparation</h2>
+            <h2 className="eyebrow">File status</h2>
             <ProcessingStatusBadge status={file.processingStatus} />
             <p className="text-xs leading-relaxed text-muted-foreground">
               {processing
-                ? 'Extracting and preparing this file for use as evidence. This status updates automatically.'
+                ? 'Preparing your file…'
                 : file.processingStatus === 'ready'
-                  ? 'Ready to select as evidence for a case study.'
-                  : 'This source needs attention before it can support generation.'}
+                  ? 'Ready to use in case studies.'
+                  : 'This file needs attention before use.'}
             </p>
             {file.processingError && (
               <p role="alert" className="text-xs text-destructive">
-                {file.processingError}
+                {safeMessage(
+                  file.processingError,
+                  'This file could not be prepared. Try again or upload another file.'
+                )}
               </p>
             )}
-            {file.processingWarnings.map((warning) => (
-              <p key={warning} className="text-xs leading-relaxed text-muted-foreground">
-                {warning}
-              </p>
-            ))}
+            {file.processingWarnings.length > 0 && (
+              <Disclosure
+                icon={AlertTriangle}
+                title="File warnings"
+                summary={file.processingWarnings.length}
+              >
+                {file.processingWarnings.map((warning) => (
+                  <p key={warning} className="text-xs text-muted-foreground">
+                    {warning}
+                  </p>
+                ))}
+              </Disclosure>
+            )}
             {file.capabilities.rename &&
               ['failed', 'outdated'].includes(file.processingStatus ?? '') && (
                 <Form route="files.retry" routeParams={{ workspaceId, id: file.id }}>
-                  <input type="hidden" name="mutationId" value={crypto.randomUUID()} />
-                  <input type="hidden" name="baseVersionId" value="" />
-                  <Button variant="outline" size="sm">
-                    {file.processingStatus === 'outdated'
-                      ? 'Prepare with current settings'
-                      : 'Retry preparation'}
-                  </Button>
+                  {({ processing: retrying }) => (
+                    <>
+                      <input type="hidden" name="mutationId" value={crypto.randomUUID()} />
+                      <input type="hidden" name="baseVersionId" value="" />
+                      <Button variant="outline" size="sm" disabled={retrying}>
+                        {retrying
+                          ? 'Preparing…'
+                          : file.processingStatus === 'outdated'
+                            ? 'Prepare again'
+                            : 'Try again'}
+                      </Button>
+                    </>
+                  )}
                 </Form>
               )}
           </section>

@@ -1,7 +1,7 @@
 import { Head } from '@inertiajs/react'
 import { Form } from '@adonisjs/inertia/react'
 import type { Data } from '@generated/data'
-import { Mail, Users } from 'lucide-react'
+import { Mail, Users, UserMinus, Send, RotateCcw, Ban } from 'lucide-react'
 import { useWorkspace } from '@/providers/workspace_provider'
 import { PageIntro } from '@/components/page_intro'
 import { Button } from '@/components/ui/button'
@@ -23,11 +23,7 @@ export default function Members({
   return (
     <div className="page-wrap space-y-8">
       <Head title="Members and invitations" />
-      <PageIntro
-        eyebrow="Workspace / People"
-        title="Better work, together."
-        description="Every active member can view and edit case studies and use the shared files library."
-      />
+      <PageIntro title="Members" />
       <section className="overflow-hidden rounded-xl border bg-sidebar">
         <div className="flex items-center gap-2 border-b p-5">
           <Users className="size-4" />
@@ -54,6 +50,7 @@ export default function Members({
                   title="Remove member?"
                   description="This person will lose access to this workspace, its files, and its case studies. Their pending background work will be cancelled."
                   trigger="Remove"
+                  icon={UserMinus}
                 >
                   <Form
                     route="workspace_members.destroy"
@@ -61,6 +58,7 @@ export default function Members({
                   >
                     {({ processing }) => (
                       <Button variant="destructive" disabled={processing}>
+                        <UserMinus aria-hidden="true" />
                         Remove member
                       </Button>
                     )}
@@ -89,31 +87,34 @@ export default function Members({
                     <Label htmlFor="invite-email">Email address</Label>
                     <Input
                       id="invite-email"
+                      aria-describedby={errors.email ? 'invite-email-error' : undefined}
                       name="email"
                       type="email"
                       placeholder="teammate@company.com"
                       maxLength={254}
                       required
                       aria-invalid={!!errors.email}
+                      disabled={processing}
                     />
                     {errors.email && (
-                      <p role="alert" className="text-sm text-destructive">
+                      <p id="invite-email-error" role="alert" className="text-sm text-destructive">
                         {errors.email}
                       </p>
                     )}
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    The invitation expires in seven days and can only be accepted by this account.
+                    Valid for 7 days · Only this email can accept.
                   </p>
                   <Button disabled={processing}>
-                    {processing ? 'Sending…' : 'Send invitation'}
+                    <Send aria-hidden="true" />
+                    {processing ? 'Sending…' : 'Invite'}
                   </Button>
                 </>
               )}
             </Form>
           </section>
           <section className="overflow-hidden rounded-xl border bg-sidebar">
-            <h2 className="border-b p-5 text-sm font-semibold">Invitation history</h2>
+            <h2 className="border-b p-5 text-sm font-semibold">Invitations</h2>
             {invitations.length ? (
               <ul className="divide-y">
                 {invitations.map((invite) => {
@@ -131,7 +132,7 @@ export default function Members({
                               : expired
                                 ? 'Expired'
                                 : invite.deliveryState === 'failed'
-                                  ? 'Email delivery failed — retry available'
+                                  ? 'Delivery failed'
                                   : invite.deliveryState === 'sent'
                                     ? 'Email sent'
                                     : 'Email queued'}{' '}
@@ -145,6 +146,7 @@ export default function Members({
                         >
                           {({ processing }) => (
                             <Button variant="outline" size="sm" disabled={processing}>
+                              <RotateCcw aria-hidden="true" />
                               Resend
                             </Button>
                           )}
@@ -153,6 +155,7 @@ export default function Members({
                       {active && (
                         <ConfirmAction
                           trigger="Revoke"
+                          icon={Ban}
                           title="Revoke invitation?"
                           description="The emailed invitation link will stop working."
                         >
@@ -160,7 +163,10 @@ export default function Members({
                             route="workspaceInvitations.destroy"
                             routeParams={{ workspaceId, invitationId: invite.id }}
                           >
-                            <Button variant="destructive">Revoke invitation</Button>
+                            <Button variant="destructive">
+                              <Ban aria-hidden="true" />
+                              Revoke invitation
+                            </Button>
                           </Form>
                         </ConfirmAction>
                       )}

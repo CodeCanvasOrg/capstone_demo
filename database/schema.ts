@@ -244,6 +244,42 @@ export class DocumentFileSchema extends BaseModel {
   declare workspaceId: string | null
 }
 
+export class DocumentImageSchema extends BaseModel {
+  static $columns = [
+    'byteSize',
+    'createdAt',
+    'documentId',
+    'filename',
+    'id',
+    'mime',
+    'objectKey',
+    'updatedAt',
+    'uploaderId',
+    'workspaceId',
+  ] as const
+  $columns = DocumentImageSchema.$columns
+  @column()
+  declare byteSize: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare documentId: string
+  @column()
+  declare filename: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare mime: string
+  @column()
+  declare objectKey: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare uploaderId: number
+  @column()
+  declare workspaceId: string
+}
+
 export class DocumentIssueSchema extends BaseModel {
   static $columns = [
     'blocking',
