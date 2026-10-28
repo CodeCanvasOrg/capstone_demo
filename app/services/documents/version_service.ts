@@ -16,7 +16,7 @@ export default class VersionService {
     id: string,
     input: { content: unknown; baseVersionId: string | null; mutationId: string }
   ) {
-    const normalized = new ContentService().normalize(input.content)
+    const normalized = new ContentService().normalize(input.content, { repair: true })
     const requestHash = createHash('sha256')
       .update(JSON.stringify({ content: normalized, baseVersionId: input.baseVersionId }))
       .digest('hex')
@@ -50,7 +50,7 @@ export default class VersionService {
       let version = latest
       if (
         !latest ||
-        JSON.stringify(new ContentService().normalize(latest.content)) !==
+        JSON.stringify(new ContentService().normalize(latest.content, { repair: true })) !==
           JSON.stringify(normalized)
       ) {
         version = await DocumentVersion.create(

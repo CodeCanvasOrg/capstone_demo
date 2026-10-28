@@ -3,7 +3,11 @@ import { getStructuredOutput } from '#services/structured_model_output_service'
 import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
 
 export default class ContentService {
-  normalize(value: unknown): TipTapDocument {
+  /**
+   * Case-study drafts pass `repair` so malformed model output stays editable;
+   * user-typed rich text is left strict so malformed input is still rejected.
+   */
+  normalize(value: unknown, { repair = false }: { repair?: boolean } = {}): TipTapDocument {
     const stack: { value: unknown; depth: number }[] = [{ value, depth: 0 }]
     let count = 0
     while (stack.length) {
@@ -19,7 +23,8 @@ export default class ContentService {
     const result = getStructuredOutput({ editor: true }).safeParse(value)
     if (!result.success)
       throw new Exception('Invalid document content', { status: 422, code: 'E_INVALID_CONTENT' })
-    const document = result.data as TipTapDocument
+    const parsed = result.data as TipTapDocument
+    const document = repair ? repairStructure(parsed) : parsed
     const visit = (node: TipTapDocument['content'][number], depth = 0) => {
       if (depth > 50) throw new Exception('Document is too deeply nested', { status: 422 })
       for (const mark of node.marks ?? []) {
@@ -36,4 +41,85 @@ export default class ContentService {
     document.content.forEach((node) => visit(node))
     return document
   }
+}
+
+type Node = TipTapDocument['content'][number]
+// Mirrors the editor's StarterKit schema: these are the only inline nodes.
+const INLINE = new Set(['text', 'hardBreak', 'sourceCitation'])
+const TEXTBLOCKS = new Set(['paragraph', 'heading'])
+
+/**
+ * Repairs nesting the editor schema rejects. Models sometimes emit citations
+ * as top-level blocks or blocks inside paragraphs; ProseMirror then throws on
+ * every interaction. Valid documents pass through unchanged.
+ */
+export function repairStructure(document: TipTapDocument): TipTapDocument {
+  return { ...document, content: blocks(document.content) }
+}
+
+function blocks(nodes: Node[] = []): Node[] {
+  const out: Node[] = []
+  for (const node of nodes) {
+    if (node.type === 'text' && !node.text) continue
+    if (INLINE.has(node.type)) {
+      // A stray citation or text run belongs to the paragraph it follows.
+      const previous = out.at(-1)
+      if (previous && TEXTBLOCKS.has(previous.type))
+        previous.content = [...(previous.content ?? []), node]
+      else out.push({ type: 'paragraph', content: [node] })
+    } else if (node.type === 'listItem') out.push(...blocks(node.content))
+    else out.push(...block(node))
+  }
+  return out.length ? out : [{ type: 'paragraph' }]
+}
+
+function block(node: Node): Node[] {
+  if (TEXTBLOCKS.has(node.type)) {
+    if (!node.content) return [{ ...node }]
+    // Nested blocks are lifted out after the text they interrupted.
+    let open: Node | null = { ...node, content: [] }
+    const result: Node[] = [open]
+    for (const child of node.content) {
+      if (child.type === 'text' && !child.text) continue
+      if (!INLINE.has(child.type)) {
+        result.push(...blocks([child]))
+        open = null
+        continue
+      }
+      if (!open) result.push((open = { type: 'paragraph', content: [] }))
+      open.content!.push(child)
+    }
+    // A textblock that only wrapped other blocks leaves nothing behind.
+    return result.filter((item, i) => i > 0 || item.content!.length || !node.content!.length)
+  }
+  if (node.type === 'bulletList' || node.type === 'orderedList') {
+    const items = (node.content ?? []).flatMap((child) =>
+      child.type === 'text' && !child.text
+        ? []
+        : [listItem(child.type === 'listItem' ? child : { type: 'listItem', content: [child] })]
+    )
+    return items.length ? [{ ...node, content: items }] : []
+  }
+  if (node.type === 'blockquote') return [{ ...node, content: blocks(node.content) }]
+  if (node.type === 'codeBlock') {
+    if (!node.content) return [node]
+    const text = node.content.map(textOf).join('')
+    return [{ ...node, content: text ? [{ type: 'text', text }] : [] }]
+  }
+  // Images and rules are leaves.
+  const leaf = { ...node }
+  delete leaf.content
+  return [leaf]
+}
+
+function listItem(node: Node): Node {
+  const content = blocks(node.content)
+  return {
+    ...node,
+    content: content[0].type === 'paragraph' ? content : [{ type: 'paragraph' }, ...content],
+  }
+}
+
+function textOf(node: Node): string {
+  return node.text ?? (node.content ?? []).map(textOf).join('')
 }

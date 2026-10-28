@@ -101,7 +101,7 @@ export default class DocumentsController {
     await new LegacyTemplateService().history(document.documentVersions)
     let unavailableEvidence = false
     for (const version of document.documentVersions) {
-      const original = new ContentService().normalize(version.content)
+      const original = new ContentService().normalize(version.content, { repair: true })
       version.content = await new EvidenceService().hydrate(workspaceAccess!, document.id, original)
       if (evidenceNodeCount(original) > evidenceNodeCount(version.content))
         unavailableEvidence = true

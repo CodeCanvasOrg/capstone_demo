@@ -16,7 +16,7 @@ export default class RevisionService {
     input: { content: unknown; instruction: string }
   ) {
     await new AccessService().document(context, documentId)
-    const content = new ContentService().normalize(input.content)
+    const content = new ContentService().normalize(input.content, { repair: true })
     let revised: Awaited<ReturnType<OpenRouterService['reviseDocument']>>
     try {
       revised = await new OpenRouterService().reviseDocument(content, input.instruction)
@@ -28,7 +28,7 @@ export default class RevisionService {
         { status: status === 429 ? 429 : 502, code: 'E_REVISION_FAILED' }
       )
     }
-    const normalized = new ContentService().normalize(revised.document)
+    const normalized = new ContentService().normalize(revised.document, { repair: true })
     return {
       content: await new EvidenceService().hydrate(context, documentId, normalized),
       summary: revised.summary,

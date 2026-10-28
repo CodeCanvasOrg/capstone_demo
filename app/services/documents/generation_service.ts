@@ -183,7 +183,7 @@ export default class GenerationService {
       : await provider.generateDocumentWithEvidence(title ?? 'Untitled', prompt, chunks, () =>
           tasks.check(lease)
         )
-    const normalized = new ContentService().normalize(generated)
+    const normalized = new ContentService().normalize(generated, { repair: true })
     const { attachChunkMetadata } = await import('#services/documents/chunk_metadata_service')
     const content = attachChunkMetadata(normalized, chunks)
     await tasks.finish(lease, async (trx) => {

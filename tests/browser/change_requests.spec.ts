@@ -1,7 +1,8 @@
 import { test } from '@japa/runner'
 import { randomUUID } from 'node:crypto'
 import VersionService from '#services/documents/version_service'
-import { account, reset } from '../helpers/workspaces.ts'
+import DocumentVersion from '#models/document_version'
+import { account, reset, source } from '../helpers/workspaces.ts'
 
 const screenshots = process.env.UI_SCREENSHOT_DIR
 const paragraph = (text: string) => ({ type: 'paragraph', content: [{ type: 'text', text }] })
@@ -85,6 +86,44 @@ test.group('Change requests', (group) => {
     assert.include(await editor.innerText(), 'Long results')
     await prompt.press('Escape')
     assert.equal(await page.getByRole('form', { name: 'Ask for a change' }).count(), 0)
+    assert.deepEqual(errors, [])
+  })
+  test('a stored draft with top-level citations opens and stays editable', async ({
+    browserContext,
+    visit,
+    assert,
+  }) => {
+    const fixture = await account('ui-repair@example.test')
+    const { chunkId } = await source(fixture)
+    const citation = { type: 'sourceCitation', attrs: { sourceChunkId: chunkId } }
+    // Written directly, the way older generations stored model output.
+    const version = await DocumentVersion.create({
+      workspaceId: fixture.workspace.id,
+      documentId: fixture.document.id,
+      userId: fixture.user.id,
+      version: 1,
+      content: {
+        type: 'doc',
+        content: [paragraph('A cited claim.'), citation, paragraph('Next paragraph.'), citation],
+      },
+      mutationId: randomUUID(),
+      requestHash: 'x'.repeat(64),
+    })
+    await fixture.document.merge({ currentVersionId: version.id }).save()
+    await browserContext.loginAs(fixture.user)
+    const page = await visit(
+      `/workspaces/${fixture.workspace.id}/documents/${fixture.document.id}/edit`
+    )
+    const errors: string[] = []
+    page.on('pageerror', (error) => errors.push(error.message))
+    const editor = page.getByRole('textbox', { name: 'Case-study content' })
+    await editor.getByText('Next paragraph.').click()
+    await page.keyboard.press('End')
+    await page.keyboard.type(' Edited.')
+    const body = await editor.innerText()
+    assert.include(body, 'Edited.')
+    // Both citations survive the repair, now inside the paragraphs they cite.
+    assert.lengthOf(body.match(/source\.txt/g) ?? [], 2)
     assert.deepEqual(errors, [])
   })
 })

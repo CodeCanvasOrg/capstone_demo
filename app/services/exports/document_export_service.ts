@@ -211,7 +211,7 @@ export default class DocumentExportService {
     const content = await service.hydrate(
       context,
       documentId,
-      new ContentService().normalize(value)
+      new ContentService().normalize(value, { repair: true })
     )
     const embed = async (node: (typeof content.content)[number]): Promise<void> => {
       if (

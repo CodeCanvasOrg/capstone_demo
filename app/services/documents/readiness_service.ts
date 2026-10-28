@@ -117,7 +117,7 @@ export default class ReadinessService {
     let contentReady = false
     if (version) {
       try {
-        const content = new ContentService().normalize(version.content)
+        const content = new ContentService().normalize(version.content, { repair: true })
         const meaningful = (node: (typeof content.content)[number]): boolean =>
           !!node.text?.trim() || node.type === 'image' || !!node.content?.some(meaningful)
         contentReady = content.content.some(meaningful)
