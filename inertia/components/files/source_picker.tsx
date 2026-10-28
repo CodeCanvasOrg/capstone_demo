@@ -17,6 +17,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import FileUploadForm from './form'
 import type { FileUpload } from './card'
 import { ProcessingStatusBadge } from '@/components/documents/status'
+import { TruncatedName } from '@/components/truncated_name'
 export type SourceChoice = Pick<Data.File, 'id' | 'filename' | 'processingStatus'>
 export function SourcePicker({
   files,
@@ -62,6 +63,7 @@ export function SourcePicker({
           <DialogDescription>Choose files or upload new ones.</DialogDescription>
         </DialogHeader>
         <Tabs
+          className="min-w-0"
           value={tab}
           onValueChange={(next) => {
             if (tab !== 'upload' || allowLeave()) setTab(next)
@@ -104,7 +106,7 @@ export function SourcePicker({
                         )
                       }
                     />
-                    <span className="min-w-0 flex-1 truncate">{file.filename}</span>
+                    <TruncatedName name={file.filename ?? ''} className="flex-1" />
                     <ProcessingStatusBadge status={file.processingStatus} />
                   </label>
                 ))}

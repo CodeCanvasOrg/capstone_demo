@@ -61,7 +61,9 @@ const block = (text: string, extra: Partial<CanonicalBlock> = {}): CanonicalBloc
   ...extra,
 })
 
-test.group('ChunkingService | structure-aware plans', () => {
+test.group('ChunkingService | structure-aware plans', (group) => {
+  // The first PDF starts a PyMuPDF worker, which can take a few seconds on a cold machine.
+  group.each.timeout(30_000)
   test('no chunk crosses a section and every chunk names its section', async ({ assert }) => {
     const { blocks, chunks } = await prepare('sections.pdf')
     const sectionOf = new Map(blocks.map((item) => [item.id, item.sectionPath.join(' > ')]))

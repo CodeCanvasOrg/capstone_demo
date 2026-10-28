@@ -1,6 +1,7 @@
 import { FileImage, FileText, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ProcessingStatusBadge } from '@/components/documents/status'
+import { TruncatedName } from '@/components/truncated_name'
 
 export type FileUpload = {
   id: string
@@ -44,9 +45,7 @@ export default function FileCard({ file, onRemove, disabled, removeLabel }: File
       )}
 
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-medium" title={file.filename}>
-          {file.filename || 'Untitled file'}
-        </p>
+        <TruncatedName name={file.filename || 'Untitled file'} className="text-sm font-medium" />
         <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
           <span>{file.filetype?.replace('.', '').toUpperCase() ?? 'File'}</span>
           {file.processingStatus && <ProcessingStatusBadge status={file.processingStatus} />}

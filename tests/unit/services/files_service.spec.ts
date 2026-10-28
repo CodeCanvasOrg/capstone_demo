@@ -35,7 +35,9 @@ const mockDriveStream = (buffer: Buffer) => {
   }
 }
 
-test.group('FileService', () => {
+test.group('FileService', (group) => {
+  // PyMuPDF tests may start a worker, which can take a few seconds on a cold machine.
+  group.each.timeout(30_000)
   test('retains all sibling DOCX blocks in document order', async ({ assert }) => {
     const restoreDrive = mockDriveStream(
       await readFile(new URL('../../fixtures/docx/mixed-blocks.docx', import.meta.url))

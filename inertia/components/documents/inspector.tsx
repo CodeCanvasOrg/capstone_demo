@@ -38,6 +38,7 @@ import {
 import { ProjectFields, TitleField } from './project_fields'
 import { informationToContent } from '../../../shared/project_information.ts'
 import { ProcessingStatusBadge } from './status'
+import { TruncatedName } from '@/components/truncated_name'
 export type Action = (url: string, method: string, body: unknown) => Promise<ActionResult>
 export function MetadataForm({
   document,
@@ -558,7 +559,7 @@ export function DocumentInspector({
                       }
                     />
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-xs font-medium">{file.filename}</span>
+                      <TruncatedName name={file.filename ?? ''} className="text-xs font-medium" />
                       <span className="mt-1 block">
                         <ProcessingStatusBadge status={file.processingStatus} />
                       </span>
