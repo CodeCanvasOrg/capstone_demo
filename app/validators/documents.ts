@@ -26,6 +26,8 @@ const fields = {
 export const documentValidator = vine.create({
   templateId: vine.enum(COMPANY_TEMPLATE_IDS).optional(),
   ...fields,
+  // Omitted titles are written by the model on the first successful generation.
+  title: vine.string().trim().minLength(1).maxLength(255).optional(),
   files: vine
     .array(vine.object({ id: vine.string().uuid() }))
     .maxLength(100)

@@ -45,7 +45,7 @@ paths:
                 tools: { type: array, items: { type: object } }
       responses:
         '200':
-          description: Chat completion with structured function call. Company guides use fill_document_outline with sections containing key and ordinary TipTap content; application assembles headings from the frozen guide.
+          description: Chat completion with structured function call. Company guides use fill_document_outline with sections containing key and ordinary TipTap content; application assembles headings from the frozen guide. Untitled documents first call generate_document_title, returning a title string.
         '401':
           description: Invalid provider credentials
         '429':

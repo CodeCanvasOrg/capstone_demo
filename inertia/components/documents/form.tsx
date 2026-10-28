@@ -28,7 +28,6 @@ export function DocumentForm({
   const [projectId, setProjectId] = useState(initialProjectId ?? '')
   const form = useForm({
     templateId: '',
-    title: '',
     description: '',
     descriptionContent: emptyRichText(),
     projectId: null as string | null,
@@ -41,7 +40,6 @@ export function DocumentForm({
     if (form.processing || !text.trim() || text.length > 20000) return
     form.transform(() => ({
       templateId,
-      title: text.trim().split('\n')[0].slice(0, 100),
       description: text,
       descriptionContent: composer,
       projectId: projectId || null,
@@ -72,7 +70,6 @@ export function DocumentForm({
           error={
             form.errors.description ||
             form.errors.descriptionContent ||
-            form.errors.title ||
             form.errors.projectInformation
           }
           label="Case-study brief"
@@ -138,13 +135,7 @@ export function DocumentForm({
       {Object.entries(form.errors)
         .filter(
           ([key]) =>
-            ![
-              'description',
-              'descriptionContent',
-              'title',
-              'projectInformation',
-              'projectId',
-            ].includes(key)
+            !['description', 'descriptionContent', 'projectInformation', 'projectId'].includes(key)
         )
         .map(([key, error]) => (
           <p role="alert" key={key} className="mt-2 text-xs text-destructive">

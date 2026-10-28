@@ -6,17 +6,27 @@ import GenerationService from '#services/documents/generation_service'
 import ProjectService from '#services/workspaces/project_service'
 import OutlineTemplateService from '#services/documents/outline_template_service'
 import { type WorkspaceAccessContext } from '#services/workspaces/access_service'
+export const PENDING_TITLE = 'Untitled case study'
 export default class CreationService {
   async document(
     context: WorkspaceAccessContext,
-    input: DocumentInput & { templateId?: string },
+    input: Omit<DocumentInput, 'title'> & { title?: string; templateId?: string },
     fileIds: string[],
     client?: TransactionClientContract
   ) {
     const create = async (trx: TransactionClientContract) => {
       const outline = await new OutlineTemplateService().resolve(input.templateId ?? 'portfolio')
-      const doc = await new DocumentService().create(context, input, fileIds, trx)
-      doc.merge({ selectedTemplateVersionId: null, templateSetup: { outline } })
+      const generateTitle = !input.title
+      const doc = await new DocumentService().create(
+        context,
+        { ...input, title: input.title || PENDING_TITLE },
+        fileIds,
+        trx
+      )
+      doc.merge({
+        selectedTemplateVersionId: null,
+        templateSetup: { outline, ...(generateTitle ? { generateTitle } : {}) },
+      })
       await doc.save()
       await new GenerationService().request(context, doc.id, randomUUID(), null, trx)
       return doc

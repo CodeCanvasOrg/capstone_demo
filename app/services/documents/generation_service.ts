@@ -168,19 +168,20 @@ export default class GenerationService {
     })
     await tasks.check(lease)
     const provider = new OpenRouterService()
+    // Untitled documents get a model-written title; the brief stays the description.
+    const title = document.templateSetup?.generateTitle
+      ? await provider.generateTitle(prompt, chunks, () => tasks.check(lease))
+      : document.title
     const generated = document.templateSetup?.outline
       ? await provider.generateOutlineWithEvidence(
-          document.title,
+          title,
           prompt,
           chunks,
           document.templateSetup.outline.definition,
           () => tasks.check(lease)
         )
-      : await provider.generateDocumentWithEvidence(
-          document.title ?? 'Untitled',
-          prompt,
-          chunks,
-          () => tasks.check(lease)
+      : await provider.generateDocumentWithEvidence(title ?? 'Untitled', prompt, chunks, () =>
+          tasks.check(lease)
         )
     const normalized = new ContentService().normalize(generated)
     const { attachChunkMetadata } = await import('#services/documents/chunk_metadata_service')
@@ -218,6 +219,11 @@ export default class GenerationService {
         'Generated content was accepted',
         trx
       )
+      if (current.templateSetup?.generateTitle) {
+        const templateSetup = { ...current.templateSetup }
+        delete templateSetup.generateTitle
+        current.merge({ title, templateSetup })
+      }
       current.merge({
         currentVersionId: version.id,
         generationStatus: 'ready',

@@ -164,6 +164,11 @@ export default class DocumentService {
           'Project information changed',
           trx
         )
+      if (input.title !== document.title && document.templateSetup?.generateTitle) {
+        const templateSetup = { ...document.templateSetup }
+        delete templateSetup.generateTitle
+        document.templateSetup = templateSetup
+      }
       document.merge({
         title: input.title,
         description: input.description ?? null,

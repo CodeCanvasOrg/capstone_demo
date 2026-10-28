@@ -7,6 +7,8 @@ import TaskDispatch from '#models/task_dispatch'
 import TaskDispatchService from '#services/workspaces/task_dispatch_service'
 import OpenRouterService from '#services/open_router_service'
 import config from '#config/open_router'
+import DocumentService from '#services/documents/document_service'
+import { PENDING_TITLE } from '#services/documents/creation_service'
 
 const generated = {
   type: 'doc' as const,
@@ -67,6 +69,74 @@ test.group('Document creation generation', (group) => {
     } finally {
       OpenRouterService.prototype.generateOutlineWithEvidence = original
     }
+  })
+  test('a brief-only case study gets a model-written title and keeps the brief as its description', async ({
+    client,
+    assert,
+  }) => {
+    const a = await account()
+    const brief = 'we rebuilt the checkout flow for the mobile app and cut drop-off'
+    const originalTitle = OpenRouterService.prototype.generateTitle
+    const originalOutline = OpenRouterService.prototype.generateOutlineWithEvidence
+    const seen: { titleBrief?: string; outlineTitle?: string } = {}
+    OpenRouterService.prototype.generateTitle = async (prompt, _chunks, guard) => {
+      await guard?.()
+      seen.titleBrief = prompt
+      return 'Mobile Checkout Redesign'
+    }
+    OpenRouterService.prototype.generateOutlineWithEvidence = async (
+      title,
+      _brief,
+      _c,
+      _o,
+      guard
+    ) => {
+      await guard?.()
+      seen.outlineTitle = title
+      return generated
+    }
+    try {
+      const response = await client
+        .post(`/workspaces/${a.workspace.id}/documents`)
+        .loginAs(a.user)
+        .withCsrfToken()
+        .redirects(0)
+        .json({ description: brief, sourceMode: 'input_only' })
+      response.assertStatus(302)
+      const doc = await Document.findByOrFail('description', brief)
+      assert.equal(doc.title, PENDING_TITLE)
+      assert.isTrue(doc.templateSetup.generateTitle)
+      await new TaskDispatchService().dispatch()
+      await doc.refresh()
+      assert.equal(doc.generationStatus, 'ready')
+      assert.equal(doc.title, 'Mobile Checkout Redesign')
+      assert.equal(doc.description, brief)
+      assert.notProperty(doc.templateSetup, 'generateTitle')
+      assert.include(seen.titleBrief!, brief)
+      assert.equal(seen.outlineTitle, 'Mobile Checkout Redesign')
+    } finally {
+      OpenRouterService.prototype.generateTitle = originalTitle
+      OpenRouterService.prototype.generateOutlineWithEvidence = originalOutline
+    }
+  })
+  test('renaming before the first generation keeps the user title', async ({ client, assert }) => {
+    const a = await account()
+    await client
+      .post(`/workspaces/${a.workspace.id}/documents`)
+      .loginAs(a.user)
+      .withCsrfToken()
+      .redirects(0)
+      .json({ description: 'A brief to rename', sourceMode: 'input_only' })
+    const doc = await Document.findByOrFail('description', 'A brief to rename')
+    await new DocumentService().update(a.context, doc.id, {
+      title: 'My own title',
+      description: doc.description,
+      sourceMode: 'input_only',
+      metadataRevision: doc.metadataRevision,
+    })
+    await doc.refresh()
+    assert.equal(doc.title, 'My own title')
+    assert.notProperty(doc.templateSetup, 'generateTitle')
   })
   test('a new project atomically creates and opens its first case study using its rich brief', async ({
     client,

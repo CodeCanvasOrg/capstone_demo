@@ -40,6 +40,10 @@ test.group('Postman provider transport', () => {
     )
     assert.include(JSON.stringify(outlined), 'Executive Summary')
     assert.include(JSON.stringify(outlined), 'Synthetic section content')
-    assert.equal(checks, 3)
+    const title = await new OpenRouterService().generateTitle('Synthetic brief', [], async () => {
+      checks++
+    })
+    assert.equal(title, 'Synthetic generated title')
+    assert.equal(checks, 4)
   }).skip(!enabled)
 })

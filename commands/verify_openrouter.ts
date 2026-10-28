@@ -4,7 +4,7 @@ import type { CommandOptions } from '@adonisjs/core/types/ace'
 export default class VerifyOpenrouter extends BaseCommand {
   static commandName = 'verify:openrouter'
   static description =
-    'Check provider configuration; --live runs a synthetic chat and embedding probe'
+    'Check provider configuration; --live runs a synthetic chat, title and embedding probe'
 
   static options: CommandOptions = { startApp: true }
 
@@ -13,8 +13,10 @@ export default class VerifyOpenrouter extends BaseCommand {
 
   async run() {
     const { default: config } = await import('#config/open_router')
+    const { default: embeddingsConfig } = await import('#config/embeddings')
+    this.logger.info(`Chat: ${config.model}; endpoint: ${config.baseUrl}`)
     this.logger.info(
-      `Chat: ${config.model}; embeddings: ${config.embeddingModel}; endpoint: ${config.baseUrl}`
+      `Embeddings: ${embeddingsConfig.model} (${embeddingsConfig.dimensions} dims); endpoint: ${embeddingsConfig.baseUrl}`
     )
     if (!this.live) {
       this.logger.info('Configuration loaded. Use --live for a synthetic provider check.')
@@ -33,6 +35,11 @@ export default class VerifyOpenrouter extends BaseCommand {
       this.logger.success(
         `Live structured generation returned ${content.content.length} document blocks`
       )
+      const title = await new Chat().generateTitle(
+        'Synthetic connectivity check, not a real project: a team replaced spreadsheet inventory tracking with a barcode scanning app.',
+        []
+      )
+      this.logger.success(`Live title generation returned "${title}"`)
     } catch (error) {
       const status = Chat.status(error)
       this.logger.error(

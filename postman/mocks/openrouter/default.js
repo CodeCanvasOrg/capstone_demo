@@ -1,5 +1,5 @@
 const http = require('http')
-// The fixture validates only the two client paths exercised by this repository.
+// The fixture validates only the client paths exercised by this repository.
 // All content is synthetic; it is never a case-study quality assertion.
 http
   .createServer((req, res) => {
@@ -30,6 +30,7 @@ http
       if (!Array.isArray(body.messages) || !name)
         return send(400, { error: { message: 'messages and structured function are required' } })
       let generated
+      if (name === 'generate_document_title') generated = { title: 'Synthetic generated title' }
       if (name === 'fill_document_outline') {
         const raw = body.messages
           .flatMap((message) =>
