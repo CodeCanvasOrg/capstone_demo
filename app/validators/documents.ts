@@ -24,7 +24,8 @@ const fields = {
   sourceMode: vine.enum(['files', 'input_only']).optional(),
 }
 export const documentValidator = vine.create({
-  templateId: vine.enum(COMPANY_TEMPLATE_IDS).optional(),
+  // null writes a freeform case study; omitted keeps the portfolio outline.
+  templateId: vine.enum(COMPANY_TEMPLATE_IDS).nullable().optional(),
   ...fields,
   // Omitted titles are written by the model on the first successful generation.
   title: vine.string().trim().minLength(1).maxLength(255).optional(),

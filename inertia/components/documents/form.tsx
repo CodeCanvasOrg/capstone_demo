@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { useForm } from '@inertiajs/react'
 import type { Data } from '@generated/data'
-import { FolderOpen, MessageSquare } from 'lucide-react'
+import { ArrowUp, FolderOpen, MessageSquare } from 'lucide-react'
 import { urlFor } from '@/client'
 import { useWorkspaceId, useUnsavedChanges } from '@/providers/workspace_provider'
 import { OutlinePicker } from '@/components/documents/outline_picker'
 import type { OutlineTemplate } from '../../../shared/templates/outlines'
 import { Disclosure } from '@/components/disclosure'
+import { Button } from '@/components/ui/button'
 import { SourcePicker } from '@/components/files/source_picker'
 import { RichTextEditor, emptyRichText, type RichText } from '@/components/rich_text_editor'
 
@@ -27,7 +28,7 @@ export function DocumentForm({
   const [selected, setSelected] = useState<string[]>([])
   const [projectId, setProjectId] = useState(initialProjectId ?? '')
   const form = useForm({
-    templateId: '',
+    templateId: null as string | null,
     description: '',
     descriptionContent: emptyRichText(),
     projectId: null as string | null,
@@ -36,7 +37,8 @@ export function DocumentForm({
     files: [] as { id: string }[],
   })
   useUnsavedChanges('new-case-study', !form.processing && (!!text.trim() || selected.length > 0))
-  function create(templateId: string) {
+  // A null template writes a freeform case study from the brief alone.
+  function create(templateId: string | null) {
     if (form.processing || !text.trim() || text.length > 20000) return
     form.transform(() => ({
       templateId,
@@ -86,6 +88,15 @@ export function DocumentForm({
               disabled={form.processing}
             />
           </div>
+          <Button
+            type="button"
+            size="sm"
+            disabled={form.processing || !text.trim() || text.length > 20000}
+            onClick={() => create(null)}
+          >
+            <ArrowUp aria-hidden="true" />
+            Send
+          </Button>
         </div>
       </div>
       {projects.length > 0 && (

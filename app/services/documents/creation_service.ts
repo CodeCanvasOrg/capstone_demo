@@ -10,12 +10,15 @@ export const PENDING_TITLE = 'Untitled case study'
 export default class CreationService {
   async document(
     context: WorkspaceAccessContext,
-    input: Omit<DocumentInput, 'title'> & { title?: string; templateId?: string },
+    input: Omit<DocumentInput, 'title'> & { title?: string; templateId?: string | null },
     fileIds: string[],
     client?: TransactionClientContract
   ) {
     const create = async (trx: TransactionClientContract) => {
-      const outline = await new OutlineTemplateService().resolve(input.templateId ?? 'portfolio')
+      const outline =
+        input.templateId === null
+          ? null
+          : await new OutlineTemplateService().resolve(input.templateId ?? 'portfolio')
       const generateTitle = !input.title
       const doc = await new DocumentService().create(
         context,
@@ -25,7 +28,10 @@ export default class CreationService {
       )
       doc.merge({
         selectedTemplateVersionId: null,
-        templateSetup: { outline, ...(generateTitle ? { generateTitle } : {}) },
+        templateSetup: {
+          ...(outline ? { outline } : {}),
+          ...(generateTitle ? { generateTitle } : {}),
+        },
       })
       await doc.save()
       await new GenerationService().request(context, doc.id, randomUUID(), null, trx)

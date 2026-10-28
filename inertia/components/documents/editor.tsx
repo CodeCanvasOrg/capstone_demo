@@ -4,7 +4,15 @@ import { EditorContent, type JSONContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder'
 import { useEffect, useRef, useState } from 'react'
-import { Save, Download, LoaderCircle, RefreshCw, RotateCcw, ChevronsRight } from 'lucide-react'
+import {
+  Save,
+  Download,
+  LoaderCircle,
+  RefreshCw,
+  RotateCcw,
+  ChevronsRight,
+  MessageSquarePlus,
+} from 'lucide-react'
 import { urlFor } from '@/client'
 import { api, ApiError, feedbackError } from '@/lib/api'
 import { ActionFeedback } from '@/components/action_feedback'
@@ -21,6 +29,7 @@ import { RedoToolbar } from '@/components/toolbars/redo'
 import { SourceCitation } from '@/components/extensions/source_citation'
 import { ImageExtension } from '@/components/extensions/image'
 import { DocumentImageUpload } from '@/components/documents/image_upload'
+import { ChangeRequest } from '@/components/documents/change_request'
 import { writingReveal } from '../../../shared/writing_reveal.ts'
 const EMPTY = { type: 'doc', content: [{ type: 'paragraph' }] }
 const extensions = [
@@ -62,13 +71,16 @@ export default function DocumentEditor({
   const [conflict, setConflict] = useState(false)
   const [writing, setWriting] = useState(false)
   const [imagePending, setImagePending] = useState(false)
+  const [asking, setAsking] = useState(false)
+  const [revising, setRevising] = useState(false)
+  const askRef = useRef<HTMLButtonElement>(null)
   const waitingForGeneration = useRef(generationStatus === 'processing')
   const frame = useRef<number | null>(null)
   const finishWriting = useRef<() => void>(() => {})
   useUnsavedChanges(`editor-${documentId}`, dirty || saving)
   useEffect(() => {
-    onDirtyChange?.(dirty || saving || writing || imagePending)
-  }, [dirty, saving, writing, imagePending, onDirtyChange])
+    onDirtyChange?.(dirty || saving || writing || imagePending || revising)
+  }, [dirty, saving, writing, imagePending, revising, onDirtyChange])
   const saveRef = useRef<() => Promise<void>>(async () => {})
   const editor = useEditor({
     extensions,
@@ -89,10 +101,10 @@ export default function DocumentEditor({
     },
   })
   useEffect(() => {
-    editor?.setEditable(generationStatus !== 'processing' && !writing, false)
+    editor?.setEditable(generationStatus !== 'processing' && !writing && !revising, false)
     if (generationStatus === 'processing') waitingForGeneration.current = true
     if (generationStatus === 'failed') waitingForGeneration.current = false
-  }, [editor, generationStatus, writing])
+  }, [editor, generationStatus, writing, revising])
   useEffect(() => {
     saveRef.current = async () => {
       if (!editor || busy.current || blocked.current || !changed.current) return
@@ -249,10 +261,23 @@ export default function DocumentEditor({
   return (
     <section className="w-full min-w-0 flex-1 xl:w-auto">
       <div className="sticky top-0 z-20 flex flex-wrap items-center gap-2 border-b bg-sidebar px-4 py-2">
+        <Button
+          ref={askRef}
+          size="sm"
+          variant={asking ? 'secondary' : 'outline'}
+          aria-expanded={asking}
+          aria-controls="change-request-panel"
+          disabled={writing || generationStatus === 'processing' || conflict}
+          onClick={() => setAsking((value) => !value)}
+        >
+          <MessageSquarePlus aria-hidden="true" />
+          Ask for a change
+        </Button>
+        <span className="mx-1 h-5 border-l" />
         <ToolbarProvider editor={editor}>
           <div
             className="flex flex-wrap items-center gap-0.5"
-            inert={writing || generationStatus === 'processing'}
+            inert={writing || generationStatus === 'processing' || revising}
           >
             <UndoToolbar />
             <RedoToolbar />
@@ -351,6 +376,19 @@ export default function DocumentEditor({
           <EditorContent editor={editor} />
         </div>
       </div>
+      {asking && (
+        <ChangeRequest
+          editor={editor}
+          workspaceId={workspaceId}
+          documentId={documentId}
+          disabled={writing || generationStatus === 'processing' || conflict || imagePending}
+          onPendingChange={setRevising}
+          onClose={() => {
+            setAsking(false)
+            askRef.current?.focus()
+          }}
+        />
+      )}
     </section>
   )
 }

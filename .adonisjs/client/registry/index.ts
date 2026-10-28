@@ -264,6 +264,12 @@ const routes = {
     tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/versions","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/versions","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/versions","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/versions","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/versions","type":0,"val":"versions","end":""}],
     types: placeholder as Registry['documentVersions.store']['types'],
   },
+  'documentRevisions.store': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/revisions',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/revisions","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/revisions","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/revisions","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/revisions","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/revisions","type":0,"val":"revisions","end":""}],
+    types: placeholder as Registry['documentRevisions.store']['types'],
+  },
   'documentTasks.generate': {
     methods: ["POST"],
     pattern: '/workspaces/:workspaceId/documents/:documentId/generation',

@@ -47,6 +47,7 @@ export type ScannedRoutes = {
     'documentImages.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentImages.show': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'imageId': ParamValue} }
     'documentVersions.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
+    'documentRevisions.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentTasks.generate': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentTasks.sources': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentTasks.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'taskId': ParamValue} }
@@ -168,6 +169,7 @@ export type ScannedRoutes = {
     'documents.store': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'documentImages.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentVersions.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
+    'documentRevisions.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentTasks.generate': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'files.retry': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue} }
     'uploads': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
