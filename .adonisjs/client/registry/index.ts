@@ -126,6 +126,18 @@ const routes = {
     tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/issues/:issueId","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/issues/:issueId","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/issues/:issueId","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/issues/:issueId","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/issues/:issueId","type":0,"val":"issues","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/issues/:issueId","type":1,"val":"issueId","end":""}],
     types: placeholder as Registry['documentIssues.update']['types'],
   },
+  'documentPreview.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/preview',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/preview","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview","type":0,"val":"preview","end":""}],
+    types: placeholder as Registry['documentPreview.show']['types'],
+  },
+  'templates.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/templates',
+    tokens: [{"old":"/workspaces/:workspaceId/templates","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/templates","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/templates","type":0,"val":"templates","end":""}],
+    types: placeholder as Registry['templates.index']['types'],
+  },
   'projects.index': {
     methods: ["GET","HEAD"],
     pattern: '/workspaces/:workspaceId/projects',
@@ -167,6 +179,12 @@ const routes = {
     pattern: '/workspaces/:workspaceId/documents/:documentId/approvals',
     tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/approvals","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/approvals","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/approvals","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/approvals","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/approvals","type":0,"val":"approvals","end":""}],
     types: placeholder as Registry['documentReviews.approve']['types'],
+  },
+  'documentPreviews.legacy': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/versions/:versionId/preview/:format',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/versions/:versionId/preview/:format","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/versions/:versionId/preview/:format","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/versions/:versionId/preview/:format","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/versions/:versionId/preview/:format","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/versions/:versionId/preview/:format","type":0,"val":"versions","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/versions/:versionId/preview/:format","type":1,"val":"versionId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/versions/:versionId/preview/:format","type":0,"val":"preview","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/versions/:versionId/preview/:format","type":1,"val":"format","end":""}],
+    types: placeholder as Registry['documentPreviews.legacy']['types'],
   },
   'exportPdfs.preview': {
     methods: ["GET","HEAD"],

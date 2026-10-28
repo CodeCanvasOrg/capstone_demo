@@ -1,24 +1,22 @@
 import { useState } from 'react'
 import { useForm } from '@inertiajs/react'
 import type { Data } from '@generated/data'
-import { FolderOpen, MessageSquare, Sparkles, LoaderCircle } from 'lucide-react'
+import { FolderOpen, MessageSquare } from 'lucide-react'
 import { urlFor } from '@/client'
 import { useWorkspaceId, useUnsavedChanges } from '@/providers/workspace_provider'
-import { Button } from '@/components/ui/button'
+import { OutlinePicker } from '@/components/documents/outline_picker'
+import type { OutlineTemplate } from '../../../shared/templates/outlines'
 import { Disclosure } from '@/components/disclosure'
 import { SourcePicker } from '@/components/files/source_picker'
-import {
-  RichTextEditor,
-  emptyRichText,
-  textToRichText,
-  type RichText,
-} from '@/components/rich_text_editor'
+import { RichTextEditor, emptyRichText, type RichText } from '@/components/rich_text_editor'
 
 export function DocumentForm({
+  templates = [],
   files = [],
   projects = [],
   initialProjectId = null,
 }: {
+  templates?: OutlineTemplate[]
   files?: Data.File[]
   projects?: Data.Project[]
   initialProjectId?: string | null
@@ -29,6 +27,7 @@ export function DocumentForm({
   const [selected, setSelected] = useState<string[]>([])
   const [projectId, setProjectId] = useState(initialProjectId ?? '')
   const form = useForm({
+    templateId: '',
     title: '',
     description: '',
     descriptionContent: emptyRichText(),
@@ -38,9 +37,10 @@ export function DocumentForm({
     files: [] as { id: string }[],
   })
   useUnsavedChanges('new-case-study', !form.processing && (!!text.trim() || selected.length > 0))
-  function create() {
+  function create(templateId: string) {
     if (form.processing || !text.trim() || text.length > 20000) return
     form.transform(() => ({
+      templateId,
       title: text.trim().split('\n')[0].slice(0, 100),
       description: text,
       descriptionContent: composer,
@@ -65,7 +65,6 @@ export function DocumentForm({
       <div className="rounded-2xl border bg-sidebar p-4 shadow-xs">
         <RichTextEditor
           value={composer}
-          onSubmit={create}
           onChange={(value, plain) => {
             setComposer(value)
             setText(plain)
@@ -90,20 +89,6 @@ export function DocumentForm({
               disabled={form.processing}
             />
           </div>
-          <Button
-            type="button"
-            size="sm"
-            aria-label="Create draft"
-            onClick={create}
-            disabled={form.processing || !text.trim() || text.length > 20000}
-          >
-            {form.processing ? (
-              <LoaderCircle className="size-4 animate-spin" />
-            ) : (
-              <Sparkles className="size-4" />
-            )}
-            {form.processing ? 'Creating…' : 'Create draft'}
-          </Button>
         </div>
       </div>
       {projects.length > 0 && (
@@ -166,28 +151,12 @@ export function DocumentForm({
             {error}
           </p>
         ))}
-      <div className="mt-8 grid gap-2 sm:grid-cols-3">
-        {['Project', 'Challenge', 'Results'].map((example, index) => (
-          <button
-            key={example}
-            type="button"
-            disabled={form.processing}
-            className="rounded-lg border border-transparent p-3 text-left transition-colors hover:border-border hover:bg-muted/40"
-            onClick={() => {
-              const value = [
-                'We built ',
-                'We helped our team solve ',
-                'Our project made a difference by ',
-              ][index]
-              setText(value)
-              setComposer(textToRichText(value))
-            }}
-          >
-            <Sparkles className="mb-3 size-3.5 text-muted-foreground" />
-            <span className="text-xs font-medium">{example}</span>
-          </button>
-        ))}
-      </div>
+      <OutlinePicker
+        templates={templates}
+        onUse={create}
+        disabled={form.processing}
+        canCreate={!!text.trim() && text.length <= 20000}
+      />
     </div>
   )
 }

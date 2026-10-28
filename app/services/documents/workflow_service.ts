@@ -28,6 +28,7 @@ export default class WorkflowService {
       .whereNull('invalidatedAt')
       .update({ invalidatedAt: now, invalidationReason: reason })
     await DocumentApproval.query({ client: trx })
+      .whereNull('snapshotHash')
       .where({ workspaceId: document.workspaceId, documentId: document.id })
       .whereNull('invalidatedAt')
       .update({ invalidatedAt: now, invalidationReason: reason })

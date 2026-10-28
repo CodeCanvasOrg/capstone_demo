@@ -153,7 +153,11 @@ export default class DocumentExportService {
       }
     })
   }
-  async preview(context: WorkspaceAccessContext, documentId: string) {
+  async preview(
+    context: WorkspaceAccessContext,
+    documentId: string,
+    format: 'html' | 'pdf' = 'pdf'
+  ) {
     const access = new AccessService()
     const doc = await access.document(context, documentId)
     if (!doc.currentVersionId) throw conflict('Save a version before previewing')
@@ -163,9 +167,10 @@ export default class DocumentExportService {
     const check = () => new EvidenceService().check(context)
     const content = await this.content(context, documentId, version.content, check)
     await check()
-    const buffer = await ExportPdfService.generate({ content } as DocumentVersion, {
-      preview: true,
-    })
+    const buffer = await ExportPdfService[format === 'html' ? 'html' : 'generate'](
+      { content } as DocumentVersion,
+      { preview: true }
+    )
     await check()
     const current = await access.document(context, documentId)
     if (current.currentVersionId !== version.id)

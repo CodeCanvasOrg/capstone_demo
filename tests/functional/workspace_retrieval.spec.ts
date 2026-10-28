@@ -6,6 +6,8 @@ import EmbeddingService from '#services/documents/embedding_service'
 import config from '#config/open_router'
 import db from '@adonisjs/lucid/services/db'
 import drive from '@adonisjs/drive/services/main'
+import sharp from 'sharp'
+import { Readable } from 'node:stream'
 test.group('Workspace retrieval', (group) => {
   group.each.setup(reset)
   test('dense, lexical, supplemental images and source expansion exclude other and unselected files', async ({
@@ -22,11 +24,16 @@ test.group('Workspace retrieval', (group) => {
     EmbeddingService.prototype.embedQuery = async () =>
       Array.from({ length: config.embeddingDimensions }, (_, i) => (i === 0 ? 1 : 0))
     const keys: string[] = []
+    const imageBytes = await sharp({
+      create: { width: 10, height: 10, channels: 3, background: 'white' },
+    })
+      .png()
+      .toBuffer()
     drive.use = () =>
       ({
-        getSignedUrl: async (key: string) => {
+        getStream: async (key: string) => {
           keys.push(key)
-          return 'https://signed.example.test/private'
+          return Readable.from([imageBytes])
         },
       }) as any
     try {
@@ -42,6 +49,20 @@ test.group('Workspace retrieval', (group) => {
         [selected.chunkId, image.chunkId]
       )
       assert.sameMembers(keys, [image.file.objectKey!])
+      assert.match(
+        chunks.find((chunk) => chunk.id === image.chunkId)!.modelFileUrl!,
+        /^data:image\/jpeg;base64,/
+      )
+      keys.length = 0
+      await new RetrievalService().search({
+        context: a.context,
+        documentId: a.document.id,
+        pins: [image.pin],
+        query: 'Private evidence',
+        imageMode: 'none',
+        guard: () => new EvidenceService().check(a.context),
+      })
+      assert.isEmpty(keys)
       await assert.rejects(() =>
         new EvidenceService().chunk(a.context, a.document.id, unselected.chunkId)
       )

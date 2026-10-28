@@ -247,6 +247,30 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_issues_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'documentPreview.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/preview'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['htmlPreview']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['htmlPreview']>>>
+    }
+  }
+  'templates.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/templates'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/templates_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/templates_controller').default['index']>>>
+    }
+  }
   'projects.index': {
     methods: ["GET","HEAD"]
     pattern: '/workspaces/:workspaceId/projects'
@@ -329,6 +353,18 @@ export interface Registry {
       query: ExtractQuery<InferInput<(typeof import('#validators/document_review').approvalValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_reviews_controller').default['approve']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_reviews_controller').default['approve']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'documentPreviews.legacy': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/versions/:versionId/preview/:format'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue, ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue; versionId: ParamValue; format: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['legacyPreview']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['legacyPreview']>>>
     }
   }
   'exportPdfs.preview': {

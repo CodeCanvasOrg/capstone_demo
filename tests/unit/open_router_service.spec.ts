@@ -54,6 +54,7 @@ test.group('OpenRouterService', () => {
       content: 'A chart showing customer growth.',
       embedding: [0.1, 0.2],
       fileKey: 'processed/chart.png',
+      modelFileUrl: 'data:image/jpeg;base64,cHJldmlldw==',
       fileName: 'growth-report.pdf',
       fileUrl: 'https://files.example.test/chart.png',
       mediaType: 'image/png',
@@ -90,7 +91,7 @@ test.group('OpenRouterService', () => {
     const citation = result.content[0].content[1]
     const image = result.content[1]
 
-    assert.equal(imageBlock.image_url.url, chunk.fileUrl)
+    assert.equal(imageBlock.image_url.url, chunk.modelFileUrl)
     assert.include(humanContent[0].text, chunk.id)
     assert.equal(citation.attrs.chunkText, chunk.content)
     assert.equal(citation.attrs.fileName, chunk.fileName)

@@ -1,3 +1,5 @@
+import OutlineTemplateService from '#services/documents/outline_template_service'
+import LegacyTemplateService from '#services/documents/legacy_template_service'
 import { evidenceNodeCount } from '#services/documents/chunk_metadata_service'
 import DocumentWorkflowTransformer from '#transformers/document_workflow_transformer'
 import File from '#models/file'
@@ -63,6 +65,7 @@ export default class DocumentsController {
     const projectId = request.input('projectId')
     if (projectId) await new AccessService().project(workspaceAccess!, projectId)
     return inertia.render('documents/create', {
+      templates: await new OutlineTemplateService().list(workspaceAccess!),
       initialProjectId: projectId ?? null,
       files: FileTransformer.transform(files, workspaceAccess!.actorId),
       projects: ProjectTransformer.transform(projects),
@@ -95,6 +98,7 @@ export default class DocumentsController {
         )
       )
       .firstOrFail()
+    await new LegacyTemplateService().history(document.documentVersions)
     let unavailableEvidence = false
     for (const version of document.documentVersions) {
       const original = new ContentService().normalize(version.content)

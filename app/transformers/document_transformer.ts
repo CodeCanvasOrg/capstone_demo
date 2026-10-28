@@ -39,6 +39,7 @@ export default class DocumentTransformer extends BaseTransformer<Document> {
         'createdAt',
         'updatedAt',
       ]),
+      outlineName: this.resource.templateSetup?.outline?.definition?.name ?? null,
       generationError: this.resource.generationError
         ? Object.values(config.failureMessages).includes(this.resource.generationError)
           ? this.resource.generationError

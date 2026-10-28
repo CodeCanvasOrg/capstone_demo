@@ -1,4 +1,4 @@
-import openRouterApiConfig from '#config/open_router'
+import embeddingsConfig from '#config/embeddings'
 import { OpenAIEmbeddings } from '@langchain/openai'
 import { similarity } from 'ml-distance'
 
@@ -9,12 +9,12 @@ export default class EmbeddFileService {
 
   constructor() {
     this.embeddingModel = new OpenAIEmbeddings({
-      openAIApiKey: openRouterApiConfig.apiKey.release(),
+      openAIApiKey: embeddingsConfig.apiKey(),
       configuration: {
-        baseURL: openRouterApiConfig.baseUrl,
+        baseURL: embeddingsConfig.baseUrl,
       },
-      model: openRouterApiConfig.embeddingModel,
-      dimensions: openRouterApiConfig.embeddingDimensions,
+      model: embeddingsConfig.model,
+      dimensions: embeddingsConfig.dimensions,
     })
   }
 

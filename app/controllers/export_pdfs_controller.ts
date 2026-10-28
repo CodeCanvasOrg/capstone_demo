@@ -12,8 +12,41 @@ export default class ExportPdfsController {
     )
     return response.accepted({ data: { id: task.id, status: task.status } })
   }
+  async htmlPreview({ workspaceAccess, params, response }: HttpContext) {
+    const html = await new DocumentExportService().preview(
+      workspaceAccess!,
+      params.documentId,
+      'html'
+    )
+    return response
+      .header('Content-Type', 'text/html; charset=utf-8')
+      .header('Cache-Control', 'private, no-store')
+      .header(
+        'Content-Security-Policy',
+        "default-src 'none';img-src data:;style-src 'unsafe-inline';font-src data:;base-uri 'none';frame-ancestors 'self'"
+      )
+      .send(html)
+  }
+  async legacyPreview({ workspaceAccess, params, response }: HttpContext) {
+    await new AccessService().document(workspaceAccess!, params.documentId)
+    return response.redirect().toRoute('documentPreview.show', {
+      workspaceId: workspaceAccess!.workspaceId,
+      documentId: params.documentId,
+    })
+  }
   async preview({ workspaceAccess, params, response }: HttpContext) {
-    const buffer = await new DocumentExportService().preview(workspaceAccess!, params.documentId)
+    let buffer
+    try {
+      buffer = await new DocumentExportService().preview(workspaceAccess!, params.documentId)
+    } catch (error) {
+      if (error instanceof Error && 'code' in error && error.code === 'E_PDF_UNAVAILABLE')
+        return response
+          .status(503)
+          .header('Content-Type', 'text/plain; charset=utf-8')
+          .header('Cache-Control', 'private, no-store')
+          .send(error.message)
+      throw error
+    }
     return response
       .header('Content-Type', 'application/pdf')
       .header('Cache-Control', 'private, no-store')

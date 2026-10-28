@@ -360,12 +360,12 @@ export default function Edit({
               </DropdownMenuItem>
               <DropdownMenuItem disabled={dirty || !version} asChild>
                 <a
-                  href={urlFor('exportPdfs.preview', { workspaceId, documentId: document.id })}
+                  href={urlFor('documentPreview.show', { workspaceId, documentId: document.id })}
                   target="_blank"
                   rel="noreferrer"
                 >
                   <Download />
-                  Preview PDF
+                  Preview document
                 </a>
               </DropdownMenuItem>
               <DropdownMenuSeparator />

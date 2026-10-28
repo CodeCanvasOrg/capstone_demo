@@ -20,12 +20,13 @@ test.group('Document creation generation', (group) => {
     assert,
   }) => {
     const a = await account()
-    const original = OpenRouterService.prototype.generateDocumentWithEvidence
+    const original = OpenRouterService.prototype.generateOutlineWithEvidence
     let calls = 0
-    OpenRouterService.prototype.generateDocumentWithEvidence = async (
+    OpenRouterService.prototype.generateOutlineWithEvidence = async (
       _title,
       _brief,
       _chunks,
+      _outline,
       guard
     ) => {
       await guard?.()
@@ -64,7 +65,7 @@ test.group('Document creation generation', (group) => {
       await new TaskDispatchService().dispatch()
       assert.equal(calls, 1)
     } finally {
-      OpenRouterService.prototype.generateDocumentWithEvidence = original
+      OpenRouterService.prototype.generateOutlineWithEvidence = original
     }
   })
   test('a new project atomically creates and opens its first case study using its rich brief', async ({
@@ -138,9 +139,9 @@ test.group('Document creation generation', (group) => {
       .withCsrfToken()
       .redirects(0)
       .json({ title: 'Retryable draft', sourceMode: 'input_only' })
-    const original = OpenRouterService.prototype.generateDocumentWithEvidence
+    const original = OpenRouterService.prototype.generateOutlineWithEvidence
     let calls = 0
-    OpenRouterService.prototype.generateDocumentWithEvidence = async () => {
+    OpenRouterService.prototype.generateOutlineWithEvidence = async () => {
       if (++calls === 1)
         throw Object.assign(new Error('Synthetic upstream outage'), { statusCode: 503 })
       return generated
@@ -157,7 +158,7 @@ test.group('Document creation generation', (group) => {
       assert.equal(doc.generationStatus, 'ready')
       assert.lengthOf(await doc.related('documentVersions').query(), 1)
     } finally {
-      OpenRouterService.prototype.generateDocumentWithEvidence = original
+      OpenRouterService.prototype.generateOutlineWithEvidence = original
     }
   })
   test('provider authentication failures become terminal and expose only a safe actionable error', async ({
@@ -171,14 +172,14 @@ test.group('Document creation generation', (group) => {
       .withCsrfToken()
       .redirects(0)
       .json({ title: 'Provider error', sourceMode: 'input_only' })
-    const original = OpenRouterService.prototype.generateDocumentWithEvidence
-    OpenRouterService.prototype.generateDocumentWithEvidence = async () => {
+    const original = OpenRouterService.prototype.generateOutlineWithEvidence
+    OpenRouterService.prototype.generateOutlineWithEvidence = async () => {
       throw Object.assign(new Error('Sensitive upstream details'), { statusCode: 401 })
     }
     try {
       await new TaskDispatchService().dispatch()
     } finally {
-      OpenRouterService.prototype.generateDocumentWithEvidence = original
+      OpenRouterService.prototype.generateOutlineWithEvidence = original
     }
     const doc = await Document.findByOrFail('title', 'Provider error')
     assert.equal(doc.generationStatus, 'failed')

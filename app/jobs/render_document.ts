@@ -1,3 +1,4 @@
+import PdfUnavailableException from '#exceptions/pdf_unavailable_exception'
 import workspaceConfig from '#config/workspaces'
 import { Job } from '@adonisjs/queue'
 import type { JobOptions } from '@adonisjs/queue/types'
@@ -19,7 +20,9 @@ export default class RenderDocument extends Job<{ version: 1; taskId: string }> 
     } catch (error) {
       await service.fail(
         lease,
-        !!error && typeof error === 'object' && 'status' in error && error.status === 409
+        !!error && typeof error === 'object' && 'status' in error && error.status === 409,
+        error instanceof PdfUnavailableException ? error.message : undefined,
+        error instanceof PdfUnavailableException
       )
     } finally {
       clearInterval(heartbeat)

@@ -20,6 +20,7 @@ export const controllers = {
   NewAccount: () => import('#controllers/new_account_controller'),
   Projects: () => import('#controllers/projects_controller'),
   Session: () => import('#controllers/session_controller'),
+  Templates: () => import('#controllers/templates_controller'),
   Uploads: () => import('#controllers/uploads_controller'),
   WorkspaceInvitations: () => import('#controllers/workspace_invitations_controller'),
   WorkspaceMembers: () => import('#controllers/workspace_members_controller'),

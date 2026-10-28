@@ -49,6 +49,10 @@ router
         router
           .patch('/documents/:documentId/issues/:issueId', [controllers.DocumentIssues, 'update'])
           .as('documentIssues.update')
+        router
+          .get('/documents/:documentId/preview', [controllers.ExportPdfs, 'htmlPreview'])
+          .as('documentPreview.show')
+        router.get('/templates', [controllers.Templates, 'index']).as('templates.index')
         router.get('/projects', [controllers.Projects, 'index']).as('projects.index')
         router.post('/projects', [controllers.Projects, 'store']).as('projects.store')
         router.get('/projects/:projectId', [controllers.Projects, 'show']).as('projects.show')
@@ -62,6 +66,12 @@ router
         router
           .post('/documents/:documentId/approvals', [controllers.DocumentReviews, 'approve'])
           .as('documentReviews.approve')
+        router
+          .get('/documents/:documentId/versions/:versionId/preview/:format', [
+            controllers.ExportPdfs,
+            'legacyPreview',
+          ])
+          .as('documentPreviews.legacy')
         router
           .get('/documents/:documentId/preview/pdf', [controllers.ExportPdfs, 'preview'])
           .as('exportPdfs.preview')

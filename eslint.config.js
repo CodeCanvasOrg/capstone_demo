@@ -11,6 +11,7 @@ export default configApp(...react, {
           '../../../shared/writing_reveal.ts',
           '../../../shared/project_information.ts',
           '../../shared/ui_feedback.ts',
+          '../../../shared/templates/outlines',
         ],
       },
     ],

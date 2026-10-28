@@ -9,6 +9,8 @@ import WorkspaceTask from '#models/workspace_task'
 import TaskDispatch from '#models/task_dispatch'
 import TaskDispatchService from '#services/workspaces/task_dispatch_service'
 import TaskConflictException from '#exceptions/task_conflict_exception'
+import config from '#config/open_router'
+import ModelImageException from '#exceptions/model_image_exception'
 import OpenRouterService from '#services/open_router_service'
 
 const unavailable =
@@ -220,6 +222,37 @@ test.group('Generation conflicts', (group) => {
     assert.equal(a.document.generationError, task.safeError)
     assert.lengthOf(await a.document.related('documentVersions').query(), 0)
   })
+
+  for (const error of [
+    ...[400, 413, 422].map((status) =>
+      Object.assign(new Error('Sensitive upstream payload'), { status })
+    ),
+    new ModelImageException(),
+  ]) {
+    test(`permanent request failure ${error.message} ${'status' in error ? error.status : ''} stops after one attempt`, async ({
+      assert,
+    }) => {
+      const a = await account()
+      const service = new GenerationService()
+      const tasks = new TaskService()
+      const task = await service.request(a.context, a.document.id, randomUUID(), null)
+      const lease = (await tasks.claim(task.id))!
+      await service.failed(lease, error)
+      await task.refresh()
+      await a.document.refresh()
+      assert.equal(task.status, 'failed')
+      assert.equal(task.attempts, 1)
+      assert.equal(
+        task.safeError,
+        error instanceof ModelImageException
+          ? error.message
+          : config.failureMessages[(error as any).status]
+      )
+      assert.equal(a.document.generationError, task.safeError)
+      assert.isNull(await tasks.claim(task.id))
+      assert.lengthOf(await a.document.related('documentVersions').query(), 0)
+    })
+  }
 
   test('an expired lease has its own failure reason', async ({ assert }) => {
     const a = await account()

@@ -6,6 +6,10 @@ import Document from './document.ts'
 import { DateTime } from 'luxon'
 
 export default class DocumentVersion extends DocumentVersionSchema {
+  @column({ prepare: (value: unknown) => JSON.stringify(value) }) declare sourceManifest:
+    import('#services/documents/canonical_content_service').Manifest | null
+  @column() declare canonicalContent:
+    import('../../shared/templates/content.ts').CanonicalContent | null
   @column({ isPrimary: true })
   declare id: string
 

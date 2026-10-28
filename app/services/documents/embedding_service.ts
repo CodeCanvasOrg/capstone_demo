@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto'
 
+import embeddingsConfig from '#config/embeddings'
 import openRouterApiConfig from '#config/open_router'
 import logger from '@adonisjs/core/services/logger'
 import { OpenAIEmbeddings } from '@langchain/openai'
@@ -11,12 +12,12 @@ const MAX_ATTEMPTS = 3
 
 export default class EmbeddingService {
   private embeddingModel = new OpenAIEmbeddings({
-    openAIApiKey: openRouterApiConfig.apiKey.release(),
+    openAIApiKey: embeddingsConfig.apiKey(),
     configuration: {
-      baseURL: openRouterApiConfig.baseUrl,
+      baseURL: embeddingsConfig.baseUrl,
     },
-    model: openRouterApiConfig.embeddingModel,
-    dimensions: openRouterApiConfig.embeddingDimensions,
+    model: embeddingsConfig.model,
+    dimensions: embeddingsConfig.dimensions,
     batchSize: MAX_BATCH_ITEMS,
     maxRetries: 0,
     timeout: 90000,

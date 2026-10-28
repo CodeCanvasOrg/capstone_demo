@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: OpenRouter client surface used by CodeCanvas
-  version: 1.0.0
+  version: 1.1.0
   description: Local verification contract derived from installed LangChain OpenRouter/OpenAI clients; not a complete vendor specification.
 servers:
   - url: https://openrouter.ai/api/v1
@@ -17,9 +17,9 @@ paths:
               type: object
               required: [model, input]
               properties:
-                model: {type: string}
+                model: { type: string }
                 input: {}
-                dimensions: {type: integer}
+                dimensions: { type: integer }
       responses:
         '200':
           description: Indexed embedding vectors
@@ -40,12 +40,12 @@ paths:
               type: object
               required: [model, messages]
               properties:
-                model: {type: string}
-                messages: {type: array, items: {type: object}}
-                tools: {type: array, items: {type: object}}
+                model: { type: string }
+                messages: { type: array, items: { type: object } }
+                tools: { type: array, items: { type: object } }
       responses:
         '200':
-          description: Chat completion with structured function call
+          description: Chat completion with structured function call. Company guides use fill_document_outline with sections containing key and ordinary TipTap content; application assembles headings from the frozen guide.
         '401':
           description: Invalid provider credentials
         '429':

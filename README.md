@@ -93,6 +93,10 @@ configure `REDIS_HOST`, `REDIS_PORT`, and `REDIS_PASSWORD` in the environment. `
 is available for local commands that should not connect to Redis.
 
 Apply the new migrations after confirming the PostgreSQL `vector` extension is available on the
-database. The migrations create it when the database role has permission. The embedding contract
-uses 1024 dimensions to stay within pgvector's HNSW index limit; change `RAG_EMBEDDING_DIMENSIONS`
-only with a matching pgvector schema and embedding request.
+database. The migrations create it when the database role has permission.
+
+Embeddings are configured in `config/embeddings.ts`. By default they come from a local
+[Ollama](https://ollama.com) server (`ollama pull embeddinggemma-2:740m`, 768 dimensions) through its
+OpenAI-compatible endpoint. Set `EMBEDDING_PROVIDER=openrouter` and `RAG_EMBEDDING_DIMENSIONS=1024`
+to use OpenRouter instead. Embeddings of each width get their own HNSW index (768 and 1024 are
+indexed); after changing the model or dimensions, retry source preparation so files are re-embedded.

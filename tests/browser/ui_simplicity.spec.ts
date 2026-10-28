@@ -27,6 +27,7 @@ test.group('UI simplicity', (group) => {
       `/workspaces/${fixture.workspace.id}/documents/${fixture.document.id}/edit`
     )
     const checklist = page.getByRole('region', { name: 'Review checklist' })
+    await checklist.waitFor()
     for (const width of [390, 1440]) {
       await page.setViewportSize({ width, height: 900 })
       assert.isTrue(await checklist.isVisible())
@@ -212,9 +213,9 @@ test.group('UI simplicity', (group) => {
         await page.keyboard.press('Enter')
         await page.getByRole('menuitem', { name: 'History', exact: true }).waitFor()
         await page.keyboard.press('Escape')
-        assert.equal(
-          await page.evaluate<boolean>('document.activeElement?.textContent?.trim() === "More"'),
-          true
+        // Radix restores focus to the icon-only trigger on the next frame after closing.
+        await page.waitForFunction(
+          '(document.activeElement?.getAttribute("aria-label") ?? document.activeElement?.textContent?.trim()) === "More"'
         )
         assert.isTrue(
           await page.evaluate<boolean>('document.documentElement.scrollWidth <= innerWidth')

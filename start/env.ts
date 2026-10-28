@@ -79,6 +79,12 @@ export default await Env.create(new URL('../', import.meta.url), {
   RAG_PIPELINE_VERSION: Env.schema.string(),
   RAG_EMBEDDING_DIMENSIONS: Env.schema.number(),
 
+  // Embedding provider (see config/embeddings.ts)
+  EMBEDDING_PROVIDER: Env.schema.enum.optional(['ollama', 'openrouter'] as const),
+  EMBEDDING_BASE_URL: Env.schema.string.optional({ format: 'url', tld: false }),
+  EMBEDDING_MODEL: Env.schema.string.optional(),
+  EMBEDDING_API_KEY: Env.schema.secret.optional(),
+
   /*
   |----------------------------------------------------------
   | Variables for configuring the mail package

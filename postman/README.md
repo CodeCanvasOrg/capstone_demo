@@ -7,7 +7,7 @@ The workspace API contract is the endpoint matrix in `docs/workspace-tenancy-imp
 With Postman CLI dataset support available locally, start the checked-in simulation:
 
 ```bash
-postman simulate start postman/simulations/workspace-generation.sim.yaml
+postman simulation run postman/simulations/workspace-generation.sim.yaml --port 4900 --no-history
 ```
 
 The simulation uses the path router on port 4900 and its mock on 4901. Run the opt-in transport test against a disposable database; use a dummy API key, never a production key:
@@ -15,9 +15,15 @@ The simulation uses the path router on port 4900 and its mock on 4901. Run the o
 ```bash
 OPENROUTER_BASE_URL=http://127.0.0.1:4900/openrouter/api/v1 \
 OPENROUTER_API_KEY=local-synthetic-test-only \
+EMBEDDING_PROVIDER=openrouter \
+EMBEDDING_BASE_URL=http://127.0.0.1:4900/openrouter/api/v1 \
 PORT=3345 node ace test functional
 ```
 
-All functional tests require `TEST_DB_URL` pointing to a database named `capstone_tenancy_test`, with the migrations applied. They truncate their fixtures. The transport test skips unless the base URL exactly matches this local simulation. Ordinary tests use controlled provider/storage adapters.
+Embeddings use their own base URL (`config/embeddings.ts`, local Ollama by default), so the embedding overrides are required for the embedding client to reach the simulation.
 
-Verification in this session: simulation startup failed because the CLI could not access dataset files under `~/.postman/`. The real client-to-mock transport test therefore remains skipped. No claim is made that it passed. The fixture can be rerun in an environment with that permission; do not work around it by changing the user's home directory or using live services.
+All functional tests require `TEST_DB_URL` pointing to a database named `capstone_tenancy_test`, with the migrations applied. They truncate their fixtures. The transport test skips unless both the chat and embedding base URLs exactly match this local simulation. Ordinary tests use controlled provider/storage adapters.
+
+Verification (2026-10-28, Postman CLI 1.73.0): the simulation started on port 4900 and the transport test passed with the command above, with both the embedding and chat clients pointed at the simulation.
+
+Template canonical responses are modeled by the same local mock. `tests/functional/workspace_provider_transport.spec.ts` also exercises the real structured outline adapter against it. No live model request is substituted. See `docs/template-generation-verification.md`.

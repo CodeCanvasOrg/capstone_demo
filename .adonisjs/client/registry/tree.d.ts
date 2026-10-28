@@ -37,6 +37,12 @@ export interface ApiDefinition {
     update: typeof routes['documentIssues.update']
     index: typeof routes['documentIssues.index']
   }
+  documentPreview: {
+    show: typeof routes['documentPreview.show']
+  }
+  templates: {
+    index: typeof routes['templates.index']
+  }
   projects: {
     index: typeof routes['projects.index']
     store: typeof routes['projects.store']
@@ -46,6 +52,9 @@ export interface ApiDefinition {
   documentReviews: {
     store: typeof routes['documentReviews.store']
     approve: typeof routes['documentReviews.approve']
+  }
+  documentPreviews: {
+    legacy: typeof routes['documentPreviews.legacy']
   }
   exportPdfs: {
     preview: typeof routes['exportPdfs.preview']

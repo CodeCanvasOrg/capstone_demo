@@ -1,3 +1,4 @@
+import ModelImageException from '#exceptions/model_image_exception'
 import WorkflowService from '#services/documents/workflow_service'
 import TaskConflictException from '#exceptions/task_conflict_exception'
 import db from '@adonisjs/lucid/services/db'
@@ -19,6 +20,7 @@ import TaskService, {
 } from '#services/workspaces/task_service'
 import type { TransactionClientContract } from '@adonisjs/lucid/types/database'
 export const generationInput = (doc: Document) => ({
+  ...(doc.templateSetup?.outline ? { outline: doc.templateSetup.outline } : {}),
   title: doc.title,
   description: doc.description,
   information: doc.projectInformation,
@@ -165,12 +167,21 @@ export default class GenerationService {
       guard: () => tasks.check(lease),
     })
     await tasks.check(lease)
-    const generated = await new OpenRouterService().generateDocumentWithEvidence(
-      document.title ?? 'Untitled',
-      prompt,
-      chunks,
-      () => tasks.check(lease)
-    )
+    const provider = new OpenRouterService()
+    const generated = document.templateSetup?.outline
+      ? await provider.generateOutlineWithEvidence(
+          document.title,
+          prompt,
+          chunks,
+          document.templateSetup.outline.definition,
+          () => tasks.check(lease)
+        )
+      : await provider.generateDocumentWithEvidence(
+          document.title ?? 'Untitled',
+          prompt,
+          chunks,
+          () => tasks.check(lease)
+        )
     const normalized = new ContentService().normalize(generated)
     const { attachChunkMetadata } = await import('#services/documents/chunk_metadata_service')
     const content = attachChunkMetadata(normalized, chunks)
@@ -221,12 +232,19 @@ export default class GenerationService {
   }
   async failed(lease: TaskLease, error: unknown) {
     const localConflict = error instanceof TaskConflictException
+    const imageFailure = error instanceof ModelImageException
     const status = localConflict ? undefined : OpenRouterService.status(error)
     await new TaskService().fail(
       lease,
       localConflict,
-      localConflict ? error.safeMessage : status ? config.failureMessages[status] : undefined,
-      [401, 402, 403, 404].includes(status ?? 0)
+      localConflict
+        ? error.safeMessage
+        : imageFailure
+          ? error.message
+          : status
+            ? config.failureMessages[status]
+            : undefined,
+      [400, 401, 402, 403, 404, 413, 422].includes(status ?? 0) || imageFailure
     )
   }
 }

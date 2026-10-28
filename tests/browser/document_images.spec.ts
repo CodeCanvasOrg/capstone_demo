@@ -110,6 +110,8 @@ test.group('Document image upload UI', (group) => {
     assert.lengthOf(await DocumentImage.all(), 1)
     await page.getByRole('button', { name: 'Add image', exact: true }).click()
     await page.getByRole('dialog').getByRole('button', { name: 'Cancel', exact: true }).click()
+    // The editor stays aria-hidden behind the modal until it finishes closing.
+    await page.getByRole('dialog').waitFor({ state: 'hidden' })
     assert.equal(await page.getByRole('img', { name: 'Keep this description' }).count(), 1)
   })
 })

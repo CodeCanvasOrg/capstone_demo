@@ -24,6 +24,8 @@ export type ScannedRoutes = {
     'workspaceInvitations.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'invitationId': ParamValue} }
     'documentIssues.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentIssues.update': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'issueId': ParamValue} }
+    'documentPreview.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
+    'templates.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'projects.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'projects.store': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'projects.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'projectId': ParamValue} }
@@ -31,6 +33,7 @@ export type ScannedRoutes = {
     'documentIssues.index': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentReviews.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentReviews.approve': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
+    'documentPreviews.legacy': { paramsTuple: [ParamValue,ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'versionId': ParamValue,'format': ParamValue} }
     'exportPdfs.preview': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'exportPdfs.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'exportPdfs.download': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'taskId': ParamValue} }
@@ -82,9 +85,12 @@ export type ScannedRoutes = {
     'workspaces.index': { paramsTuple?: []; params?: {} }
     'workspaces.show': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'workspace_members.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
+    'documentPreview.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
+    'templates.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'projects.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'projects.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'projectId': ParamValue} }
     'documentIssues.index': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
+    'documentPreviews.legacy': { paramsTuple: [ParamValue,ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'versionId': ParamValue,'format': ParamValue} }
     'exportPdfs.preview': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'exportPdfs.download': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'taskId': ParamValue} }
     'assets.derived': { paramsTuple: [ParamValue,ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue,'revisionId': ParamValue,'assetId': ParamValue} }
@@ -116,9 +122,12 @@ export type ScannedRoutes = {
     'workspaces.index': { paramsTuple?: []; params?: {} }
     'workspaces.show': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'workspace_members.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
+    'documentPreview.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
+    'templates.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'projects.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'projects.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'projectId': ParamValue} }
     'documentIssues.index': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
+    'documentPreviews.legacy': { paramsTuple: [ParamValue,ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'versionId': ParamValue,'format': ParamValue} }
     'exportPdfs.preview': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'exportPdfs.download': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'taskId': ParamValue} }
     'assets.derived': { paramsTuple: [ParamValue,ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue,'revisionId': ParamValue,'assetId': ParamValue} }

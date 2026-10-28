@@ -1,3 +1,4 @@
+import PdfUnavailableException from '#exceptions/pdf_unavailable_exception'
 import { readFile } from 'node:fs/promises'
 import type DocumentVersion from '#models/document_version'
 import { Node, mergeAttributes } from '@tiptap/core'
@@ -49,7 +50,7 @@ const SourceCitationExtension = Node.create({
 })
 
 export default class ExportPdfService {
-  static async generate(version: DocumentVersion, { preview = false }: { preview?: boolean } = {}) {
+  static async html(version: DocumentVersion, { preview = false }: { preview?: boolean } = {}) {
     const extensions = [StarterKit, Image, SourceCitationExtension]
     const contentHtml = generateHTML(version.content, extensions)
 
@@ -128,7 +129,13 @@ export default class ExportPdfService {
       </html>
     `
 
-    const browser = await chromium.launch()
+    return html
+  }
+  static async generate(version: DocumentVersion, { preview = false }: { preview?: boolean } = {}) {
+    const html = await this.html(version, { preview })
+    const browser = await chromium.launch().catch(() => {
+      throw new PdfUnavailableException()
+    })
 
     try {
       const page = await browser.newPage()

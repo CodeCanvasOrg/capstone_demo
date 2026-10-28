@@ -1,4 +1,5 @@
 import vine from '@vinejs/vine'
+import { COMPANY_TEMPLATE_IDS } from '../../shared/templates/outlines.ts'
 const projectInformation = vine.object({
   overview: vine.string().maxLength(20000).optional(),
   problemStatement: vine.string().maxLength(20000).optional(),
@@ -23,6 +24,7 @@ const fields = {
   sourceMode: vine.enum(['files', 'input_only']).optional(),
 }
 export const documentValidator = vine.create({
+  templateId: vine.enum(COMPANY_TEMPLATE_IDS).optional(),
   ...fields,
   files: vine
     .array(vine.object({ id: vine.string().uuid() }))
