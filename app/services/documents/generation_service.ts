@@ -159,6 +159,7 @@ export default class GenerationService {
     ]
       .filter(Boolean)
       .join('\n\n')
+    const retrievalStart = performance.now()
     const chunks = await new RetrievalService().search({
       context: lease.context,
       documentId: document.id,
@@ -166,12 +167,19 @@ export default class GenerationService {
       query: `${document.title}\n${prompt}`,
       guard: () => tasks.check(lease),
     })
+    console.log(
+      `[generation ${document.id}] retrieval finished in ${Math.round(performance.now() - retrievalStart)}ms with ${chunks.length} chunks`
+    )
     await tasks.check(lease)
     const provider = new OpenRouterService()
     // Untitled documents get a model-written title; the brief stays the description.
     const title = document.templateSetup?.generateTitle
       ? await provider.generateTitle(prompt, chunks, () => tasks.check(lease))
       : document.title
+    const generationStart = performance.now()
+    console.log(
+      `[generation ${document.id}] generation started (${document.templateSetup?.outline ? 'outline' : 'freeform'})`
+    )
     const generated = document.templateSetup?.outline
       ? await provider.generateOutlineWithEvidence(
           title,
@@ -183,6 +191,9 @@ export default class GenerationService {
       : await provider.generateDocumentWithEvidence(title ?? 'Untitled', prompt, chunks, () =>
           tasks.check(lease)
         )
+    console.log(
+      `[generation ${document.id}] generation finished in ${Math.round(performance.now() - generationStart)}ms`
+    )
     const normalized = new ContentService().normalize(generated, { repair: true })
     const { attachChunkMetadata } = await import('#services/documents/chunk_metadata_service')
     const content = attachChunkMetadata(normalized, chunks)

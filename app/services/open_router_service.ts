@@ -3,6 +3,7 @@ import { outlineSections, type OutlineDefinition } from '../../shared/templates/
 import openRouterApiConfig from '#config/open_router'
 import logger from '@adonisjs/core/services/logger'
 import { HumanMessage, SystemMessage } from '@langchain/core/messages'
+import { OutputParserException } from '@langchain/core/output_parsers'
 import type { Runnable } from '@langchain/core/runnables'
 import { ChatOpenRouter } from '@langchain/openrouter'
 import {
@@ -37,6 +38,13 @@ type TextContent = {
 const MAX_SOURCE_IMAGES = 4
 
 export default class OpenRouterService {
+  /** Structured output that failed its schema or contradicted itself. */
+  static isUnusableOutput(error: unknown) {
+    return (
+      error instanceof OutputParserException ||
+      (!!error && typeof error === 'object' && 'unusableOutput' in error)
+    )
+  }
   static status(error: unknown): number | undefined {
     if (!error || typeof error !== 'object') return undefined
     const value = error as { status?: number; statusCode?: number }
@@ -255,20 +263,50 @@ export default class OpenRouterService {
       method: 'functionCalling',
       name: 'edit_document_blocks',
     })
-    const result = (await this.runGeneration(chain, [
+    const messages = [
       new SystemMessage(
         'You edit an existing case study at the request of its author. The document is a numbered list of TipTap JSON blocks. Make the smallest set of edits that fulfils the request: replace only blocks whose wording must change, insert blocks only when new content is asked for, delete only when removal is asked for. Never rewrite, reorder or polish blocks the request does not concern. Inside a block you replace, keep its unaffected wording, marks, sourceCitation and image nodes unchanged. Only use sourceChunkId values already present in the document; sourceCitation nodes belong inside the content of a paragraph, never as their own block. Do not invent measurements, results, names or contact details. Return no edits if the request needs no change.'
       ),
       new HumanMessage(JSON.stringify({ request: instruction, blocks })),
-    ])) as z.infer<typeof schema>
+    ]
+    // Unusable structured output is a sampling accident; a fresh call usually succeeds.
+    for (let attempt = 1; ; attempt++) {
+      try {
+        const result = (await this.runGeneration(chain, messages, undefined, {
+          label: 'revision',
+        })) as z.infer<typeof schema>
+        return this.applyEdits(document, result)
+      } catch (error) {
+        if (attempt >= this.MAX_ATTEMPTS || !OpenRouterService.isUnusableOutput(error)) throw error
+        logger.warn(
+          `Model revision attempt ${attempt}/${this.MAX_ATTEMPTS} returned unusable edits (${
+            error instanceof Error ? error.message.slice(0, 200) : 'unknown'
+          }); retrying`
+        )
+      }
+    }
+  }
+
+  private applyEdits(
+    document: TipTapDocument,
+    result: {
+      edits: { action: string; index: number; content?: TipTapDocument['content'] }[]
+      summary: string
+    }
+  ) {
     const replaced = new Map<number, TipTapDocument['content']>()
     const inserted = new Map<number, TipTapDocument['content']>()
     for (const edit of result.edits) {
       const insert = edit.action === 'insert_after'
       const target = insert ? inserted : replaced
-      if (target.has(edit.index) || (!insert && (edit.index < 0 || edit.index >= blocks.length)))
+      if (
+        target.has(edit.index) ||
+        (!insert && (edit.index < 0 || edit.index >= document.content.length)) ||
+        (edit.action !== 'delete' && !edit.content?.length)
+      )
         throw Object.assign(new Error('The model returned conflicting edits. Try again.'), {
           status: 422,
+          unusableOutput: true,
         })
       target.set(edit.index, edit.action === 'delete' ? [] : (edit.content ?? []))
     }

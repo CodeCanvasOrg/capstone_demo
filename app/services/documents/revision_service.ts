@@ -1,4 +1,5 @@
 import { Exception } from '@adonisjs/core/exceptions'
+import logger from '@adonisjs/core/services/logger'
 import config from '#config/open_router'
 import OpenRouterService from '#services/open_router_service'
 import ContentService from '#services/documents/content_service'
@@ -21,6 +22,7 @@ export default class RevisionService {
     try {
       revised = await new OpenRouterService().reviseDocument(content, input.instruction)
     } catch (error) {
+      logger.warn({ err: error, documentId }, 'Change request failed')
       const status = OpenRouterService.status(error)
       throw new Exception(
         (status && config.failureMessages[status]) ||

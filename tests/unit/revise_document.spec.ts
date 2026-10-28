@@ -1,4 +1,5 @@
 import { test } from '@japa/runner'
+import { OutputParserException } from '@langchain/core/output_parsers'
 import OpenRouterService from '#services/open_router_service'
 import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
 
@@ -83,10 +84,38 @@ test.group('OpenRouterService.reviseDocument', () => {
       ],
       [{ action: 'delete', index: -1 }],
       [{ action: 'replace', index: 9, content: [paragraph('A')] }],
+      [{ action: 'replace', index: 1 }],
     ])
       await assert.rejects(
         () => service({ edits, summary: '' }).instance.reviseDocument(original, 'Edit'),
         /conflicting edits/
       )
+  })
+
+  test('retries once the model returns output that fails its schema', async ({ assert }) => {
+    const instance = new OpenRouterService()
+    let calls = 0
+    Object.assign(instance, {
+      runGeneration: async () => {
+        if (++calls === 1) throw new OutputParserException('Failed to parse')
+        return { edits: [{ action: 'delete', index: 3 }], summary: 'Removed results.' }
+      },
+    })
+    const result = await instance.reviseDocument(original, 'Remove the results')
+    assert.equal(calls, 2)
+    assert.deepEqual(result.document.content, original.content.slice(0, 3))
+  })
+
+  test('does not retry provider failures that are not about the output', async ({ assert }) => {
+    const instance = new OpenRouterService()
+    let calls = 0
+    Object.assign(instance, {
+      runGeneration: async () => {
+        calls++
+        throw Object.assign(new Error('Unauthorized'), { status: 401 })
+      },
+    })
+    await assert.rejects(() => instance.reviseDocument(original, 'Edit'), /Unauthorized/)
+    assert.equal(calls, 1)
   })
 })
