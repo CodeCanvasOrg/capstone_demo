@@ -15,7 +15,9 @@
     "queue:work": "node ace queue:work --queue=documents",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "typecheck": "tsc --noEmit && tsc --noEmit --project inertia/tsconfig.json"
+    "typecheck": "tsc --noEmit && tsc --noEmit --project inertia/tsconfig.json",
+    "python:setup": "uv sync --project python/pdf_worker --frozen --compile-bytecode",
+    "python:test": "uv run --project python/pdf_worker --frozen pytest -q python/pdf_worker/tests"
   },
   "imports": {
     "#controllers/*": "./app/controllers/*.js",

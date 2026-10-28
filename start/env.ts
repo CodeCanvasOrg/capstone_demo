@@ -79,6 +79,14 @@ export default await Env.create(new URL('../', import.meta.url), {
   RAG_PIPELINE_VERSION: Env.schema.string(),
   RAG_EMBEDDING_DIMENSIONS: Env.schema.number(),
 
+  // PDF extraction worker (see config/pdf_worker.ts)
+  PDF_EXTRACTOR: Env.schema.enum.optional(['pymupdf', 'pdf-parse'] as const),
+  PDF_WORKER_PYTHON: Env.schema.string.optional(),
+  PDF_WORKER_POOL_SIZE: Env.schema.number.optional(),
+  PDF_WORKER_TIMEOUT_MS: Env.schema.number.optional(),
+  PDF_WORKER_MAX_REQUESTS: Env.schema.number.optional(),
+  PDF_WORKER_THREADS: Env.schema.number.optional(),
+
   // Embedding provider (see config/embeddings.ts)
   EMBEDDING_PROVIDER: Env.schema.enum.optional(['ollama', 'openrouter'] as const),
   EMBEDDING_BASE_URL: Env.schema.string.optional({ format: 'url', tld: false }),

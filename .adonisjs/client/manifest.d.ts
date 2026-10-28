@@ -12,6 +12,7 @@
 /// <reference path="../../config/logger.ts" />
 /// <reference path="../../config/mail.ts" />
 /// <reference path="../../config/open_router.ts" />
+/// <reference path="../../config/pdf_worker.ts" />
 /// <reference path="../../config/queue.ts" />
 /// <reference path="../../config/redis.ts" />
 /// <reference path="../../config/workspaces.ts" />

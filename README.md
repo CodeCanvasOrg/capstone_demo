@@ -62,7 +62,8 @@ cp .env.example .env
 
 ### Document Processing
 
-- pdf-parse
+- PyMuPDF 2.0 (Python worker, see "PDF extraction worker" below)
+- pdf-parse (fallback until the PyMuPDF rollout is signed off)
 - mammoth
 - unified
 - remark-parse
@@ -84,6 +85,23 @@ cp .env.example .env
 
 - Tailwind CSS
 - shadcn/ui
+
+## PDF extraction worker
+
+PDFs are extracted and chunked by PyMuPDF in a pool of long-lived Python processes started by the
+queue worker (no separate service). The environment is created once from `python/pdf_worker/uv.lock`
+and reused; nothing is installed when a PDF is processed.
+
+```bash
+bun run python:setup        # once per checkout (needs uv); re-running is a no-op
+node ace verify:pdf-worker  # starts a worker and prints Python / PyMuPDF versions
+bun run python:test         # worker tests
+```
+
+`PDF_EXTRACTOR=pymupdf|pdf-parse` selects the extractor (default: `pymupdf`, or `pdf-parse` in
+production until the rollout is signed off). `PDF_WORKER_POOL_SIZE`, `PDF_WORKER_TIMEOUT_MS`,
+`PDF_WORKER_MAX_REQUESTS` and `PDF_WORKER_THREADS` tune the pool. Design:
+`docs/pymupdf-contextual-chunking-architecture.md`.
 
 ## RAG processing
 

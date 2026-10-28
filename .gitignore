@@ -27,3 +27,7 @@ yarn-error.log
 
 # Agents
 .agents/*
+
+# Python PDF worker environment (bun run python:setup)
+python/pdf_worker/.venv
+__pycache__/
