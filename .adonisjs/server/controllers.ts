@@ -25,4 +25,5 @@ export const controllers = {
   WorkspaceInvitations: () => import('#controllers/workspace_invitations_controller'),
   WorkspaceMembers: () => import('#controllers/workspace_members_controller'),
   Workspaces: () => import('#controllers/workspaces_controller'),
+  DocumentRevisions: () => import('#controllers/document_revisions_controller'),
 }

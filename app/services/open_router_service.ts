@@ -225,6 +225,69 @@ export default class OpenRouterService {
     return attachChunkMetadata(document, chunks)
   }
 
+  /**
+   * Returns block-level edits for a requested change instead of a rewrite, so
+   * every block the model does not name stays exactly as the author left it.
+   */
+  async reviseDocument(document: TipTapDocument, instruction: string) {
+    const blocks = document.content.map((node, index) => ({ index, node }))
+    const schema = z.object({
+      edits: z
+        .array(
+          z.object({
+            action: z.enum(['replace', 'insert_after', 'delete']),
+            index: z
+              .number()
+              .int()
+              .min(-1)
+              .max(Math.max(0, blocks.length - 1))
+              .describe('Block index; insert_after accepts -1 to insert before the first block'),
+            content: getStructuredOutput({ editor: true })
+              .shape.content.optional()
+              .describe('Replacement or inserted blocks; omit for delete'),
+          })
+        )
+        .max(200),
+      summary: z.string().max(500).describe('One sentence describing what changed'),
+    })
+    const chain = this.model.withStructuredOutput(schema, {
+      method: 'functionCalling',
+      name: 'edit_document_blocks',
+    })
+    const result = (await this.runGeneration(chain, [
+      new SystemMessage(
+        'You edit an existing case study at the request of its author. The document is a numbered list of TipTap JSON blocks. Make the smallest set of edits that fulfils the request: replace only blocks whose wording must change, insert blocks only when new content is asked for, delete only when removal is asked for. Never rewrite, reorder or polish blocks the request does not concern. Inside a block you replace, keep its unaffected wording, marks, sourceCitation and image nodes unchanged. Only use sourceChunkId values already present in the document. Do not invent measurements, results, names or contact details. Return no edits if the request needs no change.'
+      ),
+      new HumanMessage(JSON.stringify({ request: instruction, blocks })),
+    ])) as z.infer<typeof schema>
+    const replaced = new Map<number, TipTapDocument['content']>()
+    const inserted = new Map<number, TipTapDocument['content']>()
+    for (const edit of result.edits) {
+      const insert = edit.action === 'insert_after'
+      const target = insert ? inserted : replaced
+      if (target.has(edit.index) || (!insert && (edit.index < 0 || edit.index >= blocks.length)))
+        throw Object.assign(new Error('The model returned conflicting edits. Try again.'), {
+          status: 422,
+        })
+      target.set(edit.index, edit.action === 'delete' ? [] : (edit.content ?? []))
+    }
+    const content = [
+      ...(inserted.get(-1) ?? []),
+      ...document.content.flatMap((node, index) => [
+        ...(replaced.get(index) ?? [node]),
+        ...(inserted.get(index) ?? []),
+      ]),
+    ]
+    return {
+      document: {
+        type: 'doc' as const,
+        content: content.length ? content : [{ type: 'paragraph' }],
+      } as TipTapDocument,
+      summary: result.summary,
+      changed: result.edits.length > 0,
+    }
+  }
+
   async generateTitle(brief: string, chunks: SourceChunk[], guard?: () => Promise<void>) {
     const chain = this.model.withStructuredOutput(
       z.object({

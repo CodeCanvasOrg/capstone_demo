@@ -523,6 +523,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_versions_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'documentRevisions.store': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/revisions'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/document_revision').documentRevisionValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/document_revision').documentRevisionValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_revisions_controller').default['handle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_revisions_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'documentTasks.generate': {
     methods: ["POST"]
     pattern: '/workspaces/:workspaceId/documents/:documentId/generation'
