@@ -4,7 +4,7 @@ import drive from '@adonisjs/drive/services/main'
 import db from '@adonisjs/lucid/services/db'
 import { DateTime } from 'luxon'
 import { Exception } from '@adonisjs/core/exceptions'
-import openRouterApiConfig from '#config/open_router'
+import { currentRunIdentity } from '#services/documents/pipeline_identity'
 import File from '#models/file'
 import FileRevision from '#models/file_revision'
 import ProcessingRun from '#models/processing_run'
@@ -64,12 +64,10 @@ export default class UploadService {
           {
             workspaceId: context.workspaceId,
             fileRevisionId: revision.id,
-            pipelineVersion: openRouterApiConfig.pipelineVersion,
+            ...currentRunIdentity(),
             status: 'queued',
             stageTimings: {},
             warnings: [],
-            embeddingModel: openRouterApiConfig.embeddingModel,
-            embeddingDimensions: openRouterApiConfig.embeddingDimensions,
           },
           { client: trx }
         )

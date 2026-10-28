@@ -1,4 +1,4 @@
-import config from '#config/open_router'
+import { isCurrentRun } from '#services/documents/pipeline_identity'
 import { BaseTransformer } from '@adonisjs/core/transformers'
 import type File from '#models/file'
 import ChunkTransformer from './chunk_transformer.ts'
@@ -16,11 +16,7 @@ export default class FileTransformer extends BaseTransformer<File> {
     const latestRevision = revisionsAreLoaded ? this.resource.revisions[0] : undefined
     const runsAreLoaded = !!latestRevision && 'processingRuns' in latestRevision.$preloaded
     const latestRun = runsAreLoaded ? latestRevision.processingRuns[0] : undefined
-    const outdated =
-      latestRun?.status === 'ready' &&
-      (latestRun.pipelineVersion !== config.pipelineVersion ||
-        latestRun.embeddingModel !== config.embeddingModel ||
-        latestRun.embeddingDimensions !== config.embeddingDimensions)
+    const outdated = latestRun?.status === 'ready' && !isCurrentRun(latestRun)
     const processingStatus = outdated
       ? 'outdated'
       : latestRun?.status === 'queued'

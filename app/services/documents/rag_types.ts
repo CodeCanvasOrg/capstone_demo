@@ -33,8 +33,9 @@ export type IndexedChunk = {
   kind: 'text' | 'image'
   tokenCount: number
   contentHash: string
-  inputHash: string
   blockIds: string[]
+  /** Derived retrieval context; embedded and indexed with `content`, never shown as evidence. */
+  context?: string | null
 }
 
 export type PreparedDocument = {

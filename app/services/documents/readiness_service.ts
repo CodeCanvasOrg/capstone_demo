@@ -7,7 +7,7 @@ import DocumentApproval from '#models/document_approval'
 import ContentService from '#services/documents/content_service'
 import { INFORMATION_FIELDS } from '#services/documents/document_service'
 import { fingerprint, type SourcePin } from '#services/workspaces/task_service'
-import config from '#config/open_router'
+import { isCurrentRun } from '#services/documents/pipeline_identity'
 export const reviewInputHash = (doc: Document) =>
   fingerprint({
     title: doc.title,
@@ -81,9 +81,11 @@ export default class ReadinessService {
           selected.rows.every(
             (row) =>
               row.status === 'ready' &&
-              row.pipeline_version === config.pipelineVersion &&
-              row.embedding_model === config.embeddingModel &&
-              row.embedding_dimensions === config.embeddingDimensions
+              isCurrentRun({
+                pipelineVersion: row.pipeline_version!,
+                embeddingModel: row.embedding_model,
+                embeddingDimensions: row.embedding_dimensions,
+              })
           )
     const blocked = await connection
       .from('document_issues')

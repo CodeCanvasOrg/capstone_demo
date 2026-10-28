@@ -5,9 +5,10 @@ import Chunk from '#models/chunk'
 import DocumentBlock from '#models/document_block'
 import { DateTime } from 'luxon'
 import ChunkingService from '#services/documents/chunking_service'
-import EmbeddingService from '#services/documents/embedding_service'
+import EmbeddingService, { embeddingInput } from '#services/documents/embedding_service'
 import FileService from '#services/documents/files_service'
 import TaskService, { type TaskLease } from '#services/workspaces/task_service'
+import { isCurrentRun } from '#services/documents/pipeline_identity'
 
 export default class ProcessingService {
   async processRun(lease: TaskLease) {
@@ -17,11 +18,7 @@ export default class ProcessingService {
       .where({ id: lease.task.runId!, workspaceId: lease.context.workspaceId })
       .preload('revision', (revision) => revision.preload('file'))
       .firstOrFail()
-    if (
-      run.pipelineVersion !== openRouterApiConfig.pipelineVersion ||
-      run.embeddingModel !== openRouterApiConfig.embeddingModel ||
-      run.embeddingDimensions !== openRouterApiConfig.embeddingDimensions
-    )
+    if (!isCurrentRun(run))
       throw new Error('Processing configuration changed; request a new preparation run')
     const file = run.revision.file
     if (file.id !== lease.task.fileId || file.workspaceId !== lease.context.workspaceId)
@@ -51,9 +48,8 @@ export default class ProcessingService {
       const prepared = await new ChunkingService().chunk(extracted.blocks)
       await tasks.check(lease) // Immediately before private content is disclosed to the embedding provider.
       const vectors = prepared.chunks.length
-        ? await new EmbeddingService().embedTexts(
-            prepared.chunks.map((chunk) => chunk.content),
-            () => tasks.check(lease)
+        ? await new EmbeddingService().embedTexts(prepared.chunks.map(embeddingInput), () =>
+            tasks.check(lease)
           )
         : []
       await tasks.finish(lease, async (trx) => {
@@ -115,7 +111,7 @@ export default class ProcessingService {
               openRouterApiConfig.pipelineVersion,
               openRouterApiConfig.embeddingDimensions,
               JSON.stringify(vectors[index]),
-              new EmbeddingService().inputHash(chunk.content),
+              new EmbeddingService().inputHash(embeddingInput(chunk)),
             ]
           )
         lockedRun.merge({

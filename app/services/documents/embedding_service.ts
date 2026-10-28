@@ -10,6 +10,10 @@ const MAX_BATCH_ITEMS = 128
 const MAX_BATCH_TOKENS = 100_000
 const MAX_ATTEMPTS = 3
 
+/** The exact text embedded for a chunk; `input_hash` must describe this, not `content` alone. */
+export const embeddingInput = (chunk: { content: string; context?: string | null }) =>
+  chunk.context ? `${chunk.context}\n\n${chunk.content}` : chunk.content
+
 export default class EmbeddingService {
   private embeddingModel = new OpenAIEmbeddings({
     openAIApiKey: embeddingsConfig.apiKey(),

@@ -3,7 +3,6 @@ import { createHash, randomUUID } from 'node:crypto'
 import { RecursiveCharacterTextSplitter } from '@langchain/textsplitters'
 import { countTokens } from 'gpt-tokenizer'
 
-import openRouterApiConfig from '#config/open_router'
 import type { CanonicalBlock, IndexedChunk, PreparedDocument } from './rag_types.ts'
 
 const MAX_CHUNK_TOKENS = 600
@@ -34,17 +33,6 @@ export default class ChunkingService {
         throw new Error(`Chunk exceeds the configured token limit (${tokenCount})`)
       }
 
-      const inputHash = createHash('sha256')
-        .update(
-          [
-            openRouterApiConfig.embeddingModel,
-            openRouterApiConfig.pipelineVersion,
-            openRouterApiConfig.embeddingDimensions,
-            content,
-          ].join('\0')
-        )
-        .digest('hex')
-
       chunks.push({
         id: randomUUID(),
         chunkIndex: chunks.length,
@@ -57,7 +45,6 @@ export default class ChunkingService {
         kind: block.blockType === 'image' ? 'image' : 'text',
         tokenCount,
         contentHash: createHash('sha256').update(content).digest('hex'),
-        inputHash,
         blockIds: [...new Set(blockIds)],
       })
     }

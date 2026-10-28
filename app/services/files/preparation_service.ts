@@ -1,5 +1,5 @@
 import db from '@adonisjs/lucid/services/db'
-import config from '#config/open_router'
+import { currentRunIdentity, isCurrentRun } from '#services/documents/pipeline_identity'
 import Document from '#models/document'
 import File from '#models/file'
 import FileRevision from '#models/file_revision'
@@ -63,21 +63,14 @@ export default class PreparationService {
         .where({ workspaceId: context.workspaceId, fileRevisionId: revision.id })
         .orderBy('createdAt', 'desc')
         .first()
-      if (
-        latest?.status === 'ready' &&
-        latest.pipelineVersion === config.pipelineVersion &&
-        latest.embeddingModel === config.embeddingModel &&
-        latest.embeddingDimensions === config.embeddingDimensions
-      )
+      if (latest?.status === 'ready' && isCurrentRun(latest))
         throw conflict('This file is already prepared with the current configuration')
       // A new run retains historical evidence and cannot be overwritten by an old lease.
       const run = await ProcessingRun.create(
         {
           workspaceId: context.workspaceId,
           fileRevisionId: revision.id,
-          pipelineVersion: config.pipelineVersion,
-          embeddingModel: config.embeddingModel,
-          embeddingDimensions: config.embeddingDimensions,
+          ...currentRunIdentity(),
           status: 'queued',
           warnings: [],
           stageTimings: {},
