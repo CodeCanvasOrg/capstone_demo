@@ -224,13 +224,15 @@ export default class TaskService {
         .forUpdate()
         .first()
       if (!task || task.status !== 'running' || task.leaseToken !== lease.token) return
-      if (task.kind === 'ingest' && task.attempts >= workspaceConfig.maximumAttempts)
+      if (task.kind === 'ingest' && (permanent || task.attempts >= workspaceConfig.maximumAttempts))
         await trx
           .from('processing_runs')
           .where({ id: task.runId!, workspace_id: task.workspaceId })
           .update({
             status: 'failed',
-            error: 'Processing reached its retry limit',
+            error: permanent
+              ? (safeError ?? 'Processing failed')
+              : 'Processing reached its retry limit',
             completed_at: DateTime.utc().toSQL(),
           })
       task.merge({

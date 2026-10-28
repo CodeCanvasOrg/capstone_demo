@@ -11,8 +11,11 @@ import { DOMParser } from '@xmldom/xmldom'
 import mammoth from 'mammoth'
 import { PDFParse } from 'pdf-parse'
 import { createWorker, type Worker } from 'tesseract.js'
+import { z } from 'zod'
 
 import File from '#models/file'
+import pdfWorkerConfig from '#config/pdf_worker'
+import PdfWorkerService from '#services/documents/pdf_worker_service'
 import type { WorkspaceAccessContext } from '#services/workspaces/access_service'
 import type { CanonicalBlock, SourceLocator } from './rag_types.ts'
 
@@ -47,6 +50,34 @@ type OcrResult = {
   text: string
   confidence: number | null
 }
+
+const pdfExtractionSchema = z.object({
+  pages: z.number().int().positive(),
+  title: z.string().nullable(),
+  toc: z.array(z.tuple([z.number(), z.string(), z.number()])),
+  scannedPages: z.array(z.number()),
+  timingsMs: z.record(z.string(), z.number()),
+  blocks: z.array(
+    z.object({
+      key: z.string().regex(/^b\d+$/),
+      blockType: z.enum(['heading', 'paragraph', 'list_item', 'table_row', 'image', 'code']),
+      text: z.string(),
+      pageNumber: z.number().int().positive(),
+      bbox: z.array(z.number()).length(4),
+      extractionMethod: z.string(),
+      headingLevel: z.number().int().min(1).max(6).optional(),
+      tableHeader: z.string().optional(),
+      isHeader: z.boolean().optional(),
+      isCaption: z.boolean().optional(),
+      figure: z
+        .string()
+        .regex(/^f\d+\.png$/)
+        .optional(),
+      caption: z.string().nullable().optional(),
+      scanned: z.boolean().optional(),
+    })
+  ),
+})
 
 const FILE_MEDIA_TYPES: Record<string, string> = {
   '.pdf': 'application/pdf',
@@ -138,7 +169,9 @@ export default class FileService {
   ): Promise<CanonicalBlock[]> {
     switch (extension) {
       case '.pdf':
-        return this.processPdf(file, source, generatedAssetKeys)
+        return pdfWorkerConfig.extractor === 'pymupdf'
+          ? this.processPdfWithPyMuPdf(file, source, generatedAssetKeys)
+          : this.processPdf(file, source, generatedAssetKeys)
       case '.docx':
         return this.processDocx(file, source, generatedAssetKeys)
       case '.md':
@@ -235,6 +268,67 @@ export default class FileService {
     } finally {
       await parser.destroy()
     }
+  }
+
+  /**
+   * PyMuPDF layout extraction in the Python worker pool. Headings keep their levels, tables arrive
+   * as rows with their header, figures and text-less pages come back as PNGs that are stored and
+   * OCR'd here exactly like embedded DOCX images.
+   */
+  private static async processPdfWithPyMuPdf(
+    file: Buffer,
+    source: SourceInfo,
+    generatedAssetKeys: string[]
+  ): Promise<CanonicalBlock[]> {
+    await source.guard()
+    return new PdfWorkerService().withDocument('extract', file, {}, async (raw, outDir) => {
+      const result = pdfExtractionSchema.parse(raw)
+      const blocks: CanonicalBlock[] = []
+      let worker: Worker | null = null
+      try {
+        for (const item of result.blocks) {
+          const locator = {
+            pageNumber: item.pageNumber,
+            bbox: item.bbox,
+            blockKey: item.key,
+            ...(item.headingLevel ? { headingLevel: item.headingLevel } : {}),
+            ...(item.tableHeader ? { tableHeader: item.tableHeader } : {}),
+            ...(item.isCaption ? { caption: true } : {}),
+          }
+          if (item.blockType !== 'image' || !item.figure) {
+            blocks.push(
+              this.makeBlock(item.blockType, item.text, source, item.extractionMethod, locator)
+            )
+            continue
+          }
+          const image = await PdfWorkerService.readOutput(outDir, item.figure)
+          const stored = await this.saveToDrive(image, source.storageRoot, source.guard)
+          generatedAssetKeys.push(stored.key)
+          worker ??= await this.createOcrWorker()
+          const ocr = await this.recognizeImage(image, worker)
+          const text = [item.caption, ocr.text].filter(Boolean).join('\n\n')
+          blocks.push({
+            id: randomUUID(),
+            blockType: 'image',
+            text: text || `Image evidence from ${source.fileName}`,
+            orderIndex: blocks.length,
+            sectionPath: [],
+            sourceLocator: this.locator(source, {
+              ...locator,
+              fileKey: stored.key,
+              fileUrl: stored.url,
+              mediaType: 'image/png',
+              ...(item.scanned ? { scanned: true } : {}),
+            }),
+            extractionMethod: item.scanned ? 'tesseract-ocr' : 'pymupdf-figure+tesseract-ocr',
+            confidence: ocr.confidence,
+          })
+        }
+      } finally {
+        await worker?.terminate()
+      }
+      return blocks
+    })
   }
 
   private static async processDocx(

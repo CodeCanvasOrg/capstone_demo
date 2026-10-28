@@ -89,6 +89,10 @@ class WorkerProcess {
     this.child.on('exit', (code, signal) =>
       this.fail(new PdfWorkerError('crashed', `exit ${code ?? signal}`))
     )
+    // An idle pool must never keep Node alive; a pending request's timeout timer does instead.
+    this.child.unref()
+    for (const stream of [this.child.stdin, this.child.stdout, this.child.stderr])
+      (stream as unknown as { unref?: () => void }).unref?.()
     this.ready = this.request('hello', {}, HANDSHAKE_TIMEOUT_MS).then((value) => {
       const hello = helloSchema.parse(value)
       if (hello.protocol !== PROTOCOL)

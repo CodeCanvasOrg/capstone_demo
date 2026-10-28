@@ -4,6 +4,8 @@ import { readFile } from 'node:fs/promises'
 import type { Worker } from 'tesseract.js'
 import FileService from '#services/documents/files_service'
 import drive from '@adonisjs/drive/services/main'
+import pdfWorkerConfig from '#config/pdf_worker'
+import PdfWorkerService, { PdfWorkerError } from '#services/documents/pdf_worker_service'
 
 const context = {
   actorId: 1,
@@ -152,9 +154,11 @@ test.group('FileService', () => {
     }
   })
 
-  test('extracts PDF text with a non-embedded standard font without pdf.js warnings', async ({
+  test('pdf-parse fallback extracts a non-embedded standard font without pdf.js warnings', async ({
     assert,
   }) => {
+    const extractor = pdfWorkerConfig.extractor
+    pdfWorkerConfig.extractor = 'pdf-parse'
     const restoreDrive = mockDriveStream(
       await readFile(new URL('../../fixtures/pdf/standard-font.pdf', import.meta.url))
     )
@@ -181,8 +185,103 @@ test.group('FileService', () => {
     } finally {
       console.log = log
       console.warn = warn
+      pdfWorkerConfig.extractor = extractor
       restoreDrive()
     }
+  })
+
+  test('PyMuPDF keeps heading levels, table rows and page numbers', async ({ assert }) => {
+    const restoreDrive = mockDriveStream(
+      await readFile(new URL('../../fixtures/pdf/sections.pdf', import.meta.url))
+    )
+    try {
+      const { blocks } = await FileService.processFile(
+        { uploaderId: 1, id: 'pdf', filename: 'sections.pdf', objectKey: 'uploads/1/sections.pdf' },
+        context,
+        guard
+      )
+      const headings = blocks.filter((block) => block.blockType === 'heading')
+      assert.deepEqual(
+        headings.slice(0, 3).map((block) => [block.text, block.sourceLocator.headingLevel]),
+        [
+          ['Acme Warehouse Modernisation', 1],
+          ['Background', 2],
+          ['Approach', 2],
+        ]
+      )
+      assert.equal(blocks.at(-1)!.sourceLocator.pageNumber, 3)
+      assert.isTrue(blocks.every((block) => block.extractionMethod === 'pymupdf-layout'))
+      assert.isTrue(blocks.every((block) => /^b\d+$/.test(String(block.sourceLocator.blockKey))))
+      assert.notInclude(blocks.map((block) => block.text).join(' '), 'Acme Confidential')
+    } finally {
+      restoreDrive()
+    }
+  })
+
+  test("PyMuPDF figures and scanned pages are stored and OCR'd", async ({ assert }) => {
+    const stored: string[] = []
+    const originalUse = drive.use
+    drive.use = () =>
+      ({
+        getStream: async () =>
+          Readable.from([
+            await readFile(new URL('../../fixtures/pdf/scanned.pdf', import.meta.url)),
+          ]),
+        put: async (key: string) => void stored.push(key),
+      }) as any
+    const service = FileService as unknown as MockFileService
+    const originalWorker = service.createOcrWorker
+    service.createOcrWorker = async () =>
+      ({
+        recognize: async () => ({ data: { text: 'Delivered 40 scanners', confidence: 91 } }),
+        terminate: async () => {},
+      }) as unknown as Worker
+    try {
+      const result = await FileService.processFile(
+        { uploaderId: 1, id: 'scan', filename: 'scanned.pdf', objectKey: 'uploads/1/scanned.pdf' },
+        context,
+        guard
+      )
+      assert.lengthOf(result.blocks, 1)
+      const [image] = result.blocks
+      assert.equal(image.blockType, 'image')
+      assert.equal(image.text, 'Delivered 40 scanners')
+      assert.equal(image.extractionMethod, 'tesseract-ocr')
+      assert.equal(image.sourceLocator.scanned, true)
+      assert.equal(image.sourceLocator.fileKey, stored[0])
+      assert.deepEqual(result.generatedAssetKeys, stored)
+    } finally {
+      drive.use = originalUse
+      service.createOcrWorker = originalWorker
+    }
+  })
+
+  test('PyMuPDF rejects encrypted PDFs with a permanent, user-safe error', async ({ assert }) => {
+    const restoreDrive = mockDriveStream(
+      await readFile(new URL('../../fixtures/pdf/encrypted.pdf', import.meta.url))
+    )
+    try {
+      const error = await FileService.processFile(
+        { uploaderId: 1, id: 'lock', filename: 'locked.pdf', objectKey: 'uploads/1/locked.pdf' },
+        context,
+        guard
+      ).catch((caught) => caught)
+      assert.instanceOf(error, PdfWorkerError)
+      assert.equal(error.code, 'encrypted')
+      assert.isTrue(error.permanent)
+      assert.equal(error.message, 'This PDF is password protected. Upload an unlocked copy.')
+    } finally {
+      restoreDrive()
+    }
+  })
+
+  test('a warm PyMuPDF worker is reused across documents', async ({ assert }) => {
+    const service = new PdfWorkerService()
+    const first = await service.hello()
+    const started = Date.now()
+    const second = await service.hello()
+    assert.deepEqual(first, second)
+    assert.isBelow(Date.now() - started, 100)
   })
 
   test('throws error for unsupported file type', async ({ assert }) => {

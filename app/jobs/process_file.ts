@@ -4,6 +4,7 @@ import type { JobOptions } from '@adonisjs/queue/types'
 import ProcessingService from '#services/documents/processing_service'
 import TaskService from '#services/workspaces/task_service'
 import logger from '@adonisjs/core/services/logger'
+import { PdfWorkerError } from '#services/documents/pdf_worker_service'
 export default class ProcessFile extends Job<{ version: 1; taskId: string }> {
   static options: JobOptions = { queue: 'documents', timeout: '20m' }
   async execute() {
@@ -23,7 +24,10 @@ export default class ProcessFile extends Job<{ version: 1; taskId: string }> {
         { err: error, taskId: lease.task.id, runId: lease.task.runId },
         'Source processing failed'
       )
-      await tasks.fail(lease)
+      // PDF worker errors carry a user-safe message; damaged or locked files never succeed on retry.
+      if (error instanceof PdfWorkerError)
+        await tasks.fail(lease, false, error.message, error.permanent)
+      else await tasks.fail(lease)
     } finally {
       clearInterval(heartbeat)
     }
