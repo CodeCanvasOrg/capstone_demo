@@ -1,6 +1,6 @@
 # PyMuPDF extraction and contextual chunking: implementation plan
 
-Status: **awaiting approval** (2026-10-28). No code has been changed.
+Status: **approved and implemented** (2026-10-28). Results and open items: `pymupdf-contextual-chunking-verification.md`.
 Research: `pymupdf-contextual-chunking-research.md`. Structure: `pymupdf-contextual-chunking-architecture.md`.
 
 Work happens in a dedicated worktree (per `docs/working-rules.md` and the `feature-pipeline` skill):

@@ -1,0 +1,98 @@
+{
+  "description": "Synthetic retrieval evaluation. Paragraphs in eval_sites.pdf never name their site; only the section heading does. Replace or extend with real, consented case-study PDFs (see docs/pymupdf-contextual-chunking-implementation-plan.md, Phase 5).",
+  "files": [
+    "tests/fixtures/pdf/eval_sites.pdf",
+    "tests/fixtures/pdf/sections.pdf",
+    "tests/fixtures/pdf/tables.pdf"
+  ],
+  "questions": [
+    {
+      "question": "How much did revenue grow at the Leeds warehouse?",
+      "expect": ["revenue grew 4%"]
+    },
+    {
+      "question": "How long do weekly stock counts take in Leeds?",
+      "expect": ["take 35 minutes"]
+    },
+    {
+      "question": "How many new staff did the Leeds site hire?",
+      "expect": ["hired 3 new staff"]
+    },
+    {
+      "question": "How much did revenue grow at the Bristol warehouse?",
+      "expect": ["revenue grew 9%"]
+    },
+    {
+      "question": "How long do weekly stock counts take in Bristol?",
+      "expect": ["take 25 minutes"]
+    },
+    {
+      "question": "How many new staff did the Bristol site hire?",
+      "expect": ["hired 5 new staff"]
+    },
+    {
+      "question": "How much did revenue grow at the Glasgow warehouse?",
+      "expect": ["revenue grew 7%"]
+    },
+    {
+      "question": "How long do weekly stock counts take in Glasgow?",
+      "expect": ["take 20 minutes"]
+    },
+    {
+      "question": "How many new staff did the Glasgow site hire?",
+      "expect": ["hired 2 new staff"]
+    },
+    {
+      "question": "How much did revenue grow at the Cardiff warehouse?",
+      "expect": ["revenue grew 12%"]
+    },
+    {
+      "question": "How long do weekly stock counts take in Cardiff?",
+      "expect": ["take 40 minutes"]
+    },
+    {
+      "question": "How many new staff did the Cardiff site hire?",
+      "expect": ["hired 6 new staff"]
+    },
+    {
+      "question": "How much did revenue grow at the Belfast warehouse?",
+      "expect": ["revenue grew 3%"]
+    },
+    {
+      "question": "How long do weekly stock counts take in Belfast?",
+      "expect": ["take 30 minutes"]
+    },
+    {
+      "question": "How many new staff did the Belfast site hire?",
+      "expect": ["hired 4 new staff"]
+    },
+    {
+      "question": "How much did revenue grow at the Aberdeen warehouse?",
+      "expect": ["revenue grew 11%"]
+    },
+    {
+      "question": "How long do weekly stock counts take in Aberdeen?",
+      "expect": ["take 15 minutes"]
+    },
+    {
+      "question": "How many new staff did the Aberdeen site hire?",
+      "expect": ["hired 1 new staff"]
+    },
+    {
+      "question": "Which framework was the barcode scanning app built with?",
+      "expect": ["react native"]
+    },
+    {
+      "question": "Which warehouse piloted the scanning app first?",
+      "expect": ["glasgow piloted"]
+    },
+    {
+      "question": "What was the error rate after the rollout in the results table?",
+      "expect": ["error rate", "1%"]
+    },
+    {
+      "question": "When did Leeds go live?",
+      "expect": ["leeds", "april"]
+    }
+  ]
+}

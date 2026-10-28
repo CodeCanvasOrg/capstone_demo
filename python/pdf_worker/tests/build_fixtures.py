@@ -105,12 +105,49 @@ def encrypted():
     doc.save(OUT / "encrypted.pdf", encryption=pymupdf.PDF_ENCRYPT_AES_256, user_pw="secret", owner_pw="owner")
 
 
+SITES = [
+    ("Leeds", 4, 35, 3, "conveyor"),
+    ("Bristol", 9, 25, 5, "forklift"),
+    ("Glasgow", 7, 20, 2, "mezzanine"),
+    ("Cardiff", 12, 40, 6, "loading bay"),
+    ("Belfast", 3, 30, 4, "cold store"),
+    ("Aberdeen", 11, 15, 1, "racking"),
+]
+
+
+def eval_sites():
+    """Retrieval evaluation corpus: paragraphs never name their site; only the heading does."""
+    sections = []
+    for name, growth, minutes, hires, asset in SITES:
+        sections.append(
+            f"""<h2>{name} warehouse</h2>
+            <p>Revenue grew {growth}% during the quarter after the scanning rollout.</p>
+            <p>Weekly stock counts now take {minutes} minutes instead of three hours.</p>
+            <p>The site hired {hires} new staff and replaced its {asset} equipment.</p>"""
+        )
+    doc = pymupdf.open()
+    # Two sites per page so page-level extraction mixes them.
+    for start in range(0, len(sections), 2):
+        page = doc.new_page()
+        header_footer(page, start // 2 + 1)
+        heading = "<h1>Quarterly site report</h1>" if start == 0 else ""
+        page.insert_htmlbox(BODY, heading + "".join(sections[start : start + 2]))
+    doc.set_metadata({"title": "Quarterly site report"})
+    doc.save(OUT / "eval_sites.pdf")
+
+
 def corrupt():
     (OUT / "corrupt.pdf").write_bytes(b"%PDF-1.7\n1 0 obj\n<< /Type /Catalog broken")
 
 
+BUILDERS = (sections, tables, two_column, figure, scanned, encrypted, corrupt, eval_sites)
+
 if __name__ == "__main__":
+    import sys
+
     OUT.mkdir(parents=True, exist_ok=True)
-    for build in (sections, tables, two_column, figure, scanned, encrypted, corrupt):
-        build()
+    wanted = set(sys.argv[1:])  # e.g. `eval_sites`; default rebuilds everything
+    for build in BUILDERS:
+        if not wanted or build.__name__ in wanted:
+            build()
     print("\n".join(sorted(path.name for path in OUT.glob("*.pdf"))))

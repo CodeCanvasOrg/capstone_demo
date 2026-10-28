@@ -76,3 +76,20 @@ def test_encrypted_and_corrupt_files_return_closed_error_codes(worker, fixture_p
     missing = worker.request("extract", path=str(tmp_path / "missing.pdf"), outDir=str(tmp_path), options={})
     assert missing["error"]["code"] == "corrupt"
     assert worker.request("hello")["ok"]
+
+
+def test_headings_without_layout_text_are_recovered_at_their_font_level(worker, fixture_pdf, tmp_path):
+    headings = [
+        (b["text"], b["headingLevel"])
+        for b in blocks_of(worker, fixture_pdf, tmp_path, "eval_sites.pdf")["blocks"]
+        if b["blockType"] == "heading"
+    ]
+    sites = ["Leeds", "Bristol", "Glasgow", "Cardiff", "Belfast", "Aberdeen"]
+    assert headings == [("Quarterly site report", 1)] + [(f"{site} warehouse", 2) for site in sites]
+
+
+def test_ligatures_are_folded_so_search_terms_match():
+    import extraction
+
+    spans = [{"text": "Cardiﬀ ofﬁce", "bbox": [0, 0, 10, 10], "size": 10}]
+    assert extraction.line_text(spans) == "Cardiff office"

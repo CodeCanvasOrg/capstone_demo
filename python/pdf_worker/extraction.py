@@ -10,6 +10,7 @@ import json
 import os
 import re
 import time
+import unicodedata
 
 import pymupdf
 
@@ -59,13 +60,43 @@ def line_text(spans: list[dict]) -> str:
                 out += " "
         out += text
         previous = span
-    return re.sub(r"\s+", " ", out).strip()
+    # NFKC folds typographic ligatures (ﬁ, ﬀ) so search terms match the source text.
+    return re.sub(r"\s+", " ", unicodedata.normalize("NFKC", out)).strip()
 
 
 def box_text(box: dict) -> str:
     lines = [line_text(line["spans"]) for line in box.get("textlines") or []]
     text = " ".join(line for line in lines if line)
     return re.sub(r"(\w)- (\w)", r"\1\2", text)  # rejoin words hyphenated across lines
+
+
+def clipped_spans(page: pymupdf.Page, rect: list[float]) -> list[list[dict]]:
+    """Span lines inside a rectangle, read from the page itself.
+
+    The layout model occasionally returns a correctly classified box without its text lines
+    (seen with short headings); the page still has the text.
+    """
+    return [
+        line["spans"]
+        for block in page.get_text("dict", clip=pymupdf.Rect(rect))["blocks"]
+        for line in block.get("lines", [])
+    ]
+
+
+def clipped_text(page: pymupdf.Page, rect: list[float]) -> str:
+    lines = [line_text(spans) for spans in clipped_spans(page, rect)]
+    return " ".join(line for line in lines if line)
+
+
+def heading_levels(pages: list[dict]) -> dict[int, int]:
+    """Font size → heading level, learned from headings the layout model returned with text."""
+    levels: dict[int, int] = {}
+    for page in pages:
+        for box in page["boxes"]:
+            if box["boxclass"] in HEADING_CLASSES and box.get("textlines") and box.get("header_level"):
+                size = round(max(span["size"] for line in box["textlines"] for span in line["spans"]))
+                levels.setdefault(size, box["header_level"])
+    return levels
 
 
 def bbox(box: dict) -> list[float]:
@@ -207,6 +238,7 @@ def extract(path: str, out_dir: str, options: dict) -> dict:
     builder = Builder(out_dir)
     scanned_pages = []
     repeated = furniture(analysed["pages"])
+    levels = heading_levels(analysed["pages"])
 
     for page_data in analysed["pages"]:
         number = page_data["page_number"]
@@ -226,7 +258,7 @@ def extract(path: str, out_dir: str, options: dict) -> dict:
             kind = box["boxclass"]
             rect = bbox(box)
             if kind in FURNITURE_CLASSES:
-                text = box_text(box)
+                text = box_text(box) or clipped_text(page, rect)
                 if normalise(text) in repeated or PAGE_NUMBER.match(text):
                     continue
                 kind = "text"  # a one-off line the model placed in a margin is still content
@@ -258,7 +290,7 @@ def extract(path: str, out_dir: str, options: dict) -> dict:
                 )
                 continue
 
-            text = box_text(box)
+            text = box_text(box) or clipped_text(page, rect)
             if not text:
                 continue
             page_has_text = True
@@ -266,7 +298,11 @@ def extract(path: str, out_dir: str, options: dict) -> dict:
             if not is_caption:
                 flush_caption()
             if kind in HEADING_CLASSES:
-                level = max(1, min(6, box.get("header_level") or 1))
+                level = box.get("header_level") or 1
+                if not box.get("textlines"):  # recovered text: trust the font size, not the box
+                    sizes = [span["size"] for spans in clipped_spans(page, rect) for span in spans]
+                    level = levels.get(round(max(sizes)), level) if sizes else level
+                level = max(1, min(6, level))
                 builder.add("heading", text, number, rect, "pymupdf-layout", headingLevel=level)
             elif kind == "list-item":
                 builder.add("list_item", re.sub(r"^[•\-–·*]\s*", "", text), number, rect, "pymupdf-layout")
