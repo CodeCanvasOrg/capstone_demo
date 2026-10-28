@@ -214,7 +214,13 @@ def extract(path: str, out_dir: str, options: dict) -> dict:
         tables = ruled_tables(page)
         emitted_tables: set[int] = set()
         page_has_text = False
-        caption_above = None
+        caption_above: tuple[str, list[float]] | None = None
+
+        def flush_caption():
+            nonlocal caption_above
+            if caption_above:  # no figure followed: keep it as ordinary text
+                builder.add("paragraph", caption_above[0], number, caption_above[1], "pymupdf-layout")
+            caption_above = None
 
         for box in page_data["boxes"]:
             kind = box["boxclass"]
@@ -239,23 +245,26 @@ def extract(path: str, out_dir: str, options: dict) -> dict:
                 width, height = rect[2] - rect[0], rect[3] - rect[1]
                 if width < MIN_FIGURE_POINTS or height < MIN_FIGURE_POINTS:
                     continue
+                caption = caption_above[0] if caption_above else None
+                caption_above = None
                 builder.add(
                     "image",
-                    caption_above or "",
+                    caption or "",
                     number,
                     rect,
                     "pymupdf-figure",
                     figure=builder.figure(page, rect, FIGURE_DPI),
-                    caption=caption_above,
+                    caption=caption,
                 )
-                caption_above = None
                 continue
 
             text = box_text(box)
             if not text:
                 continue
             page_has_text = True
-            caption_above = None
+            is_caption = kind == "caption" or bool(CAPTION.match(text))
+            if not is_caption:
+                flush_caption()
             if kind in HEADING_CLASSES:
                 level = max(1, min(6, box.get("header_level") or 1))
                 builder.add("heading", text, number, rect, "pymupdf-layout", headingLevel=level)
@@ -263,15 +272,16 @@ def extract(path: str, out_dir: str, options: dict) -> dict:
                 builder.add("list_item", re.sub(r"^[•\-–·*]\s*", "", text), number, rect, "pymupdf-layout")
             elif (rows := borderless_rows(box)) is not None:
                 add_table(builder, rows, number, rect, "pymupdf-layout")
-            elif kind == "caption" or CAPTION.match(text):
+            elif is_caption:
                 if not attach_caption(builder, text, number):
-                    caption_above = text  # a caption printed above its figure
-                    builder.add("paragraph", text, number, rect, "pymupdf-layout", isCaption=True)
+                    flush_caption()
+                    caption_above = (text, rect)  # may belong to the figure printed below it
             elif kind == "code":
                 builder.add("code", text, number, rect, "pymupdf-layout")
             else:
                 builder.add("paragraph", text, number, rect, "pymupdf-layout")
 
+        flush_caption()
         if not page_has_text and page.get_images():
             # No text layer: render the whole page so Node can OCR it.
             rect = [round(v, 1) for v in page.rect]

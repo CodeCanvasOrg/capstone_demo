@@ -45,7 +45,7 @@ export default class ProcessingService {
       () => tasks.check(lease)
     )
     try {
-      const prepared = await new ChunkingService().chunk(extracted.blocks)
+      const prepared = await new ChunkingService().chunk(extracted.blocks, extracted.chunkPlan)
       await tasks.check(lease) // Immediately before private content is disclosed to the embedding provider.
       const vectors = prepared.chunks.length
         ? await new EmbeddingService().embedTexts(prepared.chunks.map(embeddingInput), () =>

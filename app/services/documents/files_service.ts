@@ -17,7 +17,7 @@ import File from '#models/file'
 import pdfWorkerConfig from '#config/pdf_worker'
 import PdfWorkerService from '#services/documents/pdf_worker_service'
 import type { WorkspaceAccessContext } from '#services/workspaces/access_service'
-import type { CanonicalBlock, SourceLocator } from './rag_types.ts'
+import type { CanonicalBlock, Extraction, SourceLocator } from './rag_types.ts'
 
 // pdf.js needs its bundled font and CMap data for PDFs with non-embedded standard fonts or CJK
 // text; resolve the copy pdf-parse actually loads. Node paths must end with a separator.
@@ -57,6 +57,9 @@ const pdfExtractionSchema = z.object({
   toc: z.array(z.tuple([z.number(), z.string(), z.number()])),
   scannedPages: z.array(z.number()),
   timingsMs: z.record(z.string(), z.number()),
+  chunkPlan: z.array(
+    z.object({ blocks: z.array(z.string()).min(1), header: z.string().nullable() })
+  ),
   blocks: z.array(
     z.object({
       key: z.string().regex(/^b\d+$/),
@@ -68,7 +71,6 @@ const pdfExtractionSchema = z.object({
       headingLevel: z.number().int().min(1).max(6).optional(),
       tableHeader: z.string().optional(),
       isHeader: z.boolean().optional(),
-      isCaption: z.boolean().optional(),
       figure: z
         .string()
         .regex(/^f\d+\.png$/)
@@ -129,7 +131,12 @@ export default class FileService {
     const generatedAssetKeys: string[] = []
 
     try {
-      const blocks = await this.extractBlocks(file, source, fileExtName, generatedAssetKeys)
+      const { blocks, chunkPlan, title } = await this.extractBlocks(
+        file,
+        source,
+        fileExtName,
+        generatedAssetKeys
+      )
 
       return {
         id,
@@ -141,6 +148,8 @@ export default class FileService {
         sourceHash: createHash('sha256').update(file).digest('hex'),
         byteSize: file.byteLength,
         blocks,
+        chunkPlan,
+        title: title ?? null,
         generatedAssetKeys,
       }
     } catch (error) {
@@ -166,23 +175,23 @@ export default class FileService {
     source: SourceInfo,
     extension: string,
     generatedAssetKeys: string[]
-  ): Promise<CanonicalBlock[]> {
+  ): Promise<Extraction> {
     switch (extension) {
       case '.pdf':
         return pdfWorkerConfig.extractor === 'pymupdf'
           ? this.processPdfWithPyMuPdf(file, source, generatedAssetKeys)
-          : this.processPdf(file, source, generatedAssetKeys)
+          : { blocks: await this.processPdf(file, source, generatedAssetKeys) }
       case '.docx':
-        return this.processDocx(file, source, generatedAssetKeys)
+        return { blocks: await this.processDocx(file, source, generatedAssetKeys) }
       case '.md':
       case '.markdown':
-        return this.processMarkdown(file, source)
+        return { blocks: await this.processMarkdown(file, source) }
       case '.txt':
-        return this.processPlainText(file, source)
+        return { blocks: await this.processPlainText(file, source) }
       case '.jpg':
       case '.jpeg':
       case '.png':
-        return this.processImage(file, source)
+        return { blocks: await this.processImage(file, source) }
       default:
         throw new Error(`Unsupported file type: ${extension}`)
     }
@@ -279,7 +288,7 @@ export default class FileService {
     file: Buffer,
     source: SourceInfo,
     generatedAssetKeys: string[]
-  ): Promise<CanonicalBlock[]> {
+  ): Promise<Extraction> {
     await source.guard()
     return new PdfWorkerService().withDocument('extract', file, {}, async (raw, outDir) => {
       const result = pdfExtractionSchema.parse(raw)
@@ -293,7 +302,6 @@ export default class FileService {
             blockKey: item.key,
             ...(item.headingLevel ? { headingLevel: item.headingLevel } : {}),
             ...(item.tableHeader ? { tableHeader: item.tableHeader } : {}),
-            ...(item.isCaption ? { caption: true } : {}),
           }
           if (item.blockType !== 'image' || !item.figure) {
             blocks.push(
@@ -327,7 +335,16 @@ export default class FileService {
       } finally {
         await worker?.terminate()
       }
-      return blocks
+      const ids = new Map(blocks.map((block) => [block.sourceLocator.blockKey as string, block.id]))
+      const chunkPlan = result.chunkPlan.map((group) => ({
+        blockIds: group.blocks.map((key) => {
+          const id = ids.get(key)
+          if (!id) throw new Error(`Chunk plan references an unknown block ${key}`)
+          return id
+        }),
+        header: group.header,
+      }))
+      return { blocks, chunkPlan, title: result.title }
     })
   }
 

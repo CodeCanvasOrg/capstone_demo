@@ -38,6 +38,20 @@ export type IndexedChunk = {
   context?: string | null
 }
 
+/** One planned chunk: blocks in order, plus a table header row to repeat on continuations. */
+export type ChunkPlanGroup = {
+  blockIds: string[]
+  header: string | null
+}
+
+export type Extraction = {
+  blocks: CanonicalBlock[]
+  /** Structure-aware grouping from the extractor; absent means "chunk by section" (default). */
+  chunkPlan?: ChunkPlanGroup[]
+  /** Document title from the file's own metadata, when it has one. */
+  title?: string | null
+}
+
 export type PreparedDocument = {
   blocks: CanonicalBlock[]
   chunks: IndexedChunk[]

@@ -3,29 +3,20 @@ import { createHash, randomUUID } from 'node:crypto'
 import { RecursiveCharacterTextSplitter } from '@langchain/textsplitters'
 import { countTokens } from 'gpt-tokenizer'
 
-import type { CanonicalBlock, IndexedChunk, PreparedDocument } from './rag_types.ts'
+import type { CanonicalBlock, ChunkPlanGroup, IndexedChunk, PreparedDocument } from './rag_types.ts'
 
-const MAX_CHUNK_TOKENS = 600
-const CHUNK_OVERLAP_TOKENS = 60
+// Content budget. Retrieval context (≤ 120 tokens) is embedded with it, and the embedding input
+// must stay under EmbeddingService's 700-token limit.
+export const MAX_CHUNK_TOKENS = 520
+const CHUNK_OVERLAP_TOKENS = 50
 
 export default class ChunkingService {
-  private splitter = new RecursiveCharacterTextSplitter({
-    chunkSize: MAX_CHUNK_TOKENS,
-    chunkOverlap: CHUNK_OVERLAP_TOKENS,
-    lengthFunction: countTokens,
-  })
-
-  async chunk(blocks: CanonicalBlock[]): Promise<PreparedDocument> {
+  async chunk(blocks: CanonicalBlock[], plan?: ChunkPlanGroup[]): Promise<PreparedDocument> {
     const orderedBlocks = blocks
       .map((block, orderIndex) => ({ ...block, orderIndex, sectionPath: [] as string[] }))
       .sort((left, right) => left.orderIndex - right.orderIndex)
-    const sectionTitles: string[] = []
+    this.assignSections(orderedBlocks)
     const chunks: IndexedChunk[] = []
-    let groupedText = ''
-    let groupedBlockIds: string[] = []
-    let groupedLocator: CanonicalBlock['sourceLocator'] | null = null
-    let groupedSection = ''
-    let groupedSourceKey = ''
 
     const createChunk = (content: string, blockIds: string[], block: CanonicalBlock) => {
       const tokenCount = countTokens(content)
@@ -49,14 +40,49 @@ export default class ChunkingService {
       })
     }
 
+    // Text that may exceed the budget is split so every part still fits with its prefix.
+    const emit = async (prefix: string, body: string, ids: string[], first: CanonicalBlock) => {
+      const content = `${prefix}${body}`.trim()
+      if (countTokens(content) <= MAX_CHUNK_TOKENS) return createChunk(content, ids, first)
+      for (const part of await this.split(body, MAX_CHUNK_TOKENS - countTokens(prefix)))
+        createChunk(`${prefix}${part}`.trim(), ids, first)
+    }
+
+    if (plan) {
+      const byId = new Map(orderedBlocks.map((block) => [block.id, block]))
+      for (const group of plan) {
+        const members = group.blockIds.map((id) => {
+          const block = byId.get(id)
+          if (!block || block.blockType === 'heading')
+            throw new Error(`Chunk plan references an invalid block ${id}`)
+          return block
+        })
+        const [first] = members
+        const table = members.every((block) => block.blockType === 'table_row')
+        const body = members.map((block) => block.text).join(table ? '\n' : '\n\n')
+        const header = table && group.header ? `${group.header}\n` : ''
+        await emit(
+          `${this.sectionPrefix(first)}${header}`,
+          body,
+          members.map((block) => block.id),
+          first
+        )
+      }
+      return { blocks: orderedBlocks, chunks }
+    }
+
+    let groupedText = ''
+    let groupedBlockIds: string[] = []
+    let groupedSection = ''
+    let groupedSourceKey = ''
+
     const flushGroup = () => {
-      if (!groupedText || !groupedLocator || groupedBlockIds.length === 0) return
+      if (!groupedText || groupedBlockIds.length === 0) return
       const firstBlock = orderedBlocks.find((block) => block.id === groupedBlockIds[0])
       if (!firstBlock) return
       createChunk(groupedText, groupedBlockIds, firstBlock)
       groupedText = ''
       groupedBlockIds = []
-      groupedLocator = null
       groupedSection = ''
       groupedSourceKey = ''
     }
@@ -64,23 +90,15 @@ export default class ChunkingService {
     for (const block of orderedBlocks) {
       if (block.blockType === 'heading') {
         flushGroup()
-        const level = Math.min(6, Math.max(1, Number(block.sourceLocator.headingLevel) || 1))
-        sectionTitles.splice(level - 1)
-        sectionTitles[level - 1] = block.text
-        block.sectionPath = sectionTitles.filter(Boolean)
         continue
       }
 
-      block.sectionPath = sectionTitles.filter(Boolean)
-      const sectionPrefix = block.sectionPath.length
-        ? `Section: ${block.sectionPath.join(' > ')}\n\n`
-        : ''
+      const sectionPrefix = this.sectionPrefix(block)
       const content = `${sectionPrefix}${block.text}`.trim()
 
       if (block.blockType === 'image') {
         flushGroup()
-        const parts = await this.splitter.splitText(content)
-        for (const part of parts) createChunk(part, [block.id], block)
+        await emit(sectionPrefix, block.text, [block.id], block)
         continue
       }
 
@@ -102,19 +120,42 @@ export default class ChunkingService {
 
       if (countTokens(content) > MAX_CHUNK_TOKENS) {
         flushGroup()
-        const parts = await this.splitter.splitText(content)
-        for (const part of parts) createChunk(part, [block.id], block)
+        await emit(sectionPrefix, block.text, [block.id], block)
         continue
       }
 
       groupedText = groupedText ? `${groupedText}\n\n${block.text}` : content
       groupedBlockIds.push(block.id)
-      groupedLocator = block.sourceLocator
       groupedSection = sectionKey
       groupedSourceKey = sourceKey
     }
 
     flushGroup()
     return { blocks: orderedBlocks, chunks }
+  }
+
+  /** Headings set the section path of every following block until a heading of equal level. */
+  private assignSections(blocks: CanonicalBlock[]) {
+    const sectionTitles: string[] = []
+    for (const block of blocks) {
+      if (block.blockType === 'heading') {
+        const level = Math.min(6, Math.max(1, Number(block.sourceLocator.headingLevel) || 1))
+        sectionTitles.splice(level - 1)
+        sectionTitles[level - 1] = block.text
+      }
+      block.sectionPath = sectionTitles.filter(Boolean)
+    }
+  }
+
+  private sectionPrefix(block: CanonicalBlock) {
+    return block.sectionPath.length ? `Section: ${block.sectionPath.join(' > ')}\n\n` : ''
+  }
+
+  private split(text: string, budget: number) {
+    return new RecursiveCharacterTextSplitter({
+      chunkSize: budget,
+      chunkOverlap: Math.min(CHUNK_OVERLAP_TOKENS, Math.floor(budget / 4)),
+      lengthFunction: countTokens,
+    }).splitText(text)
   }
 }

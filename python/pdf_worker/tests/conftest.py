@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 WORKER = Path(__file__).resolve().parent.parent / "worker.py"
+sys.path.insert(0, str(WORKER.parent))  # unit tests import the worker modules directly
 FIXTURES = Path(__file__).resolve().parents[3] / "tests" / "fixtures" / "pdf"
 
 

@@ -22,6 +22,7 @@ sys.stdout = sys.stderr
 
 import pymupdf  # noqa: E402  (must follow the descriptor swap)
 
+import chunking  # noqa: E402
 import extraction  # noqa: E402
 
 
@@ -43,10 +44,13 @@ def hello(_request: dict) -> dict:
 
 
 def extract(request: dict) -> dict:
+    options = request.get("options") or {}
     try:
-        return extraction.extract(request["path"], request["outDir"], request.get("options") or {})
+        result = extraction.extract(request["path"], request["outDir"], options)
     except extraction.ExtractionError as error:
         raise WorkerError(error.code, str(error)) from error
+    result["chunkPlan"] = chunking.plan(result["blocks"], int(options.get("chunkTargetTokens", 450)))
+    return result
 
 
 OPERATIONS = {"hello": hello, "extract": extract}
