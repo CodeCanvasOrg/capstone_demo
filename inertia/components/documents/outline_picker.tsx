@@ -18,7 +18,7 @@ export function OutlinePicker({
         Start with a template
       </h2>
       <p className="mt-1 text-sm text-muted-foreground">
-        Choose a template to create your case study.
+        Or choose a template to shape your case study.
       </p>
       <div className="mt-4 flex flex-wrap gap-2">
         {templates.map((template) => (

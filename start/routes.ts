@@ -98,6 +98,9 @@ router
           .post('/documents/:documentId/versions', [controllers.DocumentVersions, 'handle'])
           .as('documentVersions.store')
         router
+          .post('/documents/:documentId/revisions', [controllers.DocumentRevisions, 'handle'])
+          .as('documentRevisions.store')
+        router
           .post('/documents/:documentId/generation', [controllers.DocumentTasks, 'generate'])
           .as('documentTasks.generate')
         router

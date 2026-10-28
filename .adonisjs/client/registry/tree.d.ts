@@ -82,6 +82,9 @@ export interface ApiDefinition {
   documentVersions: {
     store: typeof routes['documentVersions.store']
   }
+  documentRevisions: {
+    store: typeof routes['documentRevisions.store']
+  }
   documentTasks: {
     generate: typeof routes['documentTasks.generate']
     sources: typeof routes['documentTasks.sources']
