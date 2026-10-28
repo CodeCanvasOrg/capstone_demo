@@ -45,7 +45,7 @@ paths:
                 tools: { type: array, items: { type: object } }
       responses:
         '200':
-          description: Chat completion with structured function call. Company guides use fill_document_outline with sections containing key and ordinary TipTap content; application assembles headings from the frozen guide. Untitled documents first call generate_document_title, returning a title string.
+          description: Chat completion with structured function call. Company guides use fill_document_outline with sections containing key and ordinary TipTap content; application assembles headings from the frozen guide. Untitled documents first call generate_document_title, returning a title string. With CONTEXTUALIZER=openrouter, source preparation calls contextualize_chunks with a JSON payload {title, document, chunks[{id,text}]} and receives contexts[{chunkId, context}].
         '401':
           description: Invalid provider credentials
         '429':

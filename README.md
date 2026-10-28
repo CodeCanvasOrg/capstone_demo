@@ -103,6 +103,20 @@ production until the rollout is signed off). `PDF_WORKER_POOL_SIZE`, `PDF_WORKER
 `PDF_WORKER_MAX_REQUESTS` and `PDF_WORKER_THREADS` tune the pool. Design:
 `docs/pymupdf-contextual-chunking-architecture.md`.
 
+## Contextual chunking
+
+Every chunk stores a `context` that situates it in its document. The structural context
+(`Title › Section › Subsection — page N`) is always written and costs nothing. Set
+`CONTEXTUALIZER=ollama` (with `CONTEXTUALIZER_MODEL`, a local chat model) or
+`CONTEXTUALIZER=openrouter` to also have an LLM add one or two sentences per chunk; the
+document text is sent once per batch of 8 chunks as a shared prefix. Generated sentences that
+are too long or contain figures absent from the document fall back to the structural context.
+
+Context is embedded and full-text indexed together with the chunk (`chunks.content_tsv`) but is
+never shown as evidence or cited: generation receives the source text with its section label.
+Changing the contextualizer, like changing the embedding model or `RAG_PIPELINE_VERSION`,
+marks existing sources for re-preparation.
+
 ## RAG processing
 
 The web process stores uploads and schedules durable indexing and generation jobs in Redis. Start

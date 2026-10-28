@@ -7,6 +7,8 @@ export type SourceChunk = {
   modelFileUrl?: string | null
   mediaType: string | null
   pageNumber?: number | null
+  /** Heading path of the chunk's first block; structural fact, safe to show the model. */
+  section?: string | null
 }
 
 type TipTapNode = {

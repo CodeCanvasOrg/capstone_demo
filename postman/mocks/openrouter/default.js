@@ -31,6 +31,17 @@ http
         return send(400, { error: { message: 'messages and structured function are required' } })
       let generated
       if (name === 'generate_document_title') generated = { title: 'Synthetic generated title' }
+      if (name === 'contextualize_chunks') {
+        const raw = body.messages
+          .map((message) => (typeof message.content === 'string' ? message.content : ''))
+          .findLast((text) => text.startsWith('{'))
+        generated = {
+          contexts: JSON.parse(raw).chunks.map((chunk) => ({
+            chunkId: chunk.id,
+            context: 'Synthetic context for transport verification only.',
+          })),
+        }
+      }
       if (name === 'fill_document_outline') {
         const raw = body.messages
           .flatMap((message) =>

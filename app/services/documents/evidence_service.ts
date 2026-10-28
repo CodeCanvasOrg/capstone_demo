@@ -19,6 +19,7 @@ export type EvidenceRow = {
   media_type: string | null
   page_number: number | null
   kind: 'text' | 'image'
+  section_path?: string[] | null
 }
 export default class EvidenceService {
   async check(context: WorkspaceAccessContext) {
@@ -27,7 +28,7 @@ export default class EvidenceService {
   eligible(context: WorkspaceAccessContext, documentId: string, pins?: SourcePin[]) {
     // Every retrieval branch starts from the same selected-source and tenant relation.
     return {
-      sql: `SELECT DISTINCT ON (c.id) c.id,c.chunk_index,c.content,c.kind,f.id AS file_id,f.filename AS file_name,b.source_locator->>'fileKey' AS file_key,b.source_locator->>'mediaType' AS media_type,NULLIF(b.source_locator->>'pageNumber','')::integer AS page_number,c.content_tsv,c.run_id
+      sql: `SELECT DISTINCT ON (c.id) c.id,c.chunk_index,c.content,c.kind,f.id AS file_id,f.filename AS file_name,b.source_locator->>'fileKey' AS file_key,b.source_locator->>'mediaType' AS media_type,NULLIF(b.source_locator->>'pageNumber','')::integer AS page_number,b.section_path,c.content_tsv,c.run_id
       FROM document_files df
       JOIN documents d ON d.id=df.document_id AND d.workspace_id=df.workspace_id
       JOIN files f ON f.id=df.files_id AND f.workspace_id=df.workspace_id
@@ -71,13 +72,14 @@ export default class EvidenceService {
       fileUrl: `/workspaces/${context.workspaceId}/documents/${documentId}/evidence/${row.id}/asset`,
       mediaType: row.media_type,
       pageNumber: row.page_number === null ? null : Number(row.page_number),
+      section: row.section_path?.length ? row.section_path.join(' > ') : null,
     }
   }
   async historical(context: WorkspaceAccessContext, documentId: string, ids: string[]) {
     await this.check(context)
     await new AccessService().document(context, documentId)
     const result = await db.rawQuery<{ rows: EvidenceRow[] }>(
-      `SELECT DISTINCT ON(c.id) c.id,c.chunk_index,c.content,c.kind,f.id AS file_id,f.filename AS file_name,b.source_locator->>'fileKey' AS file_key,b.source_locator->>'mediaType' AS media_type,NULLIF(b.source_locator->>'pageNumber','')::integer AS page_number
+      `SELECT DISTINCT ON(c.id) c.id,c.chunk_index,c.content,c.kind,f.id AS file_id,f.filename AS file_name,b.source_locator->>'fileKey' AS file_key,b.source_locator->>'mediaType' AS media_type,NULLIF(b.source_locator->>'pageNumber','')::integer AS page_number,b.section_path
       FROM chunks c JOIN files f ON f.id=c.file_id AND f.workspace_id=c.workspace_id
       JOIN chunk_blocks cb ON cb.chunk_id=c.id AND cb.workspace_id=c.workspace_id AND cb.run_id=c.run_id
       JOIN document_blocks b ON b.id=cb.document_block_id AND b.workspace_id=cb.workspace_id AND b.processing_run_id=cb.run_id

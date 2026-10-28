@@ -36,6 +36,7 @@ export type IndexedChunk = {
   blockIds: string[]
   /** Derived retrieval context; embedded and indexed with `content`, never shown as evidence. */
   context?: string | null
+  contextSource?: 'structural' | 'llm'
 }
 
 /** One planned chunk: blocks in order, plus a table header row to repeat on continuations. */
@@ -50,6 +51,8 @@ export type Extraction = {
   chunkPlan?: ChunkPlanGroup[]
   /** Document title from the file's own metadata, when it has one. */
   title?: string | null
+  /** Engine that produced the blocks, e.g. `pymupdf:2.0`; recorded on the processing run. */
+  extractor?: string
 }
 
 export type PreparedDocument = {

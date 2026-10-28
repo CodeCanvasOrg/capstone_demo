@@ -50,6 +50,7 @@ def extract(request: dict) -> dict:
     except extraction.ExtractionError as error:
         raise WorkerError(error.code, str(error)) from error
     result["chunkPlan"] = chunking.plan(result["blocks"], int(options.get("chunkTargetTokens", 450)))
+    result["extractor"] = f"pymupdf:{pymupdf.VersionBind}"
     return result
 
 

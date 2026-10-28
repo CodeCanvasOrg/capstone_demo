@@ -8,7 +8,8 @@ import ChunkingService from '#services/documents/chunking_service'
 import EmbeddingService, { embeddingInput } from '#services/documents/embedding_service'
 import FileService from '#services/documents/files_service'
 import TaskService, { type TaskLease } from '#services/workspaces/task_service'
-import { isCurrentRun } from '#services/documents/pipeline_identity'
+import { currentRunIdentity, isCurrentRun } from '#services/documents/pipeline_identity'
+import ContextualizationService from '#services/documents/contextualization_service'
 
 export default class ProcessingService {
   async processRun(lease: TaskLease) {
@@ -45,7 +46,12 @@ export default class ProcessingService {
       () => tasks.check(lease)
     )
     try {
-      const prepared = await new ChunkingService().chunk(extracted.blocks, extracted.chunkPlan)
+      const chunked = await new ChunkingService().chunk(extracted.blocks, extracted.chunkPlan)
+      const prepared = await new ContextualizationService().contextualize(
+        chunked,
+        { title: extracted.title, fileName: file.filename ?? 'Untitled' },
+        () => tasks.check(lease)
+      )
       await tasks.check(lease) // Immediately before private content is disclosed to the embedding provider.
       const vectors = prepared.chunks.length
         ? await new EmbeddingService().embedTexts(prepared.chunks.map(embeddingInput), () =>
@@ -85,6 +91,8 @@ export default class ProcessingService {
               runId: run.id,
               chunkIndex: chunk.chunkIndex,
               content: chunk.content,
+              context: chunk.context ?? null,
+              contextSource: chunk.contextSource ?? null,
               fileKey: chunk.fileKey,
               kind: chunk.kind,
               tokenCount: chunk.tokenCount,
@@ -116,10 +124,12 @@ export default class ProcessingService {
           )
         lockedRun.merge({
           status: 'ready',
-          warnings: prepared.blocks.length ? [] : ['No text or visual evidence was extracted'],
+          warnings: prepared.blocks.length
+            ? prepared.warnings
+            : ['No text or visual evidence was extracted'],
           stageTimings: { total: Date.now() - lease.task.createdAt.toMillis() },
-          embeddingModel: openRouterApiConfig.embeddingModel,
-          embeddingDimensions: openRouterApiConfig.embeddingDimensions,
+          ...currentRunIdentity(),
+          extractor: extracted.extractor,
           completedAt: DateTime.utc(),
           leaseAt: null,
           error: null,

@@ -6,6 +6,7 @@ import AccessService from '#services/workspaces/access_service'
 import DocumentService from '#services/documents/document_service'
 import File from '#models/file'
 import config from '#config/open_router'
+import contextualization from '#config/contextualization'
 export async function reset() {
   if (!env.get('TEST_DB_URL')?.endsWith('/capstone_tenancy_test'))
     throw new Error('Requires disposable tenancy test database')
@@ -55,6 +56,7 @@ export async function source(
     status: 'ready',
     embedding_model: config.embeddingModel,
     embedding_dimensions: config.embeddingDimensions,
+    contextualizer: contextualization.identity,
     stage_timings: {},
     warnings: JSON.stringify([]),
   })

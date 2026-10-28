@@ -292,7 +292,7 @@ export default class OpenRouterService {
     return chunks
       .map(
         (chunk) =>
-          `[Source chunk ID: ${chunk.id}; File: ${chunk.fileName}; Chunk: ${chunk.chunkIndex + 1}${chunk.pageNumber ? `; Page: ${chunk.pageNumber}` : ''}]\n${chunk.content}`
+          `[Source chunk ID: ${chunk.id}; File: ${chunk.fileName}; Chunk: ${chunk.chunkIndex + 1}${chunk.pageNumber ? `; Page: ${chunk.pageNumber}` : ''}${chunk.section ? `; Section: ${chunk.section}` : ''}]\n${chunk.content}`
       )
       .join('\n\n')
   }

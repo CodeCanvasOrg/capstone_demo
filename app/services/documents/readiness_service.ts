@@ -43,10 +43,11 @@ export default class ReadinessService {
         pipeline_version: string | null
         embedding_model: string | null
         embedding_dimensions: number | null
+        contextualizer: string | null
         warnings: string[] | null
       }[]
     }>(
-      `SELECT f.id AS file_id,latest.* FROM document_files df JOIN files f ON f.id=df.files_id AND f.workspace_id=df.workspace_id LEFT JOIN LATERAL(SELECT fr.id AS revision_id,pr.id AS run_id,pr.status,pr.pipeline_version,pr.embedding_model,pr.embedding_dimensions,pr.warnings FROM file_revisions fr LEFT JOIN processing_runs pr ON pr.file_revision_id=fr.id AND pr.workspace_id=fr.workspace_id WHERE fr.file_id=f.id AND fr.workspace_id=f.workspace_id ORDER BY fr.revision DESC,pr.created_at DESC NULLS LAST LIMIT 1) latest ON true WHERE df.workspace_id=? AND df.document_id=? ORDER BY f.id`,
+      `SELECT f.id AS file_id,latest.* FROM document_files df JOIN files f ON f.id=df.files_id AND f.workspace_id=df.workspace_id LEFT JOIN LATERAL(SELECT fr.id AS revision_id,pr.id AS run_id,pr.status,pr.pipeline_version,pr.embedding_model,pr.embedding_dimensions,pr.contextualizer,pr.warnings FROM file_revisions fr LEFT JOIN processing_runs pr ON pr.file_revision_id=fr.id AND pr.workspace_id=fr.workspace_id WHERE fr.file_id=f.id AND fr.workspace_id=f.workspace_id ORDER BY fr.revision DESC,pr.created_at DESC NULLS LAST LIMIT 1) latest ON true WHERE df.workspace_id=? AND df.document_id=? ORDER BY f.id`,
       [document.workspaceId!, document.id]
     )
     const pins: SourcePin[] = selected.rows
@@ -85,6 +86,7 @@ export default class ReadinessService {
                 pipelineVersion: row.pipeline_version!,
                 embeddingModel: row.embedding_model,
                 embeddingDimensions: row.embedding_dimensions,
+                contextualizer: row.contextualizer,
               })
           )
     const blocked = await connection

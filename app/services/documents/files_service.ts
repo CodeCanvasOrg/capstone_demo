@@ -57,6 +57,7 @@ const pdfExtractionSchema = z.object({
   toc: z.array(z.tuple([z.number(), z.string(), z.number()])),
   scannedPages: z.array(z.number()),
   timingsMs: z.record(z.string(), z.number()),
+  extractor: z.string(),
   chunkPlan: z.array(
     z.object({ blocks: z.array(z.string()).min(1), header: z.string().nullable() })
   ),
@@ -131,7 +132,7 @@ export default class FileService {
     const generatedAssetKeys: string[] = []
 
     try {
-      const { blocks, chunkPlan, title } = await this.extractBlocks(
+      const { blocks, chunkPlan, title, extractor } = await this.extractBlocks(
         file,
         source,
         fileExtName,
@@ -150,6 +151,7 @@ export default class FileService {
         blocks,
         chunkPlan,
         title: title ?? null,
+        extractor: extractor ?? null,
         generatedAssetKeys,
       }
     } catch (error) {
@@ -180,7 +182,10 @@ export default class FileService {
       case '.pdf':
         return pdfWorkerConfig.extractor === 'pymupdf'
           ? this.processPdfWithPyMuPdf(file, source, generatedAssetKeys)
-          : { blocks: await this.processPdf(file, source, generatedAssetKeys) }
+          : {
+              blocks: await this.processPdf(file, source, generatedAssetKeys),
+              extractor: 'pdf-parse',
+            }
       case '.docx':
         return { blocks: await this.processDocx(file, source, generatedAssetKeys) }
       case '.md':
@@ -344,7 +349,7 @@ export default class FileService {
         }),
         header: group.header,
       }))
-      return { blocks, chunkPlan, title: result.title }
+      return { blocks, chunkPlan, title: result.title, extractor: result.extractor }
     })
   }
 

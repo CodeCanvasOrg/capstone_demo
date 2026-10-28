@@ -62,7 +62,7 @@ export default class ChunkingService {
         const body = members.map((block) => block.text).join(table ? '\n' : '\n\n')
         const header = table && group.header ? `${group.header}\n` : ''
         await emit(
-          `${this.sectionPrefix(first)}${header}`,
+          header,
           body,
           members.map((block) => block.id),
           first
@@ -93,12 +93,12 @@ export default class ChunkingService {
         continue
       }
 
-      const sectionPrefix = this.sectionPrefix(block)
-      const content = `${sectionPrefix}${block.text}`.trim()
+      // Section labels live in the chunk's structural context, so content stays pure source text.
+      const content = block.text.trim()
 
       if (block.blockType === 'image') {
         flushGroup()
-        await emit(sectionPrefix, block.text, [block.id], block)
+        await emit('', block.text, [block.id], block)
         continue
       }
 
@@ -120,7 +120,7 @@ export default class ChunkingService {
 
       if (countTokens(content) > MAX_CHUNK_TOKENS) {
         flushGroup()
-        await emit(sectionPrefix, block.text, [block.id], block)
+        await emit('', block.text, [block.id], block)
         continue
       }
 
@@ -147,15 +147,22 @@ export default class ChunkingService {
     }
   }
 
-  private sectionPrefix(block: CanonicalBlock) {
-    return block.sectionPath.length ? `Section: ${block.sectionPath.join(' > ')}\n\n` : ''
-  }
-
-  private split(text: string, budget: number) {
-    return new RecursiveCharacterTextSplitter({
-      chunkSize: budget,
-      chunkOverlap: Math.min(CHUNK_OVERLAP_TOKENS, Math.floor(budget / 4)),
+  /**
+   * The splitter measures pieces before rejoining them with separators, so a merged part can
+   * overshoot by a few tokens. Aim below the budget and split any survivor again.
+   */
+  private async split(text: string, budget: number): Promise<string[]> {
+    const target = Math.max(32, budget - 16)
+    const parts = await new RecursiveCharacterTextSplitter({
+      chunkSize: target,
+      chunkOverlap: Math.min(CHUNK_OVERLAP_TOKENS, Math.floor(target / 4)),
       lengthFunction: countTokens,
     }).splitText(text)
+    const fitted: string[] = []
+    for (const part of parts)
+      if (countTokens(part) <= budget) fitted.push(part)
+      else if (part.length < text.length) fitted.push(...(await this.split(part, budget)))
+      else throw new Error(`Text cannot be split within ${budget} tokens`)
+    return fitted
   }
 }

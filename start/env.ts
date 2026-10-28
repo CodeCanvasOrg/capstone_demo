@@ -87,6 +87,11 @@ export default await Env.create(new URL('../', import.meta.url), {
   PDF_WORKER_MAX_REQUESTS: Env.schema.number.optional(),
   PDF_WORKER_THREADS: Env.schema.number.optional(),
 
+  // Contextual chunking (see config/contextualization.ts)
+  CONTEXTUALIZER: Env.schema.enum.optional(['off', 'ollama', 'openrouter'] as const),
+  CONTEXTUALIZER_MODEL: Env.schema.string.optional(),
+  CONTEXTUALIZER_BASE_URL: Env.schema.string.optional({ format: 'url', tld: false }),
+
   // Embedding provider (see config/embeddings.ts)
   EMBEDDING_PROVIDER: Env.schema.enum.optional(['ollama', 'openrouter'] as const),
   EMBEDDING_BASE_URL: Env.schema.string.optional({ format: 'url', tld: false }),

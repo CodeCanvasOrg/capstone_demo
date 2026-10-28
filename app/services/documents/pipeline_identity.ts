@@ -1,4 +1,5 @@
 import config from '#config/open_router'
+import contextualization from '#config/contextualization'
 
 /**
  * The configuration a processing run was prepared with. A run is only usable as evidence while
@@ -8,12 +9,14 @@ export type RunIdentity = {
   pipelineVersion: string
   embeddingModel: string | null
   embeddingDimensions: number | null
+  contextualizer: string | null
 }
 
 export const currentRunIdentity = (): RunIdentity => ({
   pipelineVersion: config.pipelineVersion,
   embeddingModel: config.embeddingModel,
   embeddingDimensions: config.embeddingDimensions,
+  contextualizer: contextualization.identity,
 })
 
 export const isCurrentRun = (run: RunIdentity) => {

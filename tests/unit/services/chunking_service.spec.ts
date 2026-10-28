@@ -7,6 +7,8 @@ import type { Worker } from 'tesseract.js'
 import drive from '@adonisjs/drive/services/main'
 import FileService from '#services/documents/files_service'
 import ChunkingService, { MAX_CHUNK_TOKENS } from '#services/documents/chunking_service'
+import ContextualizationService from '#services/documents/contextualization_service'
+import { embeddingInput } from '#services/documents/embedding_service'
 import type { CanonicalBlock } from '#services/documents/rag_types'
 
 const context = {
@@ -35,7 +37,12 @@ async function prepare(name: string) {
       context,
       async () => {}
     )
-    return await new ChunkingService().chunk(extracted.blocks, extracted.chunkPlan)
+    const chunked = await new ChunkingService().chunk(extracted.blocks, extracted.chunkPlan)
+    return await new ContextualizationService(null).contextualize(
+      chunked,
+      { title: extracted.title, fileName: name },
+      async () => {}
+    )
   } finally {
     drive.use = originalUse
     service.createOcrWorker = originalWorker
@@ -61,11 +68,13 @@ test.group('ChunkingService | structure-aware plans', () => {
     for (const chunk of chunks) {
       const sections = new Set(chunk.blockIds.map((id) => sectionOf.get(id)))
       assert.equal(sections.size, 1, `chunk ${chunk.chunkIndex} spans ${[...sections].join(', ')}`)
-      assert.match(chunk.content, /^Section: Acme Warehouse Modernisation/)
+      assert.notMatch(chunk.content, /^Section:/) // content is pure source text (D4)
+      assert.match(chunk.context!, /^Acme Warehouse Modernisation/)
+      assert.equal(chunk.contextSource, 'structural')
     }
     assert.include(
-      chunks.map((chunk) => chunk.content.split('\n\n')[0]),
-      'Section: Acme Warehouse Modernisation > Approach > Scanning app'
+      chunks.map((chunk) => chunk.context),
+      'Acme Warehouse Modernisation › Approach › Scanning app — page 2'
     )
   })
 
@@ -109,7 +118,7 @@ test.group('ChunkingService | structure-aware plans', () => {
     assert.isAbove(chunks.length, 1)
     for (const chunk of chunks) {
       assert.isAtMost(chunk.tokenCount, MAX_CHUNK_TOKENS)
-      assert.isTrue(chunk.content.startsWith('Section: Results\n\n'))
+      assert.notMatch(chunk.content, /^Section:/)
     }
   })
 
@@ -124,8 +133,11 @@ test.group('ChunkingService | structure-aware plans', () => {
     ]) {
       const { chunks } = await prepare(name)
       assert.isAbove(chunks.length, 0, name)
-      for (const chunk of chunks)
+      for (const chunk of chunks) {
         assert.isAtMost(countTokens(chunk.content), MAX_CHUNK_TOKENS, name)
+        assert.isAtMost(countTokens(chunk.context!), CONTEXT_BUDGET, name)
+        assert.isBelow(countTokens(embeddingInput(chunk)), EMBEDDING_LIMIT, name)
+      }
     }
   })
 })

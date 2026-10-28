@@ -88,6 +88,8 @@ export class ChunkSchema extends BaseModel {
     'content',
     'contentHash',
     'contentTsv',
+    'context',
+    'contextSource',
     'createdAt',
     'embedding',
     'fileId',
@@ -110,6 +112,10 @@ export class ChunkSchema extends BaseModel {
   declare contentHash: string | null
   @column()
   declare contentTsv: string | null
+  @column()
+  declare context: string | null
+  @column()
+  declare contextSource: string | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
   @column()
@@ -1014,10 +1020,12 @@ export class FileSchema extends BaseModel {
 export class ProcessingRunSchema extends BaseModel {
   static $columns = [
     'completedAt',
+    'contextualizer',
     'createdAt',
     'embeddingDimensions',
     'embeddingModel',
     'error',
+    'extractor',
     'fileRevisionId',
     'id',
     'leaseAt',
@@ -1032,6 +1040,8 @@ export class ProcessingRunSchema extends BaseModel {
   $columns = ProcessingRunSchema.$columns
   @column.dateTime()
   declare completedAt: DateTime | null
+  @column()
+  declare contextualizer: string | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
   @column()
@@ -1040,6 +1050,8 @@ export class ProcessingRunSchema extends BaseModel {
   declare embeddingModel: string | null
   @column()
   declare error: string | null
+  @column()
+  declare extractor: string | null
   @column()
   declare fileRevisionId: string
   @column({ isPrimary: true })

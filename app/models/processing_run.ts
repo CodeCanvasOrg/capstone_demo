@@ -33,6 +33,12 @@ export default class ProcessingRun extends ProcessingRunSchema {
   declare embeddingDimensions: number | null
 
   @column()
+  declare contextualizer: string | null
+
+  @column()
+  declare extractor: string | null
+
+  @column()
   declare error: string | null
 
   @column.dateTime()
