@@ -19,6 +19,16 @@ export default class GenerateDocument extends Job<{ version: 1; taskId: string }
     try {
       await new GenerationService().execute(lease)
     } catch (error) {
+      const attempt = lease.task.attempts
+      if (OpenRouterService.isTimeout(error) && attempt < workspaceConfig.maximumAttempts) {
+        // Slow provider, not a defect: the task is re-queued, so keep the log to one line.
+        logger.warn(
+          { taskId: lease.task.id, documentId: lease.task.documentId },
+          `Document generation timed out (attempt ${attempt}/${workspaceConfig.maximumAttempts}); the task will retry`
+        )
+        await new GenerationService().failed(lease, error)
+        return
+      }
       logger.error(
         {
           err: error,

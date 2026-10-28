@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { outlineSections, type OutlineDefinition } from '../../shared/templates/outlines.ts'
 import openRouterApiConfig from '#config/open_router'
+import logger from '@adonisjs/core/services/logger'
 import { HumanMessage, SystemMessage } from '@langchain/core/messages'
 import type { Runnable } from '@langchain/core/runnables'
 import { ChatOpenRouter } from '@langchain/openrouter'
@@ -307,7 +308,8 @@ export default class OpenRouterService {
         ),
         new HumanMessage(JSON.stringify({ brief, sources: this.createContext(chunks) })),
       ],
-      guard
+      guard,
+      { timeoutMs: openRouterApiConfig.titleTimeoutMs, label: 'title' }
     )) as { title: string }
     const title = result.title
       .replace(/\s+/g, ' ')
@@ -320,13 +322,34 @@ export default class OpenRouterService {
     return title.slice(0, 255)
   }
 
-  private async runGeneration(chain: Runnable, input: unknown, guard?: () => Promise<void>) {
+  static isTimeout(error: unknown) {
+    return error instanceof Error && error.name === 'TimeoutError'
+  }
+
+  private async runGeneration(
+    chain: Runnable,
+    input: unknown,
+    guard?: () => Promise<void>,
+    { timeoutMs = openRouterApiConfig.timeoutMs, label = 'generation' } = {}
+  ) {
+    let timedOut = false
     for (let i = 1; i <= this.MAX_ATTEMPTS; i++) {
       try {
         await guard?.()
-        return await chain.invoke(input, { signal: AbortSignal.timeout(90000) })
+        return await chain.invoke(input, { signal: AbortSignal.timeout(timeoutMs) })
       } catch (error) {
-        if (i < this.MAX_ATTEMPTS && this.isRetryable(error)) {
+        const timeout = OpenRouterService.isTimeout(error)
+        // A slow provider gets one more full deadline; a second timeout goes to the task retry.
+        const retry = timeout ? !timedOut : this.isRetryable(error)
+        if (i < this.MAX_ATTEMPTS && retry) {
+          timedOut ||= timeout
+          logger.warn(
+            `Model ${label} call attempt ${i}/${this.MAX_ATTEMPTS} ${
+              timeout
+                ? `timed out after ${Math.round(timeoutMs / 1000)} s`
+                : `failed (${OpenRouterService.status(error) ?? 'network'})`
+            }; retrying`
+          )
           const delay = 250 * 2 ** (i - 1)
           const jitter = Math.random() * delay * 0.3
           await new Promise((resolve) => setTimeout(resolve, delay + jitter))

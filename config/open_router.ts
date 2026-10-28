@@ -9,6 +9,11 @@ const openRouterApiConfig = {
   embeddingModel: embeddingsConfig.model,
   embeddingDimensions: embeddingsConfig.dimensions,
   pipelineVersion: env.get('RAG_PIPELINE_VERSION'),
+  // Per-call deadlines. Document generation writes a whole case study as structured JSON from
+  // evidence and images and regularly takes 30-110 s; a title is a few words. A timed-out call is
+  // retried once, so the worst case (title 2x + document 2x) stays inside the 10-minute job limit.
+  timeoutMs: env.get('OPENROUTER_TIMEOUT_MS') ?? 180_000,
+  titleTimeoutMs: 60_000,
   images: {
     maxInputBytes: 20 * 1024 * 1024,
     maxInputPixels: 100_000_000,

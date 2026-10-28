@@ -249,7 +249,9 @@ export default class GenerationService {
           ? error.message
           : status
             ? config.failureMessages[status]
-            : undefined,
+            : OpenRouterService.isTimeout(error)
+              ? 'The model took too long to respond. Try again in a moment.'
+              : undefined,
       [400, 401, 402, 403, 404, 413, 422].includes(status ?? 0) || imageFailure
     )
   }

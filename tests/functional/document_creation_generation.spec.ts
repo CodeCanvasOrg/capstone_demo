@@ -231,6 +231,41 @@ test.group('Document creation generation', (group) => {
       OpenRouterService.prototype.generateOutlineWithEvidence = original
     }
   })
+  test('model timeouts re-queue the task and the last one explains itself', async ({
+    client,
+    assert,
+  }) => {
+    const a = await account()
+    await client
+      .post(`/workspaces/${a.workspace.id}/documents`)
+      .loginAs(a.user)
+      .withCsrfToken()
+      .redirects(0)
+      .json({ title: 'Slow provider', sourceMode: 'input_only' })
+    const original = OpenRouterService.prototype.generateOutlineWithEvidence
+    let calls = 0
+    OpenRouterService.prototype.generateOutlineWithEvidence = async () => {
+      calls++
+      throw new DOMException('The operation was aborted due to timeout', 'TimeoutError')
+    }
+    try {
+      const doc = await Document.findByOrFail('title', 'Slow provider')
+      await new TaskDispatchService().dispatch()
+      let task = await WorkspaceTask.findOrFail(doc.generationTaskId!)
+      assert.equal(task.status, 'queued')
+      assert.equal(task.attempts, 1)
+      await new TaskDispatchService().dispatch()
+      await new TaskDispatchService().dispatch()
+      task = await WorkspaceTask.findOrFail(doc.generationTaskId!)
+      assert.equal(calls, 3)
+      assert.equal(task.status, 'failed')
+      assert.equal(task.safeError, 'The model took too long to respond. Try again in a moment.')
+      await doc.refresh()
+      assert.equal(doc.generationStatus, 'failed')
+    } finally {
+      OpenRouterService.prototype.generateOutlineWithEvidence = original
+    }
+  })
   test('provider authentication failures become terminal and expose only a safe actionable error', async ({
     client,
     assert,
