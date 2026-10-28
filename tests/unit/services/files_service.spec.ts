@@ -152,6 +152,39 @@ test.group('FileService', () => {
     }
   })
 
+  test('extracts PDF text with a non-embedded standard font without pdf.js warnings', async ({
+    assert,
+  }) => {
+    const restoreDrive = mockDriveStream(
+      await readFile(new URL('../../fixtures/pdf/standard-font.pdf', import.meta.url))
+    )
+    const logged: string[] = []
+    const { log, warn } = console
+    console.log = console.warn = (...args: unknown[]) => logged.push(args.join(' '))
+    try {
+      const result = await FileService.processFile(
+        {
+          uploaderId: 1,
+          id: 'pdf-file-id',
+          filename: 'standard-font.pdf',
+          objectKey: 'uploads/1/standard-font.pdf',
+        },
+        context,
+        guard
+      )
+      assert.include(result.blocks[0].text, 'Standard font evidence')
+      assert.equal(result.blocks[0].extractionMethod, 'pdf-text')
+      assert.deepEqual(
+        logged.filter((line) => line.includes('standardFontDataUrl')),
+        []
+      )
+    } finally {
+      console.log = log
+      console.warn = warn
+      restoreDrive()
+    }
+  })
+
   test('throws error for unsupported file type', async ({ assert }) => {
     const fileProps = {
       uploaderId: 1,

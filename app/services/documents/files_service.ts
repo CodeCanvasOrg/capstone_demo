@@ -1,5 +1,6 @@
 import { createHash, randomUUID } from 'node:crypto'
 import { mkdir } from 'node:fs/promises'
+import { createRequire } from 'node:module'
 import path from 'node:path'
 import type Stream from 'node:stream'
 
@@ -14,6 +15,17 @@ import { createWorker, type Worker } from 'tesseract.js'
 import File from '#models/file'
 import type { WorkspaceAccessContext } from '#services/workspaces/access_service'
 import type { CanonicalBlock, SourceLocator } from './rag_types.ts'
+
+// pdf.js needs its bundled font and CMap data for PDFs with non-embedded standard fonts or CJK
+// text; resolve the copy pdf-parse actually loads. Node paths must end with a separator.
+const pdfjsRoot = path.dirname(
+  createRequire(import.meta.resolve('pdf-parse')).resolve('pdfjs-dist/package.json')
+)
+const pdfjsData = {
+  standardFontDataUrl: path.join(pdfjsRoot, 'standard_fonts') + path.sep,
+  cMapUrl: path.join(pdfjsRoot, 'cmaps') + path.sep,
+  cMapPacked: true,
+}
 
 type FileProps = {
   id: string
@@ -158,7 +170,7 @@ export default class FileService {
     source: SourceInfo,
     generatedAssetKeys: string[]
   ): Promise<CanonicalBlock[]> {
-    const parser = new PDFParse(new Uint8Array(file))
+    const parser = new PDFParse({ data: new Uint8Array(file), ...pdfjsData })
 
     try {
       const resultText = await parser.getText()
