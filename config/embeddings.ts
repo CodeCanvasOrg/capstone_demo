@@ -1,6 +1,6 @@
 import env from '#start/env'
 
-const provider = env.get('EMBEDDING_PROVIDER') ?? 'ollama'
+const provider = env.get('EMBEDDING_PROVIDER') ?? 'openrouter'
 
 /**
  * Embedding provider used for source indexing and retrieval. Both providers are reached through
