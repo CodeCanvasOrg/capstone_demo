@@ -1,0 +1,1240 @@
+[
+  {
+    "key": "company-update:vc-studio-qatar",
+    "documentId": "3c081ef4-60a9-4545-8024-211cffd5ea3e",
+    "versionId": "5192a947-b5a1-470d-b54e-8f552bf2e5ad",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "company-update:vc-studio-qatar"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "company-update:vc-studio-qatar",
+        "fileId": "aa978e8c-e59e-4142-bf14-d21a207b466e",
+        "chunkId": "4d6a402b-0052-44e2-a463-ff7ffba45798",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:customs-document-automation",
+    "documentId": "659d9730-981a-4c79-baed-5c9c61615bee",
+    "versionId": "4e8574d9-0925-494d-ab85-310fcd52ad6d",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:customs-document-automation"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:customs-document-automation",
+        "fileId": "a148ec5e-40dc-4ac4-9c64-1812afd15948",
+        "chunkId": "ba9f4d0e-9a2c-4049-a8ec-ec0caca7c393",
+        "pdfPage": 1
+      },
+      {
+        "sourceId": "case-study:customs-document-automation",
+        "fileId": "a148ec5e-40dc-4ac4-9c64-1812afd15948",
+        "chunkId": "70818b9e-bfa4-4144-a8e2-9fbe598da6c7",
+        "pdfPage": 3
+      },
+      {
+        "sourceId": "case-study:customs-document-automation",
+        "fileId": "a148ec5e-40dc-4ac4-9c64-1812afd15948",
+        "chunkId": "0a59fa4f-80cd-45e0-8744-5f55f752b50a",
+        "pdfPage": 2
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:ai-based-predictive",
+    "documentId": "b5e77099-a9cb-47bc-bfe7-8493a72e9142",
+    "versionId": "8a3e64a1-1a93-4e9a-9d45-0cc87cdd61f2",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:ai-based-predictive"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:ai-based-predictive",
+        "fileId": "0721e36c-53bb-470b-a182-f772521eb0b9",
+        "chunkId": "a68143ba-8a4e-4fd6-8815-bf63b1a9cf63",
+        "pdfPage": 1
+      },
+      {
+        "sourceId": "case-study:ai-based-predictive",
+        "fileId": "0721e36c-53bb-470b-a182-f772521eb0b9",
+        "chunkId": "1e97f539-9e99-4189-b8bd-a980cfbbf382",
+        "pdfPage": 2
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:avnrt-ablation-analytics",
+    "documentId": "9721fb6a-3aa3-471b-a4fb-31917e089c07",
+    "versionId": "b72f9bcc-04f1-49b6-8b44-2b9d571ad3ba",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:avnrt-ablation-analytics"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:avnrt-ablation-analytics",
+        "fileId": "f6ec1f99-6a7f-4845-ab35-96f911de184e",
+        "chunkId": "40e623d3-efd9-4134-b349-99c0a0c04499",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:cartoned-analysis-dashboard",
+    "documentId": "852d21e3-45d3-431e-bd35-a72da5f31b63",
+    "versionId": "af0880d3-c6b4-4030-bebb-b8e2a64b7878",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:cartoned-analysis-dashboard"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:cartoned-analysis-dashboard",
+        "fileId": "01dfcbb6-a882-4b36-99ba-799789c43cdb",
+        "chunkId": "e9fee05c-0c79-4e00-a9a8-c6318b92849b",
+        "pdfPage": 1
+      },
+      {
+        "sourceId": "case-study:cartoned-analysis-dashboard",
+        "fileId": "01dfcbb6-a882-4b36-99ba-799789c43cdb",
+        "chunkId": "f25cce72-0b0f-4847-a001-4d08de412b17",
+        "pdfPage": 4
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:impact-event-analysis",
+    "documentId": "c223e82c-14b2-4cf8-a23a-f7624799a159",
+    "versionId": "5dfd74ae-76aa-4fef-8a95-ad74ea7b05f0",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:impact-event-analysis"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:impact-event-analysis",
+        "fileId": "41a8ff36-01f3-4645-bab6-8ddde670689a",
+        "chunkId": "e29717b2-8eac-4ac1-bbbd-dd990ebda74e",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:patient-data-analytics",
+    "documentId": "78ce351b-de01-405e-92d8-1d29b2d7a43b",
+    "versionId": "48b9fea1-dbde-4ad8-a53c-492eba5aeb35",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:patient-data-analytics"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:patient-data-analytics",
+        "fileId": "2054d332-046e-4eb2-88a1-321d7c70d220",
+        "chunkId": "78bb7334-7237-4866-8a7c-2168cf401e13",
+        "pdfPage": 1
+      },
+      {
+        "sourceId": "case-study:patient-data-analytics",
+        "fileId": "2054d332-046e-4eb2-88a1-321d7c70d220",
+        "chunkId": "26dc5cc2-487f-4d1d-a20b-276a424f1b1b",
+        "pdfPage": 3
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:shelf-analysis",
+    "documentId": "c0cf0c16-f10a-401c-9643-4afb350b9479",
+    "versionId": "16976994-4fe1-4f01-ad07-33e89d9a1cb8",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:shelf-analysis"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:shelf-analysis",
+        "fileId": "d5de21ac-c68b-4aa1-af22-804bd01a7e01",
+        "chunkId": "e9f03557-99b9-407c-b96c-049b44ad533c",
+        "pdfPage": 1
+      },
+      {
+        "sourceId": "case-study:shelf-analysis",
+        "fileId": "d5de21ac-c68b-4aa1-af22-804bd01a7e01",
+        "chunkId": "5d597095-6408-4cc8-92d1-91be839745fe",
+        "pdfPage": 4
+      },
+      {
+        "sourceId": "case-study:shelf-analysis",
+        "fileId": "d5de21ac-c68b-4aa1-af22-804bd01a7e01",
+        "chunkId": "a7d89540-2637-4397-8f4a-9c62589436ab",
+        "pdfPage": 5
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:fraud-detection",
+    "documentId": "9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93",
+    "versionId": "1e08ac7d-b818-4bab-9294-922c2b54f26a",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:fraud-detection"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:fraud-detection",
+        "fileId": "25850f33-b8b1-45bb-bbc1-035d134ca59c",
+        "chunkId": "dcd67a51-cc4b-403e-a08f-26053e82c5ed",
+        "pdfPage": 4
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:poster-recognition",
+    "documentId": "3ff94381-ad6a-4603-ae52-ad1b57e5f6a3",
+    "versionId": "712dc3a3-5fbf-4ffd-828b-c815862b9d87",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:poster-recognition"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:poster-recognition",
+        "fileId": "7772c0b7-eee2-4c64-a5d2-31786585a987",
+        "chunkId": "360e1314-6e01-4b1b-953b-0973cefb2fbf",
+        "pdfPage": 1
+      },
+      {
+        "sourceId": "case-study:poster-recognition",
+        "fileId": "7772c0b7-eee2-4c64-a5d2-31786585a987",
+        "chunkId": "4564e019-1259-4f50-b9d2-ee42f7cd3816",
+        "pdfPage": 3
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:automated-training-pipeline",
+    "documentId": "65c4907c-5c07-4d60-8132-51a92d6440b1",
+    "versionId": "ab4b3abf-3e36-475d-8bf5-2293c69912e9",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:automated-training-pipeline"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:automated-training-pipeline",
+        "fileId": "4cd2b277-c47b-42f8-868b-e006246f6758",
+        "chunkId": "4c5ea7eb-5b69-4dc9-b953-10dc1dd77802",
+        "pdfPage": 1
+      },
+      {
+        "sourceId": "case-study:automated-training-pipeline",
+        "fileId": "4cd2b277-c47b-42f8-868b-e006246f6758",
+        "chunkId": "b5e32b3c-b3b8-41ae-831e-c5f127360062",
+        "pdfPage": 3
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:data-labeling-tool",
+    "documentId": "c6c8589d-35ad-4acd-8457-189429fe2808",
+    "versionId": "314b4670-1bb8-4ea8-b860-c3189dcd16b7",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:data-labeling-tool"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:data-labeling-tool",
+        "fileId": "5c4f482b-74c0-4fe2-94bc-17209a9d9a0c",
+        "chunkId": "dbe9ed7c-06d9-4c00-bd5c-3d516850ece4",
+        "pdfPage": 1
+      },
+      {
+        "sourceId": "case-study:data-labeling-tool",
+        "fileId": "5c4f482b-74c0-4fe2-94bc-17209a9d9a0c",
+        "chunkId": "8b8b39d1-1e6f-4139-9a9a-4b2b2c1f0032",
+        "pdfPage": 4
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:improving-recognition-accuracy",
+    "documentId": "deeaa238-71ff-4e77-aa51-bf3e16b3bd84",
+    "versionId": "3cbe907c-2e73-413c-a791-6256ecde9988",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:improving-recognition-accuracy"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:improving-recognition-accuracy",
+        "fileId": "5708d2c4-fca8-4b5c-a368-f756f98cb962",
+        "chunkId": "f6fa6965-8842-4808-833c-f932c4296550",
+        "pdfPage": 1
+      },
+      {
+        "sourceId": "case-study:improving-recognition-accuracy",
+        "fileId": "5708d2c4-fca8-4b5c-a368-f756f98cb962",
+        "chunkId": "5d7320a4-969f-424f-8933-eefb43fd9286",
+        "pdfPage": 2
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:optimizing-recognition-processing",
+    "documentId": "80bea5a9-7ac4-4c1a-ac11-390d0b23509a",
+    "versionId": "d0d7497c-7753-4648-83e4-dc7088992981",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:optimizing-recognition-processing"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:optimizing-recognition-processing",
+        "fileId": "eec08e8c-2a60-40b0-a121-92ced527fa8b",
+        "chunkId": "5f4fdfed-c2e3-4106-b9c5-4fb451db84e7",
+        "pdfPage": 1
+      },
+      {
+        "sourceId": "case-study:optimizing-recognition-processing",
+        "fileId": "eec08e8c-2a60-40b0-a121-92ced527fa8b",
+        "chunkId": "680522ad-ce8e-414e-a6c3-aa59d9ad09ab",
+        "pdfPage": 2
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:lumiohub-platform",
+    "documentId": "f48bb8f9-0bcf-4d53-ba21-833306574c58",
+    "versionId": "4420d1ac-dba1-4414-97e0-2d2e0811b12b",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:lumiohub-platform",
+      "project:lumiohub"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:lumiohub-platform",
+        "fileId": "6c4406ef-5433-4c1b-ad88-2247f0c69951",
+        "chunkId": "65db0def-cab7-4bf8-b20f-259054b4bfad",
+        "pdfPage": 1
+      },
+      {
+        "sourceId": "project:lumiohub",
+        "fileId": "3596a22e-0d56-4a65-bf59-d856c2563fb9",
+        "chunkId": "37324f42-5f07-4210-b82a-b6e0572d3874",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:amplifyr",
+    "documentId": "e2949908-4fc4-4842-b50a-44806e150811",
+    "versionId": "fd448c03-b541-4fb0-9d97-dc1f0b70eb51",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:amplifyr"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:amplifyr",
+        "fileId": "4abb8770-d969-405d-949a-8de9dd0b78ed",
+        "chunkId": "a39bd092-c7a9-44a5-8776-f8e3ce7c728f",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:ai-powered-retail-cart",
+    "documentId": "478482de-fbac-4d47-86ee-8c141d939da1",
+    "versionId": "6fb69233-ae67-472a-bdac-e22f702b8e10",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:ai-powered-retail-cart"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:ai-powered-retail-cart",
+        "fileId": "535c2eb8-e486-4b2a-b140-8d508f4fa26c",
+        "chunkId": "d869c90d-603f-4b0c-9b3f-d0bfb60ec880",
+        "pdfPage": 1
+      },
+      {
+        "sourceId": "case-study:ai-powered-retail-cart",
+        "fileId": "535c2eb8-e486-4b2a-b140-8d508f4fa26c",
+        "chunkId": "abf0d180-4a50-4944-9d02-4ba404ddfd9c",
+        "pdfPage": 3
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:ai-customs-intelligence",
+    "documentId": "b4427b7c-d192-409f-ab8f-8a5c8e37b08e",
+    "versionId": "61cb6c49-ebb0-4bc4-9828-e5142168e3bb",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:ai-customs-intelligence"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:ai-customs-intelligence",
+        "fileId": "1b8c2850-15df-4e03-a738-9514a08afdb3",
+        "chunkId": "4f55f8ce-aa59-497e-b2e8-4346301c2750",
+        "pdfPage": 1
+      },
+      {
+        "sourceId": "case-study:ai-customs-intelligence",
+        "fileId": "1b8c2850-15df-4e03-a738-9514a08afdb3",
+        "chunkId": "f3ceafa5-36b5-4001-b2ca-75f006e6eab5",
+        "pdfPage": 2
+      },
+      {
+        "sourceId": "case-study:ai-customs-intelligence",
+        "fileId": "1b8c2850-15df-4e03-a738-9514a08afdb3",
+        "chunkId": "73740b31-2230-49e2-8d6c-d24734e7219f",
+        "pdfPage": 4
+      },
+      {
+        "sourceId": "case-study:ai-customs-intelligence",
+        "fileId": "1b8c2850-15df-4e03-a738-9514a08afdb3",
+        "chunkId": "ee4cd7e4-027b-4383-92d8-336375474237",
+        "pdfPage": 3
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:data-cleaning-hs-codes",
+    "documentId": "93bcb2be-ad4a-4716-b613-692348cffc58",
+    "versionId": "8a0bc089-836e-4c81-8a36-d46e613584ed",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:data-cleaning-hs-codes"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:data-cleaning-hs-codes",
+        "fileId": "968bf9c9-c400-4776-9146-68167edbd303",
+        "chunkId": "a1350216-64f3-4741-abe7-482f2afb8d13",
+        "pdfPage": 1
+      },
+      {
+        "sourceId": "case-study:data-cleaning-hs-codes",
+        "fileId": "968bf9c9-c400-4776-9146-68167edbd303",
+        "chunkId": "55a4d4f8-515e-4bf4-8b24-1a04220ee40d",
+        "pdfPage": 3
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:excel-automated-testing",
+    "documentId": "b26278b3-bad5-449c-9d01-4daebb8a22c3",
+    "versionId": "a32629d6-661b-490f-960d-c525616d07b3",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:excel-automated-testing"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:excel-automated-testing",
+        "fileId": "4d896651-db70-4f0f-9989-c00e0201c53a",
+        "chunkId": "b70c24f0-a2aa-4acf-898a-4acee140e651",
+        "pdfPage": 1
+      },
+      {
+        "sourceId": "case-study:excel-automated-testing",
+        "fileId": "4d896651-db70-4f0f-9989-c00e0201c53a",
+        "chunkId": "ffd30b12-e39c-43bf-983c-50d4b9e018f7",
+        "pdfPage": 2
+      },
+      {
+        "sourceId": "case-study:excel-automated-testing",
+        "fileId": "4d896651-db70-4f0f-9989-c00e0201c53a",
+        "chunkId": "6ee6041a-4992-4ae5-818d-7f000e45b712",
+        "pdfPage": 3
+      },
+      {
+        "sourceId": "case-study:excel-automated-testing",
+        "fileId": "4d896651-db70-4f0f-9989-c00e0201c53a",
+        "chunkId": "a87368f9-086f-48e2-b67d-6327af00b78f",
+        "pdfPage": 4
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:llm-results-analyzer",
+    "documentId": "c3d8237d-3448-4e36-8fec-8596f77b5719",
+    "versionId": "3cdecfda-6af4-4f79-b832-ef020ba28989",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:llm-results-analyzer"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:llm-results-analyzer",
+        "fileId": "e15c8c90-3375-4cee-bd1e-db0c6f92cf3d",
+        "chunkId": "7fbea8e1-e1b4-4a02-a749-ca15584da4c6",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:iv-drip-flow-rate-estimator",
+    "documentId": "8f34f1fe-91f1-4e41-8380-d517e4fbee69",
+    "versionId": "9f1b2c50-903b-4eb5-be87-dbda69c5148c",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:iv-drip-flow-rate-estimator"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:iv-drip-flow-rate-estimator",
+        "fileId": "23055018-1ee8-4135-885c-3faf0e243c9b",
+        "chunkId": "dbb05e8a-05c0-4610-be0e-08c5d9f82060",
+        "pdfPage": 1
+      },
+      {
+        "sourceId": "case-study:iv-drip-flow-rate-estimator",
+        "fileId": "23055018-1ee8-4135-885c-3faf0e243c9b",
+        "chunkId": "d2fa9320-9cbb-483b-9aa1-2fddf09f48ff",
+        "pdfPage": 2
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "company-update:innerworks-partnership",
+    "documentId": "48ff52e1-62cd-45ca-a687-79b40b714e69",
+    "versionId": "ad1f0679-d07b-4761-84aa-ac4a7f14fa13",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "company-update:innerworks-partnership"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "company-update:innerworks-partnership",
+        "fileId": "49012b80-2aa2-4811-a6a0-886706680984",
+        "chunkId": "f5476103-0580-4b18-98c7-ed2fb9e856ae",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:field-center-detection",
+    "documentId": "b797d763-5917-4377-a986-e3bf36b62cf7",
+    "versionId": "1f226533-819f-4bf3-9a0d-9366a9ae2090",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:field-center-detection"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:field-center-detection",
+        "fileId": "0574d121-5672-4be8-be0f-11f263cf24a6",
+        "chunkId": "bea4afff-bd56-4e26-95d5-6057b5e68e8e",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:beef-carcass-detection",
+    "documentId": "0f3ff52a-c517-430b-bea3-dd5a8d2b4d78",
+    "versionId": "341b6fb5-2f51-45fa-adda-47a0f18d07c7",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:beef-carcass-detection"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:beef-carcass-detection",
+        "fileId": "0e9915a0-f763-4043-a234-c81ad73495a1",
+        "chunkId": "f1bb31fe-be7c-4c0f-8ef2-5d881f33b962",
+        "pdfPage": 2
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:livescore-ai",
+    "documentId": "2d077799-c260-422c-9218-2c8b339a91e0",
+    "versionId": "3b3a4ea6-f909-449b-a7a6-be0d24c47fe2",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:livescore-ai"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:livescore-ai",
+        "fileId": "344f24e4-5ffb-4c14-a226-3da2560be29f",
+        "chunkId": "356651fb-27ec-4901-a225-0a52e8f9cc9b",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "case-study:breast-cancer",
+    "documentId": "b3e067ff-c004-4856-97aa-612a2515cb5e",
+    "versionId": "764356f9-5c17-4a09-9ea6-5f89791ff614",
+    "templateId": "portfolio",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Solution and Capabilities",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "case-study:breast-cancer"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "case-study:breast-cancer",
+        "fileId": "7aa7a0f0-4650-454e-8547-8264fd09f343",
+        "chunkId": "2cd6a8b5-1800-49f9-a9c3-0527c63e4d03",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "project:hstaff",
+    "documentId": "536eb852-dc1e-4274-ba80-c303c9b126df",
+    "versionId": "248f166c-3773-4b18-87cb-203b10fc3209",
+    "templateId": "vision",
+    "templateSections": [
+      "Executive Summary",
+      "User Need",
+      "Product Vision",
+      "Capabilities and Experience",
+      "Differentiators",
+      "Current Availability and Roadmap",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "project:hstaff"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "project:hstaff",
+        "fileId": "61d131ed-c4ef-4138-9e81-478131401afd",
+        "chunkId": "1a14a763-06bd-4751-939f-16dcbae22e1d",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "project:kumush-ai",
+    "documentId": "752affd0-b45f-47e8-b022-62d1684aef89",
+    "versionId": "611e4c9a-578e-4bc8-8726-bae0f9b86e98",
+    "templateId": "vision",
+    "templateSections": [
+      "Executive Summary",
+      "User Need",
+      "Product Vision",
+      "Capabilities and Experience",
+      "Differentiators",
+      "Current Availability and Roadmap",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "project:kumush-ai"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "project:kumush-ai",
+        "fileId": "f7aca299-e7a5-4e3a-9e11-2a4328e387d0",
+        "chunkId": "f8a39c71-bc3c-4c50-a15d-bd85c918e33a",
+        "pdfPage": 5
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "project:wakil-ai",
+    "documentId": "956234f4-93a9-4b27-8112-3d6572c4f14b",
+    "versionId": "da233d60-a0ba-440e-8da9-0877aa558043",
+    "templateId": "vision",
+    "templateSections": [
+      "Executive Summary",
+      "User Need",
+      "Product Vision",
+      "Capabilities and Experience",
+      "Differentiators",
+      "Current Availability and Roadmap",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "project:wakil-ai"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "project:wakil-ai",
+        "fileId": "7be39a54-5866-4b4e-aaef-0a15ba230356",
+        "chunkId": "f670158d-0e5c-47d1-ab21-1285e09c430a",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "project:bojhona",
+    "documentId": "166ba86b-4305-499c-8989-de0c28463adc",
+    "versionId": "40928bbd-ea11-415e-8089-e6bf65dac6c4",
+    "templateId": "vision",
+    "templateSections": [
+      "Executive Summary",
+      "User Need",
+      "Product Vision",
+      "Capabilities and Experience",
+      "Differentiators",
+      "Current Availability and Roadmap",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "project:bojhona"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "project:bojhona",
+        "fileId": "997d8cc7-6d12-4a51-81b3-262d98a39034",
+        "chunkId": "72c6bda1-055c-4787-b912-5b390a549d4d",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "project:enlighten-qalb",
+    "documentId": "8a94eff7-ed2c-45f0-a564-5d0ea5058d1c",
+    "versionId": "3f0f3b39-4e34-4303-8ad0-db21319a1abb",
+    "templateId": "vision",
+    "templateSections": [
+      "Executive Summary",
+      "User Need",
+      "Product Vision",
+      "Capabilities and Experience",
+      "Differentiators",
+      "Current Availability and Roadmap",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "project:enlighten-qalb"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "project:enlighten-qalb",
+        "fileId": "9dbfe0a8-ef19-49cc-b4ac-65b0c0b1d668",
+        "chunkId": "37336d44-f180-4ad9-aa1c-062172198b57",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "project:bride",
+    "documentId": "f666afb6-4f88-426b-a3d1-861573290783",
+    "versionId": "e3da1161-9db3-4eb2-a159-b075011e15f5",
+    "templateId": "vision",
+    "templateSections": [
+      "Executive Summary",
+      "User Need",
+      "Product Vision",
+      "Capabilities and Experience",
+      "Differentiators",
+      "Current Availability and Roadmap",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "project:bride"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "project:bride",
+        "fileId": "74d50290-f7a3-44ea-9815-cbbb542431c6",
+        "chunkId": "5ed9ab58-bfc1-4ff2-a130-04f5fb48e157",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "paper:2409.04187",
+    "documentId": "ab8184e2-9abd-4dc1-af34-7230167d92ec",
+    "versionId": "c405bcb7-0cfd-4ad9-b9ee-c2f4d79f9293",
+    "templateId": "technical",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Technical Approach",
+      "Implementation",
+      "Evaluation",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "paper:2409.04187"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "paper:2409.04187",
+        "fileId": "fdb205f0-a786-4507-a2d1-f4f84b15c84e",
+        "chunkId": "fc17153e-4ae6-480a-ae3c-17678f617f10",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "paper:10883969",
+    "documentId": "7dd4f247-f585-4d0b-8f46-2cf4cb61b0e9",
+    "versionId": "e96f2807-25a9-42cb-8927-d97e160852eb",
+    "templateId": "technical",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Technical Approach",
+      "Implementation",
+      "Evaluation",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "paper:10883969"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "paper:10883969",
+        "fileId": "eefbb941-b740-4ea8-b1e1-dc2841badd1c",
+        "chunkId": "77577a47-3abf-43fb-8025-b7aa3244ccfb",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "paper:10316180",
+    "documentId": "304043c7-a0ab-4016-8e24-735f59bddefd",
+    "versionId": "ec415396-833f-44e8-9ed8-63c04e67a733",
+    "templateId": "technical",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Technical Approach",
+      "Implementation",
+      "Evaluation",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "paper:10316180"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "paper:10316180",
+        "fileId": "969f82af-3efe-4095-8dc4-d56b6aaaf485",
+        "chunkId": "10714c6e-8015-484d-8315-715ac151a1c7",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "paper:515",
+    "documentId": "177e84d4-0b3c-4208-aabd-864304028f7e",
+    "versionId": "ce3cc314-641d-4d97-80df-91ce13f44ad8",
+    "templateId": "technical",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Technical Approach",
+      "Implementation",
+      "Evaluation",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "paper:515"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "paper:515",
+        "fileId": "9b44e633-07a9-4514-a82c-d2691be115e5",
+        "chunkId": "856170f9-0414-4dea-af59-ebbdfbbb9090",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "paper:9661375",
+    "documentId": "915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe",
+    "versionId": "4b1914b6-8ac2-4981-a317-35fd2be694ba",
+    "templateId": "technical",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Technical Approach",
+      "Implementation",
+      "Evaluation",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "paper:9661375"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "paper:9661375",
+        "fileId": "b3539ad4-44e8-431e-8271-b5b6eee34dd2",
+        "chunkId": "487d5639-2d3d-439a-8504-9a892ab21a03",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "paper:9064976",
+    "documentId": "b98c42ac-05d0-45b3-85d5-f0fb0a328934",
+    "versionId": "d0c46a4d-d37f-40c8-a624-a844e671c292",
+    "templateId": "technical",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Technical Approach",
+      "Implementation",
+      "Evaluation",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "paper:9064976"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "paper:9064976",
+        "fileId": "2b457a0c-c83a-4251-aef0-12bfcbc32596",
+        "chunkId": "6ea83cd5-bfe9-47fb-b5a5-cbed05d1de56",
+        "pdfPage": 1
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "paper:1910.01091",
+    "documentId": "2089db00-6d6c-4ceb-a7c4-1ce2970c951a",
+    "versionId": "9f9b248b-f6b9-4ba7-a292-6066530a6c7c",
+    "templateId": "technical",
+    "templateSections": [
+      "Executive Summary",
+      "Context and Challenge",
+      "Technical Approach",
+      "Implementation",
+      "Evaluation",
+      "Results and Business Impact",
+      "Limitations and Next Steps",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "paper:1910.01091"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "paper:1910.01091",
+        "fileId": "6fa166d3-17ed-4b81-a9ce-a5721a1616eb",
+        "chunkId": "f2765b26-100c-49d3-bc38-0cf9d621da33",
+        "pdfPage": 1
+      },
+      {
+        "sourceId": "paper:1910.01091",
+        "fileId": "6fa166d3-17ed-4b81-a9ce-a5721a1616eb",
+        "chunkId": "0fd1d194-6ce7-45ac-9f56-5199fa414bcf",
+        "pdfPage": 4
+      },
+      {
+        "sourceId": "paper:1910.01091",
+        "fileId": "6fa166d3-17ed-4b81-a9ce-a5721a1616eb",
+        "chunkId": "afcf9ac7-c5b1-429b-8261-9e070e2af831",
+        "pdfPage": 5
+      }
+    ],
+    "removedImages": 0
+  },
+  {
+    "key": "project:ai-avatar",
+    "documentId": "a33eaf07-f7dd-46a1-9d54-1994532227e0",
+    "versionId": "27ace19b-5bf1-4cff-9479-ae0c33c17864",
+    "templateId": "vision",
+    "templateSections": [
+      "Executive Summary",
+      "User Need",
+      "Product Vision",
+      "Capabilities and Experience",
+      "Differentiators",
+      "Current Availability and Roadmap",
+      "Conclusion"
+    ],
+    "sourceIds": [
+      "project:ai-avatar"
+    ],
+    "sourceCitations": [
+      {
+        "sourceId": "project:ai-avatar",
+        "fileId": "9d7dd8b9-5066-47a4-b5c1-cf60d307a7d5",
+        "chunkId": "443f0b4d-5f45-4f93-82d9-036d72edaad0",
+        "pdfPage": 3
+      },
+      {
+        "sourceId": "project:ai-avatar",
+        "fileId": "9d7dd8b9-5066-47a4-b5c1-cf60d307a7d5",
+        "chunkId": "1e02e88a-43b6-4a59-9109-eef452a6413d",
+        "pdfPage": 4
+      }
+    ],
+    "removedImages": 0
+  }
+]

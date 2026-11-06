@@ -1,0 +1,342 @@
+                                             W-Net: A CNN-based Architecture for White Blood Cells Image Classification
+
+                                                                       Changhun Jung1 Mohammed Abuhamad1,2 Jumabek Alikhanov1
+                                                                             Aziz Mohaisen2 Kyungja Han3 DaeHun Nyang1
+                                                                 1
+                                                                     Inha University, 2 University of Central Florida, 3 The Catholic University of Korea
+                                                                      jcptk677@gmail.com, abuhamad@knights.ucf.edu, Jumabek4044@gmail.com,
+                                                                             mohaisen@cs.ucf.edu, hankja@catholic.ac.kr, nyang@inha.ac.kr
+
+
+
+
+arXiv:1910.01091v1 [eess.IV] 2 Oct 2019
+                                                                       Abstract                                  common cause of cancer-caused death in the US (LLS
+                                                                                                                 2019). There are various types of leukemia, including ALL
+                                            Computer-aided methods for analyzing white blood cells               (Acute lymphocytic leukemia), AML (Acute myelogenous
+                                            (WBC) have become widely popular due to the complexity
+                                            of the manual process. Recent works have shown highly ac-
+                                                                                                                 leukemia), CLL (Chronic lymphocytic leukemia), CML
+                                            curate segmentation and detection of white blood cells from          (Chronic myelogenous leukemia). Chronic leukemia pro-
+                                            microscopic blood images. However, the classification of the         gresses more slowly than acute leukemia which requires im-
+                                            observed cells is still a challenge and highly demanded as the       mediate medical care. Acute leukemia is characterized by
+                                            distribution of the five types reflects on the condition of the      proliferation of blasts, CLL is characterized by increased
+                                            immune system. This work proposes W-Net, a CNN-based                 lymphocytes while CML shows markedly increased neu-
+                                            method for WBC classification. We evaluate W-Net on a real-          trophils and some basophils in the blood (LRF 2019). It is
+                                            world large-scale dataset, obtained from The Catholic Uni-           therefore important to analyze the count of the five types of
+                                            versity of Korea, that includes 6,562 real images of the five        WBC, which will help accurately diagnose leukemia.
+                                            WBC types. W-Net achieves an average accuracy of 97%.
+                                                                                                                    In this paper, we propose a CNN-based WBC classifica-
+                                                                                                                 tion model, W-Net, to accurately recognize WBC types. Our
+                                                                  Introduction                                   model consists of three convolutional layers for extracting
+                                          White blood cells (WBCs) are one type of blood cells, be-              features from WBC images, and two fully-connected layers
+                                          sides red blood cell and platelet, and are responsible for the         for classifying them into five classes using a softmax clas-
+                                          immune system, protecting against foreign substances and               sifier. W-Net outperforms state-of-the-art schemes in terms
+                                          bacteria. WBCs are categorized into five major subtypes:               of accuracy. We compare W-Net to ResNet (He et al. 2016)
+                                          neutrophils, eosinophils, basophils, lymphocytes and mono-             to show its effectiveness in WBC image classification. We
+                                          cytes. Neutrophils include two functionally unequal subpop-            further show experiment the LISC public data (Rezatofighi
+                                          ulations: neutrophil-killers and neutrophil-cagers, and they           and Soltanian-Zadeh 2011) to show how other researchers
+                                          defend against bacterial or fungal infections. Eosinophils             can benefit from our trained W-Net model.
+                                          rise in response to allergies, parasitic infections, collagen          Contribution. The contribution of this work is as follows. 1)
+                                          diseases, and disease of the spleen and central nervous sys-           We propose a CNN architecture, W-Net, with a small num-
+                                          tem. Basophils are chiefly responsible for allergic and anti-          ber of layers fostering efficiency for WBC classification. 2)
+                                          gen response by releasing chemical histamine causing the               We examine the performance of W-Net using a large-scale
+                                          dilation of blood vessels. Lymphocytes help immune cells to            dataset consisting of 6,562 real images. 3) We address an
+                                          combine with other foreign invasive organisms such as mi-              unbalanced dataset for five classes with deep learning and
+                                          croorganisms and antigens, in order to remove them out of              obtain a WBC classification accuracy of 97%.
+                                          the body. Monocytes phagocytose foreign substances in the              Organization. The rest of this paper covers a review of the
+                                          tissues. The distribution of these five classes is 62%, 2.3%,          literature, the W-Net model, an evaluation through various
+                                          0.4%, 30% and 5.3% among WBCs in the body.                             experiments on WBC images, and concluding remarks.
+                                             Leukemia is a disease in which immature WBCs in the
+                                          blood abnormally proliferate, rapidly decreasing the num-                                    Related Work
+                                          ber of normal blood cells and making the immune sys-
+                                                                                                                 The analysis of WBCs is important for diagnosing diseases.
+                                          tem vulnerable to infection and even leading to death. In
+                                                                                                                 The distribution of the WBC types reflects the condition
+                                          the US, about 60,000 people are diagnosed with leukemia
+                                                                                                                 of the immune system. Analyzing WBCs’s components re-
+                                          every year, and about 20,000 people die of leukemia an-
+                                                                                                                 quires performing a segmentation and classification process.
+                                          nually. From 2011 to 2015, leukemia was the sixth most
+                                                                                                                    The conventional process of analyzing WBCs includes the
+                                          Copyright c 2019, Association for the Advancement of Artificial        observation of a blood smear through a microscope and the
+                                          Intelligence (www.aaai.org). All rights reserved.                      classification process relies on visible characteristics such
+  Table 1: Related work highlighting the used datasets, their size, number of classes (C), employed methods, and accuracy.
+                Study                        Dataset              Size     C                   Methods                    Accuracy
+     (Wang et al. 2016)             Private                       —        5    Morphology, spectral analysis, SVM        90.00%
+     (Dorini et al. 2012)           CellAtlas                     100      5    Morphological Transform., KNN             78.51%
+     (Hegde et al. 2018)            Private                       117      5    Arithmetical operations, ANN              96.50%
+     (Ghosh et al. 2016)            Private                       150      5    Segmentation, morphology, TFC             —
+     (Rawat et al. 2018)            Private (Mohamed 2019)        160      4    Ensemble ANN                              95.00%
+     (Mathur et al. 2013)           Private                       237      5    NB                                        92.72%
+     (Nazlibilek et al. 2014)       Kanbilim (Kanbilim 2019)      240      5    Thresholding, ANN, PCA                    95.00%
+     (Putzu et al. 2014)            ALL-IDB                       260      2    SVM                                       92.00%
+     (Abdeldaim et al. 2018)        ALL-IDB2                      260      2    Thresholding, KNN, SVM, NB, DT            91.67%
+     (Ghosh et al. 2017)            ALL-IDB                       260      2    CNN                                       97.22%
+     (Ramesh et al. 2012)           Private                       320      5    LDA                                       93.90%
+     (Habibzadeh et al. 2018)       Personal (dhruvp 2019)        352      4    CNN                                       93.17%
+     (Liang et al. 2018)            BCCD (Shenggan 2019)          364      4    RNN (LSTM), CNN                           90.79%
+     (Su et al. 2014)               (CellaVision 2019)            450      5    Morphology, NN, SVM, MLP                  95.18%
+     W-Net (this work)              Private                       6,562    5    CNN                                       97.00%
+     W-Net (this work)              LISC public data              254      5    CNN, further training                     96.00%
+
+as shape and color. However, the accuracy of WBCs anal-                  tion, while others addressed overlapping cells.
+ysis depends significantly on the knowledge and experi-                      After segmentation, the WBC image classification or
+ence of the medical operator (Wang et al. 2016), while be-               identification is conducted. The difference between WBCs
+ing time-consuming and labor-intensive (Wang et al. 2016;                identification and WBC image classification is that the iden-
+Andrade et al. 2019). Thus, computer-aided methods have                  tification process aims to detect and identify Leucocytes
+been introduced to enable accurate analysis for the segmen-              in an image, while the classification process aims to dis-
+tation and identification of WBCs, and to replace the manual             tinguish the different types of WBC. Although many stud-
+method when it is not needed.                                            ies are dedicated to segmentation and identification task,
+   Shitong and Min (Shitong and Min 2006) proposed an al-                fewer addressed the classification of WBCs.The literature
+gorithm based on fuzzy cellular neural networks to detect                shows that classification methods used for this purpose in-
+WBCs in microscopic blood images as the first key step                   clude the K-Nearest Neighbor (KNN) classifier (Dorini et
+for automatic WBC recognition. Using mathematical mor-                   al. 2012; Abdeldaim et al. 2018; Chatap and Shibu 2014),
+phology and fuzzy cellular neural networks, they achieved a              Bayesian classifier (Mathur et al. 2013; Abdeldaim et al.
+detection accuracy of 99%. The detection of WBCs is fol-                 2018), Support Vector Machine (SVM) classifier (Wang et
+lowed by segmenting an image into nucleus and cytoplasm                  al. 2016; Abdeldaim et al. 2018; Mohapatra et al. 2011;
+regions. This task has been pursued by several studies pro-              Jagadev and Virani 2017; Su et al. 2014; Rezatofighi
+viding accurate segmentation using a variety of methods.                 and Soltanian-Zadeh 2011), Linear Discriminant Analysis
+The most common approach for nuclei segmentation is clus-                (LDA) (Ramesh et al. 2012), decision trees and random for-
+tering based on the extracted features from pixel values (An-            est classifier (Ghosh et al. 2016; Abdeldaim et al. 2018), and
+drade et al. 2019; Jiang et al. 2006; Viswanathan 2015;                  deep learning (Huang et al. 2018; Nazlibilek et al. 2014;
+Alférez et al. 2015; MoradiAmin et al. 2016). The literature            Hegde et al. 2018; Rezatofighi and Soltanian-Zadeh 2011;
+shows a successful nuclei segmentation using different clus-             Habibzadeh et al. 2018; Rawat et al. 2018; Su et al. 2014).
+tering techniques, such as K-means (Gautam and Bhadauria                 Table 1 summarizes the related work.
+2014), fuzzy K-means (MoradiAmin et al. 2016; Alférez et
+al. 2015; Viswanathan 2015), C-means (Viswanathan 2015),                                            W-Net
+and GK-means (Mohapatra et al. 2011).                                    In this section, we introduce our CNN-based architecture,
+   Other studies utilized thresholding (Nazlibilek et al. 2014;          W-Net, for WBC image classification. As illustrated in Fig-
+Tosta et al. 2015; Abdeldaim et al. 2018; Cao et al. 2018;               ure 1, the proposed network consists of three convolutional
+Mohammed et al. 2013), arithmetical operations (Hegde et                 layers for extracting and learning features, and two fully
+al. 2018), edge-based detection (Viswanathan 2015; Mo-                   connected layers for classification. Each convolutional layer
+hammed et al. 2013), region-based detection (Mohammed et                 has a kernel size of 3×3 with stride of size 1 and uses ReLU
+al. 2013), genetic algorithms (Chan et al. 2010), watershed              activation function and Xavier initializer. The first convo-
+algorithms (Jiang et al. 2006), and Gram-Schmidt orthogo-                lutional layer has 16 filters, the second has 32 filters and
+nalization (Rezatofighi and Soltanian-Zadeh 2011). The lit-              third has 64 filters. After each convolutional layer, there is
+erature on WBCs segmentation is rich and provides valuable               a max-pooling layer of size 2×2 with stride of size 2 and
+insights for WBCs identification. Andrade et al. (Andrade                zero padding. We also use dropout with p = 0.6 to pre-
+et al. 2019) provide a survey and a comparative study of                 vent overfitting in each convolutional layer. The output of
+15 segmentation methods using five public WBC databases.                 the third convolutional layer is flattened and fed into the first
+Some of these works are dedicated to adjacent cells’ separa-             fully connected layer which has 1024 units. ReLU activa-
+Figure 1: An overview of the pre-processing and the proposed CNN-based architecture for WBC image classification. The
+pre-processing consists of cropping, re-sizing and normalizing. Three convolutional layers (including three pooling layers) are
+in charge of extracting and learning features, and two fully connected layers are in charge of classification.
+
+                                                                  CUK (CUK 2019). The images were shot by Sysmex DI-
+                                                                  60 machine (Sysmex 2019). Figure 2 shows samples from
+                                                                  the dataset used for this work. The size of each image is
+                                                                  360×361×3 (3 channels, RGB) pixels. Table 2 shows the
+                                                                  number of images per class: 2,006 neutrophils images, 1,310
+Figure 2: Examples from our dataset: (a) neutrophil, (b)          eosinophils images, 377 basophils images, 1,676 lympho-
+eosinophil, (c) basophil, (d) lymphocyte, and (e) monocyte.       cytes images and 1,193 monocytes images. Class distribu-
+Our dataset consists of 6,562 WBC images for five classes.        tion is 30%, 20%, 6%, 26% and 18% in the dataset.
+Each image is 360×361× 3 (i.e., 3 channels, RGB).                 Pre-processing
+                                                                  Before training the model, images are pre-processed using
+Table 2: The number of neutrophil, eosinophil, basophil,          3 steps: 1) cropping, 2) re-sizing, and 3) normalizing. To
+lymphocyte and monocyte samples in the dataset.                   extract features of WBC from the images, we cut the top,
+                                                                  bottom, left and right sides of the image by 80, 81, 80 and
+                     NE       EO      BA      LY        MO        80 pixels, respectively. As a result, we obtained cropped
+  The # of Imgs.    2,006    1,310    377    1,676     1,193      images of size 200×200×3. We then re-sized the images
+   Distribution     30%      20%      6%     26%       18%        to 128×128×3 for properly fitting them on a GPU mem-
+                                                                  ory and for efficient processing. To reduce the heterogeneity
+tion, and dropout with p = 0.6 are followed. The second           of the RGB distribution in the images and to prevent over-
+fully connected layer has five units (five classes of WBC)        flow/underflow, normalization was applied. Figure 1 shows
+and is followed by softmax classifier to map the output (fea-     an overview of the pre-processing.
+tures) to one of the five classes. The network has a total size   Hardware Environment
+of 16,806,949 trainable parameters. For the training, we use      W-Net was implemented using Tensorflow (Abadi et al.
+the softmax loss function, Adam optimizer with a learning         2016), trained on 2 Nvidia GTX 1080 with 8 GB of memory
+rate of 0.0001, five batch size and 500 training epochs. We       each, and hosted on a machine running Ubuntu 18.04.1 LTS
+evaluate the model using 10-fold cross validation.                operating system and using a 3.4 GHz Inter (R) Core (TM)
+                                                                  i7-6700 CPU with 32 GB of main memory (RAM).
+                       Experiment                                 Result of W-Net
+In this section, we review our dataset, the pre-processing        Table 3 shows the results of the 10-fold cross validation of
+steps, the hardware environment used for our experiments,         W-Net for classification accuracy. 1 For neutrophil, 1,800
+and the key result of W-Net. In addition, we compare W-Net        images were used for training and 206 images was used
+with ResNet (He et al. 2016), a state-of-the-art approach, to     for testing per fold, and average accuracy was 98%. 2 For
+demonstrate the effectiveness of our approach. We also high-      eosinophil, 1,179 images were used for training and 131 im-
+light how one can use our model as a pre-trained model and        ages were used for testing per fold, and the average accuracy
+fine-tune it using their own data. We show this in the context    was 97%. 3 For basophil, 340 images were used for train-
+of public data use (Rezatofighi and Soltanian-Zadeh 2011).        ing and 37 images were used for testing per fold, and the
+                                                                  average accuracy was 95%. 4 For lymphocyte, 1,509 im-
+Dataset                                                           ages were used for training and 167 images were used for
+Our dataset has 6,562 real WBC images for the five afore-         testing per fold, and the average accuracy was 97%. 5 For
+mentioned classes (neutrophil, eosinophil, basophil, lym-         the monocyte, 1,074 images were used for training and 119
+phocyte and monocyte), which were provided by The                 images were used for testing per fold, and the average accu-
+Catholic University of Korea (The CUK). The images were           racy was 97%. Overall, and by considering all of the above,
+approved by the Institutional Review Board (IRB) of The           the average accuracy for all five classes was 97%.
+Table 3: The result of 10-fold cross validation of W-Net for classification accuracy. The average accuracy for five classes is 97%
+                     Fold-0   Fold-1    Fold-2   Fold-3   Fold-4   Fold-5   Fold-6    Fold-7   Fold-8   Fold-9     Aver. Accuracy
+  Neutrophil         100%      98%       96%      97%     100%     100%     100%       95%     100%      98%            98%
+  Eosinophil          95%      99%       93%      99%     100%      98%      98%       98%      93%     100%            97%
+  Basophil            92%      94%      100%     100%      97%      94%      94%       94%      94%      91%            95%
+  Lymphocyte          99%     100%       95%      95%      98%      97%      97%       98%      97%      95%            97%
+  Monocyte            96%     100%       98%      96%      97%      98%      91%       96%      99%      97%            97%
+  Aver. Accuracy      96%      98%       96%      97%      98%      97%      96%       96%      97%      96%            97%
+
+   Even though the basophil class has a relatively small dis-
+tribution in the dataset, still we were able to achieve 95%
+average accuracy. Also we achieved 97% average accuracy
+for the five classes, notwithstanding the imbalance. As a re-
+sult, we can claim that the results of our model are much
+more effective than previous studies.
+ResNet
+In a deep learning network, if we use too many layers, we
+may get better results, but also the vanishing gradient prob-
+lem may occur. ResNet (Residual neural Networks) (He
+et al. 2016) can solve this problem by utilizing skip con-
+nections or short-cuts to jump over layers. Typical ResNet                           Figure 3: LISC public data.
+models are implemented with double or triple layer skips.
+ResNet is a CNN widely used in image processing.                    regions) in the original images, and then re-sized the images
+   In this section, we compared W-Net with ResNet to                to 128×128 ×3 for training as shown in Figure 3. We used
+demonstrate the effectiveness of W-Net in WBC image clas-           a total of 254 WBC images as our dataset: 56 neutrophil
+sification. We trained a new model with ResNet50 network            images, 39 eosinophil images, 55 basophil images, 56 lym-
+(50 Conv. layers) which has ReLU, softmax loss function             phocyte images and 48 monocyte images.
+and momentum optimizer. The best hyperparameters that                  We conducted an experiment using the LISC public data
+are found were as follows: learning rate = 0.001, decay             to show how other researchers can benefit from our trained
+= 0.0001, momentum = 0.9, batch size = 32 and training              W-Net model. Specifically, one can further tune/train our W-
+epochs = 50. Also we used same dataset, pre-processing (ex-         Net model for better performance. As such, we implemented
+cept for the image size, we re-sized the images to 224 ×            two models of the same W-Net architecture: 1 a model
+224 × 3 for ResNet), hardware environment and 10-fold               trained using only LISC public data from scratch, and 2 a
+cross validation splits were the same with W-Net experi-            model initially trained using our dataset using W-Net model
+ment. The network has a total of 23,544,837 trainable pa-           and then further trained using LISC public data.
+rameters. Table 4 shows the result of 10-fold cross valida-            Except the training epochs, the hyperparameters of both
+tion of ResNet for classification accuracy. For the neutrophil      models were identical. The first model was trained 4,000
+50%, eosinophil 51%, basophil 56%, lymphocyte 48% and               epochs (254×4,000/5 iterations) on the public data. The sec-
+monocyte 50% 10-fold cross validation accuracies are ob-            ond model was trained for 500 epochs (6,562×500/5 iter-
+tained. The average accuracy for five classes is 51%.               ations) on our dataset and then trained for 4,000 epochs
+   In the 10-fold cross validation evaluation of W-Net, min-        (254×4,000/5 iterations) on the public data. We used
+imum average accuracy is 91% (basophil, Fold-9) and max-            128×128×3 public images, the same normalization, hard-
+imum average accuracy is 100%. However, in the case of              ware environment, and 10-fold cross validation as in W-Net
+ResNet the variance between the folds is from 0% to 100%            experiment. The network has a total of 16,806,949 trainable
+resulting 51% 10-fold average accuracy. This means that             parameters. Table 5 shows the result of the first model using
+deep networks may be not efficient for WBC image clas-              LISC public data. The average accuracy for five classes was
+sification. As a result, we can claim that W-Net which has          91%. Table 6 shows the result of the second model, where
+five layers (three Conv. and two FC.) is more effective than        the average accuracy for five classes was 96%.
+ResNet in WBC image classification area.                               In comparing both, the second model shows better results.
+Further Training with Public Data                                   As such, we can claim that our model can help other re-
+The LISC public data (Rezatofighi and Soltanian-Zadeh               searchers in the field of WBC image classification, and we
+2011) provides WBC image samples that were taken from               released our model on our github (Jung 2019).
+peripheral blood of 8 normal subjects. The images contain
+720×576 pixels. The images are classified by a hematologist                                Conclusion
+into normal leukocytes: neutrophils, eosinophils, basophils,        The analysis of WBC count and types is essential for diag-
+lymphocytes and monocytes. For pre-processing the public            nosing diseases. Even though there are several methods for
+data, we cropped the WBC images (nucleus and cytoplasm              detecting and counting WBCs from microscopic images of
+ Table 4: The results of ResNet for classification using 10-fold cross validation. The average accuracy for five classes is 51%.
+                     Fold-0    Fold-1   Fold-2    Fold-3   Fold-4   Fold-5   Fold-6   Fold-7     Fold-8   Fold-9   Aver. Accuracy
+  Neutrophil         100%        0%     100%       99%       0%       0%       0%     100%       100%       0%          50%
+  Eosinophil           0%       16%      90%       95%       1%      23%      98%       1%        95%      87%          51%
+  Basophil             0%       26%      94%      100%      78%       5%      86%      10%       100%      56%          56%
+  Lymphocyte          49%       94%       5%       81%      67%     100%       0%      54%        33%       0%          48%
+  Monocyte             1%       50%     100%      100%       1%      24%     100%       1%        23%     100%          50%
+  Aver. Accuracy      30%       37%      78%       95%      29%      30%      57%      33%        70%      49%          51%
+
+Table 5: The result of the first model trained using LISC public data from scratch. The average accuracy for five classes is 91%.
+                     Fold-0    Fold-1   Fold-2    Fold-3   Fold-4   Fold-5   Fold-6   Fold-7     Fold-8   Fold-9   Aver. Accuracy
+  Neutrophil          33%       83%     100%      100%      83%      83%     100%      80%        80%     100%          84%
+  Eosinophil         100%      100%     100%      100%     100%     100%     100%     100%       100%     100%         100%
+  Basophil            50%       83%     100%      100%     100%     100%     100%     100%        80%      80%          89%
+  Lymphocyte         100%      100%     100%      100%      83%     100%     100%      80%       100%     100%          96%
+  Monocyte            60%      100%      20%       80%     100%     100%     100%     100%       100%     100%          86%
+  Aver. Accuracy      69%       93%      84%       96%      93%      97%     100%      92%        92%      96%          91%
+
+Table 6: The result of the second model was initially trained using our dataset which is our W-Net model and then further
+trained using LISC public data. The average accuracy for five classes is 96%.
+                     Fold-0    Fold-1   Fold-2    Fold-3   Fold-4   Fold-5   Fold-6   Fold-7     Fold-8   Fold-9   Aver. Accuracy
+  Neutrophil         100%      100%     100%      100%     100%     100%     100%     100%       100%     100%         100%
+  Eosinophil         100%      100%     100%      100%     100%     100%     100%      75%       100%     100%          98%
+  Basophil           100%      100%     100%      100%     100%     100%     100%     100%        80%      80%          96%
+  Lymphocyte         100%      100%     100%      100%     100%      83%     100%     100%       100%     100%          98%
+  Monocyte            80%      100%      20%      100%      80%     100%     100%     100%       100%     100%          88%
+  Aver. Accuracy      96%      100%      84%      100%      96%      97%     100%      95%        96%      96%          96%
+
+a blood smear, the recognition of the five types of WBCs                                       References
+(namely, neutrophils, eosinophils, basophils, lymphocytes           Abadi, M.; Agarwal, A.; Barham, P.; Brevdo, E.; Chen,
+and monocytes) is still a challenge in real-life applications,      Z.; Citro, C.; Corrado, G. S.; Davis, A.; Dean, J.; Devin,
+which we addressed in this work. The rapid advancements             M.; et al. 2016. Tensorflow: Large-scale machine learn-
+in the field of computer vision and machine learning have           ing on heterogeneous distributed systems. arXiv preprint
+provided feasible solutions to accurate classification tasks in     arXiv:1603.04467.
+many domains. This work proposes W-Net, a CNN-based ar-
+                                                                    Abdeldaim, A. M.; Sahlol, A. T.; Elhoseny, M.; and Has-
+chitecture, to enable accurate classification of the five WBC
+                                                                    sanien, A. E. 2018. Computer-aided acute lymphoblastic
+types. We evaluated the proposed architecture on a real-life
+                                                                    leukemia diagnosis system based on image analysis. In Adv.
+dataset and addressed several challenges such as the transfer
+                                                                    in Soft Computing and ML in Image Proc. Elsevier. 131–
+learning property and the class imbalance. W-Net achieved
+                                                                    147.
+an average classification accuracy of 97%. Moreover, we
+compared the results of W-Net and ResNet architectures to           Alférez, S.; Merino, A.; Bigorra, L.; Mujica, L.; Ruiz, M.;
+show the superiority of W-Net over other architecture.              and Rodellar, J. 2015. Automatic recognition of atypical
+                                                                    lymphoid cells from peripheral blood by digital image anal-
+Acknowledgement                                                     ysis. AJCP 143(2):168–176.
+This research was supported by the Global Research Lab-             Andrade, A. R.; Vogado, L. H.; de MS Veras, R.; Silva,
+oratory (GRL) Program of the National Research Founda-              R. R.; Araujo, F. H.; and Medeiros, F. N. 2019. Recent
+tion (NRF) funded by Ministry of Science, ICT (Informa-             computational methods for white blood cell nuclei segmen-
+tion and Communication Technologies) and Future Planning            tation: A comparative study. CMPB.
+(NRF-2016K1A1A2912757), and by the Technology Inno-
+vation Program (No: 10049771, Development of Highly-                Cao, H.; Liu, H.; and Song, E. 2018. A novel algorithm for
+Specialized Platform for IVD Medical Devices, and No:               segmentation of leukocytes in peripheral blood. BSP and C
+10059106, Development of a smart white blood cell image             45:10–21.
+analyzer with 60t/h throughput and sub-µm imaging device,           CellaVision.           2019.           Cellavision dataset.
+based on Manual Review Center with less than 1% analysis            https://www.cellavision.com/. Accessed: 2019-06-15.
+error) funded by the Ministry of Trade, Industry & Energy,          Chan, Y.-K.; Tsai, M.-H.; Huang, D.-C.; Zheng, Z.-H.; and
+Republic of Korea. DaeHun Nyang is the corresponding au-            Hung, K.-D. 2010. Leukocyte nucleus segmentation and
+thor.                                                               nucleus lobe counting. BMC bioinformatics 11(1):558.
+Chatap, N., and Shibu, S. 2014. Analysis of blood samples       system for classification of white blood cells from leishman
+for counting leukemia cells using support vector machine        stained blood stain images. JPI 4(Suppl).
+and nearest neighbour. IOSR-JCE 16(5):79–87.                    Mohamed, M. M. A. 2019. An efficient technique for
+CUK. 2019. The catholic university of korea institutional       white blood cells nuclei automatic segmentation. https:
+review board. https://bit.ly/2YrlQPl. Accessed: 2019-07-17.     //bit.ly/2XN064Z. Accessed: 2019-06-15.
+dhruvp.       2019.    Wbc-classification dataset.     https:   Mohammed, E. A.; Mohamed, M. M.; Naugler, C.; and Far,
+//github.com/dhruvp/wbc-classification/tree/master/             B. H. 2013. Chronic lymphocytic leukemia cell segmenta-
+Original Images. Accessed: 2019-06-15.                          tion from microscopic blood images using watershed algo-
+Dorini, L. B.; Minetto, R.; and Leite, N. J. 2012. Semiau-      rithm and optimal thresholding. In IEEE CCECE, 1–5.
+tomatic white blood cell segmentation based on multiscale       Mohapatra, S.; Samanta, S. S.; Patra, D.; and Satpathi, S.
+analysis. IEEE JBHI 17(1):250–256.                              2011. Fuzzy based blood image segmentation for automated
+Gautam, A., and Bhadauria, H. 2014. White blood nucleus         leukemia detection. In IEEE ICDeCom, 1–5.
+extraction using k-mean clustering and mathematical mor-        MoradiAmin, M.; Memari, A.; Samadzadehaghdam, N.;
+phing. In IEEE Confluence, 549–554.                             Kermani, S.; and Talebi, A. 2016. Computer aided detec-
+Ghosh, P.; Bhattacharjee, D.; and Nasipuri, M. 2016. Blood      tion and classification of acute lymphoblastic leukemia cell
+smear analyzer for white blood cell counting: a hybrid mi-      subtypes based on microscopic image analysis. MR and T
+croscopic image analyzing technique. ASC 46:629–638.            79(10):908–916.
+Ghosh, A.; Singh, S.; and Sheet, D. 2017. Simultane-            Nazlibilek, S.; Karacor, D.; Ercan, T.; Sazli, M. H.; Kalen-
+ous localization and classification of acute lymphoblastic      der, O.; and Ege, Y. 2014. Automatic segmentation, count-
+leukemic cells in peripheral blood smears using a deep          ing, size determination and classification of white blood
+CNN. In IEEE ICIIS, 1–6.                                        cells. Measurement 55:58–65.
+Habibzadeh, M.; Jannesari, M.; Rezaei, Z.; Baharvand, H.;       Putzu, L.; Caocci, G.; and Di Ruberto, C. 2014. Leucocyte
+and Totonchi, M. 2018. Automatic white blood cell classi-       classification for leukaemia detection using image process-
+fication using pre-trained deep learning models: Resnet and     ing techniques. AI in medicine 62(3):179–191.
+inception. In ICMV, volume 10696, 1069612.                      Ramesh, N.; Dangott, B.; Salama, M. E.; and Tasdizen, T.
+He, K.; Zhang, X.; Ren, S.; and Sun, J. 2016. Deep residual     2012. Isolation and two-step classification of normal white
+learning for image recognition. In IEEE CVPR, 770–778.          blood cells in peripheral blood smears. JPI 3.
+Hegde, R. B.; Prasad, K.; Hebbar, H.; and Singh, B. M. K.       Rawat, J.; Singh, A.; Bhadauria, H.; Virmani, J.; and Dev-
+2018. Development of a robust algorithm for detection of        gun, J. S. 2018. Application of ensemble artificial neural
+nuclei and classification of white blood cells in peripheral    network for the classification of white blood cells using mi-
+blood smear images. JMS 42(6):110.                              croscopic blood images. JCSE 4(2-3):202–216.
+Huang, Q.; Li, W.; and Xie, X. 2018. Convolutional neural       Rezatofighi, S. H., and Soltanian-Zadeh, H. 2011. Auto-
+network for medical hyperspectral image classification with     matic recognition of five types of white blood cells in pe-
+kernel fusion. In BIBE, 1–4. VDE.                               ripheral blood. CMI and Graphics 35(4):333–343.
+Jagadev, P., and Virani, H. 2017. Detection of leukemia and     Shenggan. 2019. Bccd dataset. https://github.com/
+its types using image processing and machine learning. In       Shenggan/BCCD Dataset. Accessed: 2019-06-15.
+IEEE ICEI, 522–526.                                             Shitong, W., and Min, W. 2006. A new detection al-
+Jiang, K.; Liao, Q.-M.; and Xiong, Y. 2006. A novel white       gorithm (nda) based on fuzzy cellular neural networks for
+blood cell segmentation scheme based on feature space clus-     white blood cell detection. IEEE T-ITB 10(1):5–10.
+tering. Soft Computing 10(1):12–19.                             Su, M.-C.; Cheng, C.-Y.; and Wang, P.-C. 2014. A neural-
+Jung, C. 2019. W-net model. https://bit.ly/2KAffwM. Ac-         network-based approach to white blood cell classification.
+cessed: 2019-7-31.                                              Sci. World J 2014.
+Kanbilim. 2019. Kanbilim dataset. http://kanbilim.com/.         Sysmex. 2019. Sysmex di-60. https://bit.ly/313v6L3. Ac-
+Accessed: 2019-06-15.                                           cessed: 2019-07-17.
+Liang, G.; Hong, H.; Xie, W.; and Zheng, L. 2018. Com-          Tosta, T. A. A.; De Abreu, A. F.; Travençolo, B. A. N.;
+bining convolutional neural network with recursive neural       do Nascimento, M. Z.; and Neves, L. A. 2015. Unsuper-
+network for blood cell image classification. IEEE Access        vised segmentation of leukocytes images using thresholding
+6:36188–36197.                                                  neighborhood valley-emphasis. In IEEE CBMS, 93–94.
+LLS.         2019.     Leukemia and lymphoma society.           Viswanathan, P. 2015. Fuzzy c means detection of leukemia
+https://bit.ly/2yrLnxV. Accessed: 2019-06-27.                   based on morphological contour segmentation. PCS 58:84–
+                                                                90.
+LRF. 2019. Leukemia research foundation - leukemia.
+https://bit.ly/32WFwOn. Accessed: 2019-06-29.                   Wang, Q.; Chang, L.; Zhou, M.; Li, Q.; Liu, H.; and Guo, F.
+                                                                2016. A spectral and morphologic method for white blood
+Mathur, A.; Tripathi, A. S.; and Kuse, M. 2013. Scalable        cell classification. OLT 84:144–148.
+

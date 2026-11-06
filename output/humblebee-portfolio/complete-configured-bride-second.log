@@ -1,0 +1,14 @@
+CONFIGURED_QUEUED 1
+CONFIGURED_GENERATING project:bride 383e7992-9a92-4e32-835a-7434563e30f1
+[generation f82ecd54-4473-465d-8877-5f6081adbbd5] retrieval finished in 1280ms with 19 chunks
+[generation f82ecd54-4473-465d-8877-5f6081adbbd5] generation started (outline)
+CONFIGURED_RETRY project:bride ","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",1,"content",2,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",1,"content",3,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",1,"content",4,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",1,"content",5,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""}]
+
+Troubleshooting URL: https://docs.langchain.com/oss/javascript/langchain/errors/OUTPUT_PARSING_FAILURE/
+
+CONFIGURED_GENERATING project:bride 5a242db4-9c12-4f04-8903-4da59cc07721
+[generation f82ecd54-4473-465d-8877-5f6081adbbd5] retrieval finished in 895ms with 19 chunks
+[generation f82ecd54-4473-465d-8877-5f6081adbbd5] generation started (outline)
+[generation f82ecd54-4473-465d-8877-5f6081adbbd5] generation finished in 19920ms
+CONFIGURED_READY project:bride 4bfc4ac8-b000-4d72-a320-05928f297b22
+CONFIGURED_BATCH_FINISHED

@@ -1,0 +1,537 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "W-Net: A CNN-based Architecture for White Blood Cells Image Classification"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "W-Net is a compact convolutional neural network proposed to classify five white-blood-cell types from microscopy images."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Executive Summary"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "This research study asks whether a compact CNN can distinguish neutrophils, eosinophils, basophils, lymphocytes and monocytes. The paper reports an average accuracy of 97% on a private 6,562-image dataset and evaluates transfer learning on public LISC data. It is an arXiv preprint, not a documented HumbleBeeAI client delivery or product. The PDF text has been reviewed; owner approval and HumbleBeeAI review remain pending. "
+        },
+        {
+          "type": "text",
+          "text": "Read the paper on arXiv",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://arxiv.org/abs/1910.01091",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " or "
+        },
+        {
+          "type": "text",
+          "text": "download the PDF",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://arxiv.org/pdf/1910.01091",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "8caa1489-16a1-4678-b652-dc928ffd761e",
+            "chunkText": "Computer-aided methods for analyzing white blood cells (WBC) have become widely popular due to the complexity of the manual process. Recent works have shown highly accurate segmentation and detection of white blood cells from microscopic blood images. However, the classification of the observed cells is still a challenge and highly demanded as the distribution of the five types reflects on the condition of the immune system. This work proposes W-Net, a CNN-based method for WBC classification. We evaluate W-Net on a realworld large-scale dataset, obtained from The Catholic University of Korea, that includes 6,562 real images of the five WBC types. W-Net achieves an average accuracy of 97%.",
+            "fileName": "paper--1910.01091.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2089db00-6d6c-4ceb-a7c4-1ce2970c951a/evidence/8caa1489-16a1-4678-b652-dc928ffd761e/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Context and Challenge"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Manual blood-smear review relies on visible cell characteristics and can be time-consuming and labor-intensive; classification remains challenging even after cells are observed. The study focuses on assigning an image of an already observed WBC to one of five classes, rather than detecting cells or diagnosing leukemia. Its private dataset, provided by The Catholic University of Korea, contains 6,562 images and has an imbalanced class distribution, including 6% basophils. The authors also examine whether the trained model can transfer to a public dataset. "
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "56469adb-4e9f-4aa2-ac35-137833b24a1c",
+            "chunkText": "as shape and color. However, the accuracy of WBCs analysis depends significantly on the knowledge and experience of the medical operator (Wang et al. 2016), while being time-consuming and labor-intensive (Wang et al. 2016; Andrade et al. 2019). Thus, computer-aided methods have been introduced to enable accurate analysis for the segmentation and identification of WBCs, and to replace the manual method when it is not needed.\n\nShitong and Min (Shitong and Min 2006) proposed an algorithm based on fuzzy cellular neural networks to detect WBCs in microscopic blood images as the first key step for automatic WBC recognition. Using mathematical morphology and fuzzy cellular neural networks, they achieved a detection accuracy of 99%. The detection of WBCs is followed by segmenting an image into nucleus and cytoplasm regions. This task has been pursued by several studies providing accurate segmentation using a variety of methods. The most common approach for nuclei segmentation is clustering based on the extracted features from pixel values (Andrade et al. 2019; Jiang et al. 2006; Viswanathan 2015; Alf ́erez et al. 2015; MoradiAmin et al. 2016). The literature shows a successful nuclei segmentation using different clustering techniques, such as K-means (Gautam and Bhadauria 2014), fuzzy K-means (MoradiAmin et al. 2016; Alf ́erez et al. 2015; Viswanathan 2015), C-means (Viswanathan 2015), and GK-means (Mohapatra et al. 2011).",
+            "fileName": "paper--1910.01091.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2089db00-6d6c-4ceb-a7c4-1ce2970c951a/evidence/56469adb-4e9f-4aa2-ac35-137833b24a1c/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 2
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "985bcc98-a886-4927-b0cc-dbc02640821c",
+            "chunkText": "Our dataset has 6,562 real WBC images for the five aforementioned classes (neutrophil, eosinophil, basophil, lymphocyte and monocyte), which were provided by The Catholic University of Korea (The CUK). The images were approved by the Institutional Review Board (IRB) of The\n\nCUK (CUK 2019). The images were shot by Sysmex DI60 machine (Sysmex 2019). Figure 2 shows samples from the dataset used for this work. The size of each image is 360×361×3 (3 channels, RGB) pixels. Table 2 shows the number of images per class: 2,006 neutrophils images, 1,310 eosinophils images, 377 basophils images, 1,676 lymphocytes images and 1,193 monocytes images. Class distribution is 30%, 20%, 6%, 26% and 18% in the dataset.",
+            "fileName": "paper--1910.01091.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2089db00-6d6c-4ceb-a7c4-1ce2970c951a/evidence/985bcc98-a886-4927-b0cc-dbc02640821c/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 17,
+            "pageNumber": 3
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "f2765b26-100c-49d3-bc38-0cf9d621da33",
+            "chunkText": "common cause of cancer-caused death in the US (LLS 2019). There are various types of leukemia, including ALL (Acute lymphocytic leukemia), AML (Acute myelogenous leukemia), CLL (Chronic lymphocytic leukemia), CML (Chronic myelogenous leukemia). Chronic leukemia progresses more slowly than acute leukemia which requires immediate medical care. Acute leukemia is characterized by proliferation of blasts, CLL is characterized by increased lymphocytes while CML shows markedly increased neutrophils and some basophils in the blood (LRF 2019). It is therefore important to analyze the count of the five types of WBC, which will help accurately diagnose leukemia.\n\nIn this paper, we propose a CNN-based WBC classification model, W-Net, to accurately recognize WBC types. Our model consists of three convolutional layers for extracting features from WBC images, and two fully-connected layers for classifying them into five classes using a softmax classifier. W-Net outperforms state-of-the-art schemes in terms of accuracy. We compare W-Net to ResNet (He et al. 2016) to show its effectiveness in WBC image classification. We further show experiment the LISC public data (Rezatofighi and Soltanian-Zadeh 2011) to show how other researchers can benefit from our trained W-Net model.\n\nContribution. The contribution of this work is as follows. 1) We propose a CNN architecture, W-Net, with a small number of layers fostering efficiency for WBC classification. 2) We examine the performance of W-Net using a large-scale dataset consisting of 6,562 real images. 3) We address an unbalanced dataset for five classes with deep learning and obtain a WBC classification accuracy of 97%.",
+            "fileName": "paper--1910.01091.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2089db00-6d6c-4ceb-a7c4-1ce2970c951a/evidence/f2765b26-100c-49d3-bc38-0cf9d621da33/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Technical Approach"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "W-Net applies cropping, resizing and normalization before feeding images through three convolutional layers with pooling for feature extraction, followed by two fully connected layers and a softmax classifier for the five cell classes. The paper describes the design as having a small number of layers and reports 16,806,949 trainable parameters. This is a research architecture; the sources do not establish a deployed system or a link to a HumbleBeeAI product."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "505dca26-9178-4647-bb76-52645ec6ea1c",
+            "chunkText": "Figure 1: An overview of the pre-processing and the proposed CNN-based architecture for WBC image classification. The pre-processing consists of cropping, re-sizing and normalizing. Three convolutional layers (including three pooling layers) are in charge of extracting and learning features, and two fully connected layers are in charge of classification.\n\nCd No\ni )\n® [A (] -\n-® Ey\nOriginal Imgs Crop and Resize = [\n- olTTorIeI | 1 EE PE\nwe Il :\nToliiod 4 d\nFO oe : -\nBi itt\nNormalize Input Three Conv. Layers. Two FC. Layers Output",
+            "fileName": "paper--1910.01091.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2089db00-6d6c-4ceb-a7c4-1ce2970c951a/evidence/505dca26-9178-4647-bb76-52645ec6ea1c/asset",
+            "mediaType": "image/png",
+            "chunkIndex": 12,
+            "pageNumber": 3
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "f2765b26-100c-49d3-bc38-0cf9d621da33",
+            "chunkText": "common cause of cancer-caused death in the US (LLS 2019). There are various types of leukemia, including ALL (Acute lymphocytic leukemia), AML (Acute myelogenous leukemia), CLL (Chronic lymphocytic leukemia), CML (Chronic myelogenous leukemia). Chronic leukemia progresses more slowly than acute leukemia which requires immediate medical care. Acute leukemia is characterized by proliferation of blasts, CLL is characterized by increased lymphocytes while CML shows markedly increased neutrophils and some basophils in the blood (LRF 2019). It is therefore important to analyze the count of the five types of WBC, which will help accurately diagnose leukemia.\n\nIn this paper, we propose a CNN-based WBC classification model, W-Net, to accurately recognize WBC types. Our model consists of three convolutional layers for extracting features from WBC images, and two fully-connected layers for classifying them into five classes using a softmax classifier. W-Net outperforms state-of-the-art schemes in terms of accuracy. We compare W-Net to ResNet (He et al. 2016) to show its effectiveness in WBC image classification. We further show experiment the LISC public data (Rezatofighi and Soltanian-Zadeh 2011) to show how other researchers can benefit from our trained W-Net model.\n\nContribution. The contribution of this work is as follows. 1) We propose a CNN architecture, W-Net, with a small number of layers fostering efficiency for WBC classification. 2) We examine the performance of W-Net using a large-scale dataset consisting of 6,562 real images. 3) We address an unbalanced dataset for five classes with deep learning and obtain a WBC classification accuracy of 97%.",
+            "fileName": "paper--1910.01091.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2089db00-6d6c-4ceb-a7c4-1ce2970c951a/evidence/f2765b26-100c-49d3-bc38-0cf9d621da33/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "64e51613-0c6e-4902-89e4-e698a2f0c26c",
+            "chunkText": "The analysis of WBCs is important for diagnosing diseases. The distribution of the WBC types reflects the condition of the immune system. Analyzing WBCs’s components requires performing a segmentation and classification process.\n\nThe conventional process of analyzing WBCs includes the observation of a blood smear through a microscope and the classification process relies on visible characteristics such\n\nTable 1: Related work highlighting the used datasets, their size, number of classes (C), employed methods, and accuracy.",
+            "fileName": "paper--1910.01091.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2089db00-6d6c-4ceb-a7c4-1ce2970c951a/evidence/64e51613-0c6e-4902-89e4-e698a2f0c26c/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Implementation"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "For the private dataset experiments, the paper reports a softmax loss, Adam with a learning rate of 0.0001, batch size five, 500 training epochs and 10-fold cross-validation. For LISC, 254 images were resized to 128×128×3. The authors compared a W-Net trained from scratch on LISC for 4,000 epochs with a model first trained on the private dataset for 500 epochs and then further trained on LISC for 4,000 epochs; the other hyperparameters were identical. No deployed integration, service workflow or commercial availability is documented."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "64e51613-0c6e-4902-89e4-e698a2f0c26c",
+            "chunkText": "The analysis of WBCs is important for diagnosing diseases. The distribution of the WBC types reflects the condition of the immune system. Analyzing WBCs’s components requires performing a segmentation and classification process.\n\nThe conventional process of analyzing WBCs includes the observation of a blood smear through a microscope and the classification process relies on visible characteristics such\n\nTable 1: Related work highlighting the used datasets, their size, number of classes (C), employed methods, and accuracy.",
+            "fileName": "paper--1910.01091.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2089db00-6d6c-4ceb-a7c4-1ce2970c951a/evidence/64e51613-0c6e-4902-89e4-e698a2f0c26c/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 1
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "0fd1d194-6ce7-45ac-9f56-5199fa414bcf",
+            "chunkText": "regions) in the original images, and then re-sized the images to 128×128 ×3 for training as shown in Figure 3. We used a total of 254 WBC images as our dataset: 56 neutrophil images, 39 eosinophil images, 55 basophil images, 56 lymphocyte images and 48 monocyte images.\n\nWe conducted an experiment using the LISC public data to show how other researchers can benefit from our trained W-Net model. Specifically, one can further tune/train our WNet model for better performance. As such, we implemented two models of the same W-Net architecture: 1 a model trained using only LISC public data from scratch, and 2 a model initially trained using our dataset using W-Net model and then further trained using LISC public data.\n\nExcept the training epochs, the hyperparameters of both models were identical. The first model was trained 4,000 epochs (254×4,000/5 iterations) on the public data. The second model was trained for 500 epochs (6,562×500/5 iterations) on our dataset and then trained for 4,000 epochs (254×4,000/5 iterations) on the public data. We used 128×128×3 public images, the same normalization, hardware environment, and 10-fold cross validation as in W-Net experiment. The network has a total of 16,806,949 trainable parameters. Table 5 shows the result of the first model using LISC public data. The average accuracy for five classes was 91%. Table 6 shows the result of the second model, where the average accuracy for five classes was 96%.\n\nIn comparing both, the second model shows better results. As such, we can claim that our model can help other researchers in the field of WBC image classification, and we released our model on our github (Jung 2019).",
+            "fileName": "paper--1910.01091.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2089db00-6d6c-4ceb-a7c4-1ce2970c951a/evidence/0fd1d194-6ce7-45ac-9f56-5199fa414bcf/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 27,
+            "pageNumber": 4
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Evaluation"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "On the private 6,562-image dataset, W-Net reports average classification accuracy of 97% across five WBC types. The paper states it used 10-fold cross-validation, but the supplied evidence does not give a full split protocol, per-fold aggregation method, confidence intervals or an independent external test set for this result. On LISC’s 254 images, the from-scratch model reports 91% average accuracy; the model pretrained on the private data and further trained on LISC reports 96%. These LISC results use 10-fold cross-validation and the same hardware environment, normalization and image dimensions, but hardware specifications are not provided. The 5 percentage-point difference is a research comparison between these two training conditions, not a business outcome. "
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "8caa1489-16a1-4678-b652-dc928ffd761e",
+            "chunkText": "Computer-aided methods for analyzing white blood cells (WBC) have become widely popular due to the complexity of the manual process. Recent works have shown highly accurate segmentation and detection of white blood cells from microscopic blood images. However, the classification of the observed cells is still a challenge and highly demanded as the distribution of the five types reflects on the condition of the immune system. This work proposes W-Net, a CNN-based method for WBC classification. We evaluate W-Net on a realworld large-scale dataset, obtained from The Catholic University of Korea, that includes 6,562 real images of the five WBC types. W-Net achieves an average accuracy of 97%.",
+            "fileName": "paper--1910.01091.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2089db00-6d6c-4ceb-a7c4-1ce2970c951a/evidence/8caa1489-16a1-4678-b652-dc928ffd761e/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "0fd1d194-6ce7-45ac-9f56-5199fa414bcf",
+            "chunkText": "regions) in the original images, and then re-sized the images to 128×128 ×3 for training as shown in Figure 3. We used a total of 254 WBC images as our dataset: 56 neutrophil images, 39 eosinophil images, 55 basophil images, 56 lymphocyte images and 48 monocyte images.\n\nWe conducted an experiment using the LISC public data to show how other researchers can benefit from our trained W-Net model. Specifically, one can further tune/train our WNet model for better performance. As such, we implemented two models of the same W-Net architecture: 1 a model trained using only LISC public data from scratch, and 2 a model initially trained using our dataset using W-Net model and then further trained using LISC public data.\n\nExcept the training epochs, the hyperparameters of both models were identical. The first model was trained 4,000 epochs (254×4,000/5 iterations) on the public data. The second model was trained for 500 epochs (6,562×500/5 iterations) on our dataset and then trained for 4,000 epochs (254×4,000/5 iterations) on the public data. We used 128×128×3 public images, the same normalization, hardware environment, and 10-fold cross validation as in W-Net experiment. The network has a total of 16,806,949 trainable parameters. Table 5 shows the result of the first model using LISC public data. The average accuracy for five classes was 91%. Table 6 shows the result of the second model, where the average accuracy for five classes was 96%.\n\nIn comparing both, the second model shows better results. As such, we can claim that our model can help other researchers in the field of WBC image classification, and we released our model on our github (Jung 2019).",
+            "fileName": "paper--1910.01091.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2089db00-6d6c-4ceb-a7c4-1ce2970c951a/evidence/0fd1d194-6ce7-45ac-9f56-5199fa414bcf/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 27,
+            "pageNumber": 4
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "0dfc3600-25ea-497f-885c-1eadb1f7da7c",
+            "chunkText": "Table 6: The result of the second model was initially trained using our dataset which is our W-Net model and then further trained using LISC public data. The average accuracy for five classes is 96%.\n\na blood smear, the recognition of the five types of WBCs (namely, neutrophils, eosinophils, basophils, lymphocytes and monocytes) is still a challenge in real-life applications, which we addressed in this work. The rapid advancements in the field of computer vision and machine learning have provided feasible solutions to accurate classification tasks in many domains. This work proposes W-Net, a CNN-based architecture, to enable accurate classification of the five WBC types. We evaluated the proposed architecture on a real-life dataset and addressed several challenges such as the transfer learning property and the class imbalance. W-Net achieved an average classification accuracy of 97%. Moreover, we compared the results of W-Net and ResNet architectures to show the superiority of W-Net over other architecture.",
+            "fileName": "paper--1910.01091.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2089db00-6d6c-4ceb-a7c4-1ce2970c951a/evidence/0dfc3600-25ea-497f-885c-1eadb1f7da7c/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 34,
+            "pageNumber": 5
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Results and Business Impact"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The reported accuracies are technical research measurements, not results for a HumbleBeeAI client, clinical deployment or breast-cancer biomarker. The study addresses image classification of five WBC types and does not establish diagnostic impact, workflow savings, user adoption or commercial value. No business-impact results have been provided."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Limitations and Next Steps"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The evidence is a 2019 arXiv preprint (arXiv:1910.01091v1, 2 October 2019); formal venue metadata is not established by the supplied material. Evaluation details such as a fully specified split protocol, hardware configuration and uncertainty estimates are missing from the reviewed excerpts. The reported work includes transfer evaluation on LISC, but no follow-on roadmap or planned product work is documented. Owner and portfolio review are still pending."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Conclusion"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "W-Net presents a compact CNN research approach to five-class WBC image classification, reporting 97% average accuracy on a private dataset and higher LISC accuracy after transfer training than from-scratch LISC training. These findings describe the paper’s experiments only; no product or client relationship is established."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "8caa1489-16a1-4678-b652-dc928ffd761e",
+            "chunkText": "Computer-aided methods for analyzing white blood cells (WBC) have become widely popular due to the complexity of the manual process. Recent works have shown highly accurate segmentation and detection of white blood cells from microscopic blood images. However, the classification of the observed cells is still a challenge and highly demanded as the distribution of the five types reflects on the condition of the immune system. This work proposes W-Net, a CNN-based method for WBC classification. We evaluate W-Net on a realworld large-scale dataset, obtained from The Catholic University of Korea, that includes 6,562 real images of the five WBC types. W-Net achieves an average accuracy of 97%.",
+            "fileName": "paper--1910.01091.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2089db00-6d6c-4ceb-a7c4-1ce2970c951a/evidence/8caa1489-16a1-4678-b652-dc928ffd761e/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "0fd1d194-6ce7-45ac-9f56-5199fa414bcf",
+            "chunkText": "regions) in the original images, and then re-sized the images to 128×128 ×3 for training as shown in Figure 3. We used a total of 254 WBC images as our dataset: 56 neutrophil images, 39 eosinophil images, 55 basophil images, 56 lymphocyte images and 48 monocyte images.\n\nWe conducted an experiment using the LISC public data to show how other researchers can benefit from our trained W-Net model. Specifically, one can further tune/train our WNet model for better performance. As such, we implemented two models of the same W-Net architecture: 1 a model trained using only LISC public data from scratch, and 2 a model initially trained using our dataset using W-Net model and then further trained using LISC public data.\n\nExcept the training epochs, the hyperparameters of both models were identical. The first model was trained 4,000 epochs (254×4,000/5 iterations) on the public data. The second model was trained for 500 epochs (6,562×500/5 iterations) on our dataset and then trained for 4,000 epochs (254×4,000/5 iterations) on the public data. We used 128×128×3 public images, the same normalization, hardware environment, and 10-fold cross validation as in W-Net experiment. The network has a total of 16,806,949 trainable parameters. Table 5 shows the result of the first model using LISC public data. The average accuracy for five classes was 91%. Table 6 shows the result of the second model, where the average accuracy for five classes was 96%.\n\nIn comparing both, the second model shows better results. As such, we can claim that our model can help other researchers in the field of WBC image classification, and we released our model on our github (Jung 2019).",
+            "fileName": "paper--1910.01091.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2089db00-6d6c-4ceb-a7c4-1ce2970c951a/evidence/0fd1d194-6ce7-45ac-9f56-5199fa414bcf/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 27,
+            "pageNumber": 4
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Sources and Review Notes"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "W-Net: A CNN-based Architecture for White Blood Cells Image Classification — original source. PDF evidence pages: 1."
+        },
+        {
+          "type": "text",
+          "text": " Open source",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://arxiv.org/abs/1910.01091",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "f2765b26-100c-49d3-bc38-0cf9d621da33",
+            "chunkText": "common cause of cancer-caused death in the US (LLS 2019). There are various types of leukemia, including ALL (Acute lymphocytic leukemia), AML (Acute myelogenous leukemia), CLL (Chronic lymphocytic leukemia), CML (Chronic myelogenous leukemia). Chronic leukemia progresses more slowly than acute leukemia which requires immediate medical care. Acute leukemia is characterized by proliferation of blasts, CLL is characterized by increased lymphocytes while CML shows markedly increased neutrophils and some basophils in the blood (LRF 2019). It is therefore important to analyze the count of the five types of WBC, which will help accurately diagnose leukemia.\n\nIn this paper, we propose a CNN-based WBC classification model, W-Net, to accurately recognize WBC types. Our model consists of three convolutional layers for extracting features from WBC images, and two fully-connected layers for classifying them into five classes using a softmax classifier. W-Net outperforms state-of-the-art schemes in terms of accuracy. We compare W-Net to ResNet (He et al. 2016) to show its effectiveness in WBC image classification. We further show experiment the LISC public data (Rezatofighi and Soltanian-Zadeh 2011) to show how other researchers can benefit from our trained W-Net model.\n\nContribution. The contribution of this work is as follows. 1) We propose a CNN architecture, W-Net, with a small number of layers fostering efficiency for WBC classification. 2) We examine the performance of W-Net using a large-scale dataset consisting of 6,562 real images. 3) We address an unbalanced dataset for five classes with deep learning and obtain a WBC classification accuracy of 97%.",
+            "fileName": "paper--1910.01091.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2089db00-6d6c-4ceb-a7c4-1ce2970c951a/evidence/f2765b26-100c-49d3-bc38-0cf9d621da33/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "0fd1d194-6ce7-45ac-9f56-5199fa414bcf",
+            "chunkText": "regions) in the original images, and then re-sized the images to 128×128 ×3 for training as shown in Figure 3. We used a total of 254 WBC images as our dataset: 56 neutrophil images, 39 eosinophil images, 55 basophil images, 56 lymphocyte images and 48 monocyte images.\n\nWe conducted an experiment using the LISC public data to show how other researchers can benefit from our trained W-Net model. Specifically, one can further tune/train our WNet model for better performance. As such, we implemented two models of the same W-Net architecture: 1 a model trained using only LISC public data from scratch, and 2 a model initially trained using our dataset using W-Net model and then further trained using LISC public data.\n\nExcept the training epochs, the hyperparameters of both models were identical. The first model was trained 4,000 epochs (254×4,000/5 iterations) on the public data. The second model was trained for 500 epochs (6,562×500/5 iterations) on our dataset and then trained for 4,000 epochs (254×4,000/5 iterations) on the public data. We used 128×128×3 public images, the same normalization, hardware environment, and 10-fold cross validation as in W-Net experiment. The network has a total of 16,806,949 trainable parameters. Table 5 shows the result of the first model using LISC public data. The average accuracy for five classes was 91%. Table 6 shows the result of the second model, where the average accuracy for five classes was 96%.\n\nIn comparing both, the second model shows better results. As such, we can claim that our model can help other researchers in the field of WBC image classification, and we released our model on our github (Jung 2019).",
+            "fileName": "paper--1910.01091.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2089db00-6d6c-4ceb-a7c4-1ce2970c951a/evidence/0fd1d194-6ce7-45ac-9f56-5199fa414bcf/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 27,
+            "pageNumber": 4
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "afcf9ac7-c5b1-429b-8261-9e070e2af831",
+            "chunkText": "Abadi, M.; Agarwal, A.; Barham, P.; Brevdo, E.; Chen, Z.; Citro, C.; Corrado, G. S.; Davis, A.; Dean, J.; Devin, M.; et al. 2016. Tensorflow: Large-scale machine learning on heterogeneous distributed systems. arXiv preprint arXiv:1603.04467.\n\nAbdeldaim, A. M.; Sahlol, A. T.; Elhoseny, M.; and Hassanien, A. E. 2018. Computer-aided acute lymphoblastic leukemia diagnosis system based on image analysis. In Adv. in Soft Computing and ML in Image Proc. Elsevier. 131– 147.\n\nAlf ́erez, S.; Merino, A.; Bigorra, L.; Mujica, L.; Ruiz, M.; and Rodellar, J. 2015. Automatic recognition of atypical lymphoid cells from peripheral blood by digital image analysis. AJCP 143(2):168–176.\n\nAndrade, A. R.; Vogado, L. H.; de MS Veras, R.; Silva, R. R.; Araujo, F. H.; and Medeiros, F. N. 2019. Recent computational methods for white blood cell nuclei segmentation: A comparative study. CMPB.\n\nCao, H.; Liu, H.; and Song, E. 2018. A novel algorithm for segmentation of leukocytes in peripheral blood. BSP and C 45:10–21.\n\nCellaVision. 2019. Cellavision dataset. https://www.cellavision.com/. Accessed: 2019-06-15. Chan, Y.-K.; Tsai, M.-H.; Huang, D.-C.; Zheng, Z.-H.; and Hung, K.-D. 2010. Leukocyte nucleus segmentation and nucleus lobe counting. BMC bioinformatics 11(1):558.\n\nChatap, N., and Shibu, S. 2014. Analysis of blood samples for counting leukemia cells using support vector machine and nearest neighbour. IOSR-JCE 16(5):79–87.",
+            "fileName": "paper--1910.01091.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2089db00-6d6c-4ceb-a7c4-1ce2970c951a/evidence/afcf9ac7-c5b1-429b-8261-9e070e2af831/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 36,
+            "pageNumber": 5
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Authors: Changhun Jung, Mohammed Abuhamad, Jumabek Alikhanov, Aziz Mohaisen, Kyungja Han, DaeHun Nyang"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Published status: Downloaded evidence: arXiv:1910.01091v1, 2 October 2019"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Source-reviewed outcome: Reports average 97% classification accuracy on a private 6,562-image dataset; also evaluates LISC transfer learning."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Evidence gaps: AAAI copyright notice alone does not establish formal venue metadata; retain preprint status. No product/case link established."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Measurement — White-blood-cell classification accuracy: Average 97%. PDF p. 1. Comparison / conditions: 6,562 private images; five WBC types. Qualification: Not breast-cancer biomarker accuracy"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Measurement — LISC accuracy without private-data pretraining: 91% average. PDF p. 4,5. Comparison / conditions: 254 LISC images; W-Net trained from scratch for 4,000 epochs; 10-fold cross-validation. Qualification: Small dataset; research comparison, not clinical or business impact."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Measurement — LISC accuracy with private-data pretraining: 96% average. PDF p. 4,5. Comparison / conditions: Pretrained on private data for 500 epochs then trained on LISC for 4,000 epochs; 10-fold cross-validation; 254 LISC images. Qualification: Five percentage points above from-scratch result; no independent clinical validation."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Review draft. Company approval of claims and figures is pending. Original URLs are transcribed from the supplied PDFs; current remote availability has not been verified."
+        }
+      ]
+    }
+  ]
+}

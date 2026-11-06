@@ -1,0 +1,53 @@
+FAST_PIPELINE_MODEL anthropic/claude-haiku-5.5 TARGETS 5
+FAST_GENERATING case-study:beef-carcass-detection 6d70b05c-0433-4511-bbe8-efa9dd43b1f1
+FAST_GENERATING project:wakil-ai a275cf04-0671-456b-bd88-f0223b1ba51e
+FAST_GENERATING paper:10883969 f0a497dd-6a11-4ea0-b1de-d68c9202e2bb
+FAST_GENERATING case-study:breast-cancer cb6f2ab1-ba14-439b-84c8-a26b0acc9f0e
+[generation 3ccf1cc1-742a-40e6-9409-ff1fc385d33b] retrieval finished in 1147ms with 12 chunks
+[generation 97c50cf2-c4e9-4d63-80bc-5f3ed57c01f6] retrieval finished in 1422ms with 13 chunks
+[generation 97c50cf2-c4e9-4d63-80bc-5f3ed57c01f6] generation started (outline)
+[generation 73956dc4-bd5f-405b-8c4f-45c02c81c18e] retrieval finished in 1763ms with 20 chunks
+[generation 96dd77ca-8a40-4cb5-8e6b-4366f590b526] retrieval finished in 1846ms with 20 chunks
+[generation 3ccf1cc1-742a-40e6-9409-ff1fc385d33b] generation started (outline)
+[generation 73956dc4-bd5f-405b-8c4f-45c02c81c18e] generation started (outline)
+[generation 96dd77ca-8a40-4cb5-8e6b-4366f590b526] generation started (outline)
+FAST_ATTEMPT_FAILED paper:10883969 Failed to parse. Text: "{
+  "sections": "[{\"key\":\"section_0\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"A pra
+FAST_GENERATING paper:10883969 aab95c8d-06f3-49db-965d-4b0c337cf6e2
+[generation 96dd77ca-8a40-4cb5-8e6b-4366f590b526] retrieval finished in 1626ms with 20 chunks
+[generation 96dd77ca-8a40-4cb5-8e6b-4366f590b526] generation started (outline)
+[generation 97c50cf2-c4e9-4d63-80bc-5f3ed57c01f6] generation finished in 13492ms
+FAST_GENERATED case-study:breast-cancer 7bb0fbaf-8a56-481c-a31e-4092e00a9ea7
+FAST_GENERATING paper:10316180 064be052-cd05-490e-9f5d-17e24acd83ef
+[generation 06b09a1a-12aa-444e-bd9f-b70209eeed36] retrieval finished in 1335ms with 20 chunks
+[generation 06b09a1a-12aa-444e-bd9f-b70209eeed36] generation started (outline)
+[generation 3ccf1cc1-742a-40e6-9409-ff1fc385d33b] generation finished in 15776ms
+FAST_GENERATED case-study:beef-carcass-detection 2dcbc8d1-a70b-460a-8b62-98314073db4b
+[generation 73956dc4-bd5f-405b-8c4f-45c02c81c18e] generation finished in 18490ms
+FAST_GENERATED project:wakil-ai c9bb32ee-1cbf-494d-b59b-b30c5e92a66a
+FAST_ATTEMPT_FAILED paper:10883969 Failed to parse. Text: "{
+  "sections": "[{\"key\":\"section_0\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"A pra
+FAST_GENERATING paper:10883969 8b907cc0-cb4e-463e-ad33-f6486fa60453
+[generation 96dd77ca-8a40-4cb5-8e6b-4366f590b526] retrieval finished in 1773ms with 20 chunks
+[generation 96dd77ca-8a40-4cb5-8e6b-4366f590b526] generation started (outline)
+FAST_ATTEMPT_FAILED paper:10883969 Failed to parse. Text: "{
+  "sections": "[{\"key\":\"section_0\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"A pra
+FAST_ATTEMPT_FAILED paper:10316180 Failed to parse. Text: "{
+  "sections": "[{\"key\":\"section_0\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"A fea
+FAST_GENERATING paper:10316180 2f540a1f-b6b6-4bc6-98d8-996c9c66aa3d
+[generation 06b09a1a-12aa-444e-bd9f-b70209eeed36] retrieval finished in 1238ms with 20 chunks
+[generation 06b09a1a-12aa-444e-bd9f-b70209eeed36] generation started (outline)
+FAST_ATTEMPT_FAILED paper:10316180 Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "conte
+FAST_GENERATING paper:10316180 e2e86071-314d-44a5-81a3-36c90748cde3
+[generation 06b09a1a-12aa-444e-bd9f-b70209eeed36] retrieval finished in 1241ms with 20 chunks
+[generation 06b09a1a-12aa-444e-bd9f-b70209eeed36] generation started (outline)
+[generation 06b09a1a-12aa-444e-bd9f-b70209eeed36] generation finished in 14553ms
+FAST_GENERATED paper:10316180 7ba27e6f-cb36-4b1f-b098-3459fa812df6
+FAST_BATCH_FINISHED

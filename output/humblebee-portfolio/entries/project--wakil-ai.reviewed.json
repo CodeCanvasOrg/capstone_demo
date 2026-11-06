@@ -1,0 +1,545 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Wakil AI"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Wakil AI combines a multilingual, evidence-based legal assistant with a lawyer marketplace to help people and organizations navigate legal services in Uzbekistan. "
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "31142cf4-8e1c-430c-9b24-8b797ce16319",
+            "chunkText": "Wakil AI is a cutting-edge AI-driven legal ecosystem designed to democratize access to legal services and intelligence in Uzbekistan. It pairs a multilingual, evidence-based AI legal assistant with a trusted lawyer-client marketplace and introduces Wakil AI Associate - an upcoming private AI companion for real casework. Built with strict data sovereignty, professional reliability, and local legal grounding in mind, Wakil AI empowers individuals, businesses, and legal professionals to navigate law with speed, clarity, and confidence.",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/956234f4-93a9-4b27-8112-3d6572c4f14b/evidence/31142cf4-8e1c-430c-9b24-8b797ce16319/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "31142cf4-8e1c-430c-9b24-8b797ce16319",
+            "chunkText": "Wakil AI is a cutting-edge AI-driven legal ecosystem designed to democratize access to legal services and intelligence in Uzbekistan. It pairs a multilingual, evidence-based AI legal assistant with a trusted lawyer-client marketplace and introduces Wakil AI Associate - an upcoming private AI companion for real casework. Built with strict data sovereignty, professional reliability, and local legal grounding in mind, Wakil AI empowers individuals, businesses, and legal professionals to navigate law with speed, clarity, and confidence.",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/956234f4-93a9-4b27-8112-3d6572c4f14b/evidence/31142cf4-8e1c-430c-9b24-8b797ce16319/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Executive Summary"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Wakil AI is a legal technology product for individuals, businesses and legal professionals in Uzbekistan. The reviewed project record lists its published status as “prod ready”; users can visit the product at "
+        },
+        {
+          "type": "text",
+          "text": "https://wakil.ai/",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://wakil.ai/",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ". Its stated purpose is to make legal information easier to understand and connect users with professional legal support. The source material describes the platform’s purpose and capabilities but does not provide measured user or business outcomes. "
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "31142cf4-8e1c-430c-9b24-8b797ce16319",
+            "chunkText": "Wakil AI is a cutting-edge AI-driven legal ecosystem designed to democratize access to legal services and intelligence in Uzbekistan. It pairs a multilingual, evidence-based AI legal assistant with a trusted lawyer-client marketplace and introduces Wakil AI Associate - an upcoming private AI companion for real casework. Built with strict data sovereignty, professional reliability, and local legal grounding in mind, Wakil AI empowers individuals, businesses, and legal professionals to navigate law with speed, clarity, and confidence.",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/956234f4-93a9-4b27-8112-3d6572c4f14b/evidence/31142cf4-8e1c-430c-9b24-8b797ce16319/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "f670158d-0e5c-47d1-ab21-1285e09c430a",
+            "chunkText": "Accessing legal information and services remains a major challenge for many citizens and enterprises in Uzbekistan. Legal texts are complex, official databases lack user-friendly explanation tools, and professional legal help can be expensive or hard to find. Wakil AI aims to bridge this gap by leveraging AI to provide clear legal answers, evidence-backed citation, and direct access to qualified lawyers, all while respecting local language nuances and data privacy.\n\nBy combining generative AI, legal retrieval techniques, and a human professional network, Wakil AI serves as a trusted legal companion that enhances access to justice and supports better outcomes for users at every level.",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/956234f4-93a9-4b27-8112-3d6572c4f14b/evidence/f670158d-0e5c-47d1-ab21-1285e09c430a/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "User Need"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Citizens and enterprises may encounter complex legal texts, limited plain-language explanations in official databases, and difficulty finding or affording professional help. Wakil AI is intended to address those access barriers for people who need understandable legal information, as well as lawyers seeking a way to reach potential clients. "
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "f670158d-0e5c-47d1-ab21-1285e09c430a",
+            "chunkText": "Accessing legal information and services remains a major challenge for many citizens and enterprises in Uzbekistan. Legal texts are complex, official databases lack user-friendly explanation tools, and professional legal help can be expensive or hard to find. Wakil AI aims to bridge this gap by leveraging AI to provide clear legal answers, evidence-backed citation, and direct access to qualified lawyers, all while respecting local language nuances and data privacy.\n\nBy combining generative AI, legal retrieval techniques, and a human professional network, Wakil AI serves as a trusted legal companion that enhances access to justice and supports better outcomes for users at every level.",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/956234f4-93a9-4b27-8112-3d6572c4f14b/evidence/f670158d-0e5c-47d1-ab21-1285e09c430a/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "bf81721f-0ca2-44c2-8152-838cb9b23b77",
+            "chunkText": "Critical to Wakil AI’s mission is connecting users with verified legal professionals who can offer personalized advice, consultation, and advocacy.",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/956234f4-93a9-4b27-8112-3d6572c4f14b/evidence/bf81721f-0ca2-44c2-8152-838cb9b23b77/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 15,
+            "pageNumber": 5
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Product Vision"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The product direction brings AI-supported legal information together with human legal services, with local language support and grounding in Uzbekistan’s legal sources. A private AI companion for casework, Wakil AI Associate, is described as upcoming; the source does not establish it as generally available. The materials do not specify further approved roadmap commitments. "
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "31142cf4-8e1c-430c-9b24-8b797ce16319",
+            "chunkText": "Wakil AI is a cutting-edge AI-driven legal ecosystem designed to democratize access to legal services and intelligence in Uzbekistan. It pairs a multilingual, evidence-based AI legal assistant with a trusted lawyer-client marketplace and introduces Wakil AI Associate - an upcoming private AI companion for real casework. Built with strict data sovereignty, professional reliability, and local legal grounding in mind, Wakil AI empowers individuals, businesses, and legal professionals to navigate law with speed, clarity, and confidence.",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/956234f4-93a9-4b27-8112-3d6572c4f14b/evidence/31142cf4-8e1c-430c-9b24-8b797ce16319/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Capabilities and Experience"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The legal assistant is described as using retrieval-augmented generation to ground answers in authoritative legal sources and provide links to relevant legal provisions. Published language coverage is Uzbek (Latin and Cyrillic), Russian and English. The described search approach routes specific law-number questions to deterministic lookup rather than standard vector search. The marketplace is intended to connect users with verified legal professionals for personalized advice, consultation and advocacy. "
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "07030454-7e84-450a-a073-911010149535",
+            "chunkText": "Wakil’s AI Legal Assistant is built on Retrieval-Augmented Generation (RAG), enabling it to ground responses in authoritative legal sources (e.g., official law databases). This ensures factual accuracy and transparency, unlike typical generative chatbots.\n\nMultilingual Legal Understanding:Provides guidance in Uzbek (Latin & Cyrillic), Russian, and English - a core feature for a multilingual population. |\n\nCitation-Backed Responses: Answers link to legal articles and provisions, increasing trust and verifiability.",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/956234f4-93a9-4b27-8112-3d6572c4f14b/evidence/07030454-7e84-450a-a073-911010149535/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "897e3b5f-2cdd-4551-9583-f93db794436c",
+            "chunkText": "AI Avatar Cover Image\n\nAdaptive Retrieval Strategy: We have innovated a specific search method that is highly optimized for citation-specific queries. The system serves as a Hybrid Routing Engine that intelligently switches strategies based on query intent. If users ask for a specific law number, we bypass standard vector search for a deterministic lookup.\n\nContextual Legal Interpretation: Moves beyond simple summaries to deliver context-aware legal explanations tailored to user questions.\n\nSecure, Local Deployment: Designed for on-premises or compliant deployment to protect sensitive data and align with Uzbekistan’s data policies.",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/956234f4-93a9-4b27-8112-3d6572c4f14b/evidence/897e3b5f-2cdd-4551-9583-f93db794436c/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 10,
+            "pageNumber": 3
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "bf81721f-0ca2-44c2-8152-838cb9b23b77",
+            "chunkText": "Critical to Wakil AI’s mission is connecting users with verified legal professionals who can offer personalized advice, consultation, and advocacy.",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/956234f4-93a9-4b27-8112-3d6572c4f14b/evidence/bf81721f-0ca2-44c2-8152-838cb9b23b77/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 15,
+            "pageNumber": 5
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Associate is described in the PDF snapshot as a private casework companion with case-specific workspace, context retention and professional-support integration; another passage says it is rolling out through limited early-access invitations. Its exact availability is therefore not clear from the material, and it should not be treated as a generally released feature. "
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "308fa032-fa3e-4513-ad45-18b0c72659d3",
+            "chunkText": "The “Associate” feature is Wakil’s newest capability, currently rolling out through limited early access invitations. It functions as a private AI-powered legal companion tailored for actual casework - supporting users and professionals with case-specific tasks that go beyond general legal Q&A.",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/956234f4-93a9-4b27-8112-3d6572c4f14b/evidence/308fa032-fa3e-4513-ad45-18b0c72659d3/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 17,
+            "pageNumber": 5
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Differentiators"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Wakil AI’s stated distinguishing focus is the combination of multilingual legal assistance, source-linked answers and access to lawyers in one product. The PDF reports an evaluation on 170+ real-world Soliq (Tax Law) queries using the RAGAS evaluation framework. It provides no score, comparison basis, test conditions or result values, so this evaluation scope is not evidence of a quantified advantage or client outcome. "
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "07030454-7e84-450a-a073-911010149535",
+            "chunkText": "Wakil’s AI Legal Assistant is built on Retrieval-Augmented Generation (RAG), enabling it to ground responses in authoritative legal sources (e.g., official law databases). This ensures factual accuracy and transparency, unlike typical generative chatbots.\n\nMultilingual Legal Understanding:Provides guidance in Uzbek (Latin & Cyrillic), Russian, and English - a core feature for a multilingual population. |\n\nCitation-Backed Responses: Answers link to legal articles and provisions, increasing trust and verifiability.",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/956234f4-93a9-4b27-8112-3d6572c4f14b/evidence/07030454-7e84-450a-a073-911010149535/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "9659b57c-f478-4551-afd7-dd41eccb8ebe",
+            "chunkText": "Wakil AI Image\n\nMeasurably Superior Factual Correctness: Created a unique technical moat by combining structural data integrity with sovereign deployment.Evaluated on 170+ real-world Soliq (Tax Law) queries using the RAGAS evaluation framework:",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/956234f4-93a9-4b27-8112-3d6572c4f14b/evidence/9659b57c-f478-4551-afd7-dd41eccb8ebe/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 14,
+            "pageNumber": 4
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Current Availability and Roadmap"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The reviewed record marks Wakil AI “prod ready” and gives "
+        },
+        {
+          "type": "text",
+          "text": "https://wakil.ai/",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://wakil.ai/",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " as its demo/product URL. The project page is "
+        },
+        {
+          "type": "text",
+          "text": "https://humblebee.ai/projects/wakil-ai",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/projects/wakil-ai",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ". Associate is not confirmed as a generally released capability: the source calls it upcoming while also mentioning limited early-access invitations. No availability details resolve that distinction. No performance, adoption or business-impact results have been provided. "
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "31142cf4-8e1c-430c-9b24-8b797ce16319",
+            "chunkText": "Wakil AI is a cutting-edge AI-driven legal ecosystem designed to democratize access to legal services and intelligence in Uzbekistan. It pairs a multilingual, evidence-based AI legal assistant with a trusted lawyer-client marketplace and introduces Wakil AI Associate - an upcoming private AI companion for real casework. Built with strict data sovereignty, professional reliability, and local legal grounding in mind, Wakil AI empowers individuals, businesses, and legal professionals to navigate law with speed, clarity, and confidence.",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/956234f4-93a9-4b27-8112-3d6572c4f14b/evidence/31142cf4-8e1c-430c-9b24-8b797ce16319/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "308fa032-fa3e-4513-ad45-18b0c72659d3",
+            "chunkText": "The “Associate” feature is Wakil’s newest capability, currently rolling out through limited early access invitations. It functions as a private AI-powered legal companion tailored for actual casework - supporting users and professionals with case-specific tasks that go beyond general legal Q&A.",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/956234f4-93a9-4b27-8112-3d6572c4f14b/evidence/308fa032-fa3e-4513-ad45-18b0c72659d3/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 17,
+            "pageNumber": 5
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "308fa032-fa3e-4513-ad45-18b0c72659d3",
+            "chunkText": "The “Associate” feature is Wakil’s newest capability, currently rolling out through limited early access invitations. It functions as a private AI-powered legal companion tailored for actual casework - supporting users and professionals with case-specific tasks that go beyond general legal Q&A.",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/956234f4-93a9-4b27-8112-3d6572c4f14b/evidence/308fa032-fa3e-4513-ad45-18b0c72659d3/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 17,
+            "pageNumber": 5
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Conclusion"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Wakil AI presents a locally grounded approach to legal information access, pairing a multilingual assistant with a professional marketplace. Its core product is listed as production ready; Associate’s availability remains ambiguous in the reviewed material. Further claims about measured effectiveness or outcomes should await reported results and evaluation details."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "31142cf4-8e1c-430c-9b24-8b797ce16319",
+            "chunkText": "Wakil AI is a cutting-edge AI-driven legal ecosystem designed to democratize access to legal services and intelligence in Uzbekistan. It pairs a multilingual, evidence-based AI legal assistant with a trusted lawyer-client marketplace and introduces Wakil AI Associate - an upcoming private AI companion for real casework. Built with strict data sovereignty, professional reliability, and local legal grounding in mind, Wakil AI empowers individuals, businesses, and legal professionals to navigate law with speed, clarity, and confidence.",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/956234f4-93a9-4b27-8112-3d6572c4f14b/evidence/31142cf4-8e1c-430c-9b24-8b797ce16319/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "6ee50dc4-7e89-4227-9be7-5f618480f7cd",
+            "chunkText": "Wakil AI’s approach leads to tangible impact for multiple stakeholder groups:\n\nCitizens & Businesses: Enhanced access to clear, reliable legal information reduces confusion and lowers the cost of legal entry.\n\nLegal Professionals: Lawyers gain new digital channels to reach clients, showcase expertise, and grow their practices - diversifying revenue sources beyond traditional referral networks.\n\nGovernment & Ecosystem: The platform supports broader digital transformation goals by aligning legal services with national language support and data regulation priorities.\n\nTrust & Integrity: Built-in citation and local legal corpus grounding improve confidence in automated legal outputs compared to generic AI systems.\n\nBy integrating AI with professional legal services, Wakil AI is setting a new standard for accessible, secure, and trustworthy legal support in Uzbekistan.",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/956234f4-93a9-4b27-8112-3d6572c4f14b/evidence/6ee50dc4-7e89-4227-9be7-5f618480f7cd/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 24,
+            "pageNumber": 6
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Sources and Review Notes"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Wakil AI — original source. PDF evidence pages: 1–6."
+        },
+        {
+          "type": "text",
+          "text": " Open source",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/projects/wakil-ai",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "f670158d-0e5c-47d1-ab21-1285e09c430a",
+            "chunkText": "Accessing legal information and services remains a major challenge for many citizens and enterprises in Uzbekistan. Legal texts are complex, official databases lack user-friendly explanation tools, and professional legal help can be expensive or hard to find. Wakil AI aims to bridge this gap by leveraging AI to provide clear legal answers, evidence-backed citation, and direct access to qualified lawyers, all while respecting local language nuances and data privacy.\n\nBy combining generative AI, legal retrieval techniques, and a human professional network, Wakil AI serves as a trusted legal companion that enhances access to justice and supports better outcomes for users at every level.",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/956234f4-93a9-4b27-8112-3d6572c4f14b/evidence/f670158d-0e5c-47d1-ab21-1285e09c430a/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Published status: prod ready"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Published demo: https://wakil.ai/",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://wakil.ai/",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Evidence gaps: Wakil AI Associate is upcoming, not a released feature."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Review draft. Company approval of claims and figures is pending. Original URLs are transcribed from the supplied PDFs; current remote availability has not been verified."
+        }
+      ]
+    }
+  ]
+}

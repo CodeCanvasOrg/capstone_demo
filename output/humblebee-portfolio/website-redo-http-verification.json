@@ -1,0 +1,372 @@
+{
+  "indexVerified": true,
+  "entryEditors": 41,
+  "imageAssets": 52,
+  "images": [
+    {
+      "key": "company-update:vc-studio-qatar",
+      "chunkId": "a83bf098-b999-499a-8c3b-d57cdbc98202",
+      "status": 200,
+      "bytes": 758239,
+      "localFile": "assets/a83bf098-b999-499a-8c3b-d57cdbc98202.png"
+    },
+    {
+      "key": "case-study:customs-document-automation",
+      "chunkId": "d6fff9ef-34e5-4307-b0be-c86fc2f7dc0f",
+      "status": 200,
+      "bytes": 473286,
+      "localFile": "assets/d6fff9ef-34e5-4307-b0be-c86fc2f7dc0f.png"
+    },
+    {
+      "key": "case-study:ai-based-predictive",
+      "chunkId": "afeada4d-d9e7-4f93-a298-c6dd661471bc",
+      "status": 200,
+      "bytes": 513669,
+      "localFile": "assets/afeada4d-d9e7-4f93-a298-c6dd661471bc.png"
+    },
+    {
+      "key": "case-study:avnrt-ablation-analytics",
+      "chunkId": "3379fe9f-cc01-40b7-b9b1-8bb1489b6cbb",
+      "status": 200,
+      "bytes": 286208,
+      "localFile": "assets/3379fe9f-cc01-40b7-b9b1-8bb1489b6cbb.png"
+    },
+    {
+      "key": "case-study:cartoned-analysis-dashboard",
+      "chunkId": "7d502bbd-e121-4563-820e-d326d9d1caef",
+      "status": 200,
+      "bytes": 210849,
+      "localFile": "assets/7d502bbd-e121-4563-820e-d326d9d1caef.png"
+    },
+    {
+      "key": "case-study:cartoned-analysis-dashboard",
+      "chunkId": "1f163c3e-9327-4339-ab43-06dd94e17e0b",
+      "status": 200,
+      "bytes": 699389,
+      "localFile": "assets/1f163c3e-9327-4339-ab43-06dd94e17e0b.png"
+    },
+    {
+      "key": "case-study:impact-event-analysis",
+      "chunkId": "8a6767d9-b713-4782-ba8d-37b486f190b3",
+      "status": 200,
+      "bytes": 416417,
+      "localFile": "assets/8a6767d9-b713-4782-ba8d-37b486f190b3.png"
+    },
+    {
+      "key": "case-study:patient-data-analytics",
+      "chunkId": "a215caaa-d63e-4789-878f-1db5a8997560",
+      "status": 200,
+      "bytes": 232356,
+      "localFile": "assets/a215caaa-d63e-4789-878f-1db5a8997560.png"
+    },
+    {
+      "key": "case-study:patient-data-analytics",
+      "chunkId": "8f21d28b-6ad8-44cb-a8d8-b3d6339e1266",
+      "status": 200,
+      "bytes": 132286,
+      "localFile": "assets/8f21d28b-6ad8-44cb-a8d8-b3d6339e1266.png"
+    },
+    {
+      "key": "case-study:shelf-analysis",
+      "chunkId": "ec897242-0ced-43f9-83a9-d66aacd79568",
+      "status": 200,
+      "bytes": 791323,
+      "localFile": "assets/ec897242-0ced-43f9-83a9-d66aacd79568.png"
+    },
+    {
+      "key": "case-study:shelf-analysis",
+      "chunkId": "0b6b9f7a-83e7-4c97-af68-ed85cf7c35f9",
+      "status": 200,
+      "bytes": 408252,
+      "localFile": "assets/0b6b9f7a-83e7-4c97-af68-ed85cf7c35f9.png"
+    },
+    {
+      "key": "case-study:fraud-detection",
+      "chunkId": "10ca1e12-c5e3-4ee0-bc88-ba250d6becc2",
+      "status": 200,
+      "bytes": 589144,
+      "localFile": "assets/10ca1e12-c5e3-4ee0-bc88-ba250d6becc2.png"
+    },
+    {
+      "key": "case-study:fraud-detection",
+      "chunkId": "baff540c-b832-4986-8c34-c7aec9162d27",
+      "status": 200,
+      "bytes": 680012,
+      "localFile": "assets/baff540c-b832-4986-8c34-c7aec9162d27.png"
+    },
+    {
+      "key": "case-study:poster-recognition",
+      "chunkId": "e7373f11-194e-4013-a2d9-bdba5f72e226",
+      "status": 200,
+      "bytes": 920019,
+      "localFile": "assets/e7373f11-194e-4013-a2d9-bdba5f72e226.png"
+    },
+    {
+      "key": "case-study:automated-training-pipeline",
+      "chunkId": "1feb4a51-7d79-4085-aa72-341946fed266",
+      "status": 200,
+      "bytes": 132121,
+      "localFile": "assets/1feb4a51-7d79-4085-aa72-341946fed266.png"
+    },
+    {
+      "key": "case-study:data-labeling-tool",
+      "chunkId": "302a86eb-f89c-451a-8482-9706d415b299",
+      "status": 200,
+      "bytes": 441235,
+      "localFile": "assets/302a86eb-f89c-451a-8482-9706d415b299.png"
+    },
+    {
+      "key": "case-study:data-labeling-tool",
+      "chunkId": "66c00e5b-5ce1-47ea-89bf-32706162f100",
+      "status": 200,
+      "bytes": 194009,
+      "localFile": "assets/66c00e5b-5ce1-47ea-89bf-32706162f100.png"
+    },
+    {
+      "key": "case-study:improving-recognition-accuracy",
+      "chunkId": "e8aaab9b-31ba-493f-afb1-c02c641356e1",
+      "status": 200,
+      "bytes": 620087,
+      "localFile": "assets/e8aaab9b-31ba-493f-afb1-c02c641356e1.png"
+    },
+    {
+      "key": "case-study:optimizing-recognition-processing",
+      "chunkId": "b408a0f4-ea59-45e5-a90d-6532042c355d",
+      "status": 200,
+      "bytes": 739263,
+      "localFile": "assets/b408a0f4-ea59-45e5-a90d-6532042c355d.png"
+    },
+    {
+      "key": "case-study:lumiohub-platform",
+      "chunkId": "fce425bb-c224-441b-ad73-75a6a89dcdaf",
+      "status": 200,
+      "bytes": 360563,
+      "localFile": "assets/fce425bb-c224-441b-ad73-75a6a89dcdaf.png"
+    },
+    {
+      "key": "case-study:lumiohub-platform",
+      "chunkId": "bb6d0683-5589-495f-8b4c-b799cdff46fa",
+      "status": 200,
+      "bytes": 1248463,
+      "localFile": "assets/bb6d0683-5589-495f-8b4c-b799cdff46fa.png"
+    },
+    {
+      "key": "case-study:amplifyr",
+      "chunkId": "82f0349d-f0ff-4eaa-be66-de82a600748d",
+      "status": 200,
+      "bytes": 426044,
+      "localFile": "assets/82f0349d-f0ff-4eaa-be66-de82a600748d.png"
+    },
+    {
+      "key": "case-study:ai-powered-retail-cart",
+      "chunkId": "5cce0ef7-1cf9-4ab9-b207-65252b8de6ad",
+      "status": 200,
+      "bytes": 350710,
+      "localFile": "assets/5cce0ef7-1cf9-4ab9-b207-65252b8de6ad.png"
+    },
+    {
+      "key": "case-study:ai-customs-intelligence",
+      "chunkId": "90f1a31d-0cd2-46d6-9187-e23c954e7bd9",
+      "status": 200,
+      "bytes": 472796,
+      "localFile": "assets/90f1a31d-0cd2-46d6-9187-e23c954e7bd9.png"
+    },
+    {
+      "key": "case-study:data-cleaning-hs-codes",
+      "chunkId": "4f5f7dee-9225-454b-a8be-c19cadfd9e5a",
+      "status": 200,
+      "bytes": 712858,
+      "localFile": "assets/4f5f7dee-9225-454b-a8be-c19cadfd9e5a.png"
+    },
+    {
+      "key": "case-study:excel-automated-testing",
+      "chunkId": "1d15f789-b341-4cee-ad58-e0dfc708cdd7",
+      "status": 200,
+      "bytes": 544112,
+      "localFile": "assets/1d15f789-b341-4cee-ad58-e0dfc708cdd7.png"
+    },
+    {
+      "key": "case-study:llm-results-analyzer",
+      "chunkId": "ed26290d-04e0-4440-a4e2-43dbaa0e2949",
+      "status": 200,
+      "bytes": 171507,
+      "localFile": "assets/ed26290d-04e0-4440-a4e2-43dbaa0e2949.png"
+    },
+    {
+      "key": "case-study:llm-results-analyzer",
+      "chunkId": "1b5da302-8d52-4ddb-9089-5ab5b78408d2",
+      "status": 200,
+      "bytes": 533202,
+      "localFile": "assets/1b5da302-8d52-4ddb-9089-5ab5b78408d2.png"
+    },
+    {
+      "key": "case-study:iv-drip-flow-rate-estimator",
+      "chunkId": "8cbac0a6-6928-4624-a2cc-74f248ff124c",
+      "status": 200,
+      "bytes": 186847,
+      "localFile": "assets/8cbac0a6-6928-4624-a2cc-74f248ff124c.png"
+    },
+    {
+      "key": "company-update:innerworks-partnership",
+      "chunkId": "d7ffa789-28c7-45f0-b6da-d3c78399b5c0",
+      "status": 200,
+      "bytes": 897908,
+      "localFile": "assets/d7ffa789-28c7-45f0-b6da-d3c78399b5c0.png"
+    },
+    {
+      "key": "case-study:field-center-detection",
+      "chunkId": "4d6c395e-e35f-4dd0-929f-2a6749c7de71",
+      "status": 200,
+      "bytes": 743138,
+      "localFile": "assets/4d6c395e-e35f-4dd0-929f-2a6749c7de71.png"
+    },
+    {
+      "key": "case-study:beef-carcass-detection",
+      "chunkId": "5863819c-5f39-4cdd-b004-9a630d55a1f0",
+      "status": 200,
+      "bytes": 343190,
+      "localFile": "assets/5863819c-5f39-4cdd-b004-9a630d55a1f0.png"
+    },
+    {
+      "key": "case-study:livescore-ai",
+      "chunkId": "9115f308-d4b4-4172-88c5-1609ef3febe0",
+      "status": 200,
+      "bytes": 521848,
+      "localFile": "assets/9115f308-d4b4-4172-88c5-1609ef3febe0.png"
+    },
+    {
+      "key": "case-study:breast-cancer",
+      "chunkId": "71eb16bc-8514-4d47-bac0-88cdc61eb26a",
+      "status": 200,
+      "bytes": 347505,
+      "localFile": "assets/71eb16bc-8514-4d47-bac0-88cdc61eb26a.png"
+    },
+    {
+      "key": "project:hstaff",
+      "chunkId": "6660d8eb-01b6-4624-b34b-ea9ca4d0c944",
+      "status": 200,
+      "bytes": 233447,
+      "localFile": "assets/6660d8eb-01b6-4624-b34b-ea9ca4d0c944.png"
+    },
+    {
+      "key": "project:ai-avatar",
+      "chunkId": "806480ea-1487-48fe-b1cb-d11794d5642d",
+      "status": 200,
+      "bytes": 195115,
+      "localFile": "assets/806480ea-1487-48fe-b1cb-d11794d5642d.png"
+    },
+    {
+      "key": "project:kumush-ai",
+      "chunkId": "64d8e35c-fe9f-4eeb-b502-cbeea823e962",
+      "status": 200,
+      "bytes": 174787,
+      "localFile": "assets/64d8e35c-fe9f-4eeb-b502-cbeea823e962.png"
+    },
+    {
+      "key": "project:kumush-ai",
+      "chunkId": "8a3d9f54-8a4c-49c1-ad3d-4fafef5a5b26",
+      "status": 200,
+      "bytes": 144610,
+      "localFile": "assets/8a3d9f54-8a4c-49c1-ad3d-4fafef5a5b26.png"
+    },
+    {
+      "key": "project:wakil-ai",
+      "chunkId": "a49ba96c-1dcf-429a-988d-e27c1f78777f",
+      "status": 200,
+      "bytes": 299159,
+      "localFile": "assets/a49ba96c-1dcf-429a-988d-e27c1f78777f.png"
+    },
+    {
+      "key": "project:bojhona",
+      "chunkId": "f2188926-89af-43c4-8b90-b06a3e6b5e62",
+      "status": 200,
+      "bytes": 697917,
+      "localFile": "assets/f2188926-89af-43c4-8b90-b06a3e6b5e62.png"
+    },
+    {
+      "key": "project:enlighten-qalb",
+      "chunkId": "e1a1ccae-ec7b-4ebb-a6a1-b7977fcfa373",
+      "status": 200,
+      "bytes": 806829,
+      "localFile": "assets/e1a1ccae-ec7b-4ebb-a6a1-b7977fcfa373.png"
+    },
+    {
+      "key": "project:bride",
+      "chunkId": "c6fa5fff-8f1a-4000-a429-1c172954a4ce",
+      "status": 200,
+      "bytes": 925796,
+      "localFile": "assets/c6fa5fff-8f1a-4000-a429-1c172954a4ce.png"
+    },
+    {
+      "key": "paper:2409.04187",
+      "chunkId": "9d051d5f-5f0d-4d52-b649-1215f151a533",
+      "status": 200,
+      "bytes": 951226,
+      "localFile": "assets/9d051d5f-5f0d-4d52-b649-1215f151a533.png"
+    },
+    {
+      "key": "paper:2409.04187",
+      "chunkId": "4de0e1cb-da6a-4079-8abd-799b96c419a2",
+      "status": 200,
+      "bytes": 74104,
+      "localFile": "assets/4de0e1cb-da6a-4079-8abd-799b96c419a2.png"
+    },
+    {
+      "key": "paper:10883969",
+      "chunkId": "4ae07264-3945-4e3a-bb81-d7d998b171e3",
+      "status": 200,
+      "bytes": 147250,
+      "localFile": "assets/4ae07264-3945-4e3a-bb81-d7d998b171e3.png"
+    },
+    {
+      "key": "paper:10316180",
+      "chunkId": "8813f7cb-f7e5-4c34-adb2-4a74fad5cfba",
+      "status": 200,
+      "bytes": 167347,
+      "localFile": "assets/8813f7cb-f7e5-4c34-adb2-4a74fad5cfba.png"
+    },
+    {
+      "key": "paper:515",
+      "chunkId": "9be4742e-d5fb-4648-bd58-03bce07136f2",
+      "status": 200,
+      "bytes": 62523,
+      "localFile": "assets/9be4742e-d5fb-4648-bd58-03bce07136f2.png"
+    },
+    {
+      "key": "paper:9661375",
+      "chunkId": "3448ed69-924c-4366-a05c-622e930db14c",
+      "status": 200,
+      "bytes": 144178,
+      "localFile": "assets/3448ed69-924c-4366-a05c-622e930db14c.png"
+    },
+    {
+      "key": "paper:9064976",
+      "chunkId": "abfb7451-f919-4b37-b88d-3b484763934a",
+      "status": 200,
+      "bytes": 25591,
+      "localFile": "assets/abfb7451-f919-4b37-b88d-3b484763934a.png"
+    },
+    {
+      "key": "paper:1910.01091",
+      "chunkId": "505dca26-9178-4647-bb76-52645ec6ea1c",
+      "status": 200,
+      "bytes": 88901,
+      "localFile": "assets/505dca26-9178-4647-bb76-52645ec6ea1c.png"
+    },
+    {
+      "key": "paper:1910.01091",
+      "chunkId": "fb151ffc-3e5d-4a92-8444-9d9be2304ee7",
+      "status": 200,
+      "bytes": 80790,
+      "localFile": "assets/fb151ffc-3e5d-4a92-8444-9d9be2304ee7.png"
+    },
+    {
+      "key": "paper:1910.01091",
+      "chunkId": "c3b089d3-18d1-4b90-a355-aa926f2754b0",
+      "status": 200,
+      "bytes": 131706,
+      "localFile": "assets/c3b089d3-18d1-4b90-a355-aa926f2754b0.png"
+    }
+  ],
+  "passed": true
+}

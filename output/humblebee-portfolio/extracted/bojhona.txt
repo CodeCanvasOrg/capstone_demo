@@ -1,0 +1,121 @@
+ HUMBLEBEEAI / PROJECT
+
+
+ Bojhona: AI-Powered Customs
+ Intelligence: HS Code Definitions
+ Open original HumbleBeeAI page
+
+ Advanced AI system unifying theoretical HS-code definitions with real-world trade data,
+ featuring 65.5M+ product descriptions for accurate customs classification.
+
+   Status                                              Scope
+   in dev                                              Mid
+
+
+
+
+ Source image
+
+
+ Executive Summary
+ The AI-Powered Customs Intelligence project delivers an advanced AI-powered system that unifies
+ theoretical HS-code definitions with real-world trade data. By integrating two phases of projects -
+ Phase A (official and structural HS-code definitions) and Phase B (historical large-scale product
+ descriptions from customs declarations) - the solution provides a single platform for accurate and
+ efficient classification. Built on a foundation of large-scale data optimization, semantic embeddings,
+ and a LangChain-based chatbot, the system enables customs officers, managers, and business users
+ to access both legal definitions and practical product HS code matches in one place. This unified
+ approach improves compliance accuracy, reduces reliance on manual processes, and establishes a
+ scalable framework for modern customs operations.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                      1
+ Introduction
+ International trade depends on the Harmonized System (HS), a globally standardized method for
+ classifying goods. However, aligning the legal definitions of HS codes with the descriptions of
+ real-world products has long been a complex challenge. Phase A addressed the theoretical side of the
+ system by structuring the legal framework of HS codes, including sections, chapters, and official
+ explanatory notes. While this provided the essential foundation for compliance, it lacked practical
+ application, as officers and businesses often struggled to connect abstract definitions to actual goods.
+ Phase B, on the other hand, focused on the practical side, compiling a massive dataset of 65.5+1.8
+ million product descriptions from customs declarations. This dataset reflected the reality of
+ international trade but was plagued by issues such as duplication, inconsistency, and the absence of
+ alignment with the official HS-code structure. Operating these two phases of the project separately
+ created a fundamental gap: customs officers and businesses had to choose between rigid theoretical
+ definitions or messy real-world data, with no unified tool to bridge the two. This slowed classification,
+ introduced errors, and limited the ability to make informed, data-driven decisions.
+
+ The Problem
+ Despite the critical role of HS codes in regulating international trade, customs authorities and
+ businesses faced major obstacles in applying them effectively. Classification work was still largely
+ manual, requiring officers to search through millions of records to identify the right code for each
+ product. This process was not only time-consuming but also prone to misclassification, which carried
+ significant compliance and financial risks. The underlying data environment further compounded these
+ challenges. The MSSQL database used for customs operations contained vast amounts of duplicate
+ and inconsistent product descriptions. These redundancies slowed down searches, made it difficult to
+ standardize results, and created confusion when similar products appeared under conflicting entries.
+ At the same time, the outputs of Phase A (theoretical HS-code definitions) and Phase B (real-world
+ customs case data) remained siloed. Without integration, officers had to switch between abstract legal
+ definitions and unstructured product descriptions, a workflow that limited efficiency and accuracy.
+ Finally, business users such as importers and exporters lacked direct access to HS-code search tools.
+ Instead, they relied heavily on consultants and brokers to interpret codes on their behalf. This
+ dependency increased operational costs, slowed trade activities, and made compliance less
+ transparent.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                         2
+ The Solution
+ The project implemented a comprehensive AI-powered pipeline to optimize customs data and provide
+ an intelligent chatbot interface for HS-code classification. The first step involved data optimization and
+ cleaning, where the team connected to the MSSQL database containing 65.5+1.8 million product
+ descriptions and performed large-scale deduplication and normalization. This process ensured that the
+ dataset was accurate, standardized, and ready for efficient AI-driven retrieval. Next, the data ingestion
+ pipeline processed the cleaned dataset in batches. Each record was converted into semantic
+ embeddings using OpenAI's text-embedding-3-small, then stored in Pinecone for fast, semantic
+ search capabilities. Key metadata was mirrored in MongoDB, providing flexible filtering, analytics, and
+ context for chatbot sessions. The system also included chatbot development built on FastAPI and
+ LangChain, leveraging GPT models to generate accurate, context-aware responses. The chatbot
+ could instantly provide HS-code suggestions along with supporting context from both theoretical
+ definitions and real-world product examples. A crucial part of the solution was the integration of Phase
+ A and Phase B. By combining theoretical HS-code structures with practical product data, the system
+ enabled systematic comparison of classification results, highlighting and justifying the top 10 most
+ suitable HS codes for any given query. Finally, the project emphasized evaluation and continuous
+ improvement, including ablation studies on embedding models and chunking strategies to optimize
+ retrieval quality.
+
+ Results
+ The project delivered significant improvements across multiple dimensions of HS-code classification
+ and customs operations. Operational efficiency was dramatically enhanced, reducing search and
+ classification time from minutes to seconds, allowing customs officers to process queries far more
+ quickly and effectively. Accuracy and reliability were also improved, as duplicate and inconsistent data
+ were eliminated, and the chatbot provided citation-backed answers drawn from both theoretical
+ definitions and real-world product examples, increasing trust in automated recommendations. By
+ integrating outputs from Phase A and Phase B, the system enabled unified decision-making, allowing
+ managers to conduct side-by-side comparisons of classification results and identify the top 10 most
+ relevant HS codes for compliance purposes. Finally, the project empowered business users by
+ delivering a self-service chatbot interface for importers and exporters, reducing reliance on external
+ consultants, cutting costs, and accelerating trade-related decision-making. Overall, the solution
+ established a faster, more accurate, and more transparent HS-code classification process that
+ benefited both authorities and industry stakeholders.
+
+ Conclusion
+ The AI-Powered Customs Intelligence project demonstrates the transformative potential of AI in
+ modernizing customs data management. By optimizing a dataset of 65.5+1.8 million product records,
+ deploying a scalable and intelligent chatbot, and integrating outputs from both theoretical and practical
+ HS-code projects, the system enables faster, more accurate classification while bridging the gap
+ between compliance rules and real-world trade data. The unified platform empowers customs officers,
+ managers, and business users to make data-driven decisions, access reliable HS-code
+ recommendations, and reduce dependency on manual processes or external consultants. The
+ success of this project establishes a strong foundation for continued AI-driven innovation in customs
+ operations, highlighting the value of combining large-scale data optimization with intelligent retrieval
+ systems to enhance efficiency, accuracy, and transparency across the trade ecosystem.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                          3
+

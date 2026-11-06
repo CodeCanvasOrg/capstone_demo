@@ -1,0 +1,154 @@
+ HUMBLEBEEAI / PROJECT
+
+
+ LumioHub AI
+ Open original HumbleBeeAI page
+
+ Advanced facial recognition system for workplace security, attendance tracking, and real-time
+ monitoring
+
+   Status                                              Scope
+   prod ready                                          Big
+
+
+
+
+ Source image
+
+
+ Executive Summary
+ LumioHub AI is a modern workplace management platform that combines real-time sensing,
+ intelligent automation, and enterprise-grade analytics to improve attendance accuracy,
+ strengthen on-premise security, and reduce administrative workload. Built for multi-site
+ organizations and service providers, it supports secure multi-tenant deployments with strict data
+ separation and configurable governance controls.
+
+ Beyond basic check-in and check-out, LumioHub AI provides continuous workplace insights,
+ including desk presence tracking, live indoor location awareness, break and wellbeing reminders,
+ fatigue and rest detection, interaction and conversation signals, focus or distraction indicators (such
+ as phone usage during defined work windows), and role-based performance reporting. All insights
+ are delivered through dashboards, summaries, spatial views, and exportable reports, enabling
+ operational visibility without the need for manual supervision or continuous video monitoring.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                       1
+ Introduction
+ Organizations still rely on manual attendance, access cards, spreadsheets, and ad-hoc supervision to
+ manage workforce operations. These approaches often lead to:
+
+  •   Inaccurate records and time fraud (buddy punching, missed entries)
+  •   Delayed security response due to limited real-time visibility
+  •   High administrative overhead for HR and operations
+  •   Limited insight into how time is spent across teams, roles, and locations
+  •   Inconsistent policy enforcement across departments and sites
+ LumioHub AI was designed to address these issues through an integrated platform that turns
+ workplace activity into structured, actionable operations data. The system supports:
+
+  •   Automated, identity-based attendance tracking and office-hours calculation
+  •   Real-time on-premise security monitoring with alerts for suspicious or unrecognized presence
+  •   Live indoor localization tracking and map-based visualization
+  •   Desk presence analytics to understand working patterns and session-based activity rhythms
+  •   Detection of prolonged interactions or conversations between individuals
+  •   Configurable break reminders to reduce prolonged continuous sitting and support healthier work
+      habits
+  •   Optional phone usage detection for selected roles or teams within defined time windows
+  •   Fatigue and sleeping detection based on prolonged inactivity or posture patterns, with configurable
+      tolerance thresholds
+  •   Centralized dashboards and reports for individuals, teams, departments, and locations
+
+ Scope and Capabilities
+ LumioHub AI operates as an end-to-end workplace operations platform, covering four core areas:
+
+ 1) Workforce Attendance and Timekeeping
+  •   Automated check-in and check-outusing designated entry and exit points
+  •   Consolidated office-hours calculationwith protection against duplicate or inconsistent records
+  •   Daily, weekly, and monthly summarieswith historical trend tracking
+  •   Configurable rules and thresholds (e.g., highlighting underperformance such as fewer than defined
+      weekly hours)
+  •   Consistent attendance policies across departments, locations, and tenants
+
+ 2) On-Premise Security and Access Visibility
+  •   Continuous monitoringof entry points, shared spaces, and controlled areas
+  •   Detection and alertingfor unrecognized or unauthorized individuals
+  •   Identification of suspicious access patterns, including tailgating risk indicators
+  •   Evidence-ready event logging to support incident review and compliance reporting
+  •   Site-level and tenant-level configuration for access rules and alert routing
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                        2
+ 3) Productivity and Wellbeing Signals
+  •   Desk presence tracking: total time at desk, work sessions, and configurable detection intervals
+  •   Live location and movement tracking: last-seen location, zone-level positioning, and map-based
+      visualization
+ View media online
+
+  •   Person search: ability to locate an individual based on their most recent detected position
+  •   Interaction and conversation detection: identification of prolonged face-to-face engagement
+      between two or more individuals based on proximity and orientation
+  •   Break reminders: prompts after extended continuous desk presence, configurable by role or
+      department
+  •   Phone usage detection: identification of continuous phone usage exceeding defined duration
+      thresholds within configured work windows
+  •   Fatigue and sleeping detection: detection of prolonged inactivity or sleeping postures, with
+      configurable grace periods and escalation policies
+ View media online
+
+ 4) Reporting, Insights, and Administration
+  •   Administrative dashboardswith filters by employee, team, department, location, and time range
+  •   Real-time spatial viewsshowing occupancy, movement, and activity states across office zones
+  •   Automated highlightsfor anomalies such as low attendance hours, excessive inactivity,
+      prolonged phone usage, or extended interactions
+  •   Daily, weekly, and monthly individual and companywide summaries and manager-ready
+      digests
+  •   Export support(CSV / Excel) for HR systems, payroll workflows, audits, and compliance needs
+ View media online
+
+
+ Results and Business Impact
+ LumioHub AI delivers measurable value across operational, security, and management functions:
+
+  •   Improved attendance integritythrough automated tracking and reduced fraud opportunities
+  •   Faster security responseenabled by real-time detection and alerting
+  •   Reduced administrative workloadthrough centralized data collection and automated reporting
+  •   Clearer visibilityinto space usage, interactions, and work patterns
+  •   Support for healthier work rhythmsthrough proactive break reminders and fatigue monitoring
+  •   Scalable operationsfor organizations with multiple sites or provider-style multi-tenant
+      deployments
+ Because policies are configurable at the tenant, department, and role levels, organizations can tailor
+ monitoring depth and reporting granularity to align with internal culture, labor regulations, and
+ compliance requirements
+
+ Privacy, Governance, and Deployment Readiness
+ LumioHub AI is designed for enterprise environments where privacy, auditability, and control matter:
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                      3
+  •   Multi-tenant architecture with strict data separation
+  •   Role-based access controls for administrators, managers, and HR stakeholders
+  •   Configurable monitoring scope (who, what signals, and which time windows)
+  •   Transparent logs and reporting to support internal policy audits
+  •   Flexible deployment patterns across multiple locations with centralized oversight
+
+ Conclusion
+ LumioHub AI transforms workplace management from fragmented, manual processes into a unified,
+ intelligent operations platform. It automates attendance, strengthens on-premise security, and
+ provides explicit visibility into presence, movement, interaction, focus, and well-being—without relying
+ on continuous video monitoring.
+
+ By combining workforce timekeeping, access visibility, indoor localization, desk presence analytics,
+ interaction detection, well-being signals, and scalable multi-tenant administration, LumioHub AI
+ enables organizations to operate safer and more efficient workplaces with consistent policy
+ enforcement and data-driven decision-making.
+
+ You can learn more about LumioHub AI and also try its Demo here: https://lumiohub.ai/
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                        4
+

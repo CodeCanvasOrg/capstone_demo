@@ -1,0 +1,828 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Securing LumioHub AI for Enterprise Scale",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBee AI delivered LumioHub AI’s secure, multi-tenant platform architecture to help enterprise organizations manage workplace operations across complex hierarchies.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/65db0def-cab7-4bf8-b20f-259054b4bfad/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "HumbleBee AI partnered with an enterprise client to architect a secure, scalable LumioHub AI platform from the ground up. By implementing a sophisticated architecture with a hybrid RBAC + ABAC permission model and a dynamic AI recognition cluster, HumbleBee AI successfully delivered a resilient, multi-tenant solution. The platform now offers data isolation, scalability, and real-time operational efficiency, positioning the client for growth.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "65db0def-cab7-4bf8-b20f-259054b4bfad"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "LumioHub AI was conceived as a B2B workplace management and AI platform for enterprise clients, including organizations operating across multiple branches. Its architecture needed to protect tenant data and support complex access rules, while providing a foundation for workplace management features such as attendance and access control. HumbleBee AI reports that it designed and delivered a resilient, multi-tenant platform using schema-per-tenant isolation, centralized permission enforcement and independently deployable services.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/77b5bbba-c08b-4e03-a043-514d7a8791b9/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "In the competitive landscape of enterprise solutions, a leading innovator sought to develop a LumioHub AI platform—a comprehensive B2B SaaS offering designed to integrate modern workplace management with advanced AI capabilities like facial recognition for attendance and access control. To serve a diverse range of enterprise clients, the platform needed to be secure, scalable, and capable of handling complex organizational structures. HumbleBee AI was engaged to provide the architectural blueprint and engineering expertise required to transform this vision into a market-ready reality.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "77b5bbba-c08b-4e03-a043-514d7a8791b9"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/65db0def-cab7-4bf8-b20f-259054b4bfad/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "HumbleBee AI partnered with an enterprise client to architect a secure, scalable LumioHub AI platform from the ground up. By implementing a sophisticated architecture with a hybrid RBAC + ABAC permission model and a dynamic AI recognition cluster, HumbleBee AI successfully delivered a resilient, multi-tenant solution. The platform now offers data isolation, scalability, and real-time operational efficiency, positioning the client for growth.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "65db0def-cab7-4bf8-b20f-259054b4bfad"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ede611b7-c53c-4739-b196-44d5d9bc2bf4/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "HumbleBee AI engineered a holistic, service-oriented architecture designed for security, scalability, and operational excellence. The solution was built on several innovative pillars. A Hybrid RBAC + ABAC Permission System: To address the complex permission requirements, our team designed and implemented a hybrid Role-Based and Attribute-Based Access Control (RBAC + ABAC) system enforced by a centralized middleware. We first defined broad roles within each organization—Owner, Manager, and Viewer—each with a set of general permissions. We then introduced fine-grained rules using attributes, with branch_id as the primary attribute. Every user was associated with specific branches. Context-Rich JWTs: The JSON Web Token (JWT) issued at login was enriched to act as a single source of truth, containing the user's role and the specific branch_ids they were permitted to access. For list endpoints, the middleware automatically injected a WHERE branch_id IN (...) clause into database queries, ensuring data access was always restricted to permitted branches. A Secure, Service-Oriented Architecture: A robust, service-oriented architecture was designed to ensure separation of concerns and clear communication channels between components. Database Layer: A PostgreSQL schema-per-tenant model provided the strongest possible data isolation, preventing any possibility of database queries accidentally crossing tenant boundaries. Application Layer: The system was decomposed into three primary services: a Node.js API backend for business logic, a specialized Python Face Recognition microservice for AI inference, and a React frontend for the user interface. Communication Layer: We utilized a combination of REST APIs for synchronous actions and a Redis message broker for asynchronous, decoupled communication. Permissions Layer: The context-rich JWT strategy provided a unified and stateless method for enforcing complex permissions across the entire distributed platform.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 3,
+            "sourceChunkId": "ede611b7-c53c-4739-b196-44d5d9bc2bf4"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study describes the platform architecture and its implementation outcomes, but provides no quantitative performance or business-impact measurements. A separate LumioHub product overview describes broader workplace capabilities; the supplied material does not establish that every capability in that overview was delivered as part of this architecture engagement.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "The implementation of HumbleBee AI's architectural design yielded transformative results, creating a platform that is not only powerful and feature-rich but also secure and built for future growth. Absolute Security and Data Integrity: The hybrid RBAC + ABAC permission model proved to be a resounding success. It completely prevented cross-branch data access and provided enterprise clients with the flexibility to structure their management hierarchies as needed. By centralizing the permission logic into a single middleware, the system became inherently more secure and auditable, with rules enforced consistently across the entire API. A Foundation for Unlimited Scalability: The carefully planned service-oriented architecture established a secure, scalable, and maintainable foundation. The schema-per-tenant model solved the critical data isolation problem, while the microservice approach allowed the most resource-intensive component—face recognition—to be scaled independently, optimizing both cost and performance.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "ce097ae1-c401-4c5c-aad4-cbd09cdecf19"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/37324f42-5f07-4210-b82a-b6e0572d3874/asset",
+            "fileName": "project--lumiohub.pdf",
+            "chunkText": "LumioHub AI is a modern workplace management platform that combines real-time sensing, intelligent automation, and enterprise-grade analytics to improve attendance accuracy, strengthen on-premise security, and reduce administrative workload. Built for multi-site organizations and service providers, it supports secure multi-tenant deployments with strict data separation and configurable governance controls.\n\nBeyond basic check-in and check-out, LumioHub AI provides continuous workplace insights, including desk presence tracking, live indoor location awareness, break and wellbeing reminders, fatigue and rest detection, interaction and conversation signals, focus or distraction indicators (such as phone usage during defined work windows), and role-based performance reporting. All insights are delivered through dashboards, summaries, spatial views, and exportable reports, enabling operational visibility without the need for manual supervision or continuous video monitoring.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "37324f42-5f07-4210-b82a-b6e0572d3874"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The platform was intended for enterprise customers with organizational hierarchies spanning branches and departments. The previous workflow is not described in the case study; the architectural challenge was instead to build a cohesive foundation from scratch without compromising data separation, access control or the ability to scale services independently.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/77b5bbba-c08b-4e03-a043-514d7a8791b9/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "In the competitive landscape of enterprise solutions, a leading innovator sought to develop a LumioHub AI platform—a comprehensive B2B SaaS offering designed to integrate modern workplace management with advanced AI capabilities like facial recognition for attendance and access control. To serve a diverse range of enterprise clients, the platform needed to be secure, scalable, and capable of handling complex organizational structures. HumbleBee AI was engaged to provide the architectural blueprint and engineering expertise required to transform this vision into a market-ready reality.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "77b5bbba-c08b-4e03-a043-514d7a8791b9"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/0e0b9f6b-6fd8-45ac-a547-0b949e9abe41/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "Building a sophisticated, multi-tenant SaaS platform presented several profound technical challenges that required a forward-thinking and robust architectural strategy. A single misstep could compromise security, limit scalability, or render the system unmanageable. The primary challenges were threefold. Complex, Multi-Layered Permissions: The platform's core value proposition depended on supporting enterprise clients with intricate organizational hierarchies, including multiple branches and departments. This introduced a critical permissions challenge: how to guarantee that a manager at Branch A could only view data pertinent to their branch, while an organization's Owner maintained global oversight. A single flaw in this permission logic could lead to an internal privacy breach, making a flexible, auditable, and powerful access control system a non-negotiable requirement. Foundational Architectural Design: Creating the LumioHub AI platform necessitated designing a cohesive, multi-component architecture from scratch. The design needed to address several interconnected issues simultaneously: ensuring strict data isolation for multiple tenants, decomposing services for independent scaling and resilience, and establishing a unified permission model that functioned seamlessly across a distributed system. A traditional monolithic architecture would fail to provide the scalability or security demanded by a modern B2B SaaS model.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "0e0b9f6b-6fd8-45ac-a547-0b949e9abe41"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Three related constraints shaped the work:",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/0e0b9f6b-6fd8-45ac-a547-0b949e9abe41/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "Building a sophisticated, multi-tenant SaaS platform presented several profound technical challenges that required a forward-thinking and robust architectural strategy. A single misstep could compromise security, limit scalability, or render the system unmanageable. The primary challenges were threefold. Complex, Multi-Layered Permissions: The platform's core value proposition depended on supporting enterprise clients with intricate organizational hierarchies, including multiple branches and departments. This introduced a critical permissions challenge: how to guarantee that a manager at Branch A could only view data pertinent to their branch, while an organization's Owner maintained global oversight. A single flaw in this permission logic could lead to an internal privacy breach, making a flexible, auditable, and powerful access control system a non-negotiable requirement. Foundational Architectural Design: Creating the LumioHub AI platform necessitated designing a cohesive, multi-component architecture from scratch. The design needed to address several interconnected issues simultaneously: ensuring strict data isolation for multiple tenants, decomposing services for independent scaling and resilience, and establishing a unified permission model that functioned seamlessly across a distributed system. A traditional monolithic architecture would fail to provide the scalability or security demanded by a modern B2B SaaS model.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "0e0b9f6b-6fd8-45ac-a547-0b949e9abe41"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Branch-level permissions had to let managers see only relevant branch data while preserving organization-wide oversight for owners; a permissions error could expose internal data.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/0e0b9f6b-6fd8-45ac-a547-0b949e9abe41/asset",
+                    "fileName": "case-study--lumiohub-platform.pdf",
+                    "chunkText": "Building a sophisticated, multi-tenant SaaS platform presented several profound technical challenges that required a forward-thinking and robust architectural strategy. A single misstep could compromise security, limit scalability, or render the system unmanageable. The primary challenges were threefold. Complex, Multi-Layered Permissions: The platform's core value proposition depended on supporting enterprise clients with intricate organizational hierarchies, including multiple branches and departments. This introduced a critical permissions challenge: how to guarantee that a manager at Branch A could only view data pertinent to their branch, while an organization's Owner maintained global oversight. A single flaw in this permission logic could lead to an internal privacy breach, making a flexible, auditable, and powerful access control system a non-negotiable requirement. Foundational Architectural Design: Creating the LumioHub AI platform necessitated designing a cohesive, multi-component architecture from scratch. The design needed to address several interconnected issues simultaneously: ensuring strict data isolation for multiple tenants, decomposing services for independent scaling and resilience, and establishing a unified permission model that functioned seamlessly across a distributed system. A traditional monolithic architecture would fail to provide the scalability or security demanded by a modern B2B SaaS model.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 5,
+                    "pageNumber": 2,
+                    "sourceChunkId": "0e0b9f6b-6fd8-45ac-a547-0b949e9abe41"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Tenant information needed strict separation within a multi-tenant SaaS environment.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/0e0b9f6b-6fd8-45ac-a547-0b949e9abe41/asset",
+                    "fileName": "case-study--lumiohub-platform.pdf",
+                    "chunkText": "Building a sophisticated, multi-tenant SaaS platform presented several profound technical challenges that required a forward-thinking and robust architectural strategy. A single misstep could compromise security, limit scalability, or render the system unmanageable. The primary challenges were threefold. Complex, Multi-Layered Permissions: The platform's core value proposition depended on supporting enterprise clients with intricate organizational hierarchies, including multiple branches and departments. This introduced a critical permissions challenge: how to guarantee that a manager at Branch A could only view data pertinent to their branch, while an organization's Owner maintained global oversight. A single flaw in this permission logic could lead to an internal privacy breach, making a flexible, auditable, and powerful access control system a non-negotiable requirement. Foundational Architectural Design: Creating the LumioHub AI platform necessitated designing a cohesive, multi-component architecture from scratch. The design needed to address several interconnected issues simultaneously: ensuring strict data isolation for multiple tenants, decomposing services for independent scaling and resilience, and establishing a unified permission model that functioned seamlessly across a distributed system. A traditional monolithic architecture would fail to provide the scalability or security demanded by a modern B2B SaaS model.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 5,
+                    "pageNumber": 2,
+                    "sourceChunkId": "0e0b9f6b-6fd8-45ac-a547-0b949e9abe41"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The architecture needed to coordinate multiple components and allow resource-intensive face-recognition inference to scale separately; the case study states that a traditional monolith would not meet the platform’s security and scalability needs.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/0e0b9f6b-6fd8-45ac-a547-0b949e9abe41/asset",
+                    "fileName": "case-study--lumiohub-platform.pdf",
+                    "chunkText": "Building a sophisticated, multi-tenant SaaS platform presented several profound technical challenges that required a forward-thinking and robust architectural strategy. A single misstep could compromise security, limit scalability, or render the system unmanageable. The primary challenges were threefold. Complex, Multi-Layered Permissions: The platform's core value proposition depended on supporting enterprise clients with intricate organizational hierarchies, including multiple branches and departments. This introduced a critical permissions challenge: how to guarantee that a manager at Branch A could only view data pertinent to their branch, while an organization's Owner maintained global oversight. A single flaw in this permission logic could lead to an internal privacy breach, making a flexible, auditable, and powerful access control system a non-negotiable requirement. Foundational Architectural Design: Creating the LumioHub AI platform necessitated designing a cohesive, multi-component architecture from scratch. The design needed to address several interconnected issues simultaneously: ensuring strict data isolation for multiple tenants, decomposing services for independent scaling and resilience, and establishing a unified permission model that functioned seamlessly across a distributed system. A traditional monolithic architecture would fail to provide the scalability or security demanded by a modern B2B SaaS model.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 5,
+                    "pageNumber": 2,
+                    "sourceChunkId": "0e0b9f6b-6fd8-45ac-a547-0b949e9abe41"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset",
+                    "fileName": "case-study--lumiohub-platform.pdf",
+                    "chunkText": "The implementation of HumbleBee AI's architectural design yielded transformative results, creating a platform that is not only powerful and feature-rich but also secure and built for future growth. Absolute Security and Data Integrity: The hybrid RBAC + ABAC permission model proved to be a resounding success. It completely prevented cross-branch data access and provided enterprise clients with the flexibility to structure their management hierarchies as needed. By centralizing the permission logic into a single middleware, the system became inherently more secure and auditable, with rules enforced consistently across the entire API. A Foundation for Unlimited Scalability: The carefully planned service-oriented architecture established a secure, scalable, and maintainable foundation. The schema-per-tenant model solved the critical data isolation problem, while the microservice approach allowed the most resource-intensive component—face recognition—to be scaled independently, optimizing both cost and performance.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 3,
+                    "sourceChunkId": "ce097ae1-c401-4c5c-aad4-cbd09cdecf19"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBee AI describes a service-oriented architecture built around a PostgreSQL database, a Node.js API, a Python face-recognition microservice and a React frontend. REST APIs support synchronous actions, while Redis provides asynchronous messaging between components.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ede611b7-c53c-4739-b196-44d5d9bc2bf4/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "HumbleBee AI engineered a holistic, service-oriented architecture designed for security, scalability, and operational excellence. The solution was built on several innovative pillars. A Hybrid RBAC + ABAC Permission System: To address the complex permission requirements, our team designed and implemented a hybrid Role-Based and Attribute-Based Access Control (RBAC + ABAC) system enforced by a centralized middleware. We first defined broad roles within each organization—Owner, Manager, and Viewer—each with a set of general permissions. We then introduced fine-grained rules using attributes, with branch_id as the primary attribute. Every user was associated with specific branches. Context-Rich JWTs: The JSON Web Token (JWT) issued at login was enriched to act as a single source of truth, containing the user's role and the specific branch_ids they were permitted to access. For list endpoints, the middleware automatically injected a WHERE branch_id IN (...) clause into database queries, ensuring data access was always restricted to permitted branches. A Secure, Service-Oriented Architecture: A robust, service-oriented architecture was designed to ensure separation of concerns and clear communication channels between components. Database Layer: A PostgreSQL schema-per-tenant model provided the strongest possible data isolation, preventing any possibility of database queries accidentally crossing tenant boundaries. Application Layer: The system was decomposed into three primary services: a Node.js API backend for business logic, a specialized Python Face Recognition microservice for AI inference, and a React frontend for the user interface. Communication Layer: We utilized a combination of REST APIs for synchronous actions and a Redis message broker for asynchronous, decoupled communication. Permissions Layer: The context-rich JWT strategy provided a unified and stateless method for enforcing complex permissions across the entire distributed platform.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 3,
+            "sourceChunkId": "ede611b7-c53c-4739-b196-44d5d9bc2bf4"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Tenant isolation and access control",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "To protect data across enterprise tenants and branches, the implementation combines schema-per-tenant database isolation with role- and attribute-based permissions. The centralized middleware enforces permissions consistently across the API.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ede611b7-c53c-4739-b196-44d5d9bc2bf4/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "HumbleBee AI engineered a holistic, service-oriented architecture designed for security, scalability, and operational excellence. The solution was built on several innovative pillars. A Hybrid RBAC + ABAC Permission System: To address the complex permission requirements, our team designed and implemented a hybrid Role-Based and Attribute-Based Access Control (RBAC + ABAC) system enforced by a centralized middleware. We first defined broad roles within each organization—Owner, Manager, and Viewer—each with a set of general permissions. We then introduced fine-grained rules using attributes, with branch_id as the primary attribute. Every user was associated with specific branches. Context-Rich JWTs: The JSON Web Token (JWT) issued at login was enriched to act as a single source of truth, containing the user's role and the specific branch_ids they were permitted to access. For list endpoints, the middleware automatically injected a WHERE branch_id IN (...) clause into database queries, ensuring data access was always restricted to permitted branches. A Secure, Service-Oriented Architecture: A robust, service-oriented architecture was designed to ensure separation of concerns and clear communication channels between components. Database Layer: A PostgreSQL schema-per-tenant model provided the strongest possible data isolation, preventing any possibility of database queries accidentally crossing tenant boundaries. Application Layer: The system was decomposed into three primary services: a Node.js API backend for business logic, a specialized Python Face Recognition microservice for AI inference, and a React frontend for the user interface. Communication Layer: We utilized a combination of REST APIs for synchronous actions and a Redis message broker for asynchronous, decoupled communication. Permissions Layer: The context-rich JWT strategy provided a unified and stateless method for enforcing complex permissions across the entire distributed platform.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 3,
+            "sourceChunkId": "ede611b7-c53c-4739-b196-44d5d9bc2bf4"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "The implementation of HumbleBee AI's architectural design yielded transformative results, creating a platform that is not only powerful and feature-rich but also secure and built for future growth. Absolute Security and Data Integrity: The hybrid RBAC + ABAC permission model proved to be a resounding success. It completely prevented cross-branch data access and provided enterprise clients with the flexibility to structure their management hierarchies as needed. By centralizing the permission logic into a single middleware, the system became inherently more secure and auditable, with rules enforced consistently across the entire API. A Foundation for Unlimited Scalability: The carefully planned service-oriented architecture established a secure, scalable, and maintainable foundation. The schema-per-tenant model solved the critical data isolation problem, while the microservice approach allowed the most resource-intensive component—face recognition—to be scaled independently, optimizing both cost and performance.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "ce097ae1-c401-4c5c-aad4-cbd09cdecf19"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Organization roles are Owner, Manager and Viewer; branch_id is the key attribute used to scope access.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ede611b7-c53c-4739-b196-44d5d9bc2bf4/asset",
+                    "fileName": "case-study--lumiohub-platform.pdf",
+                    "chunkText": "HumbleBee AI engineered a holistic, service-oriented architecture designed for security, scalability, and operational excellence. The solution was built on several innovative pillars. A Hybrid RBAC + ABAC Permission System: To address the complex permission requirements, our team designed and implemented a hybrid Role-Based and Attribute-Based Access Control (RBAC + ABAC) system enforced by a centralized middleware. We first defined broad roles within each organization—Owner, Manager, and Viewer—each with a set of general permissions. We then introduced fine-grained rules using attributes, with branch_id as the primary attribute. Every user was associated with specific branches. Context-Rich JWTs: The JSON Web Token (JWT) issued at login was enriched to act as a single source of truth, containing the user's role and the specific branch_ids they were permitted to access. For list endpoints, the middleware automatically injected a WHERE branch_id IN (...) clause into database queries, ensuring data access was always restricted to permitted branches. A Secure, Service-Oriented Architecture: A robust, service-oriented architecture was designed to ensure separation of concerns and clear communication channels between components. Database Layer: A PostgreSQL schema-per-tenant model provided the strongest possible data isolation, preventing any possibility of database queries accidentally crossing tenant boundaries. Application Layer: The system was decomposed into three primary services: a Node.js API backend for business logic, a specialized Python Face Recognition microservice for AI inference, and a React frontend for the user interface. Communication Layer: We utilized a combination of REST APIs for synchronous actions and a Redis message broker for asynchronous, decoupled communication. Permissions Layer: The context-rich JWT strategy provided a unified and stateless method for enforcing complex permissions across the entire distributed platform.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 6,
+                    "pageNumber": 3,
+                    "sourceChunkId": "ede611b7-c53c-4739-b196-44d5d9bc2bf4"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Login-issued JWTs carry the user’s role and permitted branch_ids. For list endpoints, middleware injects a WHERE branch_id IN (...) restriction into database queries.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ede611b7-c53c-4739-b196-44d5d9bc2bf4/asset",
+                    "fileName": "case-study--lumiohub-platform.pdf",
+                    "chunkText": "HumbleBee AI engineered a holistic, service-oriented architecture designed for security, scalability, and operational excellence. The solution was built on several innovative pillars. A Hybrid RBAC + ABAC Permission System: To address the complex permission requirements, our team designed and implemented a hybrid Role-Based and Attribute-Based Access Control (RBAC + ABAC) system enforced by a centralized middleware. We first defined broad roles within each organization—Owner, Manager, and Viewer—each with a set of general permissions. We then introduced fine-grained rules using attributes, with branch_id as the primary attribute. Every user was associated with specific branches. Context-Rich JWTs: The JSON Web Token (JWT) issued at login was enriched to act as a single source of truth, containing the user's role and the specific branch_ids they were permitted to access. For list endpoints, the middleware automatically injected a WHERE branch_id IN (...) clause into database queries, ensuring data access was always restricted to permitted branches. A Secure, Service-Oriented Architecture: A robust, service-oriented architecture was designed to ensure separation of concerns and clear communication channels between components. Database Layer: A PostgreSQL schema-per-tenant model provided the strongest possible data isolation, preventing any possibility of database queries accidentally crossing tenant boundaries. Application Layer: The system was decomposed into three primary services: a Node.js API backend for business logic, a specialized Python Face Recognition microservice for AI inference, and a React frontend for the user interface. Communication Layer: We utilized a combination of REST APIs for synchronous actions and a Redis message broker for asynchronous, decoupled communication. Permissions Layer: The context-rich JWT strategy provided a unified and stateless method for enforcing complex permissions across the entire distributed platform.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 6,
+                    "pageNumber": 3,
+                    "sourceChunkId": "ede611b7-c53c-4739-b196-44d5d9bc2bf4"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The case study reports PostgreSQL schema-per-tenant separation as the database isolation approach.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ede611b7-c53c-4739-b196-44d5d9bc2bf4/asset",
+                    "fileName": "case-study--lumiohub-platform.pdf",
+                    "chunkText": "HumbleBee AI engineered a holistic, service-oriented architecture designed for security, scalability, and operational excellence. The solution was built on several innovative pillars. A Hybrid RBAC + ABAC Permission System: To address the complex permission requirements, our team designed and implemented a hybrid Role-Based and Attribute-Based Access Control (RBAC + ABAC) system enforced by a centralized middleware. We first defined broad roles within each organization—Owner, Manager, and Viewer—each with a set of general permissions. We then introduced fine-grained rules using attributes, with branch_id as the primary attribute. Every user was associated with specific branches. Context-Rich JWTs: The JSON Web Token (JWT) issued at login was enriched to act as a single source of truth, containing the user's role and the specific branch_ids they were permitted to access. For list endpoints, the middleware automatically injected a WHERE branch_id IN (...) clause into database queries, ensuring data access was always restricted to permitted branches. A Secure, Service-Oriented Architecture: A robust, service-oriented architecture was designed to ensure separation of concerns and clear communication channels between components. Database Layer: A PostgreSQL schema-per-tenant model provided the strongest possible data isolation, preventing any possibility of database queries accidentally crossing tenant boundaries. Application Layer: The system was decomposed into three primary services: a Node.js API backend for business logic, a specialized Python Face Recognition microservice for AI inference, and a React frontend for the user interface. Communication Layer: We utilized a combination of REST APIs for synchronous actions and a Redis message broker for asynchronous, decoupled communication. Permissions Layer: The context-rich JWT strategy provided a unified and stateless method for enforcing complex permissions across the entire distributed platform.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 6,
+                    "pageNumber": 3,
+                    "sourceChunkId": "ede611b7-c53c-4739-b196-44d5d9bc2bf4"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Service separation and scaling",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Separating business logic, AI inference and the user interface was intended to make platform components easier to evolve and scale independently. In particular, the face-recognition service could be scaled separately from the API and frontend.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ede611b7-c53c-4739-b196-44d5d9bc2bf4/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "HumbleBee AI engineered a holistic, service-oriented architecture designed for security, scalability, and operational excellence. The solution was built on several innovative pillars. A Hybrid RBAC + ABAC Permission System: To address the complex permission requirements, our team designed and implemented a hybrid Role-Based and Attribute-Based Access Control (RBAC + ABAC) system enforced by a centralized middleware. We first defined broad roles within each organization—Owner, Manager, and Viewer—each with a set of general permissions. We then introduced fine-grained rules using attributes, with branch_id as the primary attribute. Every user was associated with specific branches. Context-Rich JWTs: The JSON Web Token (JWT) issued at login was enriched to act as a single source of truth, containing the user's role and the specific branch_ids they were permitted to access. For list endpoints, the middleware automatically injected a WHERE branch_id IN (...) clause into database queries, ensuring data access was always restricted to permitted branches. A Secure, Service-Oriented Architecture: A robust, service-oriented architecture was designed to ensure separation of concerns and clear communication channels between components. Database Layer: A PostgreSQL schema-per-tenant model provided the strongest possible data isolation, preventing any possibility of database queries accidentally crossing tenant boundaries. Application Layer: The system was decomposed into three primary services: a Node.js API backend for business logic, a specialized Python Face Recognition microservice for AI inference, and a React frontend for the user interface. Communication Layer: We utilized a combination of REST APIs for synchronous actions and a Redis message broker for asynchronous, decoupled communication. Permissions Layer: The context-rich JWT strategy provided a unified and stateless method for enforcing complex permissions across the entire distributed platform.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 3,
+            "sourceChunkId": "ede611b7-c53c-4739-b196-44d5d9bc2bf4"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "The implementation of HumbleBee AI's architectural design yielded transformative results, creating a platform that is not only powerful and feature-rich but also secure and built for future growth. Absolute Security and Data Integrity: The hybrid RBAC + ABAC permission model proved to be a resounding success. It completely prevented cross-branch data access and provided enterprise clients with the flexibility to structure their management hierarchies as needed. By centralizing the permission logic into a single middleware, the system became inherently more secure and auditable, with rules enforced consistently across the entire API. A Foundation for Unlimited Scalability: The carefully planned service-oriented architecture established a secure, scalable, and maintainable foundation. The schema-per-tenant model solved the critical data isolation problem, while the microservice approach allowed the most resource-intensive component—face recognition—to be scaled independently, optimizing both cost and performance.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "ce097ae1-c401-4c5c-aad4-cbd09cdecf19"
+          }
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Illustration of a person using a face-recognition access terminal",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/fce425bb-c224-441b-ad73-75a6a89dcdaf/asset",
+        "align": "center",
+        "title": "case-study--lumiohub-platform.pdf",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/fce425bb-c224-441b-ad73-75a6a89dcdaf/asset",
+        "fileName": "case-study--lumiohub-platform.pdf",
+        "chunkText": "Source image\n\n20\nV wi",
+        "mediaType": "image/png",
+        "chunkIndex": 2,
+        "pageNumber": 1,
+        "sourceChunkId": "fce425bb-c224-441b-ad73-75a6a89dcdaf"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The project overview also describes LumioHub AI as a workplace platform for identity-based attendance and on-premise security. Those broader product functions provide context for the architecture but are not individually validated as delivered features in the case study.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/99266eb0-2694-471e-840e-cca54587f2de/asset",
+            "fileName": "project--lumiohub.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAdvanced facial recognition system for workplace security, attendance tracking, and real-time monitoring\n\nScope Big",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "99266eb0-2694-471e-840e-cca54587f2de"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/77b5bbba-c08b-4e03-a043-514d7a8791b9/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "In the competitive landscape of enterprise solutions, a leading innovator sought to develop a LumioHub AI platform—a comprehensive B2B SaaS offering designed to integrate modern workplace management with advanced AI capabilities like facial recognition for attendance and access control. To serve a diverse range of enterprise clients, the platform needed to be secure, scalable, and capable of handling complex organizational structures. HumbleBee AI was engaged to provide the architectural blueprint and engineering expertise required to transform this vision into a market-ready reality.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "77b5bbba-c08b-4e03-a043-514d7a8791b9"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study reports qualitative implementation outcomes. It does not provide measured values, baseline comparisons, or quantified business impact.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "The implementation of HumbleBee AI's architectural design yielded transformative results, creating a platform that is not only powerful and feature-rich but also secure and built for future growth. Absolute Security and Data Integrity: The hybrid RBAC + ABAC permission model proved to be a resounding success. It completely prevented cross-branch data access and provided enterprise clients with the flexibility to structure their management hierarchies as needed. By centralizing the permission logic into a single middleware, the system became inherently more secure and auditable, with rules enforced consistently across the entire API. A Foundation for Unlimited Scalability: The carefully planned service-oriented architecture established a secure, scalable, and maintainable foundation. The schema-per-tenant model solved the critical data isolation problem, while the microservice approach allowed the most resource-intensive component—face recognition—to be scaled independently, optimizing both cost and performance.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "ce097ae1-c401-4c5c-aad4-cbd09cdecf19"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Access enforcement: the case study says the hybrid RBAC + ABAC model prevented cross-branch data access and centralized rules in middleware for consistent enforcement and auditability.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset",
+                    "fileName": "case-study--lumiohub-platform.pdf",
+                    "chunkText": "The implementation of HumbleBee AI's architectural design yielded transformative results, creating a platform that is not only powerful and feature-rich but also secure and built for future growth. Absolute Security and Data Integrity: The hybrid RBAC + ABAC permission model proved to be a resounding success. It completely prevented cross-branch data access and provided enterprise clients with the flexibility to structure their management hierarchies as needed. By centralizing the permission logic into a single middleware, the system became inherently more secure and auditable, with rules enforced consistently across the entire API. A Foundation for Unlimited Scalability: The carefully planned service-oriented architecture established a secure, scalable, and maintainable foundation. The schema-per-tenant model solved the critical data isolation problem, while the microservice approach allowed the most resource-intensive component—face recognition—to be scaled independently, optimizing both cost and performance.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 3,
+                    "sourceChunkId": "ce097ae1-c401-4c5c-aad4-cbd09cdecf19"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Tenant separation: the schema-per-tenant model is reported to have addressed the data-isolation requirement.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset",
+                    "fileName": "case-study--lumiohub-platform.pdf",
+                    "chunkText": "The implementation of HumbleBee AI's architectural design yielded transformative results, creating a platform that is not only powerful and feature-rich but also secure and built for future growth. Absolute Security and Data Integrity: The hybrid RBAC + ABAC permission model proved to be a resounding success. It completely prevented cross-branch data access and provided enterprise clients with the flexibility to structure their management hierarchies as needed. By centralizing the permission logic into a single middleware, the system became inherently more secure and auditable, with rules enforced consistently across the entire API. A Foundation for Unlimited Scalability: The carefully planned service-oriented architecture established a secure, scalable, and maintainable foundation. The schema-per-tenant model solved the critical data isolation problem, while the microservice approach allowed the most resource-intensive component—face recognition—to be scaled independently, optimizing both cost and performance.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 3,
+                    "sourceChunkId": "ce097ae1-c401-4c5c-aad4-cbd09cdecf19"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Independent scaling: the service-oriented design allows face-recognition inference to be scaled separately; the source describes this as optimizing cost and performance but supplies no measured cost or performance figures.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset",
+                    "fileName": "case-study--lumiohub-platform.pdf",
+                    "chunkText": "The implementation of HumbleBee AI's architectural design yielded transformative results, creating a platform that is not only powerful and feature-rich but also secure and built for future growth. Absolute Security and Data Integrity: The hybrid RBAC + ABAC permission model proved to be a resounding success. It completely prevented cross-branch data access and provided enterprise clients with the flexibility to structure their management hierarchies as needed. By centralizing the permission logic into a single middleware, the system became inherently more secure and auditable, with rules enforced consistently across the entire API. A Foundation for Unlimited Scalability: The carefully planned service-oriented architecture established a secure, scalable, and maintainable foundation. The schema-per-tenant model solved the critical data isolation problem, while the microservice approach allowed the most resource-intensive component—face recognition—to be scaled independently, optimizing both cost and performance.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 3,
+                    "sourceChunkId": "ce097ae1-c401-4c5c-aad4-cbd09cdecf19"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Overhead view of a busy workplace with people outlined by detection boxes",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/bb6d0683-5589-495f-8b4c-b799cdff46fa/asset",
+        "align": "center",
+        "title": "project--lumiohub.pdf",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/bb6d0683-5589-495f-8b4c-b799cdff46fa/asset",
+        "fileName": "project--lumiohub.pdf",
+        "chunkText": "Source image\n\ngp 3 bo fo",
+        "mediaType": "image/png",
+        "chunkIndex": 2,
+        "pageNumber": 1,
+        "sourceChunkId": "bb6d0683-5589-495f-8b4c-b799cdff46fa"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied product overview separately describes workplace monitoring and analytics functions. It lists intended business benefits—including attendance integrity, faster security response and reduced administrative workload—but contains no measurements, and the architecture case study does not report these as measured results of this engagement.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/e8c56111-83ad-4a40-a0f6-cd1af90ab817/asset",
+            "fileName": "project--lumiohub.pdf",
+            "chunkText": "LumioHub AI delivers measurable value across operational, security, and management functions:\n\nImproved attendance integritythrough automated tracking and reduced fraud opportunities\n\nFaster security responseenabled by real-time detection and alerting\n\nReduced administrative workloadthrough centralized data collection and automated reporting\n\nClearer visibilityinto space usage, interactions, and work patterns\n\nSupport for healthier work rhythmsthrough proactive break reminders and fatigue monitoring\n\nScalable operationsfor organizations with multiple sites or provider-style multi-tenant deployments\n\nBecause policies are configurable at the tenant, department, and role levels, organizations can tailor monitoring depth and reporting granularity to align with internal culture, labor regulations, and compliance requirements",
+            "mediaType": "application/pdf",
+            "chunkIndex": 10,
+            "pageNumber": 3,
+            "sourceChunkId": "e8c56111-83ad-4a40-a0f6-cd1af90ab817"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "The implementation of HumbleBee AI's architectural design yielded transformative results, creating a platform that is not only powerful and feature-rich but also secure and built for future growth. Absolute Security and Data Integrity: The hybrid RBAC + ABAC permission model proved to be a resounding success. It completely prevented cross-branch data access and provided enterprise clients with the flexibility to structure their management hierarchies as needed. By centralizing the permission logic into a single middleware, the system became inherently more secure and auditable, with rules enforced consistently across the entire API. A Foundation for Unlimited Scalability: The carefully planned service-oriented architecture established a secure, scalable, and maintainable foundation. The schema-per-tenant model solved the critical data isolation problem, while the microservice approach allowed the most resource-intensive component—face recognition—to be scaled independently, optimizing both cost and performance.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "ce097ae1-c401-4c5c-aad4-cbd09cdecf19"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "No numerical capacity, latency, availability, cost-savings, adoption or other business-impact metrics are supplied. The project material does not state a specific next-step roadmap or provide the original HumbleBeeAI case-study URL. The case-study conclusion mentions an ongoing relationship focused on further capability enhancements and exploring additional AI integration, without specifying scope or dates.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "The implementation of HumbleBee AI's architectural design yielded transformative results, creating a platform that is not only powerful and feature-rich but also secure and built for future growth. Absolute Security and Data Integrity: The hybrid RBAC + ABAC permission model proved to be a resounding success. It completely prevented cross-branch data access and provided enterprise clients with the flexibility to structure their management hierarchies as needed. By centralizing the permission logic into a single middleware, the system became inherently more secure and auditable, with rules enforced consistently across the entire API. A Foundation for Unlimited Scalability: The carefully planned service-oriented architecture established a secure, scalable, and maintainable foundation. The schema-per-tenant model solved the critical data isolation problem, while the microservice approach allowed the most resource-intensive component—face recognition—to be scaled independently, optimizing both cost and performance.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "ce097ae1-c401-4c5c-aad4-cbd09cdecf19"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ffe608a5-d83a-4c59-8782-fc969747f0b0/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "The partnership between HumbleBee AI and the client demonstrates the power of expert architectural design in building complex, enterprise-grade AI solutions. By addressing foundational challenges related to security, scalability, and dynamic operations, we successfully delivered a LumioHub AI platform poised for market leadership. The robust and flexible architecture ensures that as the client's business grows, the platform can evolve to meet new demands without compromising its core principles of security and performance. This project is a testament to HumbleBee AI's commitment to delivering innovative, scalable, and impactful AI-driven solutions. Our ongoing relationship will focus on further enhancing the platform's capabilities and exploring new avenues for AI integration.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "ffe608a5-d83a-4c59-8782-fc969747f0b0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The separate LumioHub product document provides a demo link, but it does not establish which features are currently in production. Learn more or try the LumioHub demo at ",
+          "type": "text"
+        },
+        {
+          "text": ".",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/397214e5-7d25-4b16-8cd4-75949ea3c59a/asset",
+            "fileName": "project--lumiohub.pdf",
+            "chunkText": "LumioHub AI transforms workplace management from fragmented, manual processes into a unified, intelligent operations platform. It automates attendance, strengthens on-premise security, and provides explicit visibility into presence, movement, interaction, focus, and well-being—without relying on continuous video monitoring.\n\nBy combining workforce timekeeping, access visibility, indoor localization, desk presence analytics, interaction detection, well-being signals, and scalable multi-tenant administration, LumioHub AI enables organizations to operate safer and more efficient workplaces with consistent policy enforcement and data-driven decision-making.\n\nYou can learn more about LumioHub AI and also try its Demo here: https://lumiohub.ai/",
+            "mediaType": "application/pdf",
+            "chunkIndex": 12,
+            "pageNumber": 4,
+            "sourceChunkId": "397214e5-7d25-4b16-8cd4-75949ea3c59a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBee AI’s reported work addressed LumioHub AI’s foundational enterprise requirements: tenant and branch data separation, centrally enforced permissions, and a service-oriented design that supports independent scaling of face-recognition inference. The case study supports these architectural outcomes, while quantified performance and business results remain unreported.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ede611b7-c53c-4739-b196-44d5d9bc2bf4/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "HumbleBee AI engineered a holistic, service-oriented architecture designed for security, scalability, and operational excellence. The solution was built on several innovative pillars. A Hybrid RBAC + ABAC Permission System: To address the complex permission requirements, our team designed and implemented a hybrid Role-Based and Attribute-Based Access Control (RBAC + ABAC) system enforced by a centralized middleware. We first defined broad roles within each organization—Owner, Manager, and Viewer—each with a set of general permissions. We then introduced fine-grained rules using attributes, with branch_id as the primary attribute. Every user was associated with specific branches. Context-Rich JWTs: The JSON Web Token (JWT) issued at login was enriched to act as a single source of truth, containing the user's role and the specific branch_ids they were permitted to access. For list endpoints, the middleware automatically injected a WHERE branch_id IN (...) clause into database queries, ensuring data access was always restricted to permitted branches. A Secure, Service-Oriented Architecture: A robust, service-oriented architecture was designed to ensure separation of concerns and clear communication channels between components. Database Layer: A PostgreSQL schema-per-tenant model provided the strongest possible data isolation, preventing any possibility of database queries accidentally crossing tenant boundaries. Application Layer: The system was decomposed into three primary services: a Node.js API backend for business logic, a specialized Python Face Recognition microservice for AI inference, and a React frontend for the user interface. Communication Layer: We utilized a combination of REST APIs for synchronous actions and a Redis message broker for asynchronous, decoupled communication. Permissions Layer: The context-rich JWT strategy provided a unified and stateless method for enforcing complex permissions across the entire distributed platform.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 3,
+            "sourceChunkId": "ede611b7-c53c-4739-b196-44d5d9bc2bf4"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "The implementation of HumbleBee AI's architectural design yielded transformative results, creating a platform that is not only powerful and feature-rich but also secure and built for future growth. Absolute Security and Data Integrity: The hybrid RBAC + ABAC permission model proved to be a resounding success. It completely prevented cross-branch data access and provided enterprise clients with the flexibility to structure their management hierarchies as needed. By centralizing the permission logic into a single middleware, the system became inherently more secure and auditable, with rules enforced consistently across the entire API. A Foundation for Unlimited Scalability: The carefully planned service-oriented architecture established a secure, scalable, and maintainable foundation. The schema-per-tenant model solved the critical data isolation problem, while the microservice approach allowed the most resource-intensive component—face recognition—to be scaled independently, optimizing both cost and performance.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "ce097ae1-c401-4c5c-aad4-cbd09cdecf19"
+          }
+        }
+      ]
+    }
+  ]
+}

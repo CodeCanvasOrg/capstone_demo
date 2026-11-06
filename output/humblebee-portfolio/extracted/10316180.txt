@@ -1,0 +1,868 @@
+IEEE INTERNET OF THINGS JOURNAL, VOL. 11, NO. 7, 1 APRIL 2024                                                                             11707
+
+
+
+
+    Design of Contextual Filtered Features for Better
+        Smartphone-User Receptivity Prediction
+                  Jumabek Alikhanov , Student Member, IEEE, Panyu Zhang , Student Member, IEEE,
+                          Youngtae Noh , Member, IEEE, and Hakil Kim , Member, IEEE
+
+
+
+   Abstract—For the successful engagement of users with                        smartphone-based digital health interventions in inducing
+incoming interventions, the delivery of just-in-time (JIT) (or                 favorable behavioral changes in response to diverse needs,
+opportune moment–OM) interventions is of the utmost impor-                     such as smoking, alcohol disorders, physical inactivity, and
+tance. This can be accomplished with a machine learning
+(ML) model that utilizes user context data. Smartwatch and                     depression [1], [2], [3]. The ultimate objective is to com-
+smartphone interactions further open the space for further                     bine accurate sensing with appropriate DTx therapies to
+improvement by considering the user’s state and environmental                  improve the quality of life for a specific population sub-
+information. In this work, a novel feature engineering approach                group (e.g., increasing physical activity in sedentary people).
+for predicting smartphone user receptivity to JIT interventions                Although, there is large body of research [4], [5], [6], [7]
+is proposed. Proposed approach utilizes rich information from
+user–smartphone interactions and smartwatch sensor data to                     that is intended to examine and measure the (causal) effect of
+extract contextually filtered features (CFFs). The superiority of              health interventions, this is not the topic of this study.
+the proposed feature engineering method is demonstrated by                        To properly engage consumers, it is essential to accurately
+developing an ML model that predicts a participant’s receptivity               predict the delivery timing of DTx interventions [8], [9]. This
+prior to administering an experience sampling method (ESM)                     necessitates that an intervention design should incorporate a
+questionnaire. The proposed approach is evaluated using the
+KEmoPhone data set, which contains 3334 ESM answers col-                       component for identifying opportune moments (OMs) for a
+lected over the course of one week from 73 participants. To reduce             specific intervention. However, the architecture of the OM
+the bias that may result in selecting specific classifier, multiple            detector component can differ according to the type of DTx.
+classifiers are tested and their average ROC-AUC metrics are                   The opportune time (i.e., OM) for stress-relieving DTx could
+compared. The results show that the proposed feature engi-                     occur when the person is stressed. Similarly, for DTx that aims
+neering method—CFFs improves the prediction performance,
+achieving an ROC-AUC of 56.5% as opposed to 54.7% obtained                     to increase physical activity, an OM might be described as the
+using conventional features (statistical moments of time series                time when a user is able or feels compelled to carry out the
+over an 80 min window). Such superior performance is consistent                proposed interventions (e.g., taking a walk to a hall). This can
+across multiple ML classification algorithms. Full research code               depict the moment after the user has completed a task or has
+will be released in Jupyter Notebooks for facilitating the research            been inactive for an extended period of time.
+in the domain at https://github.com/Jumabek/receptivity upon the
+publication of this research work.                                                Significant research has been undertaken in the realm of
+                                                                               ubiquitous computing for the modeling of a similar phe-
+  Index Terms—Context-aware services, intelligent sensors,                     nomenon: user interruptibility. Inference based on context
+machine learning, ubiquitous computing.
+                                                                               sensing and machine learning (ML) has been proposed in
+                                                                               a number of research [10], [11]. In general, interruptibility
+                          I. I NTRODUCTION                                     quantifies how opportune it is to interrupt a person [12].
+                                                                               Similarly, receptivity to health interventions, as defined by
+        OBILE health (mHealth) and digital therapeutics
+M       (DTx) research have opened up unique potentials of
+                                                                               Nahum-Shani et al. [13], is a person’s ability to receive,
+                                                                               process, and utilize the support (intervention) provided. One
+   Manuscript received 26 January 2023; revised 10 August 2023; accepted       approach to conceptualize receptivity involves encompassing
+3 November 2023. Date of publication 13 November 2023; date of current         the combination of interruptibility (willingness to receive an
+version 26 March 2024. This work was supported in part by the BK21             intervention), engagement (receive the intervention), and a
+Four Program under Grant NRF-2021M3A9E4080780 funded by the National
+Research Foundation (NRF) of the Ministry of Education (MOE), South            person’s subjective perception of the intervention provided
+Korea; in part by the Ministry of Trade, Industry, and Energy (MOTIE)          (process and use the intervention) [14]. Receptivity can also
+under Grant RS-2023-00236325; and in part by the Korea Institute of            be defined in multiple stages as proposed by Choi et al. [15].
+Energy Technology under Grant KRG2022-01-011. (Corresponding authors:
+Youngtae Noh; Hakil Kim.)                                                      Authors defined receptivity as stages which define if user has
+   Jumabek Alikhanov and Hakil Kim are with the Department of Electrical       perceived the interruption, if he has perceived then next stage
+and Computer Engineering, Inha University, Incheon 402-751, South Korea        is if user is available for the intervention, finally if user is
+(e-mail: jumabek4044@gmail.com; hikim@inha.ac.kr).
+   Panyu Zhang is with the Department of Industrial and Systems Engineering,   available then his receptivity can be gauged based on whether
+Korea Advanced Institute of Science and Technology, Daejeon 305-701,           he decides to adhere to health intervention.
+South Korea (e-mail: panyu@kaist.ac.kr).                                          Fig. 1 depicts an overview of the receptivity prediction
+   Youngtae Noh is with the Department of Energy AI, KENTECH University,
+Naju 402-751, Republic of Korea (e-mail: ytnoh@kentech.ac.kr).                 pipeline in this work, from data collection to receptivity
+   Digital Object Identifier 10.1109/JIOT.2023.3331715                         prediction prior to intervention. Note that creating a forecast
+              2023 The Authors. This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License.
+             c
+                                   For more information, see https://creativecommons.org/licenses/by-nc-nd/4.0/
+11708                                                                   IEEE INTERNET OF THINGS JOURNAL, VOL. 11, NO. 7, 1 APRIL 2024
+
+
+
+
+Fig. 1.   Receptivity prediction pipeline.
+
+
+
+
+Fig. 2.   Research overview.
+
+
+based on previously collected data allowed us to evaluate        prepared. Then exploratory data analysis (EDA) is performed
+how well a user’s receptivity state might be anticipated using   to understand and cleanse data. Then the data set is split into
+the proposed ML-based receptivity prediction pipeline, which     two sets: 1) for mining association rules and 2) for extracting
+resulted in improved engagement with the DTx intervention        contextually filtered features (CFFs). Research findings of
+   An overview of this research can be seen in Fig. 2. First,    this study contribute to the comprehension of the following
+collected sensor data from the K-EmoPhone data set is            research questions.
+ALIKHANOV et al.: DESIGN OF CONTEXTUAL FILTERED FEATURES                                                                       11709
+
+
+                                                              TABLE I
+                      OVERVIEW OF R ELEVANT S TUDIES IN THE L ITERATURE ON I NTERRUPTIBILITY AND R ECEPTIVITY
+
+
+
+
+  1) RQ-1: Can ML techniques be applied effectively to                                  II. R ELATED W ORK
+     enhance users’ receptivity to health interventions? To           In the realm of ubiquitous computing, the topic of inter-
+     answer this, we use the KEmoPhone data set and                ruptibility has been intensively investigated. Table I provides
+     evaluate whether ML plus user context data can produce        a summary of past research on interruptibility and receptivity
+     more accurate predictions than a random baseline.             to health intervention. The offered overview comprises the
+  2) RQ-2: Is it possible to enhance ML-based receptivity          purpose of a certain research project, binning criteria for
+     prediction models by feature engineering alone? Here,         outcome variables, classification results together with their
+     the effectiveness of the proposed feature engineering
+                                                                   corresponding metrics, and a random baseline. Researchers
+     method is evaluated.
+                                                                   utilized a variety of evaluation variables, including accuracy,
+  Our contributions can be summarized as follows.
+                                                                   precision/recall, and the F1 score. The table also includes
+  1) Novel Feature Engineering Approach: a novel fea-
+                                                                   the evaluation metric scores of the proposed approach for
+     ture engineering method called CFFs is proposed for
+                                                                   comparison. It is noteworthy to mention that, although the
+     predicting user receptivity to just-in-time (JIT) inter-
+                                                                   proposed approach obtains a higher F1 score (56%) compared
+     ventions. This approach leverages rich information
+                                                                   to other studies (11.2%, 30%, and 36%), direct comparison
+     from user–smartphone interactions and smartwatch sen-
+     sor data to extract features that capture contextual          is hard as the data, ground-truth, and its binning strategy
+     information relevant to receptivity.                          differs for each study. In addition, the baseline procedures
+  2) Context Mining for Feature Extraction: The process            used to evaluate cases where there is no intelligent model are
+     of context mining is incorporated into the proposed           explained.
+     feature engineering methodology. By mining association           One of the earliest studies on user interruptibility detection
+     rules from subwindow features, potentially valuable           was conducted by Fogarty et al. [16]. The authors used external
+     contexts for feature extraction is identified, allowing us    sensors in an office environment to predict the interruptibility
+     to extract more meaningful features for predicting user       of an office worker. The goal was to develop an application
+     receptivity.                                                  that helped incoming visitors identify if an office worker
+  3) Evaluation and Comparison: The performance of the             was interruptible. Poppinga et al. [17] developed a decision
+     proposed method is evaluated using the KEmoPhone              tree-based model to predict if it is the OM for interrupting
+     data set, which contains a large number of experi-            mobile users with notifications. Using contexts, such as the
+     ence sampling method (ESM) answers collected from             time of day, location, and posture of the device, they obtained
+     participants over a one-week period. The performance          an accuracy of 77.85%, whereas a random model that only
+     of the proposed approach is compared against to con-          predicted the majority label (non-OM) produced an accuracy
+     ventional feature extraction methods and demonstrates         of 77.08%.
+     its superiority in predicting user receptivity to JIT            Pejovic and Musolesi [10] studied the identification and
+     interventions.                                                utilization of OMs. They demonstrated that interruptions
+11710                                                                       IEEE INTERNET OF THINGS JOURNAL, VOL. 11, NO. 7, 1 APRIL 2024
+
+
+
+delivered via the proposed intelligent InterruptMe library           interventions are sent to users only if the ML model identified
+resulted in better user satisfaction and shorter response times.     the moment as OM. Results revealed that the ML model
+The authors attempted to gauge OMs from different perspec-           led to a 40% improvement in receptivity compared with the
+tives, such as reaction presence (if the user did not overlook the   control (baseline) model. Their static support vector machine
+notification) and sentiment (how obtrusive the interruption was      (SVM) model was trained before deployment, and it achieved
+from the user’s perspective). The following were used as a data      an average F1 score of 36%, a score comparable to the 25%
+source for feature engineering: time, accelerometer, location,       F1 score in the baseline scenario. A significant difference
+social setting, physical activity, and the subject’s emotions        between the study and those reported in the literature lies in
+(obtained through an ESM).                                           the fact that this research focused on improving the model’s
+   Choy et al. [18] explored the effect of the window size           performance with novel feature engineering, namely, CFFs.
+from which features are extracted on the performance of an           In other words, this research is not proposing another ML
+ML model for predicting interruptibility (i.e., interrupting a       classifier or algorithm. Instead, a novel way to engineer
+smartphone user). They discovered that instead of simply             more richer feature representation which can improve the
+looking at the immediate past (15 min) or current features,          performance of any classification methods is proposed. In
+looking back at the entire day produced features with richer         this regard, the model is also constrained to use only sensor
+representations and achieved 91% accuracy on the KAIST data          and user–phone interaction features to investigate the effect
+set when using the Naive Bayes classification algorithm.             of novel feature engineering. In other words, features, such
+   Instead of merely predicting user interruptibility in response    as age, gender, personality scores, time of the day, weekend,
+to notifications, Pielot et al. [11] attempted to model the          or weekday, were not considered. With the inclusion of these
+engagement of a smartphone user with the suggested content           features, further improvement in performance is expected as
+(notification). In other words, a user is considered engaged if      explored in [21]. However, this is beyond the scope of this
+he or she not only opens the notification but engages with it        study.
+(e.g., clicks the links and plays the suggested game). The data
+sources used for communication activities were as follows:                              III. R ESEARCH D ESIGN
+context (e.g., being at home), demographics, phone status            A. Receptivity to Just-In-Time Health Interventions
+(e.g., phone unlocked), and use patterns (e.g., watching a
+game or surfing the Internet). The XGBoost classifiers built            In this study, we used the K-EmoPhone data set to explore
+on engineered features achieved a recall (conversion) of 7.1%.       aformentioned research questions. Note that this data set
+Although this performance metric appears small, it is 66.6%          contains a questionnaire gauging a subject’s emotion and
+better than the baseline recall (conversion rate) of 4.3%.           stress level on a seven-point Likert scale. There are total of
+   Compared with prior studies that predicted the interrupt-         seven questions (Q1: valence; Q2: arousal; Q3: attention level;
+ibility of users for smartphone notifications, OM prediction         Q4: stress level; Q5: emotion duration; Q6: task disturbance
+for health intervention is slightly different since the target       level; and Q7: emotion change). Additional information on the
+health activity triggered by the health intervention is known        seven-item questionnaire, such as the exact text and range of
+and can be measured. Sarker et al. [19] predicted OMs for JIT        answers, is presented in Table II.
+health interventions for smoking cessation study. In addition           We can assume that the cognitive load arising from answer-
+to the available sensor features, such as location and stress, the   ing a seven-item ESM questionnaire is approximately equal
+authors used the ESM responses of a user as inputs to the ML         to a JIT interventions (e.g., taking a short walk or taking a
+model. The ML model demonstrated promising performance               deep breath). In other words, receptivity to ESM intervention
+as opposed to random baseline results in terms of accuracy           can be used as a proxy for receptivity to JIT interventions.
+(74.7% versus 50%). The authors defined a moment to be               Using ESM questionnaires as subjective ground truth on
+available (opportune) for JIT interventions if the user answered     interruptibility was done in prior research [16]. Subsequently,
+with a small response delay, whereas a nonavailable moment           as for subjective (e.g., self-reported) receptivity measurement,
+would be implied by a larger response delay. In a similar study,     we used one of the ESM questionnaires, Q6: task disturbance
+to gauge receptivity, Kunzler et al. defined several metrics,        level. The level of disturbance tells how opportune the moment
+such as the JIT response health chatbot, response delay, and         of intervention was. In other words, the disturbance level
+engagement in conversation. The primary metric was the JIT           shows the momentary receptivity when the user responds to
+response, which is a binary metric that defines whether a user       the ESM questionnaire. This is because the ground-truth ESM
+responds to an incoming chatbot’s—Ally’s message within              answers are designed to capture a user’s state with respect to
+10 min. The authors additionally investigated the association        the response time.
+between different factors and the defined receptivity metrics.
+These factors included intrinsic characteristics (age, gender,       B. Data Collection
+and personality) and contextual factors (day/time, phone bat-           1) Collection Procedure: The data in the K-EmoPhone [22]
+tery, phone interaction, and physical activity). With contextual     data set were collected from 79 participants who used Android
+factors as features, the ML model achieved an F1 score of            phones over the course of one week. The participants were
+40% for Android users, whereas the random baseline score             educated through a session explaining details pertaining to the
+was 27%. A follow-up study conducted by Mishra et al. [20]           data collection and equipment. Furthermore, they provided
+deployed the chatbot Ally+ in a natural environment where            institutional review board-signed consent forms to participate
+ALIKHANOV et al.: DESIGN OF CONTEXTUAL FILTERED FEATURES                                                                         11711
+
+
+                                                               TABLE II
+                                              K-E MO P HONE ESM Q UESTIONNAIRE C ONTENT
+
+
+
+
+                                                                                                TABLE III
+in the data collection. Each participant was provided with an                    C LEANING G ROUND T RUTH (ESM A NSWERS )
+MS Band 2 wearable device for the collection of biosignals,
+which are widely used in emotion- and stress-related research.
+Such biosignals include the electrocardiogram, galvanic skin
+response, plethysmography, and human skin temperature.
+Smartphones were used to collect usage data, such as location
+tracking, physical activities, and how people use smartphone
+apps. The participants were asked to answer the questionnaires
+every 45 min during their working hours from 10 A.M. to
+10 P.M. The questionnaire included seven items, as shown in
+the following table.
+   2) Smartphone and Smartwatch Collected Sensor Data:
+In the data collection process, both Android smartphones
+and MS Band 2 smartwatches were used. Implementation
+of a special-purpose software on Android phones enabled
+the collection of sensor data reflecting various parameters
+                                                                                 IV. E XPLORATORY DATA A NALYSIS
+like mobility, network traffic, social interactions, application
+usage, and device state. The MS Band 2 smartwatch data                  We conduct EDA to understand, interpret, correct, and
+was collected in sync with ESM schedules, owing to battery           clean the data where necessary. Additionally, the correlation
+limitations. The data collection software used three sampling        between response delay and self-reported, receptivity, (et al.
+methods—periodic, adaptive, and event-based, for the sen-            disturbance) is investigated.
+sor data. The periodic method utilized a preset sampling                3) Cleaning: Unreliable and/or noisy data were filtered
+rate, while the adaptive method adjusted the sampling rate           stepwise using the criteria listed in Table III. The table
+depending on device OS policies. The event-based approach            indicates that after the cleaning process, 73 participants were
+recorded sensor readings only when changes were detected.            retained, who collectively provided 3334 ESM responses.
+Through this, sensor data from smartphones and smartwatches          Some ESMs had a corrupted (invalid) timestamp, and some
+are stored locally and uploaded to the database server every         had duplicates. Additionally, we found out that the data
+hour.                                                                collected from four participants was unsuitable for use, as
+   Smartphone data included the network connection history,          participants had zero variance in their responses all the time
+network data usage, call and text message histories, application     and some had no associated sensor data.
+usage, installed applications, ringer mode changes, power-              4) Visualization: Notably, during data collection, users
+saving mode changes, charging state, media creation, battery         sometimes did not respond to the ESM questionnaires. The
+status, physical activity, location data, WiFi data, and more.       number of missing answers varied across the participants.
+Each data point was collected with various methods, such as          Fig. 8 visualizes the collected self-reports for three different
+event-based or adaptive sampling. Smartwatch data included           campaigns. Each campaign corresponds to different participant
+information like the wearer’s acceleration, number of steps          groups where data is collected on different dates. Each row
+taken, distance walked, ambient brightness, exposure to ultra-       in the subfigure corresponds to one participant, and each dot
+violet radiation, heart rate, skin temperature, caloric burn rate,   corresponds to the answer on the ESM questionnaire.
+electrodermal activity, etc. The data was collected at various          5) Binning Outcome Variable: The distribution of self-
+rates depending on specific measures. The data collection            reported user disturbances is illustrated in Fig. 3. As explained
+was thorough, capturing various aspects of user behavior and         in Table II, the responses varied between −3 (least disturbed,
+physical states, which provides a comprehensive overview of          i.e., not receptive at all) and +3 (most disturbed, i.e., most
+user receptivity.                                                    receptive). The figure indicates that the most common response
+11712                                                                                IEEE INTERNET OF THINGS JOURNAL, VOL. 11, NO. 7, 1 APRIL 2024
+
+
+
+
+Fig. 3.   Distribution of self reported disturbance in Likert-seven scale.
+
+
+
+
+                                                                             Fig. 5. Correlation between the response delay and self-reported disturbance
+                                                                             on log scale.
+
+
+
+                                                                             this correlation, wherein each row represents one disturbance
+Fig. 4.   Distribution of receptivity (binned disturbance).
+                                                                             level on the Likert-seven scale. The observations imply that the
+                                                                             relationship between the response delay and the self-reported
+                                                                             disturbance is extremely weak, with a Pearson correlation
+was zero (neutral). Note that for the application of JIT
+                                                                             coefficient of −0.03. Perhaps relationship is not a linear but a
+interventions, it would be logical to consider neutral cases
+                                                                             more complex function. Therefore, we plotted the disturbance
+as receptive. Therefore, we considered the disturbance reports
+                                                                             in log scale in Fig. 5.
+of −3, −2, −1, and 0 as receptive cases and the remaining
+as nonreceptive. The distribution after binning the outcome
+variable is presented in Fig. 4. It is noteworthy that the                                            V. M ETHODOLOGY
+distribution of binary receptivity can be changed by modifying                  Notably, the key factor for the successful prediction of user
+the binning threshold. For instance, the neutral disturbance                 receptivity to incoming health interventions is the engineering
+level (zero Likert scale in Fig. 4) can be considered both                   of good features. Feature engineering is important yet mostly
+receptive and nonreceptive.                                                  overlooked process for improving the performance of ML-
+   6) Correlation Between the Response Delay and Perceived                   based models [23]. This study developed a novel feature
+Disturbance: In previous studies, in the absence of self-                    engineering method that exploits the co-occurrence of sensor
+reported disturbances, a response delay was used as an                       values to extract good features. This was achieved using the
+objective measure of user receptivity. Sarker et al. [19]                    concept of CFFs first introduced by Xu et al. [24] for depres-
+defined availability as the state of an individual wherein they              sion detection. In this section, first, a brief overview of the
+were capable of engaging in an incoming unplanned activity.                  main components, such as the different kinds of features and
+Subsequently, the inferred moment is receptive if the response               underlying concepts, are explained. Next, detailed explanation
+delay was small enough (e.g., 10 min). Künzler et al. [14]                   of the proposed methodology for feature extraction is pro-
+defined receptivity as the state of an individual wherein they               vided. First, three types of feature-extraction approaches are
+responded to an incoming JIT health intervention within                      explained in detail. Subsequently, the rationale behind window
+10 min. Note that KEmoPhone includes both the response                       size selection is explained, followed by the proposed feature-
+delay and self-reported receptivity (i.e., disturbance); there-              selection pipeline and proposed context mining procedure.
+fore, existence of a relationship between them could be                         A high-level explanation of two conventional feature
+visualized and examined. Fig. 9 presents a visualization of                  engineering approaches and CFFs is depicted in Fig. 6.
+ALIKHANOV et al.: DESIGN OF CONTEXTUAL FILTERED FEATURES                                                                                         11713
+
+
+
+
+Fig. 6. Types of features. The first and second rows depict conventional TFs and AFs which was recently popularized. Note that an AF is computed by
+aggregating (i.e., averaging and computing the standard deviation) its subfeatures (can be also considered as sub TFs). CFFs are similar to AFs, except
+that they do not consider all the subwindow features during aggregation. The parts to be aggregated are decided based on whether the time window meets
+predetermined context criteria for extracting the given feature. Here, the context for heart rate variability is the user being in the workplace.
+
+
+
+Conventionally features are extracted from time series                       mined is the same as the data set on which the ML model is
+(e.g., the temperature of the phone battery) over a given time               evaluated, the evaluation is said to be biased. This is because
+window (e.g., 80 min) using statistical moments, such as                     the results become optimistically biased due to overfitted
+the mean, standard deviation, and kurtosis. Here, we refer                   models. To prevent bias in results, the data set was divided into
+to such features as temporal features (TFs) (first row in the                RuleGenerateSet (1677 interventions from 36 participants) and
+figure) which is the most common feature-extraction approach.                TrainEvalSet (1657 interventions from 37 participants). This
+For a depression detection studies, another commonly used                    made sure that the rules found in RuleGenerateSet did not
+feature engineering approach is called aggregated features                   depend on TrainEvalSet, which was used to train and evaluate
+(AFs) [24], [25], wherein a feature was computed for each day                the performance of the ML models and the features they used.
+(or epoch of the day), and such features were aggregated across
+all days (or epochs). AFs are obtained from (sub) TFs. In other
+words, aggregation computes the mean and standard deviation                  B. Temporal Window Features
+of the TFs. Unlike depression studies, the time windows in                      TFs are statistical moments extracted from time-series data.
+this study are much shorter as user receptivity can change                   Temporal window features included the median, min, max,
+with higher frequency than an individual’s depressive state.                 entropy, variance, skewness, kurtosis, the absolute sum of
+Therefore, instead of epochs, we introduce the concept of                    changes, lag features, linear trend, and time-series complex-
+subwindows (20 min) as shown in the second row of the                        ity features. They were extracted from an 80-min temporal
+figure. Finally, the third and fourth rows in the figure depict              window, which corresponded to the time right before user
+the manner in which we obtain CFFs. Intuitively, CFF attempts                intervention. Therefore, we refer to them as TFs. In Fig. 6,
+to mine more specific features where values of different                     the median heart rate is a TF, from which the heart rate
+sensors co-occur together. In other words, such co-occurrence                is extracted. We have extracted a range of TFs from each
+windows may provide valuable information that can more                       timeseries sensor data stream, including information related to
+accurately describe outcome variables.                                       the median, statistical extremities (minimum and maximum),
+                                                                             binned entropy, and variance of the data set, among other
+                                                                             features. These features are computed for each designated time
+A. Data Split                                                                window within the data set. A detailed list of these TFs, along
+  In order to extract CFFs, a context (i.e., co-occuring sensor              with their respective descriptions, is provided in Table IV.
+values) should be mined via the association rule mining                      Crucially, the research design does not make any prior assump-
+(ARM) algorithm. However, if the data set on which rules are                 tions about which sensor data or TFs might prove beneficial
+11714                                                                       IEEE INTERNET OF THINGS JOURNAL, VOL. 11, NO. 7, 1 APRIL 2024
+
+
+                                                               TABLE IV
+                                           L IST OF E XTRACTED TF S AND T HEIR D ESCRIPTIONS
+
+
+
+
+for predicting user receptivity to JIT interventions. Rather,        specified (i.e., qualified) subwindows participate in aggrega-
+approach used in this work is to systematically consider all         tion. In other words, not all subwindows (there are a total
+available sensor data streams and extract a comprehensive set        of four subwindows, as shown in the figure) are used during
+of TFs from each. To determine which of these features might         aggregation. Instead, only subwindows with qualified contexts
+be most informative for predicting user receptivity, we employ       are used. The context in the figure is the semantic location
+a feature selection pipeline, as described in a later section.       of the user’s workplace. Therefore, the median heart rate
+This method allows us to leverage the greatest amount of             feature was computed only when the participant had a certain
+information present in the data set, whilst also tailoring feature   context (location = “workplace,” as shown in the figure). We
+selection to the unique characteristics of each data set.            determined the candidate context for computing a given feature
+                                                                     using co-occurrence relationships. For instance, if the value
+C. Subwindows and Aggregated Features                                of “feature A” was always low when the value of “feature B”
+                                                                     was high, this relationship could be exploited during feature
+   For a depression detection studied by Xu et al. [24], AFs
+                                                                     engineering. Hence, when extracting through the aggregation
+were used, wherein a feature was computed for each day (or
+                                                                     of four subwindow features for featureA , we only consider the
+epoch of the day), and such features were then aggregated
+                                                                     subwindows that had a high value for “feature B.” We termed
+across all days (and epochs) with the mean and standard
+                                                                     the process of identifying such relationships “context mining,”
+deviation. Unlike the foregoing study, the outcome variable
+                                                                     and this will be described in the Context Mining section.
+considered in this study was user receptivity, which can change
+                                                                        The core idea of the proposed feature engineering approach
+within a day. As will be explained later in this section,
+                                                                     involves leveraging sensor feature co-occurrence. Therefore,
+we extracted the AFs from a considerably smaller window.
+                                                                     unlike Xu et al. [24], we did not use label (outcome variable)
+Particularly, a window size of 80 min with four subwindows
+                                                                     information to mine the rules. Instead, rules were mined
+was selected empirically. The first four subwindow features
+                                                                     solely using sensor and user–phone interaction data. The
+(subfeatures), each 20-min long, were extracted for each
+                                                                     authors exploited label information (outcome variable, /ie,
+ESM. In total, this covered 80 min of the entire temporal
+                                                                     depressed versus nondepressed) also for rule selection. In
+window before intervention. Second, to obtain the AFs, the
+                                                                     other words, they selected the rules that distinguished the two
+mean and standard deviation of each of the four subwindows
+                                                                     categories (depressed versus not depressed). Rule selection
+were computed. Thus, the purpose of the subfeatures was to
+                                                                     metric is much simpler and allows for easy replication of
+compute the AFs. Subsequently, the subfeatures were also used
+                                                                     the experiments. In addition, the design for CFF extraction
+to compute the CFFs. The subfeatures had 389 dimensions.
+                                                                     allows to increase the number of data points used for the
+This resulted in 778-D AFs (because each subfeature was
+                                                                     rule-mining process. For instance, if we were to exploit labels,
+aggregated by the mean and standard deviation).
+                                                                     we would be constrained to using only 1677 transactions,
+                                                                     which correspond to the ESM responses collected from 36
+D. Contextually Filtered Features                                    participants (i.e., RuleGenerateSplit). The advantage of using
+   The first row in Fig. 6 indicates the time-series features        the proposed approach is that it allows us to increase the
+extracted over a given time window. The second row in                number of data points by exploiting all windows for which
+the figure depicts the AFs. Here, the AFs attempt to model           sensor and phone–user interaction data are collected. Because
+the trends followed by the features by dividing the (entire)         data were collected for seven days between 10 A.M. and 10 P.M.,
+temporal window into multiple subwindows and aggregating             we obtained numtransactions = 36 ∗ 7 ∗ 12 ∗ 60/20 = 9072
+the subwindow features with the mean and standard deviation.         transactions. Here, 36 is the number of people who are taking
+A CFF is a sophisticated version of an AF, wherein only              part, and 20 is the number of minutes for the subwindow.
+ALIKHANOV et al.: DESIGN OF CONTEXTUAL FILTERED FEATURES                                                                          11715
+
+
+                            TABLE V                                                            TABLE VI
+  P ERCENTAGE OF M ISSING F EATURES I F G IVEN W INDOW S IZE AND   P ERFORMANCE OF L OGISTIC R EGRESSION C LASSIFIER ON C OMBINATION
+   N UMBER OF S UBWINDOW C OMBINATIONS W ERE TO B E C HOSEN                   OF W INDOW S IZES S ETTINGS . AF S A RE U SED
+
+
+
+
+   The second important contribution of this study is the          size of 80 min because it proved to be better than a window
+proposal of a simple rule-selection algorithm based on lift.       size of 40 min and comparable to a window size of 160 min;
+This algorithm is different from the complex rule-selection        moreover, it was close to first heuristic of 90 min. The table
+algorithm proposed by Xu et al. [24], which uses multiple          indicates that eight subwindows with a window size of 80 min
+criteria and sums their votes using manually selected weights.     produce 16.81% of the features that are mostly (more than
+Additional details on the same will be provided in the context     20% of the time) missing. Furthermore, this number is close to
+mining section.                                                    14.39%; therefore, we chose four subwindows to prevent bias
+                                                                   toward CFFs. In other words, if we had more subwindows, the
+E. Window Size Selection                                           CFFs would most likely perform better than the TFs and AFs,
+                                                                   owing to the CFF’s capability of computing features based on
+   To reduce the number of missing features, the size of the       fine-grained context. We also noted the performance of AFs for
+temporal window must be sufficiently large. Simultaneously,        different window and subwindow combinations. Additionally,
+the temporal window should be sufficiently small so that           a logistic regression classifier is fitted for each combination,
+subsequent ESMs have the minimum possible temporal over-           and performance is compared. As can be observed from
+lap. Because the expected time interval between subsequent         Table VI, the selected combination of four subwindows and
+ESMs was 45 min, we determined that the complete temporal          a complete window size of 80 min provided the highest area
+window would be approximately around 90 min. As stated,            under the curve (ROC-AUC) score of 0.676. Interestingly,
+AFs are computed from multiple subwindows that span a              when the subwindow size was 10 min or smaller, the ROC-
+given window size. However, the number of subwindows               AUC score dropped significantly to 0.623.
+required for the AFs is an unknown quantity. Therefore, we
+examined multiple values for the number of subwindows,
+and the percentage of missing values was calculated for each       F. Feature Selection
+combination. To identify this difficult tradeoff, the simplest        We followed bottom-up feature engineering, wherein there
+approach involves evaluating the predictive performance of the     is no prior belief regarding the use of specific features
+features for each window size. This is done by building an         for predicting the outcome variable, receptivity. Initially, we
+ML classifier for each of the resulting feature spaces. Another    considered all types of features as potentially useful and
+heuristic for choosing the window size was the number of           analyzed them. However, considering all the potential features
+missing values for each combination.                               for ML models is known to lead to the curse of dimensionality,
+   Table V depicts the percentage of missing features for a        where the data become sparser in a high-dimensional space.
+given window size and number of subwindows. Note that we           In addition, an increase in the number of features leads to
+considered potential window sizes of 40, 80, and 160 min           overfitted learning models while adding significant storage
+(color-coded in the figure). Moreover, we evaluated 2, 4, and 8    and data analytics costs [26]. Furthermore, study requires a
+as the number of subwindows for each given temporal window.        lower feature dimensionality to prevent an increasing number
+The figure presents features that are missing in at least 20% of   of frequent itemsets and rules while mining associations
+the cases. It can be observed that more features appear to be      for CFFs. Notably, dimensionality reduction techniques can
+missing when the number of subwindows is eight. However,           address this issue and improve the performance of the learning
+no noticeable difference can be noted when the number of           algorithms. These techniques can be grouped into feature
+subwindows is two or four (first and second subfigures).           extraction (e.g., PCA) and feature selection (e.g., LASSO).
+Thus, we selected four as the number of subwindows (second         In this article, we employ feature-selection approaches that
+subfigure). Following this, we selected a complete window          preserve interpretability (i.e., original definition of the selected
+11716                                                                        IEEE INTERNET OF THINGS JOURNAL, VOL. 11, NO. 7, 1 APRIL 2024
+
+
+                              TABLE VII
+                 S UMMARY OF F EATURE S ELECTION S TEPS               ratio. In total, 16 features were removed that were found to
+                                                                      be missing more than 20% of the time.
+                                                                         Elimination of Pairwise Correlations: Even after previous
+                                                                      steps in the pipeline, several of the features were correlated
+                                                                      with each other. Notably, a high correlation between features
+                                                                      A and B implies that feature A already carries the information
+                                                                      provided by feature B. Therefore, in such cases, we retained
+                                                                      only one feature to reduce dimensionality without losing
+                                                                      information. To decide which of the correlated features should
+                                                                      be retained, we exploited the correlation of the features
+                                                                      with the target variable. In particular, features with a higher
+                                                                      correlation with the target variable were retained. Herein, we
+                                                                      considered features to be pairwise correlated if they exceeded
+                                                                      a correlation tolerance threshold of 0.8. Consequently, 416
+                                                                      features were retained after selection.
+                                                                         Logistic Regression Using Lasso: The next step was to fit a
+                                                                      logistic regression model with L1 regularization (i.e., lasso).
+                                                                      This regularization forced the less predictive features to have
+                                                                      an almost zero coefficient. Consequently, features with zero
+                                                                      coefficients in the logistic regression classifier were elimi-
+                                                                      nated. The figure indicates that only 113 of the 416 features
+                                                                      had nonzero coefficients. Therefore, 113 features were retained
+Fig. 7.   Percentage of missing cases.                                after elimination.
+
+
+feature). The field of feature selection is vast and can constitute   G. Context Mining
+a separate research topic. Here, we provide a brief outline              In the field of ubiquitous computing, context can imply
+and refer the readers to relevant studies for details [26].           smartphone user’s contextual information which could be user-
+For supervised classification problems, feature selection can         centric and device centric [2], [27], [28]. In this section, we
+be divided into three primary categories. Among these, the            explain how we identified useful context for extracting the
+most computationally efficient family involves filter-based           given feature. In other words, idea of CFF is to extract features
+approaches. Such approaches use data characteristics, pair-           from specific time intervals where desired context is met.
+wise correlation, variance, and correlation with the target           Hence, to obtain the CFFs, first, a method to contextualize
+variable to filter unwanted features. It is noteworthy that           the feature extraction process had to be devised. We adapted
+filter-based feature selection uses ground-truth information          the approach that was originally proposed for depression
+from the data set. Since proposed pipeline uses a separate            detection, which had a window size of 4 months. Note that
+RuleGenerateSet for selecting features that is independent of         the key difference between the study and that conducted by
+MLTrainEvalSet (data set for ML model evaluation), we could           Xu et al. [24] lies in the manner in which we mined and
+safely employ filter-based feature selection in the analysis.         selected the rules. Instead of ranking rules that differentiated
+Feature selection pipeline below is performed on AFs extracted        the outcome variable, we mined the rules to seek frequently co-
+for RuleGenerateSet.                                                  occurring sensor values. Another important difference is that
+    1) Feature Selection Pipeline: Given the nature of selected       window sizes are drastically different, where Xu et al. used
+data set, a single-feature selection technique was deemed             four months, we use an 80-min window size. Similarly, for
+inadequate. Therefore, we devised the pipeline: Table VII lists       subwindow size, we use 20 min as opposed to an epoch (3 h).
+the steps involved in the feature-selection pipeline. Notably,        The sensor values recorded in each 20-min window served as
+of the 778 AFs, 121 were selected.                                    a single basket for the ARM algorithm.
+    Elimination of Low-Variance Features: As can be expected,            Association rules were mined from symbolic or categorical
+features with zero variance do not offer any useful information       data. Hence, for rule mining, we simply quantized numeric
+to the classification algorithm; however, they can increase the       features(sliding window features) as low, medium, and high at
+complexity of the learning process. Therefore, we eliminated          the participant level. Features that did not have variance over
+such features. Furthermore, we used a threshold of 1e-07              20-min window were excluded from rule mining as they are
+instead of an exact zero variance.                                    not meaningful. It is noteworthy to mention that to prevent
+    Elimination of Mostly Missing Features: As depicted in            the bias in evaluation, context mining was performed (all
+Fig. 7, certain features are more frequently missing than             procedures in this section) using only the RuleGenerateSet
+others. We particularly eliminated a feature if it was missing        split of the K-EmoPhone data as explained in Data Split.
+for more than 20% of the time. The rationale for such                    1) Mapping Subfeatures to Temporal Features: As shown
+elimination was the following: when features are missing most         in feature selection section 113 AFs were selected. However,
+of the time, imputing them may increase the noise to signal           to mine the association rules, normal (temporal) features were
+ALIKHANOV et al.: DESIGN OF CONTEXTUAL FILTERED FEATURES                                                                        11717
+
+
+
+used. Therefore, the 113 AFs (mean and standard deviation            can easily be extended to more than two itemsets. The lift
+of the TFs) were mapped to the original TFs. Upon mapping,           between the occurrences of A and B can be computed using
+113 AFs were reduced to 97 TFs.                                                                       P(A ∪ B)
+   2) Sliding Window Features as ARM Transactions: To                                   L(A, B) =              .                  (1)
+                                                                                                      P(A)P(B)
+mine the association rules, first, the sliding subfeatures were
+extracted and processed. These features were independent                Consequently, the metric lift indicates if the occurrence
+of the outcome variables and were extracted every 20 min             of an antecedent (LHS) can predict the occurrence of a
+(subwindow size) during the data collection period. This             consequent (RHS). For contextual filtering, a feature (the RHS
+collection resulted in 9072 entries for the RuleGenerateSet.         of the rule) conditioned upon the LHS of the rule’s occurrence,
+Upon feature extraction, the missing values were imputed with        the lift is a natural rule-selection measure.
+the mean values of the participant for a given feature. It
+is important to note that we did not make any assumptions                VI. E XPERIMENTAL S ETTINGS (I MPLEMENTATION
+about sensor data before figuring out the sliding window                                  D ETAILS )
+features.                                                              In this stage, we prepare the environment, methods, and
+   3) Mining Association Rules: ARM is a widely used tech-           metrics that are needed for the experiments in the next section.
+nique for the identification of associations in basket analysis,
+transactions, etc. The sliding window features for 9072 records
+                                                                     A. Classifiers
+were recoded as low, medium, and high to be used as trans-
+actions in ARM. We mined the association rules that implied             For predicting user receptivity with ML, we used many
+co-occurrence between the features. This co-occurrence could         off-the-shelf classifiers, including state-of-the-art gradient
+then later be used to pair feature–context relationships. To         boosting algorithms, such as CatBoost [31]. However, to
+mine the association rules, we used the MLExtend library [29].       reduce the scope, sometimes a single classifier—a logistic
+In the following, we explain the details of two main steps           regression—was used as a de facto classifier. We selected this
+of rule mining: 1) generation of frequent item sets and              classifier owing to its simplicity and computational efficiency.
+2) generation of the association rules.                              Later in this section, we benchmark other classifiers to assess
+   Mining Frequent Patterns: The mining of frequent patterns         the generalization of the findings of this work.
+involves specifying a minimum level of support (number of
+occurrences for the item sets to be considered frequent).            B. Evaluation
+However, no clear guideline has been stipulated regarding this          1) Cross Validation: For the ESM responses of the par-
+value in the literature. While generating frequent itemsets, we      ticipants, each participant provided multiple observations.
+used a minimum support threshold of 0.3. This ensured that the       Therefore, three possible approaches could be adopted for
+found item sets were together at least 30% of the time. Due to       evaluating the model with cross validation (CV). These
+its faster mining speed, the FP-growth algorithm was selected        included the following: 1) leave one subject out of CV–each
+for frequent item mining. We constrained the maximum length          participant’s data are evaluated separately; 2) KFold CV–data
+of the frequent item sets to be five. Consequently, 1 946 843        are split into K folds, and each fold is evaluated (subject
+frequent item sets were mined. In the second step, association       information is ignored); and 3) Group KFold CV–all data are
+rules were mined from the frequent item sets.                        split into K folds, and each fold is evaluated (subject data do
+   Mining Associations: In the next step, we extracted the rules     not overlap across folds). Similar to [20], we adopted the third
+from the given item sets. In total, 51 911 740 rules were mined      option and split the data into fivefold, where participant data
+with a minimum confidence threshold of 0.2. Among them,              could only be in one of the folds.
+we retained 9 297 565 rules, which had only one feature as a            2) Evaluation Metrics: Notably, the commonly used met-
+rule consequence. This is because the CFF-extraction method          rics in interruptibility and user receptivity studies are the
+required the result side of the rule to have only one thing (i.e.,   F1 score, precision, and recall. We follow the studies that are
+a binned feature).                                                   closely related to ours [11], [14], [20] based on Table I and
+   4) Rule Selection: Owing to the large number of rules,            those that use the F1 score as a primary metric. The F1 score
+extracting CFFs for all the rules significantly increases the        is calculated using equation X
+dimensionality and computation. This makes the learning of
+                                                                                             2 ∗ precision ∗ recall
+a classifier impractical. Furthermore, the majority of these                          F1 =                          .             (2)
+features exhibit high-pairwise correlations owing to the nature                               precision + recall
+of the rule-mining algorithm. To address this problem, we               In binary classification problems, three main approaches
+propose using lift as a rule selection metric.                       can be adopted to compute the F1 score: 1) computing the
+   Rule Interestingness Measure: To determine whether a rule         F1 score only for the positive (receptive) class; 2) computing
+was interesting, we used lift as a metric. Notably, lift is a        the F1 scores for both receptive and nonreceptive classes and
+simple correlation measure, which can be described as follows:       averaging them; and 3) computing the F1 scores for each
+the occurrence of item A is independent of the occurrence of         sample and averaging them. These approaches are referred to
+item B if P(A, B) = P(A)P(B); otherwise, item A and item             as binary, macro, and micro averaging, respectively, in the
+B are dependent and correlated as events [30]. This definition       scikit-learn community. The evaluation metrics should reflect
+11718                                                                       IEEE INTERNET OF THINGS JOURNAL, VOL. 11, NO. 7, 1 APRIL 2024
+
+
+
+this because the detection of both OMs and non-OMs is                D. Operating System Environment
+considered important. So, we calculated out the F1 scores for           The system used for this study is running on Ubuntu 22.04
+both classes and took the average. This gave us the macro-           as the operating system. The specific characteristics of the
+averaged F1 score, which takes into account that it is important     OS, including the number of CPU cores, random access
+to find both receptive and nonreceptive cases.                       memory (RAM) capacity, and solid state drive (SSD) storage,
+   Another important metric in binary classification is the          are essential factors that influence the system’s performance
+ROC-AUC. The ROC-AUC is preferred over other confusion               during data processing and computation.
+matrix-based metrics, such as the accuracy or F1 score,                 CPU Cores: The system is equipped with a total of 24 CPU
+because it evaluates the classifier’s discriminative power at        cores, which allows for parallel processing and multitasking,
+multiple cutoff thresholds. So, in this work, the ROC-AUC            enabling efficient handling of complex computations.
+metric was used to choose the model, and the F1 score was               RAM Capacity: The system is equipped with 64 GB of
+used to compare it to other methods that have been written           RAM, a crucial resource for storing data that is currently
+about.                                                               being used by the system. The large RAM capacity enables
+                                                                     the system to handle sizable data sets and memory-intensive
+                                                                     tasks efficiently.
+C. Baseline Random Strategy                                             Operating System Version: The system is running on Ubuntu
+   In this study, we used intelligent ML models that employed        22.04, a popular and widely used Linux distribution known
+context features for detecting the opportune nature of a             for its stability, security, and extensive software support.
+moment (i.e., user is receptive). To evaluate the improvement           SSD Storage: The system is equipped with a 1 Terabyte
+achieved using these ML models, we, however, needed a                (1TB) SSD. SSDs provide faster data access and read/write
+baseline random strategy (i.e., dummy classifier) that did           speeds compared to traditional mechanical hard drives, con-
+not use any input but provided random predictions using              tributing to quicker system boot times and improved overall
+a specified strategy. We followed the terminology of the             performance. These OS characteristics play a vital role in
+scikit-learn ML community [32] to assess the performance of          ensuring a smooth and efficient computing environment for
+the random baseline strategy for binary classification. More         conducting data analysis, running ML algorithms, and pro-
+specifically, dummy classification has the options listed below.     cessing large-scale data sets effectively.
+For additional information on baseline random classification
+strategies, we refer readers to [32].
+   1) Most Frequent: The predict method always returns the                           VII. R ESULTS AND A NALYSIS
+       most frequent class label in the observed y argument             Note that the experiments discussed in this section are
+       passed to fit.                                                intended to answer the aforementioned research questions.
+   2) Prior: The predict method always returns the most              Here, the MLTrainEvalSet was used for all experiments.
+       frequent class label in the observed y argument passed        We compared the performance of the three different feature
+       to fit (similar to most frequent).                            extraction approaches. In Section V, we described the process
+   3) Stratified: The predict proba method randomly samples          of obtaining such features, below we briefly highlight their
+       one-hot vectors from a multinomial distribution parame-       differences.
+       terized by empirical class prior probabilities. The predict      1) TFs: The first approach extracts TFs for a given window
+       method returns the class label with a probability of                 (e.g., 80 min). This is the most commonly used approach
+       one in the one-hot vector of predict proba. Therefore,               for sensor data [18].
+       each sampled row for both methods is independent and             2) AFs: The second approach obtains the AFs, which
+       identically distributed.                                             represent the aggregation (mean and standard deviation)
+   4) Uniform: Generates predictions uniformly but in a ran-                of subwindow features. The window with a size of
+       dom manner from the list of unique classes observed                  80 min has multiple subwindows (4 × 20 min). This
+       in y, i.e., each class has an equal probability.                     approach is previously widely used in depression detec-
+   5) Constant: Always predicts a constant label provided                   tion problems [24].
+       by the user. This is useful for metrics that evaluate            3) CFFs: The third approach is similar to that of the AFs
+       nonmajority classes.                                                 but considers only specific parts of the subwindows for
+   In line with the literature, for comparison with ML models,              aggregation. A subwindow is considered for aggregation
+we selected the most frequent strategy as the random baseline               only if it meets a certain condition (i.e., context). As
+strategy. However, we acknowledge that this setting may be                  explained in detail in Section V, context is obtained via
+sensitive to class distributions. In other words, depending on              ARM. For the given feature, certain value (one of low,
+the binning threshold used, the resulting binary class distri-              middle, high) of another feature(s) is (are) considered
+bution can change. This, in turn, can lead to a change in the               as a context. Such context determination criteria is not
+baseline results for those who use the most frequent strategy.              necessarily related to user receptivity. Instead, it finds the
+However, this can be addressed by employing a stratified                    co-occurrence of multiple features (sensors) via ARM
+random strategy that considers class imbalance. Therefore, we               and assume those cases capture a different aspect of the
+report the baseline results obtained based on both strategies.              user which was not captured by TFs and AFs.
+ALIKHANOV et al.: DESIGN OF CONTEXTUAL FILTERED FEATURES                                                                             11719
+
+
+                            TABLE VIII                                                              TABLE X
+           E FFECT OF F EATURE E NGINEERING ON L OGISTIC                             B ENCHMARKING M ULTIPLE C LASSIFIERS ON
+               R EGRESSION C LASSIFIER P ERFORMANCE                                        A C OMBINED S ET OF F EATURES
+
+
+
+
+                             TABLE IX
+ E FFECT OF F EATURE E NGINEERING ON O FF - THE -S HELF C LASSIFIERS .
+      T HE N UMBERS I NDICATE THE ROC-AUC M ETRIC VALUES
+                 OF THE C LASSIFIER ON THE T EST S ET
+
+
+                                                                                                     TABLE XI
+                                                                                  T IMINGS AND F EATURE D IMENSIONS FOR F EATURE
+                                                                                         E XTRACTION IN E VALUATION P HASE
+
+
+
+
+                                                                         (to account for data imbalance), and F1 score. The results
+                                                                         additionally include the ROC-AUC as a more exhaustive
+                                                                         performance metric that considers multiple cutoff thresholds
+A. Effect of Feature Engineering on Classification                       for positive and negative predictive values. It is noteworthy
+Performance                                                              that the results correspond to the default parameter settings
+   We compared three types of feature extraction approaches              of each classification algorithm without any hyperparame-
+and their effects on the ML model’s performance. In partic-              ter fine-tuning. An evaluation of the results with a focus
+ular, comparisons included the performance of the classifier             on the ROC-AUC suggests that the SVM, RandomForest,
+under different feature extraction settings, feature dimension-          GaussianNaiveBayes classifiers provided the best results. The
+ality, and performance of the classifier on the test set (i.e.,          decision tree classifier produced an ROC-AUC score of 0.492,
+ROC-AUC). A significant difference was noted between the                 which is extremely close to that of a random guess. We posit
+ROC-AUC and F1 score metrics. The F1 score was evaluated                 that this can be attributed to the overfitting nature of the
+on a single cutoff threshold, whereas the ROC-AUC consid-                decision tree classifier. It is noteworhty that it is possible to
+ered all possible thresholds for evaluation. Consequently, the           do feature selection after combining three types of features.
+ROC-AUC was considered a more reliable metric. However,                  For simplicity, it is not done in this work.
+for ease of interpretation, we also included the F1 score.
+The results indicated that the CFF provides promising results.           C. Complexity Analysis of the Proposed Method
+Note that the results displayed in Table VIII are only used                 The complexity of the proposed method for predicting user
+for the logistic regression classifier. Because we used default          receptivity to health interventions can be analyzed in both the
+hyperparameters, these results could be biased. Therefore, to            model preparation/training phase and the evaluation phase. In
+confirm the effectiveness of the CFF, we experimented with               the model preparation phase, the computational requirements
+multiple classifiers, as shown in Table IX. Results show that            primarily depend on feature extraction and model training. The
+for all but the RF classifier, CF features are outperforming             extraction of TFs and AFs can be performed relatively quickly,
+other kinds of features.                                                 with a time complexity that is linear with respect to the data
+                                                                         set size. The major bottleneck in the extraction of CFFs is the
+B. Benchmarking Common ML Classifiers on Combined                        rule mining procedure. However, this is an offline process and
+Feature Set                                                              is performed only once.
+   As presented in Tables VIII and IX, the CFFs resulted in                 During the evaluation phase, the computational complex-
+the best performance. Further, we examined the performance               ity primarily depends on the feature extraction process and
+of the combined features, which include the TF, AF, and CFF.             the prediction model’s requirements. The feature extraction
+The resulting dimensionality of the features was 400 + 186 +             involves extracting TFs, AFs, and CFFs. Table XI provides
+93 = 679.                                                                the timing information for the feature extraction process,
+   The results for 11 commonly used classifiers are listed in            specifically for the extraction of the 95-D TFs. It is important
+Table X. The performance measures include several confusion              to note that the times provided for the extraction of TFs
+matrix-based metrics, such as accuracy, balanced accuracy                also apply to the computation of aggregated and CFFs, as
+11720                                                                                       IEEE INTERNET OF THINGS JOURNAL, VOL. 11, NO. 7, 1 APRIL 2024
+
+
+
+
+Fig. 8. Self-reported questionnaire collection timeline over seven days. The x-axis depicts the timeline for data collection and the y-axis presents the participant
+ID. (a)–(c) correspond to different data collections campaigns that started in April 30, May 7, and May 15.
+
+
+
+they are derived from the TFs extracted for subwindows. This                       displayed in Table VIII reveal that all three types of fea-
+feature extraction complexity enables the development of the                       tures performed better than the random baseline strategy
+prediction models and their evaluation in real-time deployment                     (ROC-AUC of 50%). This implies that receptivity to DTx
+scenarios.                                                                         interventions can be increased by employing contextual fac-
+                                                                                   tors, such as sensor data and user–phone interactions.
+                                                                                      2) RQ2—Can We Improve the Performance of the ML
+D. Discussion                                                                      Model With Better Feature Engineering?: The results dis-
+  1) RQ1—Can ML Techniques Be Applied Effectively to                               played in Tables VIII–X reveal the significant impact of
+Enhance Receptivity to Health Interventions?: The results                          engineering features on the ML model’s performance. This
+ALIKHANOV et al.: DESIGN OF CONTEXTUAL FILTERED FEATURES                                                                                                    11721
+
+
+
+                                                                                   Another promising research path could involve direct min-
+                                                                                ing of association rules from raw data sources, as opposed to
+                                                                                mining from preprocessed TFs extracted over a 20-min (sub)
+                                                                                windows. The rationale for this is that organizing raw data
+                                                                                into bins can make the data more insightful. For example, it
+                                                                                might be more effective to categorize heart rate sensor readings
+                                                                                as low, median, and high, rather than labeling time-series
+                                                                                complex features as such. Moreover, these rules tend to be
+                                                                                more meaningful and interpretable.
+                                                                                   Furthermore, fine-tuning the model’s hyperparame-
+                                                                                ters presents substantial opportunities for enhancing the
+                                                                                performance of the ML model.
+
+                                                                                                           VIII. C ONCLUSION
+                                                                                   This study demonstrated the effect of feature engineering
+                                                                                on the receptivity prediction performance of an ML model.
+                                                                                In other words, the results revealed that the same ML model
+                                                                                could perform better when richer features were engineered
+                                                                                (average ROC-AUC of 0.565 versus 0.547 for CFFs and TFs).
+                                                                                This was achieved based on the proposed CFF-extraction
+                                                                                approach. Although locating useful features that can identify
+                                                                                a subject’s receptivity is often complicated, we achieved the
+                                                                                same using a novel automated feature engineering approach.
+
+                                                                                                                 A PPENDIX
+                                                                                   See Figs. 8 and 9.
+Fig. 9. Correlation between the response delay and self-reported disturbance.
+                                                                                                               R EFERENCES
+                                                                                 [1] U. Lee et al., “Toward data-driven digital therapeutics analytics:
+effect is retained even when the choice of the ML model                              Literature review and research directions,” 2022, arXiv:2205.01851.
+changes, as indicated in Table IX. This implies that in addition                 [2] M. N. Burns et al., “Harnessing context sensing to develop a mobile
+to tuning the hyperparameters of classification algorithms, an                       intervention for depression,” J. Med. Internet Res., vol. 13, no. 3, 2011,
+                                                                                     Art. no. e1838.
+additional approach for improving the predictive power of                        [3] B. Y. Laing et al., “Effectiveness of a smartphone application for weight
+receptivity prediction should involve the engineering of more                        loss compared with usual care in overweight primary care patients: A
+powerful features with rich representations.                                         randomized, controlled trial,” Ann. Internal Med., vol. 161, no. 10S,
+                                                                                     pp. S5–S12, 2014.
+   3) Limitations of the Proposed Method and Future                              [4] P. Klasnja et al., “Microrandomized trials: An experimental design for
+Directions: A key strength of the proposed receptivity                               developing just-in-time adaptive interventions,” Health Psychol., vol. 34,
+prediction model lies in its use of CFFs which offer a                               p. 1220, Dec. 2015.
+                                                                                 [5] J. Linardon, P. Cuijpers, P. Carlbring, M. Messer, and
+comparatively richer representation. However, acquiring such                         M. Fuller-Tyszkiewicz, “The efficacy of app-supported smartphone
+features can be more intricate compared to other conventional                        interventions for mental health problems: A meta-analysis of randomized
+TFs. Despite this, we believe that the complexity of obtaining                       controlled trials,” World Psychiat., vol. 18, no. 3, pp. 325–336, 2019.
+                                                                                 [6] L. M. Collins and K. C. Kugler, Optimization of Behavioral,
+CFFs is a minor, if not negligible, constraint in light of the                       Biobehavioral, and Biomedical Interventions: Advanced Topics.
+benefits offered by their robust representation. Even though the                     New York, NY, USA: Springer, 2018.
+inclusion of CFFs introduces additional steps thereby increas-                   [7] O. Inan et al., “Digitizing clinical trials,” NPJ Digit. Med., vol. 3, no. 1,
+                                                                                     pp. 1–7, 2020.
+ing complexity, this process is confined to the offline phase                    [8] P. Liao et al., “Just-in-time but not too much: Determining treatment
+where rules for contextually filtering the process are identified.                   timing in mobile health,” Proc. ACM Interact., Mobile, Wearable
+In the deployment (or online) phase, the complexity involved                         Ubiquitous Technol., vol. 2, no. 4, pp. 1–21, 2018.
+                                                                                 [9] P. Liao, K. Greenewald, P. Klasnja, and S. Murphy, “Personalized
+in extracting CFFs aligns closely with common procedures for                         heartsteps: A reinforcement learning algorithm for optimizing physical
+TF or AF extraction. The topic of association-rule mining                            activity,” Proc. ACM Interact., Mobile, Wearable Ubiquitous Technol.,
+is an extensively investigated area. The findings underscore                         vol. 4, no. 1, pp. 1–22, 2020.
+                                                                                [10] V. Pejovic and M. Musolesi, “InterruptMe: Designing intelligent prompt-
+the superior potential of CFFs in predicting user receptivity.                       ing mechanisms for pervasive applications,” in Proc. ACM Int. Joint
+Nevertheless, there is a multitude of options for rule selection                     Conf. Pervasive Ubiquitous Comput., 2014, pp. 897–908.
+that could enhance the performance of CFFs even further. As                     [11] M. Pielot, B. Cardoso, K. Katevas, J. Serrà, A. Matic, and N. Oliver,
+                                                                                     “Beyond interruptibility: Predicting opportune moments to engage
+such, an intriguing avenue for future research might focus                           mobile phone users,” Proc. ACM Interact., Mobile, Wearable Ubiquitous
+on optimizing rule-selection methods. For instance, during the                       Technol., vol. 1, no. 3, pp. 1–25, 2017.
+investigation, we discerned that the parameters of rule mining                  [12] N. Kern, S. Antifakos, B. Schiele, and A. Schwaninger, “A model for
+                                                                                     human interruptability: Experimental evaluation and automatic estima-
+significantly influenced the final performance of CFF-based                          tion from wearable sensors,” in Proc. 8th Int. Symp. Wearable Comput.,
+ML models.                                                                           vol. 1, 2004, pp. 158–165.
+11722                                                                                       IEEE INTERNET OF THINGS JOURNAL, VOL. 11, NO. 7, 1 APRIL 2024
+
+
+
+[13] I. Nahum-Shani et al., “Just-in-time adaptive interventions (JITAIs) in        Jumabek Alikhanov (Student Member, IEEE) received the B.S. degree from
+     mobile health: Key components and design principles for ongoing health         Tashkent University of Information Technology, Tashkent, Uzbekistan, in
+     behavior support,” Ann. Behav. Med., vol. 52, no. 6, pp. 446–462, 2018.        2014, and the M.E. degree from Inha University, Incheon, South Korea,
+[14] F. Künzler, V. Mishra, J.-N. Kramer, D. Kotz, E. Fleisch, and                  in 2017, where he is currently pursuing the Ph.D. degree in electrical and
+     T. Kowatsch, “Exploring the state-of-receptivity for mHealth interven-         computer engineering.
+     tions,” Proc. ACM Interact., Mobile, Wearable Ubiquitous Technol.,                He is currently devoted to the development of lightweight deep learning
+     vol. 3, no. 4, pp. 1–27, 2019.                                                 models, emphasizing the design of resource-efficient AI computing machines
+[15] W. Choi, S. Park, D. Kim, Y.-K. Lim, and U. Lee, “Multi-stage                  that offer speed and reduced carbon footprint. His research spans machine
+     receptivity model for mobile just-in-time health intervention,” Proc.          learning, with a focus on applications in computer vision, sensor data
+     ACM Interact., Mobile, Wearable Ubiquitous Technol., vol. 3, no. 2,            analytics, and natural language processing. He is focused on designing
+     pp. 1–26, 2019.                                                                resource efficient AI computing machines.
+[16] J. Fogarty, S. E. Hudson, and J. Lai, “Examining the robustness
+     of sensor-based statistical models of human interruptibility,” in Proc.
+     SIGCHI Conf. Human Factors Comput. Syst., 2004, pp. 207–214.
+[17] B. Poppinga, W. Heuten, and S. Boll, “Sensor-based identification
+     of opportune moments for triggering notifications,” IEEE Pervasive
+     Comput., vol. 13, no. 1, pp. 22–29, Jan.–Mar. 2014.
+[18] M. Choy, D. Kim, J.-G. Lee, H. Kim, and H. Motoda, “Looking back               Panyu Zhang (Student Member, IEEE) received the B.S. degree in industrial
+     on the current day: Interruptibility prediction using daily behavioral         engineering from the School of Mechanical Engineering, Beijing Institute of
+     features,” in Proc. ACM Int. Joint Conf. Pervasive Ubiquitous Comput.,         Technology, Beijing, China, in 2019, and the M.S. degree from the Department
+     2016, pp. 1004–1015.                                                           of Industrial and Systems Engineering, Korea Advanced Institute of Science
+[19] H. Sarker et al., “Assessing the availability of users to engage in just-in-   and Technology, Daejeon, South Korea, in 2023, where he is currently
+     time intervention in the natural environment,” in Proc. ACM Int. Joint         pursuing the Ph.D. degree with the Graduate School of Data Science.
+     Conf. Pervasive Ubiquitous Comput., 2014, pp. 909–920.                            His research is in the broad area of machine learning for health and
+[20] V. Mishra, F. Künzler, J.-N. Kramer, E. Fleisch, T. Kowatsch, and              health behavior change. He is currently devoted specifically to the field of
+     D. Kotz, “Detecting receptivity for mHealth interventions in the               reproducible mobile stress detection and employing advanced deep learning
+     natural environment,” Proc. ACM Interact., Mobile, Wearable Ubiquitous         models to push the limit of real-world mobile stress detection.
+     Technol., vol. 5, no. 2, pp. 1–24, 2021.
+[21] A. Mehrotra, V. Pejovic, J. Vermeulen, R. Hendley, and M. Musolesi,
+     “My phone and me: Understanding people’s receptivity to mobile
+     notifications,” in Proc. Conf. Human Factors Comput. Syst., 2016,
+     pp. 1021–1032.
+[22] S. Kang et al., “K-EmoPhone: A mobile and wearable dataset with in-
+     situ emotion, stress, and attention labels,” Sci. Data, vol. 10, no. 1,
+     p. 351, 2023.                                                                  Youngtae Noh (Member, IEEE) received the B.S. degree in computer
+[23] A. Zheng and A. Casari, Feature Engineering for Machine Learning:              science from Chosun University, Gwangju, South Korea, in 2005, the M.S.
+     Principles and Techniques for Data Scientists. Sebastopol, CA, USA:            in information and communication from Gwangju Institute of Science and
+     O’Reilly Media, Inc., 2018.                                                    Technology, Gwangju, in 2007, and the Ph.D. degree in computer science
+[24] X. Xu et al., “Leveraging routine behavior and contextually-filtered           from the University of California at Los Angeles, Los Angeles, CA, USA, in
+     features for depression detection among college students,” Proc. ACM           2012.
+     Interact., Mobile, Wearable Ubiquitous Technol., vol. 3, no. 3, pp. 1–33,         He is currently an Associate Professor with Energy AI, Korean Institute
+     2019.                                                                          of Energy and Technology, Naju, South Korea. His previous appoint-
+[25] R. Wang et al., “StudentLife: Assessing mental health, academic                ments include an Associate Professorship with Inha University (Yonghyeon
+     performance and behavioral trends of college students using smart-             Campus), Incheon, South Korea, from 2015 to 2022, and a Staff position with
+     phones,” in Proc. ACM Int. Joint Conf. Pervasive Ubiquitous Comput.,           Cisco Systems, San Jose, CA, USA, from 2012 to 2014. His research interests
+     2014, pp. 3–14.                                                                are in mobile and pervasive computing, mobile systems, mobile data science,
+[26] J. Li et al., “Feature selection: A data perspective,” ACM Comput.             mobile-HCI, cloud computing, data center networking, wireless networking,
+     Surveys, vol. 50, no. 6, pp. 1–45, 2017.                                       and future Internet architectures.
+[27] Y. Vaizman, K. Ellis, and G. Lanckriet, “Recognizing detailed human
+     context in the wild from smartphones and smartwatches,” IEEE
+     Pervasive Comput., vol. 16, no. 4, pp. 62–74, Oct.–Dec. 2017.
+[28] V. Pejovic and M. Musolesi, “Anticipatory mobile computing: A survey
+     of the state of the art and research challenges,” ACM Comput. Surveys,
+     vol. 47, no. 3, pp. 1–29, 2015.
+[29] S. Raschka, “MLxtend: Providing machine learning and data science              Hakil Kim (Member, IEEE) received the M.Sc. and Ph.D. degrees in electrical
+     utilities and extensions to Python’s scientific computing stack,” J. Open      and computer engineering from Purdue University, West Lafayette, IN, USA,
+     Source Softw., vol. 3, no. 24, p. 638, Apr. 2018. [Online]. Available:         in 1985 and 1990, respectively.
+     http://joss.theoj.org/papers/10.21105/joss.00638                                  In 1990, he was with the College of Engineering, Inha University, Incheon,
+[30] J. Han, J. Pei, and H. Tong, Data Mining: Concepts and Techniques.             South Korea, where he is currently a Full Professor with the Department of
+     Burlington, MA, USA: Morgan Kaufmann, 2022.                                    Information and Communication Engineering. In order to retain the balance
+[31] A. V. Dorogush, V. Ershov, and A. Gulin, “CatBoost: Gradient boosting          between academic research and commercial development, he founded Vision
+     with categorical features support,” 2018, arXiv:1810.11363.                    Inc., Blackwood, NJ, USA, in 2014. His research interests include biometrics,
+[32] “SKLearn dummy classifier.” Accessed: Oct. 25, 2022. [Online].                 intelligent video surveillance, and embedded vision for autonomous vehicles.
+     Available:        https://scikit-learn.org/stable/modules/generated/sklearn.      Prof. Kim has been actively involved as a Project Editor of the International
+     dummy.DummyClassifier.html                                                     Standardization of Biometrics at ISO/IEC JTC1/SC37, since 2003.
+

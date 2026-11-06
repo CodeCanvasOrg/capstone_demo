@@ -1,0 +1,1406 @@
+{
+  "expected": 41,
+  "created": 41,
+  "ready": 41,
+  "pending": [],
+  "formatIssues": [],
+  "entries": [
+    {
+      "key": "company-update:vc-studio-qatar",
+      "configuredModelProven": true,
+      "documentId": "5162d3bf-9a57-42ce-b8ab-3c04c7c6b035",
+      "title": "HumbleBeeAI Venture Studio LLC Launches in Qatar",
+      "versionId": "507353e3-36cd-45da-b5da-96a94022b56e",
+      "generationTaskId": "dd5899e9-fcbe-48f9-a4fc-31e07652daa0",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 4,
+      "imageCount": 1,
+      "candidateDocumentIds": [
+        "5162d3bf-9a57-42ce-b8ab-3c04c7c6b035"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "a83bf098-b999-499a-8c3b-d57cdbc98202",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5162d3bf-9a57-42ce-b8ab-3c04c7c6b035/evidence/a83bf098-b999-499a-8c3b-d57cdbc98202/asset",
+          "alt": "Two people standing at an event venue in front of large pink geometric structures."
+        }
+      ],
+      "availableImageChunks": 1,
+      "sourceIds": [
+        "company-update:vc-studio-qatar"
+      ],
+      "citationCount": 26,
+      "renderableWords": 473,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:customs-document-automation",
+      "configuredModelProven": true,
+      "documentId": "08499636-03de-4b76-a7ee-82d5f663a0e6",
+      "title": "Automating Customs Documentation with Local AI and Computer Vision",
+      "versionId": "0a2822cc-9035-4514-89dc-a212fe034e08",
+      "generationTaskId": "971a7779-7477-4700-a194-0483f91d669c",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 1,
+      "imageCount": 1,
+      "candidateDocumentIds": [
+        "08499636-03de-4b76-a7ee-82d5f663a0e6"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "d6fff9ef-34e5-4307-b0be-c86fc2f7dc0f",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/08499636-03de-4b76-a7ee-82d5f663a0e6/evidence/d6fff9ef-34e5-4307-b0be-c86fc2f7dc0f/asset",
+          "alt": "Illustration of computer vision inspecting customs documents, with sensitive data protected and extracted information sent to a digital workflow."
+        }
+      ],
+      "availableImageChunks": 1,
+      "sourceIds": [
+        "case-study:customs-document-automation"
+      ],
+      "citationCount": 25,
+      "renderableWords": 697,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:ai-based-predictive",
+      "configuredModelProven": true,
+      "documentId": "31b8addc-2098-4ed6-8670-410ec572c4ca",
+      "title": "Johnson & Johnson Predictive Customer Targeting With 96.8% Accuracy",
+      "versionId": "bc1c7663-296c-4124-bf46-0b4326ad2094",
+      "generationTaskId": "a9e5ab48-069c-4487-81cc-457fc37d1ff2",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 3,
+      "imageCount": 1,
+      "candidateDocumentIds": [
+        "31b8addc-2098-4ed6-8670-410ec572c4ca"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "afeada4d-d9e7-4f93-a298-c6dd661471bc",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/afeada4d-d9e7-4f93-a298-c6dd661471bc/asset",
+          "alt": "A supplied visual showing clusters of small images connected around a central portrait; the source does not identify it as a system diagram."
+        }
+      ],
+      "availableImageChunks": 1,
+      "sourceIds": [
+        "case-study:ai-based-predictive"
+      ],
+      "citationCount": 25,
+      "renderableWords": 560,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:avnrt-ablation-analytics",
+      "configuredModelProven": true,
+      "documentId": "34971225-fadb-4af4-a7f5-6883a845760d",
+      "title": "AVNRT Ablation Analysis with CARTONET for Johnson & Johnson",
+      "versionId": "51507805-b627-4d36-9132-f681a53df9af",
+      "generationTaskId": "acd74bb1-dcc2-43a3-b953-ed61aeb6ffb3",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 1,
+      "candidateDocumentIds": [
+        "34971225-fadb-4af4-a7f5-6883a845760d"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "3379fe9f-cc01-40b7-b9b1-8bb1489b6cbb",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/3379fe9f-cc01-40b7-b9b1-8bb1489b6cbb/asset",
+          "alt": "Illustration of an analyst examining clustered points in a three-dimensional chart; this is an illustrative image, not a screenshot of the delivered system."
+        }
+      ],
+      "availableImageChunks": 1,
+      "sourceIds": [
+        "case-study:avnrt-ablation-analytics"
+      ],
+      "citationCount": 20,
+      "renderableWords": 664,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:cartoned-analysis-dashboard",
+      "configuredModelProven": true,
+      "documentId": "0eccff37-c19a-4333-b04f-779ad164e7c3",
+      "title": "Johnson & Johnson’s Cartonet Analysis Dashboard",
+      "versionId": "3b485778-953d-44f0-8edb-8a5a5f87cc7c",
+      "generationTaskId": "85671fa5-fa70-41ca-8083-963eaa4b7a8c",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 4,
+      "imageCount": 2,
+      "candidateDocumentIds": [
+        "0eccff37-c19a-4333-b04f-779ad164e7c3"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "7d502bbd-e121-4563-820e-d326d9d1caef",
+          "page": 3,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/7d502bbd-e121-4563-820e-d326d9d1caef/asset",
+          "alt": "Insights and Analysis Dashboard screenshot showing a box-plot comparison, a gender filter, and a comparison control."
+        },
+        {
+          "chunkId": "1f163c3e-9327-4339-ab43-06dd94e17e0b",
+          "page": 3,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/1f163c3e-9327-4339-ab43-06dd94e17e0b/asset",
+          "alt": "Analytics comparison view showing a table of statistical measures for male and female groups."
+        }
+      ],
+      "availableImageChunks": 3,
+      "sourceIds": [
+        "case-study:cartoned-analysis-dashboard"
+      ],
+      "citationCount": 21,
+      "renderableWords": 525,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:impact-event-analysis",
+      "configuredModelProven": true,
+      "documentId": "eb4805d8-ac27-420c-a4c5-d08fe48e42d5",
+      "title": "Johnson & Johnson Event Impact Analytics in Power BI",
+      "versionId": "2d346cdd-f11b-48ca-bad5-b210e157bd40",
+      "generationTaskId": "6b47d1d9-419c-4b31-b286-a5323508e9a9",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 1,
+      "candidateDocumentIds": [
+        "eb4805d8-ac27-420c-a4c5-d08fe48e42d5"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "8a6767d9-b713-4782-ba8d-37b486f190b3",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/eb4805d8-ac27-420c-a4c5-d08fe48e42d5/evidence/8a6767d9-b713-4782-ba8d-37b486f190b3/asset",
+          "alt": "Illustration of a user exploring charts and analytics in a Power BI dashboard"
+        }
+      ],
+      "availableImageChunks": 1,
+      "sourceIds": [
+        "case-study:impact-event-analysis"
+      ],
+      "citationCount": 18,
+      "renderableWords": 547,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:patient-data-analytics",
+      "configuredModelProven": true,
+      "documentId": "467a4530-a428-4941-aa44-77cd6d9459ce",
+      "title": "Johnson & Johnson Patient Report Analyzer",
+      "versionId": "0f9905e9-e0cd-42fa-a3a5-5b71a069b448",
+      "generationTaskId": "1dd1a738-c800-447b-8a18-5212529e07a9",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 2,
+      "candidateDocumentIds": [
+        "467a4530-a428-4941-aa44-77cd6d9459ce"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "a215caaa-d63e-4789-878f-1db5a8997560",
+          "page": 2,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/a215caaa-d63e-4789-878f-1db5a8997560/asset",
+          "alt": "Patient Report Analyzer interface showing selected Excel files and a Download Report as Excel button"
+        },
+        {
+          "chunkId": "8f21d28b-6ad8-44cb-a8d8-b3d6339e1266",
+          "page": 3,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/8f21d28b-6ad8-44cb-a8d8-b3d6339e1266/asset",
+          "alt": "Dashboard example with charts in a combined analysis across six files"
+        }
+      ],
+      "availableImageChunks": 4,
+      "sourceIds": [
+        "case-study:patient-data-analytics"
+      ],
+      "citationCount": 36,
+      "renderableWords": 666,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:shelf-analysis",
+      "configuredModelProven": true,
+      "documentId": "b4d78a05-a82c-4f2c-be2c-da605c86fee6",
+      "title": "Shelf Analysis AI for Retail Compliance",
+      "versionId": "aa6bba56-eb15-45fa-aff5-e7e6ed0b6d99",
+      "generationTaskId": "39220b80-ccd8-4051-93d1-9bcbb854d708",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 2,
+      "candidateDocumentIds": [
+        "b4d78a05-a82c-4f2c-be2c-da605c86fee6"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "ec897242-0ced-43f9-83a9-d66aacd79568",
+          "page": 3,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/ec897242-0ced-43f9-83a9-d66aacd79568/asset",
+          "alt": "Three views of a retail shelf showing shelf detection, shelf numbering and combined product-and-shelf analysis"
+        },
+        {
+          "chunkId": "0b6b9f7a-83e7-4c97-af68-ed85cf7c35f9",
+          "page": 4,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/0b6b9f7a-83e7-4c97-af68-ed85cf7c35f9/asset",
+          "alt": "Retail shelf images with competitor products highlighted by detection boxes"
+        }
+      ],
+      "availableImageChunks": 4,
+      "sourceIds": [
+        "case-study:shelf-analysis"
+      ],
+      "citationCount": 25,
+      "renderableWords": 601,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:fraud-detection",
+      "configuredModelProven": true,
+      "documentId": "9301d410-ac80-4094-a5d7-5f11c20d02fe",
+      "title": "AI Fraud Detection for Retail Compliance",
+      "versionId": "4591658f-14c4-43dd-a1dc-34025e7917a8",
+      "generationTaskId": "7bd0415a-c031-45a5-8b42-08eb4d170aa4",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 2,
+      "candidateDocumentIds": [
+        "9301d410-ac80-4094-a5d7-5f11c20d02fe"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "10ca1e12-c5e3-4ee0-bc88-ba250d6becc2",
+          "page": 3,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9301d410-ac80-4094-a5d7-5f11c20d02fe/evidence/10ca1e12-c5e3-4ee0-bc88-ba250d6becc2/asset",
+          "alt": "Examples of images categorized as device-screen submissions"
+        },
+        {
+          "chunkId": "baff540c-b832-4986-8c34-c7aec9162d27",
+          "page": 4,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9301d410-ac80-4094-a5d7-5f11c20d02fe/evidence/baff540c-b832-4986-8c34-c7aec9162d27/asset",
+          "alt": "Examples of miniature reference images identified by the audit checks"
+        }
+      ],
+      "availableImageChunks": 4,
+      "sourceIds": [
+        "case-study:fraud-detection"
+      ],
+      "citationCount": 24,
+      "renderableWords": 557,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:poster-recognition",
+      "configuredModelProven": true,
+      "documentId": "a44defcb-e44c-42a3-b775-6a9315f1e4d1",
+      "title": "Flexible Campaigns with Poster Recognition AI: Retail Technology Case Study",
+      "versionId": "6dd9d875-0359-41e1-b0bc-05a46065e576",
+      "generationTaskId": "0b62a696-59c7-4c95-aebe-49bc29dced32",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 1,
+      "candidateDocumentIds": [],
+      "imageSources": [
+        {
+          "chunkId": "e7373f11-194e-4013-a2d9-bdba5f72e226",
+          "page": 3,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/e7373f11-194e-4013-a2d9-bdba5f72e226/asset",
+          "alt": "Reference poster shown alongside a store photo in which the matching poster is highlighted"
+        }
+      ],
+      "availableImageChunks": 2,
+      "sourceIds": [
+        "case-study:poster-recognition"
+      ],
+      "citationCount": 26,
+      "renderableWords": 645,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:automated-training-pipeline",
+      "configuredModelProven": true,
+      "documentId": "57cefac9-51b9-4034-8805-aff98dc6681e",
+      "title": "Automated Training Pipeline for Retail Product Detection",
+      "versionId": "de322633-d513-4262-a0a1-ae8835f70d16",
+      "generationTaskId": "61301de4-cec1-43c4-ae27-9045a087c3ee",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 1,
+      "imageCount": 1,
+      "candidateDocumentIds": [
+        "f85a96f4-5df9-4e2d-9038-d41a5730c852",
+        "57cefac9-51b9-4034-8805-aff98dc6681e"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "1feb4a51-7d79-4085-aa72-341946fed266",
+          "page": 3,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/57cefac9-51b9-4034-8805-aff98dc6681e/evidence/1feb4a51-7d79-4085-aa72-341946fed266/asset",
+          "alt": "Diagram of a Vertex AI pipeline linking dataset management and model training with Google Cloud Storage for dataset and model artifacts."
+        }
+      ],
+      "availableImageChunks": 2,
+      "sourceIds": [
+        "case-study:automated-training-pipeline"
+      ],
+      "citationCount": 25,
+      "renderableWords": 651,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:data-labeling-tool",
+      "configuredModelProven": true,
+      "documentId": "17f57d5a-143c-4189-a85c-a9ee82b6af2b",
+      "title": "Enterprise Data Labeling Platform Deployment and Customization",
+      "versionId": "05b97282-bfb8-47c6-a314-e888b27bc65e",
+      "generationTaskId": "6b00a785-fdf2-497c-a7ed-6aa8d17fbde8",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 3,
+      "imageCount": 2,
+      "candidateDocumentIds": [
+        "17f57d5a-143c-4189-a85c-a9ee82b6af2b"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "302a86eb-f89c-451a-8482-9706d415b299",
+          "page": 3,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/17f57d5a-143c-4189-a85c-a9ee82b6af2b/evidence/302a86eb-f89c-451a-8482-9706d415b299/asset",
+          "alt": "Screenshot of the data-labeling tool showing an image annotation workspace, labeled regions, and project controls"
+        },
+        {
+          "chunkId": "66c00e5b-5ce1-47ea-89bf-32706162f100",
+          "page": 3,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/17f57d5a-143c-4189-a85c-a9ee82b6af2b/evidence/66c00e5b-5ce1-47ea-89bf-32706162f100/asset",
+          "alt": "Diagram showing the labeling interface connected to an ML backend that trains and predicts using models and images in cloud storage"
+        }
+      ],
+      "availableImageChunks": 3,
+      "sourceIds": [
+        "case-study:data-labeling-tool"
+      ],
+      "citationCount": 28,
+      "renderableWords": 596,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:improving-recognition-accuracy",
+      "configuredModelProven": true,
+      "documentId": "260f80d8-d7e8-4164-a1de-160882a5658f",
+      "title": "Improving Facial Recognition Accuracy with AI-Powered Data Refinement",
+      "versionId": "b1e151c1-1185-4a94-b310-cf588b34f994",
+      "generationTaskId": "6b529d69-31e1-4f29-932d-a463f9134129",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 1,
+      "candidateDocumentIds": [
+        "260f80d8-d7e8-4164-a1de-160882a5658f"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "e8aaab9b-31ba-493f-afb1-c02c641356e1",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/e8aaab9b-31ba-493f-afb1-c02c641356e1/asset",
+          "alt": "Illustration of an attendance entry threshold with a camera capturing a person and a face-recognition view."
+        }
+      ],
+      "availableImageChunks": 1,
+      "sourceIds": [
+        "case-study:improving-recognition-accuracy"
+      ],
+      "citationCount": 20,
+      "renderableWords": 690,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:optimizing-recognition-processing",
+      "configuredModelProven": true,
+      "documentId": "23f5a23d-84a1-4ae4-acfd-1957268d08da",
+      "title": "LumioHub AI: Reducing Computational Costs and RAM Overload with ROI Processing",
+      "versionId": "d87738b8-c58f-4c32-abd0-eea6a93d533a",
+      "generationTaskId": "08d611d7-4786-4ae1-9188-d0bd6e79a23b",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 1,
+      "candidateDocumentIds": [],
+      "imageSources": [
+        {
+          "chunkId": "b408a0f4-ea59-45e5-a90d-6532042c355d",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/23f5a23d-84a1-4ae4-acfd-1957268d08da/evidence/b408a0f4-ea59-45e5-a90d-6532042c355d/asset",
+          "alt": "Illustration of a workplace attendance and entry/exit analytics display"
+        }
+      ],
+      "availableImageChunks": 1,
+      "sourceIds": [
+        "case-study:optimizing-recognition-processing"
+      ],
+      "citationCount": 17,
+      "renderableWords": 722,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:lumiohub-platform",
+      "configuredModelProven": true,
+      "documentId": "b703664c-9e75-4c46-8adc-5066fea1de6a",
+      "title": "Securing LumioHub AI for Enterprise Scale",
+      "versionId": "440d45b9-ff1d-432e-bac3-978189b39e47",
+      "generationTaskId": "8df63276-59e5-4c5b-8708-93cbdd59c52c",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 3,
+      "imageCount": 2,
+      "candidateDocumentIds": [
+        "b703664c-9e75-4c46-8adc-5066fea1de6a"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "fce425bb-c224-441b-ad73-75a6a89dcdaf",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/fce425bb-c224-441b-ad73-75a6a89dcdaf/asset",
+          "alt": "Illustration of a person using a face-recognition access terminal"
+        },
+        {
+          "chunkId": "bb6d0683-5589-495f-8b4c-b799cdff46fa",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/bb6d0683-5589-495f-8b4c-b799cdff46fa/asset",
+          "alt": "Overhead view of a busy workplace with people outlined by detection boxes"
+        }
+      ],
+      "availableImageChunks": 2,
+      "sourceIds": [
+        "case-study:lumiohub-platform",
+        "project:lumiohub"
+      ],
+      "citationCount": 34,
+      "renderableWords": 698,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:amplifyr",
+      "configuredModelProven": true,
+      "documentId": "bce2fae1-0935-468e-864f-dd8e81736753",
+      "title": "Driving Brand Visibility on Generative AI with Amazon QuickSight",
+      "versionId": "73198761-dc71-4801-8422-c30ec8b86e38",
+      "generationTaskId": "0297d0de-fbdf-41aa-a9fd-c1b093fe8609",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 1,
+      "candidateDocumentIds": [],
+      "imageSources": [
+        {
+          "chunkId": "82f0349d-f0ff-4eaa-be66-de82a600748d",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/82f0349d-f0ff-4eaa-be66-de82a600748d/asset",
+          "alt": "Illustration of a user viewing an analytics dashboard with charts and filters"
+        }
+      ],
+      "availableImageChunks": 1,
+      "sourceIds": [
+        "case-study:amplifyr"
+      ],
+      "citationCount": 22,
+      "renderableWords": 669,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:ai-powered-retail-cart",
+      "configuredModelProven": true,
+      "documentId": "a21954ea-d02e-46e9-baf2-0afe71f92127",
+      "title": "AI-Powered Retail Cart Detection Accuracy Improvement",
+      "versionId": "b30af2c5-2812-4605-93f7-d49349743f6f",
+      "generationTaskId": "a27f571f-539c-4e15-b811-c060062f5993",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 1,
+      "imageCount": 1,
+      "candidateDocumentIds": [
+        "a21954ea-d02e-46e9-baf2-0afe71f92127"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "5cce0ef7-1cf9-4ab9-b207-65252b8de6ad",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/5cce0ef7-1cf9-4ab9-b207-65252b8de6ad/asset",
+          "alt": "Illustration of a retail checkout monitoring a shopping cart and its items on a computer display"
+        }
+      ],
+      "availableImageChunks": 1,
+      "sourceIds": [
+        "case-study:ai-powered-retail-cart"
+      ],
+      "citationCount": 22,
+      "renderableWords": 504,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:ai-customs-intelligence",
+      "configuredModelProven": true,
+      "documentId": "1dd51dde-087e-4fd8-8645-d1a3ca95fc5d",
+      "title": "AI-Powered Customs Intelligence System: Faster HS Code Classification",
+      "versionId": "ef484f82-c0f7-48da-8f4c-339003fbccb1",
+      "generationTaskId": "7db106b8-82c6-4823-8d66-2ed443b390d4",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 1,
+      "candidateDocumentIds": [
+        "1dd51dde-087e-4fd8-8645-d1a3ca95fc5d"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "90f1a31d-0cd2-46d6-9187-e23c954e7bd9",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/1dd51dde-087e-4fd8-8645-d1a3ca95fc5d/evidence/90f1a31d-0cd2-46d6-9187-e23c954e7bd9/asset",
+          "alt": "Illustration of a customs officer reviewing a shipment with an importer"
+        }
+      ],
+      "availableImageChunks": 1,
+      "sourceIds": [
+        "case-study:ai-customs-intelligence"
+      ],
+      "citationCount": 30,
+      "renderableWords": 729,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:data-cleaning-hs-codes",
+      "configuredModelProven": true,
+      "documentId": "7cb0ac09-4271-4028-8985-5430c8e78a03",
+      "title": "HS Code Data Cleaning and Ingestion for Trade Classification",
+      "versionId": "e89458ae-38ad-4439-884e-37aa620031e2",
+      "generationTaskId": "e656a4cc-abf4-4449-8261-fd8aa9b2bc23",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 1,
+      "imageCount": 1,
+      "candidateDocumentIds": [],
+      "imageSources": [
+        {
+          "chunkId": "4f5f7dee-9225-454b-a8be-c19cadfd9e5a",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7cb0ac09-4271-4028-8985-5430c8e78a03/evidence/4f5f7dee-9225-454b-a8be-c19cadfd9e5a/asset",
+          "alt": "Illustration of structured trade data being stored and searched by users"
+        }
+      ],
+      "availableImageChunks": 1,
+      "sourceIds": [
+        "case-study:data-cleaning-hs-codes"
+      ],
+      "citationCount": 21,
+      "renderableWords": 675,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:excel-automated-testing",
+      "configuredModelProven": true,
+      "documentId": "c092713a-8812-421b-996f-73a77e75725a",
+      "title": "Excel-Based HS Code Testing Framework: 11,000 Descriptions in Four Hours",
+      "versionId": "201e429d-72a9-43b3-8df6-fc1236e16b93",
+      "generationTaskId": "60d67668-d30a-47f9-98dc-1591de1d74dc",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 1,
+      "candidateDocumentIds": [
+        "c092713a-8812-421b-996f-73a77e75725a"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "1d15f789-b341-4cee-ad58-e0dfc708cdd7",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c092713a-8812-421b-996f-73a77e75725a/evidence/1d15f789-b341-4cee-ad58-e0dfc708cdd7/asset",
+          "alt": "Illustration of people working with a laptop displaying a checked document"
+        }
+      ],
+      "availableImageChunks": 1,
+      "sourceIds": [
+        "case-study:excel-automated-testing"
+      ],
+      "citationCount": 13,
+      "renderableWords": 634,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:llm-results-analyzer",
+      "configuredModelProven": true,
+      "documentId": "d317c1ce-95c6-4e5a-b38d-403e4826878a",
+      "title": "LLM Results Analyzer for Unified HS Code Classification",
+      "versionId": "c6b55467-9ae7-441a-b2c0-3cb099db3850",
+      "generationTaskId": "8b25b443-5773-4328-9ef8-52098db17c63",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 3,
+      "imageCount": 2,
+      "candidateDocumentIds": [
+        "d317c1ce-95c6-4e5a-b38d-403e4826878a"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "ed26290d-04e0-4440-a4e2-43dbaa0e2949",
+          "page": 3,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d317c1ce-95c6-4e5a-b38d-403e4826878a/evidence/ed26290d-04e0-4440-a4e2-43dbaa0e2949/asset",
+          "alt": "Screenshot of an LLM Product Analyzer interface with a product-analysis chat input and Analyze and Clear controls."
+        },
+        {
+          "chunkId": "1b5da302-8d52-4ddb-9089-5ab5b78408d2",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d317c1ce-95c6-4e5a-b38d-403e4826878a/evidence/1b5da302-8d52-4ddb-9089-5ab5b78408d2/asset",
+          "alt": "Illustration of two users reviewing a unified classification result on a computer display."
+        }
+      ],
+      "availableImageChunks": 2,
+      "sourceIds": [
+        "case-study:llm-results-analyzer"
+      ],
+      "citationCount": 8,
+      "renderableWords": 687,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:iv-drip-flow-rate-estimator",
+      "configuredModelProven": true,
+      "documentId": "5077dd91-04f8-4943-9e17-c32791ccd2b7",
+      "title": "IV Drip Flow Rate Estimator: Real-Time, On-Device AI",
+      "versionId": "6b83eda2-33cb-475a-822c-736ad9d0e6fc",
+      "generationTaskId": "d719ed88-9057-4b21-9730-5e9f56662c19",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 3,
+      "imageCount": 1,
+      "candidateDocumentIds": [
+        "5077dd91-04f8-4943-9e17-c32791ccd2b7"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "8cbac0a6-6928-4624-a2cc-74f248ff124c",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/8cbac0a6-6928-4624-a2cc-74f248ff124c/asset",
+          "alt": "Illustration of a healthcare professional using a phone beside an IV bag"
+        }
+      ],
+      "availableImageChunks": 1,
+      "sourceIds": [
+        "case-study:iv-drip-flow-rate-estimator"
+      ],
+      "citationCount": 23,
+      "renderableWords": 648,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "company-update:innerworks-partnership",
+      "configuredModelProven": true,
+      "documentId": "02cf5cf8-7ac4-4c0d-9bb6-5137d7d92c5a",
+      "title": "Innerworks and HumbleBeeAI: Building Fraud-Defense Infrastructure Through R&D Partnership",
+      "versionId": "7ba29a25-0c3f-4e7e-9239-d4fdc80e108e",
+      "generationTaskId": "1f47fa89-dd18-4637-b60d-ac4d48f2e577",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 1,
+      "candidateDocumentIds": [],
+      "imageSources": [
+        {
+          "chunkId": "d7ffa789-28c7-45f0-b6da-d3c78399b5c0",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/02cf5cf8-7ac4-4c0d-9bb6-5137d7d92c5a/evidence/d7ffa789-28c7-45f0-b6da-d3c78399b5c0/asset",
+          "alt": "Representatives of HumbleBeeAI and Innerworks pictured together at a table, with both company logos displayed behind them."
+        }
+      ],
+      "availableImageChunks": 1,
+      "sourceIds": [
+        "company-update:innerworks-partnership"
+      ],
+      "citationCount": 35,
+      "renderableWords": 889,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:field-center-detection",
+      "configuredModelProven": true,
+      "documentId": "59cecf0a-c37a-4b1e-93e5-9447dbdf1c72",
+      "title": "Real-Time Sports Field Center Detection for Augmented Reality",
+      "versionId": "eedb4b18-ad98-4035-88d2-31f7fd6804d6",
+      "generationTaskId": "1918d12d-de3a-45f0-b6b6-f73d90529b4b",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 1,
+      "candidateDocumentIds": [
+        "59cecf0a-c37a-4b1e-93e5-9447dbdf1c72"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "4d6c395e-e35f-4dd0-929f-2a6749c7de71",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/59cecf0a-c37a-4b1e-93e5-9447dbdf1c72/evidence/4d6c395e-e35f-4dd0-929f-2a6749c7de71/asset",
+          "alt": "Illustration of a phone identifying the center point of a sports field"
+        }
+      ],
+      "availableImageChunks": 1,
+      "sourceIds": [
+        "case-study:field-center-detection"
+      ],
+      "citationCount": 20,
+      "renderableWords": 460,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:beef-carcass-detection",
+      "configuredModelProven": true,
+      "documentId": "3ccf1cc1-742a-40e6-9409-ff1fc385d33b",
+      "title": "Predicting Beef Carcass Quality Before Slaughter with On-Device Computer Vision",
+      "versionId": "2fbd5ce8-e948-4317-a8c7-a8b694a3a383",
+      "generationTaskId": "94d40462-9ea5-429b-b331-1b055a2b0f45",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 1,
+      "candidateDocumentIds": [],
+      "imageSources": [
+        {
+          "chunkId": "5863819c-5f39-4cdd-b004-9a630d55a1f0",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/3ccf1cc1-742a-40e6-9409-ff1fc385d33b/evidence/5863819c-5f39-4cdd-b004-9a630d55a1f0/asset",
+          "alt": "Illustration of a cattle quality-grading interface showing premium, medium and poor bands alongside a producer using a mobile device"
+        }
+      ],
+      "availableImageChunks": 1,
+      "sourceIds": [
+        "case-study:beef-carcass-detection"
+      ],
+      "citationCount": 15,
+      "renderableWords": 679,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:livescore-ai",
+      "configuredModelProven": true,
+      "documentId": "d56b0818-e252-4909-a105-01c511b2f5df",
+      "title": "LiveScore AI Real-Time Basketball Scoring Platform",
+      "versionId": "61cac9ad-283e-4fc5-86e8-629bd1d83b02",
+      "generationTaskId": "633fc71a-3682-4f3b-a62a-f092b85f8f0f",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 1,
+      "candidateDocumentIds": [
+        "d56b0818-e252-4909-a105-01c511b2f5df"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "9115f308-d4b4-4172-88c5-1609ef3febe0",
+          "page": 3,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/9115f308-d4b4-4172-88c5-1609ef3febe0/asset",
+          "alt": "LiveScore AI scoring screen beside a live video-processing view, showing a score display and player tracking overlay."
+        }
+      ],
+      "availableImageChunks": 2,
+      "sourceIds": [
+        "case-study:livescore-ai"
+      ],
+      "citationCount": 21,
+      "renderableWords": 699,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "case-study:breast-cancer",
+      "configuredModelProven": true,
+      "documentId": "97c50cf2-c4e9-4d63-80bc-5f3ed57c01f6",
+      "title": "AI Breast Cancer Biomarker Classification from H&E Histology Images",
+      "versionId": "4d9e807c-1865-4519-8900-b2e159401927",
+      "generationTaskId": "b995ed7a-0868-4abd-8fd6-0f66a6faa17c",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 3,
+      "imageCount": 1,
+      "candidateDocumentIds": [],
+      "imageSources": [
+        {
+          "chunkId": "71eb16bc-8514-4d47-bac0-88cdc61eb26a",
+          "page": 3,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/97c50cf2-c4e9-4d63-80bc-5f3ed57c01f6/evidence/71eb16bc-8514-4d47-bac0-88cdc61eb26a/asset",
+          "alt": "Case-study image showing the biomarker classification web application, with a system landing page and example ER and PR classification result screens."
+        }
+      ],
+      "availableImageChunks": 2,
+      "sourceIds": [
+        "case-study:breast-cancer"
+      ],
+      "citationCount": 26,
+      "renderableWords": 587,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "project:hstaff",
+      "configuredModelProven": true,
+      "documentId": "f12aaa4e-b999-4f34-9be8-63afa9a86d7e",
+      "title": "HStaff Workforce Analytics Platform for Distributed Team Management",
+      "versionId": "f69d0a82-83d4-4001-b4d0-3536f58b5ac5",
+      "generationTaskId": "2c549539-fc46-4039-b7ee-6c15ea30d5c8",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 1,
+      "imageCount": 1,
+      "candidateDocumentIds": [],
+      "imageSources": [
+        {
+          "chunkId": "6660d8eb-01b6-4624-b34b-ea9ca4d0c944",
+          "page": 2,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/f12aaa4e-b999-4f34-9be8-63afa9a86d7e/evidence/6660d8eb-01b6-4624-b34b-ea9ca4d0c944/asset",
+          "alt": "HStaff dashboard showing a team activity and progress-planning overview with user rows and date-based metrics."
+        }
+      ],
+      "availableImageChunks": 6,
+      "sourceIds": [
+        "project:hstaff"
+      ],
+      "citationCount": 20,
+      "renderableWords": 468,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "project:ai-avatar",
+      "configuredModelProven": true,
+      "documentId": "8fabe22b-34e8-4d87-b0c5-d3a96a934b4c",
+      "title": "AI Avatar: Real-Time Photorealistic Conversational Experiences",
+      "versionId": "febf1558-e0a8-45f2-94bb-5bfc861e607c",
+      "generationTaskId": "05caf5c0-10c7-41c5-8999-ea96b80f2933",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 1,
+      "candidateDocumentIds": [
+        "8fabe22b-34e8-4d87-b0c5-d3a96a934b4c"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "806480ea-1487-48fe-b1cb-d11794d5642d",
+          "page": 3,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8fabe22b-34e8-4d87-b0c5-d3a96a934b4c/evidence/806480ea-1487-48fe-b1cb-d11794d5642d/asset",
+          "alt": "Diagram of the AI Avatar platform showing a user and web or app interface connected to streaming, conversation, avatar-rendering, and language and voice service layers"
+        }
+      ],
+      "availableImageChunks": 3,
+      "sourceIds": [
+        "project:ai-avatar"
+      ],
+      "citationCount": 25,
+      "renderableWords": 699,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "project:kumush-ai",
+      "configuredModelProven": true,
+      "documentId": "7e618968-e5e5-4fcc-8f48-a47ea861bfd4",
+      "title": "Kumush AI: Native Uzbek Voice Automation at Scale",
+      "versionId": "69770356-9cf8-4c9a-9430-cd9fab2ce801",
+      "generationTaskId": "dd87b8af-ad1d-493c-a6a2-6fc50f3ce58c",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 5,
+      "imageCount": 2,
+      "candidateDocumentIds": [
+        "7e618968-e5e5-4fcc-8f48-a47ea861bfd4"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "64d8e35c-fe9f-4eeb-b502-cbeea823e962",
+          "page": 2,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/64d8e35c-fe9f-4eeb-b502-cbeea823e962/asset",
+          "alt": "Kumush AI personality configuration screen with text and file options for setting the agent's behavior and response style"
+        },
+        {
+          "chunkId": "8a3d9f54-8a4c-49c1-ad3d-4fafef5a5b26",
+          "page": 4,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/8a3d9f54-8a4c-49c1-ad3d-4fafef5a5b26/asset",
+          "alt": "Kumush AI administrative dashboard showing session counts and system status indicators"
+        }
+      ],
+      "availableImageChunks": 6,
+      "sourceIds": [
+        "project:kumush-ai"
+      ],
+      "citationCount": 41,
+      "renderableWords": 768,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "project:wakil-ai",
+      "configuredModelProven": true,
+      "documentId": "73956dc4-bd5f-405b-8c4f-45c02c81c18e",
+      "title": "Wakil AI: Multilingual Legal Assistant for Uzbekistan",
+      "versionId": "b6a307d7-c886-4e72-9518-85a74335acd8",
+      "generationTaskId": "5094b39e-a07b-4b16-a56e-3768c385e279",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 1,
+      "candidateDocumentIds": [],
+      "imageSources": [
+        {
+          "chunkId": "a49ba96c-1dcf-429a-988d-e27c1f78777f",
+          "page": 2,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/73956dc4-bd5f-405b-8c4f-45c02c81c18e/evidence/a49ba96c-1dcf-429a-988d-e27c1f78777f/asset",
+          "alt": "Wakil AI sample Uzbek-language legal answer with a structured analysis and listed legal sources"
+        }
+      ],
+      "availableImageChunks": 7,
+      "sourceIds": [
+        "project:wakil-ai"
+      ],
+      "citationCount": 28,
+      "renderableWords": 721,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "project:bojhona",
+      "configuredModelProven": true,
+      "documentId": "a4131402-bce4-4cb7-96f3-bfc2e5900631",
+      "title": "Bojhona AI-Powered Customs Intelligence and HS Code Classification",
+      "versionId": "16afff3e-fbee-4ea1-b83e-8d8664af6e43",
+      "generationTaskId": "5e988c4c-4ce4-4c05-abe3-594908503e09",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 4,
+      "imageCount": 1,
+      "candidateDocumentIds": [
+        "a4131402-bce4-4cb7-96f3-bfc2e5900631"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "f2188926-89af-43c4-8b90-b06a3e6b5e62",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a4131402-bce4-4cb7-96f3-bfc2e5900631/evidence/f2188926-89af-43c4-8b90-b06a3e6b5e62/asset",
+          "alt": "Illustrative image of customs paperwork being reviewed at a desk"
+        }
+      ],
+      "availableImageChunks": 1,
+      "sourceIds": [
+        "project:bojhona"
+      ],
+      "citationCount": 18,
+      "renderableWords": 657,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "project:enlighten-qalb",
+      "configuredModelProven": true,
+      "documentId": "14127b64-26ef-4d63-9e59-8d4642da28c3",
+      "title": "Enlighten Qalb: A Memory-Based AI Companion for Spiritual Growth",
+      "versionId": "be9b72ab-b8ff-4737-860f-18f78f9b0fe2",
+      "generationTaskId": "8f7ac747-7938-48bf-bb21-d147d10709a4",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 1,
+      "candidateDocumentIds": [],
+      "imageSources": [
+        {
+          "chunkId": "e1a1ccae-ec7b-4ebb-a6a1-b7977fcfa373",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/14127b64-26ef-4d63-9e59-8d4642da28c3/evidence/e1a1ccae-ec7b-4ebb-a6a1-b7977fcfa373/asset",
+          "alt": "Enlighten Qalb displayed on two mobile phone screens, including its app welcome screen and a spiritual-reflection conversation"
+        }
+      ],
+      "availableImageChunks": 5,
+      "sourceIds": [
+        "project:enlighten-qalb"
+      ],
+      "citationCount": 22,
+      "renderableWords": 655,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "project:bride",
+      "configuredModelProven": true,
+      "documentId": "f82ecd54-4473-465d-8877-5f6081adbbd5",
+      "title": "bRide: Human-in-the-Loop AI Execution Platform for Knowledge Workers",
+      "versionId": "4bfc4ac8-b000-4d72-a320-05928f297b22",
+      "generationTaskId": "5a242db4-9c12-4f04-8903-4da59cc07721",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 3,
+      "imageCount": 1,
+      "candidateDocumentIds": [],
+      "imageSources": [
+        {
+          "chunkId": "c6fa5fff-8f1a-4000-a429-1c172954a4ce",
+          "page": 1,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/f82ecd54-4473-465d-8877-5f6081adbbd5/evidence/c6fa5fff-8f1a-4000-a429-1c172954a4ce/asset",
+          "alt": "Illustration of a human figure alongside a digitally rendered horse, representing human-guided AI collaboration."
+        }
+      ],
+      "availableImageChunks": 1,
+      "sourceIds": [
+        "project:bride"
+      ],
+      "citationCount": 22,
+      "renderableWords": 567,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "paper:2409.04187",
+      "configuredModelProven": true,
+      "documentId": "0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050",
+      "title": "LITE: Efficient ReID Integration for Real-Time Multi-Object Tracking",
+      "versionId": "c8638e3d-ae81-4e70-9af3-4e161fb2eccd",
+      "generationTaskId": "9b3b219b-54d4-48fc-90be-2ea38686a7a0",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 2,
+      "candidateDocumentIds": [
+        "0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "9d051d5f-5f0d-4d52-b649-1215f151a533",
+          "page": 8,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/9d051d5f-5f0d-4d52-b649-1215f151a533/asset",
+          "alt": "Example video frames from the MOT17, MOT20, VIRAT-S, KITTI and PersonPath22 tracking evaluation datasets."
+        },
+        {
+          "chunkId": "4de0e1cb-da6a-4079-8abd-799b96c419a2",
+          "page": 6,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/4de0e1cb-da6a-4079-8abd-799b96c419a2/asset",
+          "alt": "LITE feature-extraction diagram showing YOLOv8m backbone activations being cropped and spatially reduced into a 48-dimensional ReID feature."
+        }
+      ],
+      "availableImageChunks": 23,
+      "sourceIds": [
+        "paper:2409.04187"
+      ],
+      "citationCount": 31,
+      "renderableWords": 772,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "paper:10883969",
+      "configuredModelProven": true,
+      "documentId": "96dd77ca-8a40-4cb5-8e6b-4366f590b526",
+      "title": "Evaluating Real-Time Multi-Object Tracking for Practical Edge Deployment",
+      "versionId": "3c430d26-6931-4cc6-8ced-9b45a131b9d9",
+      "generationTaskId": "59ba1a6c-eb33-4af2-a17a-adc4bff3f003",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 1,
+      "candidateDocumentIds": [],
+      "imageSources": [
+        {
+          "chunkId": "4ae07264-3945-4e3a-bb81-d7d998b171e3",
+          "page": 3,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/4ae07264-3945-4e3a-bb81-d7d998b171e3/asset",
+          "alt": "Diagram comparing tracking-pipeline components evaluated in the proposed framework and in prior literature"
+        }
+      ],
+      "availableImageChunks": 194,
+      "sourceIds": [
+        "paper:10883969"
+      ],
+      "citationCount": 24,
+      "renderableWords": 716,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "paper:10316180",
+      "configuredModelProven": true,
+      "documentId": "06b09a1a-12aa-444e-bd9f-b70209eeed36",
+      "title": "Contextual Filtered Features for Smartphone User Receptivity Prediction",
+      "versionId": "6b0296de-7b4b-4a90-ba98-79f18a3f012e",
+      "generationTaskId": "917d8206-5f04-40e4-95a9-06128cfb0798",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 4,
+      "imageCount": 1,
+      "candidateDocumentIds": [],
+      "imageSources": [
+        {
+          "chunkId": "8813f7cb-f7e5-4c34-adb2-4a74fad5cfba",
+          "page": 2,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/8813f7cb-f7e5-4c34-adb2-4a74fad5cfba/asset",
+          "alt": "Research pipeline from smartphone, smartwatch and experience-sampling data through feature engineering and selection to receptivity-model evaluation."
+        }
+      ],
+      "availableImageChunks": 21,
+      "sourceIds": [
+        "paper:10316180"
+      ],
+      "citationCount": 22,
+      "renderableWords": 550,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "paper:515",
+      "configuredModelProven": true,
+      "documentId": "711f52f3-88da-49aa-aa71-f277a1f9f722",
+      "title": "HumbleBeeAI Case Study: Deep Learning Network Intrusion Detection Across Balanced and Imbalanced Datasets",
+      "versionId": "897c879c-63e7-42e2-b67d-f4b6918b887b",
+      "generationTaskId": "1677a785-3383-4ee8-992a-9649f0886f2c",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 1,
+      "candidateDocumentIds": [],
+      "imageSources": [
+        {
+          "chunkId": "9be4742e-d5fb-4648-bd58-03bce07136f2",
+          "page": 4,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/711f52f3-88da-49aa-aa71-f277a1f9f722/evidence/9be4742e-d5fb-4648-bd58-03bce07136f2/asset",
+          "alt": "Diagram of the paper’s CNN/LSTM intrusion-classification architecture, from a 41-feature input through convolution, pooling and LSTM layers to normal-or-attack output."
+        }
+      ],
+      "availableImageChunks": 7,
+      "sourceIds": [
+        "paper:515"
+      ],
+      "citationCount": 16,
+      "renderableWords": 711,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "paper:9661375",
+      "configuredModelProven": true,
+      "documentId": "2bd2034f-7a1b-4b82-8985-e22e6e0a92c6",
+      "title": "Evaluating Traffic Sampling Effects on ML-Based Network Intrusion Detection",
+      "versionId": "54d84723-54a7-4016-ba61-50609267d10a",
+      "generationTaskId": "bfca122d-fb4d-49cf-873d-c082e1676ff0",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 1,
+      "candidateDocumentIds": [],
+      "imageSources": [
+        {
+          "chunkId": "3448ed69-924c-4366-a05c-622e930db14c",
+          "page": 17,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2bd2034f-7a1b-4b82-8985-e22e6e0a92c6/evidence/3448ed69-924c-4366-a05c-622e930db14c/asset",
+          "alt": "Research figure comparing detection and false-alarm rates for Decision Tree, Random Forest and CNN under four traffic samplers at sampling rates 1/10, 1/100 and 1/1000"
+        }
+      ],
+      "availableImageChunks": 26,
+      "sourceIds": [
+        "paper:9661375"
+      ],
+      "citationCount": 17,
+      "renderableWords": 703,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "paper:9064976",
+      "configuredModelProven": true,
+      "documentId": "c5708598-1321-4762-a649-84c301061134",
+      "title": "1D CNN Network Intrusion Detection with Normalization on Imbalanced UNSW-NB15 Data",
+      "versionId": "68e78ecd-3dc8-4326-8f35-6d4cc17170c2",
+      "generationTaskId": "b911d75a-dd06-4129-a201-947135aa57cb",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 2,
+      "imageCount": 1,
+      "candidateDocumentIds": [],
+      "imageSources": [
+        {
+          "chunkId": "abfb7451-f919-4b37-b88d-3b484763934a",
+          "page": 3,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c5708598-1321-4762-a649-84c301061134/evidence/abfb7451-f919-4b37-b88d-3b484763934a/asset",
+          "alt": "Diagram of the study's 1D-CNN intrusion-detection model, showing input features passing through convolution, pooling, flattening, normalization, dropout and fully connected layers."
+        }
+      ],
+      "availableImageChunks": 4,
+      "sourceIds": [
+        "paper:9064976"
+      ],
+      "citationCount": 13,
+      "renderableWords": 710,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    },
+    {
+      "key": "paper:1910.01091",
+      "configuredModelProven": true,
+      "documentId": "b74e8726-a2f3-43ac-a810-ff296ba20621",
+      "title": "W-Net White Blood Cell Image Classification",
+      "versionId": "1e1d6bf1-72fd-4875-8167-178286b608cf",
+      "generationTaskId": "e3b24273-1cb6-49f8-8ee4-1516aed3948c",
+      "generationModel": "openai/gpt-6-luna",
+      "taskStatus": "succeeded",
+      "templateId": "portfolio",
+      "bulletLists": 1,
+      "imageCount": 3,
+      "candidateDocumentIds": [
+        "b74e8726-a2f3-43ac-a810-ff296ba20621"
+      ],
+      "imageSources": [
+        {
+          "chunkId": "505dca26-9178-4647-bb76-52645ec6ea1c",
+          "page": 3,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b74e8726-a2f3-43ac-a810-ff296ba20621/evidence/505dca26-9178-4647-bb76-52645ec6ea1c/asset",
+          "alt": "W-Net image-classification pipeline: crop and resize blood-cell images, normalize inputs, extract features through three convolutional layers, and classify through two fully connected layers into five outputs."
+        },
+        {
+          "chunkId": "fb151ffc-3e5d-4a92-8444-9d9be2304ee7",
+          "page": 3,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b74e8726-a2f3-43ac-a810-ff296ba20621/evidence/fb151ffc-3e5d-4a92-8444-9d9be2304ee7/asset",
+          "alt": "Five example blood-smear images, one for each WBC class: neutrophil, eosinophil, basophil, lymphocyte, and monocyte."
+        },
+        {
+          "chunkId": "c3b089d3-18d1-4b90-a355-aa926f2754b0",
+          "page": 4,
+          "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b74e8726-a2f3-43ac-a810-ff296ba20621/evidence/c3b089d3-18d1-4b90-a355-aa926f2754b0/asset",
+          "alt": "LISC public blood-smear images with the crop-and-resize process and examples of the five WBC classes."
+        }
+      ],
+      "availableImageChunks": 3,
+      "sourceIds": [
+        "paper:1910.01091"
+      ],
+      "citationCount": 25,
+      "renderableWords": 628,
+      "misplacedWords": 0,
+      "unchangedPipelineOutput": true
+    }
+  ],
+  "primarySources": [
+    "company-update:vc-studio-qatar",
+    "case-study:customs-document-automation",
+    "case-study:ai-based-predictive",
+    "case-study:avnrt-ablation-analytics",
+    "case-study:cartoned-analysis-dashboard",
+    "case-study:impact-event-analysis",
+    "case-study:patient-data-analytics",
+    "case-study:shelf-analysis",
+    "case-study:fraud-detection",
+    "case-study:poster-recognition",
+    "case-study:automated-training-pipeline",
+    "case-study:data-labeling-tool",
+    "case-study:improving-recognition-accuracy",
+    "case-study:optimizing-recognition-processing",
+    "case-study:lumiohub-platform",
+    "project:lumiohub",
+    "case-study:amplifyr",
+    "case-study:ai-powered-retail-cart",
+    "case-study:ai-customs-intelligence",
+    "case-study:data-cleaning-hs-codes",
+    "case-study:excel-automated-testing",
+    "case-study:llm-results-analyzer",
+    "case-study:iv-drip-flow-rate-estimator",
+    "company-update:innerworks-partnership",
+    "case-study:field-center-detection",
+    "case-study:beef-carcass-detection",
+    "case-study:livescore-ai",
+    "case-study:breast-cancer",
+    "project:hstaff",
+    "project:ai-avatar",
+    "project:kumush-ai",
+    "project:wakil-ai",
+    "project:bojhona",
+    "project:enlighten-qalb",
+    "project:bride",
+    "paper:2409.04187",
+    "paper:10883969",
+    "paper:10316180",
+    "paper:515",
+    "paper:9661375",
+    "paper:9064976",
+    "paper:1910.01091"
+  ],
+  "template": "portfolio",
+  "bulletLists": 94,
+  "images": 52,
+  "configuredModel": "openai/gpt-6-luna",
+  "passed": true
+}

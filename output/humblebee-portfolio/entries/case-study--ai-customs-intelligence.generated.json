@@ -1,0 +1,359 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "AI-powered Customs Intelligence System",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "An AI-powered customs intelligence system brings official Harmonized System (HS) code definitions and historical trade descriptions together to help customs officers and international businesses classify goods.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4427b7c-d192-409f-ab8f-8a5c8e37b08e/evidence/c1e453a9-987b-4df4-8e5a-67965d9ff372/asset",
+            "fileName": "case-study--ai-customs-intelligence.pdf",
+            "chunkText": "International trade relies on the Harmonized System (HS), a global standard for classifying goods that determines tariffs, regulations, and trade statistics. Organizations struggle to connect abstract legal definitions to real-world products efficiently.\n\nThe Custom Clarification Project structured the legal framework of HS codes, including official sections, chapters, and explanatory notes. The Custom Optimization Project compiled 65.5 million product descriptions from customs declarations. Neither approach alone solved the classification challenge—customs officers and businesses needed both legal compliance and operational efficiency. The AI solution combines data optimization with intelligent retrieval to create a unified platform. Users access theoretical definitions, review real-world examples, and receive AI recommendations that consider legal accuracy and practical precedent.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "c1e453a9-987b-4df4-8e5a-67965d9ff372"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Customs officers, importers and exporters need to identify the right HS code for products, but legal definitions and historical declarations were fragmented across separate sources. HumbleBeeAI’s Customs Optimization Project combined these materials in a chatbot-based classification system. The supplied case study describes the system and reports evaluation results; its PDF text has been reviewed, while owner approval and portfolio review remain pending. See the ",
+          "type": "text"
+        },
+        {
+          "text": "original HumbleBeeAI case study",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://humblebee.ai/case-studies/ai-customs-intelligence",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "text": ".",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4427b7c-d192-409f-ab8f-8a5c8e37b08e/evidence/4f55f8ce-aa59-497e-b2e8-4346301c2750/asset",
+            "fileName": "case-study--ai-customs-intelligence.pdf",
+            "chunkText": "The Customs Optimization Project delivered an AI-powered system that bridges theoretical HS code definitions and real-world trade data. The solution integrates two separate projects: the Custom Clarification Project (official HS code definitions and frameworks) and the Custom Optimization Project (65.5 million product descriptions from customs declarations). The system features a chatbot built on LangChain and GPT models, semantic search through optimized embeddings, and a data pipeline that transforms fragmented information into a cohesive knowledge base. Users access both theoretical definitions and practical product matches in a single interface, reducing classification time from minutes to seconds.\n\nAccuracy: The chatbot achieves 76.5% Top-1 accuracy and 94.1% Top-3 accuracy (MRR 0.8515), with all predictions formatted as valid 10-digit HS codes.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "4f55f8ce-aa59-497e-b2e8-4346301c2750"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4427b7c-d192-409f-ab8f-8a5c8e37b08e/evidence/9a569c39-7a08-4d46-8111-37be08a219e8/asset",
+            "fileName": "case-study--ai-customs-intelligence.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAI-powered HS code classification system that achieved 76.5% Top-1 and 94.1% Top-3 accuracy, reducing classification time from minutes to seconds while processing 65.5 million product descriptions",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "9a569c39-7a08-4d46-8111-37be08a219e8"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Classification required officers to search and cross-reference millions of customs records, often taking several minutes for a product. The 65.5 million product descriptions in the MSSQL source database contained duplication and inconsistent formatting, making searches slow and results harder to trust. At the same time, official HS definitions were not integrated with practical examples from trade declarations. Officers and businesses therefore had to reconcile legal requirements with real-world precedent themselves; international businesses were also described as relying on consultants and brokers for classification support.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4427b7c-d192-409f-ab8f-8a5c8e37b08e/evidence/9f1b58e0-4be2-4683-8b58-ba5832fbbb1a/asset",
+            "fileName": "case-study--ai-customs-intelligence.pdf",
+            "chunkText": "Manual Classification Burden: Customs officers faced an overwhelming manual workload when classifying products for international trade. The process required searching through millions of records to identify appropriate codes for each item, often taking several minutes per classification. This manual approach was not only time-consuming but also highly prone to human error, creating compliance risks and processing delays that impacted trade flow efficiency. The sheer volume of classification requests made it impossible for customs authorities to maintain consistent processing times during peak periods. Officers often struggled to keep up with demand, leading to backlogs and frustrated stakeholders throughout the trade ecosystem.\n\nData Quality and Infrastructure Issues: The underlying MSSQL database containing customs data suffered from severe quality problems that compounded operational difficulties. The 65.5 million product descriptions included extensive duplication and inconsistent formatting, making searches slow and unreliable. Similar products appeared under multiple entries with conflicting information, creating confusion and reducing confidence in search results. These data quality issues meant that even when officers found potentially relevant records, they couldn't be certain the information was accurate or current. The poor data structure also made it difficult to implement automated tools or analytics that could improve efficiency.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "9f1b58e0-4be2-4683-8b58-ba5832fbbb1a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "A unified reference for definitions and trade precedent",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The system combines the Custom Clarification Project’s official HS-code framework—including sections, chapters and explanatory notes—with the Custom Optimization Project’s historical customs descriptions. Its chatbot uses LangChain and GPT models to respond to natural-language product queries with relevant code suggestions and supporting context, connecting legal definitions with similar real-world products.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4427b7c-d192-409f-ab8f-8a5c8e37b08e/evidence/c1e453a9-987b-4df4-8e5a-67965d9ff372/asset",
+            "fileName": "case-study--ai-customs-intelligence.pdf",
+            "chunkText": "International trade relies on the Harmonized System (HS), a global standard for classifying goods that determines tariffs, regulations, and trade statistics. Organizations struggle to connect abstract legal definitions to real-world products efficiently.\n\nThe Custom Clarification Project structured the legal framework of HS codes, including official sections, chapters, and explanatory notes. The Custom Optimization Project compiled 65.5 million product descriptions from customs declarations. Neither approach alone solved the classification challenge—customs officers and businesses needed both legal compliance and operational efficiency. The AI solution combines data optimization with intelligent retrieval to create a unified platform. Users access theoretical definitions, review real-world examples, and receive AI recommendations that consider legal accuracy and practical precedent.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "c1e453a9-987b-4df4-8e5a-67965d9ff372"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4427b7c-d192-409f-ab8f-8a5c8e37b08e/evidence/083189dc-f285-462a-96ac-1249d862b168/asset",
+            "fileName": "case-study--ai-customs-intelligence.pdf",
+            "chunkText": "AI-Powered Chatbot Development: The core user interface centers around an intelligent chatbot built on FastAPI and LangChain frameworks, leveraging GPT models to generate accurate, context-aware responses to HS code queries. The chatbot can process natural language descriptions of products and instantly provide relevant HS code suggestions along with supporting context from both theoretical definitions and real-world examples. The system includes sophisticated prompt engineering to ensure responses are both legally accurate and practically useful. Users receive not just code suggestions but also explanations of why specific codes are recommended, including references to official definitions and similar products from the customs database.\n\nProject Integration and Comparative Analysis: A crucial innovation was the seamless integration of the Custom Clarification Project (theoretical HS code structures) and the Custom Optimization Project (practical product data) into a unified decision-making framework. The system enables systematic comparison of classification results from both sources, highlighting the top 10 most suitable HS codes for any given query along with justifications based on both legal requirements and practical precedent. This integration allows users to understand not just what code to use, but why it's appropriate from both compliance and practical perspectives. The comparative analysis helps identify cases where theoretical and practical approaches might diverge, enabling more informed decision-making.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "083189dc-f285-462a-96ac-1249d862b168"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Data preparation and ranked suggestions",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The reported pipeline deduplicated and normalized records, generated semantic embeddings, and stored them for semantic search. For a product query, the interface presents ranked HS-code suggestions with justifications drawing on official requirements and practical precedent; predictions are formatted as valid 10-digit codes.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4427b7c-d192-409f-ab8f-8a5c8e37b08e/evidence/1c96f92d-9d0b-4318-953e-6da6b0610beb/asset",
+            "fileName": "case-study--ai-customs-intelligence.pdf",
+            "chunkText": "Advanced Data Optimization and Cleaning: The solution began with a systematic approach to data quality improvement. The team established direct connections to the MSSQL database containing 65.5 million product descriptions and implemented large-scale deduplication and normalization processes. This extensive cleaning operation eliminated redundant entries, standardized formatting inconsistencies, and created a reliable foundation for AI-driven retrieval systems. The optimization process used sophisticated algorithms to identify and merge similar product descriptions while preserving important frequency and context information. This approach dramatically reduced dataset size while maintaining comprehensive coverage of real-world trade scenarios.\n\nIntelligent Data Ingestion and Storage Architecture: Following data optimization, the system implemented a sophisticated ingestion pipeline that processed the cleaned dataset in manageable batches. Each product record was converted into semantic embeddings using OpenAI's text-embedding-3-small model, enabling the system to understand contextual relationships between different products and classifications. The processed data was stored in Pinecone vector databases for fast semantic search capabilities, while key metadata was mirrored in MongoDB to provide flexible filtering options and support for analytical queries. This dual storage approach optimized performance for different types of user interactions while maintaining data consistency.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "1c96f92d-9d0b-4318-953e-6da6b0610beb"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4427b7c-d192-409f-ab8f-8a5c8e37b08e/evidence/083189dc-f285-462a-96ac-1249d862b168/asset",
+            "fileName": "case-study--ai-customs-intelligence.pdf",
+            "chunkText": "AI-Powered Chatbot Development: The core user interface centers around an intelligent chatbot built on FastAPI and LangChain frameworks, leveraging GPT models to generate accurate, context-aware responses to HS code queries. The chatbot can process natural language descriptions of products and instantly provide relevant HS code suggestions along with supporting context from both theoretical definitions and real-world examples. The system includes sophisticated prompt engineering to ensure responses are both legally accurate and practically useful. Users receive not just code suggestions but also explanations of why specific codes are recommended, including references to official definitions and similar products from the customs database.\n\nProject Integration and Comparative Analysis: A crucial innovation was the seamless integration of the Custom Clarification Project (theoretical HS code structures) and the Custom Optimization Project (practical product data) into a unified decision-making framework. The system enables systematic comparison of classification results from both sources, highlighting the top 10 most suitable HS codes for any given query along with justifications based on both legal requirements and practical precedent. This integration allows users to understand not just what code to use, but why it's appropriate from both compliance and practical perspectives. The comparative analysis helps identify cases where theoretical and practical approaches might diverge, enabling more informed decision-making.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "083189dc-f285-462a-96ac-1249d862b168"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study reports 76.5% Top-1 accuracy (the correct 10-digit code as the first suggestion), 94.1% Top-3 accuracy (the correct code among the first three suggestions), and mean reciprocal rank (MRR) of 0.8515. It also reports classification time changing from several minutes to seconds. These are source-reported figures, not independently validated business outcomes; the evaluation sample size, split and test conditions are not provided. The 65.5 million descriptions are the source corpus, not the number of evaluation queries. No quantified business impact has been supplied.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4427b7c-d192-409f-ab8f-8a5c8e37b08e/evidence/4f55f8ce-aa59-497e-b2e8-4346301c2750/asset",
+            "fileName": "case-study--ai-customs-intelligence.pdf",
+            "chunkText": "The Customs Optimization Project delivered an AI-powered system that bridges theoretical HS code definitions and real-world trade data. The solution integrates two separate projects: the Custom Clarification Project (official HS code definitions and frameworks) and the Custom Optimization Project (65.5 million product descriptions from customs declarations). The system features a chatbot built on LangChain and GPT models, semantic search through optimized embeddings, and a data pipeline that transforms fragmented information into a cohesive knowledge base. Users access both theoretical definitions and practical product matches in a single interface, reducing classification time from minutes to seconds.\n\nAccuracy: The chatbot achieves 76.5% Top-1 accuracy and 94.1% Top-3 accuracy (MRR 0.8515), with all predictions formatted as valid 10-digit HS codes.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "4f55f8ce-aa59-497e-b2e8-4346301c2750"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4427b7c-d192-409f-ab8f-8a5c8e37b08e/evidence/ee4cd7e4-027b-4383-92d8-336375474237/asset",
+            "fileName": "case-study--ai-customs-intelligence.pdf",
+            "chunkText": "Dramatic Operational Efficiency Gains: The most immediate and visible impact was the dramatic reduction in classification time. What previously required several minutes of manual searching and cross-referencing now takes only seconds through the AI-powered interface. Customs officers can process classification requests nearly instantaneously, allowing them to handle significantly higher volumes while maintaining accuracy standards. This efficiency improvement extends beyond individual queries to overall workflow optimization. Officers can now focus their expertise on complex edge cases and policy decisions rather than routine classification tasks, improving both job satisfaction and operational effectiveness.\n\nEnhanced Accuracy and Reliability: The comprehensive data cleaning and AI-powered analysis eliminated the confusion and errors associated with duplicate and inconsistent records. The chatbot provides citation-backed recommendations that reference both official definitions and real-world precedent, significantly increasing user confidence in automated suggestions. The integration of theoretical and practical data sources means recommendations are both legally compliant and practically validated, reducing the risk of classification errors that could lead to compliance issues or financial penalties.\n\nEvaluation Results: The chatbot achieves 76.5% Top-1 accuracy and 94.1% Top-3 accuracy (MRR 0.8515), with all predictions formatted as valid 10-digit HS codes. The correct HS code is the first suggestion ~76.5% of the time and appears within the top-3 ~94.1% of the time. Expanding from Top-3 to Top-5 doesn't increase coverage but lowers precision, so a Top-2/Top-3 presentation is recommended.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 3,
+            "sourceChunkId": "ee4cd7e4-027b-4383-92d8-336375474237"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The reported accuracy figures lack evaluation-set size, split details and independent validation, so they should be read with those limitations. The case study describes the solution’s capabilities but does not establish current production availability or provide a deployment status. No additional roadmap or next steps have been provided; further work should not be assumed.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4427b7c-d192-409f-ab8f-8a5c8e37b08e/evidence/4f55f8ce-aa59-497e-b2e8-4346301c2750/asset",
+            "fileName": "case-study--ai-customs-intelligence.pdf",
+            "chunkText": "The Customs Optimization Project delivered an AI-powered system that bridges theoretical HS code definitions and real-world trade data. The solution integrates two separate projects: the Custom Clarification Project (official HS code definitions and frameworks) and the Custom Optimization Project (65.5 million product descriptions from customs declarations). The system features a chatbot built on LangChain and GPT models, semantic search through optimized embeddings, and a data pipeline that transforms fragmented information into a cohesive knowledge base. Users access both theoretical definitions and practical product matches in a single interface, reducing classification time from minutes to seconds.\n\nAccuracy: The chatbot achieves 76.5% Top-1 accuracy and 94.1% Top-3 accuracy (MRR 0.8515), with all predictions formatted as valid 10-digit HS codes.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "4f55f8ce-aa59-497e-b2e8-4346301c2750"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The project addresses the gap between formal HS-code definitions and the historical product descriptions used in day-to-day customs classification. Its reported combined knowledge base and chatbot make both types of evidence available together, with promising reported ranking results whose validation conditions remain unspecified.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4427b7c-d192-409f-ab8f-8a5c8e37b08e/evidence/c1e453a9-987b-4df4-8e5a-67965d9ff372/asset",
+            "fileName": "case-study--ai-customs-intelligence.pdf",
+            "chunkText": "International trade relies on the Harmonized System (HS), a global standard for classifying goods that determines tariffs, regulations, and trade statistics. Organizations struggle to connect abstract legal definitions to real-world products efficiently.\n\nThe Custom Clarification Project structured the legal framework of HS codes, including official sections, chapters, and explanatory notes. The Custom Optimization Project compiled 65.5 million product descriptions from customs declarations. Neither approach alone solved the classification challenge—customs officers and businesses needed both legal compliance and operational efficiency. The AI solution combines data optimization with intelligent retrieval to create a unified platform. Users access theoretical definitions, review real-world examples, and receive AI recommendations that consider legal accuracy and practical precedent.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "c1e453a9-987b-4df4-8e5a-67965d9ff372"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4427b7c-d192-409f-ab8f-8a5c8e37b08e/evidence/4f55f8ce-aa59-497e-b2e8-4346301c2750/asset",
+            "fileName": "case-study--ai-customs-intelligence.pdf",
+            "chunkText": "The Customs Optimization Project delivered an AI-powered system that bridges theoretical HS code definitions and real-world trade data. The solution integrates two separate projects: the Custom Clarification Project (official HS code definitions and frameworks) and the Custom Optimization Project (65.5 million product descriptions from customs declarations). The system features a chatbot built on LangChain and GPT models, semantic search through optimized embeddings, and a data pipeline that transforms fragmented information into a cohesive knowledge base. Users access both theoretical definitions and practical product matches in a single interface, reducing classification time from minutes to seconds.\n\nAccuracy: The chatbot achieves 76.5% Top-1 accuracy and 94.1% Top-3 accuracy (MRR 0.8515), with all predictions formatted as valid 10-digit HS codes.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "4f55f8ce-aa59-497e-b2e8-4346301c2750"
+          }
+        }
+      ]
+    }
+  ]
+}

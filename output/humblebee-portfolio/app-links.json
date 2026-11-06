@@ -1,0 +1,179 @@
+{
+  "project": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/projects/4b65e54f-0f01-4648-aa31-ffcb4c394e19",
+  "sourceTracker": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d19e9db8-534c-4ba5-b1a7-db56c6022b7c/edit",
+  "metricTracker": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/22260e1c-bd26-4cb2-9338-981e1fe5cd21/edit",
+  "figureTracker": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b6504ba3-9b91-4723-b7c5-d3e1be0851c9/edit",
+  "reviewDecisions": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/00b0ddf6-711e-487b-8b28-81ca01e8cb9c/edit",
+  "appNotes": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9266f2e1-cdba-443a-921e-dbe8cc48712d/edit",
+  "supplementary": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/6557415c-4355-4d18-86fc-dd1687352ac6/edit",
+  "previousCombinedReference": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/edit",
+  "entryIndex": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/760a5360-f1f7-4ca3-8f10-6bbdcc693e9d/edit",
+  "entries": [
+    {
+      "title": "Automating Customs Documentation with Local AI and Computer Vision",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/08499636-03de-4b76-a7ee-82d5f663a0e6/edit"
+    },
+    {
+      "title": "AI-Powered Customs Intelligence System: Faster HS Code Classification",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/1dd51dde-087e-4fd8-8645-d1a3ca95fc5d/edit"
+    },
+    {
+      "title": "HS Code Data Cleaning and Ingestion for Trade Classification",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7cb0ac09-4271-4028-8985-5430c8e78a03/edit"
+    },
+    {
+      "title": "Excel-Based HS Code Testing Framework: 11,000 Descriptions in Four Hours",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c092713a-8812-421b-996f-73a77e75725a/edit"
+    },
+    {
+      "title": "LLM Results Analyzer for Unified HS Code Classification",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d317c1ce-95c6-4e5a-b38d-403e4826878a/edit"
+    },
+    {
+      "title": "Shelf Analysis AI for Retail Compliance",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/edit"
+    },
+    {
+      "title": "AI Fraud Detection for Retail Compliance",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9301d410-ac80-4094-a5d7-5f11c20d02fe/edit"
+    },
+    {
+      "title": "Flexible Campaigns with Poster Recognition AI: Retail Technology Case Study",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/edit"
+    },
+    {
+      "title": "Improving Facial Recognition Accuracy with AI-Powered Data Refinement",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/edit"
+    },
+    {
+      "title": "AI-Powered Retail Cart Detection Accuracy Improvement",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/edit"
+    },
+    {
+      "title": "IV Drip Flow Rate Estimator: Real-Time, On-Device AI",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/edit"
+    },
+    {
+      "title": "Real-Time Sports Field Center Detection for Augmented Reality",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/59cecf0a-c37a-4b1e-93e5-9447dbdf1c72/edit"
+    },
+    {
+      "title": "Predicting Beef Carcass Quality Before Slaughter with On-Device Computer Vision",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/3ccf1cc1-742a-40e6-9409-ff1fc385d33b/edit"
+    },
+    {
+      "title": "LiveScore AI Real-Time Basketball Scoring Platform",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/edit"
+    },
+    {
+      "title": "AI Breast Cancer Biomarker Classification from H&E Histology Images",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/97c50cf2-c4e9-4d63-80bc-5f3ed57c01f6/edit"
+    },
+    {
+      "title": "Johnson & Johnson Predictive Customer Targeting With 96.8% Accuracy",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/edit"
+    },
+    {
+      "title": "AVNRT Ablation Analysis with CARTONET for Johnson & Johnson",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/edit"
+    },
+    {
+      "title": "Johnson & Johnson\u2019s Cartonet Analysis Dashboard",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/edit"
+    },
+    {
+      "title": "Johnson & Johnson Event Impact Analytics in Power BI",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/eb4805d8-ac27-420c-a4c5-d08fe48e42d5/edit"
+    },
+    {
+      "title": "Johnson & Johnson Patient Report Analyzer",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/edit"
+    },
+    {
+      "title": "Driving Brand Visibility on Generative AI with Amazon QuickSight",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/edit"
+    },
+    {
+      "title": "Automated Training Pipeline for Retail Product Detection",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/57cefac9-51b9-4034-8805-aff98dc6681e/edit"
+    },
+    {
+      "title": "Enterprise Data Labeling Platform Deployment and Customization",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/17f57d5a-143c-4189-a85c-a9ee82b6af2b/edit"
+    },
+    {
+      "title": "LumioHub AI: Reducing Computational Costs and RAM Overload with ROI Processing",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/23f5a23d-84a1-4ae4-acfd-1957268d08da/edit"
+    },
+    {
+      "title": "Securing LumioHub AI for Enterprise Scale",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/edit"
+    },
+    {
+      "title": "HStaff Workforce Analytics Platform for Distributed Team Management",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/f12aaa4e-b999-4f34-9be8-63afa9a86d7e/edit"
+    },
+    {
+      "title": "AI Avatar: Real-Time Photorealistic Conversational Experiences",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8fabe22b-34e8-4d87-b0c5-d3a96a934b4c/edit"
+    },
+    {
+      "title": "Kumush AI: Native Uzbek Voice Automation at Scale",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/edit"
+    },
+    {
+      "title": "Wakil AI: Multilingual Legal Assistant for Uzbekistan",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/73956dc4-bd5f-405b-8c4f-45c02c81c18e/edit"
+    },
+    {
+      "title": "Bojhona AI-Powered Customs Intelligence and HS Code Classification",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a4131402-bce4-4cb7-96f3-bfc2e5900631/edit"
+    },
+    {
+      "title": "Enlighten Qalb: A Memory-Based AI Companion for Spiritual Growth",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/14127b64-26ef-4d63-9e59-8d4642da28c3/edit"
+    },
+    {
+      "title": "bRide: Human-in-the-Loop AI Execution Platform for Knowledge Workers",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/f82ecd54-4473-465d-8877-5f6081adbbd5/edit"
+    },
+    {
+      "title": "LITE: Efficient ReID Integration for Real-Time Multi-Object Tracking",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/edit"
+    },
+    {
+      "title": "Evaluating Real-Time Multi-Object Tracking for Practical Edge Deployment",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/edit"
+    },
+    {
+      "title": "Contextual Filtered Features for Smartphone User Receptivity Prediction",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/edit"
+    },
+    {
+      "title": "HumbleBeeAI Case Study: Deep Learning Network Intrusion Detection Across Balanced and Imbalanced Datasets",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/711f52f3-88da-49aa-aa71-f277a1f9f722/edit"
+    },
+    {
+      "title": "Evaluating Traffic Sampling Effects on ML-Based Network Intrusion Detection",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2bd2034f-7a1b-4b82-8985-e22e6e0a92c6/edit"
+    },
+    {
+      "title": "1D CNN Network Intrusion Detection with Normalization on Imbalanced UNSW-NB15 Data",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c5708598-1321-4762-a649-84c301061134/edit"
+    },
+    {
+      "title": "W-Net White Blood Cell Image Classification",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b74e8726-a2f3-43ac-a810-ff296ba20621/edit"
+    },
+    {
+      "title": "HumbleBeeAI Venture Studio LLC Launches in Qatar",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5162d3bf-9a57-42ce-b8ab-3c04c7c6b035/edit"
+    },
+    {
+      "title": "Innerworks and HumbleBeeAI: Building Fraud-Defense Infrastructure Through R&D Partnership",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/02cf5cf8-7ac4-4c0d-9bb6-5137d7d92c5a/edit"
+    }
+  ],
+  "combinedPdf": "/Users/johnpaul/projects/capstone_demo/output/pdf/HumbleBeeAI-Portfolio.pdf",
+  "individualPdfZip": "/Users/johnpaul/projects/capstone_demo/output/pdf/HumbleBeeAI-Individual-PDFs.zip"
+}

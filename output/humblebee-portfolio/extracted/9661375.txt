@@ -1,0 +1,1316 @@
+Received November 11, 2021, accepted December 16, 2021, date of publication December 23, 2021,
+date of current version January 18, 2022.
+Digital Object Identifier 10.1109/ACCESS.2021.3137318
+
+
+
+
+Investigating the Effect of Traffic Sampling
+on Machine Learning-Based Network
+Intrusion Detection Approaches
+JUMABEK ALIKHANOV 1 , (Student Member, IEEE), RHONGHO JANG 2 , (Member, IEEE),
+MOHAMMED ABUHAMAD 3 , (Member, IEEE), DAVID MOHAISEN 4 , (Senior Member, IEEE),
+DAEHUN NYANG 5 , (Senior Member, IEEE), AND YOUNGTAE NOH 1 , (Member, IEEE)
+1 Department of Computer Science and Information Engineering, Inha University, Incheon 402-751, South Korea
+2 Department of Computer Science, Wayne State University, Detroit, MI 48202, USA
+3 Department of Computer Science, Loyola University Chicago, Chicago, IL 60626, USA
+4 Department of Computer Science, University of Central Florida, Orlando, FL 32816, USA
+5 Department of Cyber Security, Ewha Womans University, Seoul 03760, South Korea
+
+Corresponding authors: Youngtae Noh (ytnoh@inha.ac.kr) and Daehun Nyang (nyang@ewha.ac.kr)
+This research was supported by Global Research Laboratory (GRL) Program through the National Research Foundation of Korea (NRF)
+funded by the Ministry of Science and ICT (NRF-2016K1A1A2912757); National Research Foundation of Korea (NRF) grant funded by
+the Korean government (MSIT) (NRF-2019R1F1A1059898, NRF-2020R1A2C2009372); and by Basic Science Research Program through
+the National Research Foundation of Korea (NRF) funded by the Ministry of Education (NRF-2020R1A4A1018774).
+
+
+
+
+  ABSTRACT Machine Learning (ML) based Network Intrusion Systems (NIDSs) operate on flow features
+  which are obtained from flow exporting protocols (i.e., NetFlow). Recent success of ML and Deep
+  Learning (DL) based NIDS solutions assume such flow information (e.g., avg. packet size) is obtained
+  from all packets of the flow. However, often in practice flow exporter is deployed on commodity devices
+  where packet sampling is inevitable. As a result, applicability of such ML based NIDS solutions in the
+  presence of sampling (i.e., when flow information is obtained from sampled set of packets instead of full
+  traffic) is an open question. In this study, we explore the impact of packet sampling on the performance
+  and efficiency of ML-based NIDSs. Unlike previous work, our proposed evaluation procedure is immune
+  to different settings of flow export stage. Hence, it can provide a robust evaluation of NIDS even in the
+  presence of sampling. Through sampling experiments we established that malicious flows with shorter size
+  (i.e., number of packets) are likely to go unnoticed even with mild sampling rates such as 1/10 and 1/100.
+  Next, using the proposed evaluation procedure we investigated the impact of various sampling techniques
+  on NIDS detection rate and false alarm rate. Detection rate and false alarm rate is computed for three
+  sampling rates (i.e., 1/10, 1/100, 1/1000), for four different sampling techniques and for three (two tree-based,
+  one deep learning based) classifiers. Experimental results show that systematic linear sampler - SketFlow
+  performs better compared to non-linear samplers such as Sketch Guided and Fast Filtered sampling. We also
+  found that random forest classifier with SketchFlow sampling was a better combination. The combination
+  showed higher detection rate and lower false alarm rate across multiple sampling rates compared to other
+  sampler-classifier combinations. Our results are consistent in multiple sampling rates, exceptional case is
+  observed for Sketch Guided Sampling (SGS) as it caused a drastic performance drop when sampling rate
+  was changed from 1/100 to 1/1000. Our results provide valuable insights for network practitioners and
+  researchers regarding on how packet sampling effects ML-based NIDS performance. In this regard full
+  source code for sampling and ML experiments has been released: github.com/Jumabek/sampledFlowMeter
+  and github.com/Jumabek/nids-with-sampling
+
+
+  INDEX TERMS Flow information export, network traffic sampling, intrusion detection, machine learning,
+  deep learning, CNN.
+                                                                                               I. INTRODUCTION
+   The associate editor coordinating the review of this manuscript and                         Network monitoring applications such as flow analysis, intru-
+approving it for publication was Derek Abbott            .                                     sion detection, and performance monitoring have become
+
+                     This work is licensed under a Creative Commons Attribution 4.0 License. For more information, see https://creativecommons.org/licenses/by/4.0/
+VOLUME 10, 2022                                                                                                                                                       5801
+                                        J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+increasingly popular owing to the continuous increase in the              NIDSs even in the presence of packet sampling. In this
+speed and volume of network traffic [1]. Flow-based network               regard full source code for sampling and ML experiments has
+monitoring is favored owing to its efficiency over full-                  been released: github.com/Jumabek/sampledFlowMeter and
+packet-monitoring techniques such as deep packet inspec-                  github.com/Jumabek/nids-with-sampling. Our contributions
+tion (DPI) [2]. Efficiency is achieved by inspecting the flow             in this paper, can be listed as follows:
+records [3] instead of individual packets. The network load                  • Evaluation framework for flow-level ML-based NIDSs:
+owing to flow record collection and export (e.g., NetFlow)                      (1) in contrast to findings in previous literature [14], the
+is only 0.2% of the packet exporting technologies [2], [4].                     time to train a convolutional neural network CNN) is
+However, with the increased volume and speed of internet                        reduced by 3× using larger batch sizes without sacri-
+traffic even flow record export has become a challenge for                      ficing the performance, (2) a 42% higher detection rate
+commodity devices (i.e., switch, router). This is because                       (DR) is achieved by addressing the training-data imbal-
+processing each packet requires a certain bandwidth, mem-                       ance, and (3) flow level evaluation framework is pro-
+ory, and CPU cycles of the measuring device. Therefore,                         posed that is reliable even when the number of extracted
+packet sampling is used to reduce the overhead of the flow-                     flow records varies owing to configurations of the flow
+information-measuring device [1], [5].                                          metering & export stage.
+   Flow-based Network Intrusion Detection Systems (NIDSs)                    • Effect of sampling technique on malicious flow visibility:
+use flow records as inputs and examine whether the specific                     From the perspective of network security, we observed
+flow is normal or malicious [2]. Recent research has proposed                   that the linear systematic sampler - SketchFlow sam-
+a large body of machine learning (ML) and deep learn-                           pling (SFS) is most applicable when target malicious
+ing (DL) solutions for flow-based NIDSs [6]–[13]. These                         attack is formed from a longer flows, and the nonlinear
+solutions have demonstrated promising results in terms of                       sketch-guided sampling (SGS) is suitable for attacks
+their robust detection rates (DRs). However, to the best                        with shorter flow length.
+of our knowledge majority of the state-of-the-art solutions                  • NIDS on sampled data: The systematic linear SFS
+assume flow records are computed from full traffic, while                       sampler provides a higher DR and lower false alarm
+in practice they are collected from sampled packets. As a                       rate (FAR) on multiple sampling rates. Hence, the most
+result the success of state-of-the-art ML/DL based meth-                        suitable solution for NIDS is an SFS sampler paired with
+ods in practical scenarios is unknown. In this regard we                        random forest (RF) classifier.
+investigate the impact of sampling on ML-based NIDS                          • Effect of constrained flow cache on the NIDS: Exper-
+by considering real-world scenario (i.e., when sampling is                      iments show that under-dimensioned flow cache
+inevitable).                                                                    (i.e., when switch memory becomes under-dimensioned
+   Track changes is on 3                                                        due to high traffic speed and volume) significantly
+   Our proposed evaluation framework establishes a foun-                        increases the resource usage for the NIDS. Intuitively,
+dation for the research on the domain of ML-based NIDSs                         this increase is caused by the increase in the number of
+that consider practical scenario where sampling is inevitable.                  extracted flow records. The DR decreased significantly
+Proposed procedure for accurate assessment of ML model                          when the flow cache is smaller than the working set of
+demonstrates the performance gains achieved by address-                         active flows.
+ing data imbalance and emphasizes the importance of using                    In this paper, we are using a few acronyms and readers are
+the right aggregation metric for multi-class classification               referred to Table 1 for their definitions.
+to avoid positively biased results. To achieve consistency                   The paper is organized as follows. Section II briefly covers
+in the ground truth that is not affected by the presence                  the body of knowledge on traffic sampling, network intru-
+of sampling or configurations of flow export, we proposed                 sion detection in the presence of traffic sampling and ML
+the usage of flow level (e.g., TCP connection level) eval-                approaches for NIDS. Section III describes the deployment
+uation. Next, by sampling packet capture (PCAP) traces                    scenario of NIDS within flow monitoring architecture and
+from CIC-IDS-2018 dataset we investigated the effect                      its components. Section IV prepares a setting to conduct
+of various sampling techniques on the visibility of cyber                 experiments in Section V which evaluates impact of sampling
+attacks. Then, using the proposed evaluation framework, the               on ML-based NIDS. Finally, Section VI concludes the study
+effect of sampling on NIDS is investigated where ML clas-                 with its limitations and future research directions.
+sifiers are evaluated on sampled flow records instead of flow
+records obtained from full trace. Experimental results show               II. RELATED WORK
+that even moderate sampling rates such as 1/10, 1/100 and                 In this section we review the related literature, make compar-
+1/1000 results in 20%, 50% and 80% loss of flow visibility                ison with our study and provide a discussion on our novelty
+respectively. Note, loss of flow visibility implies that NIDS             and contributions. Our study lies in the intersection of closely
+has no chance of analyzing the malicious flow. Insights                   related two subdomains: (1) studies that investigated NIDS in
+derived from this study paves the way for researchers in                  the presence of sampling and (2) ML-based NIDS studies.
+understanding and further studying the effect of sampling                 In the following two subsections we compare and discuss
+on ML-based NIDSs for ensuring the usability of ML-based                  novelty of our study in two aspects.
+
+5802                                                                                                                                    VOLUME 10, 2022
+J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+TABLE 1. List of abbreviations.                                                     degrades the accuracy of detecting DoS attacks compared
+                                                                                    with the accuracy achieved without sampling. Among the
+                                                                                    various sampling methods, selective flow sampling and SGS
+                                                                                    detected 84.61% of the attacks when a sampling rate of 20%
+                                                                                    was adopted. By decreasing the sampling rate to 1%, Fast
+                                                                                    Filtered Sampling (FFS) [22], and SGS achieved the best
+                                                                                    DRs of 30.76% and 23.07%, respectively. Another significant
+                                                                                    finding from this study was the effect of sampling rate on the
+                                                                                    sampler performance. For instance, when flow sampling rate
+                                                                                    was lower than 20%, SGS enabled a higher DR than the other
+                                                                                    samplers. In contrast, when flow sampling rate was higher
+                                                                                    than 20%, selective flow sampling enabled a highest DR.
+                                                                                       Unlike previous methods that incorporate sampling for
+                                                                                    (non ML-based) intrusion detection, this study aimed at
+                                                                                    building ML-based intrusion detection system from flow
+                                                                                    records that are obtained from sampled packets. In prac-
+                                                                                    tice sampled flow records are exported (e.g., using Net-
+                                                                                    Flow/IPFIX) from commodity switches. Focus of this study
+                                                                                    was packet sampling techniques that are deployed in the
+A. NIDS IN THE PRESENCE OF SAMPLING                                                 flow information export stage. Moreover, our ML exper-
+Jun et al. [27] employed simple random sampling for detect-                         iments considered a practical scenario where available
+ing distributed denial-of-service (DDoS) attacks. They iden-                        high-speed flow cache for measuring flow statistics is
+tified four key criteria for detecting DDoS attacks over the                        under-dimensioned [1].
+adopted packet-sampling algorithm. These criteria examines
+1) if the number of sampled packets is larger than a threshold;
+2) if the entropy of the flow-destination Internet protocols is
+larger than a threshold; 3) if the source port entropy of a flow
+is larger than a threshold; and 4) if the number of packets
+per second is larger than a given threshold. Expanding the
+guidelines to use sampling methods for intrusion detection,
+Ha et al. [28] proposed a sampling strategy to ensure the total
+amount of sampled traffic will not exceed the processing
+capacity of an intrusion detection system.
+   Considering the sampling rate and its effect on
+the performance of intrusion detection systems,
+Androulidakis et al. [29], investigated if hybrid sampling
+strategy improves NIDS performance. The authors achieved                            FIGURE 1. Scope of this study within NIDS literature.
+better detection accuracy by using a strategy which samples
+small flows with a constant sampling rate and dynamically
+decreases the sampling rate as the flow size increases.                             B. FLOW-LEVEL ML-BASED NIDS
+   Some studies [30], [31] have demonstrated that the sam-                          Domain of network intrusion detection has been extensively
+pling algorithm might introduce a bias towards the detection                        researched. Our scope within NIDSs is visualized in Fig. 1.
+of volume and port-scan attacks, resulting in a dramatic                            Depending on the granularity of the inspected data, NIDS can
+decrease in performance. However, factors introduced by                             be categorized into packet based and flow based groups. Deep
+the sampling methods on the performance of the intrusion                            Packet Inspection (DPI) is computationally expensive as it
+detection system can vary. Such factors can include the type                        examines each packet in detail. Furthermore, its effectiveness
+of sampling technique and the underlying design of the intru-                       is limited when the content of the packet is encrypted. Flow-
+sion detection system [4]. Therefore, our research focused                          based NIDS is favoured for its effectiveness and its ability to
+on investigating the effect of different packet-sampling tech-                      examine encrypted traffic. Our topic is to investigate effect of
+niques on intrusion detection.                                                      packet sampling in flow-based NIDS which employ ML clas-
+   Notably, Jazi et al. [32] investigated the effects of various                    sifiers. Throughout the paper we are referring to flow based
+sampling approaches on the performance of application-layer                         NIDS whenever we mention NIDS. Another dimension to
+DoS attack detection. Jazi et al. proposed a non-parametric                         consider for the classification of NIDSs is by the approaches
+cumulative sum (CUSUM) algorithm for intrusion detection                            they use. Mainly, NIDSs employ machine learning-based or
+and investigated the effect of sampling. Their results demon-                       rule-based (i.e.,SNORT [57]) solutions. Flow-level NIDS
+strated that sampling, regardless of the sampling technique,                        approaches that employ machine learning can further be
+
+VOLUME 10, 2022                                                                                                                                5803
+                                       J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+categorized in two main groups: Anomaly Detection (AD)                   Ferrag et al. [13] exploited this recent dataset as a bench-
+based and Misuse Detection (MD) based [33], [34]. AD                     mark and compared the performance of seven deep learning
+approaches capture activities deviating from normal profile.             algorithms in a binary and multiclass classification settings.
+Main advantage of AD approaches is the ability to detect                 Alharbi et al. [37] proposed a novel approach for detecting
+unseen attacks. However, they usually suffer from high false             botnet attacks. Their experiments were also evaluated using
+alarm rate due to previously unseen but legitimate traffics.             modern real-world dataset [38]. Authors proposed Local-
+On the other hand, MD based approaches aim to identify pre-              Global best Bat Algorithm that is used for hyper parameter
+viously known attacks based on their signature and patterns.             tuning and weight optimization of Neural Network. Their
+They are effective for detecting the known types of attacks              target task was to classify the traffic as one of the ten different
+but fail to recognize previously unseen attacks.                         Botnet attacks or as benign.
+   Mirksky et al. [35] developed Kitsune - AD based NIDS                    Next critical issue in the previous studies is the lack of
+that is comprised of ensemble of autoencoders. Kitsune can               reliable evaluation procedure. Specifically, not addressing the
+efficiently detect attacks in an online manner while hav-                data imbalance in the training phase and misleading perfor-
+ing comparable performance to offline anomaly detectors.                 mance aggregation in the evaluation. In other words, as shown
+Bovenzi et al. [34] proposed a lightweight anomaly detection             in Table 2, to the best of knowledge none of the previous
+via designing novel multi-modal deep autoencoder. Proposed               studies address data imbalance and used macro averaging
+autoencoder treats each categorical features as a separate               in multiclass classification. We experimentally show that
+modality and achieves good performance while maintaining                 addressing data imbalance results in significant performance
+a lightweight design for IoT scenarios.                                  gains. We also explain how using micro or weighted averag-
+   This study focuses on MD based NIDS that operates using               ing results in positively biased performance estimation (more
+flow information (records) with the emphasis on the effects              details in Section IV) and propose using macro averaging for
+of traffic sampling. Although we are the first to investi-               computing overall performance across multiple categories.
+gate the effects of sampling on flow-level ML-based NIDS,                   Another crucial aspect of previous evaluation procedure is
+in the following we make the comparison of our evaluation                regarding the granularity in the definition of a flow. Previ-
+procedure with recent works on ML-based NIDS that uses                   ous research uses the flow records as a unit of evaluation.
+misuse detection approach. Our criteria for the selection                However, generated number of flow records are inconsistent
+was the studies with high number of citation or studies that             when any of the components in flow metering stage changes
+experimented with the same dataset (i.e., CIC-IDS-2018).                 (more details in Section III).This includes the presence of
+Overall comparison is shown in Table 2. In the following we              sampling. To solve this issue we first clarify the difference
+briefly review each study.                                               between flow/connection and flow record in Section III.C.
+   In order to obtain better feature representation prior                We also propose flow/connection level evaluation procedure
+research exploited deep auto-encoders for building latent                in Section IV.E2 that is consistent irrespective of the param-
+feature representations [10], [11]. Their NIDS pipeline first            eters of flow metering stage.
+learns feature representation in a unsupervised manner from                 Additionally, we would like to mention that Machine
+unlabeled data. Then on labeled data supervised learn-                   Learning and Deep Learning is widely deployed in domains
+ing based classifiers such as Random Forest and Softmax                  such as autonomous driving [58]–[61]. As ML/DL solutions
+employed on learned representations. Another deep learning               are increasing so does the adversarial attacks on such models
+based approach that learns latent representations for flow               are being developed. In this regard, Lal et al. developed a
+is by Yin et al. where he proposed Recurrent Neural Net-                 technique for protecting deep learning based medical mod-
+works (RNNs) by considering both binary and multiclass                   els such as diabetic retinopathy recognition from adversarial
+settings. Authors also investigated impacts of the number                attacks [62].
+neurons in RNN and learning rate on model performance.
+Their results outperformed other ML based classifiers such               III. FROM SAMPLED PACKETS TO NIDS INFERENCE
+as J48, ANN, RF and SVM on NSL-KDD benchmark.                            Flow monitoring stages such as packet observation, flow
+   One limitation of these studies so far is the usage of                export, data collection, and data analysis are closely inter-
+outdated traffic (i.e., KDD or NSL-KDD) which is far                     twined [1]. This section explains the deployment scenario
+from modern network traffic patterns. To tackle this issue,              for NIDS, the effects of traffic sampling on NIDS and the
+Sharafaldin et al. [12] collected CIC-IDS-2017 dataset                   function of sampling within flow monitoring system.
+and extracted biflow features with their CICFLOWME-                         Thus, we describe components and processes in detail. We
+TER [39] tool. In this dataset they evaluated candidate NIDS             explain the stages from a packet arrival on the forwarding
+classifiers such as K-Nearest Neighbors (KNN), Random                    device (e.g., switch), process for constructing flow record and
+Forest (RF), ID3 implementation of Decision Tree (DT),                   final NIDS inference on the flow record. A schematic view of
+Adaboost, Multilayer perceptron (MLP), Naive-Bayes and                   the components involved in the NIDS is depicted in Fig. 2.
+Quadratic Discrimant Analysis (QDA). Later, same research                We composed the system by following previous literature
+group released CIC-IDS-2018 dataset which contains full                  [1], [5] where flow monitoring involves three stages: 1) flow
+packet capture (PCAP) trace recorded on each machine.                    metering and exporting, 2) collection, and 3) analysis. The
+
+5804                                                                                                                                   VOLUME 10, 2022
+J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+TABLE 2. Evaluation framework of previous studies are compared. Criteria for inclusion is (1) studies with high citation and/or studies which used same
+dataset (i.e., CIC-IDS-2018) with our work. We improve previous ML-based NIDS by (1) showing better ML performance through data imbalance handling,
+(2) employ fair overall metric for comparison by using Macro averaging and (3) most importantly provide evaluation framework for NIDS in the presence
+of sampling by introducing flow level metric.
+
+
+
+
+flow metering and exporting process is performed on a meter-                        experiment purposes we implemented four different sam-
+ing device (e.g., switch). Flow information (e.g., number of                        plers: Simple Random Sampling (SRS), SFS, FFS and SGS.
+packets, average inter-arrival time) is accumulated in the
+flow cache and exported to the collector. Collector stores the                      3) FLOW CACHE AND FLOW EXPORT
+received flow records for further usage. Additionally, it sends                     Flow cache is a table which allocates an entry for each active
+flow records to the monitoring applications such as NIDS for                        flow. Flow cache usually resides in the high speed TCAM
+real-time analysis. In the following subsections, we provide a                      memory, in order to maintain millions of lookups per second
+detailed description of each stage.                                                 during the flow metering process. However, this type of
+                                                                                    memory cannot be large because of the high price tag and
+A. FLOW METERING & EXPORT                                                           large power consumption. Thus, flow export is crucial for the
+Flow metering is a process in which flow statistics such                            continuous operation of the cache table. Flow export stage
+as byte volume, packet volume, and inter-arrival time are                           evicts the records of the expired flows and sends them to
+measured [5]. In a high-speed router, processing each packet                        collector. Additionally, if flow cache utilization reaches to
+requires a certain bandwidth, memory, and CPU cycles of the                         specified threshold, some portion of flow records are prema-
+measuring device. For this reason packet sampling is used to                        turely exported.
+reduce the overhead of flow metering devices. This reduction                           In NetFlow [40], flow is considered expired based on the
+enables commodity devices to process sampled packets at                             following rules. First, a flow record is naturally exported
+a line rate [17]. Flow export is the process of exporting                           when the FIN or RST flag packet is observed. Second, the
+accumulated flow information (i.e., flow record) to collector.                      flow record is exported if it is inactive for a certain time
+                                                                                    (i.e.,idle timeout) to save memory. Third, the hard timeout of
+                                                                                    a flow also triggers an export event for the timely analysis of
+1) FLOW METERING
+                                                                                    elephant flows. Our implementation followed these rules.
+In our experiments, flow metering was performed using                                  It is noteworthy to mention that the presence of sampling
+CICFlowMeter [39], a flow feature extractor tool. It collects                       has impact on the flow expiration. For instance, natural flow
+78 bidirectional flow features as shown in Table 4 by process-                      expiration with FIN or RST flags becomes unreliable if those
+ing the packet capture (PCAP) traces of CIC-IDS-2018.                               flag packets are not sampled. Similarly, idle timeout-based
+The direction of the flow is identified using a 5-tuple (src-IP,                    expiration becomes inaccurate since sampling does not guar-
+dst-IP, protocol, src-Port, dst-Port). Owing to the flow export                     antee the two consecutive packets will be sampled. In our
+of the flow cache table, a single flow can be separated into                        experiments, exported flow records were saved into CSV files
+multiple flow records in the collector. Moreover, two distinct                      and subsequently used to build and evaluate ML-based NIDS.
+flows may have the same flow ID (5-tuple) only separated by
+time. Therefore, in our experiments, we additionally consid-                        B. FLOW COLLECTION AND NETWORK INTRUSION
+ered the start/end time of a flow as the flow ID to correctly                       DETECTION SYSTEM
+identify flows.                                                                     Here we describe the procedure of collecting exported flow
+                                                                                    records and their analysis by NIDS.
+2) SAMPLING
+Packet sampling is primarily used for reducing the workload                         1) FLOW COLLECTION
+in flow metering stage. As a result only sampled packets                            When flow exporting process expires a flow, its record is
+undergo flow metering process. In our experiments sampling                          sent to collector. Collector then in turn stores it for log-
+module is integrated inside CICFlowMeter. Each (incoming)                           ging purposes and passes it to real-time monitoring tools
+packet is examined by sampling module where only sampled                            such as NIDS. It is important to distinguish the difference
+packets are further considered for flow metering. For our                           between the flow collector and flow feature extractor in the
+
+VOLUME 10, 2022                                                                                                                                   5805
+                                               J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+FIGURE 2. Schematic view of flow monitoring architecture which is located between WAN and enterprise LAN. While packets are passing through, flow
+information is accumulated in the switch from a sampled set of packets. Once flow finishes or the timer expires, an accumulated record of the flow is
+exported to Collector. Collectors can store the records for the future and/or pass them to real-time monitoring systems such as NIDS. NIDS analyzes the
+flow record and informs the firewall or network administrator if a record for that particular flow is found malicious. The key question here is how the
+type and rate of the sampling technique affect malicious flow detection performance.
+
+
+metering stage. The flow collector is similar to an archiving                    crucial for accurate evaluation of flow based NIDS. Unfor-
+database that stores flow records while the feature extractor                    tunately, this difference is often overlooked, perhaps not well
+(i.e., CICFlowMeter in our setting) collects features for the                    understood. Understanding the underlying issues and propos-
+individual flow from incoming packets in the flow metering                       ing a solution allows us to accurately assess the performance
+stage. Readers might want to refer to [1] for more detailed                      of ML-based NIDS even in the presence of sampling.
+information on flow collectors.                                                     In networking community a flow has multiple definitions.
+                                                                                 RFC 2722 [41] defines traffic flow as ‘‘an artificial logical
+2) NETWORK-INTRUSION-DETECTION SYSTEM
+                                                                                 equivalent to a call or connection.’’ According to RFC 3679,
+                                                                                 A flow is a sequence of packets sent from a particular source
+The NIDS receives a flow record from the collector and
+                                                                                 to a particular unicast, anycast, or multicast destination that
+examines whether the corresponding flow is malicious. The
+                                                                                 the source desires to label as a flow. A flow could consist of all
+scope of our study was a flow-level ML-based NIDS, which
+                                                                                 packets in a specific transport connection or a media stream.
+consists of classifying each flow (i.e., record) as specific
+                                                                                 However, a flow is not necessarily 1:1 mapped to a transport
+malicious category or benign. Although some NIDSs can
+                                                                                 connection. Flow is also defined in RFC 3917 [42] as ‘‘a set of
+inspect deterministic rules (i.e., signature-based) such as the
+                                                                                 IP packets passing an observation point in the network during
+number of flows/packets passing through the observation
+                                                                                 a certain time interval.’’
+point) for port-scan attacks, they are out of the scope of this
+paper.
+   In our experiment, the ML-based NIDS was trained                              1) DEFINITIONS OF FLOW AND FLOW RECORD IN THE
+and evaluated on flow records that were extracted with                           LITERATURE
+CICFlowMeter. For sampling experiments, flow records were
+                                                                                 As a result based on the above definition it is not clear if
+collected from sampled packets. Thus, the presence and type
+                                                                                 five-tuple ( i.e., source IP, destination IP, source port, des-
+of sampling has a direct and crucial effect on the overall
+                                                                                 tination port, transport protocol) is sufficient to identify a
+performance of the NIDS.
+                                                                                 flow. It is also not clear if the records extracted from flow
+                                                                                 export tools (e.g., NetFlow) are 1:1 mapped to flow. In a
+C. FLOW AND FLOW RECORD                                                          different but closely related domain of traffic classification
+Understanding the difference between flow (i.e., connection/-                    Dainotti et al. [43] highlighted the same issue by explaining
+conversation object) and flow records (i.e., traffic object) is                  the different granularities of traffic flows. The granularity
+
+5806                                                                                                                                           VOLUME 10, 2022
+J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+of traffic flows reflect the portion of the packet headers                               two bursts for UDP. Our definition of flow maps 1:1 to
+analyzed to construct flow objects (i.e., records). As shown                             transport layer connection.
+by Dainotti et al. [43], single TCP connection may consists                            • Flow Record: a biflow object that consists of flow
+of multiple flow/biflows. Authors define these flow objects                              properties for the given time interval. Properties such as
+as follows:                                                                              average packet size, total number of bytes is accumu-
+   • TCP connections: Heuristics based on the observation                                lated with CICFlowMeter and exported in the form of
+     of some TCP flags or TCP state machines are used to                                 a record when one of the following condition occurs:
+     identify the start and the end of each connection.                                  (1) active flow timeout - when flow was active for a long
+   • Flows: A typical flow definition uses the 5-tuple which                             time period and its partial record that is accumulated
+     consists of source IP, source port, destination IP, desti-                          so far should be exported for timely analysis; 2) idle
+     nation port and transport-level protocol. Some tools also                           timeout - when flow was inactive for certain period and it
+     use a flow timeout (60 s or 90 s of idle time to delineate                          should be exported for timely analysis; and 3) eviction -
+     the end of a flow) or periodic reset (e.g., timeout all flows                       when flow cache is under-dimensioned and last recently
+     on a 5-min boundary).                                                               updated flow records are kicked out.
+   • Bidirectional flows (biflows): Same as above, but
+     includes both directions of traffic, assuming both direc-                      IV. EXPERIMENTAL SETTING
+     tions of flows can be observed.                                                In this section, we describe our experimental dataset, set-
+                                                                                    tings used for flow cache and configuration for flow expi-
+                                                                                    ration in the exporting stage. We explain the parameters of
+2) REDEFINING FLOW AND FLOW RECORD ON                                               the samplers and their settings for obtaining desired sam-
+CIC-IDS-2018                                                                        pling rate. Hyper-parameters and architecture of machine
+Following Dainotti et al. [43], we differentiate the connec-                        learning classifiers also explained. We also introduce and
+tion and flow object (i.e., flow record). However, instead                          justify our metrics for assessing the classifier performance
+of flow/biflow object we use the NetFlow’s terminology of                           and aggregation technique for obtaining overall repre-
+flow record (objects). We also expanded the ‘‘TCP connec-                           sentative score. Finally, we explain our flow level eval-
+tion’’ [43] flow object type to ‘‘flow’’ which includes both                        uation procedure to evaluate NIDS in the presence of
+TCP and UDP conversation. CICFlowMeter extracts bidi-                               sampling.
+rectional flow features (i.e., biflow records). Thus, unless
+otherwise mentioned throughout the paper, we are using the                          A. DATASET
+record and flow record terms to refer to bidirectional flow                         Most commonly used dataset for evaluating NIDS per-
+records.                                                                            formance is KDD or its updated variant NSL-KDD [44].
+   Generally, a flow (connection level flow ID) is defined                          However, these dataset contain outdated attack scenar-
+with 5-tuples. However, since CIC-IDS-2018 PCAP trace                               ios with small scale. To address this issue recently
+is captured for the whole day it is possible to have more                           new datasets CIC-IDS-2017, AWS CIC-IDS-2018,
+than one connection for the same 5-tuples. For instance,                            and DDoS 2019 were released [12]. Among them
+earlier during the day a TCP connection A starts and lasts                          AWS CIC-IDS-2018 contains the complete PCAP traces
+ten minutes, then later during the day a new connection B                           of both benign and malicious network traffic. It also includes
+with same 5-tuple starts and lasts some time. In such cases it                      schedules for malicious attacks. Hence, we adopted the AWS
+is difficult to distinguish two different connection/flow with                      CIC-IDS-2018 dataset for our experiments.
+5-tuple. Therefore, after thorough explorative data analysis,
+we verified that a 5-tuple on a given day’s PCAP trace is                           1) AWS CIC-IDS-2018
+unique. During this verification, for TCP, our heuristic was                        The dataset was constructed to convey the network traffic of
+TCP flags such as SYN, FIN, RST where single connection                             an organization that operates on 30 servers and 420 machines.
+should have single handshake. For UDP, we considered all                            Malicious attacks were performed by an attacker network that
+packets from 5-tuples as a single connection as long as there                       consisted of 50 machines. Normal user behavior (traffic) was
+is no large time interval between the two consecutive bursts.                       simulated using ML techniques such as clustering. Thirteen
+During flow export stage, flow can be split into multiple sub-                      types of malicious attacks were captured within 10 days.
+records due to active/idle timeout or premature eviction that is                    During the period incoming and outgoing traffic was recorded
+caused by under-dimensioned flow cache. In other words, for                         in each host machine. Consequently, a total of 450 × 10 =
+a single connection multiple flow records could be exported.                        4500 PCAP files were collected. In order to study the effect
+Therefore, it is essential to distinguish the difference between                    of sampling, we need the PCAP traces to be recorded from
+flow and flow record. In this regard we define the flow and                         forwarding devices such as switch and router. Therefore,
+flow record as follows:                                                             we merge each 450 machine’s traces into single trace to obtain
+   • Flow: A transport layer connection (TCP or UDP)                                equivalent of PCAP trace that is recorded in forwarding
+      that is uniquely identified with 5-tuples with heuristics                     device. As a result, we obtained ten merged PCAP traces for
+      such as TCP flags and sufficiently large gap between                          each day.
+
+VOLUME 10, 2022                                                                                                                               5807
+                                                J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+TABLE 3. Per category distribution of network flows. Brute Force-Web*             exploratory data analysis we found that in some instances
+attacks have equally short and long flows. In this context, short attack is
+an attack where its flows have mostly small number of packets based on            same Flow ID was used to execute more than one type of
+the 3.                                                                            cyber attacks.
+                                                                                     For instance, assume that flow with ID 18.218.115.60-
+                                                                                  172.31.69.28-53373-80-6 is first used to conduct the Brute-
+                                                                                  Force-Web attack at 10:23:15 AM and Brute-Force-XSS
+                                                                                  attack at 02:10:36 PM. As a result, without the attack sched-
+                                                                                  ules, it is not possible to distinguish two different labels.
+                                                                                  Therefore, for labeling a flow record, we considered attack
+                                                                                  schedules in addition to the flow IDs.
+                                                                                     Inaccurate attack schedules introduce noise to the data.
+                                                                                  Consequently, derived analysis from noisy data would
+                                                                                  become unreliable. Therefore, we carefully examined the
+                                                                                  PCAP traces of CIC-IDS-2018 using Wireshark to see if
+                                                                                  attack schedules corresponds to the timeline of malicious-
+a: FLOW SIZE DISTRIBUTION                                                         flow IDs. We found that slight inconsistency where certain
+                                                                                  malicious flows lasted longer than provided schedules [45].
+Flow size is the number of packets that belong to specified
+                                                                                  Thus, we provided our own updated attack schedules of
+flow. As explained in Section IV.C, probability of the packet
+                                                                                  CIC-IDS-2018 in Table 5. Our goal here is to con-
+being sampled may differ depending on the (accumulated-
+                                                                                  tribute for the reliability of the future experiments on
+online) size of its flow. Therefore, the effect of sampling on
+                                                                                  CIC-IDS-2018 dataset. It is noteworthy to mention that
+NIDS affected by the underlying flow size distribution of
+                                                                                  PCAP trace on Friday-02-03-2018 that is responsible for
+the traffic and type of deployed sampling technique. In this
+                                                                                  Botnet attack was excluded from analysis for having too
+regard flow size distribution is shown in Fig. 3 where each
+                                                                                  many mismatch between the malicious flow ID and provided
+category is color coded. Graph conveys that size of the flows
+                                                                                  attack schedules.
+for different cyber attacks vary where some flows are short
+size while some are long. Interestingly, DDoS-LOIC-UDP
+                                                                                  B. FLOW EXPIRATION AND FLOW CACHE SETTINGS
+has both long and short flows.
+                                                                                  Flow features for active flows are accumulated as packets
+                                                                                  in the flow cache until the conditions of flow expiration
+b: CLASS DISTRIBUTION
+                                                                                  are satisfied (Section III.A). Active timeout values range
+As it is common in network-intrusion-detection datasets,                          from 120 s to 30 min, and idle timeout values range from 15 s
+CIC-IDS-2018 is severely imbalanced (Table 3).                                    to 5 min [1]. In line with CICFlowMeter, for the timeout
+As Table 3 shows, attacks such as i.e., Brute-Force-Web,                          values we used active timeout threshold of 120 s and the
+Brute-Force-XSS, Infiltration and Sql-Injection have very                         idle timeout threshold of 15 s. Original implementation of
+small numbers of flows compared with the DoS and DDoS                             CICFlowMeter assumes enough flow cache is available so
+attacks (e.g., DoS Hulk with flow counts of 14,116).                              that no record is kicked out prematurely. We follow the same
+                                                                                  pattern and assume flow cache is unlimited. However, for
+2) DISTRIBUTION OF FLOW FEATURES                                                  under-dimensioned flow cache experiment in Section V.D
+For extracting flow features we use CICFlowMeter [39]                             fixed size is assigned to the flow cache. The size is computed
+which collects and extracts 78 features for the given flow.                       with respect to the ideal memory size. Ideal memory for each
+Complete list of features with their distribution (i.e., mean                     PCAP trace is a flow cache memory that is enough to encom-
+and standard deviation) is shown in Table 4. For more infor-                      pass Working Set of Active Flows [46]. Ideal flow cache
+mation on the computation procedure and other details we                          memory for each of nine PCAP traces computed separately.
+refer the readers to CICFlowMeter [39].                                           When flow cache becomes under-dimensioned, CICFlowMe-
+                                                                                  ter kickes out (i.e., prematurely exports) the record from least
+3) FLOW LABELING PROCESS                                                          recently updated entry.
+Since we are building misuse detection based NIDS our task
+is a classification task. Classification is a supervised learning                 C. SAMPLERS
+problem which requires target (i.e., label) variable. Here                        Here, describe and compare the samplers adopted in
+we discuss the procedure of obtaining target variable for our                     our experiments. Additionally, their parameter settings for
+dataset of choice. Note that our target parameter is the label                    obtaining the desired sampling rates is also explained.
+of each records.                                                                  We used 1 Mb memory for each sampler, as suggested
+   CIC-IDS-2018 provides necessary metadata comprised                             in the original studies [18], [47]. Comparison of samplers
+of flow IDs of malicious attack and their schedules. Such                         in multiple dimensions is shown in Table 6. In terms of
+information is sufficient to label each flow record with its                      complexity SRS is preferable as it does not need any extra
+corresponding category (e.g., DDoS-HOIC). However, after                          memory resources for per-flow counting. Additionally, SRS
+
+5808                                                                                                                                            VOLUME 10, 2022
+J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+FIGURE 3. Flow size distribution of CIC-IDS-2018 per category whereas each category is distinguished by the color and marker. Flow size is the number
+of packets within the flow. 95% of benign traffic flows have length less than 100. Majority of DoS-Hulk and Infiltration attacks are of length more
+than 1000 which implies high flow visibility even with sampling rates of 1/1000.
+
+
+
+
+guarantees constant sampling rate for any flow distribution                         SRS. In our settings, we varied the number of layers and num-
+and does not require manual parameter tuning. In contrast,                          ber of saturating bit parameters until desired sampling rate
+other three samplers FFS, SFS and SGS require user to ini-                          approximated. Specifically, sampling rates of 1/10 is obtained
+tialize some parameters before sampling. Assuming traffic                           using one-layer sketch with five non-saturating bits), 1/100
+distribution is known, this involves experimentally trying                          is obtained using two-layer sketch with five non-saturating
+multiple values for each of the parameters. This procedure is                       bits), and 1/1000 is obtained using four-layer sketch with four
+repeated until desired sampling rate for the given distribution                     non-saturating bits).
+is obtained. For instance, in the case of SGS, we tried multiple
+values for error bound  parameter until we achieved desired                        3) SKETCH-GUIDED SAMPLING (SGS)
+sampling rate. In the following we describe of each individual                      SGS is a nonlinear sampler that reduces the packet-sampling
+sampler and their selected parameter values that provided                           rate as the online size of a particular flow increases. The
+desired sampling rate. Note, if flow size distribution of the                       rationale behind the SGS design is that for elephant flows,
+traffic changes, then overall sampling rate also changes. This                      even small sampling rates sample sufficient number of pack-
+implies that in practice, it is difficult to guarantee constant                     ets to estimate flow information. Thus SGS strategy assigns
+sampling rate across traffic for samplers other than SRS.                           low sampling rate for large flows and large sampling rate for
+                                                                                    small flows. As a nonlinear sampler, SGS cannot guarantee
+1) SIMPLE RANDOM SAMPLING (SRS)                                                     constant sampling rate across distributions. Hence, we man-
+SRS [15] is the most representative linear sampler that guar-                       ually attempted multiple values for the error bound parameter
+antees a constant sampling rate for any flow distribution.                          to obtain desired sampling rates. We observed that  = 0.05,
+SRS requires almost no memory as it needs a single counter                           = 1, and  = 11.5 results in sampling rates of 1/10,
+that counts between two sampled packets. SRS is included                            1/100, and 1/1000, respectively. It is noteworthy to mention
+in our experiments as a baseline sampler. The SRS strategy                          that this parameters apply only for CIC-IDS-2018 traffic
+involves counting from 0 until n. When counter reaches to n,                        distribution.
+the n-th packet is sampled and counter is reset. After each
+sampling, n is set to a random number. In our settings, we used                     4) FAST FILTERED SAMPLING (FFS)
+sampling rates of 1/10, 1/100, and 1/1000.                                          FFS assumes that small flows are the sources of anomalous
+                                                                                    traffic. Hence, a filtering mechanism is introduced to thin
+2) SketchFlow SAMPLING (SFS)                                                        large flows in which packets are sent to the sampling module
+SFS is included as a candidate per-flow sampler that pro-                           only if they pass through the filtering module. The filtering
+vides approximately stable sampling rate for each flow. SFS                         module counts flow sizes online and has two threshold values,
+achieves this by approximately per-flow counting using the                          s and l, where s < l. If the flow size of the arriving packet is
+novel compact data structure (i.e., sketch) [18]. Owing to                          smaller than s, the filtering module simply passes the arriving
+per-flow counting, SFS outperformed SRS in terms of accu-                           packet to the sampling module. This allows higher sampling
+racy [18]. However, due to the nature of sketching (approxi-                        probability for flows smaller than size s. If the flow size is
+mate counting), SFS cannot obtain a precise sampling rate as                        larger than s, the next arriving packets from the s-th to the
+
+VOLUME 10, 2022                                                                                                                                 5809
+                                             J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+TABLE 4. List of features extracted by CICFlowMeter for CIC-IDS-2018. For each feature, mean and standard deviation is shown. Time based features
+such as IAT, active/idle statistics are shown in seconds.
+
+
+
+
+                                                                               TABLE 5. Updated attack schedules for CIC-IDS-2018.
+l-th values are dropped by the filtering module. When the
+online counter of a flow reaches l, it is reset to zero to pass
+the next s packets to the sampling module.
+   Although, other values for filtering thresholds could poten-
+tially result in better flow visibility, we fixed threshold as
+s = 8 and l = 16 by following the original work [22].
+Otherwise, it would result in large number of trials while grid
+searching the best possible combination of filters. After fixing
+the filters, we set the sampling intervals for the SRS sampler
+to si = 4, si = 40, and si = 400, which resulted in 1/10, 1/100,
+and 1/1000 sampling rates, respectively.
+
+D. CLASSIFIERS
+We selected three machine learning classifiers, namely, deci-
+sion tree (DT), Random Forest (RF), and CNN, as these are
+widely studied in NIDS because of their reliable DRs [12],
+[13], [48], [49]. Unless otherwise mentioned we used default
+hyper-parameters for all three methods.
+   For DT, we used scikit-learn [50] implementation with                       is the dimension of the flow-record features. Similarly, for
+default hyper-parameter settings. √
+                                  According to default setting                 random forest (RF) we used scikit-learn [50] implementation
+each test split considers random d features where d = 78                       with default settings for hyper-parameters. Default setting
+
+5810                                                                                                                                         VOLUME 10, 2022
+J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+TABLE 6. Comparison of sampling techniques.
+
+
+
+
+uses n = 100 tree estimators with bootstrapping. Hence, each                        a: FLOW VISIBILITY
+tree was constructed using 1% of the training data.                                 We introduce a flow visibility metric to measure the per-
+   For the CNN model, we exploited the architecture pro-                            centage of flows that are remained visible after sampling.
+posed for NIDS by Kumar [6]. Performance of DL model                                If no packet from the flow is sampled, then no flow record
+can be improved through exhaustive hyper-parameter tuning                           is exported. As a result, flow is not analyzed by the NIDS.
+or searching for the optimal CNN architecture. Designing                            Flow visibility is a binary metric where it is either observed
+another CNN architecture involves searching for the optimal                         or not. Visibility is 100% when at least one packet is sampled
+number of layers to use, kernel size of convolution and pool-                       which ensures a flow record is generated for a given flow. It is
+ing layers, usage of dropout, batch normalization, and number                       0% if no packet is sampled from that flow and consequently
+of units in dense layers. Such process exhausts time and                            no flow record is exported.
+computing resources. Additionally, it increases the carbon
+footprint of this research [51]. Hence, we saved resources
+                                                                                    b: FLOW-RECORD QUALITY
+and reduced carbon footprint by exploiting previously well
+establish CNN architecture [6]. The CNN architecture con-                           When estimating the flow information from sampled packets,
+sists of two 1D convolution, one pooling, and two dense                             quality of a record is degraded due to loss of data. This
+layers. The convolution layers consisted of 64 filters with                         in turn leads to decreased ML classifier performance when
+1D kernel of size 3. The max pooling layer used a kernel                            learning to distinguish between the different types of attacks
+of size 2. The first and second dense layers had 2496 × 256                         or benign traffic. Therefore, if certain sampler provides rela-
+and 256 × 14 neuron units. We adjusted last layer to have                           tively higher quality flow record, then it contributes to better
+256 × 14 units because our dataset has 14 different categories                      NIDS performance. In other words, if same NIDS classifier
+(13 malicious and one benign). Vinaya et al. used default                           was build on two different flow records that correspond to two
+batch size provided in Keras library [52] that is 32. However,                      different sampling techniques, then the sampler that resulted
+as shown in the Section V.B we found that larger batch                              better NIDS performance implies that sampler is more suit-
+sizes result in faster training time without degrading model                        able for NIDS purpose than its counterpart. Hence, we do not
+performance. After experimentally evaluating multiple batch                         have exclusive metric for flow-record quality evaluation, but
+sizes we found that the batch size of 4096 provided fastest                         infer it from NIDS performance.
+training speed while having small FAR with comparable DR.
+For the rest of the hyper parameters, we use default settings                       2) NIDS EVALUATION IN THE PRESENCE OF SAMPLING
+such as adam optimizer, learning rate of 0.003, and weight                          a: CROSS VALIDATION
+decay of 0.                                                                         In ML community, Cross Validation (CV) is used for reducing
+                                                                                    the bias introduced when splitting small dataset. Although
+E. PERFORMANCE METRICS FOR FLOW-LEVEL ML-BASED                                      CIC-IDS-2018 is a large dataset, we still need CV for two
+NIDS                                                                                reasons. First is the presence of small categories. As shown
+In the following, we first explain the metrics used to evaluate                     in Table 3, attacks such as Infiltration and SQL injection have
+sampler in the context of network intrusion detection. Then                         only 5 and 50 flows. Second is the loss of flow visibility
+we explain and justify our evaluation setup for NIDS in the                         after sampling. In other words, in the presence of sampling
+presence of sampling.                                                               number of flows per category decreases even more. Another
+                                                                                    important consideration when conducting CV is to ensure
+                                                                                    flow records of the same flow does not end up across multiple
+1) SAMPLER EVALUATION                                                               splits. Therefore, standard CV implementations of available
+Sampling affects NIDS in two main ways: (1) loss of flow                            tools such as scikit-learn [50] is inapplicable in this sce-
+visibility and (2) loss of accuracy in estimated flow records.                      nario. Thus, we used our custom CV implementation that
+For our definition of flow please refer to Section III.C.                           ensures flows with multiple records stay in the same split. Our
+
+VOLUME 10, 2022                                                                                                                                5811
+                                         J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+implementation also ensures equal class distribution across                setting, detection rate of NIDS that can detect all the flows
+folds as an equivalent of Stratified KFold.                                that it sees is 100%. However, as we are evaluating the effect
+                                                                           of sampler in NIDS, evaluation metric should reflect the flows
+b: MACRO AVERAGING                                                         that are not observed due to loss of visibility. Therefore,
+In multiclass classification, a single evaluation score needs to           our ground truth is all the flows in the complete traffic as
+be computed in order to evaluate the overall performance of                opposed to observed flows after sampling. As an example,
+a classifier. When performing such aggregation, a care must                lets assume only 30% of the DDoS-LOIC-UDP attack is
+be taken as there are multiple different ways to aggregate.                observed after sampling where packet sampling rate was
+Especially, when class imbalance is present, performance                   1/10. Then, in our evaluation setting, NIDS that can identify
+aggregation becomes even more trickier. There are three main               100% of the observed flows for the given attack has only
+way to average the scores of multiple classes:                             30% detection rate. Consequently, in this setting, a sampler
+   • global/micro averaging where class information is dis-                that samples less benign but more malicious flows positively
+      regarded and score is computed for each instance then                affects NIDS performance and considered favorable.
+      averaged.
+   • weighted averaging considers frequent categories as                   d: DERIVING FLOW LEVEL METRIC FROM RECORDS
+      more important. First, scores for each class is computed,            For the given flow, multiple records can be extracted depend-
+      then weighted average is taken. This type of averag-                 ing on the flow expiration settings of exporting stage (more
+      ing assigns weight to each class in proportion to their              details in Section III.C). This behavior is influenced by
+      frequency.                                                           flow cache settings for flow expiration and when flow cache
+   • macro averaging treats each class equally important.                  becomes under-dimensioned. Similarly, presence of sampling
+      First, scores for each class is computed then averaged               also affects the flow expiration policy. For instance, number
+      considering each class/category as equally important.                of generated flow records can increase due to the effect of
+   Example usages on global averaging [11] and weighted                    sampling on idle timeout-based expiration. This is because
+averaging [12] can be found in the related literature. How-                due to sampling time gap between two sampled packets
+ever, we could not find any study that highlighted the data                is larger than previous time gap between two consecutive
+imbalance issue and how it can be the source of many pitfalls              packets. Hence, because of this inconsistent number of data
+with wrong type of averaging. We argue that when data is                   units, flow record cannot be used as a unit of data for eval-
+imbalanced, global or weighted averaging provides a false                  uation. Number of flows on the other hand is consistent
+impression that the classifier is accurate. In other words,                and not affected by the configurations of flow metering and
+such averaging provides high overall score even if the only                export stage. Therefore, we propose our flow level evaluation
+frequent categories are well distinguished and many small                  metrics. It is noteworthy to mention that in the deployment
+categories are poorly classified. This is especially the case if           scenario, the classifier performs inference for each arriving
+train data is also imbalanced which naturally leads to classi-             record in real time. Therefore, in line with the previous work,
+fier that is biased towards frequent categories when making a              our input to NIDS is flow record, but our evaluation is on flow
+decision. We propose to considering all categories as equally              level. We propose the following procedure to derive flow level
+important. Hence, we suggest macro averaging when obtain-                  evaluation metrics from record level inferences.
+ing overall performance of the classifier by aggregating its                  • Any DR: if any of the records belonging to a flow is
+performance across multiple classes.                                             predicted correctly, the flow is considered to be detected.
+                                                                                 If none of the records predicted correctly, then most
+c: CLASSIFIER EVALUATION METRIC                                                  commonly predicted category is assigned to a flow.
+Multiclass attack classification can be evaluated with dif-                   • Majority DR: flow is considered detected as long as most
+ferent metrics such as accuracy, precision, recall, F1-score,                    commonly predicted category for its records is correct.
+true positive rate, true negative rate and false alarm rate [37].             • All DR: if all of the records belonging to a flow are
+Our evaluation derives flow level metrics from record level                      predicted correctly, only then the flow is considered to
+inference. Hence, we resort to simplest yet meaningful met-                      be detected.
+rics such as detection rate and false alarm rate. Detection                   Any DR is suitable metric for post attack analysis where
+rate for the specific malicious category is the percentage of              real-time detection is not important. In other words, for
+the correctly predicted flows over the total number of flows.              logging purposes detecting at least one candidate record of
+Overall detection rate is a metric that is aggregated across               the flow can sufficiently pinpoint the malicious flow ID. For
+multiple malicious categories with macro averaging. False                  real-time detection, the All DR metric may be preferred as
+alarm rate is the percentage of benign (i.e., normal) traffic              it allows the attack to be captured as soon as first record
+that is confused with malicious categories.                                arrives to NIDS. However, in some cases, especially in under-
+   When sampling is present, only percentage of flows will                 dimensioned flow cache scenarios [1], a flow may have too
+be observed. One way to compute detection rate and false                   many records. In such settings each record is computed over
+alarm rate is to consider number of observed flows for each                a short period from a small number of packets. As a result,
+category as ground truth (i.e., total number of flows). In such            it is inevitable to have some records with very low quality.
+
+5812                                                                                                                                     VOLUME 10, 2022
+J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+Hence, All DR scenario can be considered too harsh. There-                          four samplers across the three sampling rates are shown in
+fore, as tradeoff between Any DR and All DR, we propose                             Fig. 4. Each row corresponds to a separate sampling rate.
+Majority DR as a flow level metric. Hence, unless otherwise                         The dataset contained 13 types of malicious flows, which are
+mentioned, our ML experiments were evaluated using the                              positioned on the x-axis in ascending order based on their
+Majority DR metric.                                                                 average flow observation rate. Additionally, as an aggregated
+   Flow level FAR is computed from flow level DR and                                metric for inter-comparisons between samplers, we also pro-
+flow visibility rate (v) for the benign category. Here,                             vide a macro averaged observation rates for the 13 malicious
+lower flow visibility for the benign category helps NIDS to                         categories.
+achieve low FAR.
+   • Any FAR (fany ) metric is derived from Any DR of benign                        1) OBSERVATIONS
+     category and is proportional to flow visibility rate of                        Overall, the graph shows that even mild packet-sampling
+     benign category:                                                               rates, such as 1/10, result in a significant loss of information.
+                                         benign                                     For instance, at a 1/10 sampling rate, only approximately
+                        fany = (1 - dany          )vbenign                (1)       50% of normal flows were observed and, on average, 80%
+     where d corresponds to detection rate and f corresponds                        of malicious flows were observed. An interesting observation
+     to false alarm rate.                                                           was that malicious flows were more visible than normal
+   • Similarly, Majority FAR (fmajority ) is derived from
+                                                                                    traffic. This was true for all three sampling rates and sampling
+     Majority DR of the benign category and is proportional                         techniques.
+     to flow visibility:                                                               In detail, we observed the following. First, the systematic-
+                                                                                    approximate-linear sampler SFS had high visibility for long
+                                            benign
+                     fmajority = (1 - dmajority )vbenign                  (2)       flow attacks, whereas nonlinear SGS achieved better visi-
+                                                                                    bility for short-length malicious flows. Second, the higher-
+   •   All FAR (fall ) is also derived from All DR of Benign                        flow visibility of the sampler depended on the sampling rate.
+       category and is proportional to flow visibility:                             In particular, the average malicious observation rates of both
+                                        benign
+                         fall = (1 - dall        )vbenign                 (3)       SFS and SGS were better than the baseline SRS at a 1/10
+                                                                                    sampling rate. However, at sampling rate of 1/1000, SGS
+                                                                                    ranked lower than the baseline, while SFS still ranked better
+V. EXPERIMENTS                                                                      than the baseline sampler. Third, owing to its design nature,
+Our experiments consisted of four parts. First, we explore                          SGS attempted to capture all types of flows regardless of their
+how flow visibility is affected by the choices of sampling                          size and achieved similar flow visibility in both short and long
+technique and sampling rate in the metering process. Second                         flows.
+we evaluated NIDS performance in using the proposed flow
+level evaluation metric. Performance gain after addressing                          2) INSIGHTS
+data imbalance and training speed up of CNN using larger                            We can conclude that even mild sampling rates, such as 1/100,
+mini-batch sizes is demonstrated. Third, we investigated the                        have a drastic effect on malicious-flow visibility. However,
+performance of each sampling method with different NIDS                             if sampling is inevitable, flow visibility can be improved by
+classifiers. Finally, we investigated the effect of the con-                        selecting the sampling technique which is suitable for the
+strained flow cache on the NIDS in terms of performance                             target intrusive attack based on its flow length. For instance,
+and resource usage. Constrained flow cache has small table                          if short-length malicious flows are the main source of net-
+size that cannot store all the Working Set of Active Flows                          work attacks, a nonlinear SGS sampler is a good candidate.
+(WSAFs) [46].                                                                       If targeted malicious have longer flow lengths, the linear
+                                                                                    samplers such as SFS are more suited to the task. The rel-
+A. FLOW VISIBILITY                                                                  atively better performance of the SFS over baseline SRS can
+When sampling is employed in the flow metering and export-                          be explained by its superior accuracy owing to per-flow
+ing stage, the flow becomes invisible if none of its packets                        sampling.
+are sampled. The loss of flow visibility is critical as it implies
+that no flow record is exported. This in turn implies NIDS                          B. EVALUATION FRAMEWORK FOR A FLOW-LEVEL
+does not have the visibility for the flow. Here, we investigated                    ML-BASED NIDS
+the following two questions: (1) How are different types of                         Proper evaluation framework ensures the validity of experi-
+malicious traffic affected by sampling on different sampling                        mental comparisons. In this regard we proposed flow level
+rates? (2) How do sampling methods compare against each                             evaluation metric in Section IV.E that is not affected by
+other? In this regard we sampled the traffic data using four                        the changes in flow metering process. Our framework, also
+different sampling techniques for the three sampling rates                          allows us to investigate the effect of sampling.
+of 1/10, 1/100, and 1/1000. The corresponding records were                             Here, we exploit the established metric for the compari-
+then accumulated from the sampled packets. The correspond-                          son of ML techniques. To speed up CNN training we first
+ing flow visibility of each malicious-flow category on the                          investigate the effect of batch size on training time and model
+
+VOLUME 10, 2022                                                                                                                                 5813
+                                                J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+FIGURE 4. Flow visibility rate after sampling. y-axis represents per category flow visibility - percentage of flows retained after sampling. x-axis represents
+attack types that are positioned in ascending order based on their overall flow visibility rate. Sampling rate is reduced from 1/10 to 1/1000 with the
+factor of 10. Four different samplers (i.e., SGS, FFS, SRS, SFS) are color-coded.
+
+
+
+
+performance. Then we demonstrate the performance gain                             model performance (i.e., DR and FAR). Exact performance
+achieved by addressing data imbalance in training phase.                          metrics are also shown in Table 7. The results are shown
+Results herein concern non-sampled flow records and can                           for the three different data balancing settings to demonstrate
+be used later in the section as a reference to compare the                        generalizability of the observations.
+performance drop when sampling is present.
+   Insights from these experiments add knowledge to the                           a: OBSERVATIONS
+NIDS domain. Concretely, we (1) successfully reduced the                          The results demonstrated that large batch sizes do not
+training time of CNN model by selecting a larger training                         decrease the performance of CNN models on NIDS tasks.
+batch size without the loss of performance, (2) achieved                          This holds true even when different balancing techniques are
+up to 42% better DR and a 50% lower FAR by addressing                             used. We also observed that there is no correlation between
+data imbalance in the training set, and (3) provided fair                         batch size and CNN model performance.
+comparisons of ML methods using the proposed flow-level
+evaluation metric.
+                                                                                  b: INSIGHTS
+                                                                                  Our finding contrasts studies on computer vision communi-
+1) EFFECT OF TRAINING BATCH SIZE OF CNN                                           ties [14]. This controversy can be explained by differentiating
+Training CNNs on large data is time consuming. Using large                        the input data of the two tasks: image and flow record. In the
+batch sizes speeds up training by leveraging the parallel                         image domain, the dimension of image features (i.e., pixels)
+processing power of GPUs. However, previous studies sug-                          is at a minimum of 784 for small 32 × 32 resolutions. In con-
+gested that large batch sizes reduce the performance of CNN                       trast, our flow record consisted of 78 features. Additionally,
+models [14]. We posit that this is not necessarily valid for the                  image pixels are homogeneous, while flow features are het-
+NIDS task, in which flow features are low dimensional and                         erogeneous. It is heterogeneous because some features are in
+heterogeneous. This is in opposition to image pixels that are                     the units of time while others are in count, and some features
+high dimensional and homogeneous. Hence, in the following                         such as destination port and transport protocol are categorical.
+section, we explore the function of batch size in the training
+of a CNN model. Note this is only possible after having                           2) IMPORTANCE OF DATA BALANCING
+reliable flow-level evaluation metric which is discussed in                       Training on imbalanced data would result in the model being
+Section IV.E. Fig 5 shows the reduction in training time as                       biased toward frequent categories. However, previous studies
+we increase the batch size. Additionally, figure shows there                      on ML-based NIDS, such as [7], [10]–[12], [36], [49] did not
+is no relationship between increased batch size and decreased                     address this problem. In such a setting, performance metrics
+
+5814                                                                                                                                            VOLUME 10, 2022
+J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+                                                                                    be equal in size to the most frequent malicious category.
+                                                                                    Benign records were under- sampled to be in equal size to
+                                                                                    the malicious categories.
+                                                                                       Second balancing technique we considered is cost-based
+                                                                                    balancing (i.e., cost sensitive learning. This technique modi-
+                                                                                    fies the optimization function to penalize more heavily when
+                                                                                    examples from infrequent categories are misclassified. For
+                                                                                    the DT and RF classifiers, we used scikit-learn [50] imple-
+                                                                                    mented interface by passing the weights of each class. For
+                                                                                    the CNN, we achieved cost-based balancing by passing class
+                                                                                    weights as an argument for the cross-entropy objective func-
+                                                                                    tion in Pytorch [55]. Same balancing technique was used in
+                                                                                    traffic classification task by Aceto et al. [56] as well. Using
+                                                                                    the cost-based balancing, authors mitigated learning diffi-
+FIGURE 5. Training time of CNN for different batch sizes. CIC-IDS-2018              culty caused imbalanced data. Thus uniform misclassification
+has 92,183,595 flow records and 4:1 train/test split is used. For each batch
+size training is done for 20 epochs. Detection rates are color-coded while          rate is achieved.
+magnitude of False alarm rates is depicted with the sizes of bubbles.                  Finally, to demonstrate the importance of balancing,
+                                                                                    we included the results for the no-balancing scenario. Table 8
+TABLE 7. Effect of batch size on CNN model performance using majority
+                                                                                    presents the experimental results for the different balancing
+flow detection metric. Detection rate (DR) and false alarm rate (FAR)               techniques.
+comparisons are provided for three different data balancing techniques.
+
+                                                                                    a: OBSERVATIONS
+                                                                                    The results demonstrated that the data balancing technique
+                                                                                    has a significant effect on the performance of the ML clas-
+                                                                                    sifier. Although the cost-based balancing and no-balancing
+                                                                                    setting had no remarkable difference, explicit balancing was
+                                                                                    consistently better than no balancing on all three classifiers
+                                                                                    with a large margin. The RF classifier is known for effectively
+                                                                                    managing imbalanced datasets [48]. However, surprisingly,
+                                                                                    the balancing technique selected also has notable importance
+                                                                                    for RF. For the similar FAR, random forest with explicit
+                                                                                    balancing had 98.31% DR, while for cost-based balancing
+                                                                                    only 69.08% DR is achieved.
+
+                                                                                    b: INSIGHTS
+                                                                                    Major insight here is that without the careful design of the
+can indicate a false impression that the ML model has a high                        evaluation setting, fallacious conclusions can be derived. For
+performance. This problem becomes even more dramatic if                             instance, when data imbalance is not addressed one may con-
+global (i.e., micro) or (even worse) weighted averaging of                          clude that the DT classifier has a high DR of 78.62%, whereas
+performance scores are used (more details in Section IV.A).                         its more sophisticated predecessor RF has a 68.92% DR and a
+   To solve the data imbalance problem, the ML community                            0% FAR. However, here, neither classifier achieved its poten-
+primarily employs two approaches. The first is to assign a                          tial performance owing to data imbalance issue. Hence, such
+distinct cost to training examples based on the frequency of                        comparison leads to wrong conclusion. Another surprising
+each class. The second is to re-sample training data by either                      insight is that cost-based balancing did not provide notable
+over- sampling a small class or under- sampling the majority                        improvement as opposed to explicit balancing. Moreover, for
+class [53], [54]. In a subsequent experiment, our aim was                           tree-based classifiers(i.e., DT and RF), the data imbalance
+to indicate the performance that is lost in previous studies                        problem can be converted into an advantage if reducing the
+when data imbalance was neglected. We demonstrate this                              FAR is the first priority.
+by comparing two balancing techniques against imbalanced
+setting. In each scenario, the ML classifier parameters were                        3) COMPARISON OF CLASSIFIERS
+the same as described in Section IV.D. Data balancing was                           Although different ML methods have been proposed previ-
+only applied to the training set.                                                   ously, their reliable comparison on CIC-IDS-2018 dataset
+   As the first balancing technique, we considered under- and                       in flow level is missing. In Table 9, we provide the DR
+over- sampling [54]. From now on we use the term explicit                           and FAR comparisons of the three most popular classi-
+balancing instead to eliminate the confusion with packet                            fiers that are used for NIDS. The results are shown for all
+sampling. Small malicious categories are over- sampled to                           three flow level detection metrics proposed in Section IV.E.
+
+VOLUME 10, 2022                                                                                                                               5815
+                                                 J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+TABLE 8. Effect of data balancing on ML-based NIDS performance.                    sampler are a good pair. Experiments are repeated three times
+Comparisons are provided using flow level Majority DR and Majority FAR
+metrics. Experiments include three different cases of data balancing.              for sampling rates of 1/10, 1/100, and 1/1000. This allows
+                                                                                   us to explore the effect of sampling rate. It is noteworthy
+                                                                                   to mention that based on the definition of our metrics in
+                                                                                   Section IV.E, FAR cannot exceed benign flow visibility rate.
+                                                                                      Fig. 6 shows the performance of the ML classifiers on each
+                                                                                   sampling method. The first and second columns show the
+                                                                                   DR and FAR, respectively, whereas each row corresponds
+                                                                                   to different sampling rates. ML classifiers are color-coded.
+                                                                                   One-way ANOVA test is conducted to verify the difference in
+                                                                                   the performance of ML methods are statistically significant.
+                                                                                   Each cell in Table 10 corresponds to separate test. ANOVA
+                                                                                   test quantifies if at least one of the three classifiers have
+                                                                                   significantly different mean detection rate. According to test
+                                                                                   results, almost each comparison has at least one ML classi-
+                                                                                   fier with statistically significant difference (i.e.,low p-value).
+                                                                                   This applies for both Majority DR and Majority FAR met-
+For the training phase, explicit balancing was employed, and                       rics. Exception is observed for SGS (p = 0.167) and SRS
+the other hyperparameters were the same as described in                            (p = 0.656) on sampling rate of 1/100 for Majority DR.
+Section IV.D.
+                                                                                   b: COMPARISONS ON MULTIPLE THRESHOLDS
+a: OBSERVATIONS                                                                    To compare classifiers in multiple cut-off points (similar to
+For all three flow-level detection metrics, RF had better or                       ROC curve), above evaluation procedure was repeated in ten
+comparable performance, except for the All metric, for which                       different benign thresholds. In previous experiment, benign
+the CNN had a higher DR but suffered from high FAR.                                and other thirteen malicious categories were treated the same
+As explained in Section IV.E, Any and All metrics were too                         where a category with the highest probability was assigned
+extreme. Hence, we recommend referring to the Majority                             to a flow record. We apply the given benign threshold on
+metric for the comparison of different models. Hence, RF was                       a record level as NIDS returns the estimated probability of
+considered the most suitable because it had a high DR of                           each category for the given record and not the flow itself.
+98.31% and an FAR of 0.01% on Majority DR and Majority                             If the predicted probability of that record for the benign
+FAR metrics.                                                                       class is larger than the threshold, then we assign the label
+                                                                                   ‘benign’ to that record. Otherwise, the malicious attack cat-
+TABLE 9. Detection rate (DR) and false alarm rate (FAR) comparisons of             egory with the highest probability is assigned. Once records
+three classifiers on non-sampled flow records. Results are provided for            are assigned with their corresponding labels, then flow level
+three flow level evaluation metrics. Train data is balanced using explicit
+balancing.                                                                         metric is derived using the ‘Majority’ procedure explained
+                                                                                   in Section IV.E. Results for multiple threshold comparison is
+                                                                                   shown in Fig. 7 and Fig. 8.
+
+                                                                                   c: OBSERVATIONS
+                                                                                   At a high level, we observe that sampling had the dis-
+                                                                                   advantage of increasing the FAR by orders of magnitude.
+                                                                                   For instance, for a sampling rate of 1/10 and RF classifier,
+                                                                                   we observed, at best, a 0.5% FAR for the SFS sampler
+                                                                                   as opposed to a 0.01% FAR on non-sampled data, which
+                                                                                   was 50 times better. For the same SFS and RF pair, at a
+C. FLOW-BASED NIDS ON SAMPLED DATA                                                 sampling rate of 1/1000, an FAR of 0.03 % was obtained, but
+Here, we investigate how the presence of sampling affects                          at the expense of missing out 85% of the malicious flows.
+NIDS performance in terms of flow level Majority DR and                               When comparing classifiers, we can observe from the
+Majority FAR metrics. Four different sampling techniques                           results that, for any given sampling rate, RF has a higher DR
+are compared for their suitability for NIDS application. Our                       with a better or comparable FAR. Another observation is that
+ML experiments are done in three different ML classifiers                          on low sampling rates such as 1/1000, the selected classifier
+(i.e., DT, RF, CNN). As a result each of three classifiers                         has a relatively minimal effect for a particular sampler.
+are evaluated on four times on different data. Different data                         For the harsher sampling rates, the best pair was the SFS
+corresponds to flow records extracted in the presence of dif-                      sampler with the RF classifier. Specifically, at a 1/10 sam-
+ferent sampling techniques. In addition to suitable sampler for                    pling rate, SFS had a high DR (80%) with a comparably low
+NIDS, this setting enables us to observe which classifier and                      FAR (0.5%), and at 1/100, SFS had the third-highest DR,
+
+5816                                                                                                                                             VOLUME 10, 2022
+J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+FIGURE 6. Performance of ML classifiers on a given sampler. x-axis represents choice of sampler deployed during flow information export. y-axis
+represent DR and FAR. FAR is reduced as harsher sampling rates used. flow records are obtained from sampled packets which sampling rates of 1/10,
+1/100 and 1/1000. Simple Random Sampling (SRS), Fast Filtered Sampling (FFS), SketchFlow Sampling (SFS) and Sketch-Guided Sampling (SGS) samplers
+are color-coded.
+
+
+TABLE 10. One-way ANOVA test for significant difference between the means of different ML classifiers. Each cell corresponds to separate ANOVA test
+conducted over three classifiers trained and evaluated on sampled flow records. Those flow records are extracted in the presence of corresponding
+sampler.
+
+
+
+
+but the best FAR at 1/1000. Hence, SFS had both a high DR                           D. EFFECT OF CONSTRAINED FLOW CACHE ON NIDS
+and a lower FAR. Perhaps, an undesirable sampler for NIDS                           Many flow exporters have fixed-size flow caches. When this
+is SGS, as its corresponding FAR continued to worsen as                             size turns out to be small (under-dimensioned), flow data
+higher sampling rates were applied. In particular, at a 1/1000                      loss or low performance can be the result [1]. In this study,
+sampling rate, SGS had an FAR that was twice as large as that                       we explored the effect of under-dimensioned flow cache from
+of SFS but also had a lower DR.                                                     the perspective of real-time NIDS. If the flow cache is not
+                                                                                    sufficiently large, all of its entries are occupied at some point,
+d: INSIGHTS                                                                         and there is no room to create a new entry for the incoming
+A significant increase in the FAR suggests that sampling                            packet of a new flow. For our setting, when the flow cache
+significantly reduces the quality of the features. This insight                     is full, the least recently updated flow record is kicked out.
+should be considered when network or data center operators                          Kicked-out records are still sent to the collector, and the
+decide whether to buy hardware or employ sampling.                                  collector then passes the record to the NIDS in real time.
+   If sampling must be employed, per-flow systematic sam-                           However, such a scenario creates a problem in which there are
+plers such as SFS should be favored over the baseline SRS                           now more records to analyze, and the quality of each record
+or nonlinear samplers such as SGS. This could be explained                          is degraded because it is estimated from fewer packets.
+by their systematic nature for measuring features such as the                          For instance, assume flow f1 has two packets that have a
+inter-arrival time between two packets.                                             smaller inter-arrival time than both active and idle timeouts.
+
+VOLUME 10, 2022                                                                                                                                  5817
+                                              J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+FIGURE 7. Corresponding evaluation curve for Majority DR on multiple benign thresholds for the results shown in Fig. 6.
+
+
+
+
+Subsequently, let us assume two flow cache scenarios: one                       sets of active flows in the flow cache until they were naturally
+with unlimited flow cache size and second with constrained                      (not prematurely) exported. We considered ideal cache size
+flow cache. In the former, a single corresponding record                        as 100%. Subsequently, we reduced the flow cache size from
+r1 is extracted as normally. In the latter, before the second                   100% to 0.1% with a factor of 10 to simulate the constrained
+packet of the flow f1 arrives, the flow cache becomes under-                    scenario. For each of four (i.e., 100%, 10%, 1% and 0.1%)
+dimensioned, and to make empty entry for new incoming                           cache size, four different flow records were extracted. They
+flow f2 , record r11 of flow f1 is prematurely kicked out. When                 correspond to four different samplers that were deployed in
+the second packet of flow f1 arrives, a new record r12 is formed                flow metering stage.
+and later exported. We posit that the quality of both r11 and r12                  We assumed that the training phase of ML classifier was
+records are lower than that of a single extracted record r1 in                  performed on the flow records that were extracted when the
+the first case.                                                                 flow cache size was sufficient (i.e., 100%). Therefore, flow
+   In summary, under-dimensioned flow cache generates                           cache size affected NIDS only during inference phase and
+more flow records due to premature kickouts. It also causes                     not in training phase. RF was used as a candidate NIDS
+flow records to be less accurate. This in turn leads to degra-                  classifier due to its superior performance over DT and CNN in
+dation in NIDS performance and higher computing resource                        Section V.C. To quantify inference time, we assumed that the
+consumption by NIDS. In the following, we first quantify                        NIDS made inferences for each flow record individually and
+how the DR of NIDS is affected when the flow cache becomes                      had no parallel processing functionality. Our scikit-learn [50]
+under-dimensioned. Next we analyze how CPU resource                             implementation of RF used a single CPU core for infer-
+usage time increases as a function of the number of extracted                   ence. The system had an Intel(R) Xeon(R) E5-2640 v4 @
+flow records.                                                                   2.40-GHz CPU with 40 cores and 64 G RAM.
+   Our setting for this experiment was as follows. We found
+the ideal flow cache size for each of the nine PCAP traces of                   1) EFFECT ON THE NIDS DETECTION RATE
+CIC-IDS-2018. Here, ideal cache size was the minimum                            Fig. 9 shows the effect of a constrained flow cache on the
+number of table entries that was sufficient to store all working                NIDS DR for four scenarios in terms of the proportion of the
+
+5818                                                                                                                                          VOLUME 10, 2022
+J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+    FIGURE 8. Corresponding evaluation curve for Majority FAR on multiple benign thresholds for the results shown in Fig. 6.
+
+
+
+
+FIGURE 9. Impact of under-dimensioned Flow Cache on NIDS Detection Rate: Each subfigure corresponds to different sampling rates. x-axis depicts
+flow-level detection rate with majority metric. y-axis shows the flow cache size as the percentage of ideal size. Simple Random Sampling (SRS), Fast
+Filtered Sampling (FFS), SketchFlow Sampling (SFS) and Sketch-Guided Sampling (SGS) samplers are color-coded.
+
+
+packets used to estimate flow records at the sampling rates                         a: OBSERVATIONS
+of 1/1, 1/10, 1/100, and 1/1000. The sampling rate 1/1 is                           Overall, we observed that the constrained flow cache
+equivalent to no sampling.                                                          degraded the NIDS DR the most when no sampling was
+
+
+VOLUME 10, 2022                                                                                                                                        5819
+                                              J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+FIGURE 10. Impact of under-dimensioned Flow Cache on NIDS Recourse Usage (Inference Time). Ideal flow cache size is the minimum size that ensures
+no active flow is prematurely kicked out during measuring process. Flow cache size is varied between 100% to 0.1% with 10 times decrease interval
+where 100% refers to ideal flow cache size that is just enough to measure flows without premature kickout. Simple Random Sampling (SRS), Fast Filtered
+Sampling (FFS), SketchFlow Sampling (SFS) and Sketch-Guided Sampling (SGS) samplers are color-coded.
+
+
+
+
+used. In particular, when the flow cache was 0.1%, the WS                       a: OBSERVATIONS
+scenario had a DR of less than 60%, whereas samplers with                       Overall, the total NIDS inference time increased when the
+1/10 sampling rate had DRs higher than 60%. At the 1/10                         flow cache was under-dimensioned. However, when the sam-
+sampling rate, the DR of each sampling method decreased                         pling rate was harsher, premature kick-outs owing to the
+slightly for flow cache of sizes 1% and 0.1%, except for the                    constrained flow cache size were less frequent.
+SGS. Intuitively, flow cache size had almost no effect on low
+sampling rates.                                                                 b: INSIGHTS
+                                                                                In resource-constrained settings, to reduce the CPU time
+b: INSIGHTS                                                                     of NIDS resources, employing sampling is beneficial as it
+When the flow cache is under-dimensioned, it seems better                       reduces the rate of premature flow-record kick-outs in con-
+strategy is to apply sampling with carefully selected sampling                  trast to without sampling scenario.
+rate that will keep the DR relatively higher. This is because
+the use of sampling has fewer premature kick-outs, which                        VI. CONCLUSION AND FUTURE PERSPECTIVES
+preserves the flow-record quality relatively better. However,                   We proposed an evaluation framework for the proper evalu-
+the sampling rate should be set very carefully as excessively                   ation of ML-based NIDS. To the best of our knowledge, we
+harsh sampling rates may not fully utilize the flow cache                       are the first to propose flow-level NIDS evaluation framework
+but reduce the flow-record quality owing to records being                       that is applicable even in the presence of sampling. Using
+estimated from fewer packets.                                                   proposed evaluation framework we demonstrated a remark-
+                                                                                able performance gain achieved by addressing training-data
+2) EFFECT ON NIDS RESOURCE USAGE                                                imbalance. Sampling experiments show that 50% of the mali-
+NIDS consumes certain CPU resources when making infer-                          cious flows are not exported even with mild 1/10 sampling
+ence for each arriving flow record. Hence, we explored the                      rate. Our investigation on the feasibility of the state-of-the-
+cost in terms of CPU-time usage by the NIDS when flow                           art ML-based NIDS in the presence of sampling reveal that
+cache is under-dimensioned. Fig. 10 shows the increasing                        generally sampling degrades NIDS performance. However,
+trend on the total inference time of all records as we con-                     we observed that sampling can also increase performance
+strained the flow cache size. The results for four different flow               compared with no sampling when resources such as the flow
+cache sizes are indicated. The y-axis indicates the total CPU                   cache of the measuring device (e.g., switch) are constrained.
+time required when making inference for all the exported flow                      This study was the first attempt to explore the effect of
+records. The increase in the total inference time is caused by                  sampling in ML-based NIDSs. To keep the scope manage-
+an increase in the number of flow records.                                      able, we only focused on misuse detection based NIDS.
+
+5820                                                                                                                                          VOLUME 10, 2022
+J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+In future, effect of sampling on anomaly based NIDS should                          [16] M. Wang, B. Li, and Z. Li, ‘‘SFlow: Towards resource-efficient
+be investigated as well. Another limitation of current study                             and agile service federation in service overlay networks,’’ in Proc.
+                                                                                         24th Int. Conf. Distrib. Comput. Syst., 2004, pp. 628–635, doi:
+is its relatively small scale where we investigated only three                           10.1109/ICDCS.2004.1281630.
+sampling rates, four sampling techniques and three ML meth-                         [17] Using NetFlow Sampling to Select the Network Traffic to
+ods. Our flow cache experiments were also limited to four                                Track. Accessed: Sep. 7, 2021. [Online]. Available: https://www.
+                                                                                         cisco.com/c/en/us/td/docs/ios-xml/ios/netflow/configuration/xe-3s/nf-xe-
+different cache sizes. Therefore, in future larger scale studies                         3s-book/nflow-filt-samp-traff-xe.pdf
+could be carried out in multiple dimensions. One direction                          [18] R. Jang, D. Min, S. Moon, D. Mohaisen, D. Nyang, and S. S. Event,
+is to investigate on the effect of sampling with exhaustive                              ‘‘SketchFlow: Per-flow systematic sampling using sketch saturation
+                                                                                         event,’’ in Proc. IEEE Conf. Comput. Commun. (IEEE INFOCOM),
+sampling rates. Another direction is to cover comprehensive                              Jul. 2020, pp. 1339–1348, doi: 10.1109/INFOCOM41043.2020.9155252.
+list of sampling techniques and ML/DL methods. Finally,                             [19] A. Kumar and J. Xu, ‘‘Sketch guided sampling–using on-line estimates of
+conducting such experiments in multiple, diverse datasets                                flow size for adaptive data collection,’’ in Proc. 25th IEEE Int. Conf. Com-
+                                                                                         put. Commun. (IEEE INFOCOM), Apr. 2006, pp. 1–12, doi: 10.1109/IN-
+provides more rigorous arguments in the effect of sampling                               FOCOM.2006.326.
+on NIDS performance.                                                                [20] C. Hu, B. Liu, S. Wang, J. Tian, Y. Cheng, and Y. Chen, ‘‘ANLS: Adap-
+                                                                                         tive non-linear sampling method for accurate flow size measurement,’’
+                                                                                         IEEE Trans. Commun., vol. 60, no. 3, pp. 789–798, Mar. 2012, doi:
+REFERENCES
+                                                                                         10.1109/TCOMM.2011.112311.100622.
+ [1] R. Hofstede, B. Trammell, I. Drago, R. Sadre, A. Sperotto, and A. Pras,        [21] A. Ramachandran, S. Seetharaman, N. Feamster, and V. Vazirani, ‘‘Fast
+     ‘‘Flow monitoring explained: From packet capture to data analysis with              monitoring of traffic subpopulations,’’ in Proc. 8th ACM SIGCOMM Conf.
+     NetFlow and IPFIX,’’ IEEE Commun. Surveys Tuts., vol. 16, no. 4,                    Internet Meas. Conf. (IMC), Vouliagmeni, Greece, 2008, pp. 257–270, doi:
+     pp. 2037–2064, 4th Quart., 2014, doi: 10.1109/COMST.2014.2321898.                   10.1145/1452520.1452551.
+ [2] A. Sperotto and A. Pras, ‘‘Flow-based intrusion detection,’’ in Proc. 12th     [22] J. Mai, A. Sridharan, H. Zang, and C.-N. Chuah, ‘‘Fast filtered sam-
+     IFIP/IEEE Int. Symp. Integr. Netw. Manage. (IM) Workshops, May 2011,                pling,’’ Comput. Netw., vol. 54, no. 11, pp. 1885–1898, Aug. 2010, doi:
+     pp. 958–963, doi: 10.1109/INM.2011.5990529.                                         10.1016/j.comnet.2010.01.015.
+ [3] B. Claise, B. Trammell, and P. Aitken, Specification of the IP Flow            [23] N. Duffield, C. Lund, and M. Thorup, ‘‘Learn more, sample less: Control of
+     Information Export (IPFIX) Protocol for the Exchange of Flow Informa-               volume and variance in network measurement,’’ IEEE Trans. Inf. Theory,
+     tion, document RFC 7011, Internet Requests for Comments, RFC Editor,                vol. 51, no. 5, pp. 1756–1775, May 2005, doi: 10.1109/TIT.2005.846400.
+     Sep. 2013. [Online]. Available: http://www.rfc-editor.org/rfc/rfc7011.txt
+                                                                                    [24] N. Hohn and D. Veitch, ‘‘Inverting sampled traffic,’’ IEEE/ACM
+ [4] M. F. Umer, M. Sher, and Y. Bi, ‘‘Flow-based intrusion detection: Tech-
+                                                                                         Trans. Netw., vol. 14, no. 1, pp. 68–80, Feb. 2006, doi:
+     niques and challenges,’’ Comput. Secur., vol. 70, pp. 238–254, Sep. 2017,
+                                                                                         10.1109/TNET.2005.863456.
+     doi: 10.1016/j.cose.2017.05.009.
+                                                                                    [25] P. Tune and D. Veitch, ‘‘Towards optimal sampling for flow size estima-
+ [5] B. Claise, Cisco Systems NetFlow Services Export Version 9, document
+                                                                                         tion,’’ in Proc. 8th ACM SIGCOMM Conf. Internet Meas. Conf. (IMC),
+     RFC 3954, Internet Requests for Comments, RFC Editor, Oct. 2004.
+                                                                                         2008, pp. 243–256, doi: 10.1145/1452520.1452550.
+     [Online]. Available: http://www.rfc-editor.org/rfc/rfc3954.txt
+                                                                                    [26] R. Koch, ‘‘Towards next-generation intrusion detection,’’ in Proc. 3rd Int.
+ [6] V. Kumar. Network Intrusion Detection on UNSW-NB15.
+                                                                                         Conf. Cyber Conflict, 2011, pp. 151–168.
+     Github. Accessed: Sep. 2021. [Online]. Available: https://github.
+     com/vinayakumarr/Network-IntrusionDetection/blob/master/UNSW-                  [27] J.-H. Jun, C.-W. Ahn, and S.-H. Kim, ‘‘DDoS attack detection by
+     NB15/CNN/multiclass/cnn2.py                                                         using packet sampling and flow features,’’ in Proc. 29th Annu. ACM
+                                                                                         Symp. Appl. Comput., Mar. 2014, pp. 711–712, doi: 10.1145/2554850.
+ [7] R. Vinayakumar, M. Alazab, K. Soman, P. Poornachandran, A. Al-Nemrat,
+                                                                                         2555109.
+     and S. Venkatraman, ‘‘Deep learning approach for intelligent intrusion
+     detection system,’’ IEEE Access, vol. 7, pp. 41525–41550, 2019, doi:           [28] T. Ha, S. Kim, N. An, J. Narantuya, C. Jeong, J. Kim, and H. Lim,
+     10.1109/ACCESS.2019.2895334.                                                        ‘‘Suspicious traffic sampling for intrusion detection in software-defined
+ [8] J. Kevric, S. Jukic, and A. Subasi, ‘‘An effective combining classifier             networks,’’ Comput. Netw., vol. 109, pp. 172–182, Nov. 2016, doi:
+     approach using tree algorithms for network intrusion detection,’’ Neu-              10.1016/j.comnet.2016.05.019.
+     ral Comput. Appl., vol. 28, no. S1, pp. 1051–1058, Dec. 2017, doi:             [29] G. Androulidakis and S. Papavassiliou, ‘‘Improving network anomaly
+     10.1007/s00521-016-2418-1.                                                          detection via selective flow-based sampling,’’ IET Commun., vol. 2, no. 3,
+ [9] N. Sultana, N. Chilamkurti, W. Peng, and R. Alhadad, ‘‘Survey on                    pp. 399–409, Mar. 2008, doi: doi:10.1049/iet-com:20070231.
+     SDN based network intrusion detection system using machine learning            [30] J. Mai, A. Sridharan, C.-N. Chuah, H. Zang, and T. Ye, ‘‘Impact of packet
+     approaches,’’ Peer-Peer Netw. Appl., vol. 12, no. 2, pp. 493–501, Jan. 2019,        sampling on portscan detection,’’ IEEE J. Sel. Areas Commun., vol. 24,
+     doi: 10.1007/s12083-017-0630-0.                                                     no. 12, pp. 2285–2298, Dec. 2006, doi: 10.1109/JSAC.2006.884027.
+[10] A. Javaid, Q. Niyaz, W. Sun, and M. Alam, ‘‘A deep learning approach           [31] J. Mai, C.-N. Chuah, A. Sridharan, T. Ye, and H. Zang, ‘‘Is sampled data
+     for network intrusion detection system,’’ in Proc. 9th EAI Int. Conf.               sufficient for anomaly detection?’’ in Proc. 6th ACM SIGCOMM Internet
+     Bio-Inspired Inf. Commun. Technol. (BIONETICS), 2016, pp. 21–26, doi:               Meas. (IMC), 2006, pp. 165–176, doi: 10.1145/1177080.1177102.
+     10.4108/eai.3-12-2015.2262516.                                                 [32] H. H. Jazi, H. Gonzalez, N. Stakhanova, and A. A. Ghorbani, ‘‘Detecting
+[11] N. Shone, T. N. Ngoc, V. D. Phai, and Q. Shi, ‘‘A deep learning approach to         HTTP-based application layer DoS attacks on web servers in the pres-
+     network intrusion detection,’’ IEEE Trans. Emerg. Topics Comput. Intell.,           ence of sampling,’’ Comput. Netw., vol. 121, pp. 25–36, Jul. 2017, doi:
+     vol. 2, no. 1, pp. 41–50, Feb. 2018, doi: 10.1109/TETCI.2017.2772792.               10.1016/j.comnet.2017.03.018.
+[12] I. Sharafaldin, A. H. Lashkari, and A. A. Ghorbani, ‘‘Toward generating        [33] A. L. Buczak and E. Guven, ‘‘A survey of data mining and machine
+     a new intrusion detection dataset and intrusion traffic characterization,’’         learning methods for cyber security intrusion detection,’’ IEEE Com-
+     in Proc. 4th Int. Conf. Inf. Syst. Secur. Privacy, 2018, pp. 108–116, doi:          mun. Surveys Tuts., vol. 18, no. 2, pp. 1153–1176, Oct. 2016, doi:
+     10.5220/0006639801080116.                                                           10.1109/COMST.2015.2494502.
+[13] M. A. Ferrag, L. A. Maglaras, H. Janicke, and R. Smith, ‘‘Deep learning        [34] G. Bovenzi, G. Aceto, D. Ciuonzo, V. Persico, and A. Pescape, ‘‘A hier-
+     techniques for cyber security intrusion detection: A detailed analysis,’’ in        archical hybrid intrusion detection approach in IoT scenarios,’’ in Proc.
+     Proc. Electron. Workshops Comput., vol. 10, Sep. 2019, pp. 126–136, doi:            IEEE Global Commun. Conf. (GLOBECOM), Dec. 2020, pp. 1–7, doi:
+     10.14236/ewic/icscsr19.16.                                                          10.1109/GLOBECOM42002.2020.9348167.
+[14] D. Masters and C. Luschi, ‘‘Revisiting small batch training for deep neural    [35] Y. Mirsky, T. Doitshman, Y. Elovici, and A. Shabtai, ‘‘Kitsune: An ensem-
+     networks,’’ 2018, arXiv:1804.07612.                                                 ble of autoencoders for online network intrusion detection,’’ 2018,
+[15] K. C. Claffy, G. C. Polyzos, and H.-W. Braun, ‘‘Application of sam-                 arXiv:1802.09089.
+     pling methodologies to network traffic characterization,’’ ACM SIGCOMM         [36] C. Yin, Y. Zhu, J. Fei, and X. He, ‘‘A deep learning approach for intru-
+     Comput. Commun. Rev., vol. 23, no. 4, pp. 194–203, Oct. 1993, doi:                  sion detection using recurrent neural networks,’’ IEEE Access, vol. 5,
+     10.1145/167954.166256.                                                              pp. 21954–21961, 2017, doi: 10.1109/ACCESS.2017.2762418.
+
+VOLUME 10, 2022                                                                                                                                                5821
+                                                     J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+[37] A. Alharbi, W. Alosaimi, H. Alyami, H. T. Rauf, and R. Damaševičius,              [59] A. Daniel, K. Subburathinam, B. A. Muthu, N. Rajkumar, S. Kadry,
+     ‘‘Botnet attack detection using local global best bat algorithm for industrial         R. K. Mahendran, and S. Pandian, ‘‘Procuring cooperative intelligence in
+     Internet of Things,’’ Electronics, vol. 10, no. 11, p. 1341, Jun. 2021, doi:           autonomous vehicles for object detection through data fusion approach,’’
+     10.3390/electronics10111341.                                                           IET Intell. Transp. Syst., vol. 14, no. 11, pp. 1410–1417, Nov. 2020.
+[38] J. Kim, M. Shim, S. Hong, Y. Shin, and E. Choi, ‘‘Intelligent detection of        [60] F. Khan, R. L. Kumar, S. Kadry, Y. Nam, and M. N. Meqdad, ‘‘Autonomous
+     IoT botnets using machine learning and deep learning,’’ Appl. Sci., vol. 10,           vehicles: A study of implementation and security,’’ Int. J. Elect. Comput.
+     no. 19, p. 7009, Oct. 2020, doi: 10.3390/app10197009.                                  Eng., vol. 11, no. 4, pp. 3013–3021, 2021.
+[39] A. H. Lashkari. CICFlowmeter-V4.0. Github. Accessed: Sep. 2021.                   [61] S. Malik, H. A. Khattak, Z. Ameer, U. Shoaib, H. T. Rauf, and
+     [Online]. Available: https://github.com/ahlashkari/CICFlowMeter                        H. Song, ‘‘Proactive scheduling and resource management for
+[40] NetFlow. Accessed: Sep. 2021. [Online]. Available: https://www.                        connected autonomous vehicles: A data science perspective,’’ IEEE
+     cisco.com/c/en/us/products/ios-nx-os-software/ios-netflow/index.html                   Sensors J., vol. 21, no. 22, pp. 25151–25160, Nov. 2021, doi:
+[41] N. Brownlee, C. Mills, and G. Ruth, Traffic Flow Measurement:                          10.1109/JSEN.2021.3074785.
+     Architecture, document RFC 2722, Internet Requests for Comments,                  [62] S. Lal, S. U. Rehman, J. H. Shah, T. Meraj, H. T. Rauf, R. Damasevicius,
+     RFC Editor, Oct. 1999. [Online]. Available: https://datatracker.                       M. A. Mohammed, and K. H. Abdulkareem, ‘‘Adversarial attack and
+     ietf.org/doc/html/rfc2722                                                              defence through adversarial training and feature fusion for diabetic
+[42] J. Quittek, T. Zseby, B. Claise, and S. Zander, Requirements for                       retinopathy recognition,’’ Sensors, vol. 21, no. 11, pp. 1424–8220, 2021.
+     IP Flow Information Export (IPFIX), document RFC 3917, Internet
+     Requests for Comments, RFC Editor, Oct. 2004. [Online]. Available:
+     https://datatracker.ietf.org/doc/html/rfc3917
+[43] A. Dainotti, A. Pescape, and K. C. Claffy, ‘‘Issues and future direc-
+     tions in traffic classification,’’ IEEE Netw., vol. 26, no. 1, pp. 35–40,
+     Jan./Feb. 2012, doi: 10.1109/MNET.2012.6135854.
+[44] M. Tavallaee, E. Bagheri, W. Lu, and A. A. Ghorbani, ‘‘A detailed analysis                                  JUMABEK ALIKHANOV (Student Member,
+     of the KDD CUP 99 data set,’’ in Proc. IEEE Symp. Comput. Intell. Secur.                                    IEEE) received the B.S. degree from the Tashkent
+     Defense Appl., Jul. 2009, pp. 1–6, doi: 10.1109/CISDA.2009.5356528.                                         University of Information Technologies, in 2014,
+[45] A. H. Lashkari. (2019). CSE-CIC-IDS 2018 on AWS. [Online]. Available:                                       and the M.E. degree from Inha University, in 2017,
+     https://www.unb.ca/cic/datasets/ids-2018.html                                                               where he is currently pursuing the Ph.D. degree
+[46] R. Jang, S. Moon, Y. Noh, A. Mohaisen, and D. Nyang, ‘‘InstaMea-                                            with the Department of Computer Science and
+     sure: Instant per-flow detection using large in-DRAM working set                                            Information Engineering. His research interests
+     of active flows,’’ in Proc. IEEE 39th Int. Conf. Distrib. Comput.                                           include machine learning and its applications on
+     Syst. (ICDCS), Jul. 2019, pp. 2047–2056, doi: 10.1109/ICDCS.2019.
+                                                                                                                 computer vision, natural language processing, sen-
+     00202.
+                                                                                                                 sor data science, and information security.
+[47] Y. Li, R. Miao, C. Kim, and M. Yu, ‘‘FlowRadar: A better netflow for
+     data centers,’’ in Proc. 13th USENIX Symp. Netw. Syst. Design Implement.
+     (NSDI), Santa Clara, CA, USA, Mar. 2016, pp. 311–324.
+[48] P. A. A. Resende and A. C. Drummond, ‘‘A survey of random forest based
+     methods for intrusion detection systems,’’ ACM Comput. Surveys, vol. 51,
+     no. 3, pp. 1–36, Jul. 2018, doi: 10.1145/3178582.
+[49] R. Vinayakumar, K. P. Soman, and P. Poornachandran, ‘‘Applying convolu-
+     tional neural network for network intrusion detection,’’ in Proc. Int. Conf.                               RHONGHO JANG (Member, IEEE) received the
+     Adv. Comput., Commun. Informat. (ICACCI), Sep. 2017, pp. 1222–1228,                                        B.S., M.E., and first Ph.D. degrees from Inha Uni-
+     doi: 10.1109/ICACCI.2017.8126009.                                                                          versity, South Korea, in 2013, 2015, and 2020,
+[50] F. Pedregosa, G. Varoquaux, A. Gramfort, V. Michel, B. Thirion, O. Grisel,                                 respectively, and the Ph.D. degree from the Depart-
+     M. Blondel, P. Prettenhofer, R. Weiss, V. Dubourg, and J. Vanderplas,                                      ment of Computer Science, University of Central
+     ‘‘Scikit-learn: Machine learning in Python,’’ J. Mach. Learn. Res., vol. 12,                               Florida, in 2020. He is currently an Assistant Pro-
+     pp. 2825–2830, Jan. 2011.                                                                                  fessor with the Department of Computer Science,
+[51] K. Hao. Training a Single AI Model Can Emit as Much Carbon as                                              Wayne State University. To date, he has published,
+     Five Cars in Their Lifetimes. Accessed: Sep. 7, 2021. [Online]. Avail-                                     as a lead author, several peer-reviewed research
+     able: https://www.technologyreview.com/2019/06/06/239031/training-a-                                       papers, including papers in top-tier conferences
+     single-ai-model-can-emit-as-much-carbon-as-five-cars-in-their-lifetimes/          and premier journals, such as IEEE ICDCS, IEEE INFOCOM, and IEEE
+[52] A. Gulli and S. Pal. Keras. Accessed: Sep. 2021. [Online]. Available:             TRANSACTIONS ON MOBILE COMPUTING (IEEE TMC). As public services, he is
+     https://keras.io/                                                                 serving as the Publicity Chair for IEEE ICDCS 2021, and served as the
+[53] N. V. Chawla, K. W. Bowyer, L. O. Hall, and W. P. Kegelmeyer, ‘‘SMOTE:            Web Chair for ACM CoNEXT 2019 and a Reviewer for IEEE TMC,
+     Synthetic minority over-sampling technique,’’ J. Artif. Intell. Res., vol. 16,    IEEE TRANSACTIONS ON NETWORK AND SERVICE MANAGEMENT (IEEE TNSM),
+     no. 1, pp. 321–357, 2002, doi: 10.1613/jair.953.                                  IEEE/ACM TRANSACTIONS ON NETWORKING (IEEE ToN), and ETRI Journal.
+[54] M. Bach, A. Werner, J. Żywiec, and W. Pluskiewicz, ‘‘The study of
+     under- and over-sampling methods’ utility in analysis of highly imbalanced
+     data on osteoporosis,’’ Inf. Sci., vol. 384, pp. 174–190, Apr. 2017, doi:
+     10.1016/j.ins.2016.09.038.
+[55] A. Paszke, S. Gross, F. Massa, A. Lerer, J. Bradbury, G. Chanan, T. Killeen,
+     Z. Lin, N. Gimelshein, L. Antiga, and A. Desmaison, ‘‘PyTorch: An imper-
+     ative style, high-performance deep learning library,’’ in Proc. NeurIPS,
+                                                                                                                 MOHAMMED ABUHAMAD (Member, IEEE)
+     2019, pp. 8024–8035.
+                                                                                                                 received the master’s degree in information tech-
+[56] G. Aceto, D. Ciuonzo, A. Montieri, and A. Pescapè, ‘‘MIMETIC:
+     Mobile encrypted traffic classification using multimodal deep learn-                                        nology (artificial intelligence) from the National
+     ing,’’ Comput. Netw., vol. 165, Dec. 2019, Art. no. 106944, doi:                                            University of Malaysia, Bangi, Malaysia, in 2013,
+     10.1016/j.comnet.2019.106944.                                                                               the first Ph.D. degree in computer science from
+[57] M. Roesch, ‘‘Snort–lightweight intrusion detection for networks,’’ in Proc.                                 the University of Central Florida (UCF), in 2020,
+     13th USENIX Conf. Syst. Admin., 1991, pp. 229–238.                                                          and the second Ph.D. degree in electrical and com-
+[58] A. Rouari, A. Moussaoui, Y. Chahir, H. T. Rauf, and S. Kadry,                                               puter engineering from Inha University, Incheon,
+     ‘‘Deep CNN-based autonomous system for safety measures in                                                   Republic of Korea, in 2020. He is currently
+     logistics transportation,’’ Soft Comput., vol. 25, pp. 1433–7479,                                           an Assistant Professor with the Department of
+     Jun. 2021.                                                                                                  Computer Science, Loyola University Chicago.
+
+5822                                                                                                                                                 VOLUME 10, 2022
+J. Alikhanov et al.: Investigating Effect of Traffic Sampling on ML-Based Network Intrusion Detection Approaches
+
+
+
+
+                            DAVID MOHAISEN (Senior Member, IEEE)                                               YOUNGTAE NOH (Member, IEEE) received the
+                            received the Ph.D. degree from the University of                                   B.S. degree in computer science from Chosun Uni-
+                            Minnesota, in 2012. He is currently an Associate                                   versity, in 2005, the M.S. degree in information
+                            Professor with the University of Central Florida,                                  and communication from the Gwangju Institute
+                            where he directs the Security and Analytics Lab                                    of Science and Technology (GIST), in 2007, and
+                            (SEAL). Before joining UCF in 2017, he was                                         the Ph.D. degree in computer science from the
+                            a Senior Research Scientist with Verisign Labs,                                    University of California at Los Angeles (UCLA),
+                            from 2012 to 2015, and an Assistant Professor                                      in 2012. He is currently an Assistant Professor
+                            with SUNY Buffalo, from 2015 to 2017. His                                          with the Department of Computer Science and
+                            research interests include networked systems and                                   Information Engineering, Inha University. Before
+their security, online privacy, and measurements. He is a Senior Member of          joining Inha University, he was a Staff Member with Cisco Systems, until
+ACM (2018). He is also the Editor-in-Chief of EAI Endorsed Transactions             2014. His research interests include data center networking, wireless net-
+on Security and Safety, and an Associate Editor of the IEEE TRANSACTIONS            working, future internet, and mobile/pervasive computing.
+ON MOBILE COMPUTING, Computer Networks (Elsevier), and ETRI Journal
+(Wiley).
+
+
+
+
+                            DAEHUN NYANG (Senior Member, IEEE)
+                            received the B.Eng. degree in electronic engi-
+                            neering and computer science from the Korea
+                            Advanced Institute of Science and Technology
+                            (KAIST), in 1994, and the M.S. and Ph.D. degrees
+                            in computer science from Yonsei University, South
+                            Korea, in 1996 and 2000, respectively. He had
+                            been a Senior Researcher at the Electronics and
+                            Telecommunications Research Institute (ETRI),
+                            South Korea, from 2000 to 2003. From 2003
+to 2020, he was a Professor at the Computer Science and Engineering
+Department, Inha University, South Korea. Since 2020, he has been a
+Professor at the Cyber Security Department, ELTech Engineering College,
+Ewha Womans University. He has been the Founding Director of the
+Information Security Research Laboratory, since 2003. He is currently an
+Executive Director of the Korean Institute of Information Security and
+Cryptology. His research interests include all algorithmic aspects of AI
+security, AI attack, network security, privacy, usable security, biometrics,
+and their applications to authentication and public key cryptography. His
+recent interest lies also in network measurement, load balancing algorithm,
+counting algorithm, caching algorithm, fast hash table, key value store for
+in-memory DB, random sampling theory, and in-network security (INS)
+powered by programmable routers.
+   He is a member of KIISC. He serves as the Editor-in-Chief (EiC) for
+KIISC Journal and a Section Editor (Information Security Section) for ETRI
+Journal.
+
+
+
+
+VOLUME 10, 2022                                                                                                                                          5823
+

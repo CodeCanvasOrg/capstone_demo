@@ -1,0 +1,89 @@
+ HUMBLEBEEAI / CASE STUDY
+
+
+ Field Center Detection for Augmented
+ Reality in Sports
+ Open original HumbleBeeAI page
+
+ AI-powered mobile application that detects sports field centers in real time with high accuracy,
+ enhancing augmented reality experiences and operational efficiency.
+
+   Accuracy                                Speed                         Deployment
+   High                                    Seconds                       iOS & Android
+
+
+
+
+ Source image
+
+
+ Executive Summary
+ An Augmented Reality (AR) based company partnered with HumbleBeeAI to solve challenges they
+ faced in accurately detecting the center of sports fields using mobile devices. The goal was to create a
+ solution that could provide real-time, precise field center detection and alignment, enhancing the user
+ experience for AR applications. The solution developed by HumbleBeeAI involved a combination of
+ deep learning models, optimized for real-time performance on mobile devices. The app delivers
+ accurate field center localization with minimal computational overhead.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                        1
+ Introduction
+ Accurate field center detection is crucial for various applications, including sports broadcasting,
+ coaching, and augmented reality experiences. Traditional methods of field alignment often rely on
+ manual measurements or expensive equipment, which can be time-consuming and prone to errors.
+ Recognizing these challenges, the client sought to develop a mobile application that could
+ automatically detect the center of sports fields in real time.
+
+ The Problem
+ Traditional field center detection methods present several challenges:
+
+  •   Manual Measurements: Relying on physical markers or manual alignment can be inaccurate and
+      time-consuming.
+  •   Equipment Costs: High-quality cameras and sensors are often required, increasing the cost of
+      implementation.
+  •   Environmental Factors: Lighting conditions, weather, and field conditions can affect detection
+      accuracy.
+  •   Real-Time Requirements: Many applications need instant feedback, which traditional methods
+      struggle to provide.
+ In a dynamic sports environment, these challenges can lead to inefficiencies and reduced user
+ experience, particularly for AR applications that require precise alignment.
+
+ The Solution
+ To address these challenges, the company collaborated with HumbleBeeAI to develop a mobile
+ application that leverages deep learning for real-time field center detection. The solution combines
+ lightweight segmentation models with keypoint estimation techniques, optimized for mobile devices.
+ The app allows users to point their phone camera at the sports field, and within seconds, the system
+ identifies the field center and key alignment points.
+
+ The solution was designed to operate seamlessly on both iOS and Android devices, providing
+ accurate results without the need for internet connectivity. The app also includes features such as
+ customizable thresholds, exportable logs, and easy integration with existing mobile applications.
+
+ Results
+ The implementation of the Field Center Detection app has led to:
+
+  •   Real-Time Detection: Instant identification of field centers and alignment points.
+  •   Increased Accuracy: Reliable detection across various lighting and environmental conditions.
+  •   Cost Efficiency: Reduced reliance on expensive equipment and manual labor.
+  •   Enhanced User Experience: Improved AR applications with precise field alignment.
+  •   Operational Efficiency: Significant reduction in time spent on field alignment tasks.
+  •   User Engagement: Enhanced AR experiences for fans and users in sports settings.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                    2
+ Conclusion
+ The Field Center Detection app developed by HumbleBeeAI has successfully addressed the
+ challenges of traditional field alignment methods. By leveraging advanced deep learning techniques
+ and optimizing for mobile devices, the solution provides a fast, accurate, and cost-effective way to
+ detect sports field centers in real time. This innovation not only enhances operational efficiency but
+ also significantly improves the user experience for augmented reality applications in sports settings.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                      3
+

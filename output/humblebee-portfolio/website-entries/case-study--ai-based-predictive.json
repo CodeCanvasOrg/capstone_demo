@@ -1,0 +1,662 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Johnson & Johnson Predictive Customer Targeting With 96.8% Accuracy",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI developed a predictive customer-targeting solution for Johnson & Johnson that the case study reports achieved 96.8% accuracy in predicting purchase probability.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/a68143ba-8a4e-4fd6-8815-bf63b1a9cf63/asset",
+            "fileName": "case-study--ai-based-predictive.pdf",
+            "chunkText": "Johnson and Johnson's marketing team faced a tough challenge. Predicting customer purchase behavior across diverse markets proved complex, time-consuming, and often inaccurate. With HumbleBeeAI's predictive modeling solution, that story changed. By combining advanced machine learning with explainable AI, the system achieved 96.8 percent accuracy in predicting purchase probability while providing clear, actionable insights. The result was sharper targeting, higher conversions, and smarter marketing decisions.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "a68143ba-8a4e-4fd6-8815-bf63b1a9cf63"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Johnson & Johnson needed to identify which customers were most likely to purchase products across a varied global portfolio. HumbleBeeAI describes a predictive modeling solution combining machine learning and explainable AI; its case study reports 96.8% accuracy in predicting purchase probability. The source describes real-time prediction through a Flask API, but does not specify deployment scope, validation methodology, or when the reported accuracy was measured.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/a68143ba-8a4e-4fd6-8815-bf63b1a9cf63/asset",
+            "fileName": "case-study--ai-based-predictive.pdf",
+            "chunkText": "Johnson and Johnson's marketing team faced a tough challenge. Predicting customer purchase behavior across diverse markets proved complex, time-consuming, and often inaccurate. With HumbleBeeAI's predictive modeling solution, that story changed. By combining advanced machine learning with explainable AI, the system achieved 96.8 percent accuracy in predicting purchase probability while providing clear, actionable insights. The result was sharper targeting, higher conversions, and smarter marketing decisions.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "a68143ba-8a4e-4fd6-8815-bf63b1a9cf63"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/7d32b0a8-b612-4e46-a155-b7747b4f2a1b/asset",
+            "fileName": "case-study--ai-based-predictive.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAdvanced AI-based predictive customer modeling solution utilizing machine learning algorithms and SHAP explainability frameworks for marketing optimization",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "7d32b0a8-b612-4e46-a155-b7747b4f2a1b"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/7d32b0a8-b612-4e46-a155-b7747b4f2a1b/asset",
+            "fileName": "case-study--ai-based-predictive.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAdvanced AI-based predictive customer modeling solution utilizing machine learning algorithms and SHAP explainability frameworks for marketing optimization",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "7d32b0a8-b612-4e46-a155-b7747b4f2a1b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied PDF identifies an “Open original HumbleBeeAI page” source link, but it does not include the page URL. The link therefore cannot be reproduced here.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/7d32b0a8-b612-4e46-a155-b7747b4f2a1b/asset",
+            "fileName": "case-study--ai-based-predictive.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAdvanced AI-based predictive customer modeling solution utilizing machine learning algorithms and SHAP explainability frameworks for marketing optimization",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "7d32b0a8-b612-4e46-a155-b7747b4f2a1b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Johnson & Johnson operates across pharmaceuticals, medical devices, and consumer products, with customer portfolios spanning categories and demographics. Its marketing team needed a more precise way to determine which customers were likely to buy specific products—and why.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/ec357a6e-3da7-4b6f-8438-dc6e76a2ba95/asset",
+            "fileName": "case-study--ai-based-predictive.pdf",
+            "chunkText": "As a global leader in healthcare, Johnson and Johnson competes across pharmaceuticals, medical devices, and consumer products. Success in these markets depends on one critical factor: understanding customers. With portfolios stretching across multiple categories and demographics, J&J needed more than broad strategies. They needed precision.\n\nTo maximize the impact of their marketing campaigns, J&J had to answer a crucial question. Which customers are most likely to purchase specific products, and why.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "ec357a6e-3da7-4b6f-8438-dc6e76a2ba95"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study describes a workflow constrained by inconsistent data and limited explanatory power: teams struggled to identify high-probability buyers, encountered differences across regions and product lines, and could not readily interpret predictions. It also reports that processing large datasets quickly enough for real-time campaign decisions was a scalability challenge.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/36dfa1c1-7496-4d43-a0b2-5dfd5d3b377b/asset",
+            "fileName": "case-study--ai-based-predictive.pdf",
+            "chunkText": "The marketing team faced several roadblocks:\n\nPrediction challenges made it difficult to identify high-probability buyers, resulting in wasted spend and missed opportunities.\n\nData Variability across regions and product lines complicated preprocessing and analysis.\n\nLack of interpretability meant predictions were delivered without explanation, leaving teams uncertain about how to act.\n\nScalability issues limited the ability to process large datasets and generate predictions fast enough to support real-time campaign decisions.\n\nWithout a better solution, J&J risked relying on guesswork instead of data-driven targeting.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "36dfa1c1-7496-4d43-a0b2-5dfd5d3b377b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI’s described framework combined predictive modeling, data preparation, customer-focused feature engineering, model explanations, and an API for returning predictions. The case study presents these as capabilities of the solution; it does not detail the production rollout or the datasets used.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/7d32b0a8-b612-4e46-a155-b7747b4f2a1b/asset",
+            "fileName": "case-study--ai-based-predictive.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAdvanced AI-based predictive customer modeling solution utilizing machine learning algorithms and SHAP explainability frameworks for marketing optimization",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "7d32b0a8-b612-4e46-a155-b7747b4f2a1b"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/7d32b0a8-b612-4e46-a155-b7747b4f2a1b/asset",
+            "fileName": "case-study--ai-based-predictive.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAdvanced AI-based predictive customer modeling solution utilizing machine learning algorithms and SHAP explainability frameworks for marketing optimization",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "7d32b0a8-b612-4e46-a155-b7747b4f2a1b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Predictive modeling and data preparation",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The model used XGBoost, fine-tuned through systematic grid search, to predict purchase probability.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/7d32b0a8-b612-4e46-a155-b7747b4f2a1b/asset",
+                    "fileName": "case-study--ai-based-predictive.pdf",
+                    "chunkText": "Open original HumbleBeeAI page\n\nAdvanced AI-based predictive customer modeling solution utilizing machine learning algorithms and SHAP explainability frameworks for marketing optimization",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 1,
+                    "pageNumber": 1,
+                    "sourceChunkId": "7d32b0a8-b612-4e46-a155-b7747b4f2a1b"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The described preprocessing used imputation strategies for missing values and MinMax scaling to standardize diverse datasets.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/7d32b0a8-b612-4e46-a155-b7747b4f2a1b/asset",
+                    "fileName": "case-study--ai-based-predictive.pdf",
+                    "chunkText": "Open original HumbleBeeAI page\n\nAdvanced AI-based predictive customer modeling solution utilizing machine learning algorithms and SHAP explainability frameworks for marketing optimization",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 1,
+                    "pageNumber": 1,
+                    "sourceChunkId": "7d32b0a8-b612-4e46-a155-b7747b4f2a1b"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Custom features represented demographics, location, transaction history, and usage patterns, giving the model inputs intended to capture customer behavior.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/7d32b0a8-b612-4e46-a155-b7747b4f2a1b/asset",
+                    "fileName": "case-study--ai-based-predictive.pdf",
+                    "chunkText": "Open original HumbleBeeAI page\n\nAdvanced AI-based predictive customer modeling solution utilizing machine learning algorithms and SHAP explainability frameworks for marketing optimization",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 1,
+                    "pageNumber": 1,
+                    "sourceChunkId": "7d32b0a8-b612-4e46-a155-b7747b4f2a1b"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Explainable predictions and API delivery",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "SHAP analysis was used to show which features contributed to predictions, helping marketing teams understand why customers were assigned higher purchase probabilities.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/7d32b0a8-b612-4e46-a155-b7747b4f2a1b/asset",
+                    "fileName": "case-study--ai-based-predictive.pdf",
+                    "chunkText": "Open original HumbleBeeAI page\n\nAdvanced AI-based predictive customer modeling solution utilizing machine learning algorithms and SHAP explainability frameworks for marketing optimization",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 1,
+                    "pageNumber": 1,
+                    "sourceChunkId": "7d32b0a8-b612-4e46-a155-b7747b4f2a1b"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "A Flask API is described as providing predictions and interpretability metrics in real time, with the stated purpose of supporting rapid marketing decisions. The source does not clarify the deployment environment or availability.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/7d32b0a8-b612-4e46-a155-b7747b4f2a1b/asset",
+                    "fileName": "case-study--ai-based-predictive.pdf",
+                    "chunkText": "Open original HumbleBeeAI page\n\nAdvanced AI-based predictive customer modeling solution utilizing machine learning algorithms and SHAP explainability frameworks for marketing optimization",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 1,
+                    "pageNumber": 1,
+                    "sourceChunkId": "7d32b0a8-b612-4e46-a155-b7747b4f2a1b"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "A supplied visual showing clusters of small images connected around a central portrait; the source does not identify it as a system diagram.",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/afeada4d-d9e7-4f93-a298-c6dd661471bc/asset",
+        "align": "center",
+        "title": "Illustrative source image; not identified as the delivered model architecture.",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/afeada4d-d9e7-4f93-a298-c6dd661471bc/asset",
+        "fileName": "case-study--ai-based-predictive.pdf",
+        "chunkText": "Source image\n\n# = [] - .\n. wt &\nim, f. kN Lg .\nMaay * Tk ® <b\n“ on ts CN LI 5\n“ re ag ME ah Te LL\n= bl} y ? pT :\nbs HL Ld ia - cy\n. eves os tm\nats. n sommEE gg él nS Te\na! fi PEE ——\n\" -— LS oF mi,\nTAY EK. a - Ve runce (ate,\ncoy Yong ome JL\na NEN - LIS, .p\nRl. 3 4 “i\nbl 1 . \"a ol oy\n\" ; : 8 % 8",
+        "mediaType": "image/png",
+        "chunkIndex": 2,
+        "pageNumber": 1,
+        "sourceChunkId": "afeada4d-d9e7-4f93-a298-c6dd661471bc"
+      }
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study reports the following outcomes. It does not provide evaluation details for the accuracy figure or numerical measurements for the campaign and business outcomes.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/69c0a1ab-1e07-42f9-83df-2d0f468421de/asset",
+            "fileName": "case-study--ai-based-predictive.pdf",
+            "chunkText": "The impact was clear and measurable:\n\n96.8 percent prediction accuracy gave J&J an unprecedented level of confidence in targeting decisions.\n\nActionable insights from SHAP analysis revealed the real drivers of customer behavior, from regional preferences to product usage patterns.\n\nImproved campaign outcomes translated into higher conversion rates and stronger revenue growth across multiple product categories.\n\nOperational agility meant teams could plan campaigns faster while staying aligned with real-time opportunities in the market.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "69c0a1ab-1e07-42f9-83df-2d0f468421de"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "96.8 percent prediction accuracy in predicting purchase probability.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/a68143ba-8a4e-4fd6-8815-bf63b1a9cf63/asset",
+                    "fileName": "case-study--ai-based-predictive.pdf",
+                    "chunkText": "Johnson and Johnson's marketing team faced a tough challenge. Predicting customer purchase behavior across diverse markets proved complex, time-consuming, and often inaccurate. With HumbleBeeAI's predictive modeling solution, that story changed. By combining advanced machine learning with explainable AI, the system achieved 96.8 percent accuracy in predicting purchase probability while providing clear, actionable insights. The result was sharper targeting, higher conversions, and smarter marketing decisions.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 3,
+                    "pageNumber": 1,
+                    "sourceChunkId": "a68143ba-8a4e-4fd6-8815-bf63b1a9cf63"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/69c0a1ab-1e07-42f9-83df-2d0f468421de/asset",
+                    "fileName": "case-study--ai-based-predictive.pdf",
+                    "chunkText": "The impact was clear and measurable:\n\n96.8 percent prediction accuracy gave J&J an unprecedented level of confidence in targeting decisions.\n\nActionable insights from SHAP analysis revealed the real drivers of customer behavior, from regional preferences to product usage patterns.\n\nImproved campaign outcomes translated into higher conversion rates and stronger revenue growth across multiple product categories.\n\nOperational agility meant teams could plan campaigns faster while staying aligned with real-time opportunities in the market.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 2,
+                    "sourceChunkId": "69c0a1ab-1e07-42f9-83df-2d0f468421de"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "SHAP analysis surfaced reported drivers of customer behavior, including regional preferences and product usage patterns.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/69c0a1ab-1e07-42f9-83df-2d0f468421de/asset",
+                    "fileName": "case-study--ai-based-predictive.pdf",
+                    "chunkText": "The impact was clear and measurable:\n\n96.8 percent prediction accuracy gave J&J an unprecedented level of confidence in targeting decisions.\n\nActionable insights from SHAP analysis revealed the real drivers of customer behavior, from regional preferences to product usage patterns.\n\nImproved campaign outcomes translated into higher conversion rates and stronger revenue growth across multiple product categories.\n\nOperational agility meant teams could plan campaigns faster while staying aligned with real-time opportunities in the market.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 2,
+                    "sourceChunkId": "69c0a1ab-1e07-42f9-83df-2d0f468421de"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The case study attributes higher conversion rates and stronger revenue growth across multiple product categories to improved campaign outcomes, but gives no quantified values or measurement period.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/69c0a1ab-1e07-42f9-83df-2d0f468421de/asset",
+                    "fileName": "case-study--ai-based-predictive.pdf",
+                    "chunkText": "The impact was clear and measurable:\n\n96.8 percent prediction accuracy gave J&J an unprecedented level of confidence in targeting decisions.\n\nActionable insights from SHAP analysis revealed the real drivers of customer behavior, from regional preferences to product usage patterns.\n\nImproved campaign outcomes translated into higher conversion rates and stronger revenue growth across multiple product categories.\n\nOperational agility meant teams could plan campaigns faster while staying aligned with real-time opportunities in the market.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 2,
+                    "sourceChunkId": "69c0a1ab-1e07-42f9-83df-2d0f468421de"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "It also reports faster campaign planning and greater alignment with real-time market opportunities, without providing timing or operational metrics.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/69c0a1ab-1e07-42f9-83df-2d0f468421de/asset",
+                    "fileName": "case-study--ai-based-predictive.pdf",
+                    "chunkText": "The impact was clear and measurable:\n\n96.8 percent prediction accuracy gave J&J an unprecedented level of confidence in targeting decisions.\n\nActionable insights from SHAP analysis revealed the real drivers of customer behavior, from regional preferences to product usage patterns.\n\nImproved campaign outcomes translated into higher conversion rates and stronger revenue growth across multiple product categories.\n\nOperational agility meant teams could plan campaigns faster while staying aligned with real-time opportunities in the market.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 2,
+                    "sourceChunkId": "69c0a1ab-1e07-42f9-83df-2d0f468421de"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied case-study material does not specify the accuracy calculation or test conditions, data volumes, deployment scope, adoption levels, or measured before-and-after business results. It therefore supports reporting the stated prediction accuracy and qualitative outcomes, but not independently validating them or quantifying campaign or revenue impact.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/69c0a1ab-1e07-42f9-83df-2d0f468421de/asset",
+            "fileName": "case-study--ai-based-predictive.pdf",
+            "chunkText": "The impact was clear and measurable:\n\n96.8 percent prediction accuracy gave J&J an unprecedented level of confidence in targeting decisions.\n\nActionable insights from SHAP analysis revealed the real drivers of customer behavior, from regional preferences to product usage patterns.\n\nImproved campaign outcomes translated into higher conversion rates and stronger revenue growth across multiple product categories.\n\nOperational agility meant teams could plan campaigns faster while staying aligned with real-time opportunities in the market.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "69c0a1ab-1e07-42f9-83df-2d0f468421de"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/a68143ba-8a4e-4fd6-8815-bf63b1a9cf63/asset",
+            "fileName": "case-study--ai-based-predictive.pdf",
+            "chunkText": "Johnson and Johnson's marketing team faced a tough challenge. Predicting customer purchase behavior across diverse markets proved complex, time-consuming, and often inaccurate. With HumbleBeeAI's predictive modeling solution, that story changed. By combining advanced machine learning with explainable AI, the system achieved 96.8 percent accuracy in predicting purchase probability while providing clear, actionable insights. The result was sharper targeting, higher conversions, and smarter marketing decisions.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "a68143ba-8a4e-4fd6-8815-bf63b1a9cf63"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source describes the Flask API as delivering real-time predictions and explanations, but does not establish its production availability or identify any planned next steps. No future work is presented as committed.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/7d32b0a8-b612-4e46-a155-b7747b4f2a1b/asset",
+            "fileName": "case-study--ai-based-predictive.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAdvanced AI-based predictive customer modeling solution utilizing machine learning algorithms and SHAP explainability frameworks for marketing optimization",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "7d32b0a8-b612-4e46-a155-b7747b4f2a1b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study describes a predictive targeting framework designed to make customer purchase predictions more accurate and understandable for Johnson & Johnson’s marketing teams. It reports 96.8 percent prediction accuracy and qualitative campaign benefits, while leaving the measurement methodology and quantified business impact unspecified.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/a68143ba-8a4e-4fd6-8815-bf63b1a9cf63/asset",
+            "fileName": "case-study--ai-based-predictive.pdf",
+            "chunkText": "Johnson and Johnson's marketing team faced a tough challenge. Predicting customer purchase behavior across diverse markets proved complex, time-consuming, and often inaccurate. With HumbleBeeAI's predictive modeling solution, that story changed. By combining advanced machine learning with explainable AI, the system achieved 96.8 percent accuracy in predicting purchase probability while providing clear, actionable insights. The result was sharper targeting, higher conversions, and smarter marketing decisions.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "a68143ba-8a4e-4fd6-8815-bf63b1a9cf63"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/evidence/69c0a1ab-1e07-42f9-83df-2d0f468421de/asset",
+            "fileName": "case-study--ai-based-predictive.pdf",
+            "chunkText": "The impact was clear and measurable:\n\n96.8 percent prediction accuracy gave J&J an unprecedented level of confidence in targeting decisions.\n\nActionable insights from SHAP analysis revealed the real drivers of customer behavior, from regional preferences to product usage patterns.\n\nImproved campaign outcomes translated into higher conversion rates and stronger revenue growth across multiple product categories.\n\nOperational agility meant teams could plan campaigns faster while staying aligned with real-time opportunities in the market.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "69c0a1ab-1e07-42f9-83df-2d0f468421de"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+ HUMBLEBEEAI / CASE STUDY
+
+
+ LLM Results Analyzer: Unified Analysis
+ Framework
+ Open original HumbleBeeAI page
+
+ Integrated Clarification and Optimization outputs with an analyzer LLM to deliver unified,
+ well-justified HS code recommendations.
+
+   Accuracy                                Confidence                    Efficiency
+   Higher                                  Stronger                      Unified
+
+
+
+
+ Source image
+
+
+ Executive Summary
+ The LLM Results Analyzer integrates outputs from the Custom Clarification Project (theoretical HS
+ code data) and Custom Optimization Project (real-world product descriptions) into unified classification
+ recommendations. This solution tackles the challenge of leveraging both theoretical compliance
+ knowledge and practical trade data to provide accurate and well-justified HS code classifications. The
+ system features a unified endpoint that simultaneously sends requests to both LLM systems, with a
+ third specialized LLM analyzing and synthesizing the results from both sources, providing users with
+ recommendations that consider both legal compliance requirements and practical trade precedent.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                        1
+ Introduction
+ The Custom Clarification Project and Custom Optimization Project created two powerful but separate
+ systems for HS code classification. The Custom Clarification Project provided access to theoretical HS
+ code definitions, official regulations, and legal frameworks essential for compliance accuracy. The
+ Custom Optimization Project offered insights from 65.5 million real-world product descriptions,
+ reflecting actual trade practices and classification precedents. While both systems delivered value
+ independently, users faced the challenge of determining how to best utilize both sources of information
+ for optimal classification decisions. The LLM Results Analyzer addresses this integration challenge
+ through an orchestration framework that automatically combines insights from both systems and
+ provides unified, well-reasoned recommendations.
+
+ The Problem
+ The existence of two separate classification systems created an integration challenge that limited the
+ potential value both systems could deliver when used together. Users found themselves with access to
+ theoretical knowledge through the Custom Clarification Project and extensive practical data through
+ the Custom Optimization Project, but no efficient way to combine these resources. The primary
+ challenge was workflow complexity - users had to manually submit the same query to both systems,
+ wait for separate responses, and then attempt to reconcile potentially different recommendations.
+ Inconsistent results between the two systems created confusion and decision paralysis, with users
+ lacking guidance on how to resolve these discrepancies or determine which recommendation to
+ prioritize. The manual comparison process was prone to human error and inconsistency, and the time
+ required to use both systems effectively became a barrier to adoption.
+
+ The Solution
+ The LLM Results Analyzer was developed as an orchestration framework that automatically combines
+ the strengths of both the Custom Clarification and Custom Optimization projects into a single, unified
+ user experience. When users submit a classification request to the unified endpoint, the system
+ immediately dispatches identical queries to both the Custom Clarification and Custom Optimization
+ endpoints simultaneously. This parallel processing approach ensures optimal efficiency by eliminating
+ sequential wait times while gathering information from both theoretical and practical perspectives.
+ Once both systems return their results, a specialized analyzer LLM processes the combined outputs
+ using prompt engineering designed specifically for HS code classification synthesis. This analyzer
+ LLM understands the nuances of both regulatory compliance and practical trade classification,
+ enabling it to identify areas of agreement, explain discrepancies, and provide reasoned
+ recommendations that consider both perspectives. The solution maintains full transparency by
+ preserving the original outputs from both underlying systems while adding the synthesized analysis
+ layer.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                       2
+ Results
+ The LLM Results Analyzer delivered improvements in both user experience and classification
+ accuracy by successfully integrating the strengths of both theoretical and practical HS code
+ classification approaches. The unified endpoint eliminated the complexity and time overhead
+ associated with manually using two separate systems. The parallel processing architecture ensures
+ that total response time is only marginally longer than the slower of the two underlying systems. The
+ analyzer LLM successfully identifies and explains discrepancies between theoretical and practical
+ approaches, providing users with clear guidance on how to resolve classification conflicts.
+ Classification confidence improved as users now have access to justifications that consider both legal
+ compliance requirements and real-world trade precedent. Adoption rates increased substantially as
+ the simplified workflow eliminated the time and complexity barriers that previously prevented users
+ from fully leveraging both systems.
+
+ Conclusion
+ The LLM Results Analyzer successfully solves the integration challenge that limited the combined
+ potential of the Custom Clarification and Custom Optimization projects. By creating an orchestration
+ framework that automatically synthesizes theoretical and practical HS code classification approaches,
+ the solution delivers comprehensive analysis while maintaining user-friendly simplicity. The parallel
+ processing architecture and specialized analyzer LLM demonstrate how AI can be used not just to
+ automate individual tasks, but to combine multiple knowledge sources for better decision-making
+ support. This project demonstrates the potential of system integration in complex classification
+ environments. By solving the challenge of combining theoretical knowledge with practical experience,
+ the LLM Results Analyzer enables organizations to make more informed, confident, and accurate HS
+ code classification decisions that satisfy both compliance requirements and operational efficiency
+ needs.
+
+
+
+
+ Results Visualization
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                      3
+ Figure 1.1. Graphical interface of the customs HS code classification system showing the outputs of
+ the Custom Clarification API (left) and the Custom Optimization API (right). The left panel displays the
+ system's automated analysis of a product description, based on the theoretical data with
+ recommended HS codes. The right panel lists potential optimized product descriptions from the 65.5
+ million dataset. This figure illustrates how the system combines both results and analyzes final HS
+ code suggestions. For more, you can watch the video at the link.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                        4
+

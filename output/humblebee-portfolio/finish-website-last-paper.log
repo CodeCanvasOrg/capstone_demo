@@ -1,0 +1,7 @@
+FAST_PIPELINE_MODEL google/gemini-3.8-flash TARGETS 1
+FAST_GENERATING paper:10883969 1dec96c1-44d7-4f59-b72b-41fef28dade0
+[generation 96dd77ca-8a40-4cb5-8e6b-4366f590b526] retrieval finished in 2053ms with 20 chunks
+[generation 96dd77ca-8a40-4cb5-8e6b-4366f590b526] generation started (outline)
+[generation 96dd77ca-8a40-4cb5-8e6b-4366f590b526] generation finished in 64310ms
+FAST_GENERATED paper:10883969 023f6ee0-b2a6-431d-9bf6-12526205d50f
+FAST_BATCH_FINISHED

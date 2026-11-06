@@ -1,0 +1,621 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Improving Facial Recognition Accuracy with AI-Powered Data Refinement",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI refined a workforce attendance facial-recognition system with image filtering, face tracking and alignment, and entry-threshold logic.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/f6fa6965-8842-4808-833c-f932c4296550/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "An organization struggled with inaccurate facial recognition due to poor data quality, misidentification, and system vulnerabilities. By implementing HumbleBee AI's advanced solution, the client significantly enhanced data integrity and recognition accuracy. The new system leverages intelligent image filtering, facial tracking, and alignment to deliver precise, reliable, and secure attendance monitoring.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "f6fa6965-8842-4808-833c-f932c4296550"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "An organization using facial recognition for employee attendance was dealing with poor-quality image data, inconsistent identity matching and vulnerabilities in how attendance was recorded. HumbleBee AI describes implementing a solution that filters unusable images, tracks people across frames and aligns faces before recognition. The case study presents the system as implemented, but does not provide a measured accuracy rate or quantified business outcome.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/76b8a4a1-ba48-4443-953b-1392543692e8/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "In the realm of security and workforce management, the precision of facial recognition technology is paramount. Our client, a forward-thinking organization, relies on this technology for daily operations, including tracking employee attendance. However, their existing system was plagued by inaccuracies that undermined its effectiveness, leading to operational inefficiencies and potential security gaps. Recognizing the need for a more robust and intelligent solution, they partnered with HumbleBee AI to transform their facial recognition capabilities.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "76b8a4a1-ba48-4443-953b-1392543692e8"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/81a4b35d-d62b-4b14-941c-e18ebeb14db5/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "HumbleBee AI implemented a multi-faceted, AI-driven solution designed to systematically address each of the client's challenges. Our approach focused on enhancing data processing, improving recognition logic, and fortifying system security.\n\nIntelligent Image Filtering and Categorization: To tackle poor data quality, we developed a sophisticated filtering mechanism. The system now analyzes facial landmarks to assess image viability, automatically discarding unusable frames based on predefined parameters like a minimum face size of 640 pixels and frontal positioning. For security, we integrated person-tracking AI. If a tracked individual's face is not detectable (e.g., due to a mask), the system flags them as an unauthorized person and alerts management, ensuring security is maintained.\n\nAdvanced Face Tracking for Recognition: To eliminate misrecognition, we integrated facial tracking technology. Instead of analyzing each frame in isolation, the system now tracks an individual across multiple frames. Once the track is complete, it compares all captured images against the database and assigns the identity with the highest cumulative similarity score, ensuring a single, accurate",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "81a4b35d-d62b-4b14-941c-e18ebeb14db5"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/2d419c5f-ba1b-44ae-a72a-e2ca314f773b/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "The implementation of HumbleBee AI's solution delivered transformative results, dramatically improving the accuracy, efficiency, and security of the client's facial recognition system.\n\nImproved Data Quality: By filtering out unusable images and logging only relevant data, the system's database became cleaner and more efficient. This reduced noise while retaining crucial security information from unauthorized access attempts.\n\nReduced Misrecognition: The integration of facial tracking ensured that each tracked individual was linked to a single, highly probable identity, which virtually eliminated misidentification errors and streamlined attendance records.\n\nEnhanced System Accuracy and Security: The virtual line feature prevented fraudulent attendance logging, ensuring records were accurate and reliable. The improved detection and recognition accuracy from camera repositioning and face alignment meant the system could now reliably identify individuals, even those with partially obscured faces.\n\nOptimized Performance: Automated face alignment led to more robust embedding quality and significantly higher recognition accuracy. By eliminating redundant entries, the system's data became clearer and easier to manage, improving overall operational efficiency.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "2d419c5f-ba1b-44ae-a72a-e2ca314f773b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The client's attendance and security workflows depended on a camera-based recognition system, but the system generated an estimated 5,000 unusable images per day because of poor angles, low resolution and facial occlusion. Those images made records harder to manage, while the system also struggled to distinguish unusable captures from people intentionally obscuring their faces.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/5d7320a4-969f-424f-8933-eefb43fd9286/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "The client's primary challenges stemmed from a series of interconnected issues that compromised both data quality and recognition accuracy.\n\nPoor Data Quality from Unrecognized Images: The system captured a high volume of unusable images daily—approximately 5,000—due to factors like poor angles, low resolution, and facial occlusions. These images cluttered the database without adding value. Simultaneously, the system struggled to differentiate between unusable images and those of unauthorized individuals intentionally obscuring their faces, creating a significant security risk.\n\nHigh Rate of Misrecognition: The existing algorithm frequently misidentified individuals. A single person could be recorded as multiple different identities because of slight variations in facial position across different frames. This led to a chaotic and unreliable attendance log.\n\nSystem Vulnerabilities: The system was susceptible to manipulation. For instance, an individual could trigger an attendance record by briefly appearing on camera without actually entering the premises. Furthermore, when the same person appeared multiple times, the system created redundant entries, bloating the data.\n\nInaccurate Facial Embeddings: The system's performance was significantly hampered by rotated or mis-cropped facial images, as its precomputed embeddings were based on frontal, well-aligned photos. The high placement of cameras also contributed to this issue, as it often captured only partial facial views, especially if individuals wore caps or looked down.\n\nThese challenges collectively created a system that was not only inaccurate but also difficult to manage, demanding a comprehensive overhaul to restore its integrity and utility.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "5d7320a4-969f-424f-8933-eefb43fd9286"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Frame-by-frame recognition sometimes assigned one person multiple identities when their face position varied, resulting in unreliable attendance logs.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Attendance could be triggered by briefly appearing on camera without entering, and repeated appearances could generate redundant records.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Rotated or mis-cropped faces and high camera placement produced partial or poorly aligned views that did not match the frontal images used for precomputed facial embeddings.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/5d7320a4-969f-424f-8933-eefb43fd9286/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "The client's primary challenges stemmed from a series of interconnected issues that compromised both data quality and recognition accuracy.\n\nPoor Data Quality from Unrecognized Images: The system captured a high volume of unusable images daily—approximately 5,000—due to factors like poor angles, low resolution, and facial occlusions. These images cluttered the database without adding value. Simultaneously, the system struggled to differentiate between unusable images and those of unauthorized individuals intentionally obscuring their faces, creating a significant security risk.\n\nHigh Rate of Misrecognition: The existing algorithm frequently misidentified individuals. A single person could be recorded as multiple different identities because of slight variations in facial position across different frames. This led to a chaotic and unreliable attendance log.\n\nSystem Vulnerabilities: The system was susceptible to manipulation. For instance, an individual could trigger an attendance record by briefly appearing on camera without actually entering the premises. Furthermore, when the same person appeared multiple times, the system created redundant entries, bloating the data.\n\nInaccurate Facial Embeddings: The system's performance was significantly hampered by rotated or mis-cropped facial images, as its precomputed embeddings were based on frontal, well-aligned photos. The high placement of cameras also contributed to this issue, as it often captured only partial facial views, especially if individuals wore caps or looked down.\n\nThese challenges collectively created a system that was not only inaccurate but also difficult to manage, demanding a comprehensive overhaul to restore its integrity and utility.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "5d7320a4-969f-424f-8933-eefb43fd9286"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBee AI reports implementing a multi-part system update addressing data quality, recognition logic and security. The available case study describes the capabilities below; it does not include a detailed deployment architecture or product screenshots.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/81a4b35d-d62b-4b14-941c-e18ebeb14db5/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "HumbleBee AI implemented a multi-faceted, AI-driven solution designed to systematically address each of the client's challenges. Our approach focused on enhancing data processing, improving recognition logic, and fortifying system security.\n\nIntelligent Image Filtering and Categorization: To tackle poor data quality, we developed a sophisticated filtering mechanism. The system now analyzes facial landmarks to assess image viability, automatically discarding unusable frames based on predefined parameters like a minimum face size of 640 pixels and frontal positioning. For security, we integrated person-tracking AI. If a tracked individual's face is not detectable (e.g., due to a mask), the system flags them as an unauthorized person and alerts management, ensuring security is maintained.\n\nAdvanced Face Tracking for Recognition: To eliminate misrecognition, we integrated facial tracking technology. Instead of analyzing each frame in isolation, the system now tracks an individual across multiple frames. Once the track is complete, it compares all captured images against the database and assigns the identity with the highest cumulative similarity score, ensuring a single, accurate",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "81a4b35d-d62b-4b14-941c-e18ebeb14db5"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Filter and categorize image captures",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The filtering mechanism assesses facial landmarks and image viability, discarding unusable frames using predefined criteria that include a minimum face size of 640 pixels and frontal positioning. The stated purpose is to reduce noise in the database while retaining security-relevant information; the case study also says the system flags and alerts management when a tracked person’s face cannot be detected, such as when it is obscured by a mask.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/81a4b35d-d62b-4b14-941c-e18ebeb14db5/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "HumbleBee AI implemented a multi-faceted, AI-driven solution designed to systematically address each of the client's challenges. Our approach focused on enhancing data processing, improving recognition logic, and fortifying system security.\n\nIntelligent Image Filtering and Categorization: To tackle poor data quality, we developed a sophisticated filtering mechanism. The system now analyzes facial landmarks to assess image viability, automatically discarding unusable frames based on predefined parameters like a minimum face size of 640 pixels and frontal positioning. For security, we integrated person-tracking AI. If a tracked individual's face is not detectable (e.g., due to a mask), the system flags them as an unauthorized person and alerts management, ensuring security is maintained.\n\nAdvanced Face Tracking for Recognition: To eliminate misrecognition, we integrated facial tracking technology. Instead of analyzing each frame in isolation, the system now tracks an individual across multiple frames. Once the track is complete, it compares all captured images against the database and assigns the identity with the highest cumulative similarity score, ensuring a single, accurate",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "81a4b35d-d62b-4b14-941c-e18ebeb14db5"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/2d419c5f-ba1b-44ae-a72a-e2ca314f773b/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "The implementation of HumbleBee AI's solution delivered transformative results, dramatically improving the accuracy, efficiency, and security of the client's facial recognition system.\n\nImproved Data Quality: By filtering out unusable images and logging only relevant data, the system's database became cleaner and more efficient. This reduced noise while retaining crucial security information from unauthorized access attempts.\n\nReduced Misrecognition: The integration of facial tracking ensured that each tracked individual was linked to a single, highly probable identity, which virtually eliminated misidentification errors and streamlined attendance records.\n\nEnhanced System Accuracy and Security: The virtual line feature prevented fraudulent attendance logging, ensuring records were accurate and reliable. The improved detection and recognition accuracy from camera repositioning and face alignment meant the system could now reliably identify individuals, even those with partially obscured faces.\n\nOptimized Performance: Automated face alignment led to more robust embedding quality and significantly higher recognition accuracy. By eliminating redundant entries, the system's data became clearer and easier to manage, improving overall operational efficiency.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "2d419c5f-ba1b-44ae-a72a-e2ca314f773b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Track people across frames",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Rather than decide identity from each frame independently, the system follows an individual across multiple frames and compares the captured images with the database after the track is complete. It assigns the identity with the highest cumulative similarity score, aiming to prevent small changes in face position from creating separate identities.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/81a4b35d-d62b-4b14-941c-e18ebeb14db5/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "HumbleBee AI implemented a multi-faceted, AI-driven solution designed to systematically address each of the client's challenges. Our approach focused on enhancing data processing, improving recognition logic, and fortifying system security.\n\nIntelligent Image Filtering and Categorization: To tackle poor data quality, we developed a sophisticated filtering mechanism. The system now analyzes facial landmarks to assess image viability, automatically discarding unusable frames based on predefined parameters like a minimum face size of 640 pixels and frontal positioning. For security, we integrated person-tracking AI. If a tracked individual's face is not detectable (e.g., due to a mask), the system flags them as an unauthorized person and alerts management, ensuring security is maintained.\n\nAdvanced Face Tracking for Recognition: To eliminate misrecognition, we integrated facial tracking technology. Instead of analyzing each frame in isolation, the system now tracks an individual across multiple frames. Once the track is complete, it compares all captured images against the database and assigns the identity with the highest cumulative similarity score, ensuring a single, accurate",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "81a4b35d-d62b-4b14-941c-e18ebeb14db5"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Gate attendance records and reduce duplicates",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "A virtual line records attendance only when an individual crosses the designated threshold, so simply appearing briefly on camera does not trigger an entry. The system also updates a person’s status only when it changes, intended to eliminate redundant records.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/40c03ad3-b63d-41c6-849a-f8542fe130fa/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "Fortified System Logic and Camera Repositioning: To prevent system abuse, we implemented a \"virtual line\" feature. An attendance record is only created when an individual crosses this designated threshold, confirming their entry. We also optimized the system to update a person's status only when it changes, which eliminated redundant records. Finally, we advised the client to reposition cameras to eye level, which drastically improved the system's ability to capture clear, frontal facial images.\n\nAutomated Face Alignment: To improve embedding quality, our solution automatically normalizes every captured image. Using facial landmarks, the system rotates, crops, and rescales faces to a standard position before generating embeddings. This ensures that even initially skewed images are processed correctly, leading to a much higher chance of accurate recognition.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "40c03ad3-b63d-41c6-849a-f8542fe130fa"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Align faces before recognition",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Using facial landmarks, the system rotates, crops and rescales captured faces to a standard position before generating embeddings. HumbleBee AI also advised repositioning cameras to eye level to improve the capture of clear, frontal facial images; the source describes this as advice, not as a confirmed completed camera change.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/40c03ad3-b63d-41c6-849a-f8542fe130fa/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "Fortified System Logic and Camera Repositioning: To prevent system abuse, we implemented a \"virtual line\" feature. An attendance record is only created when an individual crosses this designated threshold, confirming their entry. We also optimized the system to update a person's status only when it changes, which eliminated redundant records. Finally, we advised the client to reposition cameras to eye level, which drastically improved the system's ability to capture clear, frontal facial images.\n\nAutomated Face Alignment: To improve embedding quality, our solution automatically normalizes every captured image. Using facial landmarks, the system rotates, crops, and rescales faces to a standard position before generating embeddings. This ensures that even initially skewed images are processed correctly, leading to a much higher chance of accurate recognition.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "40c03ad3-b63d-41c6-849a-f8542fe130fa"
+          }
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Illustration of an attendance entry threshold with a camera capturing a person and a face-recognition view.",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/e8aaab9b-31ba-493f-afb1-c02c641356e1/asset",
+        "align": "center",
+        "title": "case-study--improving-recognition-accuracy.pdf",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/e8aaab9b-31ba-493f-afb1-c02c641356e1/asset",
+        "fileName": "case-study--improving-recognition-accuracy.pdf",
+        "chunkText": "Source image\n\noo\n- 1 py a\nat W hal | i\n|\n4h\"\nCAMERA VIEW",
+        "mediaType": "image/png",
+        "chunkIndex": 2,
+        "pageNumber": 1,
+        "sourceChunkId": "e8aaab9b-31ba-493f-afb1-c02c641356e1"
+      }
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study reports qualitative improvements in data cleanliness, recognition consistency, attendance-record reliability and security. It does not provide before-and-after accuracy figures, quantified time or cost savings, or a defined measurement period, so the reported benefits cannot be expressed as measured business impact.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/2d419c5f-ba1b-44ae-a72a-e2ca314f773b/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "The implementation of HumbleBee AI's solution delivered transformative results, dramatically improving the accuracy, efficiency, and security of the client's facial recognition system.\n\nImproved Data Quality: By filtering out unusable images and logging only relevant data, the system's database became cleaner and more efficient. This reduced noise while retaining crucial security information from unauthorized access attempts.\n\nReduced Misrecognition: The integration of facial tracking ensured that each tracked individual was linked to a single, highly probable identity, which virtually eliminated misidentification errors and streamlined attendance records.\n\nEnhanced System Accuracy and Security: The virtual line feature prevented fraudulent attendance logging, ensuring records were accurate and reliable. The improved detection and recognition accuracy from camera repositioning and face alignment meant the system could now reliably identify individuals, even those with partially obscured faces.\n\nOptimized Performance: Automated face alignment led to more robust embedding quality and significantly higher recognition accuracy. By eliminating redundant entries, the system's data became clearer and easier to manage, improving overall operational efficiency.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "2d419c5f-ba1b-44ae-a72a-e2ca314f773b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Data quality: filtering was reported to reduce unusable-image noise while retaining security information from unauthorized access attempts.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Identity matching: tracking was reported to reduce misrecognition and link each tracked individual to a single, highly probable identity.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Attendance integrity: the virtual line was reported to prevent fraudulent attendance logging, and status-change logic to remove redundant entries.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Recognition quality: automated alignment and camera repositioning were associated in the case study with improved embeddings and detection and recognition accuracy, including for partially obscured faces.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/2d419c5f-ba1b-44ae-a72a-e2ca314f773b/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "The implementation of HumbleBee AI's solution delivered transformative results, dramatically improving the accuracy, efficiency, and security of the client's facial recognition system.\n\nImproved Data Quality: By filtering out unusable images and logging only relevant data, the system's database became cleaner and more efficient. This reduced noise while retaining crucial security information from unauthorized access attempts.\n\nReduced Misrecognition: The integration of facial tracking ensured that each tracked individual was linked to a single, highly probable identity, which virtually eliminated misidentification errors and streamlined attendance records.\n\nEnhanced System Accuracy and Security: The virtual line feature prevented fraudulent attendance logging, ensuring records were accurate and reliable. The improved detection and recognition accuracy from camera repositioning and face alignment meant the system could now reliably identify individuals, even those with partially obscured faces.\n\nOptimized Performance: Automated face alignment led to more robust embedding quality and significantly higher recognition accuracy. By eliminating redundant entries, the system's data became clearer and easier to manage, improving overall operational efficiency.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "2d419c5f-ba1b-44ae-a72a-e2ca314f773b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source describes the solution as implemented, but provides no technical evaluation results, quantified accuracy baseline, or operational measurement details. It also does not establish that camera repositioning was completed; it says HumbleBee AI advised the client to move cameras to eye level. Further plans or next steps are not specified.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/40c03ad3-b63d-41c6-849a-f8542fe130fa/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "Fortified System Logic and Camera Repositioning: To prevent system abuse, we implemented a \"virtual line\" feature. An attendance record is only created when an individual crosses this designated threshold, confirming their entry. We also optimized the system to update a person's status only when it changes, which eliminated redundant records. Finally, we advised the client to reposition cameras to eye level, which drastically improved the system's ability to capture clear, frontal facial images.\n\nAutomated Face Alignment: To improve embedding quality, our solution automatically normalizes every captured image. Using facial landmarks, the system rotates, crops, and rescales faces to a standard position before generating embeddings. This ensures that even initially skewed images are processed correctly, leading to a much higher chance of accurate recognition.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "40c03ad3-b63d-41c6-849a-f8542fe130fa"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/81a4b35d-d62b-4b14-941c-e18ebeb14db5/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "HumbleBee AI implemented a multi-faceted, AI-driven solution designed to systematically address each of the client's challenges. Our approach focused on enhancing data processing, improving recognition logic, and fortifying system security.\n\nIntelligent Image Filtering and Categorization: To tackle poor data quality, we developed a sophisticated filtering mechanism. The system now analyzes facial landmarks to assess image viability, automatically discarding unusable frames based on predefined parameters like a minimum face size of 640 pixels and frontal positioning. For security, we integrated person-tracking AI. If a tracked individual's face is not detectable (e.g., due to a mask), the system flags them as an unauthorized person and alerts management, ensuring security is maintained.\n\nAdvanced Face Tracking for Recognition: To eliminate misrecognition, we integrated facial tracking technology. Instead of analyzing each frame in isolation, the system now tracks an individual across multiple frames. Once the track is complete, it compares all captured images against the database and assigns the identity with the highest cumulative similarity score, ensuring a single, accurate",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "81a4b35d-d62b-4b14-941c-e18ebeb14db5"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The brief requests an original source link, but the supplied source material contains only the label “Open original HumbleBeeAI page” and no URL. A link cannot be reproduced without inventing one.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/204b17ec-22ec-417c-9ec9-9f79507c8d14/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAdvanced facial recognition system with intelligent image filtering and tracking technology eliminating 5,000+ daily unusable images while achieving precise attendance monitoring and enhanced security.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "204b17ec-22ec-417c-9ec9-9f79507c8d14"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "This project addressed the client's stated attendance-recognition problems with image filtering, cross-frame tracking, threshold-based attendance logic and facial alignment. HumbleBee AI reports qualitative gains in data integrity, recognition and security, while the supplied case study does not quantify those gains or provide a source URL.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/81a4b35d-d62b-4b14-941c-e18ebeb14db5/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "HumbleBee AI implemented a multi-faceted, AI-driven solution designed to systematically address each of the client's challenges. Our approach focused on enhancing data processing, improving recognition logic, and fortifying system security.\n\nIntelligent Image Filtering and Categorization: To tackle poor data quality, we developed a sophisticated filtering mechanism. The system now analyzes facial landmarks to assess image viability, automatically discarding unusable frames based on predefined parameters like a minimum face size of 640 pixels and frontal positioning. For security, we integrated person-tracking AI. If a tracked individual's face is not detectable (e.g., due to a mask), the system flags them as an unauthorized person and alerts management, ensuring security is maintained.\n\nAdvanced Face Tracking for Recognition: To eliminate misrecognition, we integrated facial tracking technology. Instead of analyzing each frame in isolation, the system now tracks an individual across multiple frames. Once the track is complete, it compares all captured images against the database and assigns the identity with the highest cumulative similarity score, ensuring a single, accurate",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "81a4b35d-d62b-4b14-941c-e18ebeb14db5"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/2d419c5f-ba1b-44ae-a72a-e2ca314f773b/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "The implementation of HumbleBee AI's solution delivered transformative results, dramatically improving the accuracy, efficiency, and security of the client's facial recognition system.\n\nImproved Data Quality: By filtering out unusable images and logging only relevant data, the system's database became cleaner and more efficient. This reduced noise while retaining crucial security information from unauthorized access attempts.\n\nReduced Misrecognition: The integration of facial tracking ensured that each tracked individual was linked to a single, highly probable identity, which virtually eliminated misidentification errors and streamlined attendance records.\n\nEnhanced System Accuracy and Security: The virtual line feature prevented fraudulent attendance logging, ensuring records were accurate and reliable. The improved detection and recognition accuracy from camera repositioning and face alignment meant the system could now reliably identify individuals, even those with partially obscured faces.\n\nOptimized Performance: Automated face alignment led to more robust embedding quality and significantly higher recognition accuracy. By eliminating redundant entries, the system's data became clearer and easier to manage, improving overall operational efficiency.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "2d419c5f-ba1b-44ae-a72a-e2ca314f773b"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/evidence/204b17ec-22ec-417c-9ec9-9f79507c8d14/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAdvanced facial recognition system with intelligent image filtering and tracking technology eliminating 5,000+ daily unusable images while achieving precise attendance monitoring and enhanced security.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "204b17ec-22ec-417c-9ec9-9f79507c8d14"
+          }
+        }
+      ]
+    }
+  ]
+}

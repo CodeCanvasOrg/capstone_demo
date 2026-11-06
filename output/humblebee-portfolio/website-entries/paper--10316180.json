@@ -1,0 +1,617 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Contextual Filtered Features for Smartphone User Receptivity Prediction",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "A published research study evaluates contextually filtered smartphone and smartwatch features for predicting receptivity to just-in-time health interventions.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/10714c6e-8015-484d-8315-715ac151a1c7/asset",
+            "fileName": "paper--10316180.pdf",
+            "chunkText": "Abstract—For the successful engagement of users with incoming interventions, the delivery of just-in-time (JIT) (or opportune moment–OM) interventions is of the utmost importance. This can be accomplished with a machine learning (ML) model that utilizes user context data. Smartwatch and smartphone interactions further open the space for further improvement by considering the user’s state and environmental information. In this work, a novel feature engineering approach for predicting smartphone user receptivity to JIT interventions is proposed. Proposed approach utilizes rich information from user–smartphone interactions and smartwatch sensor data to extract contextually filtered features (CFFs). The superiority of the proposed feature engineering method is demonstrated by developing an ML model that predicts a participant’s receptivity prior to administering an experience sampling method (ESM) questionnaire. The proposed approach is evaluated using the KEmoPhone data set, which contains 3334 ESM answers collected over the course of one week from 73 participants. To reduce the bias that may result in selecting specific classifier, multiple classifiers are tested and their average ROC-AUC metrics are compared. The results show that the proposed feature engineering method—CFFs improves the prediction performance, achieving an ROC-AUC of 56.5% as opposed to 54.7% obtained using conventional features (statistical moments of time series over an 80 min window). Such superior performance is consistent across multiple ML classification algorithms. Full research code will be released in Jupyter Notebooks for facilitating the research in the domain at https://github.com/Jumabek/receptivity upon the publication of this research work.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "10714c6e-8015-484d-8315-715ac151a1c7"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "This project addresses a practical question for teams designing mobile health interventions: can a model anticipate when a smartphone user may be receptive, so an intervention can be timed more appropriately? The published study proposes contextually filtered features (CFFs) drawn from user–smartphone interactions and smartwatch sensor data. It evaluates the method on the KEmoPhone dataset; it is a research evaluation, not evidence of a deployed HumbleBeeAI or client product.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/10714c6e-8015-484d-8315-715ac151a1c7/asset",
+            "fileName": "paper--10316180.pdf",
+            "chunkText": "Abstract—For the successful engagement of users with incoming interventions, the delivery of just-in-time (JIT) (or opportune moment–OM) interventions is of the utmost importance. This can be accomplished with a machine learning (ML) model that utilizes user context data. Smartwatch and smartphone interactions further open the space for further improvement by considering the user’s state and environmental information. In this work, a novel feature engineering approach for predicting smartphone user receptivity to JIT interventions is proposed. Proposed approach utilizes rich information from user–smartphone interactions and smartwatch sensor data to extract contextually filtered features (CFFs). The superiority of the proposed feature engineering method is demonstrated by developing an ML model that predicts a participant’s receptivity prior to administering an experience sampling method (ESM) questionnaire. The proposed approach is evaluated using the KEmoPhone data set, which contains 3334 ESM answers collected over the course of one week from 73 participants. To reduce the bias that may result in selecting specific classifier, multiple classifiers are tested and their average ROC-AUC metrics are compared. The results show that the proposed feature engineering method—CFFs improves the prediction performance, achieving an ROC-AUC of 56.5% as opposed to 54.7% obtained using conventional features (statistical moments of time series over an 80 min window). Such superior performance is consistent across multiple ML classification algorithms. Full research code will be released in Jupyter Notebooks for facilitating the research in the domain at https://github.com/Jumabek/receptivity upon the publication of this research work.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "10714c6e-8015-484d-8315-715ac151a1c7"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/ac30e210-d387-400e-946c-e9adc49d8157/asset",
+            "fileName": "paper--10316180.pdf",
+            "chunkText": "MOBILE(DTx)researchhealth have(mHealth)openedandup uniquedigital potentialstherapeuticsof\n\nManuscript received 26 January 2023; revised 10 August 2023; accepted 3 November 2023. Date of publication 13 November 2023; date of current version 26 March 2024. This work was supported in part by the BK21 Four Program under Grant NRF-2021M3A9E4080780 funded by the National Research Foundation (NRF) of the Ministry of Education (MOE), South Korea; in part by the Ministry of Trade, Industry, and Energy (MOTIE) under Grant RS-2023-00236325; and in part by the Korea Institute of Energy Technology under Grant KRG2022-01-011. (Corresponding authors: Youngtae Noh; Hakil Kim.)\n\nJumabek Alikhanov and Hakil Kim are with the Department of Electrical and Computer Engineering, Inha University, Incheon 402-751, South Korea (e-mail: jumabek4044@gmail.com; hikim@inha.ac.kr).\n\nPanyu Zhang is with the Department of Industrial and Systems Engineering, Korea Advanced Institute of Science and Technology, Daejeon 305-701, South Korea (e-mail: panyu@kaist.ac.kr).\n\nYoungtae Noh is with the Department of Energy AI, KENTECH University, Naju 402-751, Republic of Korea (e-mail: ytnoh@kentech.ac.kr). Digital Object Identifier 10.1109/JIOT.2023.3331715",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "ac30e210-d387-400e-946c-e9adc49d8157"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Study authors: Jumabek Alikhanov, Panyu Zhang, Youngtae Noh and Hakil Kim.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/5a658499-af5f-4a8d-a012-4f94100244fd/asset",
+                    "fileName": "paper--10316180.pdf",
+                    "chunkText": "Jumabek Alikhanov , Student Member, IEEE, | Panyu | Zhang | , Student | Member, IEEE,\nYoungtae Noh , Member, IEEE, and | Hakil | Kim , | Member, IEEE",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 0,
+                    "pageNumber": 1,
+                    "sourceChunkId": "5a658499-af5f-4a8d-a012-4f94100244fd"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Published in IEEE Internet of Things Journal, volume 11, issue 7, 1 April 2024; the supplied listing also identifies the work as 2023.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/ac30e210-d387-400e-946c-e9adc49d8157/asset",
+                    "fileName": "paper--10316180.pdf",
+                    "chunkText": "MOBILE(DTx)researchhealth have(mHealth)openedandup uniquedigital potentialstherapeuticsof\n\nManuscript received 26 January 2023; revised 10 August 2023; accepted 3 November 2023. Date of publication 13 November 2023; date of current version 26 March 2024. This work was supported in part by the BK21 Four Program under Grant NRF-2021M3A9E4080780 funded by the National Research Foundation (NRF) of the Ministry of Education (MOE), South Korea; in part by the Ministry of Trade, Industry, and Energy (MOTIE) under Grant RS-2023-00236325; and in part by the Korea Institute of Energy Technology under Grant KRG2022-01-011. (Corresponding authors: Youngtae Noh; Hakil Kim.)\n\nJumabek Alikhanov and Hakil Kim are with the Department of Electrical and Computer Engineering, Inha University, Incheon 402-751, South Korea (e-mail: jumabek4044@gmail.com; hikim@inha.ac.kr).\n\nPanyu Zhang is with the Department of Industrial and Systems Engineering, Korea Advanced Institute of Science and Technology, Daejeon 305-701, South Korea (e-mail: panyu@kaist.ac.kr).\n\nYoungtae Noh is with the Department of Energy AI, KENTECH University, Naju 402-751, Republic of Korea (e-mail: ytnoh@kentech.ac.kr). Digital Object Identifier 10.1109/JIOT.2023.3331715",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 3,
+                    "pageNumber": 1,
+                    "sourceChunkId": "ac30e210-d387-400e-946c-e9adc49d8157"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Original source: https://ieeexplore.ieee.org/abstract/document/10316180",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Mobile health interventions depend in part on reaching people at moments when they are receptive. The study frames the challenge as predicting that state ahead of an experience-sampling questionnaire, using user context rather than relying only on conventional time-series summaries. The source describes the research problem and comparison method, but does not establish a previous operational workflow or report a client’s existing process.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/10714c6e-8015-484d-8315-715ac151a1c7/asset",
+            "fileName": "paper--10316180.pdf",
+            "chunkText": "Abstract—For the successful engagement of users with incoming interventions, the delivery of just-in-time (JIT) (or opportune moment–OM) interventions is of the utmost importance. This can be accomplished with a machine learning (ML) model that utilizes user context data. Smartwatch and smartphone interactions further open the space for further improvement by considering the user’s state and environmental information. In this work, a novel feature engineering approach for predicting smartphone user receptivity to JIT interventions is proposed. Proposed approach utilizes rich information from user–smartphone interactions and smartwatch sensor data to extract contextually filtered features (CFFs). The superiority of the proposed feature engineering method is demonstrated by developing an ML model that predicts a participant’s receptivity prior to administering an experience sampling method (ESM) questionnaire. The proposed approach is evaluated using the KEmoPhone data set, which contains 3334 ESM answers collected over the course of one week from 73 participants. To reduce the bias that may result in selecting specific classifier, multiple classifiers are tested and their average ROC-AUC metrics are compared. The results show that the proposed feature engineering method—CFFs improves the prediction performance, achieving an ROC-AUC of 56.5% as opposed to 54.7% obtained using conventional features (statistical moments of time series over an 80 min window). Such superior performance is consistent across multiple ML classification algorithms. Full research code will be released in Jupyter Notebooks for facilitating the research in the domain at https://github.com/Jumabek/receptivity upon the publication of this research work.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "10714c6e-8015-484d-8315-715ac151a1c7"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Evaluation data: 3,334 experience-sampling responses from 73 participants collected over one week.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/10714c6e-8015-484d-8315-715ac151a1c7/asset",
+                    "fileName": "paper--10316180.pdf",
+                    "chunkText": "Abstract—For the successful engagement of users with incoming interventions, the delivery of just-in-time (JIT) (or opportune moment–OM) interventions is of the utmost importance. This can be accomplished with a machine learning (ML) model that utilizes user context data. Smartwatch and smartphone interactions further open the space for further improvement by considering the user’s state and environmental information. In this work, a novel feature engineering approach for predicting smartphone user receptivity to JIT interventions is proposed. Proposed approach utilizes rich information from user–smartphone interactions and smartwatch sensor data to extract contextually filtered features (CFFs). The superiority of the proposed feature engineering method is demonstrated by developing an ML model that predicts a participant’s receptivity prior to administering an experience sampling method (ESM) questionnaire. The proposed approach is evaluated using the KEmoPhone data set, which contains 3334 ESM answers collected over the course of one week from 73 participants. To reduce the bias that may result in selecting specific classifier, multiple classifiers are tested and their average ROC-AUC metrics are compared. The results show that the proposed feature engineering method—CFFs improves the prediction performance, achieving an ROC-AUC of 56.5% as opposed to 54.7% obtained using conventional features (statistical moments of time series over an 80 min window). Such superior performance is consistent across multiple ML classification algorithms. Full research code will be released in Jupyter Notebooks for facilitating the research in the domain at https://github.com/Jumabek/receptivity upon the publication of this research work.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 1,
+                    "pageNumber": 1,
+                    "sourceChunkId": "10714c6e-8015-484d-8315-715ac151a1c7"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Comparison baseline: conventional statistical-moment features calculated over an 80-minute window.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/10714c6e-8015-484d-8315-715ac151a1c7/asset",
+                    "fileName": "paper--10316180.pdf",
+                    "chunkText": "Abstract—For the successful engagement of users with incoming interventions, the delivery of just-in-time (JIT) (or opportune moment–OM) interventions is of the utmost importance. This can be accomplished with a machine learning (ML) model that utilizes user context data. Smartwatch and smartphone interactions further open the space for further improvement by considering the user’s state and environmental information. In this work, a novel feature engineering approach for predicting smartphone user receptivity to JIT interventions is proposed. Proposed approach utilizes rich information from user–smartphone interactions and smartwatch sensor data to extract contextually filtered features (CFFs). The superiority of the proposed feature engineering method is demonstrated by developing an ML model that predicts a participant’s receptivity prior to administering an experience sampling method (ESM) questionnaire. The proposed approach is evaluated using the KEmoPhone data set, which contains 3334 ESM answers collected over the course of one week from 73 participants. To reduce the bias that may result in selecting specific classifier, multiple classifiers are tested and their average ROC-AUC metrics are compared. The results show that the proposed feature engineering method—CFFs improves the prediction performance, achieving an ROC-AUC of 56.5% as opposed to 54.7% obtained using conventional features (statistical moments of time series over an 80 min window). Such superior performance is consistent across multiple ML classification algorithms. Full research code will be released in Jupyter Notebooks for facilitating the research in the domain at https://github.com/Jumabek/receptivity upon the publication of this research work.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 1,
+                    "pageNumber": 1,
+                    "sourceChunkId": "10714c6e-8015-484d-8315-715ac151a1c7"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The study evaluates prediction of reported receptivity; it does not test whether the health interventions themselves cause behavioral or health improvements.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/36f2f199-7576-4109-af69-be4679733d86/asset",
+                    "fileName": "paper--10316180.pdf",
+                    "chunkText": "smartphone-based digital health interventions in inducing favorable behavioral changes in response to diverse needs, such as smoking, alcohol disorders, physical inactivity, and depression [1], [2], [3]. The ultimate objective is to combine accurate sensing with appropriate DTx therapies to improve the quality of life for a specific population subgroup (e.g., increasing physical activity in sedentary people). Although, there is large body of research [4], [5], [6], [7] that is intended to examine and measure the (causal) effect of health interventions, this is not the topic of this study.\n\nTo properly engage consumers, it is essential to accurately predict the delivery timing of DTx interventions [8], [9]. This necessitates that an intervention design should incorporate a component for identifying opportune moments (OMs) for a specific intervention. However, the architecture of the OM detector component can differ according to the type of DTx. The opportune time (i.e., OM) for stress-relieving DTx could occur when the person is stressed. Similarly, for DTx that aims to increase physical activity, an OM might be described as the time when a user is able or feels compelled to carry out the proposed interventions (e.g., taking a walk to a hall). This can depict the moment after the user has completed a task or has been inactive for an extended period of time.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 4,
+                    "pageNumber": 1,
+                    "sourceChunkId": "36f2f199-7576-4109-af69-be4679733d86"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The proposed capability is a feature-engineering approach, not a new classifier: it mines context from subwindow features and uses association rules to identify co-occurring features for constructing contextually filtered representations. The research pipeline then evaluates receptivity prediction using machine-learning classifiers.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/951f662a-1519-45b8-8c8e-0c98b4ca2f05/asset",
+            "fileName": "paper--10316180.pdf",
+            "chunkText": "1) RQ-1: Can ML techniques be applied effectively to enhance users’ receptivity to health interventions? To answer this, we use the KEmoPhone data set and evaluate whether ML plus user context data can produce more accurate predictions than a random baseline.\n\n2) RQ-2: Is it possible to enhance ML-based receptivity prediction models by feature engineering alone? Here, the effectiveness of the proposed feature engineering method is evaluated.\n\nOur contributions can be summarized as follows.\n\n1) Novel Feature Engineering Approach: a novel feature engineering method called CFFs is proposed for predicting user receptivity to just-in-time (JIT) interventions. This approach leverages rich information from user–smartphone interactions and smartwatch sensor data to extract features that capture contextual information relevant to receptivity.\n\n2) Context Mining for Feature Extraction: The process of context mining is incorporated into the proposed feature engineering methodology. By mining association rules from subwindow features, potentially valuable contexts for feature extraction is identified, allowing us to extract more meaningful features for predicting user receptivity.\n\n3) Evaluation and Comparison: The performance of the proposed method is evaluated using the KEmoPhone data set, which contains a large number of experience sampling method (ESM) answers collected from participants over a one-week period. The performance of the proposed approach is compared against to conventional feature extraction methods and demonstrates its superiority in predicting user receptivity to JIT interventions.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 14,
+            "pageNumber": 3,
+            "sourceChunkId": "951f662a-1519-45b8-8c8e-0c98b4ca2f05"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/d143dce5-7785-491c-97e8-55cb2d441a0a/asset",
+            "fileName": "paper--10316180.pdf",
+            "chunkText": "interventions are sent to users only if the ML model identified the moment as OM. Results revealed that the ML model led to a 40% improvement in receptivity compared with the control (baseline) model. Their static support vector machine (SVM) model was trained before deployment, and it achieved an average F1 score of 36%, a score comparable to the 25% F1 score in the baseline scenario. A significant difference between the study and those reported in the literature lies in the fact that this research focused on improving the model’s performance with novel feature engineering, namely, CFFs. In other words, this research is not proposing another ML classifier or algorithm. Instead, a novel way to engineer more richer feature representation which can improve the performance of any classification methods is proposed. In this regard, the model is also constrained to use only sensor and user–phone interaction features to investigate the effect of novel feature engineering. In other words, features, such as age, gender, personality scores, time of the day, weekend, or weekday, were not considered. With the inclusion of these features, further improvement in performance is expected as explored in [21]. However, this is beyond the scope of this study.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 19,
+            "pageNumber": 4,
+            "sourceChunkId": "d143dce5-7785-491c-97e8-55cb2d441a0a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Research pipeline from smartphone, smartwatch and experience-sampling data through feature engineering and selection to receptivity-model evaluation.",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/8813f7cb-f7e5-4c34-adb2-4a74fad5cfba/asset",
+        "align": "center",
+        "title": "paper--10316180.pdf",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/8813f7cb-f7e5-4c34-adb2-4a74fad5cfba/asset",
+        "fileName": "paper--10316180.pdf",
+        "chunkText": "Fig. 1. Receptivity prediction pipeline.\n\nData Collection = *®\neo User's context, user-phone interaction and physical state collection\no  Receptivity self-report (ESM) for the random intervention via smartphone _- =\nFeature Engineering and Feature Selection\neo Preprocess sensor data stream (exclude participants, resample data)\no Select features (i.e., pairwise correlation remoreceval, LASSO) 2-,9| Z|\n«Identify frequently co-occurring features with ARM [2 oF\ne Extract CF features using association rules and sub features\nEvaluate Receptivity Prediction Model\ne  Group-5-fold cross validation to prevent participant response overlap\ne Fitand Test Logistic Regression Classifier\n. Lond Model prediction:\nKey factors: Ie a e.g., “receptive”\nESM (ground truth): “receptive” Evaluation: ®O®",
+        "mediaType": "image/png",
+        "chunkIndex": 8,
+        "pageNumber": 2,
+        "sourceChunkId": "8813f7cb-f7e5-4c34-adb2-4a74fad5cfba"
+      }
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Contextual inputs: user–smartphone interactions and smartwatch sensor data provide signals about the user’s context and state.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/10714c6e-8015-484d-8315-715ac151a1c7/asset",
+                    "fileName": "paper--10316180.pdf",
+                    "chunkText": "Abstract—For the successful engagement of users with incoming interventions, the delivery of just-in-time (JIT) (or opportune moment–OM) interventions is of the utmost importance. This can be accomplished with a machine learning (ML) model that utilizes user context data. Smartwatch and smartphone interactions further open the space for further improvement by considering the user’s state and environmental information. In this work, a novel feature engineering approach for predicting smartphone user receptivity to JIT interventions is proposed. Proposed approach utilizes rich information from user–smartphone interactions and smartwatch sensor data to extract contextually filtered features (CFFs). The superiority of the proposed feature engineering method is demonstrated by developing an ML model that predicts a participant’s receptivity prior to administering an experience sampling method (ESM) questionnaire. The proposed approach is evaluated using the KEmoPhone data set, which contains 3334 ESM answers collected over the course of one week from 73 participants. To reduce the bias that may result in selecting specific classifier, multiple classifiers are tested and their average ROC-AUC metrics are compared. The results show that the proposed feature engineering method—CFFs improves the prediction performance, achieving an ROC-AUC of 56.5% as opposed to 54.7% obtained using conventional features (statistical moments of time series over an 80 min window). Such superior performance is consistent across multiple ML classification algorithms. Full research code will be released in Jupyter Notebooks for facilitating the research in the domain at https://github.com/Jumabek/receptivity upon the publication of this research work.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 1,
+                    "pageNumber": 1,
+                    "sourceChunkId": "10714c6e-8015-484d-8315-715ac151a1c7"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Feature construction: association-rule mining identifies frequently co-occurring subwindow features, which are used to extract contextual features.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/951f662a-1519-45b8-8c8e-0c98b4ca2f05/asset",
+                    "fileName": "paper--10316180.pdf",
+                    "chunkText": "1) RQ-1: Can ML techniques be applied effectively to enhance users’ receptivity to health interventions? To answer this, we use the KEmoPhone data set and evaluate whether ML plus user context data can produce more accurate predictions than a random baseline.\n\n2) RQ-2: Is it possible to enhance ML-based receptivity prediction models by feature engineering alone? Here, the effectiveness of the proposed feature engineering method is evaluated.\n\nOur contributions can be summarized as follows.\n\n1) Novel Feature Engineering Approach: a novel feature engineering method called CFFs is proposed for predicting user receptivity to just-in-time (JIT) interventions. This approach leverages rich information from user–smartphone interactions and smartwatch sensor data to extract features that capture contextual information relevant to receptivity.\n\n2) Context Mining for Feature Extraction: The process of context mining is incorporated into the proposed feature engineering methodology. By mining association rules from subwindow features, potentially valuable contexts for feature extraction is identified, allowing us to extract more meaningful features for predicting user receptivity.\n\n3) Evaluation and Comparison: The performance of the proposed method is evaluated using the KEmoPhone data set, which contains a large number of experience sampling method (ESM) answers collected from participants over a one-week period. The performance of the proposed approach is compared against to conventional feature extraction methods and demonstrates its superiority in predicting user receptivity to JIT interventions.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 14,
+                    "pageNumber": 3,
+                    "sourceChunkId": "951f662a-1519-45b8-8c8e-0c98b4ca2f05"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Model evaluation: the reported pipeline uses group five-fold cross-validation to prevent participant-response overlap and tests a logistic-regression classifier as depicted in the pipeline.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/8813f7cb-f7e5-4c34-adb2-4a74fad5cfba/asset",
+                    "fileName": "paper--10316180.pdf",
+                    "chunkText": "Fig. 1. Receptivity prediction pipeline.\n\nData Collection = *®\neo User's context, user-phone interaction and physical state collection\no  Receptivity self-report (ESM) for the random intervention via smartphone _- =\nFeature Engineering and Feature Selection\neo Preprocess sensor data stream (exclude participants, resample data)\no Select features (i.e., pairwise correlation remoreceval, LASSO) 2-,9| Z|\n«Identify frequently co-occurring features with ARM [2 oF\ne Extract CF features using association rules and sub features\nEvaluate Receptivity Prediction Model\ne  Group-5-fold cross validation to prevent participant response overlap\ne Fitand Test Logistic Regression Classifier\n. Lond Model prediction:\nKey factors: Ie a e.g., “receptive”\nESM (ground truth): “receptive” Evaluation: ®O®",
+                    "mediaType": "image/png",
+                    "chunkIndex": 8,
+                    "pageNumber": 2,
+                    "sourceChunkId": "8813f7cb-f7e5-4c34-adb2-4a74fad5cfba"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Across multiple classifiers on KEmoPhone, the proposed CFF method achieved an average ROC-AUC of 56.5%, compared with 54.7% for conventional statistical time-series features using an 80-minute window. The paper reports that the improvement was consistent across the classifiers tested.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/10714c6e-8015-484d-8315-715ac151a1c7/asset",
+            "fileName": "paper--10316180.pdf",
+            "chunkText": "Abstract—For the successful engagement of users with incoming interventions, the delivery of just-in-time (JIT) (or opportune moment–OM) interventions is of the utmost importance. This can be accomplished with a machine learning (ML) model that utilizes user context data. Smartwatch and smartphone interactions further open the space for further improvement by considering the user’s state and environmental information. In this work, a novel feature engineering approach for predicting smartphone user receptivity to JIT interventions is proposed. Proposed approach utilizes rich information from user–smartphone interactions and smartwatch sensor data to extract contextually filtered features (CFFs). The superiority of the proposed feature engineering method is demonstrated by developing an ML model that predicts a participant’s receptivity prior to administering an experience sampling method (ESM) questionnaire. The proposed approach is evaluated using the KEmoPhone data set, which contains 3334 ESM answers collected over the course of one week from 73 participants. To reduce the bias that may result in selecting specific classifier, multiple classifiers are tested and their average ROC-AUC metrics are compared. The results show that the proposed feature engineering method—CFFs improves the prediction performance, achieving an ROC-AUC of 56.5% as opposed to 54.7% obtained using conventional features (statistical moments of time series over an 80 min window). Such superior performance is consistent across multiple ML classification algorithms. Full research code will be released in Jupyter Notebooks for facilitating the research in the domain at https://github.com/Jumabek/receptivity upon the publication of this research work.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "10714c6e-8015-484d-8315-715ac151a1c7"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "These are research-model metrics, not measured business outcomes. No client deployment, intervention-engagement uplift, or client business impact has been provided or measured in the supplied material; the study also states that measuring the causal effect of health interventions was outside its scope.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/36f2f199-7576-4109-af69-be4679733d86/asset",
+            "fileName": "paper--10316180.pdf",
+            "chunkText": "smartphone-based digital health interventions in inducing favorable behavioral changes in response to diverse needs, such as smoking, alcohol disorders, physical inactivity, and depression [1], [2], [3]. The ultimate objective is to combine accurate sensing with appropriate DTx therapies to improve the quality of life for a specific population subgroup (e.g., increasing physical activity in sedentary people). Although, there is large body of research [4], [5], [6], [7] that is intended to examine and measure the (causal) effect of health interventions, this is not the topic of this study.\n\nTo properly engage consumers, it is essential to accurately predict the delivery timing of DTx interventions [8], [9]. This necessitates that an intervention design should incorporate a component for identifying opportune moments (OMs) for a specific intervention. However, the architecture of the OM detector component can differ according to the type of DTx. The opportune time (i.e., OM) for stress-relieving DTx could occur when the person is stressed. Similarly, for DTx that aims to increase physical activity, an OM might be described as the time when a user is able or feels compelled to carry out the proposed interventions (e.g., taking a walk to a hall). This can depict the moment after the user has completed a task or has been inactive for an extended period of time.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "36f2f199-7576-4109-af69-be4679733d86"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The evidence is limited to the described dataset and evaluation. The result supports a comparison of feature representations for predicting receptivity, not a guarantee of successful intervention timing in production or improved health outcomes.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/10714c6e-8015-484d-8315-715ac151a1c7/asset",
+            "fileName": "paper--10316180.pdf",
+            "chunkText": "Abstract—For the successful engagement of users with incoming interventions, the delivery of just-in-time (JIT) (or opportune moment–OM) interventions is of the utmost importance. This can be accomplished with a machine learning (ML) model that utilizes user context data. Smartwatch and smartphone interactions further open the space for further improvement by considering the user’s state and environmental information. In this work, a novel feature engineering approach for predicting smartphone user receptivity to JIT interventions is proposed. Proposed approach utilizes rich information from user–smartphone interactions and smartwatch sensor data to extract contextually filtered features (CFFs). The superiority of the proposed feature engineering method is demonstrated by developing an ML model that predicts a participant’s receptivity prior to administering an experience sampling method (ESM) questionnaire. The proposed approach is evaluated using the KEmoPhone data set, which contains 3334 ESM answers collected over the course of one week from 73 participants. To reduce the bias that may result in selecting specific classifier, multiple classifiers are tested and their average ROC-AUC metrics are compared. The results show that the proposed feature engineering method—CFFs improves the prediction performance, achieving an ROC-AUC of 56.5% as opposed to 54.7% obtained using conventional features (statistical moments of time series over an 80 min window). Such superior performance is consistent across multiple ML classification algorithms. Full research code will be released in Jupyter Notebooks for facilitating the research in the domain at https://github.com/Jumabek/receptivity upon the publication of this research work.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "10714c6e-8015-484d-8315-715ac151a1c7"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/36f2f199-7576-4109-af69-be4679733d86/asset",
+            "fileName": "paper--10316180.pdf",
+            "chunkText": "smartphone-based digital health interventions in inducing favorable behavioral changes in response to diverse needs, such as smoking, alcohol disorders, physical inactivity, and depression [1], [2], [3]. The ultimate objective is to combine accurate sensing with appropriate DTx therapies to improve the quality of life for a specific population subgroup (e.g., increasing physical activity in sedentary people). Although, there is large body of research [4], [5], [6], [7] that is intended to examine and measure the (causal) effect of health interventions, this is not the topic of this study.\n\nTo properly engage consumers, it is essential to accurately predict the delivery timing of DTx interventions [8], [9]. This necessitates that an intervention design should incorporate a component for identifying opportune moments (OMs) for a specific intervention. However, the architecture of the OM detector component can differ according to the type of DTx. The opportune time (i.e., OM) for stress-relieving DTx could occur when the person is stressed. Similarly, for DTx that aims to increase physical activity, an OM might be described as the time when a user is able or feels compelled to carry out the proposed interventions (e.g., taking a walk to a hall). This can depict the moment after the user has completed a task or has been inactive for an extended period of time.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "36f2f199-7576-4109-af69-be4679733d86"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The study constrained its investigated features to sensor and user–phone interaction data; age, gender, personality scores, and time-of-day or weekday/weekend indicators were not considered.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/d143dce5-7785-491c-97e8-55cb2d441a0a/asset",
+                    "fileName": "paper--10316180.pdf",
+                    "chunkText": "interventions are sent to users only if the ML model identified the moment as OM. Results revealed that the ML model led to a 40% improvement in receptivity compared with the control (baseline) model. Their static support vector machine (SVM) model was trained before deployment, and it achieved an average F1 score of 36%, a score comparable to the 25% F1 score in the baseline scenario. A significant difference between the study and those reported in the literature lies in the fact that this research focused on improving the model’s performance with novel feature engineering, namely, CFFs. In other words, this research is not proposing another ML classifier or algorithm. Instead, a novel way to engineer more richer feature representation which can improve the performance of any classification methods is proposed. In this regard, the model is also constrained to use only sensor and user–phone interaction features to investigate the effect of novel feature engineering. In other words, features, such as age, gender, personality scores, time of the day, weekend, or weekday, were not considered. With the inclusion of these features, further improvement in performance is expected as explored in [21]. However, this is beyond the scope of this study.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 19,
+                    "pageNumber": 4,
+                    "sourceChunkId": "d143dce5-7785-491c-97e8-55cb2d441a0a"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The abstract said full research code would be released in Jupyter Notebooks upon publication. The supplied material does not confirm its current availability or describe a production implementation, so no delivered product status is claimed.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/10714c6e-8015-484d-8315-715ac151a1c7/asset",
+                    "fileName": "paper--10316180.pdf",
+                    "chunkText": "Abstract—For the successful engagement of users with incoming interventions, the delivery of just-in-time (JIT) (or opportune moment–OM) interventions is of the utmost importance. This can be accomplished with a machine learning (ML) model that utilizes user context data. Smartwatch and smartphone interactions further open the space for further improvement by considering the user’s state and environmental information. In this work, a novel feature engineering approach for predicting smartphone user receptivity to JIT interventions is proposed. Proposed approach utilizes rich information from user–smartphone interactions and smartwatch sensor data to extract contextually filtered features (CFFs). The superiority of the proposed feature engineering method is demonstrated by developing an ML model that predicts a participant’s receptivity prior to administering an experience sampling method (ESM) questionnaire. The proposed approach is evaluated using the KEmoPhone data set, which contains 3334 ESM answers collected over the course of one week from 73 participants. To reduce the bias that may result in selecting specific classifier, multiple classifiers are tested and their average ROC-AUC metrics are compared. The results show that the proposed feature engineering method—CFFs improves the prediction performance, achieving an ROC-AUC of 56.5% as opposed to 54.7% obtained using conventional features (statistical moments of time series over an 80 min window). Such superior performance is consistent across multiple ML classification algorithms. Full research code will be released in Jupyter Notebooks for facilitating the research in the domain at https://github.com/Jumabek/receptivity upon the publication of this research work.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 1,
+                    "pageNumber": 1,
+                    "sourceChunkId": "10714c6e-8015-484d-8315-715ac151a1c7"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "This published study demonstrates a research approach for using contextually filtered smartphone and smartwatch features to improve receptivity prediction relative to conventional 80-minute statistical features on the evaluated dataset. It provides a measured model comparison for mobile-health researchers and intervention designers, while client business impact and real-world deployment outcomes remain unreported.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/10714c6e-8015-484d-8315-715ac151a1c7/asset",
+            "fileName": "paper--10316180.pdf",
+            "chunkText": "Abstract—For the successful engagement of users with incoming interventions, the delivery of just-in-time (JIT) (or opportune moment–OM) interventions is of the utmost importance. This can be accomplished with a machine learning (ML) model that utilizes user context data. Smartwatch and smartphone interactions further open the space for further improvement by considering the user’s state and environmental information. In this work, a novel feature engineering approach for predicting smartphone user receptivity to JIT interventions is proposed. Proposed approach utilizes rich information from user–smartphone interactions and smartwatch sensor data to extract contextually filtered features (CFFs). The superiority of the proposed feature engineering method is demonstrated by developing an ML model that predicts a participant’s receptivity prior to administering an experience sampling method (ESM) questionnaire. The proposed approach is evaluated using the KEmoPhone data set, which contains 3334 ESM answers collected over the course of one week from 73 participants. To reduce the bias that may result in selecting specific classifier, multiple classifiers are tested and their average ROC-AUC metrics are compared. The results show that the proposed feature engineering method—CFFs improves the prediction performance, achieving an ROC-AUC of 56.5% as opposed to 54.7% obtained using conventional features (statistical moments of time series over an 80 min window). Such superior performance is consistent across multiple ML classification algorithms. Full research code will be released in Jupyter Notebooks for facilitating the research in the domain at https://github.com/Jumabek/receptivity upon the publication of this research work.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "10714c6e-8015-484d-8315-715ac151a1c7"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/evidence/36f2f199-7576-4109-af69-be4679733d86/asset",
+            "fileName": "paper--10316180.pdf",
+            "chunkText": "smartphone-based digital health interventions in inducing favorable behavioral changes in response to diverse needs, such as smoking, alcohol disorders, physical inactivity, and depression [1], [2], [3]. The ultimate objective is to combine accurate sensing with appropriate DTx therapies to improve the quality of life for a specific population subgroup (e.g., increasing physical activity in sedentary people). Although, there is large body of research [4], [5], [6], [7] that is intended to examine and measure the (causal) effect of health interventions, this is not the topic of this study.\n\nTo properly engage consumers, it is essential to accurately predict the delivery timing of DTx interventions [8], [9]. This necessitates that an intervention design should incorporate a component for identifying opportune moments (OMs) for a specific intervention. However, the architecture of the OM detector component can differ according to the type of DTx. The opportune time (i.e., OM) for stress-relieving DTx could occur when the person is stressed. Similarly, for DTx that aims to increase physical activity, an OM might be described as the time when a user is able or feels compelled to carry out the proposed interventions (e.g., taking a walk to a hall). This can depict the moment after the user has completed a task or has been inactive for an extended period of time.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "36f2f199-7576-4109-af69-be4679733d86"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -107,6 +107,7 @@
     "@xmldom/xmldom": "^0.9.12",
     "axios": "^1.19.0",
     "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^13.0.3",
     "class-variance-authority": "^0.7.1",
     "cmdk": "^1.1.1",
     "cn": "^0.4.0",
@@ -155,6 +156,7 @@
   },
   "allowScripts": {
     "@swc/core": true,
+    "better-sqlite3": true,
     "esbuild": true,
     "fsevents": true
   },

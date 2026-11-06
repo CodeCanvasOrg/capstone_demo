@@ -1,0 +1,62 @@
+{
+  "generatedVersionId": "ec42f4ff-eeff-4ec2-982b-a195a94d757f",
+  "wordCount": 1781,
+  "originalUrlsPresent": 33,
+  "expectedSources": 42,
+  "missing": [
+    {
+      "id": "company-update:vc-studio-qatar",
+      "url": "https://humblebee.ai/case-studies/vc-studio-qatar",
+      "urlPresent": false,
+      "title": "HumbleBeeAI Expands to Qatar with the Launch of Venture Studio LLC"
+    },
+    {
+      "id": "company-update:innerworks-partnership",
+      "url": "https://humblebee.ai/case-studies/innerworks-partnership",
+      "urlPresent": false,
+      "title": "From Collaboration to Innovation: Inside the Innerworks and HumblebeeAI Partnership"
+    },
+    {
+      "id": "paper:2409.04187",
+      "url": "https://arxiv.org/abs/2409.04187",
+      "urlPresent": false,
+      "title": "LITE: The Lightweight Integrated Tracking-Feature Extraction paradigm"
+    },
+    {
+      "id": "paper:10883969",
+      "url": "https://ieeexplore.ieee.org/abstract/document/10883969",
+      "urlPresent": false,
+      "title": "PRIME: Practical Evaluation Framework for Real-Time Multi-Object Tracking"
+    },
+    {
+      "id": "paper:10316180",
+      "url": "https://ieeexplore.ieee.org/abstract/document/10316180",
+      "urlPresent": false,
+      "title": "Design of Contextual Filtered Features for Better Smartphone-User Receptivity Prediction"
+    },
+    {
+      "id": "paper:515",
+      "url": "https://www.mdpi.com/2079-9292/11/4/515",
+      "urlPresent": false,
+      "title": "Performance Evaluation of Deep Learning Based Network Intrusion Detection System across Multiple Balanced and Imbalanced Datasets"
+    },
+    {
+      "id": "paper:9661375",
+      "url": "https://ieeexplore.ieee.org/abstract/document/9661375",
+      "urlPresent": false,
+      "title": "Investigating the Effect of Traffic Sampling on Machine Learning-Based Network Intrusion Detection Approaches"
+    },
+    {
+      "id": "paper:9064976",
+      "url": "https://ieeexplore.ieee.org/abstract/document/9064976",
+      "urlPresent": false,
+      "title": "1D CNN based network intrusion detection with normalization on imbalanced data"
+    },
+    {
+      "id": "paper:1910.01091",
+      "url": "https://arxiv.org/abs/1910.01091",
+      "urlPresent": false,
+      "title": "W-Net: A CNN-based Architecture for White Blood Cells Image Classification"
+    }
+  ]
+}

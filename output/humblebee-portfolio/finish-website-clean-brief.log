@@ -1,0 +1,7 @@
+FAST_PIPELINE_MODEL anthropic/claude-haiku-5.5 TARGETS 1
+FAST_GENERATING paper:10883969 1814cab8-3f61-4c27-b48f-df564149876b
+[generation 96dd77ca-8a40-4cb5-8e6b-4366f590b526] retrieval finished in 2223ms with 20 chunks
+[generation 96dd77ca-8a40-4cb5-8e6b-4366f590b526] generation started (outline)
+[generation 96dd77ca-8a40-4cb5-8e6b-4366f590b526] generation finished in 22071ms
+FAST_GENERATED paper:10883969 9155064f-cb95-4da3-91f8-e0caf9d85c04
+FAST_BATCH_FINISHED

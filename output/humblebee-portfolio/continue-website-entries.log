@@ -1,0 +1,294 @@
+WEBSITE_ENTRY_READY company-update:vc-studio-qatar 5162d3bf-9a57-42ce-b8ab-3c04c7c6b035 507353e3-36cd-45da-b5da-96a94022b56e
+WEBSITE_ENTRY_READY case-study:ai-based-predictive 31b8addc-2098-4ed6-8670-410ec572c4ca bc1c7663-296c-4124-bf46-0b4326ad2094
+WEBSITE_ENTRY_SCHEDULED case-study:customs-document-automation 08499636-03de-4b76-a7ee-82d5f663a0e6
+WEBSITE_ENTRY_READY case-study:impact-event-analysis eb4805d8-ac27-420c-a4c5-d08fe48e42d5 2d346cdd-f11b-48ca-bad5-b210e157bd40
+WEBSITE_ENTRY_READY case-study:avnrt-ablation-analytics 34971225-fadb-4af4-a7f5-6883a845760d 51507805-b627-4d36-9132-f681a53df9af
+WEBSITE_ENTRY_GENERATING case-study:cartoned-analysis-dashboard 0eccff37-c19a-4333-b04f-779ad164e7c3
+WEBSITE_ENTRY_SCHEDULED case-study:patient-data-analytics 467a4530-a428-4941-aa44-77cd6d9459ce
+WEBSITE_ENTRY_GENERATING case-study:shelf-analysis b4d78a05-a82c-4f2c-be2c-da605c86fee6
+WEBSITE_ENTRY_SCHEDULED case-study:fraud-detection 9301d410-ac80-4094-a5d7-5f11c20d02fe
+WEBSITE_ENTRY_SCHEDULED case-study:poster-recognition a44defcb-e44c-42a3-b775-6a9315f1e4d1
+WEBSITE_ENTRY_GENERATING case-study:automated-training-pipeline 57cefac9-51b9-4034-8805-aff98dc6681e
+WEBSITE_ENTRY_GENERATING case-study:data-labeling-tool 17f57d5a-143c-4189-a85c-a9ee82b6af2b
+WEBSITE_ENTRY_GENERATING case-study:improving-recognition-accuracy 260f80d8-d7e8-4164-a1de-160882a5658f
+WEBSITE_ENTRY_GENERATING case-study:optimizing-recognition-processing 23f5a23d-84a1-4ae4-acfd-1957268d08da
+[generation 260f80d8-d7e8-4164-a1de-160882a5658f] retrieval finished in 1777ms with 10 chunks
+[generation 23f5a23d-84a1-4ae4-acfd-1957268d08da] retrieval finished in 1891ms with 9 chunks
+[generation 57cefac9-51b9-4034-8805-aff98dc6681e] retrieval finished in 1931ms with 11 chunks
+[generation 17f57d5a-143c-4189-a85c-a9ee82b6af2b] retrieval finished in 2203ms with 13 chunks
+[generation b4d78a05-a82c-4f2c-be2c-da605c86fee6] retrieval finished in 2503ms with 14 chunks
+[generation 0eccff37-c19a-4333-b04f-779ad164e7c3] retrieval finished in 2522ms with 14 chunks
+[generation 260f80d8-d7e8-4164-a1de-160882a5658f] generation started (outline)
+[generation 23f5a23d-84a1-4ae4-acfd-1957268d08da] generation started (outline)
+[generation 17f57d5a-143c-4189-a85c-a9ee82b6af2b] generation started (outline)
+[generation 57cefac9-51b9-4034-8805-aff98dc6681e] generation started (outline)
+[generation b4d78a05-a82c-4f2c-be2c-da605c86fee6] generation started (outline)
+[generation 0eccff37-c19a-4333-b04f-779ad164e7c3] generation started (outline)
+WEBSITE_ENTRY_RETRY_PENDING case-study:optimizing-recognition-processing Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+WEBSITE_ENTRY_GENERATING case-study:lumiohub-platform b703664c-9e75-4c46-8adc-5066fea1de6a
+WEBSITE_ENTRY_RETRY_PENDING case-study:automated-training-pipeline Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+WEBSITE_ENTRY_GENERATING case-study:amplifyr bce2fae1-0935-468e-864f-dd8e81736753
+[generation b703664c-9e75-4c46-8adc-5066fea1de6a] retrieval finished in 1513ms with 20 chunks
+[generation bce2fae1-0935-468e-864f-dd8e81736753] retrieval finished in 936ms with 10 chunks
+[generation bce2fae1-0935-468e-864f-dd8e81736753] generation started (outline)
+[generation b703664c-9e75-4c46-8adc-5066fea1de6a] generation started (outline)
+[generation 260f80d8-d7e8-4164-a1de-160882a5658f] generation finished in 23431ms
+WEBSITE_ENTRY_READY case-study:improving-recognition-accuracy 260f80d8-d7e8-4164-a1de-160882a5658f b1e151c1-1185-4a94-b310-cf588b34f994
+WEBSITE_ENTRY_GENERATING case-study:ai-powered-retail-cart a21954ea-d02e-46e9-baf2-0afe71f92127
+[generation a21954ea-d02e-46e9-baf2-0afe71f92127] retrieval finished in 862ms with 11 chunks
+[generation 17f57d5a-143c-4189-a85c-a9ee82b6af2b] generation finished in 25325ms
+WEBSITE_ENTRY_READY case-study:data-labeling-tool 17f57d5a-143c-4189-a85c-a9ee82b6af2b 05b97282-bfb8-47c6-a314-e888b27bc65e
+WEBSITE_ENTRY_GENERATING case-study:ai-customs-intelligence 1dd51dde-087e-4fd8-8645-d1a3ca95fc5d
+[generation a21954ea-d02e-46e9-baf2-0afe71f92127] generation started (outline)
+[generation 1dd51dde-087e-4fd8-8645-d1a3ca95fc5d] retrieval finished in 815ms with 13 chunks
+[generation b4d78a05-a82c-4f2c-be2c-da605c86fee6] generation finished in 26044ms
+WEBSITE_ENTRY_READY case-study:shelf-analysis b4d78a05-a82c-4f2c-be2c-da605c86fee6 aa6bba56-eb15-45fa-aff5-e7e6ed0b6d99
+WEBSITE_ENTRY_GENERATING case-study:data-cleaning-hs-codes 7cb0ac09-4271-4028-8985-5430c8e78a03
+[generation 7cb0ac09-4271-4028-8985-5430c8e78a03] retrieval finished in 983ms with 13 chunks
+[generation 1dd51dde-087e-4fd8-8645-d1a3ca95fc5d] generation started (outline)
+[generation 7cb0ac09-4271-4028-8985-5430c8e78a03] generation started (outline)
+[generation a21954ea-d02e-46e9-baf2-0afe71f92127] generation finished in 22946ms
+WEBSITE_ENTRY_READY case-study:ai-powered-retail-cart a21954ea-d02e-46e9-baf2-0afe71f92127 b30af2c5-2812-4605-93f7-d49349743f6f
+WEBSITE_ENTRY_GENERATING case-study:excel-automated-testing c092713a-8812-421b-996f-73a77e75725a
+[generation c092713a-8812-421b-996f-73a77e75725a] retrieval finished in 1208ms with 10 chunks
+[generation c092713a-8812-421b-996f-73a77e75725a] generation started (outline)
+WEBSITE_ENTRY_RETRY_PENDING case-study:ai-customs-intelligence Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+WEBSITE_ENTRY_GENERATING case-study:llm-results-analyzer d317c1ce-95c6-4e5a-b38d-403e4826878a
+[generation d317c1ce-95c6-4e5a-b38d-403e4826878a] retrieval finished in 1103ms with 11 chunks
+[generation d317c1ce-95c6-4e5a-b38d-403e4826878a] generation started (outline)
+[generation c092713a-8812-421b-996f-73a77e75725a] generation finished in 19348ms
+WEBSITE_ENTRY_READY case-study:excel-automated-testing c092713a-8812-421b-996f-73a77e75725a 201e429d-72a9-43b3-8df6-fc1236e16b93
+WEBSITE_ENTRY_GENERATING case-study:iv-drip-flow-rate-estimator 5077dd91-04f8-4943-9e17-c32791ccd2b7
+[generation 5077dd91-04f8-4943-9e17-c32791ccd2b7] retrieval finished in 823ms with 9 chunks
+[generation 5077dd91-04f8-4943-9e17-c32791ccd2b7] generation started (outline)
+[generation d317c1ce-95c6-4e5a-b38d-403e4826878a] generation finished in 24643ms
+WEBSITE_ENTRY_READY case-study:llm-results-analyzer d317c1ce-95c6-4e5a-b38d-403e4826878a c6b55467-9ae7-441a-b2c0-3cb099db3850
+WEBSITE_ENTRY_GENERATING company-update:innerworks-partnership 02cf5cf8-7ac4-4c0d-9bb6-5137d7d92c5a
+[generation 02cf5cf8-7ac4-4c0d-9bb6-5137d7d92c5a] retrieval finished in 1065ms with 12 chunks
+[generation 02cf5cf8-7ac4-4c0d-9bb6-5137d7d92c5a] generation started (outline)
+WEBSITE_ENTRY_RETRY_PENDING case-study:iv-drip-flow-rate-estimator Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "text",
+          "text": "IV Drip Flow Rate Estimator"
+        },
+        {
+  
+WEBSITE_ENTRY_GENERATING case-study:field-center-detection 59cecf0a-c37a-4b1e-93e5-9447dbdf1c72
+[generation 59cecf0a-c37a-4b1e-93e5-9447dbdf1c72] retrieval finished in 1079ms with 9 chunks
+[generation 59cecf0a-c37a-4b1e-93e5-9447dbdf1c72] generation started (outline)
+WEBSITE_ENTRY_RETRY_PENDING company-update:innerworks-partnership Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+WEBSITE_ENTRY_GENERATING case-study:beef-carcass-detection 3ccf1cc1-742a-40e6-9409-ff1fc385d33b
+[generation 3ccf1cc1-742a-40e6-9409-ff1fc385d33b] retrieval finished in 1082ms with 12 chunks
+[generation 3ccf1cc1-742a-40e6-9409-ff1fc385d33b] generation started (outline)
+WEBSITE_ENTRY_RETRY_PENDING case-study:field-center-detection Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+WEBSITE_ENTRY_GENERATING case-study:livescore-ai d56b0818-e252-4909-a105-01c511b2f5df
+[generation d56b0818-e252-4909-a105-01c511b2f5df] retrieval finished in 1143ms with 17 chunks
+[generation d56b0818-e252-4909-a105-01c511b2f5df] generation started (outline)
+{"level":40,"time":1793899124104,"pid":28870,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+{"level":40,"time":1793899144677,"pid":28870,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+{"level":40,"time":1793899144726,"pid":28870,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+[generation 0eccff37-c19a-4333-b04f-779ad164e7c3] generation finished in 204015ms
+WEBSITE_ENTRY_READY case-study:cartoned-analysis-dashboard 0eccff37-c19a-4333-b04f-779ad164e7c3 3b485778-953d-44f0-8edb-8a5a5f87cc7c
+WEBSITE_ENTRY_GENERATING case-study:breast-cancer 97c50cf2-c4e9-4d63-80bc-5f3ed57c01f6
+[generation 97c50cf2-c4e9-4d63-80bc-5f3ed57c01f6] retrieval finished in 2205ms with 13 chunks
+[generation 97c50cf2-c4e9-4d63-80bc-5f3ed57c01f6] generation started (outline)
+{"level":40,"time":1793899152097,"pid":28870,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+WEBSITE_ENTRY_RETRY_PENDING case-study:amplifyr Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+WEBSITE_ENTRY_GENERATING project:hstaff f12aaa4e-b999-4f34-9be8-63afa9a86d7e
+[generation f12aaa4e-b999-4f34-9be8-63afa9a86d7e] retrieval finished in 1888ms with 20 chunks
+[generation f12aaa4e-b999-4f34-9be8-63afa9a86d7e] generation started (outline)
+[generation 7cb0ac09-4271-4028-8985-5430c8e78a03] generation finished in 205045ms
+WEBSITE_ENTRY_READY case-study:data-cleaning-hs-codes 7cb0ac09-4271-4028-8985-5430c8e78a03 512a70ae-4732-48c6-87d1-34d461032df3
+WEBSITE_ENTRY_GENERATING project:ai-avatar 8fabe22b-34e8-4d87-b0c5-d3a96a934b4c
+[generation 8fabe22b-34e8-4d87-b0c5-d3a96a934b4c] retrieval finished in 1415ms with 17 chunks
+[generation 8fabe22b-34e8-4d87-b0c5-d3a96a934b4c] generation started (outline)
+WEBSITE_ENTRY_RETRY_PENDING project:hstaff Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+WEBSITE_ENTRY_GENERATING project:kumush-ai 7e618968-e5e5-4fcc-8f48-a47ea861bfd4
+[generation 7e618968-e5e5-4fcc-8f48-a47ea861bfd4] retrieval finished in 1772ms with 17 chunks
+[generation 7e618968-e5e5-4fcc-8f48-a47ea861bfd4] generation started (outline)
+[generation 8fabe22b-34e8-4d87-b0c5-d3a96a934b4c] generation finished in 25881ms
+WEBSITE_ENTRY_READY project:ai-avatar 8fabe22b-34e8-4d87-b0c5-d3a96a934b4c febf1558-e0a8-45f2-94bb-5bfc861e607c
+WEBSITE_ENTRY_GENERATING project:wakil-ai 73956dc4-bd5f-405b-8c4f-45c02c81c18e
+[generation 73956dc4-bd5f-405b-8c4f-45c02c81c18e] retrieval finished in 2086ms with 20 chunks
+[generation 73956dc4-bd5f-405b-8c4f-45c02c81c18e] generation started (outline)
+[generation 7e618968-e5e5-4fcc-8f48-a47ea861bfd4] generation finished in 34461ms
+WEBSITE_ENTRY_READY project:kumush-ai 7e618968-e5e5-4fcc-8f48-a47ea861bfd4 69770356-9cf8-4c9a-9430-cd9fab2ce801
+WEBSITE_ENTRY_GENERATING project:bojhona a4131402-bce4-4cb7-96f3-bfc2e5900631
+{"level":40,"time":1793899232826,"pid":28870,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+[generation a4131402-bce4-4cb7-96f3-bfc2e5900631] retrieval finished in 917ms with 10 chunks
+[generation a4131402-bce4-4cb7-96f3-bfc2e5900631] generation started (outline)
+{"level":40,"time":1793899243397,"pid":28870,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+[generation a4131402-bce4-4cb7-96f3-bfc2e5900631] generation finished in 24469ms
+WEBSITE_ENTRY_READY project:bojhona a4131402-bce4-4cb7-96f3-bfc2e5900631 16afff3e-fbee-4ea1-b83e-8d8664af6e43
+WEBSITE_ENTRY_GENERATING project:enlighten-qalb 14127b64-26ef-4d63-9e59-8d4642da28c3
+[generation 14127b64-26ef-4d63-9e59-8d4642da28c3] retrieval finished in 1636ms with 20 chunks
+[generation 14127b64-26ef-4d63-9e59-8d4642da28c3] generation started (outline)
+[generation 14127b64-26ef-4d63-9e59-8d4642da28c3] generation finished in 7875ms
+WEBSITE_ENTRY_READY project:enlighten-qalb 14127b64-26ef-4d63-9e59-8d4642da28c3 05c2270a-ffd5-4ddb-aaad-97ae49b08a5e
+WEBSITE_ENTRY_GENERATING project:bride f82ecd54-4473-465d-8877-5f6081adbbd5
+[generation f82ecd54-4473-465d-8877-5f6081adbbd5] retrieval finished in 1013ms with 19 chunks
+[generation f82ecd54-4473-465d-8877-5f6081adbbd5] generation started (outline)
+WEBSITE_ENTRY_RETRY_PENDING project:bride Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+WEBSITE_ENTRY_GENERATING paper:2409.04187 0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050
+[generation 0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050] retrieval finished in 1301ms with 20 chunks
+[generation 0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050] generation started (outline)
+WEBSITE_ENTRY_RETRY_PENDING paper:2409.04187 Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+WEBSITE_ENTRY_GENERATING paper:10883969 96dd77ca-8a40-4cb5-8e6b-4366f590b526
+WEBSITE_ENTRY_RETRY_PENDING case-study:lumiohub-platform The operation was aborted due to timeout
+WEBSITE_ENTRY_GENERATING paper:10316180 06b09a1a-12aa-444e-bd9f-b70209eeed36
+[generation 96dd77ca-8a40-4cb5-8e6b-4366f590b526] retrieval finished in 2207ms with 20 chunks
+[generation 06b09a1a-12aa-444e-bd9f-b70209eeed36] retrieval finished in 1420ms with 20 chunks
+[generation 96dd77ca-8a40-4cb5-8e6b-4366f590b526] generation started (outline)
+[generation 06b09a1a-12aa-444e-bd9f-b70209eeed36] generation started (outline)
+{"level":40,"time":1793899331621,"pid":28870,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+WEBSITE_ENTRY_RETRY_PENDING case-study:breast-cancer Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+WEBSITE_ENTRY_GENERATING paper:515 711f52f3-88da-49aa-aa71-f277a1f9f722
+[generation 711f52f3-88da-49aa-aa71-f277a1f9f722] retrieval finished in 1546ms with 20 chunks
+[generation 711f52f3-88da-49aa-aa71-f277a1f9f722] generation started (outline)
+WEBSITE_ENTRY_RETRY_PENDING paper:10883969 Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+WEBSITE_ENTRY_GENERATING paper:9661375 2bd2034f-7a1b-4b82-8985-e22e6e0a92c6
+[generation 2bd2034f-7a1b-4b82-8985-e22e6e0a92c6] retrieval finished in 3441ms with 20 chunks
+[generation 2bd2034f-7a1b-4b82-8985-e22e6e0a92c6] generation started (outline)
+WEBSITE_ENTRY_RETRY_PENDING paper:515 Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+WEBSITE_ENTRY_GENERATING paper:9064976 c5708598-1321-4762-a649-84c301061134
+[generation c5708598-1321-4762-a649-84c301061134] retrieval finished in 1129ms with 20 chunks
+[generation c5708598-1321-4762-a649-84c301061134] generation started (outline)
+{"level":40,"time":1793899389660,"pid":28870,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+WEBSITE_ENTRY_RETRY_PENDING paper:9661375 Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+WEBSITE_ENTRY_GENERATING paper:1910.01091 b74e8726-a2f3-43ac-a810-ff296ba20621
+[generation b74e8726-a2f3-43ac-a810-ff296ba20621] retrieval finished in 1125ms with 20 chunks
+[generation b74e8726-a2f3-43ac-a810-ff296ba20621] generation started (outline)
+WEBSITE_ENTRY_RETRY_PENDING case-study:beef-carcass-detection The operation was aborted due to timeout
+[generation b74e8726-a2f3-43ac-a810-ff296ba20621] generation finished in 29143ms
+WEBSITE_ENTRY_READY paper:1910.01091 b74e8726-a2f3-43ac-a810-ff296ba20621 1e1d6bf1-72fd-4875-8167-178286b608cf
+WEBSITE_ENTRY_RETRY_PENDING case-study:livescore-ai The operation was aborted due to timeout
+{"level":40,"time":1793899788287,"pid":28870,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+{"level":40,"time":1793899788288,"pid":28870,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+LEASE_ERROR paper:9064976 This task no longer owns its execution lease. Start a new request.
+LEASE_ERROR paper:10316180 This task no longer owns its execution lease. Start a new request.
+LEASE_ERROR project:wakil-ai This task no longer owns its execution lease. Start a new request.
+WEBSITE_ENTRY_RETRY_PENDING project:wakil-ai The operation was aborted due to timeout
+WEBSITE_ENTRY_RETRY_PENDING paper:10316180 This task no longer owns its execution lease. Start a new request.
+WEBSITE_ENTRY_RETRY_PENDING paper:9064976 This task no longer owns its execution lease. Start a new request.
+WEBSITE_GENERATION_BATCH_FINISHED 41

@@ -1,0 +1,426 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "From Collaboration to Innovation: Inside the Innerworks and HumblebeeAI Partnership",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI partnered with Innerworks from January 2024 as its R&D and product arm to build cybersecurity and behavioral-intelligence capabilities for digital platforms.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/48ff52e1-62cd-45ca-a687-79b40b714e69/evidence/f5476103-0580-4b18-98c7-ed2fb9e856ae/asset",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "chunkText": "Innerworks is a cybersecurity / behavioral intelligence company focused on helping exchanges, finance platforms, and digital ecosystems identify and block bad actors. Their solution stack includes Account Takeover Protection, Geo Compliance, Bot detection, and deeper behavioral analysis, leveraging 200+ data points across device, network, and behavioral signals. They also employ a RedTeam ethical hacking platform (built on BitTensor) to stay ahead of AI-driven fraud techniques. Starting in January 2024, HumbleBeeAI partnered with Innerworks as their R&D and product arm, building the core infrastructure and capabilities that enabled them to secure a $4M seed round in August 2025 led by AlbionVC.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "f5476103-0580-4b18-98c7-ed2fb9e856ae"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Innerworks serves exchanges, finance platforms, and digital ecosystems seeking to identify and block bad actors. The company update describes a collaboration that began in January 2024, with HumbleBeeAI supporting research and product development rather than providing only outsourced delivery. Its published account says the work covered foundational infrastructure and capabilities; owner approval of the reviewed source remains pending.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/48ff52e1-62cd-45ca-a687-79b40b714e69/evidence/f5476103-0580-4b18-98c7-ed2fb9e856ae/asset",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "chunkText": "Innerworks is a cybersecurity / behavioral intelligence company focused on helping exchanges, finance platforms, and digital ecosystems identify and block bad actors. Their solution stack includes Account Takeover Protection, Geo Compliance, Bot detection, and deeper behavioral analysis, leveraging 200+ data points across device, network, and behavioral signals. They also employ a RedTeam ethical hacking platform (built on BitTensor) to stay ahead of AI-driven fraud techniques. Starting in January 2024, HumbleBeeAI partnered with Innerworks as their R&D and product arm, building the core infrastructure and capabilities that enabled them to secure a $4M seed round in August 2025 led by AlbionVC.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "f5476103-0580-4b18-98c7-ed2fb9e856ae"
+          }
+        },
+        {
+          "text": " The original company update is available at ",
+          "type": "text"
+        },
+        {
+          "text": "HumbleBeeAI’s Innerworks partnership page",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://humblebee.ai/case-studies/innerworks-partnership",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "text": ".",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/48ff52e1-62cd-45ca-a687-79b40b714e69/evidence/3b0bfd1c-bd4b-4159-a559-7ce6d27888b7/asset",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nPartnering with Innerworks to advance research-driven innovations in device intelligence, behavioral analytics, and adversarial defense—strengthening the next generation of cybersecurity.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "3b0bfd1c-bd4b-4159-a559-7ce6d27888b7"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "At the start of the engagement, Innerworks reportedly had a single SDK for foundational detection and fingerprinting, but lacked a fully integrated solution. The source says the team also lacked dedicated R&D capacity, senior engineering leadership in fraud and AI, and infrastructure to develop separate modules into a cohesive platform. This challenge was heightened by tightening exchange regulations and fraud methods involving generative AI and identity spoofing that were described as outpacing legacy detection systems.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/48ff52e1-62cd-45ca-a687-79b40b714e69/evidence/5177d43d-341e-4ece-ad3e-1ee32decf6d8/asset",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "chunkText": "When our collaboration began in January 2024, Innerworks had a single SDK (a foundational detection and fingerprinting component) but lacked a fully integrated solution. Internally, they lacked a dedicated R&D team, senior engineering leadership in fraud & AI, and the infrastructure to grow modules into a cohesive, scalable platform.\n\nThey faced a high-stakes landscape: regulations for exchanges were tightening, forcing platforms to proactively prevent fraud and sanction breaches, rather than just reacting. Meanwhile, increasingly sophisticated fraudsters, especially using generative AI and identity spoofing, were outpacing legacy detection systems.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "5177d43d-341e-4ece-ad3e-1ee32decf6d8"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Innerworks set product direction; HumbleBeeAI describes its role as researching, prototyping, iterating, and building capabilities alongside Innerworks’ teams.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/48ff52e1-62cd-45ca-a687-79b40b714e69/evidence/ddff9f68-cd6c-49ff-a941-b43a946e86a7/asset",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "chunkText": "We stepped in not as an outsourcing shop, but as their R&D & product arm. Innerworks defined the vision and product goals; our role was to design, research, prototype, iterate, and build those capabilities in collaboration with the other teams of Innerworks.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "ddff9f68-cd6c-49ff-a941-b43a946e86a7"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Device and behavioral intelligence",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The reported scope includes device fingerprinting and behavioral profiling, within a solution stack for account-takeover protection and deeper behavioral analysis. The source describes more than 200 data points across device, network, and behavioral signals. This is a count of signals in the solution scope—not a detection-accuracy result.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/48ff52e1-62cd-45ca-a687-79b40b714e69/evidence/f5476103-0580-4b18-98c7-ed2fb9e856ae/asset",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "chunkText": "Innerworks is a cybersecurity / behavioral intelligence company focused on helping exchanges, finance platforms, and digital ecosystems identify and block bad actors. Their solution stack includes Account Takeover Protection, Geo Compliance, Bot detection, and deeper behavioral analysis, leveraging 200+ data points across device, network, and behavioral signals. They also employ a RedTeam ethical hacking platform (built on BitTensor) to stay ahead of AI-driven fraud techniques. Starting in January 2024, HumbleBeeAI partnered with Innerworks as their R&D and product arm, building the core infrastructure and capabilities that enabled them to secure a $4M seed round in August 2025 led by AlbionVC.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "f5476103-0580-4b18-98c7-ed2fb9e856ae"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "VPN, bot, and adversarial defense",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The update lists VPN and true-location detection, bot detection, threat intelligence, and a RedTeam adversarial-testing framework. It says components were structured modularly for R&D and to support production integration, with independent operation or combination in risk-scoring flows. It also reports iterative MVP launches, feedback collection, and model hardening against adversarial behavior.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/48ff52e1-62cd-45ca-a687-79b40b714e69/evidence/80ae1796-b7e5-4a80-96cf-93f75f564baa/asset",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "chunkText": "Deep domain research: industry best practices, academic papers, red-team methods, advanced heuristics.\n\nTransparent knowledge transfer: all research, findings, designs, code, and docs are shared in their repositories, fully accessible. This ensures trust and enables seamless eventual transition or scaling by their team.\n\nSuccessive iterations: we launched MVPs, collected feedback, adapted to adversarial behavior, and hardened models.\n\nWe structured the architecture of Device Fingerprinting, VPN / True Location Detection, Bot Detection / Behavioral Profiling, and RedTeam & Adversarial Testing Framework to be modular for research and development (R&D) purposes, while also supporting collaboration for production integration. Each component is designed to operate independently or feed into composite risk scoring flows. We have built pipelines for internal data ingestion, feature extraction, model serving, API endpoints, and monitoring, ensuring flexibility for both R&D experimentation and seamless production deployment through collaboration.\n\nThroughout, we prioritized observability, scalability, reliability, and defensibility so that Innerworks could offer credible enterprise-grade services.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 2,
+            "sourceChunkId": "80ae1796-b7e5-4a80-96cf-93f75f564baa"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The described engineering work included data-ingestion and feature-extraction pipelines, model serving, API endpoints, and monitoring. The source emphasizes knowledge transfer, with research, code, documentation, and design artifacts shared in Innerworks’ repositories.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/48ff52e1-62cd-45ca-a687-79b40b714e69/evidence/80ae1796-b7e5-4a80-96cf-93f75f564baa/asset",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "chunkText": "Deep domain research: industry best practices, academic papers, red-team methods, advanced heuristics.\n\nTransparent knowledge transfer: all research, findings, designs, code, and docs are shared in their repositories, fully accessible. This ensures trust and enables seamless eventual transition or scaling by their team.\n\nSuccessive iterations: we launched MVPs, collected feedback, adapted to adversarial behavior, and hardened models.\n\nWe structured the architecture of Device Fingerprinting, VPN / True Location Detection, Bot Detection / Behavioral Profiling, and RedTeam & Adversarial Testing Framework to be modular for research and development (R&D) purposes, while also supporting collaboration for production integration. Each component is designed to operate independently or feed into composite risk scoring flows. We have built pipelines for internal data ingestion, feature extraction, model serving, API endpoints, and monitoring, ensuring flexibility for both R&D experimentation and seamless production deployment through collaboration.\n\nThroughout, we prioritized observability, scalability, reliability, and defensibility so that Innerworks could offer credible enterprise-grade services.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 2,
+            "sourceChunkId": "80ae1796-b7e5-4a80-96cf-93f75f564baa"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/48ff52e1-62cd-45ca-a687-79b40b714e69/evidence/4f9b8d7a-5b02-43fd-a402-c1c5d559e211/asset",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "chunkText": "In August 2025, Innerworks raised $4M in a Seed round led by AlbionVC, demonstrating investor confidence in their technological foundation and trajectory.\n\nThey now maintain a stable client base across exchanges and digital platforms.\n\nThey use their full suite: device fingerprinting, VPN detection, bot detection, and threat intelligence – capabilities we co-built and matured.\n\nImportantly, we ensured that all knowledge, research, code, documentation, and design artifacts remain in their repos (not ours). This fosters mutual trust and enables seamless handover or future scaling by their internal team.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 2,
+            "sourceChunkId": "4f9b8d7a-5b02-43fd-a402-c1c5d559e211"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The company update reports that Innerworks raised a $4M seed round in August 2025 led by AlbionVC. This is funding raised by Innerworks, not HumbleBeeAI; although the update associates the partnership’s infrastructure work with enabling the company’s development, the available evidence does not establish that the partnership alone caused the investment.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/48ff52e1-62cd-45ca-a687-79b40b714e69/evidence/f5476103-0580-4b18-98c7-ed2fb9e856ae/asset",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "chunkText": "Innerworks is a cybersecurity / behavioral intelligence company focused on helping exchanges, finance platforms, and digital ecosystems identify and block bad actors. Their solution stack includes Account Takeover Protection, Geo Compliance, Bot detection, and deeper behavioral analysis, leveraging 200+ data points across device, network, and behavioral signals. They also employ a RedTeam ethical hacking platform (built on BitTensor) to stay ahead of AI-driven fraud techniques. Starting in January 2024, HumbleBeeAI partnered with Innerworks as their R&D and product arm, building the core infrastructure and capabilities that enabled them to secure a $4M seed round in August 2025 led by AlbionVC.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "f5476103-0580-4b18-98c7-ed2fb9e856ae"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/48ff52e1-62cd-45ca-a687-79b40b714e69/evidence/4f9b8d7a-5b02-43fd-a402-c1c5d559e211/asset",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "chunkText": "In August 2025, Innerworks raised $4M in a Seed round led by AlbionVC, demonstrating investor confidence in their technological foundation and trajectory.\n\nThey now maintain a stable client base across exchanges and digital platforms.\n\nThey use their full suite: device fingerprinting, VPN detection, bot detection, and threat intelligence – capabilities we co-built and matured.\n\nImportantly, we ensured that all knowledge, research, code, documentation, and design artifacts remain in their repos (not ours). This fosters mutual trust and enables seamless handover or future scaling by their internal team.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 2,
+            "sourceChunkId": "4f9b8d7a-5b02-43fd-a402-c1c5d559e211"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The same update says Innerworks now uses its full suite across exchanges and digital platforms and maintains a stable client base. No detection accuracy, before-and-after comparison, client count, or business-impact measurement is provided; these reported observations should not be read as independently validated results.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/48ff52e1-62cd-45ca-a687-79b40b714e69/evidence/4f9b8d7a-5b02-43fd-a402-c1c5d559e211/asset",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "chunkText": "In August 2025, Innerworks raised $4M in a Seed round led by AlbionVC, demonstrating investor confidence in their technological foundation and trajectory.\n\nThey now maintain a stable client base across exchanges and digital platforms.\n\nThey use their full suite: device fingerprinting, VPN detection, bot detection, and threat intelligence – capabilities we co-built and matured.\n\nImportantly, we ensured that all knowledge, research, code, documentation, and design artifacts remain in their repos (not ours). This fosters mutual trust and enables seamless handover or future scaling by their internal team.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 2,
+            "sourceChunkId": "4f9b8d7a-5b02-43fd-a402-c1c5d559e211"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source distinguishes modular R&D capabilities from support for production integration; it does not provide test conditions, performance measurements, or independent validation for the detection modules. The reported availability of the full suite is a statement in the company update, not a detailed deployment record. No further roadmap or next-step plan is supplied. The source says knowledge, research, code, documentation, and design artifacts remain in Innerworks’ repositories to support handover and future scaling.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/48ff52e1-62cd-45ca-a687-79b40b714e69/evidence/80ae1796-b7e5-4a80-96cf-93f75f564baa/asset",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "chunkText": "Deep domain research: industry best practices, academic papers, red-team methods, advanced heuristics.\n\nTransparent knowledge transfer: all research, findings, designs, code, and docs are shared in their repositories, fully accessible. This ensures trust and enables seamless eventual transition or scaling by their team.\n\nSuccessive iterations: we launched MVPs, collected feedback, adapted to adversarial behavior, and hardened models.\n\nWe structured the architecture of Device Fingerprinting, VPN / True Location Detection, Bot Detection / Behavioral Profiling, and RedTeam & Adversarial Testing Framework to be modular for research and development (R&D) purposes, while also supporting collaboration for production integration. Each component is designed to operate independently or feed into composite risk scoring flows. We have built pipelines for internal data ingestion, feature extraction, model serving, API endpoints, and monitoring, ensuring flexibility for both R&D experimentation and seamless production deployment through collaboration.\n\nThroughout, we prioritized observability, scalability, reliability, and defensibility so that Innerworks could offer credible enterprise-grade services.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 2,
+            "sourceChunkId": "80ae1796-b7e5-4a80-96cf-93f75f564baa"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/48ff52e1-62cd-45ca-a687-79b40b714e69/evidence/4f9b8d7a-5b02-43fd-a402-c1c5d559e211/asset",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "chunkText": "In August 2025, Innerworks raised $4M in a Seed round led by AlbionVC, demonstrating investor confidence in their technological foundation and trajectory.\n\nThey now maintain a stable client base across exchanges and digital platforms.\n\nThey use their full suite: device fingerprinting, VPN detection, bot detection, and threat intelligence – capabilities we co-built and matured.\n\nImportantly, we ensured that all knowledge, research, code, documentation, and design artifacts remain in their repos (not ours). This fosters mutual trust and enables seamless handover or future scaling by their internal team.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 2,
+            "sourceChunkId": "4f9b8d7a-5b02-43fd-a402-c1c5d559e211"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The reported partnership combined R&D and product collaboration to expand Innerworks’ device, VPN, bot, and adversarial-defense capabilities, with modular architecture and repository-based knowledge transfer. The evidence supports describing the work and Innerworks’ reported funding milestone, but not attributing that investment solely to the partnership or claiming measured detection performance.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/48ff52e1-62cd-45ca-a687-79b40b714e69/evidence/f5476103-0580-4b18-98c7-ed2fb9e856ae/asset",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "chunkText": "Innerworks is a cybersecurity / behavioral intelligence company focused on helping exchanges, finance platforms, and digital ecosystems identify and block bad actors. Their solution stack includes Account Takeover Protection, Geo Compliance, Bot detection, and deeper behavioral analysis, leveraging 200+ data points across device, network, and behavioral signals. They also employ a RedTeam ethical hacking platform (built on BitTensor) to stay ahead of AI-driven fraud techniques. Starting in January 2024, HumbleBeeAI partnered with Innerworks as their R&D and product arm, building the core infrastructure and capabilities that enabled them to secure a $4M seed round in August 2025 led by AlbionVC.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "f5476103-0580-4b18-98c7-ed2fb9e856ae"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/48ff52e1-62cd-45ca-a687-79b40b714e69/evidence/4f9b8d7a-5b02-43fd-a402-c1c5d559e211/asset",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "chunkText": "In August 2025, Innerworks raised $4M in a Seed round led by AlbionVC, demonstrating investor confidence in their technological foundation and trajectory.\n\nThey now maintain a stable client base across exchanges and digital platforms.\n\nThey use their full suite: device fingerprinting, VPN detection, bot detection, and threat intelligence – capabilities we co-built and matured.\n\nImportantly, we ensured that all knowledge, research, code, documentation, and design artifacts remain in their repos (not ours). This fosters mutual trust and enables seamless handover or future scaling by their internal team.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 2,
+            "sourceChunkId": "4f9b8d7a-5b02-43fd-a402-c1c5d559e211"
+          }
+        }
+      ]
+    }
+  ]
+}

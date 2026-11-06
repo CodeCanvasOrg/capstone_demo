@@ -1,0 +1,384 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "AI Avatar-Photorealistic Real-Time Conversational Avatar",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "AI Avatar — Real-Time Conversational Avatars",
+          "type": "text"
+        },
+        {
+          "text": " gives organizations a voice- and text-driven way to interact with lifelike digital representatives in real time.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "AI Avatar is a real-time conversational avatar platform intended for customer service, education and communication teams. The reviewed project record describes its status as a production demo, with a demo available at ",
+          "type": "text"
+        },
+        {
+          "text": "avatar.humblebee.ai",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://avatar.humblebee.ai/",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "text": ". This is evidence of a published demo, not by itself confirmation of broader production deployment. The project page is ",
+          "type": "text"
+        },
+        {
+          "text": "AI Avatar on HumbleBeeAI",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://humblebee.ai/projects/ai-avatar",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "text": ".",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a33eaf07-f7dd-46a1-9d54-1994532227e0/evidence/275d1bac-72c5-4fcf-9a7d-ca5d03eb77a7/asset",
+            "fileName": "project--ai-avatar.pdf",
+            "chunkText": "AI Avatar demonstrates that real-time conversational avatars are ready to redefine digital communication. By combining natural conversation with a lifelike visual presence, the platform bridges the gap between human interaction and scalable digital systems.\n\nOrganizations across education, customer service, marketing, healthcare, and enterprise communications can now deploy engaging, human-like digital representatives without the traditional barriers of video production or live staffing. AI Avatar enables a new category of interaction - personal, visual, and intelligent - delivered at scale and on demand.\n\nAs demand for more human-centered digital experiences continues to grow, platforms like AI Avatar will play a central role in shaping the future of how people and organizations communicate.\n\nYou can learn more about AI Avatar and also try its Demo here: https://avatar.humblebee.ai/",
+            "mediaType": "application/pdf",
+            "chunkIndex": 16,
+            "pageNumber": 4,
+            "sourceChunkId": "275d1bac-72c5-4fcf-9a7d-ca5d03eb77a7"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "User Need",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Teams serving customers, learners and other audiences need interactions that can respond to a person rather than present only static video or text. The project brief identifies traditional video production as slow, expensive and difficult to scale, while text-based chatbots can lack visual presence. AI Avatar is positioned to address that gap with dynamic conversations and an expressive avatar, without relying on pre-recorded video or scripted flows.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a33eaf07-f7dd-46a1-9d54-1994532227e0/evidence/4cd15b96-0460-44e6-bc76-59ec30ec15cd/asset",
+            "fileName": "project--ai-avatar.pdf",
+            "chunkText": "Human communication is inherently visual and conversational, yet most digital interfaces fail to replicate this experience. Traditional video production is slow, expensive, and difficult to scale, while text-based chatbots lack emotional presence and engagement. As organizations seek more personalized, human-centered digital interactions, these limitations become increasingly apparent.\n\nAI Avatar addresses this gap by enabling real-time, face-to-face digital communication powered by intelligent avatars. Instead of relying on pre-recorded videos or scripted flows, the platform supports dynamic conversations with expressive visual presence. This allows organizations to deliver information, assistance, and education in a way that feels natural, responsive, and scalable - without the constraints of traditional media production.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "4cd15b96-0460-44e6-bc76-59ec30ec15cd"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Product Vision",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The product direction is to make digital communication more visual and conversational: a virtual representative that can listen, respond and speak, while presenting a lifelike face. The source also describes potential use in education, customer service, marketing, healthcare and enterprise communications; these are intended application areas, not evidence that each has a live deployment. Broader availability and outcomes beyond the demo have not been established in the supplied materials.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a33eaf07-f7dd-46a1-9d54-1994532227e0/evidence/c7c448e7-a21a-4f46-be35-8c9fc571b7e5/asset",
+            "fileName": "project--ai-avatar.pdf",
+            "chunkText": "AI Avatar is a real-time conversational avatar platform that delivers lifelike, talking-head digital humans capable of speaking, listening, and responding naturally. Designed for interactive experiences, the platform enables organizations to deploy always-on virtual presenters, tutors, and customer-facing agents that feel human, responsive, and engaging.\n\nBy replacing traditional video production and static chatbot interfaces, AI Avatar allows teams to create high-quality, interactive avatar experiences in minutes instead of days. The platform removes the need for studios, actors, and complex production workflows while maintaining a professional, human-like presence suitable for enterprise use. AI Avatar transforms how organizations engage audiences across customer service, education, marketing, and internal communications.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "c7c448e7-a21a-4f46-be35-8c9fc571b7e5"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a33eaf07-f7dd-46a1-9d54-1994532227e0/evidence/275d1bac-72c5-4fcf-9a7d-ca5d03eb77a7/asset",
+            "fileName": "project--ai-avatar.pdf",
+            "chunkText": "AI Avatar demonstrates that real-time conversational avatars are ready to redefine digital communication. By combining natural conversation with a lifelike visual presence, the platform bridges the gap between human interaction and scalable digital systems.\n\nOrganizations across education, customer service, marketing, healthcare, and enterprise communications can now deploy engaging, human-like digital representatives without the traditional barriers of video production or live staffing. AI Avatar enables a new category of interaction - personal, visual, and intelligent - delivered at scale and on demand.\n\nAs demand for more human-centered digital experiences continues to grow, platforms like AI Avatar will play a central role in shaping the future of how people and organizations communicate.\n\nYou can learn more about AI Avatar and also try its Demo here: https://avatar.humblebee.ai/",
+            "mediaType": "application/pdf",
+            "chunkIndex": 16,
+            "pageNumber": 4,
+            "sourceChunkId": "275d1bac-72c5-4fcf-9a7d-ca5d03eb77a7"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Capabilities and Experience",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The described experience accepts voice or text through a browser-based interface and streams interaction between the user, conversation engine and avatar presentation. The stated purpose of this streaming-first design is to support fluid two-way dialogue rather than delayed, request-based exchanges.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a33eaf07-f7dd-46a1-9d54-1994532227e0/evidence/61145bce-a11b-4d84-90cc-dec33a29c910/asset",
+            "fileName": "project--ai-avatar.pdf",
+            "chunkText": "AI Avatar is built on a real-time, streaming-first architecture designed to support natural conversational interaction with continuous visual presence. The platform is structured around clearly separated layers for user interaction, conversational intelligence, and avatar presentation, allowing each part of the system to operate efficiently and scale independently.\n\nUsers interact with the avatar through a browser-based interface using voice or text. Input is handled in real time, enabling the system to respond conversationally rather than relying on delayed, request-based interactions. This streaming approach allows dialogue to feel fluid and immediate, closely resembling human conversation.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "61145bce-a11b-4d84-90cc-dec33a29c910"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source reports sub-1.5 seconds end-to-end conversation latency for a streaming system. It also reports avatar generation at 3–4% of total pipeline latency and the LLM at 32–44% of the latency budget. These are technical measurements, not business results; hardware, load, sample size, percentile and full test protocol are not provided. Visual metrics reported are PSNR 38.32 and MS-SSIM 0.9821, with the latter compared to ground truth; the dataset and detailed evaluation protocol need review. The figures are source-reported and not independently validated.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a33eaf07-f7dd-46a1-9d54-1994532227e0/evidence/338307bd-dd14-4735-a0f1-702b15ad4ddb/asset",
+            "fileName": "project--ai-avatar.pdf",
+            "chunkText": "The system achieves consistent sub-1.5 second end-to-end latency with the following component breakdown:\n\nAvatar generation represents only 3-4% of total pipeline latency, demonstrating successful NeRF optimization for real-time performance. The LLM component comprises the largest portion (32-44%) of the latency budget, making streaming token generation critical for maintaining responsiveness.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 11,
+            "pageNumber": 3,
+            "sourceChunkId": "338307bd-dd14-4735-a0f1-702b15ad4ddb"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a33eaf07-f7dd-46a1-9d54-1994532227e0/evidence/92c1b16e-9821-4bd7-a893-88cb47a03ced/asset",
+            "fileName": "project--ai-avatar.pdf",
+            "chunkText": "The NeRF-based avatar generation achieves photorealistic quality across multiple evaluation dimensions:\n\nThe PSNR score of 38.32 indicates near-lossless visual quality, while MS-SSIM of 0.9821 demonstrates structural fidelity to ground truth. Facial tracking metrics (LMD, AUE) confirm accurate feature preservation, and the LSE-C score validates precise audio-visual synchronization.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 14,
+            "pageNumber": 4,
+            "sourceChunkId": "92c1b16e-9821-4bd7-a893-88cb47a03ced"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Differentiators",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The documented technical distinction is selective avatar rendering: the system is described as processing the avatar when it is speaking and reusing static visual elements, rather than regenerating the entire avatar continuously. The architecture also separates interaction, conversation and avatar presentation layers. These are design characteristics described in the project material; comparative performance against other systems has not been provided.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a33eaf07-f7dd-46a1-9d54-1994532227e0/evidence/443f0b4d-5f45-4f93-82d9-036d72edaad0/asset",
+            "fileName": "project--ai-avatar.pdf",
+            "chunkText": "AI Avatar-System Architecture Image\n\nA Key Innovation is the platform’s efficient use of visual compute resources. Instead of continuously regenerating the entire avatar, processing is applied selectively and only when the avatar is actively speaking. Static visual elements are reused intelligently, allowing the system to maintain smooth motion and high visual quality while significantly reducing resource usage.\n\nThis dynamic, on-demand approach enables multiple concurrent avatar sessions to run efficiently on shared infrastructure, supporting scalable deployment with lower operational costs. As a result, AI Avatar delivers real-time performance and lifelike interaction without the overhead typically associated with high-fidelity avatar systems.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 10,
+            "pageNumber": 3,
+            "sourceChunkId": "443f0b4d-5f45-4f93-82d9-036d72edaad0"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a33eaf07-f7dd-46a1-9d54-1994532227e0/evidence/61145bce-a11b-4d84-90cc-dec33a29c910/asset",
+            "fileName": "project--ai-avatar.pdf",
+            "chunkText": "AI Avatar is built on a real-time, streaming-first architecture designed to support natural conversational interaction with continuous visual presence. The platform is structured around clearly separated layers for user interaction, conversational intelligence, and avatar presentation, allowing each part of the system to operate efficiently and scale independently.\n\nUsers interact with the avatar through a browser-based interface using voice or text. Input is handled in real time, enabling the system to respond conversationally rather than relying on delayed, request-based interactions. This streaming approach allows dialogue to feel fluid and immediate, closely resembling human conversation.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "61145bce-a11b-4d84-90cc-dec33a29c910"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Current Availability and Roadmap",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Current availability is a published demo at ",
+          "type": "text"
+        },
+        {
+          "text": "https://avatar.humblebee.ai/",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://avatar.humblebee.ai/",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "text": ". The supplied record labels the project “prod demo”; it does not specify a wider release, customer deployments, pilot program or supported deployment terms. No roadmap or future feature commitments were supplied, so planned work cannot be stated.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a33eaf07-f7dd-46a1-9d54-1994532227e0/evidence/275d1bac-72c5-4fcf-9a7d-ca5d03eb77a7/asset",
+            "fileName": "project--ai-avatar.pdf",
+            "chunkText": "AI Avatar demonstrates that real-time conversational avatars are ready to redefine digital communication. By combining natural conversation with a lifelike visual presence, the platform bridges the gap between human interaction and scalable digital systems.\n\nOrganizations across education, customer service, marketing, healthcare, and enterprise communications can now deploy engaging, human-like digital representatives without the traditional barriers of video production or live staffing. AI Avatar enables a new category of interaction - personal, visual, and intelligent - delivered at scale and on demand.\n\nAs demand for more human-centered digital experiences continues to grow, platforms like AI Avatar will play a central role in shaping the future of how people and organizations communicate.\n\nYou can learn more about AI Avatar and also try its Demo here: https://avatar.humblebee.ai/",
+            "mediaType": "application/pdf",
+            "chunkIndex": 16,
+            "pageNumber": 4,
+            "sourceChunkId": "275d1bac-72c5-4fcf-9a7d-ca5d03eb77a7"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "AI Avatar presents a demo-stage experience for voice- and text-based conversation with a visual digital representative. The published latency and visual-quality figures provide technical indicators, but incomplete test conditions limit interpretation, and business impact has not been measured in the supplied evidence. The supported next step is to assess the demo against the intended audience and use case; no further roadmap is documented.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a33eaf07-f7dd-46a1-9d54-1994532227e0/evidence/338307bd-dd14-4735-a0f1-702b15ad4ddb/asset",
+            "fileName": "project--ai-avatar.pdf",
+            "chunkText": "The system achieves consistent sub-1.5 second end-to-end latency with the following component breakdown:\n\nAvatar generation represents only 3-4% of total pipeline latency, demonstrating successful NeRF optimization for real-time performance. The LLM component comprises the largest portion (32-44%) of the latency budget, making streaming token generation critical for maintaining responsiveness.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 11,
+            "pageNumber": 3,
+            "sourceChunkId": "338307bd-dd14-4735-a0f1-702b15ad4ddb"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a33eaf07-f7dd-46a1-9d54-1994532227e0/evidence/275d1bac-72c5-4fcf-9a7d-ca5d03eb77a7/asset",
+            "fileName": "project--ai-avatar.pdf",
+            "chunkText": "AI Avatar demonstrates that real-time conversational avatars are ready to redefine digital communication. By combining natural conversation with a lifelike visual presence, the platform bridges the gap between human interaction and scalable digital systems.\n\nOrganizations across education, customer service, marketing, healthcare, and enterprise communications can now deploy engaging, human-like digital representatives without the traditional barriers of video production or live staffing. AI Avatar enables a new category of interaction - personal, visual, and intelligent - delivered at scale and on demand.\n\nAs demand for more human-centered digital experiences continues to grow, platforms like AI Avatar will play a central role in shaping the future of how people and organizations communicate.\n\nYou can learn more about AI Avatar and also try its Demo here: https://avatar.humblebee.ai/",
+            "mediaType": "application/pdf",
+            "chunkIndex": 16,
+            "pageNumber": 4,
+            "sourceChunkId": "275d1bac-72c5-4fcf-9a7d-ca5d03eb77a7"
+          }
+        }
+      ]
+    }
+  ]
+}

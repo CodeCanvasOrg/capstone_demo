@@ -1,0 +1,11 @@
+FORMAT_REGENERATING case-study:data-cleaning-hs-codes
+[generation 7cb0ac09-4271-4028-8985-5430c8e78a03] retrieval finished in 1113ms with 13 chunks
+[generation 7cb0ac09-4271-4028-8985-5430c8e78a03] generation started (outline)
+FORMAT_RETRY_PENDING case-study:data-cleaning-hs-codes Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "conte

@@ -1,0 +1,432 @@
+{
+  "entries": 41,
+  "pages": 173,
+  "images": 52,
+  "passed": true,
+  "entriesDetail": [
+    {
+      "key": "case-study:customs-document-automation",
+      "documentId": "08499636-03de-4b76-a7ee-82d5f663a0e6",
+      "versionId": "0a2822cc-9035-4514-89dc-a212fe034e08",
+      "pdf": "01-case-study--customs-document-automation.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:ai-customs-intelligence",
+      "documentId": "1dd51dde-087e-4fd8-8645-d1a3ca95fc5d",
+      "versionId": "ef484f82-c0f7-48da-8f4c-339003fbccb1",
+      "pdf": "02-case-study--ai-customs-intelligence.pdf",
+      "pages": 5,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:data-cleaning-hs-codes",
+      "documentId": "7cb0ac09-4271-4028-8985-5430c8e78a03",
+      "versionId": "e89458ae-38ad-4439-884e-37aa620031e2",
+      "pdf": "03-case-study--data-cleaning-hs-codes.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:excel-automated-testing",
+      "documentId": "c092713a-8812-421b-996f-73a77e75725a",
+      "versionId": "201e429d-72a9-43b3-8df6-fc1236e16b93",
+      "pdf": "04-case-study--excel-automated-testing.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:llm-results-analyzer",
+      "documentId": "d317c1ce-95c6-4e5a-b38d-403e4826878a",
+      "versionId": "c6b55467-9ae7-441a-b2c0-3cb099db3850",
+      "pdf": "05-case-study--llm-results-analyzer.pdf",
+      "pages": 5,
+      "images": 2,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:shelf-analysis",
+      "documentId": "b4d78a05-a82c-4f2c-be2c-da605c86fee6",
+      "versionId": "aa6bba56-eb15-45fa-aff5-e7e6ed0b6d99",
+      "pdf": "06-case-study--shelf-analysis.pdf",
+      "pages": 6,
+      "images": 2,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:fraud-detection",
+      "documentId": "9301d410-ac80-4094-a5d7-5f11c20d02fe",
+      "versionId": "4591658f-14c4-43dd-a1dc-34025e7917a8",
+      "pdf": "07-case-study--fraud-detection.pdf",
+      "pages": 4,
+      "images": 2,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:poster-recognition",
+      "documentId": "a44defcb-e44c-42a3-b775-6a9315f1e4d1",
+      "versionId": "6dd9d875-0359-41e1-b0bc-05a46065e576",
+      "pdf": "08-case-study--poster-recognition.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:improving-recognition-accuracy",
+      "documentId": "260f80d8-d7e8-4164-a1de-160882a5658f",
+      "versionId": "b1e151c1-1185-4a94-b310-cf588b34f994",
+      "pdf": "09-case-study--improving-recognition-accuracy.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:ai-powered-retail-cart",
+      "documentId": "a21954ea-d02e-46e9-baf2-0afe71f92127",
+      "versionId": "b30af2c5-2812-4605-93f7-d49349743f6f",
+      "pdf": "10-case-study--ai-powered-retail-cart.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:iv-drip-flow-rate-estimator",
+      "documentId": "5077dd91-04f8-4943-9e17-c32791ccd2b7",
+      "versionId": "6b83eda2-33cb-475a-822c-736ad9d0e6fc",
+      "pdf": "11-case-study--iv-drip-flow-rate-estimator.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:field-center-detection",
+      "documentId": "59cecf0a-c37a-4b1e-93e5-9447dbdf1c72",
+      "versionId": "eedb4b18-ad98-4035-88d2-31f7fd6804d6",
+      "pdf": "12-case-study--field-center-detection.pdf",
+      "pages": 3,
+      "images": 1,
+      "textCoverage": 0.996078431372549,
+      "missingWords": {
+        "real": 1,
+        "reality": 1
+      }
+    },
+    {
+      "key": "case-study:beef-carcass-detection",
+      "documentId": "3ccf1cc1-742a-40e6-9409-ff1fc385d33b",
+      "versionId": "2fbd5ce8-e948-4317-a8c7-a8b694a3a383",
+      "pdf": "13-case-study--beef-carcass-detection.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 0.9986449864498645,
+      "missingWords": {
+        "the": 1
+      }
+    },
+    {
+      "key": "case-study:livescore-ai",
+      "documentId": "d56b0818-e252-4909-a105-01c511b2f5df",
+      "versionId": "61cac9ad-283e-4fc5-86e8-629bd1d83b02",
+      "pdf": "14-case-study--livescore-ai.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:breast-cancer",
+      "documentId": "97c50cf2-c4e9-4d63-80bc-5f3ed57c01f6",
+      "versionId": "4d9e807c-1865-4519-8900-b2e159401927",
+      "pdf": "15-case-study--breast-cancer.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:ai-based-predictive",
+      "documentId": "31b8addc-2098-4ed6-8670-410ec572c4ca",
+      "versionId": "bc1c7663-296c-4124-bf46-0b4326ad2094",
+      "pdf": "16-case-study--ai-based-predictive.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:avnrt-ablation-analytics",
+      "documentId": "34971225-fadb-4af4-a7f5-6883a845760d",
+      "versionId": "51507805-b627-4d36-9132-f681a53df9af",
+      "pdf": "17-case-study--avnrt-ablation-analytics.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:cartoned-analysis-dashboard",
+      "documentId": "0eccff37-c19a-4333-b04f-779ad164e7c3",
+      "versionId": "3b485778-953d-44f0-8edb-8a5a5f87cc7c",
+      "pdf": "18-case-study--cartoned-analysis-dashboard.pdf",
+      "pages": 4,
+      "images": 2,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:impact-event-analysis",
+      "documentId": "eb4805d8-ac27-420c-a4c5-d08fe48e42d5",
+      "versionId": "2d346cdd-f11b-48ca-bad5-b210e157bd40",
+      "pdf": "19-case-study--impact-event-analysis.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:patient-data-analytics",
+      "documentId": "467a4530-a428-4941-aa44-77cd6d9459ce",
+      "versionId": "0f9905e9-e0cd-42fa-a3a5-5b71a069b448",
+      "pdf": "20-case-study--patient-data-analytics.pdf",
+      "pages": 4,
+      "images": 2,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:amplifyr",
+      "documentId": "bce2fae1-0935-468e-864f-dd8e81736753",
+      "versionId": "73198761-dc71-4801-8422-c30ec8b86e38",
+      "pdf": "21-case-study--amplifyr.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:automated-training-pipeline",
+      "documentId": "57cefac9-51b9-4034-8805-aff98dc6681e",
+      "versionId": "de322633-d513-4262-a0a1-ae8835f70d16",
+      "pdf": "22-case-study--automated-training-pipeline.pdf",
+      "pages": 5,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:data-labeling-tool",
+      "documentId": "17f57d5a-143c-4189-a85c-a9ee82b6af2b",
+      "versionId": "05b97282-bfb8-47c6-a314-e888b27bc65e",
+      "pdf": "23-case-study--data-labeling-tool.pdf",
+      "pages": 5,
+      "images": 2,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:optimizing-recognition-processing",
+      "documentId": "23f5a23d-84a1-4ae4-acfd-1957268d08da",
+      "versionId": "d87738b8-c58f-4c32-abd0-eea6a93d533a",
+      "pdf": "24-case-study--optimizing-recognition-processing.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "case-study:lumiohub-platform",
+      "documentId": "b703664c-9e75-4c46-8adc-5066fea1de6a",
+      "versionId": "440d45b9-ff1d-432e-bac3-978189b39e47",
+      "pdf": "25-case-study--lumiohub-platform.pdf",
+      "pages": 5,
+      "images": 2,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "project:hstaff",
+      "documentId": "f12aaa4e-b999-4f34-9be8-63afa9a86d7e",
+      "versionId": "f69d0a82-83d4-4001-b4d0-3536f58b5ac5",
+      "pdf": "26-project--hstaff.pdf",
+      "pages": 3,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "project:ai-avatar",
+      "documentId": "8fabe22b-34e8-4d87-b0c5-d3a96a934b4c",
+      "versionId": "febf1558-e0a8-45f2-94bb-5bfc861e607c",
+      "pdf": "27-project--ai-avatar.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "project:kumush-ai",
+      "documentId": "7e618968-e5e5-4fcc-8f48-a47ea861bfd4",
+      "versionId": "69770356-9cf8-4c9a-9430-cd9fab2ce801",
+      "pdf": "28-project--kumush-ai.pdf",
+      "pages": 5,
+      "images": 2,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "project:wakil-ai",
+      "documentId": "73956dc4-bd5f-405b-8c4f-45c02c81c18e",
+      "versionId": "b6a307d7-c886-4e72-9518-85a74335acd8",
+      "pdf": "29-project--wakil-ai.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "project:bojhona",
+      "documentId": "a4131402-bce4-4cb7-96f3-bfc2e5900631",
+      "versionId": "16afff3e-fbee-4ea1-b83e-8d8664af6e43",
+      "pdf": "30-project--bojhona.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "project:enlighten-qalb",
+      "documentId": "14127b64-26ef-4d63-9e59-8d4642da28c3",
+      "versionId": "be9b72ab-b8ff-4737-860f-18f78f9b0fe2",
+      "pdf": "31-project--enlighten-qalb.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "project:bride",
+      "documentId": "f82ecd54-4473-465d-8877-5f6081adbbd5",
+      "versionId": "4bfc4ac8-b000-4d72-a320-05928f297b22",
+      "pdf": "32-project--bride.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "paper:2409.04187",
+      "documentId": "0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050",
+      "versionId": "c8638e3d-ae81-4e70-9af3-4e161fb2eccd",
+      "pdf": "33-paper--2409.04187.pdf",
+      "pages": 6,
+      "images": 2,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "paper:10883969",
+      "documentId": "96dd77ca-8a40-4cb5-8e6b-4366f590b526",
+      "versionId": "3c430d26-6931-4cc6-8ced-9b45a131b9d9",
+      "pdf": "34-paper--10883969.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 0.9974619289340102,
+      "missingWords": {
+        "the": 1,
+        "read": 1
+      }
+    },
+    {
+      "key": "paper:10316180",
+      "documentId": "06b09a1a-12aa-444e-bd9f-b70209eeed36",
+      "versionId": "6b0296de-7b4b-4a90-ba98-79f18a3f012e",
+      "pdf": "35-paper--10316180.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "paper:515",
+      "documentId": "711f52f3-88da-49aa-aa71-f277a1f9f722",
+      "versionId": "897c879c-63e7-42e2-b67d-f4b6918b887b",
+      "pdf": "36-paper--515.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "paper:9661375",
+      "documentId": "2bd2034f-7a1b-4b82-8985-e22e6e0a92c6",
+      "versionId": "54d84723-54a7-4016-ba61-50609267d10a",
+      "pdf": "37-paper--9661375.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "paper:9064976",
+      "documentId": "c5708598-1321-4762-a649-84c301061134",
+      "versionId": "68e78ecd-3dc8-4326-8f35-6d4cc17170c2",
+      "pdf": "38-paper--9064976.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "paper:1910.01091",
+      "documentId": "b74e8726-a2f3-43ac-a810-ff296ba20621",
+      "versionId": "1e1d6bf1-72fd-4875-8167-178286b608cf",
+      "pdf": "39-paper--1910.01091.pdf",
+      "pages": 4,
+      "images": 3,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "company-update:vc-studio-qatar",
+      "documentId": "5162d3bf-9a57-42ce-b8ab-3c04c7c6b035",
+      "versionId": "507353e3-36cd-45da-b5da-96a94022b56e",
+      "pdf": "40-company-update--vc-studio-qatar.pdf",
+      "pages": 4,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    },
+    {
+      "key": "company-update:innerworks-partnership",
+      "documentId": "02cf5cf8-7ac4-4c0d-9bb6-5137d7d92c5a",
+      "versionId": "7ba29a25-0c3f-4e7e-9239-d4fdc80e108e",
+      "pdf": "41-company-update--innerworks-partnership.pdf",
+      "pages": 5,
+      "images": 1,
+      "textCoverage": 1.0,
+      "missingWords": {}
+    }
+  ],
+  "visualReview": "All 173 pages reviewed in contact sheets; detailed text and image pages inspected. Print pagination keeps headings with following content.",
+  "renderer": "Native DocumentExportService HTML with embedded source assets, rendered to PDF in Chromium.",
+  "template": "Website portfolio entry",
+  "model": "openai/gpt-6-luna",
+  "combinedPdf": "HumbleBeeAI-Portfolio.pdf",
+  "individualPdfZip": "HumbleBeeAI-Individual-PDFs.zip"
+}

@@ -1,0 +1,335 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Portfolio Working Section — Research",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Selected HumbleBeeAI research spans real-time multi-object tracking, contextual receptivity prediction, network intrusion detection, and medical-image classification. The entries below retain the reported findings and publication status for review as part of the company portfolio.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Selected Research",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "LITE: A Paradigm Shift in Multi-Object Tracking with Efficient ReID Feature Integration — DeepSORT+LITE reports HOTA 43.03 at 28.3 FPS on MOT17, with lower appearance-feature overhead than a separate ReID model. arXiv preprint v2, 1 October 2024. ",
+                  "type": "text"
+                },
+                {
+                  "text": "https://arxiv.org/abs/2409.04187",
+                  "type": "text",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "rel": "noopener noreferrer",
+                        "href": "https://arxiv.org/abs/2409.04187",
+                        "target": "_blank"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/3b2d0428-6520-4dc3-8759-93bfa4b23f54/evidence/3231b8d8-9957-45d4-a8c9-90a0a423ea46/asset",
+                    "fileName": "paper--2409.04187.pdf",
+                    "chunkText": "Fig. 1: Overview of SORT family Trackers, their methodologies, and comparison on the MOT17 train set. The figure shows the simplicity of LiteSORT (LITE+DeepSORT) as it replaces the external ReID CNN of DeepSORT with detection feature maps via the LITE paradigm.\n\nMOT Methodologies & pipeline speed sont\n(Rammer {conf Mating Cand | | ora 41%\npS\n\nho\nFars Bak Ce | Desont\nMatching Cascade MOTA : 41.41\nKaan Fite Hom 572\n= Vanilla Matching | | Mota 4142\n\nhon\n\n{eon | LiteSORT\nCascade IDF1 £50.08",
+                    "mediaType": "image/png",
+                    "chunkIndex": 8,
+                    "pageNumber": 2,
+                    "sourceChunkId": "3231b8d8-9957-45d4-a8c9-90a0a423ea46"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Practical Evaluation Framework for Real-Time Multi-Object Tracking: Achieving Optimal and Realistic Performance — Reports that resolution and threshold choices can shift HOTA substantially (up to 30 versus 10 without optimization), and evaluates reduced appearance-feature overhead using LITE. Published, IEEE Access, vol. 13, 2025. ",
+                  "type": "text"
+                },
+                {
+                  "text": "https://ieeexplore.ieee.org/abstract/document/10883969",
+                  "type": "text",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "rel": "noopener noreferrer",
+                        "href": "https://ieeexplore.ieee.org/abstract/document/10883969",
+                        "target": "_blank"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/3b2d0428-6520-4dc3-8759-93bfa4b23f54/evidence/ace6eb2d-5eb6-4c73-a989-946a9b6d8594/asset",
+                    "fileName": "paper--10883969.pdf",
+                    "chunkText": "1Department of Electrical and Computer Engineering, Inha University, Incheon 22212, South Korea\n\n2HUMBLEBEE R&D, Incheon 22207, South Korea\n\nCorresponding author: Hakil Kim (hikim@inha.ac.kr)\n\nThis was supported in part by the BK21 Four Program funded by the Ministry of Education (MOE) and National Research Foundation (NRF), South Korea, and in part by HUMBLEBEE R&D.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 1,
+                    "pageNumber": 1,
+                    "sourceChunkId": "ace6eb2d-5eb6-4c73-a989-946a9b6d8594"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Design of Contextual Filtered Features for Better Smartphone-User Receptivity Prediction — Reports average ROC-AUC of 56.5% versus 54.7% for conventional features on KEmoPhone data (3,334 responses from 73 participants over one week). Published, IEEE Internet of Things Journal 11(7), 1 April 2024; listing says 2023. ",
+                  "type": "text"
+                },
+                {
+                  "text": "https://ieeexplore.ieee.org/abstract/document/10316180",
+                  "type": "text",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "rel": "noopener noreferrer",
+                        "href": "https://ieeexplore.ieee.org/abstract/document/10316180",
+                        "target": "_blank"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/3b2d0428-6520-4dc3-8759-93bfa4b23f54/evidence/ac30e210-d387-400e-946c-e9adc49d8157/asset",
+                    "fileName": "paper--10316180.pdf",
+                    "chunkText": "MOBILE(DTx)researchhealth have(mHealth)openedandup uniquedigital potentialstherapeuticsof\n\nManuscript received 26 January 2023; revised 10 August 2023; accepted 3 November 2023. Date of publication 13 November 2023; date of current version 26 March 2024. This work was supported in part by the BK21 Four Program under Grant NRF-2021M3A9E4080780 funded by the National Research Foundation (NRF) of the Ministry of Education (MOE), South Korea; in part by the Ministry of Trade, Industry, and Energy (MOTIE) under Grant RS-2023-00236325; and in part by the Korea Institute of Energy Technology under Grant KRG2022-01-011. (Corresponding authors: Youngtae Noh; Hakil Kim.)\n\nJumabek Alikhanov and Hakil Kim are with the Department of Electrical and Computer Engineering, Inha University, Incheon 402-751, South Korea (e-mail: jumabek4044@gmail.com; hikim@inha.ac.kr).\n\nPanyu Zhang is with the Department of Industrial and Systems Engineering, Korea Advanced Institute of Science and Technology, Daejeon 305-701, South Korea (e-mail: panyu@kaist.ac.kr).\n\nYoungtae Noh is with the Department of Energy AI, KENTECH University, Naju 402-751, Republic of Korea (e-mail: ytnoh@kentech.ac.kr). Digital Object Identifier 10.1109/JIOT.2023.3331715",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 3,
+                    "pageNumber": 1,
+                    "sourceChunkId": "ac30e210-d387-400e-946c-e9adc49d8157"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Performance Evaluation of Deep Learning Based Network Intrusion Detection System across Multiple Balanced and Imbalanced Datasets — In reported experiments, single-CNN and CNN/LSTM combinations outperform the other evaluated architectures. Published, Electronics 11(4), 515, 9 February 2022. ",
+                  "type": "text"
+                },
+                {
+                  "text": "https://www.mdpi.com/2079-9292/11/4/515",
+                  "type": "text",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "rel": "noopener noreferrer",
+                        "href": "https://www.mdpi.com/2079-9292/11/4/515",
+                        "target": "_blank"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/3b2d0428-6520-4dc3-8759-93bfa4b23f54/evidence/3b1aefba-f138-4355-ae79-7d0a55773321/asset",
+                    "fileName": "paper--515.pdf",
+                    "chunkText": "1. Azizjon, M.; Jumabek, A.; Kim, W. 1D CNN based network intrusion detection with normalization on imbalanced data. In Proceedings of the 2020 International Conference on Artificial Intelligence in Information and Communication (ICAIIC), Fukuoka, Japan, 19–21 February 2020; pp. 218–224.\n\n2. Krizhevsky, A.; Sutskever, I.; Hinton, G.E. Imagenet classification with deep convolutional neural networks. In Proceedings of the 25th International Conference on Neural Information Processing Systems, Lake Tahoe, NV, USA, 3–6 December 2012; Curran Associates Inc.: Red Hook, NY, USA, 2012; pp. 1097–1105.\n\n3. Teyou, D.; Kamdem, G.; Ziazet, J. Convolutional Neural Network for Intrusion Detection System in Cyber Physical Systems. arXiv 2019, arXiv:1905.03168.\n\n4. Kim, J.; Kim, J.; Thu, H.L.; Kim, H. Long short term memory recurrent neural network classifier for intrusion detection. In Proceedings of the 2016 International Conference on Platform Technology and Service (PlatCon), Jeju, Korea, 15–17 February 2016; pp. 1–5.\n\n5. Tang, T.A.; Mhamdi, L.; McLernon, D.; Zaidi, S.A.R.; Ghogho, M. Deep Recurrent Neural Network for Intrusion Detection in SDN-based Networks. In Proceedings of the 2018 4th IEEE Conference on Network Softwarization and Workshops (NetSoft), Montreal, QC, Canada, 25–29 June 2018; pp. 202–206. [CrossRef]\n\n6. Sheikhan, M.; Jadidi, Z.; Farrokhi, A. Intrusion detection using reduced-size RNN based on feature grouping. Neural Comput. Appl. 2021, 21, 1185–1190. [CrossRef]\n\n7. Dey, R.; Salem, F.M. Gate-variants of Gated Recurrent Unit (GRU) neural networks. In Proceedings of the 2017 IEEE 60th International Midwest Symposium on Circuits and Systems (MWSCAS), Boston, MA, USA, 6–9 August 2017; pp. 1597–1600. [CrossRef]",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 39,
+                    "pageNumber": 11,
+                    "sourceChunkId": "3b1aefba-f138-4355-ae79-7d0a55773321"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Investigating the Effect of Traffic Sampling on Machine Learning-Based Network Intrusion Detection Approaches — Finds that short malicious flows may be missed even at sampling rates of 1/10 and 1/100; random forest with SketchFlow provides a favorable detection/false-alarm balance in evaluated settings. Published online 23 December 2021; IEEE Access vol. 10, 2022. ",
+                  "type": "text"
+                },
+                {
+                  "text": "https://ieeexplore.ieee.org/abstract/document/9661375",
+                  "type": "text",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "rel": "noopener noreferrer",
+                        "href": "https://ieeexplore.ieee.org/abstract/document/9661375",
+                        "target": "_blank"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/3b2d0428-6520-4dc3-8759-93bfa4b23f54/evidence/bd59552e-ce04-4c0b-aea6-71a0427dc406/asset",
+                    "fileName": "paper--9661375.pdf",
+                    "chunkText": "TABLE 2. Evaluation framework of previous studies are compared. Criteria for inclusion is (1) studies with high citation and/or studies which used same dataset (i.e., CIC-IDS-2018) with our work. We improve previous ML-based NIDS by (1) showing better ML performance through data imbalance handling, (2) employ fair overall metric for comparison by using Macro averaging and (3) most importantly provide evaluation framework for NIDS in the presence of sampling by introducing flow level metric.\n\nNo. of citations | Study Method | Dataset Recent | Hoa Aseregation for Evaluated\n(as of 04/2021) , overall performance unt of data\nImbalance\n552 Javaid eral. [10] Self-taught Learning NSL-KDD-2009 NA Flow Record\n660 Yin et al. [36] RNN NSL-KDD-2009 NA Flow Record\n187 Shone etal. [11] Deep Auto-Encoder KDD Cup 99 Micro averaging Flow Record\n04 Sharafaldin eral. [12] Comparison of ML methods | CIC-IDS-2017 Weighted averaging Flow Record\n8 Ferrag etal. [13] Comparison DL methods | CICIDS2018 ~~ v* NA Flow Record\nOurs. Comparison of CNN, RE. DT | CIC-IDS-2018 ~~ ¢ v Macro averaging Flow",
+                    "mediaType": "image/png",
+                    "chunkIndex": 20,
+                    "pageNumber": 5,
+                    "sourceChunkId": "bd59552e-ce04-4c0b-aea6-71a0427dc406"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "1D CNN based network intrusion detection with normalization on imbalanced data — Reports 1D-CNN variants outperforming RF/SVM comparators in UNSW-NB15 experiments. Downloaded evidence: arXiv:2003.00476v1, 1 March 2020; listing links an IEEE conference record. ",
+                  "type": "text"
+                },
+                {
+                  "text": "https://ieeexplore.ieee.org/abstract/document/9064976",
+                  "type": "text",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "rel": "noopener noreferrer",
+                        "href": "https://ieeexplore.ieee.org/abstract/document/9064976",
+                        "target": "_blank"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/3b2d0428-6520-4dc3-8759-93bfa4b23f54/evidence/3b1aefba-f138-4355-ae79-7d0a55773321/asset",
+                    "fileName": "paper--515.pdf",
+                    "chunkText": "1. Azizjon, M.; Jumabek, A.; Kim, W. 1D CNN based network intrusion detection with normalization on imbalanced data. In Proceedings of the 2020 International Conference on Artificial Intelligence in Information and Communication (ICAIIC), Fukuoka, Japan, 19–21 February 2020; pp. 218–224.\n\n2. Krizhevsky, A.; Sutskever, I.; Hinton, G.E. Imagenet classification with deep convolutional neural networks. In Proceedings of the 25th International Conference on Neural Information Processing Systems, Lake Tahoe, NV, USA, 3–6 December 2012; Curran Associates Inc.: Red Hook, NY, USA, 2012; pp. 1097–1105.\n\n3. Teyou, D.; Kamdem, G.; Ziazet, J. Convolutional Neural Network for Intrusion Detection System in Cyber Physical Systems. arXiv 2019, arXiv:1905.03168.\n\n4. Kim, J.; Kim, J.; Thu, H.L.; Kim, H. Long short term memory recurrent neural network classifier for intrusion detection. In Proceedings of the 2016 International Conference on Platform Technology and Service (PlatCon), Jeju, Korea, 15–17 February 2016; pp. 1–5.\n\n5. Tang, T.A.; Mhamdi, L.; McLernon, D.; Zaidi, S.A.R.; Ghogho, M. Deep Recurrent Neural Network for Intrusion Detection in SDN-based Networks. In Proceedings of the 2018 4th IEEE Conference on Network Softwarization and Workshops (NetSoft), Montreal, QC, Canada, 25–29 June 2018; pp. 202–206. [CrossRef]\n\n6. Sheikhan, M.; Jadidi, Z.; Farrokhi, A. Intrusion detection using reduced-size RNN based on feature grouping. Neural Comput. Appl. 2021, 21, 1185–1190. [CrossRef]\n\n7. Dey, R.; Salem, F.M. Gate-variants of Gated Recurrent Unit (GRU) neural networks. In Proceedings of the 2017 IEEE 60th International Midwest Symposium on Circuits and Systems (MWSCAS), Boston, MA, USA, 6–9 August 2017; pp. 1597–1600. [CrossRef]",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 39,
+                    "pageNumber": 11,
+                    "sourceChunkId": "3b1aefba-f138-4355-ae79-7d0a55773321"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "W-Net: A CNN-based Architecture for White Blood Cells Image Classification — Reports average 97% classification accuracy on a private 6,562-image dataset and also evaluates LISC transfer learning. Downloaded evidence: arXiv:1910.01091v1, 2 October 2019. ",
+                  "type": "text"
+                },
+                {
+                  "text": "https://arxiv.org/abs/1910.01091",
+                  "type": "text",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "rel": "noopener noreferrer",
+                        "href": "https://arxiv.org/abs/1910.01091",
+                        "target": "_blank"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/3b2d0428-6520-4dc3-8759-93bfa4b23f54/evidence/3231b8d8-9957-45d4-a8c9-90a0a423ea46/asset",
+                    "fileName": "paper--2409.04187.pdf",
+                    "chunkText": "Fig. 1: Overview of SORT family Trackers, their methodologies, and comparison on the MOT17 train set. The figure shows the simplicity of LiteSORT (LITE+DeepSORT) as it replaces the external ReID CNN of DeepSORT with detection feature maps via the LITE paradigm.\n\nMOT Methodologies & pipeline speed sont\n(Rammer {conf Mating Cand | | ora 41%\npS\n\nho\nFars Bak Ce | Desont\nMatching Cascade MOTA : 41.41\nKaan Fite Hom 572\n= Vanilla Matching | | Mota 4142\n\nhon\n\n{eon | LiteSORT\nCascade IDF1 £50.08",
+                    "mediaType": "image/png",
+                    "chunkIndex": 8,
+                    "pageNumber": 2,
+                    "sourceChunkId": "3231b8d8-9957-45d4-a8c9-90a0a423ea46"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

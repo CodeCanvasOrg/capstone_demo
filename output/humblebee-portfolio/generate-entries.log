@@ -1,0 +1,1905 @@
+AVAILABLE_TEMPLATES [{"id":"portfolio","name":"Website portfolio entry","revision":"9cba1fde987dbef8d5751500af7bf3c6020be4eed09fc43d52dc804f7a960e7f"},{"id":"technical","name":"Technical portfolio entry","revision":"b5a5fc29c909f11c2a66ce5cc5f59218121217e34a0ba23897451603b53124a8"},{"id":"vision","name":"Product vision","revision":"1b22810ff537bdcadb71ab1e5d5131f7ec25e8579f1e7363ccd01bb4a33cc7c1"}]
+ENTRY_GENERATING company-update:vc-studio-qatar 3c081ef4-60a9-4545-8024-211cffd5ea3e portfolio
+ENTRY_GENERATING case-study:ai-based-predictive b5e77099-a9cb-47bc-bfe7-8493a72e9142 portfolio
+ENTRY_GENERATING case-study:customs-document-automation 659d9730-981a-4c79-baed-5c9c61615bee portfolio
+[generation b5e77099-a9cb-47bc-bfe7-8493a72e9142] retrieval finished in 3168ms with 9 chunks
+[generation b5e77099-a9cb-47bc-bfe7-8493a72e9142] generation started (outline)
+[generation 659d9730-981a-4c79-baed-5c9c61615bee] retrieval finished in 5422ms with 13 chunks
+[generation 659d9730-981a-4c79-baed-5c9c61615bee] generation started (outline)
+ENTRY_FAILED company-update:vc-studio-qatar Exception: Cannot read file from location "workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/derived/aa978e8c-e59e-4142-bf14-d21a207b466e/5bb615e6-60df-4a06-8a7e-aedf927193b8-image.png"
+    at DriveFile.getStream (file:///Users/johnpaul/projects/capstone_demo/node_modules/flydrive/build/drive_directory-k47-jjvZ.js:101:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async ModelImageService.prepare (/Users/johnpaul/projects/capstone_demo/app/services/documents/model_image_service.ts:10:20)
+    at async RetrievalService.search (/Users/johnpaul/projects/capstone_demo/app/services/documents/retrieval_service.ts:83:31)
+    at async GenerationService.execute (/Users/johnpaul/projects/capstone_demo/app/services/documents/generation_service.ts:163:20)
+    at async run (file:///Users/johnpaul/projects/capstone_demo/output/humblebee-portfolio/generate-entries.mjs:11:5)
+    at async file:///Users/johnpaul/projects/capstone_demo/output/humblebee-portfolio/generate-entries.mjs:12:145
+    at async Promise.all (index 0)
+    at async file:///Users/johnpaul/projects/capstone_demo/output/humblebee-portfolio/generate-entries.mjs:12:45
+ENTRY_GENERATING case-study:avnrt-ablation-analytics 9721fb6a-3aa3-471b-a4fb-31917e089c07 portfolio
+[generation 9721fb6a-3aa3-471b-a4fb-31917e089c07] retrieval finished in 4781ms with 9 chunks
+[generation 9721fb6a-3aa3-471b-a4fb-31917e089c07] generation started (outline)
+[generation b5e77099-a9cb-47bc-bfe7-8493a72e9142] generation finished in 16115ms
+ENTRY_READY case-study:ai-based-predictive b5e77099-a9cb-47bc-bfe7-8493a72e9142 6cbafc4f-907a-4ee8-9835-ae7b446f818b
+ENTRY_GENERATING case-study:cartoned-analysis-dashboard 852d21e3-45d3-431e-bd35-a72da5f31b63 portfolio
+[generation 852d21e3-45d3-431e-bd35-a72da5f31b63] retrieval finished in 1148ms with 14 chunks
+[generation 852d21e3-45d3-431e-bd35-a72da5f31b63] generation started (outline)
+[generation 9721fb6a-3aa3-471b-a4fb-31917e089c07] generation finished in 12903ms
+ENTRY_READY case-study:avnrt-ablation-analytics 9721fb6a-3aa3-471b-a4fb-31917e089c07 cfabdbf6-987d-4daf-bae7-4adbafd1a528
+ENTRY_GENERATING case-study:impact-event-analysis c223e82c-14b2-4cf8-a23a-f7624799a159 portfolio
+[generation c223e82c-14b2-4cf8-a23a-f7624799a159] retrieval finished in 1224ms with 12 chunks
+[generation c223e82c-14b2-4cf8-a23a-f7624799a159] generation started (outline)
+[generation 852d21e3-45d3-431e-bd35-a72da5f31b63] generation finished in 16534ms
+ENTRY_READY case-study:cartoned-analysis-dashboard 852d21e3-45d3-431e-bd35-a72da5f31b63 027bc4f9-2ba1-4fd8-bf96-45ed1c0c37d9
+ENTRY_GENERATING case-study:patient-data-analytics 78ce351b-de01-405e-92d8-1d29b2d7a43b portfolio
+[generation 78ce351b-de01-405e-92d8-1d29b2d7a43b] retrieval finished in 1347ms with 15 chunks
+[generation 78ce351b-de01-405e-92d8-1d29b2d7a43b] generation started (outline)
+[generation c223e82c-14b2-4cf8-a23a-f7624799a159] generation finished in 21206ms
+ENTRY_READY case-study:impact-event-analysis c223e82c-14b2-4cf8-a23a-f7624799a159 9b16c7ab-5f87-407c-b1fb-b20375166fcc
+ENTRY_GENERATING case-study:shelf-analysis c0cf0c16-f10a-401c-9643-4afb350b9479 portfolio
+[generation c0cf0c16-f10a-401c-9643-4afb350b9479] retrieval finished in 2337ms with 14 chunks
+[generation c0cf0c16-f10a-401c-9643-4afb350b9479] generation started (outline)
+[generation c0cf0c16-f10a-401c-9643-4afb350b9479] generation finished in 19712ms
+ENTRY_READY case-study:shelf-analysis c0cf0c16-f10a-401c-9643-4afb350b9479 6a002078-d295-4ec1-a480-254d087c8db9
+ENTRY_GENERATING case-study:fraud-detection 9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93 portfolio
+[generation 9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93] retrieval finished in 4685ms with 16 chunks
+[generation 9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93] generation started (outline)
+[generation 9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93] generation finished in 18894ms
+ENTRY_READY case-study:fraud-detection 9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93 2392bd47-f18d-409d-8943-99893ef263e1
+ENTRY_GENERATING case-study:poster-recognition 3ff94381-ad6a-4603-ae52-ad1b57e5f6a3 portfolio
+[generation 3ff94381-ad6a-4603-ae52-ad1b57e5f6a3] retrieval finished in 1241ms with 10 chunks
+[generation 3ff94381-ad6a-4603-ae52-ad1b57e5f6a3] generation started (outline)
+[generation 3ff94381-ad6a-4603-ae52-ad1b57e5f6a3] generation finished in 16926ms
+ENTRY_READY case-study:poster-recognition 3ff94381-ad6a-4603-ae52-ad1b57e5f6a3 8e53d3f6-2caf-442c-b661-a667be030c57
+ENTRY_GENERATING case-study:automated-training-pipeline 65c4907c-5c07-4d60-8132-51a92d6440b1 portfolio
+[generation 65c4907c-5c07-4d60-8132-51a92d6440b1] retrieval finished in 1149ms with 11 chunks
+[generation 65c4907c-5c07-4d60-8132-51a92d6440b1] generation started (outline)
+{"level":40,"time":1793895001569,"pid":22783,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 120 s; retrying"}
+{"level":40,"time":1793895034621,"pid":22783,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 120 s; retrying"}
+ENTRY_FAILED case-study:patient-data-analytics Error: Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Patient Report Analyzer addressed Johnson & Johnson’s inconsistent Excel workflows, with the case study reporting an 80% reduction in preprocessing/manual work and a separate 50% processing improvement. "
+            },
+            {
+              "type": "text",
+              "text": "Read the original case study",
+              "marks": [
+                {
+                  "type": "link",
+                  "attrs": {
+                    "href": "https://humblebee.ai/case-studies/patient-data-analytics"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "78bb7334-7237-4866-8a7c-2168cf401e13"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "section_1",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Johnson & Johnson analytics teams faced a bottleneck: patient data arrived in Excel files with varying structures, formats and sizes, requiring manual cleanup before analysis. HumbleBeeAI developed the Patient Report Analyzer to automate parsing and cleaning across those files. The source-reported outcomes are an 80% reduction in preprocessing/manual work and a separate 50% processing improvement; the case study is a website snapshot with owner approval and publication approval pending, and the figures have not been independently validated."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "78bb7334-7237-4866-8a7c-2168cf401e13"
+              }
+            }
+          ]
+        },
+        {
+          "key": "section_2",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Columns could shift, sheets could be restructured and formats varied, so analysts had to interpret files and clean and reshape data by hand. The case study describes this as consuming hours and slowing processing of complex, large Excel datasets, leaving healthcare teams waiting for insights. It identifies parsing complexity, manual effort, delays and reliable support for multiple formats as constraints; baseline hours, evaluation sample and test environment are not supplied."
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "40297078-7351-40d8-95a2-8719d559e0c7"
+                  }
+                }
+              ]
+            },
+            {
+              "key": "section_3",
+              "content": [
+                {
+                  "type": "heading",
+                  "attrs": {
+                    "level": 3
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Adaptive parsing and data cleaning"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "The Analyzer’s parsing adapts to renamed columns and restructured sheets, while cleaning algorithms handle inconsistencies. These capabilities target the varied file structures and manual preparation that impeded analysis."
+                    },
+                    {
+                      "type": "sourceCitation",
+                      "attrs": {
+                        "sourceChunkId": "0b330d22-3eac-44f6-8bfc-74e99ec7953c"
+                      }
+                    },
+                    {
+                      "type": "sourceCitation",
+                      "attrs": {
+                        "sourceChunkId": "8f21d28b-6ad8-44cb-a8d8-b3d6339e1266"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "heading",
+                  "attrs": {
+                    "level": 3
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Batch analysis and reporting"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Batch processing and caching support handling large files; the source says runs could accommodate files over 1GB. The tool also provides charts, tables and downloadable Excel summaries, giving teams multiple ways to review and export analyzed data."
+                    },
+                    {
+                      "type": "sourceCitation",
+                      "attrs": {
+                        "sourceChunkId": "0b330d22-3eac-44f6-8bfc-74e99ec7953c"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "key": "section_4",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "The case study reports an 80% decrease in manual work/preprocessing relative to the earlier manual Excel workflow. It separately reports processing as 50% faster, while elsewhere describing processing time as halved; these formulations are inconsistent, so the processing measure requires owner confirmation. The source also labels data scale as 1GB+ and describes gigabyte-sized datasets, but this is a scale claim, not a timed benchmark. Baseline times, denominators, sample size and test conditions have not been provided, and no business-impact measure is supplied."
+                        },
+                        {
+                          "type": "sourceCitation",
+                          "attrs": {
+                            "sourceChunkId": "26dc5cc2-487f-4d1d-a20b-276a424f1b1b"
+                          }
+                        },
+                        {
+                          "type": "sourceCitation",
+                          "attrs": {
+                            "sourceChunkId": "78bb7334-7237-4866-8a7c-2168cf401e13"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "key": "section_5",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "The available case-study material presents the Analyzer and its capabilities as developed, but does not specify deployment details, production availability or current operational status. It does not provide benchmark methodology, baseline measurements, evaluation sample or test environment. The 50% processing figure needs clarification because the source uses both “time halved” and “50% faster.” No next steps have been provided; owner review and publication approval remain pending."
+                            },
+                            {
+                              "type": "sourceCitation",
+                              "attrs": {
+                                "sourceChunkId": "78bb7334-7237-4866-8a7c-2168cf401e13"
+                              }
+                            },
+                            {
+                              "type": "sourceCitation",
+                              "attrs": {
+                                "sourceChunkId": "26dc5cc2-487f-4d1d-a20b-276a424f1b1b"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "key": "section_6",
+                          "content": [
+                            {
+                              "type": "paragraph",
+                              "content": [
+                                {
+                                  "type": "text",
+                                  "text": "Patient Report Analyzer was developed to reduce the manual burden of inconsistent patient-data spreadsheets through adaptive parsing, cleaning and batch reporting. The case study reports substantial preprocessing and processing improvements, while the missing benchmark conditions and pending review limit what can be concluded about their measurement and broader impact."
+                                },
+                                {
+                                  "type": "sourceCitation",
+                                  "attrs": {
+                                    "sourceChunkId": "78bb7334-7237-4866-8a7c-2168cf401e13"
+                                  }
+                                },
+                                {
+                                  "type": "sourceCitation",
+                                  "attrs": {
+                                    "sourceChunkId": "26dc5cc2-487f-4d1d-a20b-276a424f1b1b"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "attrs"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}". Error: [{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",1,"content",1,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",1,"content",1,"content",1,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",1,"content",1,"content",1,"content",4,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",1,"content",1,"content",1,"content",4,"content",1,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",1,"content",1,"content",1,"content",4,"content",1,"content",1,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"expected":"object","code":"invalid_type","path":["sections",1,"content",1,"content",1,"content",4,"content",2],"message":"Invalid input: expected object, received string"}]
+
+Troubleshooting URL: https://docs.langchain.com/oss/javascript/langchain/errors/OUTPUT_PARSING_FAILURE/
+
+    at JsonOutputKeyToolsParser._validateResult (/Users/johnpaul/projects/capstone_demo/node_modules/@langchain/core/src/output_parsers/openai_tools/json_output_tools_parsers.ts:312:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async JsonOutputKeyToolsParser._callWithConfig (/Users/johnpaul/projects/capstone_demo/node_modules/@langchain/core/src/runnables/base.ts:385:16)
+    at async RunnableSequence.invoke (/Users/johnpaul/projects/capstone_demo/node_modules/@langchain/core/src/runnables/base.ts:1994:21)
+    at async OpenRouterService.runGeneration (/Users/johnpaul/projects/capstone_demo/app/services/open_router_service.ts:377:16)
+    at async OpenRouterService.generateOutlineWithEvidence (/Users/johnpaul/projects/capstone_demo/app/services/open_router_service.ts:179:21)
+    at async GenerationService.execute (/Users/johnpaul/projects/capstone_demo/app/services/documents/generation_service.ts:184:9)
+    at async run (file:///Users/johnpaul/projects/capstone_demo/output/humblebee-portfolio/generate-entries.mjs:11:5)
+    at async file:///Users/johnpaul/projects/capstone_demo/output/humblebee-portfolio/generate-entries.mjs:12:145
+    at async Promise.all (index 2)
+ENTRY_GENERATING case-study:data-labeling-tool c6c8589d-35ad-4acd-8457-189429fe2808 portfolio
+[generation c6c8589d-35ad-4acd-8457-189429fe2808] retrieval finished in 1329ms with 13 chunks
+[generation c6c8589d-35ad-4acd-8457-189429fe2808] generation started (outline)
+ENTRY_FAILED case-study:data-labeling-tool Error: Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "A customized, ML-assisted data labeling platform helped a computer vision service provider scale secure annotation workflows across enterprise customer environments."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "dbe9ed7c-06d9-4c00-bd5c-3d516850ece4"
+              }
+            },
+            {
+              "type": "text",
+              "text": " "
+            },
+            {
+              "type": "text",
+              "text": "Original case study",
+              "marks": [
+                {
+                  "type": "link",
+                  "attrs": {
+                    "href": "https://humblebee.ai/case-studies/data-labeling-tool"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "section_1",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "HumbleBeeAI designed and implemented a customized labeling platform for a computer vision service provider serving more than 15 enterprise clients. The client needed isolated environments, secure data handling and model-assisted workflows for varied annotation work. The case study reports delivery of 15+ isolated annotation environments and a 75% reduction in annotation time. These are source-reported figures, not independently validated; owner approval remains pending."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "dbe9ed7c-06d9-4c00-bd5c-3d516850ece4"
+              }
+            },
+            {
+              "type": "text",
+              "text": " "
+            },
+            {
+              "type": "text",
+              "text": "Original case study",
+              "marks": [
+                {
+                  "type": "link",
+                  "attrs": {
+                    "href": "https://humblebee.ai/case-studies/data-labeling-tool"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "section_2",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Each customer required a platform tailored to its specifications, strict data isolation and security, creating operational complexity as the provider managed large annotation projects. Its existing infrastructure faced difficulty scaling isolated deployments and concurrent model processing across annotation types; GPU memory use and auto-labeling performance were also reported as concerns. The work covered object detection, segmentation, video tracking and keypoint analysis, among other needs. The source describes difficulty with the earlier infrastructure but does not quantify its baseline workload, annotation hours or performance."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "827205d2-d6d8-4929-97f4-40b44da4a73a"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "ffe0ad6-491b-4c81-8d60-7282ea1273e6"
+              }
+            },
+            {
+              "type": "text",
+              "text": " "
+            },
+            {
+              "type": "text",
+              "text": "Original case study",
+              "marks": [
+                {
+                  "type": "link",
+                  "attrs": {
+                    "href": "https://humblebee.ai/case-studies/data-labeling-tool"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "section_3",
+      "content": [
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 3
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Secure, isolated environments"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "The delivered platform disabled local file imports to keep Google Cloud Storage (GCS) as the single source of truth, used invite-only registration, and configured automated database backups to GCS for recovery and server migration. The deployment architecture managed company-specific configurations, dedicated GCS buckets with CORS policies and automated port allocation, separating customer instances."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "0ccca8c9-6e06-40d9-9d92-a5325f12baa8"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "1e1f0149-3340-4e91-91da-3454957d032c"
+              }
+            },
+            {
+              "type": "text",
+              "text": " "
+            },
+            {
+              "type": "text",
+              "text": "Original case study",
+              "marks": [
+                {
+                  "type": "link",
+                  "attrs": {
+                    "href": "https://humblebee.ai/case-studies/data-labeling-tool"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 3
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "ML-assisted annotation"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "An ML backend supported seven annotation types, with model caching, automatic model detection from labeling configuration and dynamic model loading from GCS. These capabilities were intended to reduce manual model management and support AI-assisted labeling workflows."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "b68ab74a-d4c3-406c-9034-27ff103efe55"
+              }
+            },
+            {
+              "type": "text",
+              "text": " "
+            },
+            {
+              "type": "text",
+              "text": "Original case study",
+              "marks": [
+                {
+                  "type": "link",
+                  "attrs": {
+                    "href": "https://humblebee.ai/case-studies/data-labeling-tool"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "section_4",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "The case study reports 15+ isolated environments, a 75% reduction in annotation time for ML-assisted versus manual labeling, and 90%+ labeling accuracy attributed to specialized models and validation workflows. The source does not provide the annotation sample size, baseline hours, accuracy definition or evaluation sample, so the figures cannot be independently assessed from the supplied evidence. The reported 15+ figure is a deployment count, not an accuracy sample."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "4a6967db-be9c-40d0-b0d6-92190bb06bcf"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "cae528ec-cafb-48e5-bffc-7b1365691804"
+              }
+            },
+            {
+              "type": "text",
+              "text": " "
+            },
+            {
+              "type": "text",
+              "text": "Original case study",
+              "marks": [
+                {
+                  "type": "link",
+                  "attrs": {
+                    "href": "https://humblebee.ai/case-studies/data-labeling-tool"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "section_5",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "The source also claims 99.9% data-protection reliability for configurable backups and GCS integration, and says migration times fell from days to hours. However, reliability is undefined and the evidence supplied gives no test conditions or measurement method; this figure is therefore not presented as a substantiated portfolio result. Migration timing likewise lacks comparison details. No further measurement data or independent validation has been provided."
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "8b8b39d1-1e6f-4139-9a9a-4b2b2c1f0032"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": " "
+                },
+                {
+                  "type": "text",
+                  "text": "Original case study",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "href": "https://humblebee.ai/case-studies/data-labeling-tool"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "hardBreak"
+                },
+                {
+                  "type": "text",
+                  "text": "The source describes advanced analytics dashboards and deeper MLOps integrations as enhancements being explored, not delivered capabilities. No approved next-step plan is supplied. The case study text has been reviewed, but owner approval is pending."
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "cae528ec-cafb-48e5-bffc-7b1365691804"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": " "
+                },
+                {
+                  "type": "text",
+                  "text": "Original case study",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "href": "https://humblebee.ai/case-studies/data-labeling-tool"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "section_6",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "The delivered platform combined customer isolation, GCS-backed recovery and model-assisted annotation to address the provider’s stated security and scaling needs. The source reports improved annotation time and deployment scale, while key measurement conditions remain unspecified; those limitations should accompany the reported outcomes."
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "4a6967db-be9c-40d0-b0d6-92190bb06bcf"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": " "
+                },
+                {
+                  "type": "text",
+                  "text": "Original case study",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "href": "https://humblebee.ai/case-studies/data-labeling-tool"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The delivered platform combined customer isolation, GCS-backed recovery and model-assisted annotation to address the provider’s stated security and scaling needs. The source reports improved annotation time and deployment scale, while key measurement conditions remain unspecified; those limitations should accompany the reported outcomes."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "4a6967db-be9c-40d0-b0d6-92190bb06bcf"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/data-labeling-tool"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}". Error: [{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",4,"content",1,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",4,"content",2,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""}]
+
+Troubleshooting URL: https://docs.langchain.com/oss/javascript/langchain/errors/OUTPUT_PARSING_FAILURE/
+
+    at JsonOutputKeyToolsParser._validateResult (/Users/johnpaul/projects/capstone_demo/node_modules/@langchain/core/src/output_parsers/openai_tools/json_output_tools_parsers.ts:312:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async JsonOutputKeyToolsParser._callWithConfig (/Users/johnpaul/projects/capstone_demo/node_modules/@langchain/core/src/runnables/base.ts:385:16)
+    at async RunnableSequence.invoke (/Users/johnpaul/projects/capstone_demo/node_modules/@langchain/core/src/runnables/base.ts:1994:21)
+    at async OpenRouterService.runGeneration (/Users/johnpaul/projects/capstone_demo/app/services/open_router_service.ts:377:16)
+    at async OpenRouterService.generateOutlineWithEvidence (/Users/johnpaul/projects/capstone_demo/app/services/open_router_service.ts:179:21)
+    at async GenerationService.execute (/Users/johnpaul/projects/capstone_demo/app/services/documents/generation_service.ts:184:9)
+    at async run (file:///Users/johnpaul/projects/capstone_demo/output/humblebee-portfolio/generate-entries.mjs:11:5)
+    at async file:///Users/johnpaul/projects/capstone_demo/output/humblebee-portfolio/generate-entries.mjs:12:145
+    at async Promise.all (index 2)
+ENTRY_GENERATING case-study:improving-recognition-accuracy deeaa238-71ff-4e77-aa51-bf3e16b3bd84 portfolio
+[generation deeaa238-71ff-4e77-aa51-bf3e16b3bd84] retrieval finished in 1828ms with 10 chunks
+[generation deeaa238-71ff-4e77-aa51-bf3e16b3bd84] generation started (outline)
+[generation deeaa238-71ff-4e77-aa51-bf3e16b3bd84] generation finished in 20535ms
+ENTRY_READY case-study:improving-recognition-accuracy deeaa238-71ff-4e77-aa51-bf3e16b3bd84 8716f5a6-28e3-4485-95f7-39618e6de7ee
+ENTRY_GENERATING case-study:optimizing-recognition-processing 80bea5a9-7ac4-4c1a-ac11-390d0b23509a portfolio
+[generation 80bea5a9-7ac4-4c1a-ac11-390d0b23509a] retrieval finished in 1773ms with 9 chunks
+[generation 80bea5a9-7ac4-4c1a-ac11-390d0b23509a] generation started (outline)
+[generation 80bea5a9-7ac4-4c1a-ac11-390d0b23509a] generation finished in 14682ms
+ENTRY_READY case-study:optimizing-recognition-processing 80bea5a9-7ac4-4c1a-ac11-390d0b23509a 62c18882-8e1c-451b-a190-60d769c53ee6
+ENTRY_GENERATING case-study:lumiohub-platform f48bb8f9-0bcf-4d53-ba21-833306574c58 portfolio
+{"level":40,"time":1793895114696,"pid":22783,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 120 s; retrying"}
+[generation f48bb8f9-0bcf-4d53-ba21-833306574c58] retrieval finished in 2440ms with 20 chunks
+[generation f48bb8f9-0bcf-4d53-ba21-833306574c58] generation started (outline)
+ENTRY_FAILED case-study:customs-document-automation TimeoutError: The operation was aborted due to timeout
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at Timeout._onTimeout (node:internal/abort_controller:210:9)
+    at listOnTimeout (node:internal/timers:635:17)
+    at process.processTimers (node:internal/timers:571:7)
+ENTRY_GENERATING case-study:amplifyr e2949908-4fc4-4842-b50a-44806e150811 portfolio
+[generation e2949908-4fc4-4842-b50a-44806e150811] retrieval finished in 1197ms with 10 chunks
+[generation e2949908-4fc4-4842-b50a-44806e150811] generation started (outline)
+[generation f48bb8f9-0bcf-4d53-ba21-833306574c58] generation finished in 20596ms
+ENTRY_READY case-study:lumiohub-platform f48bb8f9-0bcf-4d53-ba21-833306574c58 71215b1a-a78b-4a2f-90aa-91adad946d90
+ENTRY_GENERATING case-study:ai-powered-retail-cart 478482de-fbac-4d47-86ee-8c141d939da1 portfolio
+[generation 478482de-fbac-4d47-86ee-8c141d939da1] retrieval finished in 968ms with 11 chunks
+[generation 478482de-fbac-4d47-86ee-8c141d939da1] generation started (outline)
+[generation 65c4907c-5c07-4d60-8132-51a92d6440b1] generation finished in 144246ms
+ENTRY_READY case-study:automated-training-pipeline 65c4907c-5c07-4d60-8132-51a92d6440b1 e7e0b6d2-ada6-4b50-830b-56a35e5cc92f
+ENTRY_GENERATING case-study:ai-customs-intelligence b4427b7c-d192-409f-ab8f-8a5c8e37b08e portfolio
+[generation b4427b7c-d192-409f-ab8f-8a5c8e37b08e] retrieval finished in 985ms with 13 chunks
+[generation b4427b7c-d192-409f-ab8f-8a5c8e37b08e] generation started (outline)
+[generation e2949908-4fc4-4842-b50a-44806e150811] generation finished in 22588ms
+ENTRY_READY case-study:amplifyr e2949908-4fc4-4842-b50a-44806e150811 8db94040-8612-4756-bccd-b74dbd9ebd97
+ENTRY_GENERATING case-study:data-cleaning-hs-codes 93bcb2be-ad4a-4716-b613-692348cffc58 portfolio
+[generation 93bcb2be-ad4a-4716-b613-692348cffc58] retrieval finished in 921ms with 13 chunks
+[generation 93bcb2be-ad4a-4716-b613-692348cffc58] generation started (outline)
+[generation b4427b7c-d192-409f-ab8f-8a5c8e37b08e] generation finished in 17959ms
+ENTRY_READY case-study:ai-customs-intelligence b4427b7c-d192-409f-ab8f-8a5c8e37b08e f8b4fb97-8f13-4e22-a280-7a34787544a6
+ENTRY_GENERATING case-study:excel-automated-testing b26278b3-bad5-449c-9d01-4daebb8a22c3 portfolio
+[generation b26278b3-bad5-449c-9d01-4daebb8a22c3] retrieval finished in 844ms with 10 chunks
+[generation b26278b3-bad5-449c-9d01-4daebb8a22c3] generation started (outline)
+ENTRY_FAILED case-study:ai-powered-retail-cart Error: Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "How a retail AI provider improved cart and item detection through focused computer vision R&D"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "section_1",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "A European checkout and loss-prevention technology company worked with HumbleBeeAI to address weak detection of shopping carts and varied purchasable items. The reported R&D improved the custom detector’s mAP@50–95 from approximately 55% to approximately 75%—about 20 percentage points, not a 20% relative improvement. The case study describes edge-device and real-time use, but does not establish a production rollout or provide measured frame rate. "
+            },
+            {
+              "type": "text",
+              "text": "Read the original HumbleBeeAI case study",
+              "marks": [
+                {
+                  "type": "link",
+                  "attrs": {
+                    "href": "https://humblebee.ai/case-studies/ai-powered-retail-cart"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "d869c90d-603f-4b0c-9b3f-d0bfb60ec880"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "1bb16db3-252e-4d87-8d22-774b50e96860"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "section_2",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "The client develops intelligent checkout and loss-prevention systems for varied European retail settings. Its existing detection model was reported at approximately 55% mAP@50–95, with missed detections of non-empty carts and a particularly difficult “item” class spanning goods with diverse shapes, materials and colors. Differences in retail environments and lighting also made model performance and evaluation less consistent. The project therefore needed to improve item recognition while making performance assessment more dependable. "
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "bf6a0c29-13f6-43a9-a4e3-cfb4bb6b163a"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "7a3e81e7-6037-4a8a-a42f-5d3a3e9ad9ea"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "section_3",
+      "content": [
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 3
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Targeted detector development"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "HumbleBeeAI custom-trained a single-stage detection network with emphasis on the complex item class, aiming to capture visual variation across retail scenarios. "
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "de36d3af-5101-4712-83c0-d6d65f4d3879"
+              }
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 3
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Broader training data and refinement"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "The team expanded and diversified the training dataset with real-world retail footage, applying scaling, random cropping, color and brightness variation, and geometric transformations. It also analyzed error distributions and confidence variance across object categories to iteratively refine sampling strategies and model architectures. "
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "de36d3af-5101-4712-83c0-d6d65f4d3879"
+              }
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 3
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Confidence-interval evaluation"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "A confidence interval-based evaluation method was introduced to make performance reporting more stable in the presence of dataset noise and domain variation. "
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "de36d3af-5101-4712-83c0-d6d65f4d3879"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "section_4",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "The case study reports detection mAP@50–95 rising from approximately 55% to approximately 75%, an improvement of about 20 percentage points for the existing and improved cart/item detector. It also describes recognition across thousands of item types and varied lighting and shelf configurations. The source does not provide the test-set size, split, hardware, or measured FPS; the reported metric is source-reported and not independently validated in the review record. "
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "51783a48-9107-4a8a-a42f-5d3a3e9ad9ea"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "d869c90d-603f-4b0c-9b3f-d0bfb60ec880"
+              }
+            }
+          ]
+        },
+        {
+          "key": "section_5",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "The materials describe completed R&D and report edge-device, real-time performance in the case-study summary, but they do not establish whether the improved model was deployed in production. No hardware details or measured frame rate are supplied, so real-time performance cannot be independently assessed from the available figures. The case study attributes reduced shrinkage and improved loss prevention to the framework, but supplies no quantified business-impact measurement; those outcomes should be treated as reported claims, not measured results here. No further project steps are provided. "
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "1bb16db3-252e-4d87-8d22-774b50e96860"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "51783a48-9107-4a8a-a42f-5d3a3e9ad9ea"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "section_6",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "This engagement applied focused computer vision research and more structured evaluation to a difficult retail detection problem. Its supported outcome is the reported improvement in mAP@50–95; production status and quantified business impact remain unspecified in the available source material. "
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "d869c90d-603f-4b0c-9b3f-d0bfb60ec880"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "51783a48-9107-4a8a-a42f-5d3a3e9ad9ea"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}". Error: [{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",4,"content",1,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",4,"content",2,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""}]
+
+Troubleshooting URL: https://docs.langchain.com/oss/javascript/langchain/errors/OUTPUT_PARSING_FAILURE/
+
+    at JsonOutputKeyToolsParser._validateResult (/Users/johnpaul/projects/capstone_demo/node_modules/@langchain/core/src/output_parsers/openai_tools/json_output_tools_parsers.ts:312:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async JsonOutputKeyToolsParser._callWithConfig (/Users/johnpaul/projects/capstone_demo/node_modules/@langchain/core/src/runnables/base.ts:385:16)
+    at async RunnableSequence.invoke (/Users/johnpaul/projects/capstone_demo/node_modules/@langchain/core/src/runnables/base.ts:1994:21)
+    at async OpenRouterService.runGeneration (/Users/johnpaul/projects/capstone_demo/app/services/open_router_service.ts:377:16)
+    at async OpenRouterService.generateOutlineWithEvidence (/Users/johnpaul/projects/capstone_demo/app/services/open_router_service.ts:179:21)
+    at async GenerationService.execute (/Users/johnpaul/projects/capstone_demo/app/services/documents/generation_service.ts:184:9)
+    at async run (file:///Users/johnpaul/projects/capstone_demo/output/humblebee-portfolio/generate-entries.mjs:11:5)
+    at async file:///Users/johnpaul/projects/capstone_demo/output/humblebee-portfolio/generate-entries.mjs:12:145
+    at async Promise.all (index 2)
+ENTRY_GENERATING case-study:llm-results-analyzer c3d8237d-3448-4e36-8fec-8596f77b5719 portfolio
+[generation c3d8237d-3448-4e36-8fec-8596f77b5719] retrieval finished in 1175ms with 11 chunks
+[generation c3d8237d-3448-4e36-8fec-8596f77b5719] generation started (outline)
+[generation 93bcb2be-ad4a-4716-b613-692348cffc58] generation finished in 20448ms
+ENTRY_READY case-study:data-cleaning-hs-codes 93bcb2be-ad4a-4716-b613-692348cffc58 2ee6b68e-ab9e-4406-9045-cd7aa6670fbc
+ENTRY_GENERATING case-study:iv-drip-flow-rate-estimator 8f34f1fe-91f1-4e41-8380-d517e4fbee69 portfolio
+[generation 8f34f1fe-91f1-4e41-8380-d517e4fbee69] retrieval finished in 3153ms with 9 chunks
+[generation 8f34f1fe-91f1-4e41-8380-d517e4fbee69] generation started (outline)
+[generation b26278b3-bad5-449c-9d01-4daebb8a22c3] generation finished in 15321ms
+ENTRY_READY case-study:excel-automated-testing b26278b3-bad5-449c-9d01-4daebb8a22c3 86687ec4-f62e-4b8b-b287-b9421c0d161c
+ENTRY_GENERATING company-update:innerworks-partnership 48ff52e1-62cd-45ca-a687-79b40b714e69 portfolio
+[generation c3d8237d-3448-4e36-8fec-8596f77b5719] generation finished in 13372ms
+ENTRY_READY case-study:llm-results-analyzer c3d8237d-3448-4e36-8fec-8596f77b5719 2c88d234-95ab-4db1-a67d-ae49b80dada4
+ENTRY_GENERATING case-study:field-center-detection b797d763-5917-4377-a986-e3bf36b62cf7 portfolio
+[generation 48ff52e1-62cd-45ca-a687-79b40b714e69] retrieval finished in 1366ms with 12 chunks
+[generation 48ff52e1-62cd-45ca-a687-79b40b714e69] generation started (outline)
+[generation b797d763-5917-4377-a986-e3bf36b62cf7] retrieval finished in 1238ms with 9 chunks
+[generation b797d763-5917-4377-a986-e3bf36b62cf7] generation started (outline)
+[generation 8f34f1fe-91f1-4e41-8380-d517e4fbee69] generation finished in 21927ms
+ENTRY_READY case-study:iv-drip-flow-rate-estimator 8f34f1fe-91f1-4e41-8380-d517e4fbee69 25114110-c2db-4264-88f7-b3e0b145baab
+ENTRY_GENERATING case-study:beef-carcass-detection 0f3ff52a-c517-430b-bea3-dd5a8d2b4d78 portfolio
+[generation 0f3ff52a-c517-430b-bea3-dd5a8d2b4d78] retrieval finished in 952ms with 12 chunks
+[generation 0f3ff52a-c517-430b-bea3-dd5a8d2b4d78] generation started (outline)
+[generation b797d763-5917-4377-a986-e3bf36b62cf7] generation finished in 23079ms
+ENTRY_READY case-study:field-center-detection b797d763-5917-4377-a986-e3bf36b62cf7 b006c4cb-e6d4-4886-878b-00227cc220b7
+ENTRY_GENERATING case-study:livescore-ai 2d077799-c260-422c-9218-2c8b339a91e0 portfolio
+[generation 2d077799-c260-422c-9218-2c8b339a91e0] retrieval finished in 1118ms with 17 chunks
+[generation 2d077799-c260-422c-9218-2c8b339a91e0] generation started (outline)
+[generation 48ff52e1-62cd-45ca-a687-79b40b714e69] generation finished in 26417ms
+ENTRY_READY company-update:innerworks-partnership 48ff52e1-62cd-45ca-a687-79b40b714e69 77df3ab4-9124-4c13-a26c-944fe1544653
+ENTRY_GENERATING case-study:breast-cancer b3e067ff-c004-4856-97aa-612a2515cb5e portfolio
+[generation b3e067ff-c004-4856-97aa-612a2515cb5e] retrieval finished in 1089ms with 13 chunks
+[generation b3e067ff-c004-4856-97aa-612a2515cb5e] generation started (outline)
+[generation 0f3ff52a-c517-430b-bea3-dd5a8d2b4d78] generation finished in 24388ms
+ENTRY_READY case-study:beef-carcass-detection 0f3ff52a-c517-430b-bea3-dd5a8d2b4d78 3fc43657-0932-4fa4-820c-ad5e5995c411
+ENTRY_GENERATING project:hstaff 536eb852-dc1e-4274-ba80-c303c9b126df vision
+[generation 536eb852-dc1e-4274-ba80-c303c9b126df] retrieval finished in 1296ms with 20 chunks
+[generation 536eb852-dc1e-4274-ba80-c303c9b126df] generation started (outline)
+[generation b3e067ff-c004-4856-97aa-612a2515cb5e] generation finished in 20807ms
+ENTRY_READY case-study:breast-cancer b3e067ff-c004-4856-97aa-612a2515cb5e 8dc6c03a-e405-4947-bb6b-1bd414b25398
+ENTRY_GENERATING project:ai-avatar a33eaf07-f7dd-46a1-9d54-1994532227e0 vision
+[generation a33eaf07-f7dd-46a1-9d54-1994532227e0] retrieval finished in 1449ms with 17 chunks
+[generation a33eaf07-f7dd-46a1-9d54-1994532227e0] generation started (outline)
+[generation 2d077799-c260-422c-9218-2c8b339a91e0] generation finished in 27163ms
+ENTRY_READY case-study:livescore-ai 2d077799-c260-422c-9218-2c8b339a91e0 8cf343d4-a17f-43d7-aef5-ccc285898d51
+ENTRY_GENERATING project:kumush-ai 752affd0-b45f-47e8-b022-62d1684aef89 vision
+[generation 752affd0-b45f-47e8-b022-62d1684aef89] retrieval finished in 1362ms with 17 chunks
+[generation 752affd0-b45f-47e8-b022-62d1684aef89] generation started (outline)
+[generation 536eb852-dc1e-4274-ba80-c303c9b126df] generation finished in 19015ms
+ENTRY_READY project:hstaff 536eb852-dc1e-4274-ba80-c303c9b126df 52d4dfd3-7579-4eaa-b064-ef066db39d0d
+ENTRY_GENERATING project:wakil-ai 956234f4-93a9-4b27-8112-3d6572c4f14b vision
+[generation 956234f4-93a9-4b27-8112-3d6572c4f14b] retrieval finished in 1765ms with 20 chunks
+[generation 956234f4-93a9-4b27-8112-3d6572c4f14b] generation started (outline)
+[generation 752affd0-b45f-47e8-b022-62d1684aef89] generation finished in 20528ms
+ENTRY_READY project:kumush-ai 752affd0-b45f-47e8-b022-62d1684aef89 caf51d22-872d-4f16-8c46-8cf32291a541
+ENTRY_GENERATING project:bojhona 166ba86b-4305-499c-8989-de0c28463adc vision
+[generation 166ba86b-4305-499c-8989-de0c28463adc] retrieval finished in 993ms with 10 chunks
+[generation 166ba86b-4305-499c-8989-de0c28463adc] generation started (outline)
+[generation 956234f4-93a9-4b27-8112-3d6572c4f14b] generation finished in 20324ms
+ENTRY_READY project:wakil-ai 956234f4-93a9-4b27-8112-3d6572c4f14b 52038844-09e9-4347-95f8-e67c7072dd95
+ENTRY_GENERATING project:enlighten-qalb 8a94eff7-ed2c-45f0-a564-5d0ea5058d1c vision
+[generation 8a94eff7-ed2c-45f0-a564-5d0ea5058d1c] retrieval finished in 1315ms with 20 chunks
+[generation 8a94eff7-ed2c-45f0-a564-5d0ea5058d1c] generation started (outline)
+ENTRY_FAILED project:bojhona Error: Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Bojhona is an in-development customs intelligence project that brings HS-code definitions together with historical product descriptions to support classification."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "03b2b5f5-689d-402c-b8e4-e5004cf97b18"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "section_1",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Bojhona is intended to give customs officers, managers and trade businesses a unified way to consult legal HS-code definitions alongside examples drawn from historical customs product descriptions. The company page lists its status as “in dev” and scope as “Mid”; it does not provide a demo URL. This is a review draft based on a website snapshot, with owner approval pending. "
+            },
+            {
+              "type": "text",
+              "text": "View the original HumbleBeeAI project page",
+              "marks": [
+                {
+                  "type": "link",
+                  "attrs": {
+                    "href": "https://humblebee.ai/projects/bojhona"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "text": "."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "03b2b5f5-689d-402c-b8e4-e5004cf97b18"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "72c6bda1-055c-4787-b912-5b390a549d4d"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "section_2",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Customs officers and businesses must relate the standardized legal descriptions in the Harmonized System to the way goods are actually described in trade. The source describes the work as largely manual: officers searched through millions of records, while duplicate and inconsistent product descriptions impeded search and standardization. With legal definitions and real-world customs data kept in separate phases, users had to move between abstract rules and unstructured examples. Importers and exporters were also described as relying on consultants and brokers to interpret codes, adding cost and slowing trade activity."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "afa03214-65cc-4fde-ad82-634e5000d2bc"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "3bfd32fd-cb58-41c9-a1a7-1803a6ec4d1b"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "section_3",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "The documented direction is to unite the structured legal framework—sections, chapters and official explanatory notes—with historical product descriptions from customs declarations. The intended experience is one place to consult both sources when considering a product classification. No additional future roadmap has been provided, so further aspirations should be treated as unknown rather than planned."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "afa03214-65cc-4fde-ad82-634e5000d2bc"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "72c6bda1-055c-4787-b912-5b390a549d4d"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "section_4",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "The project description reports a pipeline for cleaning, deduplicating and normalizing customs product descriptions, then processing records in batches and indexing semantic embeddings for retrieval. It names OpenAI text-embedding-3-small, Pinecone, MongoDB, FastAPI and LangChain, with GPT models used to generate chatbot responses. The described chatbot returns HS-code suggestions with supporting context from definitions and product examples; integration of the two data phases is described as enabling comparison and surfacing the top 10 relevant codes. The source reports the dataset as “65.5+1.8 million” product descriptions in its detailed account and “65.5M+” in the page summary; these are reported figures, not independently verified measurements."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "386cb6b6-585f-4eca-a97b-86df776585c8"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "afa03214-65cc-4fde-ad82-634e5000d2bc"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "b94f3b26-9ba0-4e5e-bf4f-787e7d5aeaa2"
+              }
+            }
+          ]
+        },
+        {
+          "key": "section_5",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "The documented distinction is the combination of formal HS-code structures with practical descriptions from customs declarations, rather than relying on either source alone. The project page also describes citation-backed responses and side-by-side classification comparison. These are features reported in the project material; no comparative benchmark or independent validation is provided to establish superiority over other tools."
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "72c6bda1-055c-4787-b912-5b390a549d4d"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "3d5e00c3-d1e0-48b9-a6fa-bd19c6a33a9a"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "section_6",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "The published status is “in dev.” No public demo URL is listed, and the source does not establish that the described chatbot or integrated workflow is generally available. A project write-up reports classification and search time changing “from minutes to seconds,” but gives no test conditions, workload, sample size, comparison method or measured results; treat this as a reported claim, not a verified performance benchmark or business-impact measure. No roadmap or planned release dates have been provided."
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "03b2b5f5-689d-402c-b8e4-e5004cf97b18"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "3d5e00c3-d1e0-48b9-a6fa-bd19c6a33a9a"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "72c6bda1-055c-4787-b912-5b390a549d4d"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "section_7",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Bojhona addresses a concrete customs classification challenge by bringing legal HS definitions and messy real-world product descriptions into a shared retrieval and chatbot concept. The source describes the system and intended benefits, while its published “in dev” status means public availability and independently measured outcomes remain unconfirmed. Further evaluation conditions, release plans and owner approval have not been provided."
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "72c6bda1-055c-4787-b912-5b390a549d4d"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "03b2b5f5-689d-402c-b8e4-e5004cf97b18"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "sections"
+  ]
+}". Error: [{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",4,"content",1,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",4,"content",2,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",4,"content",3,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"expected":"object","code":"invalid_type","path":["sections",5],"message":"Invalid input: expected object, received string"}]
+
+Troubleshooting URL: https://docs.langchain.com/oss/javascript/langchain/errors/OUTPUT_PARSING_FAILURE/
+
+    at JsonOutputKeyToolsParser._validateResult (/Users/johnpaul/projects/capstone_demo/node_modules/@langchain/core/src/output_parsers/openai_tools/json_output_tools_parsers.ts:312:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async JsonOutputKeyToolsParser._callWithConfig (/Users/johnpaul/projects/capstone_demo/node_modules/@langchain/core/src/runnables/base.ts:385:16)
+    at async RunnableSequence.invoke (/Users/johnpaul/projects/capstone_demo/node_modules/@langchain/core/src/runnables/base.ts:1994:21)
+    at async OpenRouterService.runGeneration (/Users/johnpaul/projects/capstone_demo/app/services/open_router_service.ts:377:16)
+    at async OpenRouterService.generateOutlineWithEvidence (/Users/johnpaul/projects/capstone_demo/app/services/open_router_service.ts:179:21)
+    at async GenerationService.execute (/Users/johnpaul/projects/capstone_demo/app/services/documents/generation_service.ts:184:9)
+    at async run (file:///Users/johnpaul/projects/capstone_demo/output/humblebee-portfolio/generate-entries.mjs:11:5)
+    at async file:///Users/johnpaul/projects/capstone_demo/output/humblebee-portfolio/generate-entries.mjs:12:145
+    at async Promise.all (index 2)
+ENTRY_GENERATING project:bride f666afb6-4f88-426b-a3d1-861573290783 vision
+[generation f666afb6-4f88-426b-a3d1-861573290783] retrieval finished in 994ms with 19 chunks
+[generation f666afb6-4f88-426b-a3d1-861573290783] generation started (outline)
+[generation 8a94eff7-ed2c-45f0-a564-5d0ea5058d1c] generation finished in 22632ms
+ENTRY_READY project:enlighten-qalb 8a94eff7-ed2c-45f0-a564-5d0ea5058d1c b970a2ff-2949-48be-9729-12e255b29a3d
+ENTRY_GENERATING paper:2409.04187 ab8184e2-9abd-4dc1-af34-7230167d92ec technical
+ENTRY_FAILED project:bride Error: Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "bRide is a development-stage, human-guided AI productivity platform designed to help knowledge workers and organizations turn expertise into accountable execution and professional growth."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "5ed9ab58-bfc1-4ff2-a130-04f5fb48e157"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "section_1",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "bRide is described as an AI execution layer that keeps people in control while assisting with work and supporting longer-term professional development. The project is listed as “in dev,” with scope “Big”; the source describes capabilities and intended experience, not independently verified production features. No results or performance measurements have been provided."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "6d5ffeb1-dc11-4e6a-aaf2-70364bf60326"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "5ed9ab58-bfc1-4ff2-a130-04f5fb48e157"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "section_2",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "The stated audience is knowledge workers and organizations. The project brief identifies an execution bottleneck: the gap between strategic intent and tangible outcomes in fast-paced, digitally fragmented work. It frames passive assistance and autonomous systems as possible sources of friction or trust concerns, and positions human oversight as important when AI contributes to consequential work."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "82aed6c2-ec22-44b7-8e4e-39142363e282"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "7aefd8b8-07e6-4825-b111-84b34bf420c7"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "section_3",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "The intended direction is a human-directed partnership: AI helps with execution while people retain decision-making authority. The project describes a longer-term ambition to learn from structured growth data and support professionals as their skills develop. This is a product vision, not evidence that longitudinal learning or growth outcomes have been validated."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "5ed9ab58-bfc1-4ff2-a130-04f5fb48e157"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "87162cad-2faa-4649-8f26-0163c967593e"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "section_4",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Development descriptions include assistance with recurring tasks such as drafting emails, meeting notes and reports; aggregating work logs, peer feedback and mentorship reviews for growth tracking; and connecting workflows involving email, Slack, Notion and Google Calendar. Human-in-the-loop control is central to the proposed experience: actions are described as reviewable before execution, with repetitive work delegated under user oversight. These are described capabilities, not confirmed integrations or available features."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "a8fe7aa9-19b6-458f-8849-eb9f64df7aac"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "d92a8ef0-a716-45d5-9aba-5f3df7819279"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "a2a986a6-6ad0-4fda-b1d0-80c2228f4ae1"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "d4902f78-617e-4e70-86ee-4dd2fa81e4b6"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "section_5",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "The documented product concept combines execution assistance with human review and a growth-oriented approach based on longitudinal development data. Its proposed emphasis on transparency, auditability and human control describes a design intention; no comparative testing, independent validation or measured advantage over other products has been supplied."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "14e3cc4a-c93c-4d0c-82b7-3749af1cc37a"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "12fa6c6b-8f19-4ef5-a2cd-bc9c839fd9da"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "section_6",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "The published status is “in dev.” No demo URL is printed, and the source does not confirm a current release, pilot completion or availability to customers. The roadmap text gives an MVP launch target of Q3 2025, with deployment within HumbleBeeAI and pilot partner organizations to validate real-world applications. It also describes validation with 10+ internal users and a few external partners to assess measurable business outcomes. These are stated targets; whether they occurred, and any results, have not been provided. The long-term vision mentions aiming to power 1M+ knowledge workers globally, an aspiration rather than a delivered result."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "6d5ffeb1-dc11-4e6a-aaf2-70364bf60326"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "a724b6e3-c13b-4fce-a037-be823955047b"
+              }
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "28723995-a5e7-4208-96ba-9baa63b14bf1"
+              }
+            }
+          ]
+        },
+        {
+          "key": "section_7",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "bRide is positioned as a human-guided approach to AI-assisted execution and professional growth, currently documented as in development. The stated next validation step is the MVP and pilot work described in the roadmap; completion and outcomes remain unconfirmed. For project details, see the "
+                },
+                {
+                  "type": "text",
+                  "text": "original HumbleBeeAI project page",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "href": "https://humblebee.ai/projects/bride"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": "."
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "ab8d8baf-2c41-4cd0-b679-514deec5fe8c"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "a724b6e3-c13b-4fce-a037-be823955047b"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}". Error: [{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",6,"content",1,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""}]
+
+Troubleshooting URL: https://docs.langchain.com/oss/javascript/langchain/errors/OUTPUT_PARSING_FAILURE/
+
+    at JsonOutputKeyToolsParser._validateResult (/Users/johnpaul/projects/capstone_demo/node_modules/@langchain/core/src/output_parsers/openai_tools/json_output_tools_parsers.ts:312:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async JsonOutputKeyToolsParser._callWithConfig (/Users/johnpaul/projects/capstone_demo/node_modules/@langchain/core/src/runnables/base.ts:385:16)
+    at async RunnableSequence.invoke (/Users/johnpaul/projects/capstone_demo/node_modules/@langchain/core/src/runnables/base.ts:1994:21)
+    at async OpenRouterService.runGeneration (/Users/johnpaul/projects/capstone_demo/app/services/open_router_service.ts:377:16)
+    at async OpenRouterService.generateOutlineWithEvidence (/Users/johnpaul/projects/capstone_demo/app/services/open_router_service.ts:179:21)
+    at async GenerationService.execute (/Users/johnpaul/projects/capstone_demo/app/services/documents/generation_service.ts:184:9)
+    at async run (file:///Users/johnpaul/projects/capstone_demo/output/humblebee-portfolio/generate-entries.mjs:11:5)
+    at async file:///Users/johnpaul/projects/capstone_demo/output/humblebee-portfolio/generate-entries.mjs:12:145
+    at async Promise.all (index 2)
+ENTRY_GENERATING paper:10883969 7dd4f247-f585-4d0b-8f46-2cf4cb61b0e9 technical
+[generation ab8184e2-9abd-4dc1-af34-7230167d92ec] retrieval finished in 1943ms with 20 chunks
+[generation ab8184e2-9abd-4dc1-af34-7230167d92ec] generation started (outline)
+[generation 7dd4f247-f585-4d0b-8f46-2cf4cb61b0e9] retrieval finished in 1528ms with 20 chunks
+[generation 7dd4f247-f585-4d0b-8f46-2cf4cb61b0e9] generation started (outline)
+[generation ab8184e2-9abd-4dc1-af34-7230167d92ec] generation finished in 22441ms
+ENTRY_READY paper:2409.04187 ab8184e2-9abd-4dc1-af34-7230167d92ec 1a8e7a9d-d456-466e-9f17-b11e37d90061
+ENTRY_GENERATING paper:10316180 304043c7-a0ab-4016-8e24-735f59bddefd technical
+[generation 304043c7-a0ab-4016-8e24-735f59bddefd] retrieval finished in 1398ms with 20 chunks
+[generation 304043c7-a0ab-4016-8e24-735f59bddefd] generation started (outline)
+[generation 7dd4f247-f585-4d0b-8f46-2cf4cb61b0e9] generation finished in 25789ms
+ENTRY_READY paper:10883969 7dd4f247-f585-4d0b-8f46-2cf4cb61b0e9 83120816-c5c8-4451-906b-6160b6c62f02
+ENTRY_GENERATING paper:515 177e84d4-0b3c-4208-aabd-864304028f7e technical
+[generation 177e84d4-0b3c-4208-aabd-864304028f7e] retrieval finished in 1208ms with 20 chunks
+[generation 177e84d4-0b3c-4208-aabd-864304028f7e] generation started (outline)
+[generation 304043c7-a0ab-4016-8e24-735f59bddefd] generation finished in 18699ms
+ENTRY_READY paper:10316180 304043c7-a0ab-4016-8e24-735f59bddefd c1ff2f70-2e9d-4568-87f5-8c2dbeda3dc0
+ENTRY_GENERATING paper:9661375 915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe technical
+[generation 915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe] retrieval finished in 2426ms with 20 chunks
+[generation 915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe] generation started (outline)
+[generation 177e84d4-0b3c-4208-aabd-864304028f7e] generation finished in 24196ms
+ENTRY_READY paper:515 177e84d4-0b3c-4208-aabd-864304028f7e b41ebcd9-17df-4a7c-91c7-14273e491660
+ENTRY_GENERATING paper:9064976 b98c42ac-05d0-45b3-85d5-f0fb0a328934 technical
+[generation b98c42ac-05d0-45b3-85d5-f0fb0a328934] retrieval finished in 2540ms with 20 chunks
+[generation b98c42ac-05d0-45b3-85d5-f0fb0a328934] generation started (outline)
+{"level":40,"time":1793895345680,"pid":22783,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 120 s; retrying"}
+[generation b98c42ac-05d0-45b3-85d5-f0fb0a328934] generation finished in 19398ms
+ENTRY_READY paper:9064976 b98c42ac-05d0-45b3-85d5-f0fb0a328934 b0851e96-43f2-4833-8504-d5a72f2c11ed
+ENTRY_GENERATING paper:1910.01091 2089db00-6d6c-4ceb-a7c4-1ce2970c951a technical
+[generation 2089db00-6d6c-4ceb-a7c4-1ce2970c951a] retrieval finished in 1429ms with 20 chunks
+[generation 2089db00-6d6c-4ceb-a7c4-1ce2970c951a] generation started (outline)
+ENTRY_FAILED paper:1910.01091 Error: Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "W-Net is a compact convolutional neural network research architecture for classifying five types of white blood cells in microscopy images."
+            },
+            {
+              "type": "sourceCitation",
+              "attrs": {
+                "sourceChunkId": "f2765b26-100c-49d3-bc38-0cf9d621da33"
+              }
+            }
+          ]
+        },
+        {
+          "key": "section_1",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "“W-Net: A CNN-based Architecture for White Blood Cells Image Classification” asks whether a compact CNN can classify five white-blood-cell (WBC) types. The authors are Changhun Jung, Mohammed Abuhamad, Jumabek Alikhanov, Aziz Mohaisen, Kyungja Han and DaeHun Nyang. The reviewed evidence is an arXiv preprint, arXiv:1910.01091v1, dated 2 October 2019; formal venue publication is not established. The work reports average 97% accuracy on a private dataset and evaluates further training on LISC public data. No product or client-case relationship is established."
+                },
+                {
+                  "type": "text",
+                  "text": " Read the "
+                },
+                {
+                  "type": "text",
+                  "text": "arXiv record",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "href": "https://arxiv.org/abs/1910.01091",
+                        "target": "_blank"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": " or "
+                },
+                {
+                  "type": "text",
+                  "text": "PDF",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "href": "https://arxiv.org/pdf/1910.01091",
+                        "target": "_blank"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": "."
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "8caa1489-16a1-4678-b652-dc928ffd761e"
+                  }
+                }
+              ]
+            },
+            {
+              "key": "section_2",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Manual blood-smear review is described as time-consuming and dependent on operator experience, while WBC classification remains challenging after cells are observed. The task is to distinguish neutrophils, eosinophils, basophils, lymphocytes and monocytes; the study also addresses class imbalance. Its stated objective is classification, not leukemia diagnosis or a breast-cancer biomarker result."
+                    },
+                    {
+                      "type": "sourceCitation",
+                      "attrs": {
+                        "sourceChunkId": "56469adb-4e9f-4aa2-ac35-137833b24a1c"
+                      }
+                    },
+                    {
+                      "type": "sourceCitation",
+                      "attrs": {
+                        "sourceChunkId": "8caa1489-16a1-4678-b652-dc928ffd761e"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "key": "section_3",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "The reported pipeline crops, resizes and normalizes cell images, then uses three convolutional layers with pooling to extract features. Two fully connected layers classify the image into five classes, with a softmax output. The authors describe the architecture as having a small number of layers; the model contains 16,806,949 trainable parameters."
+                        },
+                        {
+                          "type": "sourceCitation",
+                          "attrs": {
+                            "sourceChunkId": "f2765b26-100c-49d3-bc38-0cf9d621da33"
+                          }
+                        },
+                        {
+                          "type": "sourceCitation",
+                          "attrs": {
+                            "sourceChunkId": "505dca26-9178-4647-bb76-52645ec6ea1c"
+                          }
+                        },
+                        {
+                          "type": "sourceCitation",
+                          "attrs": {
+                            "sourceChunkId": "423dfd02-49f0-4dba-8593-2004c685f142"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "key": "section_4",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "For the primary experiment, the team used 6,562 real RGB images supplied by The Catholic University of Korea, captured with a Sysmex DI60; the paper reports IRB approval. The five classes are represented in unequal numbers. Training used softmax loss, Adam with learning rate 0.0001, batch size 5 and 500 epochs, with 10-fold cross-validation. The paper also reports making the trained model available on GitHub, but this evidence does not establish a HumbleBeeAI product or production deployment."
+                            },
+                            {
+                              "type": "sourceCitation",
+                              "attrs": {
+                                "sourceChunkId": "985bcc98-a886-4927-b0cc-dbc02640821c"
+                              }
+                            },
+                            {
+                              "type": "sourceCitation",
+                              "attrs": {
+                                "sourceChunkId": "423dfd02-49f0-4dba-8593-2004c685f142"
+                              }
+                            },
+                            {
+                              "type": "sourceCitation",
+                              "attrs": {
+                                "sourceChunkId": "f2765b26-100c-49d3-bc38-0cf9d621da33"
+                              }
+                            },
+                            {
+                              "type": "sourceCitation",
+                              "attrs": {
+                                "sourceChunkId": "0fd1d194-6ce7-45ac-9f56-5199fa414bcf"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "key": "section_5",
+                          "content": [
+                            {
+                              "type": "paragraph",
+                              "content": [
+                                {
+                                  "type": "text",
+                                  "text": "The reported primary result is average classification accuracy of 97% across five WBC classes on the private 6,562-image dataset, evaluated with 10-fold cross-validation. The authors say they compared W-Net with ResNet, but the supplied evidence does not provide the comparison’s numeric result or full test protocol."
+                                },
+                                {
+                                  "type": "sourceCitation",
+                                  "attrs": {
+                                    "sourceChunkId": "8caa1489-16a1-4678-b652-dc928ffd761e"
+                                  }
+                                },
+                                {
+                                  "type": "sourceCitation",
+                                  "attrs": {
+                                    "sourceChunkId": "f2765b26-100c-49d3-bc38-0cf9d621da33"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "key": "section_6",
+                              "content": [
+                                {
+                                  "type": "paragraph",
+                                  "content": [
+                                    {
+                                      "type": "text",
+                                      "text": "On LISC public data, the study used 254 images and 10-fold cross-validation. Training a W-Net from scratch yielded 91% average accuracy; initializing with the model trained on the private data and then further training on LISC yielded 96%. Both models used 128×128×3 images and the same normalization, hardware environment and other stated hyperparameters; the training epoch counts differed. These are research measurements, not client or business outcomes."
+                                    },
+                                    {
+                                      "type": "sourceCitation",
+                                      "attrs": {
+                                        "sourceChunkId": "0fd1d194-6ce7-45ac-9f56-5199fa414bcf"
+                                      }
+                                    },
+                                    {
+                                      "type": "sourceCitation",
+                                      "attrs": {
+                                        "sourceChunkId": "0dfc3600-25ea-497f-885c-1eadb1f7da7c"
+                                      }
+                                    }
+                                  ]
+                                },
+                                {
+                                  "key": "section_7",
+                                  "content": [
+                                    {
+                                      "type": "paragraph",
+                                      "content": [
+                                        {
+                                          "type": "text",
+                                          "text": "The evidence does not specify hardware details, confidence intervals, independent external validation or clinical performance. The private dataset limits independent reproduction from the information provided. Although the paper discusses transfer learning, no future product work or next-step plan is established in the supplied records; publication approval and HumbleBeeAI review remain pending."
+                                        },
+                                        {
+                                          "type": "sourceCitation",
+                                          "attrs": {
+                                            "sourceChunkId": "985bcc98-a886-4927-b0cc-dbc02640821c"
+                                          }
+                                        },
+                                        {
+                                          "type": "sourceCitation",
+                                          "attrs": {
+                                            "sourceChunkId": "0fd1d194-6ce7-45ac-9f56-5199fa414bcf"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "key": "section_8",
+                                      "content": [
+                                        {
+                                          "type": "paragraph",
+                                          "content": [
+                                            {
+                                              "type": "text",
+                                              "text": "W-Net presents a compact CNN approach to five-class WBC image classification, reporting 97% average accuracy on a private dataset and improved LISC accuracy with further training. These findings support a research contribution only; they do not establish a deployed product, diagnostic result or measured business impact."
+                                            },
+                                            {
+                                              "type": "sourceCitation",
+                                              "attrs": {
+                                                "sourceChunkId": "8caa1489-16a1-4678-b652-dc928ffd761e"
+                                              }
+                                            },
+                                            {
+                                              "type": "sourceCitation",
+                                              "attrs": {
+                                                "sourceChunkId": "0fd1d194-6ce7-45ac-9f56-5199fa414bcf"
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "commentary": " "
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}". Error: [{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",0,"content",1,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",0,"content",1,"content",1,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",0,"content",1,"content",1,"content",1,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",0,"content",1,"content",1,"content",1,"content",1,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",0,"content",1,"content",1,"content",1,"content",1,"content",1,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",0,"content",1,"content",1,"content",1,"content",1,"content",1,"content",1,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",0,"content",1,"content",1,"content",1,"content",1,"content",1,"content",1,"content",1,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",0,"content",1,"content",1,"content",1,"content",1,"content",1,"content",1,"content",1,"content",1,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""}]
+
+Troubleshooting URL: https://docs.langchain.com/oss/javascript/langchain/errors/OUTPUT_PARSING_FAILURE/
+
+    at JsonOutputKeyToolsParser._validateResult (/Users/johnpaul/projects/capstone_demo/node_modules/@langchain/core/src/output_parsers/openai_tools/json_output_tools_parsers.ts:312:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async JsonOutputKeyToolsParser._callWithConfig (/Users/johnpaul/projects/capstone_demo/node_modules/@langchain/core/src/runnables/base.ts:385:16)
+    at async RunnableSequence.invoke (/Users/johnpaul/projects/capstone_demo/node_modules/@langchain/core/src/runnables/base.ts:1994:21)
+    at async OpenRouterService.runGeneration (/Users/johnpaul/projects/capstone_demo/app/services/open_router_service.ts:377:16)
+    at async OpenRouterService.generateOutlineWithEvidence (/Users/johnpaul/projects/capstone_demo/app/services/open_router_service.ts:179:21)
+    at async GenerationService.execute (/Users/johnpaul/projects/capstone_demo/app/services/documents/generation_service.ts:184:9)
+    at async run (file:///Users/johnpaul/projects/capstone_demo/output/humblebee-portfolio/generate-entries.mjs:11:5)
+    at async file:///Users/johnpaul/projects/capstone_demo/output/humblebee-portfolio/generate-entries.mjs:12:145
+    at async Promise.all (index 2)
+{"level":40,"time":1793895451557,"pid":22783,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 120 s; retrying"}
+ENTRY_FAILED project:ai-avatar TimeoutError: The operation was aborted due to timeout
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    at Timeout._onTimeout (node:internal/abort_controller:210:9)
+    at listOnTimeout (node:internal/timers:635:17)
+    at process.processTimers (node:internal/timers:571:7)
+[generation 915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe] generation finished in 146241ms
+ENTRY_READY paper:9661375 915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe 13a8f453-e519-4e49-a11d-fb6e6ae24ac2
+ENTRY_BATCH_FINISHED {"planned":41,"generated":32,"failures":[{"key":"company-update:vc-studio-qatar","error":"Cannot read file from location \"workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/derived/aa978e8c-e59e-4142-bf14-d21a207b466e/5bb615e6-60df-4a06-8a7e-aedf927193b8-image.png\""},{"key":"case-study:patient-data-analytics","error":"Failed to parse. Text: \"{\n  \"sections\": [\n    {\n      \"key\": \"section_0\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"Patient Report Analyzer addressed Johnson & Johnson’s inconsistent Excel workflows, with the case study reporting an 80% reduction in preprocessing/manual work and a separate 50% processing improvement. \"\n            },\n            {\n              \"type\": \"text\",\n              \"text\": \"Read the original case study\",\n              \"marks\": [\n                {\n                  \"type\": \"link\",\n                  \"attrs\": {\n                    \"href\": \"https://humblebee.ai/case-studies/patient-data-analytics\"\n                  }\n                }\n              ]\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"78bb7334-7237-4866-8a7c-2168cf401e13\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"key\": \"section_1\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"Johnson & Johnson analytics teams faced a bottleneck: patient data arrived in Excel files with varying structures, formats and sizes, requiring manual cleanup before analysis. HumbleBeeAI developed the Patient Report Analyzer to automate parsing and cleaning across those files. The source-reported outcomes are an 80% reduction in preprocessing/manual work and a separate 50% processing improvement; the case study is a website snapshot with owner approval and publication approval pending, and the figures have not been independently validated.\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"78bb7334-7237-4866-8a7c-2168cf401e13\"\n              }\n            }\n          ]\n        },\n        {\n          \"key\": \"section_2\",\n          \"content\": [\n            {\n              \"type\": \"paragraph\",\n              \"content\": [\n                {\n                  \"type\": \"text\",\n                  \"text\": \"Columns could shift, sheets could be restructured and formats varied, so analysts had to interpret files and clean and reshape data by hand. The case study describes this as consuming hours and slowing processing of complex, large Excel datasets, leaving healthcare teams waiting for insights. It identifies parsing complexity, manual effort, delays and reliable support for multiple formats as constraints; baseline hours, evaluation sample and test environment are not supplied.\"\n                },\n                {\n                  \"type\": \"sourceCitation\",\n                  \"attrs\": {\n                    \"sourceChunkId\": \"40297078-7351-40d8-95a2-8719d559e0c7\"\n                  }\n                }\n              ]\n            },\n            {\n              \"key\": \"section_3\",\n              \"content\": [\n                {\n                  \"type\": \"heading\",\n                  \"attrs\": {\n                    \"level\": 3\n                  },\n                  \"content\": [\n                    {\n                      \"type\": \"text\",\n                      \"text\": \"Adaptive parsing and data cleaning\"\n                    }\n                  ]\n                },\n                {\n                  \"type\": \"paragraph\",\n                  \"content\": [\n                    {\n                      \"type\": \"text\",\n                      \"text\": \"The Analyzer’s parsing adapts to renamed columns and restructured sheets, while cleaning algorithms handle inconsistencies. These capabilities target the varied file structures and manual preparation that impeded analysis.\"\n                    },\n                    {\n                      \"type\": \"sourceCitation\",\n                      \"attrs\": {\n                        \"sourceChunkId\": \"0b330d22-3eac-44f6-8bfc-74e99ec7953c\"\n                      }\n                    },\n                    {\n                      \"type\": \"sourceCitation\",\n                      \"attrs\": {\n                        \"sourceChunkId\": \"8f21d28b-6ad8-44cb-a8d8-b3d6339e1266\"\n                      }\n                    }\n                  ]\n                },\n                {\n                  \"type\": \"heading\",\n                  \"attrs\": {\n                    \"level\": 3\n                  },\n                  \"content\": [\n                    {\n                      \"type\": \"text\",\n                      \"text\": \"Batch analysis and reporting\"\n                    }\n                  ]\n                },\n                {\n                  \"type\": \"paragraph\",\n                  \"content\": [\n                    {\n                      \"type\": \"text\",\n                      \"text\": \"Batch processing and caching support handling large files; the source says runs could accommodate files over 1GB. The tool also provides charts, tables and downloadable Excel summaries, giving teams multiple ways to review and export analyzed data.\"\n                    },\n                    {\n                      \"type\": \"sourceCitation\",\n                      \"attrs\": {\n                        \"sourceChunkId\": \"0b330d22-3eac-44f6-8bfc-74e99ec7953c\"\n                      }\n                    }\n                  ]\n                },\n                {\n                  \"key\": \"section_4\",\n                  \"content\": [\n                    {\n                      \"type\": \"paragraph\",\n                      \"content\": [\n                        {\n                          \"type\": \"text\",\n                          \"text\": \"The case study reports an 80% decrease in manual work/preprocessing relative to the earlier manual Excel workflow. It separately reports processing as 50% faster, while elsewhere describing processing time as halved; these formulations are inconsistent, so the processing measure requires owner confirmation. The source also labels data scale as 1GB+ and describes gigabyte-sized datasets, but this is a scale claim, not a timed benchmark. Baseline times, denominators, sample size and test conditions have not been provided, and no business-impact measure is supplied.\"\n                        },\n                        {\n                          \"type\": \"sourceCitation\",\n                          \"attrs\": {\n                            \"sourceChunkId\": \"26dc5cc2-487f-4d1d-a20b-276a424f1b1b\"\n                          }\n                        },\n                        {\n                          \"type\": \"sourceCitation\",\n                          \"attrs\": {\n                            \"sourceChunkId\": \"78bb7334-7237-4866-8a7c-2168cf401e13\"\n                          }\n                        }\n                      ]\n                    },\n                    {\n                      \"key\": \"section_5\",\n                      \"content\": [\n                        {\n                          \"type\": \"paragraph\",\n                          \"content\": [\n                            {\n                              \"type\": \"text\",\n                              \"text\": \"The available case-study material presents the Analyzer and its capabilities as developed, but does not specify deployment details, production availability or current operational status. It does not provide benchmark methodology, baseline measurements, evaluation sample or test environment. The 50% processing figure needs clarification because the source uses both “time halved” and “50% faster.” No next steps have been provided; owner review and publication approval remain pending.\"\n                            },\n                            {\n                              \"type\": \"sourceCitation\",\n                              \"attrs\": {\n                                \"sourceChunkId\": \"78bb7334-7237-4866-8a7c-2168cf401e13\"\n                              }\n                            },\n                            {\n                              \"type\": \"sourceCitation\",\n                              \"attrs\": {\n                                \"sourceChunkId\": \"26dc5cc2-487f-4d1d-a20b-276a424f1b1b\"\n                              }\n                            }\n                          ]\n                        },\n                        {\n                          \"key\": \"section_6\",\n                          \"content\": [\n                            {\n                              \"type\": \"paragraph\",\n                              \"content\": [\n                                {\n                                  \"type\": \"text\",\n                                  \"text\": \"Patient Report Analyzer was developed to reduce the manual burden of inconsistent patient-data spreadsheets through adaptive parsing, cleaning and batch reporting. The case study reports substantial preprocessing and processing improvements, while the missing benchmark conditions and pending review limit what can be concluded about their measurement and broader impact.\"\n                                },\n                                {\n                                  \"type\": \"sourceCitation\",\n                                  \"attrs\": {\n                                    \"sourceChunkId\": \"78bb7334-7237-4866-8a7c-2168cf401e13\"\n                                  }\n                                },\n                                {\n                                  \"type\": \"sourceCitation\",\n                                  \"attrs\": {\n                                    \"sourceChunkId\": \"26dc5cc2-487f-4d1d-a20b-276a424f1b1b\"\n                                  }\n                                }\n                              ]\n                            }\n                          ]\n                        }\n                      ]\n                    },\n                    \"attrs\"\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\". Error: [{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",1,\"content\",1,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"},{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",1,\"content\",1,\"content\",1,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"},{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",1,\"content\",1,\"content\",1,\"content\",4,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"},{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",1,\"content\",1,\"content\",1,\"content\",4,\"content\",1,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"},{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",1,\"content\",1,\"content\",1,\"content\",4,\"content\",1,\"content\",1,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"},{\"expected\":\"object\",\"code\":\"invalid_type\",\"path\":[\"sections\",1,\"content\",1,\"content\",1,\"content\",4,\"content\",2],\"message\":\"Invalid input: expected object, received string\"}]\n\nTroubleshooting URL: https://docs.langchain.com/oss/javascript/langchain/errors/OUTPUT_PARSING_FAILURE/\n"},{"key":"case-study:data-labeling-tool","error":"Failed to parse. Text: \"{\n  \"sections\": [\n    {\n      \"key\": \"section_0\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"A customized, ML-assisted data labeling platform helped a computer vision service provider scale secure annotation workflows across enterprise customer environments.\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"dbe9ed7c-06d9-4c00-bd5c-3d516850ece4\"\n              }\n            },\n            {\n              \"type\": \"text\",\n              \"text\": \" \"\n            },\n            {\n              \"type\": \"text\",\n              \"text\": \"Original case study\",\n              \"marks\": [\n                {\n                  \"type\": \"link\",\n                  \"attrs\": {\n                    \"href\": \"https://humblebee.ai/case-studies/data-labeling-tool\"\n                  }\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"key\": \"section_1\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"HumbleBeeAI designed and implemented a customized labeling platform for a computer vision service provider serving more than 15 enterprise clients. The client needed isolated environments, secure data handling and model-assisted workflows for varied annotation work. The case study reports delivery of 15+ isolated annotation environments and a 75% reduction in annotation time. These are source-reported figures, not independently validated; owner approval remains pending.\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"dbe9ed7c-06d9-4c00-bd5c-3d516850ece4\"\n              }\n            },\n            {\n              \"type\": \"text\",\n              \"text\": \" \"\n            },\n            {\n              \"type\": \"text\",\n              \"text\": \"Original case study\",\n              \"marks\": [\n                {\n                  \"type\": \"link\",\n                  \"attrs\": {\n                    \"href\": \"https://humblebee.ai/case-studies/data-labeling-tool\"\n                  }\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"key\": \"section_2\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"Each customer required a platform tailored to its specifications, strict data isolation and security, creating operational complexity as the provider managed large annotation projects. Its existing infrastructure faced difficulty scaling isolated deployments and concurrent model processing across annotation types; GPU memory use and auto-labeling performance were also reported as concerns. The work covered object detection, segmentation, video tracking and keypoint analysis, among other needs. The source describes difficulty with the earlier infrastructure but does not quantify its baseline workload, annotation hours or performance.\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"827205d2-d6d8-4929-97f4-40b44da4a73a\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"ffe0ad6-491b-4c81-8d60-7282ea1273e6\"\n              }\n            },\n            {\n              \"type\": \"text\",\n              \"text\": \" \"\n            },\n            {\n              \"type\": \"text\",\n              \"text\": \"Original case study\",\n              \"marks\": [\n                {\n                  \"type\": \"link\",\n                  \"attrs\": {\n                    \"href\": \"https://humblebee.ai/case-studies/data-labeling-tool\"\n                  }\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"key\": \"section_3\",\n      \"content\": [\n        {\n          \"type\": \"heading\",\n          \"attrs\": {\n            \"level\": 3\n          },\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"Secure, isolated environments\"\n            }\n          ]\n        },\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"The delivered platform disabled local file imports to keep Google Cloud Storage (GCS) as the single source of truth, used invite-only registration, and configured automated database backups to GCS for recovery and server migration. The deployment architecture managed company-specific configurations, dedicated GCS buckets with CORS policies and automated port allocation, separating customer instances.\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"0ccca8c9-6e06-40d9-9d92-a5325f12baa8\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"1e1f0149-3340-4e91-91da-3454957d032c\"\n              }\n            },\n            {\n              \"type\": \"text\",\n              \"text\": \" \"\n            },\n            {\n              \"type\": \"text\",\n              \"text\": \"Original case study\",\n              \"marks\": [\n                {\n                  \"type\": \"link\",\n                  \"attrs\": {\n                    \"href\": \"https://humblebee.ai/case-studies/data-labeling-tool\"\n                  }\n                }\n              ]\n            }\n          ]\n        },\n        {\n          \"type\": \"heading\",\n          \"attrs\": {\n            \"level\": 3\n          },\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"ML-assisted annotation\"\n            }\n          ]\n        },\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"An ML backend supported seven annotation types, with model caching, automatic model detection from labeling configuration and dynamic model loading from GCS. These capabilities were intended to reduce manual model management and support AI-assisted labeling workflows.\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"b68ab74a-d4c3-406c-9034-27ff103efe55\"\n              }\n            },\n            {\n              \"type\": \"text\",\n              \"text\": \" \"\n            },\n            {\n              \"type\": \"text\",\n              \"text\": \"Original case study\",\n              \"marks\": [\n                {\n                  \"type\": \"link\",\n                  \"attrs\": {\n                    \"href\": \"https://humblebee.ai/case-studies/data-labeling-tool\"\n                  }\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"key\": \"section_4\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"The case study reports 15+ isolated environments, a 75% reduction in annotation time for ML-assisted versus manual labeling, and 90%+ labeling accuracy attributed to specialized models and validation workflows. The source does not provide the annotation sample size, baseline hours, accuracy definition or evaluation sample, so the figures cannot be independently assessed from the supplied evidence. The reported 15+ figure is a deployment count, not an accuracy sample.\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"4a6967db-be9c-40d0-b0d6-92190bb06bcf\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"cae528ec-cafb-48e5-bffc-7b1365691804\"\n              }\n            },\n            {\n              \"type\": \"text\",\n              \"text\": \" \"\n            },\n            {\n              \"type\": \"text\",\n              \"text\": \"Original case study\",\n              \"marks\": [\n                {\n                  \"type\": \"link\",\n                  \"attrs\": {\n                    \"href\": \"https://humblebee.ai/case-studies/data-labeling-tool\"\n                  }\n                }\n              ]\n            }\n          ]\n        },\n        {\n          \"key\": \"section_5\",\n          \"content\": [\n            {\n              \"type\": \"paragraph\",\n              \"content\": [\n                {\n                  \"type\": \"text\",\n                  \"text\": \"The source also claims 99.9% data-protection reliability for configurable backups and GCS integration, and says migration times fell from days to hours. However, reliability is undefined and the evidence supplied gives no test conditions or measurement method; this figure is therefore not presented as a substantiated portfolio result. Migration timing likewise lacks comparison details. No further measurement data or independent validation has been provided.\"\n                },\n                {\n                  \"type\": \"sourceCitation\",\n                  \"attrs\": {\n                    \"sourceChunkId\": \"8b8b39d1-1e6f-4139-9a9a-4b2b2c1f0032\"\n                  }\n                },\n                {\n                  \"type\": \"text\",\n                  \"text\": \" \"\n                },\n                {\n                  \"type\": \"text\",\n                  \"text\": \"Original case study\",\n                  \"marks\": [\n                    {\n                      \"type\": \"link\",\n                      \"attrs\": {\n                        \"href\": \"https://humblebee.ai/case-studies/data-labeling-tool\"\n                      }\n                    }\n                  ]\n                },\n                {\n                  \"type\": \"hardBreak\"\n                },\n                {\n                  \"type\": \"text\",\n                  \"text\": \"The source describes advanced analytics dashboards and deeper MLOps integrations as enhancements being explored, not delivered capabilities. No approved next-step plan is supplied. The case study text has been reviewed, but owner approval is pending.\"\n                },\n                {\n                  \"type\": \"sourceCitation\",\n                  \"attrs\": {\n                    \"sourceChunkId\": \"cae528ec-cafb-48e5-bffc-7b1365691804\"\n                  }\n                },\n                {\n                  \"type\": \"text\",\n                  \"text\": \" \"\n                },\n                {\n                  \"type\": \"text\",\n                  \"text\": \"Original case study\",\n                  \"marks\": [\n                    {\n                      \"type\": \"link\",\n                      \"attrs\": {\n                        \"href\": \"https://humblebee.ai/case-studies/data-labeling-tool\"\n                      }\n                    }\n                  ]\n                }\n              ]\n            }\n          ]\n        },\n        {\n          \"key\": \"section_6\",\n          \"content\": [\n            {\n              \"type\": \"paragraph\",\n              \"content\": [\n                {\n                  \"type\": \"text\",\n                  \"text\": \"The delivered platform combined customer isolation, GCS-backed recovery and model-assisted annotation to address the provider’s stated security and scaling needs. The source reports improved annotation time and deployment scale, while key measurement conditions remain unspecified; those limitations should accompany the reported outcomes.\"\n                },\n                {\n                  \"type\": \"sourceCitation\",\n                  \"attrs\": {\n                    \"sourceChunkId\": \"4a6967db-be9c-40d0-b0d6-92190bb06bcf\"\n                  }\n                },\n                {\n                  \"type\": \"text\",\n                  \"text\": \" \"\n                },\n                {\n                  \"type\": \"text\",\n                  \"text\": \"Original case study\",\n                  \"marks\": [\n                    {\n                      \"type\": \"link\",\n                      \"attrs\": {\n                        \"href\": \"https://humblebee.ai/case-studies/data-labeling-tool\"\n                      }\n                    }\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"content\": [\n    {\n      \"type\": \"paragraph\",\n      \"content\": [\n        {\n          \"type\": \"text\",\n          \"text\": \"The delivered platform combined customer isolation, GCS-backed recovery and model-assisted annotation to address the provider’s stated security and scaling needs. The source reports improved annotation time and deployment scale, while key measurement conditions remain unspecified; those limitations should accompany the reported outcomes.\"\n        },\n        {\n          \"type\": \"sourceCitation\",\n          \"attrs\": {\n            \"sourceChunkId\": \"4a6967db-be9c-40d0-b0d6-92190bb06bcf\"\n          }\n        },\n        {\n          \"type\": \"text\",\n          \"text\": \" \"\n        },\n        {\n          \"type\": \"text\",\n          \"text\": \"Original case study\",\n          \"marks\": [\n            {\n              \"type\": \"link\",\n              \"attrs\": {\n                \"href\": \"https://humblebee.ai/case-studies/data-labeling-tool\"\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\". Error: [{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",4,\"content\",1,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"},{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",4,\"content\",2,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"}]\n\nTroubleshooting URL: https://docs.langchain.com/oss/javascript/langchain/errors/OUTPUT_PARSING_FAILURE/\n"},{"key":"case-study:customs-document-automation","error":"The operation was aborted due to timeout"},{"key":"case-study:ai-powered-retail-cart","error":"Failed to parse. Text: \"{\n  \"sections\": [\n    {\n      \"key\": \"section_0\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"How a retail AI provider improved cart and item detection through focused computer vision R&D\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"key\": \"section_1\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"A European checkout and loss-prevention technology company worked with HumbleBeeAI to address weak detection of shopping carts and varied purchasable items. The reported R&D improved the custom detector’s mAP@50–95 from approximately 55% to approximately 75%—about 20 percentage points, not a 20% relative improvement. The case study describes edge-device and real-time use, but does not establish a production rollout or provide measured frame rate. \"\n            },\n            {\n              \"type\": \"text\",\n              \"text\": \"Read the original HumbleBeeAI case study\",\n              \"marks\": [\n                {\n                  \"type\": \"link\",\n                  \"attrs\": {\n                    \"href\": \"https://humblebee.ai/case-studies/ai-powered-retail-cart\"\n                  }\n                }\n              ]\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"d869c90d-603f-4b0c-9b3f-d0bfb60ec880\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"1bb16db3-252e-4d87-8d22-774b50e96860\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"key\": \"section_2\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"The client develops intelligent checkout and loss-prevention systems for varied European retail settings. Its existing detection model was reported at approximately 55% mAP@50–95, with missed detections of non-empty carts and a particularly difficult “item” class spanning goods with diverse shapes, materials and colors. Differences in retail environments and lighting also made model performance and evaluation less consistent. The project therefore needed to improve item recognition while making performance assessment more dependable. \"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"bf6a0c29-13f6-43a9-a4e3-cfb4bb6b163a\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"7a3e81e7-6037-4a8a-a42f-5d3a3e9ad9ea\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"key\": \"section_3\",\n      \"content\": [\n        {\n          \"type\": \"heading\",\n          \"attrs\": {\n            \"level\": 3\n          },\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"Targeted detector development\"\n            }\n          ]\n        },\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"HumbleBeeAI custom-trained a single-stage detection network with emphasis on the complex item class, aiming to capture visual variation across retail scenarios. \"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"de36d3af-5101-4712-83c0-d6d65f4d3879\"\n              }\n            }\n          ]\n        },\n        {\n          \"type\": \"heading\",\n          \"attrs\": {\n            \"level\": 3\n          },\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"Broader training data and refinement\"\n            }\n          ]\n        },\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"The team expanded and diversified the training dataset with real-world retail footage, applying scaling, random cropping, color and brightness variation, and geometric transformations. It also analyzed error distributions and confidence variance across object categories to iteratively refine sampling strategies and model architectures. \"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"de36d3af-5101-4712-83c0-d6d65f4d3879\"\n              }\n            }\n          ]\n        },\n        {\n          \"type\": \"heading\",\n          \"attrs\": {\n            \"level\": 3\n          },\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"Confidence-interval evaluation\"\n            }\n          ]\n        },\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"A confidence interval-based evaluation method was introduced to make performance reporting more stable in the presence of dataset noise and domain variation. \"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"de36d3af-5101-4712-83c0-d6d65f4d3879\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"key\": \"section_4\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"The case study reports detection mAP@50–95 rising from approximately 55% to approximately 75%, an improvement of about 20 percentage points for the existing and improved cart/item detector. It also describes recognition across thousands of item types and varied lighting and shelf configurations. The source does not provide the test-set size, split, hardware, or measured FPS; the reported metric is source-reported and not independently validated in the review record. \"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"51783a48-9107-4a8a-a42f-5d3a3e9ad9ea\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"d869c90d-603f-4b0c-9b3f-d0bfb60ec880\"\n              }\n            }\n          ]\n        },\n        {\n          \"key\": \"section_5\",\n          \"content\": [\n            {\n              \"type\": \"paragraph\",\n              \"content\": [\n                {\n                  \"type\": \"text\",\n                  \"text\": \"The materials describe completed R&D and report edge-device, real-time performance in the case-study summary, but they do not establish whether the improved model was deployed in production. No hardware details or measured frame rate are supplied, so real-time performance cannot be independently assessed from the available figures. The case study attributes reduced shrinkage and improved loss prevention to the framework, but supplies no quantified business-impact measurement; those outcomes should be treated as reported claims, not measured results here. No further project steps are provided. \"\n                },\n                {\n                  \"type\": \"sourceCitation\",\n                  \"attrs\": {\n                    \"sourceChunkId\": \"1bb16db3-252e-4d87-8d22-774b50e96860\"\n                  }\n                },\n                {\n                  \"type\": \"sourceCitation\",\n                  \"attrs\": {\n                    \"sourceChunkId\": \"51783a48-9107-4a8a-a42f-5d3a3e9ad9ea\"\n                  }\n                }\n              ]\n            }\n          ]\n        },\n        {\n          \"key\": \"section_6\",\n          \"content\": [\n            {\n              \"type\": \"paragraph\",\n              \"content\": [\n                {\n                  \"type\": \"text\",\n                  \"text\": \"This engagement applied focused computer vision research and more structured evaluation to a difficult retail detection problem. Its supported outcome is the reported improvement in mAP@50–95; production status and quantified business impact remain unspecified in the available source material. \"\n                },\n                {\n                  \"type\": \"sourceCitation\",\n                  \"attrs\": {\n                    \"sourceChunkId\": \"d869c90d-603f-4b0c-9b3f-d0bfb60ec880\"\n                  }\n                },\n                {\n                  \"type\": \"sourceCitation\",\n                  \"attrs\": {\n                    \"sourceChunkId\": \"51783a48-9107-4a8a-a42f-5d3a3e9ad9ea\"\n                  }\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\". Error: [{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",4,\"content\",1,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"},{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",4,\"content\",2,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"}]\n\nTroubleshooting URL: https://docs.langchain.com/oss/javascript/langchain/errors/OUTPUT_PARSING_FAILURE/\n"},{"key":"project:bojhona","error":"Failed to parse. Text: \"{\n  \"sections\": [\n    {\n      \"key\": \"section_0\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"Bojhona is an in-development customs intelligence project that brings HS-code definitions together with historical product descriptions to support classification.\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"03b2b5f5-689d-402c-b8e4-e5004cf97b18\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"key\": \"section_1\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"Bojhona is intended to give customs officers, managers and trade businesses a unified way to consult legal HS-code definitions alongside examples drawn from historical customs product descriptions. The company page lists its status as “in dev” and scope as “Mid”; it does not provide a demo URL. This is a review draft based on a website snapshot, with owner approval pending. \"\n            },\n            {\n              \"type\": \"text\",\n              \"text\": \"View the original HumbleBeeAI project page\",\n              \"marks\": [\n                {\n                  \"type\": \"link\",\n                  \"attrs\": {\n                    \"href\": \"https://humblebee.ai/projects/bojhona\"\n                  }\n                }\n              ]\n            },\n            {\n              \"type\": \"text\",\n              \"text\": \".\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"03b2b5f5-689d-402c-b8e4-e5004cf97b18\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"72c6bda1-055c-4787-b912-5b390a549d4d\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"key\": \"section_2\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"Customs officers and businesses must relate the standardized legal descriptions in the Harmonized System to the way goods are actually described in trade. The source describes the work as largely manual: officers searched through millions of records, while duplicate and inconsistent product descriptions impeded search and standardization. With legal definitions and real-world customs data kept in separate phases, users had to move between abstract rules and unstructured examples. Importers and exporters were also described as relying on consultants and brokers to interpret codes, adding cost and slowing trade activity.\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"afa03214-65cc-4fde-ad82-634e5000d2bc\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"3bfd32fd-cb58-41c9-a1a7-1803a6ec4d1b\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"key\": \"section_3\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"The documented direction is to unite the structured legal framework—sections, chapters and official explanatory notes—with historical product descriptions from customs declarations. The intended experience is one place to consult both sources when considering a product classification. No additional future roadmap has been provided, so further aspirations should be treated as unknown rather than planned.\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"afa03214-65cc-4fde-ad82-634e5000d2bc\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"72c6bda1-055c-4787-b912-5b390a549d4d\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"key\": \"section_4\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"The project description reports a pipeline for cleaning, deduplicating and normalizing customs product descriptions, then processing records in batches and indexing semantic embeddings for retrieval. It names OpenAI text-embedding-3-small, Pinecone, MongoDB, FastAPI and LangChain, with GPT models used to generate chatbot responses. The described chatbot returns HS-code suggestions with supporting context from definitions and product examples; integration of the two data phases is described as enabling comparison and surfacing the top 10 relevant codes. The source reports the dataset as “65.5+1.8 million” product descriptions in its detailed account and “65.5M+” in the page summary; these are reported figures, not independently verified measurements.\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"386cb6b6-585f-4eca-a97b-86df776585c8\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"afa03214-65cc-4fde-ad82-634e5000d2bc\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"b94f3b26-9ba0-4e5e-bf4f-787e7d5aeaa2\"\n              }\n            }\n          ]\n        },\n        {\n          \"key\": \"section_5\",\n          \"content\": [\n            {\n              \"type\": \"paragraph\",\n              \"content\": [\n                {\n                  \"type\": \"text\",\n                  \"text\": \"The documented distinction is the combination of formal HS-code structures with practical descriptions from customs declarations, rather than relying on either source alone. The project page also describes citation-backed responses and side-by-side classification comparison. These are features reported in the project material; no comparative benchmark or independent validation is provided to establish superiority over other tools.\"\n                },\n                {\n                  \"type\": \"sourceCitation\",\n                  \"attrs\": {\n                    \"sourceChunkId\": \"72c6bda1-055c-4787-b912-5b390a549d4d\"\n                  }\n                },\n                {\n                  \"type\": \"sourceCitation\",\n                  \"attrs\": {\n                    \"sourceChunkId\": \"3d5e00c3-d1e0-48b9-a6fa-bd19c6a33a9a\"\n                  }\n                }\n              ]\n            }\n          ]\n        },\n        {\n          \"key\": \"section_6\",\n          \"content\": [\n            {\n              \"type\": \"paragraph\",\n              \"content\": [\n                {\n                  \"type\": \"text\",\n                  \"text\": \"The published status is “in dev.” No public demo URL is listed, and the source does not establish that the described chatbot or integrated workflow is generally available. A project write-up reports classification and search time changing “from minutes to seconds,” but gives no test conditions, workload, sample size, comparison method or measured results; treat this as a reported claim, not a verified performance benchmark or business-impact measure. No roadmap or planned release dates have been provided.\"\n                },\n                {\n                  \"type\": \"sourceCitation\",\n                  \"attrs\": {\n                    \"sourceChunkId\": \"03b2b5f5-689d-402c-b8e4-e5004cf97b18\"\n                  }\n                },\n                {\n                  \"type\": \"sourceCitation\",\n                  \"attrs\": {\n                    \"sourceChunkId\": \"3d5e00c3-d1e0-48b9-a6fa-bd19c6a33a9a\"\n                  }\n                },\n                {\n                  \"type\": \"sourceCitation\",\n                  \"attrs\": {\n                    \"sourceChunkId\": \"72c6bda1-055c-4787-b912-5b390a549d4d\"\n                  }\n                }\n              ]\n            }\n          ]\n        },\n        {\n          \"key\": \"section_7\",\n          \"content\": [\n            {\n              \"type\": \"paragraph\",\n              \"content\": [\n                {\n                  \"type\": \"text\",\n                  \"text\": \"Bojhona addresses a concrete customs classification challenge by bringing legal HS definitions and messy real-world product descriptions into a shared retrieval and chatbot concept. The source describes the system and intended benefits, while its published “in dev” status means public availability and independently measured outcomes remain unconfirmed. Further evaluation conditions, release plans and owner approval have not been provided.\"\n                },\n                {\n                  \"type\": \"sourceCitation\",\n                  \"attrs\": {\n                    \"sourceChunkId\": \"72c6bda1-055c-4787-b912-5b390a549d4d\"\n                  }\n                },\n                {\n                  \"type\": \"sourceCitation\",\n                  \"attrs\": {\n                    \"sourceChunkId\": \"03b2b5f5-689d-402c-b8e4-e5004cf97b18\"\n                  }\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    },\n    \"sections\"\n  ]\n}\". Error: [{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",4,\"content\",1,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"},{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",4,\"content\",2,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"},{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",4,\"content\",3,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"},{\"expected\":\"object\",\"code\":\"invalid_type\",\"path\":[\"sections\",5],\"message\":\"Invalid input: expected object, received string\"}]\n\nTroubleshooting URL: https://docs.langchain.com/oss/javascript/langchain/errors/OUTPUT_PARSING_FAILURE/\n"},{"key":"project:bride","error":"Failed to parse. Text: \"{\n  \"sections\": [\n    {\n      \"key\": \"section_0\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"bRide is a development-stage, human-guided AI productivity platform designed to help knowledge workers and organizations turn expertise into accountable execution and professional growth.\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"5ed9ab58-bfc1-4ff2-a130-04f5fb48e157\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"key\": \"section_1\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"bRide is described as an AI execution layer that keeps people in control while assisting with work and supporting longer-term professional development. The project is listed as “in dev,” with scope “Big”; the source describes capabilities and intended experience, not independently verified production features. No results or performance measurements have been provided.\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"6d5ffeb1-dc11-4e6a-aaf2-70364bf60326\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"5ed9ab58-bfc1-4ff2-a130-04f5fb48e157\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"key\": \"section_2\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"The stated audience is knowledge workers and organizations. The project brief identifies an execution bottleneck: the gap between strategic intent and tangible outcomes in fast-paced, digitally fragmented work. It frames passive assistance and autonomous systems as possible sources of friction or trust concerns, and positions human oversight as important when AI contributes to consequential work.\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"82aed6c2-ec22-44b7-8e4e-39142363e282\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"7aefd8b8-07e6-4825-b111-84b34bf420c7\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"key\": \"section_3\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"The intended direction is a human-directed partnership: AI helps with execution while people retain decision-making authority. The project describes a longer-term ambition to learn from structured growth data and support professionals as their skills develop. This is a product vision, not evidence that longitudinal learning or growth outcomes have been validated.\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"5ed9ab58-bfc1-4ff2-a130-04f5fb48e157\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"87162cad-2faa-4649-8f26-0163c967593e\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"key\": \"section_4\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"Development descriptions include assistance with recurring tasks such as drafting emails, meeting notes and reports; aggregating work logs, peer feedback and mentorship reviews for growth tracking; and connecting workflows involving email, Slack, Notion and Google Calendar. Human-in-the-loop control is central to the proposed experience: actions are described as reviewable before execution, with repetitive work delegated under user oversight. These are described capabilities, not confirmed integrations or available features.\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"a8fe7aa9-19b6-458f-8849-eb9f64df7aac\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"d92a8ef0-a716-45d5-9aba-5f3df7819279\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"a2a986a6-6ad0-4fda-b1d0-80c2228f4ae1\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"d4902f78-617e-4e70-86ee-4dd2fa81e4b6\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"key\": \"section_5\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"The documented product concept combines execution assistance with human review and a growth-oriented approach based on longitudinal development data. Its proposed emphasis on transparency, auditability and human control describes a design intention; no comparative testing, independent validation or measured advantage over other products has been supplied.\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"14e3cc4a-c93c-4d0c-82b7-3749af1cc37a\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"12fa6c6b-8f19-4ef5-a2cd-bc9c839fd9da\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"key\": \"section_6\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"The published status is “in dev.” No demo URL is printed, and the source does not confirm a current release, pilot completion or availability to customers. The roadmap text gives an MVP launch target of Q3 2025, with deployment within HumbleBeeAI and pilot partner organizations to validate real-world applications. It also describes validation with 10+ internal users and a few external partners to assess measurable business outcomes. These are stated targets; whether they occurred, and any results, have not been provided. The long-term vision mentions aiming to power 1M+ knowledge workers globally, an aspiration rather than a delivered result.\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"6d5ffeb1-dc11-4e6a-aaf2-70364bf60326\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"a724b6e3-c13b-4fce-a037-be823955047b\"\n              }\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"28723995-a5e7-4208-96ba-9baa63b14bf1\"\n              }\n            }\n          ]\n        },\n        {\n          \"key\": \"section_7\",\n          \"content\": [\n            {\n              \"type\": \"paragraph\",\n              \"content\": [\n                {\n                  \"type\": \"text\",\n                  \"text\": \"bRide is positioned as a human-guided approach to AI-assisted execution and professional growth, currently documented as in development. The stated next validation step is the MVP and pilot work described in the roadmap; completion and outcomes remain unconfirmed. For project details, see the \"\n                },\n                {\n                  \"type\": \"text\",\n                  \"text\": \"original HumbleBeeAI project page\",\n                  \"marks\": [\n                    {\n                      \"type\": \"link\",\n                      \"attrs\": {\n                        \"href\": \"https://humblebee.ai/projects/bride\"\n                      }\n                    }\n                  ]\n                },\n                {\n                  \"type\": \"text\",\n                  \"text\": \".\"\n                },\n                {\n                  \"type\": \"sourceCitation\",\n                  \"attrs\": {\n                    \"sourceChunkId\": \"ab8d8baf-2c41-4cd0-b679-514deec5fe8c\"\n                  }\n                },\n                {\n                  \"type\": \"sourceCitation\",\n                  \"attrs\": {\n                    \"sourceChunkId\": \"a724b6e3-c13b-4fce-a037-be823955047b\"\n                  }\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\". Error: [{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",6,\"content\",1,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"}]\n\nTroubleshooting URL: https://docs.langchain.com/oss/javascript/langchain/errors/OUTPUT_PARSING_FAILURE/\n"},{"key":"paper:1910.01091","error":"Failed to parse. Text: \"{\n  \"sections\": [\n    {\n      \"key\": \"section_0\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"W-Net is a compact convolutional neural network research architecture for classifying five types of white blood cells in microscopy images.\"\n            },\n            {\n              \"type\": \"sourceCitation\",\n              \"attrs\": {\n                \"sourceChunkId\": \"f2765b26-100c-49d3-bc38-0cf9d621da33\"\n              }\n            }\n          ]\n        },\n        {\n          \"key\": \"section_1\",\n          \"content\": [\n            {\n              \"type\": \"paragraph\",\n              \"content\": [\n                {\n                  \"type\": \"text\",\n                  \"text\": \"“W-Net: A CNN-based Architecture for White Blood Cells Image Classification” asks whether a compact CNN can classify five white-blood-cell (WBC) types. The authors are Changhun Jung, Mohammed Abuhamad, Jumabek Alikhanov, Aziz Mohaisen, Kyungja Han and DaeHun Nyang. The reviewed evidence is an arXiv preprint, arXiv:1910.01091v1, dated 2 October 2019; formal venue publication is not established. The work reports average 97% accuracy on a private dataset and evaluates further training on LISC public data. No product or client-case relationship is established.\"\n                },\n                {\n                  \"type\": \"text\",\n                  \"text\": \" Read the \"\n                },\n                {\n                  \"type\": \"text\",\n                  \"text\": \"arXiv record\",\n                  \"marks\": [\n                    {\n                      \"type\": \"link\",\n                      \"attrs\": {\n                        \"href\": \"https://arxiv.org/abs/1910.01091\",\n                        \"target\": \"_blank\"\n                      }\n                    }\n                  ]\n                },\n                {\n                  \"type\": \"text\",\n                  \"text\": \" or \"\n                },\n                {\n                  \"type\": \"text\",\n                  \"text\": \"PDF\",\n                  \"marks\": [\n                    {\n                      \"type\": \"link\",\n                      \"attrs\": {\n                        \"href\": \"https://arxiv.org/pdf/1910.01091\",\n                        \"target\": \"_blank\"\n                      }\n                    }\n                  ]\n                },\n                {\n                  \"type\": \"text\",\n                  \"text\": \".\"\n                },\n                {\n                  \"type\": \"sourceCitation\",\n                  \"attrs\": {\n                    \"sourceChunkId\": \"8caa1489-16a1-4678-b652-dc928ffd761e\"\n                  }\n                }\n              ]\n            },\n            {\n              \"key\": \"section_2\",\n              \"content\": [\n                {\n                  \"type\": \"paragraph\",\n                  \"content\": [\n                    {\n                      \"type\": \"text\",\n                      \"text\": \"Manual blood-smear review is described as time-consuming and dependent on operator experience, while WBC classification remains challenging after cells are observed. The task is to distinguish neutrophils, eosinophils, basophils, lymphocytes and monocytes; the study also addresses class imbalance. Its stated objective is classification, not leukemia diagnosis or a breast-cancer biomarker result.\"\n                    },\n                    {\n                      \"type\": \"sourceCitation\",\n                      \"attrs\": {\n                        \"sourceChunkId\": \"56469adb-4e9f-4aa2-ac35-137833b24a1c\"\n                      }\n                    },\n                    {\n                      \"type\": \"sourceCitation\",\n                      \"attrs\": {\n                        \"sourceChunkId\": \"8caa1489-16a1-4678-b652-dc928ffd761e\"\n                      }\n                    }\n                  ]\n                },\n                {\n                  \"key\": \"section_3\",\n                  \"content\": [\n                    {\n                      \"type\": \"paragraph\",\n                      \"content\": [\n                        {\n                          \"type\": \"text\",\n                          \"text\": \"The reported pipeline crops, resizes and normalizes cell images, then uses three convolutional layers with pooling to extract features. Two fully connected layers classify the image into five classes, with a softmax output. The authors describe the architecture as having a small number of layers; the model contains 16,806,949 trainable parameters.\"\n                        },\n                        {\n                          \"type\": \"sourceCitation\",\n                          \"attrs\": {\n                            \"sourceChunkId\": \"f2765b26-100c-49d3-bc38-0cf9d621da33\"\n                          }\n                        },\n                        {\n                          \"type\": \"sourceCitation\",\n                          \"attrs\": {\n                            \"sourceChunkId\": \"505dca26-9178-4647-bb76-52645ec6ea1c\"\n                          }\n                        },\n                        {\n                          \"type\": \"sourceCitation\",\n                          \"attrs\": {\n                            \"sourceChunkId\": \"423dfd02-49f0-4dba-8593-2004c685f142\"\n                          }\n                        }\n                      ]\n                    },\n                    {\n                      \"key\": \"section_4\",\n                      \"content\": [\n                        {\n                          \"type\": \"paragraph\",\n                          \"content\": [\n                            {\n                              \"type\": \"text\",\n                              \"text\": \"For the primary experiment, the team used 6,562 real RGB images supplied by The Catholic University of Korea, captured with a Sysmex DI60; the paper reports IRB approval. The five classes are represented in unequal numbers. Training used softmax loss, Adam with learning rate 0.0001, batch size 5 and 500 epochs, with 10-fold cross-validation. The paper also reports making the trained model available on GitHub, but this evidence does not establish a HumbleBeeAI product or production deployment.\"\n                            },\n                            {\n                              \"type\": \"sourceCitation\",\n                              \"attrs\": {\n                                \"sourceChunkId\": \"985bcc98-a886-4927-b0cc-dbc02640821c\"\n                              }\n                            },\n                            {\n                              \"type\": \"sourceCitation\",\n                              \"attrs\": {\n                                \"sourceChunkId\": \"423dfd02-49f0-4dba-8593-2004c685f142\"\n                              }\n                            },\n                            {\n                              \"type\": \"sourceCitation\",\n                              \"attrs\": {\n                                \"sourceChunkId\": \"f2765b26-100c-49d3-bc38-0cf9d621da33\"\n                              }\n                            },\n                            {\n                              \"type\": \"sourceCitation\",\n                              \"attrs\": {\n                                \"sourceChunkId\": \"0fd1d194-6ce7-45ac-9f56-5199fa414bcf\"\n                              }\n                            }\n                          ]\n                        },\n                        {\n                          \"key\": \"section_5\",\n                          \"content\": [\n                            {\n                              \"type\": \"paragraph\",\n                              \"content\": [\n                                {\n                                  \"type\": \"text\",\n                                  \"text\": \"The reported primary result is average classification accuracy of 97% across five WBC classes on the private 6,562-image dataset, evaluated with 10-fold cross-validation. The authors say they compared W-Net with ResNet, but the supplied evidence does not provide the comparison’s numeric result or full test protocol.\"\n                                },\n                                {\n                                  \"type\": \"sourceCitation\",\n                                  \"attrs\": {\n                                    \"sourceChunkId\": \"8caa1489-16a1-4678-b652-dc928ffd761e\"\n                                  }\n                                },\n                                {\n                                  \"type\": \"sourceCitation\",\n                                  \"attrs\": {\n                                    \"sourceChunkId\": \"f2765b26-100c-49d3-bc38-0cf9d621da33\"\n                                  }\n                                }\n                              ]\n                            },\n                            {\n                              \"key\": \"section_6\",\n                              \"content\": [\n                                {\n                                  \"type\": \"paragraph\",\n                                  \"content\": [\n                                    {\n                                      \"type\": \"text\",\n                                      \"text\": \"On LISC public data, the study used 254 images and 10-fold cross-validation. Training a W-Net from scratch yielded 91% average accuracy; initializing with the model trained on the private data and then further training on LISC yielded 96%. Both models used 128×128×3 images and the same normalization, hardware environment and other stated hyperparameters; the training epoch counts differed. These are research measurements, not client or business outcomes.\"\n                                    },\n                                    {\n                                      \"type\": \"sourceCitation\",\n                                      \"attrs\": {\n                                        \"sourceChunkId\": \"0fd1d194-6ce7-45ac-9f56-5199fa414bcf\"\n                                      }\n                                    },\n                                    {\n                                      \"type\": \"sourceCitation\",\n                                      \"attrs\": {\n                                        \"sourceChunkId\": \"0dfc3600-25ea-497f-885c-1eadb1f7da7c\"\n                                      }\n                                    }\n                                  ]\n                                },\n                                {\n                                  \"key\": \"section_7\",\n                                  \"content\": [\n                                    {\n                                      \"type\": \"paragraph\",\n                                      \"content\": [\n                                        {\n                                          \"type\": \"text\",\n                                          \"text\": \"The evidence does not specify hardware details, confidence intervals, independent external validation or clinical performance. The private dataset limits independent reproduction from the information provided. Although the paper discusses transfer learning, no future product work or next-step plan is established in the supplied records; publication approval and HumbleBeeAI review remain pending.\"\n                                        },\n                                        {\n                                          \"type\": \"sourceCitation\",\n                                          \"attrs\": {\n                                            \"sourceChunkId\": \"985bcc98-a886-4927-b0cc-dbc02640821c\"\n                                          }\n                                        },\n                                        {\n                                          \"type\": \"sourceCitation\",\n                                          \"attrs\": {\n                                            \"sourceChunkId\": \"0fd1d194-6ce7-45ac-9f56-5199fa414bcf\"\n                                          }\n                                        }\n                                      ]\n                                    },\n                                    {\n                                      \"key\": \"section_8\",\n                                      \"content\": [\n                                        {\n                                          \"type\": \"paragraph\",\n                                          \"content\": [\n                                            {\n                                              \"type\": \"text\",\n                                              \"text\": \"W-Net presents a compact CNN approach to five-class WBC image classification, reporting 97% average accuracy on a private dataset and improved LISC accuracy with further training. These findings support a research contribution only; they do not establish a deployed product, diagnostic result or measured business impact.\"\n                                            },\n                                            {\n                                              \"type\": \"sourceCitation\",\n                                              \"attrs\": {\n                                                \"sourceChunkId\": \"8caa1489-16a1-4678-b652-dc928ffd761e\"\n                                              }\n                                            },\n                                            {\n                                              \"type\": \"sourceCitation\",\n                                              \"attrs\": {\n                                                \"sourceChunkId\": \"0fd1d194-6ce7-45ac-9f56-5199fa414bcf\"\n                                              }\n                                            }\n                                          ]\n                                        }\n                                      ]\n                                    }\n                                  ]\n                                }\n                              ],\n                              \"commentary\": \" \"\n                            }\n                          ]\n                        }\n                      ]\n                    }\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\". Error: [{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",0,\"content\",1,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"},{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",0,\"content\",1,\"content\",1,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"},{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",0,\"content\",1,\"content\",1,\"content\",1,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"},{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",0,\"content\",1,\"content\",1,\"content\",1,\"content\",1,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"},{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",0,\"content\",1,\"content\",1,\"content\",1,\"content\",1,\"content\",1,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"},{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",0,\"content\",1,\"content\",1,\"content\",1,\"content\",1,\"content\",1,\"content\",1,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"},{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",0,\"content\",1,\"content\",1,\"content\",1,\"content\",1,\"content\",1,\"content\",1,\"content\",1,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"},{\"code\":\"invalid_value\",\"values\":[\"paragraph\",\"heading\",\"text\",\"bulletList\",\"orderedList\",\"listItem\",\"blockquote\",\"codeBlock\",\"horizontalRule\",\"hardBreak\",\"image\",\"sourceCitation\"],\"path\":[\"sections\",0,\"content\",1,\"content\",1,\"content\",1,\"content\",1,\"content\",1,\"content\",1,\"content\",1,\"content\",1,\"type\"],\"message\":\"Invalid option: expected one of \\\"paragraph\\\"|\\\"heading\\\"|\\\"text\\\"|\\\"bulletList\\\"|\\\"orderedList\\\"|\\\"listItem\\\"|\\\"blockquote\\\"|\\\"codeBlock\\\"|\\\"horizontalRule\\\"|\\\"hardBreak\\\"|\\\"image\\\"|\\\"sourceCitation\\\"\"}]\n\nTroubleshooting URL: https://docs.langchain.com/oss/javascript/langchain/errors/OUTPUT_PARSING_FAILURE/\n"},{"key":"project:ai-avatar","error":"The operation was aborted due to timeout"}]}

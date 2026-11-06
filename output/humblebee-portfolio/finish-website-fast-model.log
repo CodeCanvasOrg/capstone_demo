@@ -1,0 +1,135 @@
+FAST_PIPELINE_MODEL anthropic/claude-haiku-5.5 TARGETS 16
+FAST_GENERATING case-study:poster-recognition 94f7d915-fef7-4dd0-985c-eb0c2f8de2c9
+FAST_GENERATING case-study:amplifyr c9c4fc6c-c71c-44dc-965d-62a49ba486e3
+FAST_GENERATING case-study:optimizing-recognition-processing a0cc2a50-921f-4798-b304-67778d1366cd
+FAST_GENERATING company-update:innerworks-partnership 549d559f-dcb5-48bc-b651-a0b88d418803
+[generation bce2fae1-0935-468e-864f-dd8e81736753] retrieval finished in 1127ms with 10 chunks
+[generation 23f5a23d-84a1-4ae4-acfd-1957268d08da] retrieval finished in 1321ms with 9 chunks
+[generation 02cf5cf8-7ac4-4c0d-9bb6-5137d7d92c5a] retrieval finished in 1366ms with 12 chunks
+[generation a44defcb-e44c-42a3-b775-6a9315f1e4d1] retrieval finished in 1562ms with 10 chunks
+[generation bce2fae1-0935-468e-864f-dd8e81736753] generation started (outline)
+[generation 23f5a23d-84a1-4ae4-acfd-1957268d08da] generation started (outline)
+[generation 02cf5cf8-7ac4-4c0d-9bb6-5137d7d92c5a] generation started (outline)
+[generation a44defcb-e44c-42a3-b775-6a9315f1e4d1] generation started (outline)
+FAST_ATTEMPT_FAILED case-study:optimizing-recognition-processing Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "conte
+FAST_GENERATING case-study:optimizing-recognition-processing 43b17db2-9793-421c-b73d-6b39fe5d90fa
+[generation 23f5a23d-84a1-4ae4-acfd-1957268d08da] retrieval finished in 896ms with 9 chunks
+[generation 23f5a23d-84a1-4ae4-acfd-1957268d08da] generation started (outline)
+[generation 02cf5cf8-7ac4-4c0d-9bb6-5137d7d92c5a] generation finished in 11493ms
+FAST_GENERATED company-update:innerworks-partnership 32a63a08-5e71-4923-97be-9eed751b2845
+FAST_GENERATING case-study:beef-carcass-detection bbdb1b57-80e1-449b-b221-1d0e04311b3b
+[generation 3ccf1cc1-742a-40e6-9409-ff1fc385d33b] retrieval finished in 1056ms with 12 chunks
+[generation bce2fae1-0935-468e-864f-dd8e81736753] generation finished in 13261ms
+FAST_GENERATED case-study:amplifyr 77d8e404-c262-4d60-8f53-7c680b1db3f8
+FAST_GENERATING case-study:breast-cancer b92a320d-4bf3-437d-a6bc-d2841cdea40b
+[generation 3ccf1cc1-742a-40e6-9409-ff1fc385d33b] generation started (outline)
+[generation a44defcb-e44c-42a3-b775-6a9315f1e4d1] generation finished in 13623ms
+FAST_ATTEMPT_FAILED case-study:poster-recognition Unsupported link protocol
+FAST_GENERATING case-study:poster-recognition 131c2616-24f6-46ab-ae55-e94c790e0b64
+[generation 97c50cf2-c4e9-4d63-80bc-5f3ed57c01f6] retrieval finished in 999ms with 13 chunks
+[generation a44defcb-e44c-42a3-b775-6a9315f1e4d1] retrieval finished in 1035ms with 10 chunks
+[generation 97c50cf2-c4e9-4d63-80bc-5f3ed57c01f6] generation started (outline)
+[generation a44defcb-e44c-42a3-b775-6a9315f1e4d1] generation started (outline)
+[generation 23f5a23d-84a1-4ae4-acfd-1957268d08da] generation finished in 14908ms
+FAST_GENERATED case-study:optimizing-recognition-processing ca293f0c-e7a2-487e-9fbe-5a10ebf58111
+FAST_GENERATING project:hstaff a141a9fe-64c5-4f3d-ac67-bcae2fe255a9
+[generation f12aaa4e-b999-4f34-9be8-63afa9a86d7e] retrieval finished in 1400ms with 20 chunks
+[generation f12aaa4e-b999-4f34-9be8-63afa9a86d7e] generation started (outline)
+[generation 97c50cf2-c4e9-4d63-80bc-5f3ed57c01f6] generation finished in 11106ms
+FAST_GENERATED case-study:breast-cancer e4f8b7c8-c1bb-47c9-89c7-bc470abbb449
+FAST_GENERATING project:wakil-ai 0ce27033-64fc-4b4d-bda9-d9bcc7e46f95
+[generation 73956dc4-bd5f-405b-8c4f-45c02c81c18e] retrieval finished in 1393ms with 20 chunks
+[generation a44defcb-e44c-42a3-b775-6a9315f1e4d1] generation finished in 11985ms
+FAST_GENERATED case-study:poster-recognition 51b96539-251a-4de9-97ec-a4580c76a263
+FAST_GENERATING project:enlighten-qalb 9cae238b-0902-451a-bc5c-3e9b33667a68
+[generation 73956dc4-bd5f-405b-8c4f-45c02c81c18e] generation started (outline)
+[generation 14127b64-26ef-4d63-9e59-8d4642da28c3] retrieval finished in 1216ms with 20 chunks
+[generation 14127b64-26ef-4d63-9e59-8d4642da28c3] generation started (outline)
+FAST_ATTEMPT_FAILED case-study:beef-carcass-detection Failed to parse. Text: "{
+  "sections": "[{\"key\":\"section_0\",\"content\":[{\"type\":\"paragraph\",\"text\":\"An AI-powered mobile application that
+FAST_GENERATING case-study:beef-carcass-detection 644cf2d4-b4c5-4ce2-818d-d6d79d946eb4
+[generation 3ccf1cc1-742a-40e6-9409-ff1fc385d33b] retrieval finished in 891ms with 12 chunks
+[generation 3ccf1cc1-742a-40e6-9409-ff1fc385d33b] generation started (outline)
+FAST_ATTEMPT_FAILED case-study:beef-carcass-detection Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "text"
+FAST_GENERATING project:bride 176f11e5-9341-4216-a6dd-b969da7ea53f
+[generation f82ecd54-4473-465d-8877-5f6081adbbd5] retrieval finished in 946ms with 19 chunks
+[generation f82ecd54-4473-465d-8877-5f6081adbbd5] generation started (outline)
+[generation f12aaa4e-b999-4f34-9be8-63afa9a86d7e] generation finished in 16661ms
+FAST_GENERATED project:hstaff 9fb4f75c-cadb-4882-b87f-bf7d5dcb0f11
+ALREADY_COMPLETE paper:2409.04187
+FAST_GENERATING paper:10883969 5919ea12-2e9a-409a-8f2a-ce41d2e69890
+[generation 96dd77ca-8a40-4cb5-8e6b-4366f590b526] retrieval finished in 1573ms with 20 chunks
+[generation 96dd77ca-8a40-4cb5-8e6b-4366f590b526] generation started (outline)
+FAST_ATTEMPT_FAILED paper:10883969 Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "text"
+FAST_GENERATING paper:10883969 4e69db79-b0b6-4f4d-a4fc-684167d81e2d
+[generation 96dd77ca-8a40-4cb5-8e6b-4366f590b526] retrieval finished in 1301ms with 20 chunks
+[generation 14127b64-26ef-4d63-9e59-8d4642da28c3] generation finished in 15733ms
+FAST_GENERATED project:enlighten-qalb 85a0abe2-876c-4290-8a73-f0ef75d2f235
+FAST_GENERATING paper:10316180 720e27f4-5a03-4be3-8581-ccc78a8e2f9c
+[generation 96dd77ca-8a40-4cb5-8e6b-4366f590b526] generation started (outline)
+[generation 06b09a1a-12aa-444e-bd9f-b70209eeed36] retrieval finished in 1171ms with 20 chunks
+[generation 06b09a1a-12aa-444e-bd9f-b70209eeed36] generation started (outline)
+FAST_ATTEMPT_FAILED project:wakil-ai Failed to parse. Text: "{
+  "sections": "[{\"key\":\"section_0\",\"content\":[{\"type\":\"paragraph\",\"text\":\"Wakil AI is a multilingual, citation-
+FAST_GENERATING project:wakil-ai 56617550-550e-4bc1-a0f1-0ce8f47eb473
+[generation 73956dc4-bd5f-405b-8c4f-45c02c81c18e] retrieval finished in 1304ms with 20 chunks
+[generation 73956dc4-bd5f-405b-8c4f-45c02c81c18e] generation started (outline)
+[generation f82ecd54-4473-465d-8877-5f6081adbbd5] generation finished in 16291ms
+FAST_GENERATED project:bride 8573584e-bea9-45e0-9088-aa65e675e822
+FAST_GENERATING paper:515 bb7eba74-e62c-42a5-84de-ed2dd686ee6d
+[generation 711f52f3-88da-49aa-aa71-f277a1f9f722] retrieval finished in 1163ms with 20 chunks
+[generation 711f52f3-88da-49aa-aa71-f277a1f9f722] generation started (outline)
+FAST_ATTEMPT_FAILED project:wakil-ai The model returned duplicate outline sections. Start a new request.
+FAST_GENERATING paper:9661375 33c64b6c-3eb8-42f5-b31d-1c155cf27fa8
+[generation 2bd2034f-7a1b-4b82-8985-e22e6e0a92c6] retrieval finished in 1474ms with 20 chunks
+[generation 2bd2034f-7a1b-4b82-8985-e22e6e0a92c6] generation started (outline)
+FAST_ATTEMPT_FAILED paper:10883969 Failed to parse. Text: "{
+  "sections": "[{\"key\":\"section_0\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"A Hum
+FAST_GENERATING paper:9064976 e44d9c0d-687a-4309-bfe3-cb3aae8422ef
+FAST_ATTEMPT_FAILED paper:10316180 Failed to parse. Text: "{
+  "sections": "[{\"key\":\"section_0\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"A res
+FAST_GENERATING paper:10316180 ff4dfe04-8ec3-4283-be88-06cf8f925040
+[generation c5708598-1321-4762-a649-84c301061134] retrieval finished in 1150ms with 20 chunks
+FAST_ATTEMPT_FAILED paper:9661375 Failed to parse. Text: "{
+  "sections": "[{\"key\":\"section_0\",\"content\":[{\"type\":\"paragraph\",\"text\":\"Investigating the Effect of Traffic S
+FAST_GENERATING paper:9661375 550e4a6c-e9a8-4614-a641-3c0dfe37f023
+[generation 06b09a1a-12aa-444e-bd9f-b70209eeed36] retrieval finished in 1282ms with 20 chunks
+[generation c5708598-1321-4762-a649-84c301061134] generation started (outline)
+[generation 2bd2034f-7a1b-4b82-8985-e22e6e0a92c6] retrieval finished in 1075ms with 20 chunks
+[generation 06b09a1a-12aa-444e-bd9f-b70209eeed36] generation started (outline)
+[generation 2bd2034f-7a1b-4b82-8985-e22e6e0a92c6] generation started (outline)
+FAST_ATTEMPT_FAILED paper:515 Failed to parse. Text: "{
+  "sections": "[{\"key\":\"section_0\",\"content\":[{\"type\":\"paragraph\",\"text\":\"A client-facing portfolio entry descr
+FAST_GENERATING paper:515 ef0cf7f1-d862-466b-ad45-7375bd232fa6
+[generation 711f52f3-88da-49aa-aa71-f277a1f9f722] retrieval finished in 4265ms with 20 chunks
+[generation 711f52f3-88da-49aa-aa71-f277a1f9f722] generation started (outline)
+[generation c5708598-1321-4762-a649-84c301061134] generation finished in 17005ms
+[generation 2bd2034f-7a1b-4b82-8985-e22e6e0a92c6] generation finished in 15997ms
+FAST_GENERATED paper:9064976 e55303e3-87a8-4d97-8312-f9b13329b468
+FAST_GENERATED paper:9661375 5d180f98-2dfc-4d75-80e6-c39d3b3f1b5d
+FAST_ATTEMPT_FAILED paper:10316180 Failed to parse. Text: "{
+  "sections": "[{\"key\":\"section_0\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"A res
+[generation 711f52f3-88da-49aa-aa71-f277a1f9f722] generation finished in 16684ms
+FAST_GENERATED paper:515 1c3d4380-2281-498e-b4a5-0e17f65c79de
+FAST_BATCH_FINISHED

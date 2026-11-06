@@ -1,0 +1,589 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Johnson & Johnson’s Cartonet Analysis Dashboard",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Johnson & Johnson’s Cartonet Analysis Dashboard automated marketing data analysis and visualization to help its team move from manual reporting toward faster, insight-led decisions.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/f7221384-1d26-4ea6-9e23-be14728e0694/asset",
+            "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nCartonet Analysis Dashboard for automated data processing with real-time, actionable insights for marketing teams",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "f7221384-1d26-4ea6-9e23-be14728e0694"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI’s case study describes a custom AI-powered Cartonet Analysis Dashboard built for Johnson & Johnson’s marketing team, which used complex product-performance data to guide marketing strategy. The dashboard was designed to reduce the time spent preparing and reviewing datasets by automating analysis and presenting findings in interactive views. The case study describes the dashboard as built, but does not establish whether it is currently in production or broadly available.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/0feeeb25-ddec-4e98-a31c-b6f8adc0e8b9/asset",
+            "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+            "chunkText": "As one of the most recognized names in global healthcare, Johnson and Johnson is known for constant innovation. Behind the scenes, its marketing team plays a vital role, interpreting complex product performance data to guide strategy and keep pace with shifting market dynamics.\n\nBut analyzing products like diagnostic catheters required more than expertise. It required time, too much of it. Hours were spent just preparing data for analysis, delaying decisions and limiting agility. What J&J needed was not more people working longer hours but a smarter way to unlock insights.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "0feeeb25-ddec-4e98-a31c-b6f8adc0e8b9"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/d27802e0-2569-4d40-ba11-9682067bec81/asset",
+            "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+            "chunkText": "HumbleBeeAI built the Cartonet Analysis Dashboard, a custom AI-powered platform designed to give J&J's marketing team back their time and sharpen their decision-making.\n\nAutomated Data Analysis: The dashboard ingested raw datasets and applied statistical models automatically. Instead of digging manually, the team received ready-to-use insights showing which products or physician groups were performing better.\n\nReal-Time, Interactive Visualizations: Static reports became living dashboards. With intuitive box plots and summary tables, marketers could filter data by product or physician, compare performance instantly, and explore patterns on demand.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "d27802e0-2569-4d40-ba11-9682067bec81"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The marketing team needed to interpret product performance, including diagnostic catheter data, while responding to changing market conditions. Before the dashboard, analysts spent hours preparing and reviewing large datasets; information was spread across multiple tools, and analysis could delay campaign or strategy decisions. The case study also identifies the risk of errors in manual analysis and the time this workflow left unavailable for strategic work.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/0feeeb25-ddec-4e98-a31c-b6f8adc0e8b9/asset",
+            "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+            "chunkText": "As one of the most recognized names in global healthcare, Johnson and Johnson is known for constant innovation. Behind the scenes, its marketing team plays a vital role, interpreting complex product performance data to guide strategy and keep pace with shifting market dynamics.\n\nBut analyzing products like diagnostic catheters required more than expertise. It required time, too much of it. Hours were spent just preparing data for analysis, delaying decisions and limiting agility. What J&J needed was not more people working longer hours but a smarter way to unlock insights.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "0feeeb25-ddec-4e98-a31c-b6f8adc0e8b9"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/89bc59b2-04d6-45e0-bcc4-3930febbc006/asset",
+            "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+            "chunkText": "The marketing team's challenges stemmed from outdated methods that no longer matched the scale or complexity of their data.\n\nManual effort consumed resources: Analysts spent hours combing through large datasets, risking errors while losing valuable time for strategy and innovation.\n\nInsights were fragmented: With data scattered across multiple tools, it was nearly impossible to form a unified view of performance.\n\nDecisions were delayed: By the time statistically significant findings were identified, opportunities to adjust campaigns or strategies had often passed.\n\nThis created a bottleneck. The team knew what they needed: faster, cleaner, more reliable insights, but lacked the tools to get there.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "89bc59b2-04d6-45e0-bcc4-3930febbc006"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI’s described solution brings automated statistical analysis and comparative dashboard views together so marketers can explore performance without first doing the same data preparation and review manually.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/d27802e0-2569-4d40-ba11-9682067bec81/asset",
+            "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+            "chunkText": "HumbleBeeAI built the Cartonet Analysis Dashboard, a custom AI-powered platform designed to give J&J's marketing team back their time and sharpen their decision-making.\n\nAutomated Data Analysis: The dashboard ingested raw datasets and applied statistical models automatically. Instead of digging manually, the team received ready-to-use insights showing which products or physician groups were performing better.\n\nReal-Time, Interactive Visualizations: Static reports became living dashboards. With intuitive box plots and summary tables, marketers could filter data by product or physician, compare performance instantly, and explore patterns on demand.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "d27802e0-2569-4d40-ba11-9682067bec81"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/146832a2-43d6-4507-af67-e5ca847b3429/asset",
+            "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+            "chunkText": "Dashboard Interface\n\nCentralized, Comparative Analytics: All datasets lived in one place, enabling side-by-side comparisons without juggling multiple platforms. Whether tracking diagnostic catheters or analyzing broader trends, the dashboard provided a single, reliable source of truth accessible to every team member.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 3,
+            "sourceChunkId": "146832a2-43d6-4507-af67-e5ca847b3429"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Automated analysis",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The dashboard ingests raw datasets and applies statistical models automatically, surfacing findings such as which products or physician groups are performing better. This is intended to shift analysts’ effort away from manual data review and calculation.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/d27802e0-2569-4d40-ba11-9682067bec81/asset",
+                    "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+                    "chunkText": "HumbleBeeAI built the Cartonet Analysis Dashboard, a custom AI-powered platform designed to give J&J's marketing team back their time and sharpen their decision-making.\n\nAutomated Data Analysis: The dashboard ingested raw datasets and applied statistical models automatically. Instead of digging manually, the team received ready-to-use insights showing which products or physician groups were performing better.\n\nReal-Time, Interactive Visualizations: Static reports became living dashboards. With intuitive box plots and summary tables, marketers could filter data by product or physician, compare performance instantly, and explore patterns on demand.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 2,
+                    "sourceChunkId": "d27802e0-2569-4d40-ba11-9682067bec81"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Interactive comparisons and visualizations",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Box plots and summary tables let users filter by product or physician, compare performance, and explore patterns on demand. The case study presents these as interactive alternatives to static reports.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/d27802e0-2569-4d40-ba11-9682067bec81/asset",
+                    "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+                    "chunkText": "HumbleBeeAI built the Cartonet Analysis Dashboard, a custom AI-powered platform designed to give J&J's marketing team back their time and sharpen their decision-making.\n\nAutomated Data Analysis: The dashboard ingested raw datasets and applied statistical models automatically. Instead of digging manually, the team received ready-to-use insights showing which products or physician groups were performing better.\n\nReal-Time, Interactive Visualizations: Static reports became living dashboards. With intuitive box plots and summary tables, marketers could filter data by product or physician, compare performance instantly, and explore patterns on demand.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 2,
+                    "sourceChunkId": "d27802e0-2569-4d40-ba11-9682067bec81"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Insights and Analysis Dashboard screenshot showing a box-plot comparison, a gender filter, and a comparison control.",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/7d502bbd-e121-4563-820e-d326d9d1caef/asset",
+        "align": "center",
+        "title": "case-study--cartoned-analysis-dashboard.pdf",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/7d502bbd-e121-4563-820e-d326d9d1caef/asset",
+        "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+        "chunkText": "Insights & Analysis Dashboard\nSiaainiaieiniainitninata @®Box OHistogram DOWNLOAD\n| demo_1kcsv:0.01 seconds |\nQQ [i]\nLeft WACA - Total Duration (0.10 sec.)\nGender xX wv\nSignificant findings {J BW Male 369)\nBE Female 77)\nprocessed. Select a =\ncomparison to view .\ndetails. -\nry pe\nCree] 4 :\n3\n2\nMale (869) Female (77)",
+        "mediaType": "image/png",
+        "chunkIndex": 8,
+        "pageNumber": 3,
+        "sourceChunkId": "7d502bbd-e121-4563-820e-d326d9d1caef"
+      }
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Centralized analytics",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The described interface brings datasets into one place for side-by-side comparison, intended to reduce the need to switch between platforms and provide a shared view of performance.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/146832a2-43d6-4507-af67-e5ca847b3429/asset",
+                    "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+                    "chunkText": "Dashboard Interface\n\nCentralized, Comparative Analytics: All datasets lived in one place, enabling side-by-side comparisons without juggling multiple platforms. Whether tracking diagnostic catheters or analyzing broader trends, the dashboard provided a single, reliable source of truth accessible to every team member.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 9,
+                    "pageNumber": 3,
+                    "sourceChunkId": "146832a2-43d6-4507-af67-e5ca847b3429"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Analytics comparison view showing a table of statistical measures for male and female groups.",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/1f163c3e-9327-4339-ab43-06dd94e17e0b/asset",
+        "align": "center",
+        "title": "case-study--cartoned-analysis-dashboard.pdf",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/1f163c3e-9327-4339-ab43-06dd94e17e0b/asset",
+        "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+        "chunkText": "81 - Male | g2- Female (prep. 0.31 sec)\nMale Female F\n<p_value q1_mean gl std  g1_var gl median gl igr gl normal *g2 mean 2g2 std < g2_ var 2 median *q2_iqr *g2 normal\n0 e.0e778 8.97 7.60 59.69 7.1 8.2 negative\n5 0.00584 | 7.26 | 8.76 | 76.77 5 9 negative | | | |\ntes 0.00865 10.65 13.06 170.51 a 14 negative 20.5 I I 20 positive\ndon 6.01333 [Maral STAN NSRRESS BS 2.4 negative | [ | | |\ny 0.00066 | 1.97 | 1.29 | 1.67 18 1 negative | | | I\n© 0.00068 13.75 8.92 79.57 13.1 15.95 negative =| | | I\n© 0.62472 54.49 42.61 1815.35 41.2 54.2 negative [ | |\n0.01809 14.43 10.57 111.75 12.5 16.65 negative I\n0.0122 17.61 12.62 144.58 16.85 19.83 negative ses mor 105 |\n0.01013 18.44 12.42 154.35 17.2 20.35 negative [ | |\n0.04667 9.78 13.88 192.66 8.5 4 negative | | | | I\n0.02428 440.33 141.45 20006.95 461.9 132.1 negative | | |\n0.00147 15.61 11.57 133.75 13.3 17.8 negative | | I\n0.0208 413.48 136.54 18641.98 425.6 109.07 negative | | [\n: 0.0209 | 13.6 | 5.47 | 29.08 12.7 6 negative [ | [ -\n‘ ,\n« «1/2 >»",
+        "mediaType": "image/png",
+        "chunkIndex": 10,
+        "pageNumber": 3,
+        "sourceChunkId": "1f163c3e-9327-4339-ab43-06dd94e17e0b"
+      }
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI’s case study reports an 80 percent reduction in manual effort and describes faster campaign adjustments and improved team alignment as outcomes. These are source-reported results; the supplied material does not include a measurement method, baseline, evaluation period, or independent validation, so the impact cannot be assessed beyond the case study’s account.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/e9fee05c-0c79-4e00-a9a8-c6318b92849b/asset",
+            "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+            "chunkText": "Johnson and Johnson's marketing team was trapped in slow, manual workflows. Every dataset demanded hours of cleaning, reviewing before it revealed any useful insights. With HumbleBeeAI's Cartonet Analysis Dashboard, everything changed. The solution automated data processing, highlighted key patterns instantly, and provided real-time visualizations. The result was an 80 percent reduction in manual effort and a marketing team free to focus on strategy rather than spreadsheets.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "e9fee05c-0c79-4e00-a9a8-c6318b92849b"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/f25cce72-0b0f-4847-a001-4d08de412b17/asset",
+            "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+            "chunkText": "The impact was immediate and transformative:\n\nManual effort dropped by 80 percent: Analysts no longer lost hours cleaning and calculating, freeing time for strategic work.\n\nDecisions accelerated: Real-time insights empowered marketers to adjust campaigns quickly, reallocate resources, and seize opportunities without delay.\n\nCollaboration improved: Interactive dashboards became a shared language for the team, ensuring alignment and fostering data-driven discussions.\n\nThe marketing team shifted from reactive reporting to proactive strategy. Instead of wrestling with data, they now used it to drive growth and innovation.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 12,
+            "pageNumber": 4,
+            "sourceChunkId": "f25cce72-0b0f-4847-a001-4d08de412b17"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Manual effort: 80 percent reduction, as reported in the case study.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/e9fee05c-0c79-4e00-a9a8-c6318b92849b/asset",
+                    "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+                    "chunkText": "Johnson and Johnson's marketing team was trapped in slow, manual workflows. Every dataset demanded hours of cleaning, reviewing before it revealed any useful insights. With HumbleBeeAI's Cartonet Analysis Dashboard, everything changed. The solution automated data processing, highlighted key patterns instantly, and provided real-time visualizations. The result was an 80 percent reduction in manual effort and a marketing team free to focus on strategy rather than spreadsheets.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 4,
+                    "pageNumber": 1,
+                    "sourceChunkId": "e9fee05c-0c79-4e00-a9a8-c6318b92849b"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/f25cce72-0b0f-4847-a001-4d08de412b17/asset",
+                    "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+                    "chunkText": "The impact was immediate and transformative:\n\nManual effort dropped by 80 percent: Analysts no longer lost hours cleaning and calculating, freeing time for strategic work.\n\nDecisions accelerated: Real-time insights empowered marketers to adjust campaigns quickly, reallocate resources, and seize opportunities without delay.\n\nCollaboration improved: Interactive dashboards became a shared language for the team, ensuring alignment and fostering data-driven discussions.\n\nThe marketing team shifted from reactive reporting to proactive strategy. Instead of wrestling with data, they now used it to drive growth and innovation.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 12,
+                    "pageNumber": 4,
+                    "sourceChunkId": "f25cce72-0b0f-4847-a001-4d08de412b17"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Decision-making: the case study says real-time insights enabled marketers to adjust campaigns and reallocate resources more quickly; it does not quantify the change in decision speed or business outcomes.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/f25cce72-0b0f-4847-a001-4d08de412b17/asset",
+                    "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+                    "chunkText": "The impact was immediate and transformative:\n\nManual effort dropped by 80 percent: Analysts no longer lost hours cleaning and calculating, freeing time for strategic work.\n\nDecisions accelerated: Real-time insights empowered marketers to adjust campaigns quickly, reallocate resources, and seize opportunities without delay.\n\nCollaboration improved: Interactive dashboards became a shared language for the team, ensuring alignment and fostering data-driven discussions.\n\nThe marketing team shifted from reactive reporting to proactive strategy. Instead of wrestling with data, they now used it to drive growth and innovation.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 12,
+                    "pageNumber": 4,
+                    "sourceChunkId": "f25cce72-0b0f-4847-a001-4d08de412b17"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Collaboration: the case study reports that shared interactive dashboards supported alignment and data-driven discussion, without providing a measured collaboration metric.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/f25cce72-0b0f-4847-a001-4d08de412b17/asset",
+                    "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+                    "chunkText": "The impact was immediate and transformative:\n\nManual effort dropped by 80 percent: Analysts no longer lost hours cleaning and calculating, freeing time for strategic work.\n\nDecisions accelerated: Real-time insights empowered marketers to adjust campaigns quickly, reallocate resources, and seize opportunities without delay.\n\nCollaboration improved: Interactive dashboards became a shared language for the team, ensuring alignment and fostering data-driven discussions.\n\nThe marketing team shifted from reactive reporting to proactive strategy. Instead of wrestling with data, they now used it to drive growth and innovation.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 12,
+                    "pageNumber": 4,
+                    "sourceChunkId": "f25cce72-0b0f-4847-a001-4d08de412b17"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied case study does not specify the dashboard’s deployment status, supported data integrations, security or governance controls, or the methods used to validate its reported impact. Its screenshots include demo data, so they should be read as interface evidence rather than proof of production operation or measured business performance.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/7d502bbd-e121-4563-820e-d326d9d1caef/asset",
+            "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+            "chunkText": "Insights & Analysis Dashboard\nSiaainiaieiniainitninata @®Box OHistogram DOWNLOAD\n| demo_1kcsv:0.01 seconds |\nQQ [i]\nLeft WACA - Total Duration (0.10 sec.)\nGender xX wv\nSignificant findings {J BW Male 369)\nBE Female 77)\nprocessed. Select a =\ncomparison to view .\ndetails. -\nry pe\nCree] 4 :\n3\n2\nMale (869) Female (77)",
+            "mediaType": "image/png",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "7d502bbd-e121-4563-820e-d326d9d1caef"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/1f163c3e-9327-4339-ab43-06dd94e17e0b/asset",
+            "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+            "chunkText": "81 - Male | g2- Female (prep. 0.31 sec)\nMale Female F\n<p_value q1_mean gl std  g1_var gl median gl igr gl normal *g2 mean 2g2 std < g2_ var 2 median *q2_iqr *g2 normal\n0 e.0e778 8.97 7.60 59.69 7.1 8.2 negative\n5 0.00584 | 7.26 | 8.76 | 76.77 5 9 negative | | | |\ntes 0.00865 10.65 13.06 170.51 a 14 negative 20.5 I I 20 positive\ndon 6.01333 [Maral STAN NSRRESS BS 2.4 negative | [ | | |\ny 0.00066 | 1.97 | 1.29 | 1.67 18 1 negative | | | I\n© 0.00068 13.75 8.92 79.57 13.1 15.95 negative =| | | I\n© 0.62472 54.49 42.61 1815.35 41.2 54.2 negative [ | |\n0.01809 14.43 10.57 111.75 12.5 16.65 negative I\n0.0122 17.61 12.62 144.58 16.85 19.83 negative ses mor 105 |\n0.01013 18.44 12.42 154.35 17.2 20.35 negative [ | |\n0.04667 9.78 13.88 192.66 8.5 4 negative | | | | I\n0.02428 440.33 141.45 20006.95 461.9 132.1 negative | | |\n0.00147 15.61 11.57 133.75 13.3 17.8 negative | | I\n0.0208 413.48 136.54 18641.98 425.6 109.07 negative | | [\n: 0.0209 | 13.6 | 5.47 | 29.08 12.7 6 negative [ | [ -\n‘ ,\n« «1/2 >»",
+            "mediaType": "image/png",
+            "chunkIndex": 10,
+            "pageNumber": 3,
+            "sourceChunkId": "1f163c3e-9327-4339-ab43-06dd94e17e0b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "No planned next steps are provided in the source. The PDF references an “Open original HumbleBeeAI page” link, but the supplied material does not include its destination URL; an original source link therefore cannot be reproduced here.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/f7221384-1d26-4ea6-9e23-be14728e0694/asset",
+            "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nCartonet Analysis Dashboard for automated data processing with real-time, actionable insights for marketing teams",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "f7221384-1d26-4ea6-9e23-be14728e0694"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The Cartonet Analysis Dashboard is presented as a way to replace labor-intensive, fragmented marketing analysis with automated processing, comparative views, and shared insights. The case study reports lower manual effort and describes support for faster, more collaborative decisions; further operational status and independently measured impact were not provided.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/89bc59b2-04d6-45e0-bcc4-3930febbc006/asset",
+            "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+            "chunkText": "The marketing team's challenges stemmed from outdated methods that no longer matched the scale or complexity of their data.\n\nManual effort consumed resources: Analysts spent hours combing through large datasets, risking errors while losing valuable time for strategy and innovation.\n\nInsights were fragmented: With data scattered across multiple tools, it was nearly impossible to form a unified view of performance.\n\nDecisions were delayed: By the time statistically significant findings were identified, opportunities to adjust campaigns or strategies had often passed.\n\nThis created a bottleneck. The team knew what they needed: faster, cleaner, more reliable insights, but lacked the tools to get there.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "89bc59b2-04d6-45e0-bcc4-3930febbc006"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/evidence/f25cce72-0b0f-4847-a001-4d08de412b17/asset",
+            "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+            "chunkText": "The impact was immediate and transformative:\n\nManual effort dropped by 80 percent: Analysts no longer lost hours cleaning and calculating, freeing time for strategic work.\n\nDecisions accelerated: Real-time insights empowered marketers to adjust campaigns quickly, reallocate resources, and seize opportunities without delay.\n\nCollaboration improved: Interactive dashboards became a shared language for the team, ensuring alignment and fostering data-driven discussions.\n\nThe marketing team shifted from reactive reporting to proactive strategy. Instead of wrestling with data, they now used it to drive growth and innovation.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 12,
+            "pageNumber": 4,
+            "sourceChunkId": "f25cce72-0b0f-4847-a001-4d08de412b17"
+          }
+        }
+      ]
+    }
+  ]
+}

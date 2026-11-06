@@ -1,0 +1,488 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Excel-Based HS Code Testing Framework: 11,000 Descriptions in Four Hours",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "An Excel-based automated testing framework processed 11,000 product descriptions for HS code validation in approximately four hours.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c092713a-8812-421b-996f-73a77e75725a/evidence/b70c24f0-a2aa-4acf-898a-4acee140e651/asset",
+            "fileName": "case-study--excel-automated-testing.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAutomated Excel framework with FastAPI cut HS code validation from over a month to just 4 hours for 11,000 product descriptions.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "b70c24f0-a2aa-4acf-898a-4acee140e651"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI’s Excel-based automated testing framework helps organizations validate HS code classification systems against large datasets of product descriptions. It addresses a practical bottleneck: manual checking of 11,000 descriptions was estimated to take more than a month, limiting how often teams could run thorough tests. The case study reports the framework’s first run processed that dataset in about four hours using an Excel input and a FastAPI endpoint.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c092713a-8812-421b-996f-73a77e75725a/evidence/da0c563c-ff28-4089-9001-cc5124060e0d/asset",
+            "fileName": "case-study--excel-automated-testing.pdf",
+            "chunkText": "This report covers an automated testing framework that turns time-consuming manual HS code validation into a fast, scalable process. The solution tackles the challenge of validating large datasets of product descriptions against expected HS codes, cutting validation time from over a month of manual work to just 4 hours of automated processing. The system processes Excel files containing product descriptions and expected HS codes through a FastAPI endpoint. Users upload their validation datasets in Excel format, and the system automatically processes each entry, compares results against expected outcomes, and generates validation reports. In the first run, the system processed 11,000 product descriptions in about 4 hours a task that would have taken more than a month manually. This is a productivity increase of over 180x, completely changing what's possible for large-scale HS code validation testing. The solution eliminates the confusion and inconsistency of manual testing while providing standardized, repeatable validation. This framework enables ongoing quality checks for HS code classification systems and supports rapid iteration of classification algorithms.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 2,
+            "sourceChunkId": "da0c563c-ff28-4089-9001-cc5124060e0d"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source describes the framework as delivered and reports a completed first run. It does not identify a named client or provide independently measured business outcomes beyond the reported processing-time comparison.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c092713a-8812-421b-996f-73a77e75725a/evidence/da0c563c-ff28-4089-9001-cc5124060e0d/asset",
+            "fileName": "case-study--excel-automated-testing.pdf",
+            "chunkText": "This report covers an automated testing framework that turns time-consuming manual HS code validation into a fast, scalable process. The solution tackles the challenge of validating large datasets of product descriptions against expected HS codes, cutting validation time from over a month of manual work to just 4 hours of automated processing. The system processes Excel files containing product descriptions and expected HS codes through a FastAPI endpoint. Users upload their validation datasets in Excel format, and the system automatically processes each entry, compares results against expected outcomes, and generates validation reports. In the first run, the system processed 11,000 product descriptions in about 4 hours a task that would have taken more than a month manually. This is a productivity increase of over 180x, completely changing what's possible for large-scale HS code validation testing. The solution eliminates the confusion and inconsistency of manual testing while providing standardized, repeatable validation. This framework enables ongoing quality checks for HS code classification systems and supports rapid iteration of classification algorithms.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 2,
+            "sourceChunkId": "da0c563c-ff28-4089-9001-cc5124060e0d"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HS code classification systems need validation across many product descriptions, categories and edge cases. In the previous workflow, subject matter experts reviewed each description, determined an appropriate code and compared it with system output. For a dataset of 11,000 descriptions, this manual work was estimated to require more than a month of dedicated expert time.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c092713a-8812-421b-996f-73a77e75725a/evidence/2769b453-d343-437d-b27b-1069f54876d9/asset",
+            "fileName": "case-study--excel-automated-testing.pdf",
+            "chunkText": "Manual testing of HS code classification systems created significant bottlenecks that limited the ability to validate system performance at scale. The traditional approach required human experts to manually review each product description, determine the appropriate HS code, and compare results against system outputs—a process that was both time-consuming and inconsistent. For large validation datasets, manual testing became impractical. Processing 11,000 product descriptions through manual validation would take more than a month of dedicated expert time, making thorough testing expensive and lengthy. This extended timeline prevented regular validation cycles and delayed system improvements. The manual process also introduced confusion and inconsistency. Different reviewers might interpret product descriptions differently, leading to varied expected results. Human fatigue and attention drift over extended testing periods further compromised accuracy and reliability.\n\nAdditionally, manual testing lacked standardization and repeatability. Each validation cycle required starting from scratch, with no systematic way to track improvements or regressions across different system versions. The absence of automated documentation made it difficult to identify patterns in classification errors or measure progress over time. These limitations meant that clients faced a choice between thorough validation and practical timelines. Most organizations were forced to accept limited testing coverage due to resource constraints, creating uncertainty about system performance across diverse product categories and edge cases.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 3,
+            "sourceChunkId": "2769b453-d343-437d-b27b-1069f54876d9"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The manual approach also made consistent, repeatable testing difficult: reviewer interpretation could vary, while fatigue and the lack of systematic documentation made it harder to trace error patterns or compare system versions. As a result, broad validation was costly and slow, and regular test cycles could be constrained by available time and resources.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c092713a-8812-421b-996f-73a77e75725a/evidence/2769b453-d343-437d-b27b-1069f54876d9/asset",
+            "fileName": "case-study--excel-automated-testing.pdf",
+            "chunkText": "Manual testing of HS code classification systems created significant bottlenecks that limited the ability to validate system performance at scale. The traditional approach required human experts to manually review each product description, determine the appropriate HS code, and compare results against system outputs—a process that was both time-consuming and inconsistent. For large validation datasets, manual testing became impractical. Processing 11,000 product descriptions through manual validation would take more than a month of dedicated expert time, making thorough testing expensive and lengthy. This extended timeline prevented regular validation cycles and delayed system improvements. The manual process also introduced confusion and inconsistency. Different reviewers might interpret product descriptions differently, leading to varied expected results. Human fatigue and attention drift over extended testing periods further compromised accuracy and reliability.\n\nAdditionally, manual testing lacked standardization and repeatability. Each validation cycle required starting from scratch, with no systematic way to track improvements or regressions across different system versions. The absence of automated documentation made it difficult to identify patterns in classification errors or measure progress over time. These limitations meant that clients faced a choice between thorough validation and practical timelines. Most organizations were forced to accept limited testing coverage due to resource constraints, creating uncertainty about system performance across diverse product categories and edge cases.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 3,
+            "sourceChunkId": "2769b453-d343-437d-b27b-1069f54876d9"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The framework keeps test preparation in a familiar spreadsheet workflow and automates processing and comparison behind the scenes. Its described capabilities include:",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c092713a-8812-421b-996f-73a77e75725a/evidence/3c5be7af-210f-4cfb-a189-db4aa312f20c/asset",
+            "fileName": "case-study--excel-automated-testing.pdf",
+            "chunkText": "The Excel-based automated testing framework eliminates the inefficiencies and limitations of manual validation. The solution centers around a FastAPI endpoint designed for large-scale testing scenarios, accepting Excel files with a standardized two-column format containing product descriptions and expected HS codes.\n\nThe automated system processes each row in the uploaded Excel file systematically, passing product descriptions through the HS code classification system and capturing detailed results. The framework performs comparison analysis between system outputs and expected codes, generating detailed validation reports that highlight accuracy metrics, error patterns, and performance statistics.\n\nThe solution maintains the familiar Excel interface users already understand while adding automation behind the scenes. Users can prepare test datasets using standard spreadsheet tools, ensuring the validation process integrates smoothly with existing workflows and requires no specialized technical knowledge.\n\nThe automated processing pipeline handles large datasets efficiently, processing thousands of entries in hours rather than weeks. The system maintains detailed logs of all processing activities, enabling thorough analysis of both successful classifications and errors. This tracking provides insights that would be impossible to gather through manual testing.\n\nThe framework also ensures consistency and repeatability across validation cycles. The same Excel file can be processed multiple times to track system improvements, and standardized reporting formats enable easy comparison of results across different testing periods or system versions.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "3c5be7af-210f-4cfb-a189-db4aa312f20c"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Excel-based test input: users provide a standardized two-column file containing product descriptions and expected HS codes.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Automated classification and comparison: the FastAPI endpoint processes each row through the HS code classification system and compares system outputs with the expected codes.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Validation reporting and logs: the framework generates reports covering accuracy metrics, error patterns and performance statistics, and records processing activity for analysis.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Repeatable test cycles: the same Excel dataset can be run again to compare results across testing periods or system versions.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "These capabilities are intended to make large-scale validation more consistent and to help teams examine classification errors and system changes without manually reviewing every entry.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c092713a-8812-421b-996f-73a77e75725a/evidence/3c5be7af-210f-4cfb-a189-db4aa312f20c/asset",
+            "fileName": "case-study--excel-automated-testing.pdf",
+            "chunkText": "The Excel-based automated testing framework eliminates the inefficiencies and limitations of manual validation. The solution centers around a FastAPI endpoint designed for large-scale testing scenarios, accepting Excel files with a standardized two-column format containing product descriptions and expected HS codes.\n\nThe automated system processes each row in the uploaded Excel file systematically, passing product descriptions through the HS code classification system and capturing detailed results. The framework performs comparison analysis between system outputs and expected codes, generating detailed validation reports that highlight accuracy metrics, error patterns, and performance statistics.\n\nThe solution maintains the familiar Excel interface users already understand while adding automation behind the scenes. Users can prepare test datasets using standard spreadsheet tools, ensuring the validation process integrates smoothly with existing workflows and requires no specialized technical knowledge.\n\nThe automated processing pipeline handles large datasets efficiently, processing thousands of entries in hours rather than weeks. The system maintains detailed logs of all processing activities, enabling thorough analysis of both successful classifications and errors. This tracking provides insights that would be impossible to gather through manual testing.\n\nThe framework also ensures consistency and repeatability across validation cycles. The same Excel file can be processed multiple times to track system improvements, and standardized reporting formats enable easy comparison of results across different testing periods or system versions.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "3c5be7af-210f-4cfb-a189-db4aa312f20c"
+          }
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Illustration of people working with a laptop displaying a checked document",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c092713a-8812-421b-996f-73a77e75725a/evidence/1d15f789-b341-4cee-ad58-e0dfc708cdd7/asset",
+        "align": "center",
+        "title": "case-study--excel-automated-testing.pdf",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c092713a-8812-421b-996f-73a77e75725a/evidence/1d15f789-b341-4cee-ad58-e0dfc708cdd7/asset",
+        "fileName": "case-study--excel-automated-testing.pdf",
+        "chunkText": "Source image\n\ni=h\n=",
+        "mediaType": "image/png",
+        "chunkIndex": 2,
+        "pageNumber": 1,
+        "sourceChunkId": "1d15f789-b341-4cee-ad58-e0dfc708cdd7"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied case-study image illustrates a document-checking workflow; it is illustrative rather than a screenshot or technical architecture diagram.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c092713a-8812-421b-996f-73a77e75725a/evidence/1d15f789-b341-4cee-ad58-e0dfc708cdd7/asset",
+            "fileName": "case-study--excel-automated-testing.pdf",
+            "chunkText": "Source image\n\ni=h\n=",
+            "mediaType": "image/png",
+            "chunkIndex": 2,
+            "pageNumber": 1,
+            "sourceChunkId": "1d15f789-b341-4cee-ad58-e0dfc708cdd7"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The reported first run processed 11,000 product descriptions in approximately four hours. The source compares this with an estimated month or more for manual validation and reports a productivity improvement of over 180 times the previous manual approach.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c092713a-8812-421b-996f-73a77e75725a/evidence/6ee6041a-4992-4ae5-818d-7f000e45b712/asset",
+            "fileName": "case-study--excel-automated-testing.pdf",
+            "chunkText": "The Excel-based automated testing framework delivered major improvements in validation efficiency and capability. The most significant achievement was processing 11,000 product descriptions in approximately 4 hours, compared to the estimated month or more required for manual validation. This represents a productivity improvement of over 180 times the previous manual approach.\n\nThe automated system eliminated the confusion and inconsistency problems that plagued manual testing. Every product description was processed using identical criteria and logic, ensuring consistent evaluation standards across the entire dataset. The systematic approach removed human bias and fatigue factors that previously compromised validation accuracy.\n\nThe framework enabled testing coverage that was previously impractical. Organizations can now validate their HS code classification systems across diverse product categories, test edge cases systematically, and perform regular validation cycles without significant resource investment. This supports continuous improvement and quality assurance.\n\nThe standardized Excel input format proved highly accessible to users, requiring no specialized training or technical expertise. Clients can prepare validation datasets using familiar tools and processes, making the automated testing framework immediately useful without additional learning curves or system integration requirements.\n\nThe detailed reporting and logging capabilities provide clear visibility into system performance patterns. Organizations can now identify specific areas for improvement, track progress over time, and validate that system enhancements deliver expected benefits without introducing new classification errors.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "6ee6041a-4992-4ae5-818d-7f000e45b712"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Test scale and time: 11,000 product descriptions processed in approximately 4 hours.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Comparison reported: more than a month of estimated manual validation versus approximately 4 hours of automated processing.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Reported productivity comparison: over 180 times the previous manual approach.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study also describes more consistent evaluation criteria and reports that detailed reporting and logging make performance patterns easier to inspect. It does not provide a separate measured change in classification accuracy, compliance, cost or other business outcome; those impacts have not been quantified in the supplied material.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c092713a-8812-421b-996f-73a77e75725a/evidence/6ee6041a-4992-4ae5-818d-7f000e45b712/asset",
+            "fileName": "case-study--excel-automated-testing.pdf",
+            "chunkText": "The Excel-based automated testing framework delivered major improvements in validation efficiency and capability. The most significant achievement was processing 11,000 product descriptions in approximately 4 hours, compared to the estimated month or more required for manual validation. This represents a productivity improvement of over 180 times the previous manual approach.\n\nThe automated system eliminated the confusion and inconsistency problems that plagued manual testing. Every product description was processed using identical criteria and logic, ensuring consistent evaluation standards across the entire dataset. The systematic approach removed human bias and fatigue factors that previously compromised validation accuracy.\n\nThe framework enabled testing coverage that was previously impractical. Organizations can now validate their HS code classification systems across diverse product categories, test edge cases systematically, and perform regular validation cycles without significant resource investment. This supports continuous improvement and quality assurance.\n\nThe standardized Excel input format proved highly accessible to users, requiring no specialized training or technical expertise. Clients can prepare validation datasets using familiar tools and processes, making the automated testing framework immediately useful without additional learning curves or system integration requirements.\n\nThe detailed reporting and logging capabilities provide clear visibility into system performance patterns. Organizations can now identify specific areas for improvement, track progress over time, and validate that system enhancements deliver expected benefits without introducing new classification errors.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "6ee6041a-4992-4ae5-818d-7f000e45b712"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied case study describes the Excel-to-FastAPI validation workflow and its first run, but does not specify technical constraints, supported file-size limits, deployment details or a roadmap. Additional functionality and next steps have not been provided, so none are represented here as planned or delivered.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c092713a-8812-421b-996f-73a77e75725a/evidence/3c5be7af-210f-4cfb-a189-db4aa312f20c/asset",
+            "fileName": "case-study--excel-automated-testing.pdf",
+            "chunkText": "The Excel-based automated testing framework eliminates the inefficiencies and limitations of manual validation. The solution centers around a FastAPI endpoint designed for large-scale testing scenarios, accepting Excel files with a standardized two-column format containing product descriptions and expected HS codes.\n\nThe automated system processes each row in the uploaded Excel file systematically, passing product descriptions through the HS code classification system and capturing detailed results. The framework performs comparison analysis between system outputs and expected codes, generating detailed validation reports that highlight accuracy metrics, error patterns, and performance statistics.\n\nThe solution maintains the familiar Excel interface users already understand while adding automation behind the scenes. Users can prepare test datasets using standard spreadsheet tools, ensuring the validation process integrates smoothly with existing workflows and requires no specialized technical knowledge.\n\nThe automated processing pipeline handles large datasets efficiently, processing thousands of entries in hours rather than weeks. The system maintains detailed logs of all processing activities, enabling thorough analysis of both successful classifications and errors. This tracking provides insights that would be impossible to gather through manual testing.\n\nThe framework also ensures consistency and repeatability across validation cycles. The same Excel file can be processed multiple times to track system improvements, and standardized reporting formats enable easy comparison of results across different testing periods or system versions.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "3c5be7af-210f-4cfb-a189-db4aa312f20c"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source material refers to an “Open original HumbleBeeAI page” link but does not include its destination URL. A working original-page link therefore cannot be reproduced from the supplied source.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c092713a-8812-421b-996f-73a77e75725a/evidence/b70c24f0-a2aa-4acf-898a-4acee140e651/asset",
+            "fileName": "case-study--excel-automated-testing.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAutomated Excel framework with FastAPI cut HS code validation from over a month to just 4 hours for 11,000 product descriptions.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "b70c24f0-a2aa-4acf-898a-4acee140e651"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "By retaining Excel as the input format and automating the row-by-row HS code comparison, HumbleBeeAI’s framework made a large validation run practical on a much shorter timeline. The supported result is specific: 11,000 product descriptions were processed in approximately four hours, compared with an estimated month or more for manual validation; broader business impact has not been measured in the supplied material.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c092713a-8812-421b-996f-73a77e75725a/evidence/6ee6041a-4992-4ae5-818d-7f000e45b712/asset",
+            "fileName": "case-study--excel-automated-testing.pdf",
+            "chunkText": "The Excel-based automated testing framework delivered major improvements in validation efficiency and capability. The most significant achievement was processing 11,000 product descriptions in approximately 4 hours, compared to the estimated month or more required for manual validation. This represents a productivity improvement of over 180 times the previous manual approach.\n\nThe automated system eliminated the confusion and inconsistency problems that plagued manual testing. Every product description was processed using identical criteria and logic, ensuring consistent evaluation standards across the entire dataset. The systematic approach removed human bias and fatigue factors that previously compromised validation accuracy.\n\nThe framework enabled testing coverage that was previously impractical. Organizations can now validate their HS code classification systems across diverse product categories, test edge cases systematically, and perform regular validation cycles without significant resource investment. This supports continuous improvement and quality assurance.\n\nThe standardized Excel input format proved highly accessible to users, requiring no specialized training or technical expertise. Clients can prepare validation datasets using familiar tools and processes, making the automated testing framework immediately useful without additional learning curves or system integration requirements.\n\nThe detailed reporting and logging capabilities provide clear visibility into system performance patterns. Organizations can now identify specific areas for improvement, track progress over time, and validate that system enhancements deliver expected benefits without introducing new classification errors.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "6ee6041a-4992-4ae5-818d-7f000e45b712"
+          }
+        }
+      ]
+    }
+  ]
+}

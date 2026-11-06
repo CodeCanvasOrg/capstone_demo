@@ -1,0 +1,768 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "LITE: Efficient ReID Integration for Real-Time Multi-Object Tracking",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "LITE integrates ReID feature extraction into real-time multi-object tracking to reduce tracking overhead while preserving competitive accuracy.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/b2f4597c-63aa-44bb-aafd-de84627944ea/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "Abstract. The Lightweight Integrated Tracking-Feature Extraction (LITE) paradigm is introduced as a novel multi-object tracking (MOT) approach. It enhances ReID-based trackers by eliminating inference, preprocessing, post-processing, and ReID model training costs. LITE uses real-time appearance features without compromising speed. By integrating appearance feature extraction directly into the tracking pipeline using standard CNN-based detectors such as YOLOv8m, LITE demonstrates significant performance improvements. The simplest implementation of LITE on top of classic DeepSORT achieves a HOTA score of 43.03% at 28.3 FPS on the MOT17 benchmark, making it twice as fast as DeepSORT on MOT17 and four times faster on the more crowded MOT20 dataset, while maintaining similar accuracy. Additionally, a new evaluation framework for tracking-by-detection approaches reveals that conventional trackers like DeepSORT remain competitive with modern stateof-the-art trackers when evaluated under fair conditions. The code will be available post-publication at https://github.com/Jumabek/LITE.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "b2f4597c-63aa-44bb-aafd-de84627944ea"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBee R&D supported and funded the research behind LITE, a tracking approach aimed at teams and researchers who need to follow objects consistently through video while keeping processing practical for real-time use. Rather than requiring a separate ReID inference path, LITE extracts appearance features within a detector-and-tracker pipeline. The paper reports benchmark results, not a client deployment or measured business outcome; production availability is not established by the supplied material.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/c8b9b040-3d81-4069-9bf8-fe2e49544be6/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "This research was supported and funded by | HUMBLEBEE R&D.\njuma@inha.edu, dilshod@humblebee.ai, hikim@inha.ac.kr\nCorresponding author: Hakil Kim (e-mail: hikim@inha.ac.kr)",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "c8b9b040-3d81-4069-9bf8-fe2e49544be6"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/b2f4597c-63aa-44bb-aafd-de84627944ea/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "Abstract. The Lightweight Integrated Tracking-Feature Extraction (LITE) paradigm is introduced as a novel multi-object tracking (MOT) approach. It enhances ReID-based trackers by eliminating inference, preprocessing, post-processing, and ReID model training costs. LITE uses real-time appearance features without compromising speed. By integrating appearance feature extraction directly into the tracking pipeline using standard CNN-based detectors such as YOLOv8m, LITE demonstrates significant performance improvements. The simplest implementation of LITE on top of classic DeepSORT achieves a HOTA score of 43.03% at 28.3 FPS on the MOT17 benchmark, making it twice as fast as DeepSORT on MOT17 and four times faster on the more crowded MOT20 dataset, while maintaining similar accuracy. Additionally, a new evaluation framework for tracking-by-detection approaches reveals that conventional trackers like DeepSORT remain competitive with modern stateof-the-art trackers when evaluated under fair conditions. The code will be available post-publication at https://github.com/Jumabek/LITE.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "b2f4597c-63aa-44bb-aafd-de84627944ea"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/d4f59488-d4ba-436a-a723-bea30433a3ad/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "This paper presents a practical evaluation framework for assessing real-world tracker performance, including detection, ReID, tracking, and their components. Extensive evaluations highlight the shortcomings of previous methods.\n\nLITE is introduced to obtain ReID features without training, separate inference, or preand post-processing, allowing ReID-based tracking with speeds close to motion-based trackers like SORT. LITE:DeepSORT, LITE:DeepOC-SORT, and LITE:BoTSORT demonstrate this effectiveness across multiple benchmarks, proving to be 2-10 times faster than their original counterparts while maintaining similar HOTA scores.\n\nFuture work will apply the LITE paradigm to other ReID-based trackers, making them faster and more practical while maintaining accuracy. Additionally, a deeper investigation into the usefulness of ReID components in various scenarios and evaluating LITE applied trackers’ effectiveness on edge devices is planned.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 62,
+            "pageNumber": 14,
+            "sourceChunkId": "d4f59488-d4ba-436a-a723-bea30433a3ad"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source paper is “LITE: A Paradigm Shift in Multi-Object Tracking with Efficient ReID Feature Integration,” by Jumabek Alikhanov, Dilshod Obidov and Hakil Kim. The supplied document is identified by arXiv preprint number 2409.04187; a publication venue or publication date is not provided in the supplied material. Read the ",
+          "type": "text"
+        },
+        {
+          "text": "arXiv preprint",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://arxiv.org/abs/2409.04187",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "text": " and visit the ",
+          "type": "text"
+        },
+        {
+          "text": "project code page",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://github.com/Jumabek/LITE",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "text": " (the paper says code will be available post-publication; its current availability is not confirmed here).",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/721f416d-a939-4286-bd83-4bea59c8e70d/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "Jumabek Alikhanov1[0000− | 0003− | 3103− | 6033] | , | Dilshod Obidov1[0009−0007−9845−6979]\nand | Hakil | Kim | 1[0000 | −0003−4232−3804]",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "721f416d-a939-4286-bd83-4bea59c8e70d"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/b2f4597c-63aa-44bb-aafd-de84627944ea/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "Abstract. The Lightweight Integrated Tracking-Feature Extraction (LITE) paradigm is introduced as a novel multi-object tracking (MOT) approach. It enhances ReID-based trackers by eliminating inference, preprocessing, post-processing, and ReID model training costs. LITE uses real-time appearance features without compromising speed. By integrating appearance feature extraction directly into the tracking pipeline using standard CNN-based detectors such as YOLOv8m, LITE demonstrates significant performance improvements. The simplest implementation of LITE on top of classic DeepSORT achieves a HOTA score of 43.03% at 28.3 FPS on the MOT17 benchmark, making it twice as fast as DeepSORT on MOT17 and four times faster on the more crowded MOT20 dataset, while maintaining similar accuracy. Additionally, a new evaluation framework for tracking-by-detection approaches reveals that conventional trackers like DeepSORT remain competitive with modern stateof-the-art trackers when evaluated under fair conditions. The code will be available post-publication at https://github.com/Jumabek/LITE.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "b2f4597c-63aa-44bb-aafd-de84627944ea"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Multi-object tracking (MOT) systems maintain identities across video frames. Applications described in the paper include surveillance, autonomous driving and sports analytics, where timely tracking can matter. In ReID-based tracking, systems must associate objects despite changes in lighting, pose, occlusion and camera angle.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/fc17153e-4ae6-480a-ae3c-17678f617f10/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "Multiple Object Tracking (MOT) is crucial in computer vision for maintaining consistent object identities across video frames, with applications in surveillance, autonomous driving, and sports analytics [6,16]. Real-time performance is essential in these scenarios to ensure timely and accurate responses to dynamic events [8,24]. Furthermore, strong MOT systems and can advances the field of Assisted Living technologies and deep learning enhanced elderly care. MOT enables reliablly monitoring for fall detection and vital signs [7,19].\n\nRe-Identification (ReID) aims to associate objects, particularly humans, across different camera views. It is vital in scenarios where the same object may leave the field of view of one camera and reappear in another, such as in multi-camera\n\nsurveillance systems, tracking athletes in sports, and analyzing customer behavior in retail environments. The challenge lies in matching identities accurately despite variations in lighting, pose, occlusions, and camera angles. Current ReIDbased trackers face issues like unclear improvement contributions, dependency on advanced detectors, and lack of exhaustive evaluation under varied conditions [26,10]. Although recent methods [26,17] show superior performance, they often require specific detector training and sophisticated loss functions.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 1,
+            "sourceChunkId": "fc17153e-4ae6-480a-ae3c-17678f617f10"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The challenge is that conventional ReID-based trackers can incur additional model-training, inference and processing costs. The paper also identifies evaluation practices that may not reflect practical deployment: reported speed can measure only the matching and track-management stage, even though total frame time depends on factors such as detector complexity, image resolution, detection density and confidence threshold. This makes it difficult to compare tracker speed under realistic, consistent conditions.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/b2f4597c-63aa-44bb-aafd-de84627944ea/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "Abstract. The Lightweight Integrated Tracking-Feature Extraction (LITE) paradigm is introduced as a novel multi-object tracking (MOT) approach. It enhances ReID-based trackers by eliminating inference, preprocessing, post-processing, and ReID model training costs. LITE uses real-time appearance features without compromising speed. By integrating appearance feature extraction directly into the tracking pipeline using standard CNN-based detectors such as YOLOv8m, LITE demonstrates significant performance improvements. The simplest implementation of LITE on top of classic DeepSORT achieves a HOTA score of 43.03% at 28.3 FPS on the MOT17 benchmark, making it twice as fast as DeepSORT on MOT17 and four times faster on the more crowded MOT20 dataset, while maintaining similar accuracy. Additionally, a new evaluation framework for tracking-by-detection approaches reveals that conventional trackers like DeepSORT remain competitive with modern stateof-the-art trackers when evaluated under fair conditions. The code will be available post-publication at https://github.com/Jumabek/LITE.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "b2f4597c-63aa-44bb-aafd-de84627944ea"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/c3d10c73-36e9-49a7-8c69-06801d433bb4/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "Current MOT evaluation methodologies often lack alignment with practical deployment scenarios. The proposed framework aims to bridge this gap by providing a more holistic assessment. Typically, available evaluation protocols do not closely resemble practical settings. For instance, the public evaluation protocols of the MOT17 and MOT20 benchmarks involve training detectors on training sets and evaluating them on test sets. However, in practice, pre-trained and readily available detectors, such as YOLOv8 [13], are often used. Therefore,\n\ntrackers following the tracking-by-detection paradigm should be evaluated using pre-trained detectors to closely mimic practical use cases.\n\nPrevious literature primarily computes FPS for matching and track management [10,26,5,17]. Open-source tools measure only the tracker update speed [4,21], and some state-of-the-art trackers lack speed measurements entirely [17]. Additionally, frame processing time varies with the density of people, detector model complexity, input image resolution, and minimum confidence threshold. There is a lack of studies highlighting how FPS changes in response to detector settings. Such knowledge allows practitioners to better balance speed and accuracy for their computer vision problems.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 12,
+            "pageNumber": 3,
+            "sourceChunkId": "c3d10c73-36e9-49a7-8c69-06801d433bb4"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The research evaluates video-tracking benchmarks across different environments, including crowded pedestrian scenes and vehicle or general surveillance footage. The paper lists MOT17, MOT20, PersonPath22, KITTI and VIRAT-S among its evaluation datasets; these are research test settings, not evidence of deployment for a particular customer.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/a7de8729-3443-4cf6-9714-9a3f78a2c074/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "To assess the robustness of the trackers, we conducted experiments across diverse scenarios using corresponding datasets. Specifically, all trackers, including ones that are using LITE, were evaluated for their speed advantage and generalizability across the MOT17, MOT20, PersonPath22, KITTI, and VIRAT-S datasets, employing the HOTA and FPS metrics.\n\nAs results shown in Table 5, LITE:DeepSORT, LITE:DeepOC-SORT, and LITE:BoTSORT maintain competitive tracking accuracy while offering a significant speed advantage. This makes applying LITE highly suitable for real-time multi-object tracking in various challenging environments. Notably, LITE applied trackers’ speed advantage is particularly evident in crowded scenarios such as MOT20. It is important to mention that other ReID-based trackers employ more complex ReID modules, which results in a much higher speed increase when LITE is applied.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 35,
+            "pageNumber": 11,
+            "sourceChunkId": "a7de8729-3443-4cf6-9714-9a3f78a2c074"
+          }
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Example video frames from the MOT17, MOT20, VIRAT-S, KITTI and PersonPath22 tracking evaluation datasets.",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/9d051d5f-5f0d-4d52-b649-1215f151a533/asset",
+        "align": "center",
+        "title": "Evaluation datasets used in the paper",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/9d051d5f-5f0d-4d52-b649-1215f151a533/asset",
+        "fileName": "paper--2409.04187.pdf",
+        "chunkText": "Fig. 3: Sample frames from various datasets used in the analysis.\n\nMOT17 )\nrs 3 ~\n: i EE [\nMOT20\n{lint I\n§ br, Let X;\n® N \\ J \\\n| Ii Tm\nAh\nVIRAT-S i _\nRH % a ERREN\nRT, : Sain\nAN Ra BY SRC\nANE = =\npA LE CES eS\nKITTI\n/4 /\nPersonPath22 |\nSil \" \\ W",
+        "mediaType": "image/png",
+        "chunkIndex": 24,
+        "pageNumber": 8,
+        "sourceChunkId": "9d051d5f-5f0d-4d52-b649-1215f151a533"
+      }
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "LITE (Lightweight Integrated Tracking-Feature Extraction) incorporates appearance-feature extraction into the tracking pipeline, using standard CNN-based detectors such as YOLOv8m. Instead of running a separate ReID model inference and its associated preprocessing and post-processing, the approach derives features from detector activations. The paper presents LITE as a paradigm that can be applied to multiple ReID-based trackers; it reports implementations for DeepSORT, DeepOC-SORT and BoTSORT.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/b2f4597c-63aa-44bb-aafd-de84627944ea/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "Abstract. The Lightweight Integrated Tracking-Feature Extraction (LITE) paradigm is introduced as a novel multi-object tracking (MOT) approach. It enhances ReID-based trackers by eliminating inference, preprocessing, post-processing, and ReID model training costs. LITE uses real-time appearance features without compromising speed. By integrating appearance feature extraction directly into the tracking pipeline using standard CNN-based detectors such as YOLOv8m, LITE demonstrates significant performance improvements. The simplest implementation of LITE on top of classic DeepSORT achieves a HOTA score of 43.03% at 28.3 FPS on the MOT17 benchmark, making it twice as fast as DeepSORT on MOT17 and four times faster on the more crowded MOT20 dataset, while maintaining similar accuracy. Additionally, a new evaluation framework for tracking-by-detection approaches reveals that conventional trackers like DeepSORT remain competitive with modern stateof-the-art trackers when evaluated under fair conditions. The code will be available post-publication at https://github.com/Jumabek/LITE.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "b2f4597c-63aa-44bb-aafd-de84627944ea"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/67bf079b-5498-4cc8-87c0-68a93427e6ea/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "This paper introduces Lightweight Integrated Tracking-Feature Extraction (LITE), a novel paradigm that integrates appearance feature extraction into the tracking pipeline using a standard YOLOv8m detector. LITE:DeepSORT is the simplest implementation of LITE, speeding up the classic DeepSORT. LITE:DeepSORT achieves a Higher Order Tracking Accuracy [15] (HOTA) score of 43.03 at 28 FPS on the MOT17 benchmark Fig.1, doubling the speed of DeepSORT [23] and quintupling that of StrongSORT [10], while maintaining accuracy. This makes LITE suitable for real-time applications needing ReID-equipped tracking components, as in Action Detection [8,24]. Fig.1 shows methodology when LITE is applied to DeepSORT. This paper also proposes a comprehensive evaluation framework to benchmark the entire tracking pipeline, bridging the gap between reported and practical performance, especially in real-time applications. This framework highlights common pitfalls in current evaluations, ensuring a more robust assessment of tracking methods.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "67bf079b-5498-4cc8-87c0-68a93427e6ea"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/d4f59488-d4ba-436a-a723-bea30433a3ad/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "This paper presents a practical evaluation framework for assessing real-world tracker performance, including detection, ReID, tracking, and their components. Extensive evaluations highlight the shortcomings of previous methods.\n\nLITE is introduced to obtain ReID features without training, separate inference, or preand post-processing, allowing ReID-based tracking with speeds close to motion-based trackers like SORT. LITE:DeepSORT, LITE:DeepOC-SORT, and LITE:BoTSORT demonstrate this effectiveness across multiple benchmarks, proving to be 2-10 times faster than their original counterparts while maintaining similar HOTA scores.\n\nFuture work will apply the LITE paradigm to other ReID-based trackers, making them faster and more practical while maintaining accuracy. Additionally, a deeper investigation into the usefulness of ReID components in various scenarios and evaluating LITE applied trackers’ effectiveness on edge devices is planned.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 62,
+            "pageNumber": 14,
+            "sourceChunkId": "d4f59488-d4ba-436a-a723-bea30433a3ad"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Integrated appearance features",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The detector’s feature activations are cropped and spatially reduced to form ReID features, enabling appearance-based association without a separately trained ReID model or separate ReID inference.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/4de0e1cb-da6a-4079-8abd-799b96c419a2/asset",
+                    "fileName": "paper--2409.04187.pdf",
+                    "chunkText": "Fig. 2: Efficient ReID feature extraction via the LITE paradigm.\n\nYoLOvem backbone\n- YoLovs\nTT ==> head module\n-— - = \" bbox=\n| pam. (300,100,500.400)\n. ferry\n9 ~\n\" ee Re-scaling <= g\nbbox=(150,50,250.200) Rosen\n\"g,\nActivation crop\nextraction\nre Spatialsize | Ropes wham | _\nh => reduction => {i\n» pee ®\nhee\npod",
+                    "mediaType": "image/png",
+                    "chunkIndex": 20,
+                    "pageNumber": 6,
+                    "sourceChunkId": "4de0e1cb-da6a-4079-8abd-799b96c419a2"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/d4f59488-d4ba-436a-a723-bea30433a3ad/asset",
+                    "fileName": "paper--2409.04187.pdf",
+                    "chunkText": "This paper presents a practical evaluation framework for assessing real-world tracker performance, including detection, ReID, tracking, and their components. Extensive evaluations highlight the shortcomings of previous methods.\n\nLITE is introduced to obtain ReID features without training, separate inference, or preand post-processing, allowing ReID-based tracking with speeds close to motion-based trackers like SORT. LITE:DeepSORT, LITE:DeepOC-SORT, and LITE:BoTSORT demonstrate this effectiveness across multiple benchmarks, proving to be 2-10 times faster than their original counterparts while maintaining similar HOTA scores.\n\nFuture work will apply the LITE paradigm to other ReID-based trackers, making them faster and more practical while maintaining accuracy. Additionally, a deeper investigation into the usefulness of ReID components in various scenarios and evaluating LITE applied trackers’ effectiveness on edge devices is planned.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 62,
+                    "pageNumber": 14,
+                    "sourceChunkId": "d4f59488-d4ba-436a-a723-bea30433a3ad"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The paper’s simplest implementation, LITE:DeepSORT, applies the paradigm to classic DeepSORT; it also reports LITE versions of DeepOC-SORT and BoTSORT.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/67bf079b-5498-4cc8-87c0-68a93427e6ea/asset",
+                    "fileName": "paper--2409.04187.pdf",
+                    "chunkText": "This paper introduces Lightweight Integrated Tracking-Feature Extraction (LITE), a novel paradigm that integrates appearance feature extraction into the tracking pipeline using a standard YOLOv8m detector. LITE:DeepSORT is the simplest implementation of LITE, speeding up the classic DeepSORT. LITE:DeepSORT achieves a Higher Order Tracking Accuracy [15] (HOTA) score of 43.03 at 28 FPS on the MOT17 benchmark Fig.1, doubling the speed of DeepSORT [23] and quintupling that of StrongSORT [10], while maintaining accuracy. This makes LITE suitable for real-time applications needing ReID-equipped tracking components, as in Action Detection [8,24]. Fig.1 shows methodology when LITE is applied to DeepSORT. This paper also proposes a comprehensive evaluation framework to benchmark the entire tracking pipeline, bridging the gap between reported and practical performance, especially in real-time applications. This framework highlights common pitfalls in current evaluations, ensuring a more robust assessment of tracking methods.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 2,
+                    "sourceChunkId": "67bf079b-5498-4cc8-87c0-68a93427e6ea"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/d4f59488-d4ba-436a-a723-bea30433a3ad/asset",
+                    "fileName": "paper--2409.04187.pdf",
+                    "chunkText": "This paper presents a practical evaluation framework for assessing real-world tracker performance, including detection, ReID, tracking, and their components. Extensive evaluations highlight the shortcomings of previous methods.\n\nLITE is introduced to obtain ReID features without training, separate inference, or preand post-processing, allowing ReID-based tracking with speeds close to motion-based trackers like SORT. LITE:DeepSORT, LITE:DeepOC-SORT, and LITE:BoTSORT demonstrate this effectiveness across multiple benchmarks, proving to be 2-10 times faster than their original counterparts while maintaining similar HOTA scores.\n\nFuture work will apply the LITE paradigm to other ReID-based trackers, making them faster and more practical while maintaining accuracy. Additionally, a deeper investigation into the usefulness of ReID components in various scenarios and evaluating LITE applied trackers’ effectiveness on edge devices is planned.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 62,
+                    "pageNumber": 14,
+                    "sourceChunkId": "d4f59488-d4ba-436a-a723-bea30433a3ad"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "LITE feature-extraction diagram showing YOLOv8m backbone activations being cropped and spatially reduced into a 48-dimensional ReID feature.",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/4de0e1cb-da6a-4079-8abd-799b96c419a2/asset",
+        "align": "center",
+        "title": "LITE feature extraction pipeline",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/4de0e1cb-da6a-4079-8abd-799b96c419a2/asset",
+        "fileName": "paper--2409.04187.pdf",
+        "chunkText": "Fig. 2: Efficient ReID feature extraction via the LITE paradigm.\n\nYoLOvem backbone\n- YoLovs\nTT ==> head module\n-— - = \" bbox=\n| pam. (300,100,500.400)\n. ferry\n9 ~\n\" ee Re-scaling <= g\nbbox=(150,50,250.200) Rosen\n\"g,\nActivation crop\nextraction\nre Spatialsize | Ropes wham | _\nh => reduction => {i\n» pee ®\nhee\npod",
+        "mediaType": "image/png",
+        "chunkIndex": 20,
+        "pageNumber": 6,
+        "sourceChunkId": "4de0e1cb-da6a-4079-8abd-799b96c419a2"
+      }
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Evaluation designed around practical speed",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Alongside the LITE method, the paper proposes a broader evaluation framework for tracking-by-detection. It argues for measuring tracker pipelines with readily available pre-trained detectors and accounting for detector and input settings, rather than timing only tracker updates. This helps practitioners interpret speed and accuracy together under the stated evaluation conditions.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/c3d10c73-36e9-49a7-8c69-06801d433bb4/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "Current MOT evaluation methodologies often lack alignment with practical deployment scenarios. The proposed framework aims to bridge this gap by providing a more holistic assessment. Typically, available evaluation protocols do not closely resemble practical settings. For instance, the public evaluation protocols of the MOT17 and MOT20 benchmarks involve training detectors on training sets and evaluating them on test sets. However, in practice, pre-trained and readily available detectors, such as YOLOv8 [13], are often used. Therefore,\n\ntrackers following the tracking-by-detection paradigm should be evaluated using pre-trained detectors to closely mimic practical use cases.\n\nPrevious literature primarily computes FPS for matching and track management [10,26,5,17]. Open-source tools measure only the tracker update speed [4,21], and some state-of-the-art trackers lack speed measurements entirely [17]. Additionally, frame processing time varies with the density of people, detector model complexity, input image resolution, and minimum confidence threshold. There is a lack of studies highlighting how FPS changes in response to detector settings. Such knowledge allows practitioners to better balance speed and accuracy for their computer vision problems.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 12,
+            "pageNumber": 3,
+            "sourceChunkId": "c3d10c73-36e9-49a7-8c69-06801d433bb4"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/67bf079b-5498-4cc8-87c0-68a93427e6ea/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "This paper introduces Lightweight Integrated Tracking-Feature Extraction (LITE), a novel paradigm that integrates appearance feature extraction into the tracking pipeline using a standard YOLOv8m detector. LITE:DeepSORT is the simplest implementation of LITE, speeding up the classic DeepSORT. LITE:DeepSORT achieves a Higher Order Tracking Accuracy [15] (HOTA) score of 43.03 at 28 FPS on the MOT17 benchmark Fig.1, doubling the speed of DeepSORT [23] and quintupling that of StrongSORT [10], while maintaining accuracy. This makes LITE suitable for real-time applications needing ReID-equipped tracking components, as in Action Detection [8,24]. Fig.1 shows methodology when LITE is applied to DeepSORT. This paper also proposes a comprehensive evaluation framework to benchmark the entire tracking pipeline, bridging the gap between reported and practical performance, especially in real-time applications. This framework highlights common pitfalls in current evaluations, ensuring a more robust assessment of tracking methods.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "67bf079b-5498-4cc8-87c0-68a93427e6ea"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The paper reports benchmark-level performance improvements; these are technical results, not measured business outcomes. Its abstract reports the following for the simplest LITE:DeepSORT implementation:",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/b2f4597c-63aa-44bb-aafd-de84627944ea/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "Abstract. The Lightweight Integrated Tracking-Feature Extraction (LITE) paradigm is introduced as a novel multi-object tracking (MOT) approach. It enhances ReID-based trackers by eliminating inference, preprocessing, post-processing, and ReID model training costs. LITE uses real-time appearance features without compromising speed. By integrating appearance feature extraction directly into the tracking pipeline using standard CNN-based detectors such as YOLOv8m, LITE demonstrates significant performance improvements. The simplest implementation of LITE on top of classic DeepSORT achieves a HOTA score of 43.03% at 28.3 FPS on the MOT17 benchmark, making it twice as fast as DeepSORT on MOT17 and four times faster on the more crowded MOT20 dataset, while maintaining similar accuracy. Additionally, a new evaluation framework for tracking-by-detection approaches reveals that conventional trackers like DeepSORT remain competitive with modern stateof-the-art trackers when evaluated under fair conditions. The code will be available post-publication at https://github.com/Jumabek/LITE.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "b2f4597c-63aa-44bb-aafd-de84627944ea"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "On MOT17, a HOTA score of 43.03% at 28.3 FPS.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/b2f4597c-63aa-44bb-aafd-de84627944ea/asset",
+                    "fileName": "paper--2409.04187.pdf",
+                    "chunkText": "Abstract. The Lightweight Integrated Tracking-Feature Extraction (LITE) paradigm is introduced as a novel multi-object tracking (MOT) approach. It enhances ReID-based trackers by eliminating inference, preprocessing, post-processing, and ReID model training costs. LITE uses real-time appearance features without compromising speed. By integrating appearance feature extraction directly into the tracking pipeline using standard CNN-based detectors such as YOLOv8m, LITE demonstrates significant performance improvements. The simplest implementation of LITE on top of classic DeepSORT achieves a HOTA score of 43.03% at 28.3 FPS on the MOT17 benchmark, making it twice as fast as DeepSORT on MOT17 and four times faster on the more crowded MOT20 dataset, while maintaining similar accuracy. Additionally, a new evaluation framework for tracking-by-detection approaches reveals that conventional trackers like DeepSORT remain competitive with modern stateof-the-art trackers when evaluated under fair conditions. The code will be available post-publication at https://github.com/Jumabek/LITE.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 4,
+                    "pageNumber": 1,
+                    "sourceChunkId": "b2f4597c-63aa-44bb-aafd-de84627944ea"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The abstract describes LITE:DeepSORT as twice as fast as DeepSORT on MOT17 and four times faster on the more crowded MOT20 dataset, while maintaining similar accuracy.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/b2f4597c-63aa-44bb-aafd-de84627944ea/asset",
+                    "fileName": "paper--2409.04187.pdf",
+                    "chunkText": "Abstract. The Lightweight Integrated Tracking-Feature Extraction (LITE) paradigm is introduced as a novel multi-object tracking (MOT) approach. It enhances ReID-based trackers by eliminating inference, preprocessing, post-processing, and ReID model training costs. LITE uses real-time appearance features without compromising speed. By integrating appearance feature extraction directly into the tracking pipeline using standard CNN-based detectors such as YOLOv8m, LITE demonstrates significant performance improvements. The simplest implementation of LITE on top of classic DeepSORT achieves a HOTA score of 43.03% at 28.3 FPS on the MOT17 benchmark, making it twice as fast as DeepSORT on MOT17 and four times faster on the more crowded MOT20 dataset, while maintaining similar accuracy. Additionally, a new evaluation framework for tracking-by-detection approaches reveals that conventional trackers like DeepSORT remain competitive with modern stateof-the-art trackers when evaluated under fair conditions. The code will be available post-publication at https://github.com/Jumabek/LITE.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 4,
+                    "pageNumber": 1,
+                    "sourceChunkId": "b2f4597c-63aa-44bb-aafd-de84627944ea"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Across LITE:DeepSORT, LITE:DeepOC-SORT and LITE:BoTSORT, the conclusion reports speedups of 2–10 times over their original counterparts while maintaining similar HOTA scores.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/d4f59488-d4ba-436a-a723-bea30433a3ad/asset",
+                    "fileName": "paper--2409.04187.pdf",
+                    "chunkText": "This paper presents a practical evaluation framework for assessing real-world tracker performance, including detection, ReID, tracking, and their components. Extensive evaluations highlight the shortcomings of previous methods.\n\nLITE is introduced to obtain ReID features without training, separate inference, or preand post-processing, allowing ReID-based tracking with speeds close to motion-based trackers like SORT. LITE:DeepSORT, LITE:DeepOC-SORT, and LITE:BoTSORT demonstrate this effectiveness across multiple benchmarks, proving to be 2-10 times faster than their original counterparts while maintaining similar HOTA scores.\n\nFuture work will apply the LITE paradigm to other ReID-based trackers, making them faster and more practical while maintaining accuracy. Additionally, a deeper investigation into the usefulness of ReID components in various scenarios and evaluating LITE applied trackers’ effectiveness on edge devices is planned.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 62,
+                    "pageNumber": 14,
+                    "sourceChunkId": "d4f59488-d4ba-436a-a723-bea30433a3ad"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Experiments across MOT17, MOT20, PersonPath22, KITTI and VIRAT-S report that the LITE variants maintained competitive tracking accuracy with a speed advantage; the paper notes the advantage is especially evident in crowded MOT20 scenarios.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/a7de8729-3443-4cf6-9714-9a3f78a2c074/asset",
+                    "fileName": "paper--2409.04187.pdf",
+                    "chunkText": "To assess the robustness of the trackers, we conducted experiments across diverse scenarios using corresponding datasets. Specifically, all trackers, including ones that are using LITE, were evaluated for their speed advantage and generalizability across the MOT17, MOT20, PersonPath22, KITTI, and VIRAT-S datasets, employing the HOTA and FPS metrics.\n\nAs results shown in Table 5, LITE:DeepSORT, LITE:DeepOC-SORT, and LITE:BoTSORT maintain competitive tracking accuracy while offering a significant speed advantage. This makes applying LITE highly suitable for real-time multi-object tracking in various challenging environments. Notably, LITE applied trackers’ speed advantage is particularly evident in crowded scenarios such as MOT20. It is important to mention that other ReID-based trackers employ more complex ReID modules, which results in a much higher speed increase when LITE is applied.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 35,
+                    "pageNumber": 11,
+                    "sourceChunkId": "a7de8729-3443-4cf6-9714-9a3f78a2c074"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "These FPS and HOTA figures describe benchmark evaluations. The supplied sources do not report a measured reduction in operating cost, a customer deployment outcome or a quantified business impact.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/b2f4597c-63aa-44bb-aafd-de84627944ea/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "Abstract. The Lightweight Integrated Tracking-Feature Extraction (LITE) paradigm is introduced as a novel multi-object tracking (MOT) approach. It enhances ReID-based trackers by eliminating inference, preprocessing, post-processing, and ReID model training costs. LITE uses real-time appearance features without compromising speed. By integrating appearance feature extraction directly into the tracking pipeline using standard CNN-based detectors such as YOLOv8m, LITE demonstrates significant performance improvements. The simplest implementation of LITE on top of classic DeepSORT achieves a HOTA score of 43.03% at 28.3 FPS on the MOT17 benchmark, making it twice as fast as DeepSORT on MOT17 and four times faster on the more crowded MOT20 dataset, while maintaining similar accuracy. Additionally, a new evaluation framework for tracking-by-detection approaches reveals that conventional trackers like DeepSORT remain competitive with modern stateof-the-art trackers when evaluated under fair conditions. The code will be available post-publication at https://github.com/Jumabek/LITE.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "b2f4597c-63aa-44bb-aafd-de84627944ea"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/a7de8729-3443-4cf6-9714-9a3f78a2c074/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "To assess the robustness of the trackers, we conducted experiments across diverse scenarios using corresponding datasets. Specifically, all trackers, including ones that are using LITE, were evaluated for their speed advantage and generalizability across the MOT17, MOT20, PersonPath22, KITTI, and VIRAT-S datasets, employing the HOTA and FPS metrics.\n\nAs results shown in Table 5, LITE:DeepSORT, LITE:DeepOC-SORT, and LITE:BoTSORT maintain competitive tracking accuracy while offering a significant speed advantage. This makes applying LITE highly suitable for real-time multi-object tracking in various challenging environments. Notably, LITE applied trackers’ speed advantage is particularly evident in crowded scenarios such as MOT20. It is important to mention that other ReID-based trackers employ more complex ReID modules, which results in a much higher speed increase when LITE is applied.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 35,
+            "pageNumber": 11,
+            "sourceChunkId": "a7de8729-3443-4cf6-9714-9a3f78a2c074"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "LITE is documented as a research paradigm and evaluated in the paper. The supplied material does not establish a production release, customer integration, supported deployment platform, edge-device performance or current code availability. Although the paper says code will be available post-publication, the source excerpts do not confirm whether that release has occurred.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/b2f4597c-63aa-44bb-aafd-de84627944ea/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "Abstract. The Lightweight Integrated Tracking-Feature Extraction (LITE) paradigm is introduced as a novel multi-object tracking (MOT) approach. It enhances ReID-based trackers by eliminating inference, preprocessing, post-processing, and ReID model training costs. LITE uses real-time appearance features without compromising speed. By integrating appearance feature extraction directly into the tracking pipeline using standard CNN-based detectors such as YOLOv8m, LITE demonstrates significant performance improvements. The simplest implementation of LITE on top of classic DeepSORT achieves a HOTA score of 43.03% at 28.3 FPS on the MOT17 benchmark, making it twice as fast as DeepSORT on MOT17 and four times faster on the more crowded MOT20 dataset, while maintaining similar accuracy. Additionally, a new evaluation framework for tracking-by-detection approaches reveals that conventional trackers like DeepSORT remain competitive with modern stateof-the-art trackers when evaluated under fair conditions. The code will be available post-publication at https://github.com/Jumabek/LITE.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "b2f4597c-63aa-44bb-aafd-de84627944ea"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/d4f59488-d4ba-436a-a723-bea30433a3ad/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "This paper presents a practical evaluation framework for assessing real-world tracker performance, including detection, ReID, tracking, and their components. Extensive evaluations highlight the shortcomings of previous methods.\n\nLITE is introduced to obtain ReID features without training, separate inference, or preand post-processing, allowing ReID-based tracking with speeds close to motion-based trackers like SORT. LITE:DeepSORT, LITE:DeepOC-SORT, and LITE:BoTSORT demonstrate this effectiveness across multiple benchmarks, proving to be 2-10 times faster than their original counterparts while maintaining similar HOTA scores.\n\nFuture work will apply the LITE paradigm to other ReID-based trackers, making them faster and more practical while maintaining accuracy. Additionally, a deeper investigation into the usefulness of ReID components in various scenarios and evaluating LITE applied trackers’ effectiveness on edge devices is planned.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 62,
+            "pageNumber": 14,
+            "sourceChunkId": "d4f59488-d4ba-436a-a723-bea30433a3ad"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The authors identify future work to apply LITE to additional ReID-based trackers, investigate when ReID components are useful across scenarios, and evaluate LITE-enabled trackers on edge devices. These are planned research directions, not capabilities or results demonstrated as complete in the supplied material.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/d4f59488-d4ba-436a-a723-bea30433a3ad/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "This paper presents a practical evaluation framework for assessing real-world tracker performance, including detection, ReID, tracking, and their components. Extensive evaluations highlight the shortcomings of previous methods.\n\nLITE is introduced to obtain ReID features without training, separate inference, or preand post-processing, allowing ReID-based tracking with speeds close to motion-based trackers like SORT. LITE:DeepSORT, LITE:DeepOC-SORT, and LITE:BoTSORT demonstrate this effectiveness across multiple benchmarks, proving to be 2-10 times faster than their original counterparts while maintaining similar HOTA scores.\n\nFuture work will apply the LITE paradigm to other ReID-based trackers, making them faster and more practical while maintaining accuracy. Additionally, a deeper investigation into the usefulness of ReID components in various scenarios and evaluating LITE applied trackers’ effectiveness on edge devices is planned.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 62,
+            "pageNumber": 14,
+            "sourceChunkId": "d4f59488-d4ba-436a-a723-bea30433a3ad"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "LITE addresses the compute overhead associated with ReID-based multi-object tracking by integrating appearance-feature extraction into the tracking pipeline. The paper supports this approach with benchmark results and a broader evaluation framework, while leaving deployment status and business impact unreported. It offers a research-backed direction for making ReID-equipped tracking more efficient, with further validation and implementation work still needed for specific use cases.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/d4f59488-d4ba-436a-a723-bea30433a3ad/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "This paper presents a practical evaluation framework for assessing real-world tracker performance, including detection, ReID, tracking, and their components. Extensive evaluations highlight the shortcomings of previous methods.\n\nLITE is introduced to obtain ReID features without training, separate inference, or preand post-processing, allowing ReID-based tracking with speeds close to motion-based trackers like SORT. LITE:DeepSORT, LITE:DeepOC-SORT, and LITE:BoTSORT demonstrate this effectiveness across multiple benchmarks, proving to be 2-10 times faster than their original counterparts while maintaining similar HOTA scores.\n\nFuture work will apply the LITE paradigm to other ReID-based trackers, making them faster and more practical while maintaining accuracy. Additionally, a deeper investigation into the usefulness of ReID components in various scenarios and evaluating LITE applied trackers’ effectiveness on edge devices is planned.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 62,
+            "pageNumber": 14,
+            "sourceChunkId": "d4f59488-d4ba-436a-a723-bea30433a3ad"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/evidence/b2f4597c-63aa-44bb-aafd-de84627944ea/asset",
+            "fileName": "paper--2409.04187.pdf",
+            "chunkText": "Abstract. The Lightweight Integrated Tracking-Feature Extraction (LITE) paradigm is introduced as a novel multi-object tracking (MOT) approach. It enhances ReID-based trackers by eliminating inference, preprocessing, post-processing, and ReID model training costs. LITE uses real-time appearance features without compromising speed. By integrating appearance feature extraction directly into the tracking pipeline using standard CNN-based detectors such as YOLOv8m, LITE demonstrates significant performance improvements. The simplest implementation of LITE on top of classic DeepSORT achieves a HOTA score of 43.03% at 28.3 FPS on the MOT17 benchmark, making it twice as fast as DeepSORT on MOT17 and four times faster on the more crowded MOT20 dataset, while maintaining similar accuracy. Additionally, a new evaluation framework for tracking-by-detection approaches reveals that conventional trackers like DeepSORT remain competitive with modern stateof-the-art trackers when evaluated under fair conditions. The code will be available post-publication at https://github.com/Jumabek/LITE.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "b2f4597c-63aa-44bb-aafd-de84627944ea"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,471 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "LLM Results Analyzer for Unified HS Code Classification",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "LLM Results Analyzer brings regulatory HS code knowledge and real-world trade precedent together in one unified classification workflow.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d317c1ce-95c6-4e5a-b38d-403e4826878a/evidence/fdd28aa0-8e9a-49d4-9f8a-d6a0741bd2b1/asset",
+            "fileName": "case-study--llm-results-analyzer.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nIntegrated Clarification and Optimization outputs with an analyzer LLM to deliver unified, well-justified HS code recommendations.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "fdd28aa0-8e9a-49d4-9f8a-d6a0741bd2b1"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI developed the LLM Results Analyzer to help users making Harmonized System (HS) code classification decisions combine two complementary sources: theoretical code definitions and compliance knowledge from Custom Clarification, and practical classification evidence from Custom Optimization. Before this integration, users had to work across the two systems and reconcile their outputs themselves. The analyzer is described as a delivered orchestration framework that sends a classification request to both systems and uses a specialized analyzer LLM to synthesize their results; no quantitative performance or business-impact measurements are provided in the source.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d317c1ce-95c6-4e5a-b38d-403e4826878a/evidence/c6d67ee5-2362-4733-95d0-108cd48f4fcd/asset",
+            "fileName": "case-study--llm-results-analyzer.pdf",
+            "chunkText": "The LLM Results Analyzer delivered improvements in both user experience and classification accuracy by successfully integrating the strengths of both theoretical and practical HS code classification approaches. The unified endpoint eliminated the complexity and time overhead associated with manually using two separate systems. The parallel processing architecture ensures that total response time is only marginally longer than the slower of the two underlying systems. The analyzer LLM successfully identifies and explains discrepancies between theoretical and practical approaches, providing users with clear guidance on how to resolve classification conflicts. Classification confidence improved as users now have access to justifications that consider both legal compliance requirements and real-world trade precedent. Adoption rates increased substantially as the simplified workflow eliminated the time and complexity barriers that previously prevented users from fully leveraging both systems.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "c6d67ee5-2362-4733-95d0-108cd48f4fcd"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The two underlying classification projects addressed different evidence needs. Custom Clarification provided theoretical HS code definitions, official regulations and legal frameworks; Custom Optimization drew on 65.5 million real-world product descriptions reflecting trade practices and classification precedents. Those systems could each be used independently, but there was no efficient built-in way for users to combine their recommendations.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d317c1ce-95c6-4e5a-b38d-403e4826878a/evidence/7fd5799e-5cf1-42ac-aa56-e709ab819f44/asset",
+            "fileName": "case-study--llm-results-analyzer.pdf",
+            "chunkText": "The Custom Clarification Project and Custom Optimization Project created two powerful but separate systems for HS code classification. The Custom Clarification Project provided access to theoretical HS code definitions, official regulations, and legal frameworks essential for compliance accuracy. The Custom Optimization Project offered insights from 65.5 million real-world product descriptions, reflecting actual trade practices and classification precedents. While both systems delivered value independently, users faced the challenge of determining how to best utilize both sources of information for optimal classification decisions. The LLM Results Analyzer addresses this integration challenge through an orchestration framework that automatically combines insights from both systems and provides unified, well-reasoned recommendations.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "7fd5799e-5cf1-42ac-aa56-e709ab819f44"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Users previously submitted the same product query to each system, waited for separate responses, then manually compared and reconciled potentially inconsistent results. The case study identifies this manual process as time-consuming and prone to human error and inconsistency; differences between recommendations could also leave users uncertain about which to prioritize.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d317c1ce-95c6-4e5a-b38d-403e4826878a/evidence/3a94c147-ade5-46f4-883b-3f518cc0c22d/asset",
+            "fileName": "case-study--llm-results-analyzer.pdf",
+            "chunkText": "The existence of two separate classification systems created an integration challenge that limited the potential value both systems could deliver when used together. Users found themselves with access to theoretical knowledge through the Custom Clarification Project and extensive practical data through the Custom Optimization Project, but no efficient way to combine these resources. The primary challenge was workflow complexity - users had to manually submit the same query to both systems, wait for separate responses, and then attempt to reconcile potentially different recommendations. Inconsistent results between the two systems created confusion and decision paralysis, with users lacking guidance on how to resolve these discrepancies or determine which recommendation to prioritize. The manual comparison process was prone to human error and inconsistency, and the time required to use both systems effectively became a barrier to adoption.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "3a94c147-ade5-46f4-883b-3f518cc0c22d"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Original source: the PDF refers to an “Open original HumbleBeeAI page” link, but does not provide its destination URL in the supplied material. A direct link therefore cannot be reproduced here.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d317c1ce-95c6-4e5a-b38d-403e4826878a/evidence/fdd28aa0-8e9a-49d4-9f8a-d6a0741bd2b1/asset",
+            "fileName": "case-study--llm-results-analyzer.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nIntegrated Clarification and Optimization outputs with an analyzer LLM to deliver unified, well-justified HS code recommendations.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "fdd28aa0-8e9a-49d4-9f8a-d6a0741bd2b1"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The analyzer acts as an orchestration layer around the two existing classification systems. A unified endpoint dispatches identical requests to both underlying endpoints simultaneously; after both return, a specialized analyzer LLM processes their outputs using prompt engineering for HS code classification. The framework retains the original system outputs alongside its synthesized analysis.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Parallel requests through one endpoint",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The unified endpoint sends the same classification query to Custom Clarification and Custom Optimization at the same time, avoiding the sequential wait of separately running each system.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The two responses bring theoretical regulatory and compliance considerations together with practical trade descriptions and precedent.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d317c1ce-95c6-4e5a-b38d-403e4826878a/evidence/7fd5799e-5cf1-42ac-aa56-e709ab819f44/asset",
+                    "fileName": "case-study--llm-results-analyzer.pdf",
+                    "chunkText": "The Custom Clarification Project and Custom Optimization Project created two powerful but separate systems for HS code classification. The Custom Clarification Project provided access to theoretical HS code definitions, official regulations, and legal frameworks essential for compliance accuracy. The Custom Optimization Project offered insights from 65.5 million real-world product descriptions, reflecting actual trade practices and classification precedents. While both systems delivered value independently, users faced the challenge of determining how to best utilize both sources of information for optimal classification decisions. The LLM Results Analyzer addresses this integration challenge through an orchestration framework that automatically combines insights from both systems and provides unified, well-reasoned recommendations.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 4,
+                    "pageNumber": 2,
+                    "sourceChunkId": "7fd5799e-5cf1-42ac-aa56-e709ab819f44"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Synthesis with retained source outputs",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "A specialized analyzer LLM identifies areas where the underlying recommendations agree or differ, and provides a reasoned recommendation that considers both perspectives.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Keeping both original outputs alongside the synthesis preserves visibility into the underlying evidence rather than replacing it with a single unexplained answer.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Screenshot of an LLM Product Analyzer interface with a product-analysis chat input and Analyze and Clear controls.",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d317c1ce-95c6-4e5a-b38d-403e4826878a/evidence/ed26290d-04e0-4440-a4e2-43dbaa0e2949/asset",
+        "align": "center",
+        "title": "Product analyzer interface shown in the case-study PDF",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d317c1ce-95c6-4e5a-b38d-403e4826878a/evidence/ed26290d-04e0-4440-a4e2-43dbaa0e2949/asset",
+        "fileName": "case-study--llm-results-analyzer.pdf",
+        "chunkText": "Results Visualization\n\neve © < bore ~ Soba -e ®d +0\n[IP TN Tre wa Goa Osim. Sovswmion. Benim Oveisa. | (SUM Aon\n\n© LLM Product Analyzer\n\nMew teme meraming snalysn with Cmadcaten § UseCane 470 + LLW iwteiigrece\n\n® Product Analysis Chat\n\nttt o\n\nho er a\n\n=\n\n° =",
+        "mediaType": "image/png",
+        "chunkIndex": 9,
+        "pageNumber": 3,
+        "sourceChunkId": "ed26290d-04e0-4440-a4e2-43dbaa0e2949"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied screenshot illustrates a product-analysis interface. The source does not establish that this screenshot depicts the exact unified endpoint or confirm the production availability of every visible interface element.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d317c1ce-95c6-4e5a-b38d-403e4826878a/evidence/ed26290d-04e0-4440-a4e2-43dbaa0e2949/asset",
+            "fileName": "case-study--llm-results-analyzer.pdf",
+            "chunkText": "Results Visualization\n\neve © < bore ~ Soba -e ®d +0\n[IP TN Tre wa Goa Osim. Sovswmion. Benim Oveisa. | (SUM Aon\n\n© LLM Product Analyzer\n\nMew teme meraming snalysn with Cmadcaten § UseCane 470 + LLW iwteiigrece\n\n® Product Analysis Chat\n\nttt o\n\nho er a\n\n=\n\n° =",
+            "mediaType": "image/png",
+            "chunkIndex": 9,
+            "pageNumber": 3,
+            "sourceChunkId": "ed26290d-04e0-4440-a4e2-43dbaa0e2949"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study reports qualitative workflow and decision-support benefits, but supplies no before-and-after timings, accuracy figures, adoption counts or other quantified outcome measures. The reported results should therefore be read as source-described observations rather than independently measured business impact.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Workflow: the unified endpoint is reported to eliminate the complexity and time overhead associated with manually using two separate systems.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Response time: parallel processing is reported to make total response time only marginally longer than the slower of the two underlying systems. No response-time values are supplied.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Conflict handling: the analyzer is reported to identify and explain discrepancies between theoretical and practical approaches, offering users guidance on resolving classification conflicts.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Classification confidence and adoption: the case study reports improved confidence through justifications based on compliance requirements and trade precedent, and a substantial increase in adoption after simplifying the workflow. It provides no numerical confidence or adoption measurements.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Illustration of two users reviewing a unified classification result on a computer display.",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d317c1ce-95c6-4e5a-b38d-403e4826878a/evidence/1b5da302-8d52-4ddb-9089-5ab5b78408d2/asset",
+        "align": "center",
+        "title": "Illustration accompanying the HS code classification case study",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d317c1ce-95c6-4e5a-b38d-403e4826878a/evidence/1b5da302-8d52-4ddb-9089-5ab5b78408d2/asset",
+        "fileName": "case-study--llm-results-analyzer.pdf",
+        "chunkText": "Source image\n\nE=d",
+        "mediaType": "image/png",
+        "chunkIndex": 2,
+        "pageNumber": 1,
+        "sourceChunkId": "1b5da302-8d52-4ddb-9089-5ab5b78408d2"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source includes this illustration of users reviewing a combined classification result; it is illustrative and does not itself provide performance evidence.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d317c1ce-95c6-4e5a-b38d-403e4826878a/evidence/4bb4b84f-865c-4978-bfc5-34f6cee1bbe9/asset",
+            "fileName": "case-study--llm-results-analyzer.pdf",
+            "chunkText": "Figure 1.1. Graphical interface of the customs HS code classification system showing the outputs of the Custom Clarification API (left) and the Custom Optimization API (right). The left panel displays the system's automated analysis of a product description, based on the theoretical data with recommended HS codes. The right panel lists potential optimized product descriptions from the 65.5 million dataset. This figure illustrates how the system combines both results and analyzes final HS code suggestions. For more, you can watch the video at the link.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 10,
+            "pageNumber": 4,
+            "sourceChunkId": "4bb4b84f-865c-4978-bfc5-34f6cee1bbe9"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied case study does not document known technical limitations, a roadmap, or planned next steps. It describes the orchestration framework and its unified endpoint as developed, but does not specify deployment scope, production status, ongoing validation, or service availability. Those details remain unprovided, and the reported qualitative benefits are not accompanied by quantitative measurements.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The LLM Results Analyzer addresses the practical gap between two separate sources of HS code classification knowledge by coordinating their requests and presenting a reasoned synthesis alongside the original outputs. The case study describes a simpler combined workflow and qualitative decision-support benefits, while leaving quantified impact and production scope unspecified.",
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}

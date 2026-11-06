@@ -1,0 +1,132 @@
+ HUMBLEBEEAI / CASE STUDY
+
+
+ LiveScore AI Revolutionizes Real-Time
+ Basketball Scoring
+ Open original HumbleBeeAI page
+
+ LiveScore AI is a low-latency, real-time scoring platform that tracks player movement and
+ recognizes tricks/dunks to deliver animated scores, live leaderboards, and admin tools that
+ boost accuracy and audience engagement at basketball trick-shot and dunk events.
+
+   Accuracy                                Speed                        Deployment
+   High                                    Seconds                      on-promise server
+
+
+
+
+ Source image
+
+
+ Executive Summary
+ LiveScore AI is a low-latency, real-time scoring platform designed to enhance basketball trick-shot and
+ dunk events with animated scores, live leaderboards, and streamlined administrative controls.
+ LiveScore AI provides instant feedback to players and spectators, combining player movement
+ tracking, trick recognition, and automated scoring in a unified system. By reducing human error and
+ increasing audience engagement, the platform offers tournament operators, event producers, and
+ venues the tools they need for seamless event execution, while ensuring that results are accurate,
+ shareable, and reliable for post-event analysis.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                       1
+ Introduction
+ Basketball events, particularly trick-shot and dunk competitions, rely on real-time feedback and clear,
+ transparent outcomes. Traditional methods of scoring often suffer from delays, subjectivity, and errors,
+ diminishing the excitement for both players and spectators. LiveScore AI was created to automate and
+ streamline the scoring process, integrating scoring, visual animations, and administrative control into a
+ unified platform. Designed with scalability in mind, LiveScore AI supports multiple concurrent games
+ and real-time event management, offering a seamless solution for interactive sports events.
+
+ The Problem
+ Inefficient scoring systems: Traditional scoring methods are manual and prone to human error,
+ causing delays in providing feedback to players and audiences. Lack of engagement: In many
+ events, players and spectators are disconnected from the scoring process, leading to less excitement
+ and engagement. Operational challenges: Event organizers often struggle with managing real-time
+ game updates, leaderboard maintenance, and score adjustments without interrupting the event.
+ Limited scalability: As events grow in popularity, the need to manage multiple concurrent games with
+ minimal latency becomes crucial. Traditional systems cannot support large-scale, real-time event
+ scoring without sacrificing accuracy or speed.
+
+ The Solution
+ LiveScore AI tackles these challenges with a comprehensive, real-time solution for scoring and event
+ management.
+
+ Real-Time Event Ingest & Scoring
+ LiveScore AI utilizes real-time data streaming to process scores instantly as the game unfolds,
+ updating both player-facing displays and spectator screens without delay. This real-time scoring
+ eliminates bottlenecks and enhances audience engagement.
+
+ Automated Scoring Engine
+ The platform’s deterministic scoring engine automates the process of recognizing player movements,
+ tricks, and dunk events, providing immediate and accurate scores. This reduces the need for manual
+ scoring and minimizes errors, ensuring a transparent and fair competition.
+
+ Engaging Spectator UI
+ LiveScore AI features a dynamic and animated user interface that displays live trick queues and
+ motion choreography, creating an engaging experience for spectators. These animations keep
+ audiences invested in the event, helping maintain excitement throughout the competition.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                         2
+ Retail Compliance Hero
+
+ Edge-Powered Video Processing
+ LiveScore AI leverages NVIDIA Jetson Orin Nano edge devices to process live video feeds directly
+ on-site. The platform supports both RTSP streams from networked CCTV cameras and directly
+ connected cameras attached to the device, giving clients the flexibility to choose the input source that
+ best fits their venue setup. The system performs real-time video ingestion and inference at the edge,
+ eliminating the need to send raw footage to remote servers. The processed video stream is then
+ relayed back to the client, providing spectators and administrators with low-latency, live camera feeds
+ alongside scoring data. This edge-first architecture minimizes network bandwidth requirements and
+ ensures the system remains responsive even in venue environments with limited connectivity.
+
+ Persistent Leaderboards & Analytics
+ LiveScore AI offers persistent leaderboards that are automatically updated during the event. These
+ leaderboards are accessible for analysis and reporting, allowing organizers to track player
+ performance, create rankings, and export results for future use.
+
+ Admin Interface & Control
+ Event organizers benefit from a robust administrative interface that allows for score edits, leaderboard
+ adjustments, and real-time control of the event. With secure authentication and role-based access,
+ administrators can make changes without interrupting gameplay, ensuring smooth event flow.
+
+ Results
+ LiveScore AI has transformed how basketball trick-shot and dunk events are managed and scored.
+ Key results include:
+
+  •   Increased Engagement: Real-time scoring with dynamic animations boosts audience participation
+      and player excitement.
+  •   Operational Efficiency: Automated scoring and leaderboard updates reduce the need for manual
+      intervention, allowing event organizers to focus on other aspects of the event.
+  •   Improved Accuracy: The platform’s automated scoring ensures consistent, fair, and transparent
+      adjudication, reducing human error and disputes.
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                        3
+  •   Scalability: LiveScore AI supports large-scale events with minimal latency, making it ideal for
+      tournaments and venues with multiple concurrent games.
+  •   Edge Processing: On-site deployment of NVIDIA Jetson Orin Nano enables low-latency video
+      processing at the edge, reducing cloud dependency and bandwidth costs while delivering reliable,
+      real time camera feeds in any venue environment.
+
+ Conclusion
+ LiveScore AI redefines the way basketball trick-shot and dunk competitions are scored and managed.
+ By automating the scoring process, providing engaging visual elements, and offering administrative
+ tools, LiveScore AI ensures a smooth and exciting experience for players, spectators, and event
+ organizers. Whether used for local competitions, tournaments, or interactive live events, LiveScore AI
+ delivers real-time, accurate scoring with minimal operational overhead, making it the ideal solution for
+ any basketball event that demands precision, speed, and engagement.
+
+ LiveScore AI is the future of interactive sports scoring, helping event organizers create memorable
+ experiences while maintaining full control over their events.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                        4
+

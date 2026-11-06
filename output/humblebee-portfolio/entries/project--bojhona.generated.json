@@ -1,0 +1,409 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Bojhona: AI-Powered Customs Intelligence: HS Code Definitions",
+          "type": "text"
+        },
+        {
+          "text": "Bojhona brings HS-code definitions and historical customs product descriptions into one AI-assisted classification experience.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/166ba86b-4305-499c-8989-de0c28463adc/evidence/b94f3b26-9ba0-4e5e-bf4f-787e7d5aeaa2/asset",
+            "fileName": "project--bojhona.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAdvanced AI system unifying theoretical HS-code definitions with real-world trade data, featuring 65.5M+ product descriptions for accurate customs classification.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "b94f3b26-9ba0-4e5e-bf4f-787e7d5aeaa2"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Bojhona is an in-development customs intelligence project for connecting the formal structure of Harmonized System (HS) codes with historical product descriptions from customs declarations. Its intended users include customs officers, managers, importers and exporters. The project page identifies its status as “in dev” and scope as “Mid”; no demo URL is provided. ",
+          "type": "text"
+        },
+        {
+          "text": "View the original project page",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://humblebee.ai/projects/bojhona",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "text": ".",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/166ba86b-4305-499c-8989-de0c28463adc/evidence/03b2b5f5-689d-402c-b8e4-e5004cf97b18/asset",
+            "fileName": "project--bojhona.pdf",
+            "chunkText": "Status | Scope\nin dev | Mid",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1,
+            "sourceChunkId": "03b2b5f5-689d-402c-b8e4-e5004cf97b18"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/166ba86b-4305-499c-8989-de0c28463adc/evidence/72c6bda1-055c-4787-b912-5b390a549d4d/asset",
+            "fileName": "project--bojhona.pdf",
+            "chunkText": "The AI-Powered Customs Intelligence project delivers an advanced AI-powered system that unifies theoretical HS-code definitions with real-world trade data. By integrating two phases of projects - Phase A (official and structural HS-code definitions) and Phase B (historical large-scale product descriptions from customs declarations) - the solution provides a single platform for accurate and efficient classification. Built on a foundation of large-scale data optimization, semantic embeddings, and a LangChain-based chatbot, the system enables customs officers, managers, and business users to access both legal definitions and practical product HS code matches in one place. This unified approach improves compliance accuracy, reduces reliance on manual processes, and establishes a scalable framework for modern customs operations.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "72c6bda1-055c-4787-b912-5b390a549d4d"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source describes the aim as helping users find classification context in one place rather than navigating legal definitions and practical trade data separately. Although the project write-up reports operational benefits, independent evaluation details and test conditions have not been provided.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "User Need",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Classification requires applying legal HS-code definitions to the varied descriptions used for actual goods. The project account says customs officers searched large numbers of records manually, while duplicates and inconsistent descriptions complicated results; theoretical code definitions and practical customs-case data were also siloed. Importers and exporters were described as relying on consultants and brokers to interpret codes.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/166ba86b-4305-499c-8989-de0c28463adc/evidence/3bfd32fd-cb58-41c9-a1a7-1803a6ec4d1b/asset",
+            "fileName": "project--bojhona.pdf",
+            "chunkText": "Despite the critical role of HS codes in regulating international trade, customs authorities and businesses faced major obstacles in applying them effectively. Classification work was still largely manual, requiring officers to search through millions of records to identify the right code for each product. This process was not only time-consuming but also prone to misclassification, which carried significant compliance and financial risks. The underlying data environment further compounded these challenges. The MSSQL database used for customs operations contained vast amounts of duplicate and inconsistent product descriptions. These redundancies slowed down searches, made it difficult to standardize results, and created confusion when similar products appeared under conflicting entries. At the same time, the outputs of Phase A (theoretical HS-code definitions) and Phase B (real-world customs case data) remained siloed. Without integration, officers had to switch between abstract legal definitions and unstructured product descriptions, a workflow that limited efficiency and accuracy. Finally, business users such as importers and exporters lacked direct access to HS-code search tools. Instead, they relied heavily on consultants and brokers to interpret codes on their behalf. This dependency increased operational costs, slowed trade activities, and made compliance less transparent.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "3bfd32fd-cb58-41c9-a1a7-1803a6ec4d1b"
+          }
+        },
+        {
+          "text": " These are needs and challenges as reported in the project source, not independently measured findings.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Product Vision",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The intended direction is a shared classification experience where users can consult both the HS legal framework and examples drawn from historical product descriptions. The source describes integrating Phase A (official and structural HS-code definitions) with Phase B (historical product descriptions from customs declarations). No additional roadmap or future commitments are provided.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/166ba86b-4305-499c-8989-de0c28463adc/evidence/afa03214-65cc-4fde-ad82-634e5000d2bc/asset",
+            "fileName": "project--bojhona.pdf",
+            "chunkText": "International trade depends on the Harmonized System (HS), a globally standardized method for classifying goods. However, aligning the legal definitions of HS codes with the descriptions of real-world products has long been a complex challenge. Phase A addressed the theoretical side of the system by structuring the legal framework of HS codes, including sections, chapters, and official explanatory notes. While this provided the essential foundation for compliance, it lacked practical application, as officers and businesses often struggled to connect abstract definitions to actual goods. Phase B, on the other hand, focused on the practical side, compiling a massive dataset of 65.5+1.8 million product descriptions from customs declarations. This dataset reflected the reality of international trade but was plagued by issues such as duplication, inconsistency, and the absence of alignment with the official HS-code structure. Operating these two phases of the project separately created a fundamental gap: customs officers and businesses had to choose between rigid theoretical definitions or messy real-world data, with no unified tool to bridge the two. This slowed classification, introduced errors, and limited the ability to make informed, data-driven decisions.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "afa03214-65cc-4fde-ad82-634e5000d2bc"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/166ba86b-4305-499c-8989-de0c28463adc/evidence/72c6bda1-055c-4787-b912-5b390a549d4d/asset",
+            "fileName": "project--bojhona.pdf",
+            "chunkText": "The AI-Powered Customs Intelligence project delivers an advanced AI-powered system that unifies theoretical HS-code definitions with real-world trade data. By integrating two phases of projects - Phase A (official and structural HS-code definitions) and Phase B (historical large-scale product descriptions from customs declarations) - the solution provides a single platform for accurate and efficient classification. Built on a foundation of large-scale data optimization, semantic embeddings, and a LangChain-based chatbot, the system enables customs officers, managers, and business users to access both legal definitions and practical product HS code matches in one place. This unified approach improves compliance accuracy, reduces reliance on manual processes, and establishes a scalable framework for modern customs operations.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "72c6bda1-055c-4787-b912-5b390a549d4d"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Capabilities and Experience",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The project write-up describes a data pipeline that cleans, normalizes and deduplicates customs product descriptions, then processes records in batches for semantic retrieval. It reports use of OpenAI text-embedding-3-small, Pinecone, MongoDB, FastAPI and LangChain with GPT models. The described chatbot returns HS-code suggestions with supporting context from definitions and product examples; the system is also described as comparing results and surfacing the top 10 relevant HS codes. The current website status remains “in dev,” so the write-up does not establish that all described functionality is generally available.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/166ba86b-4305-499c-8989-de0c28463adc/evidence/386cb6b6-585f-4eca-a97b-86df776585c8/asset",
+            "fileName": "project--bojhona.pdf",
+            "chunkText": "The project implemented a comprehensive AI-powered pipeline to optimize customs data and provide an intelligent chatbot interface for HS-code classification. The first step involved data optimization and cleaning, where the team connected to the MSSQL database containing 65.5+1.8 million product descriptions and performed large-scale deduplication and normalization. This process ensured that the dataset was accurate, standardized, and ready for efficient AI-driven retrieval. Next, the data ingestion pipeline processed the cleaned dataset in batches. Each record was converted into semantic embeddings using OpenAI's text-embedding-3-small, then stored in Pinecone for fast, semantic search capabilities. Key metadata was mirrored in MongoDB, providing flexible filtering, analytics, and context for chatbot sessions. The system also included chatbot development built on FastAPI and LangChain, leveraging GPT models to generate accurate, context-aware responses. The chatbot could instantly provide HS-code suggestions along with supporting context from both theoretical definitions and real-world product examples. A crucial part of the solution was the integration of Phase A and Phase B. By combining theoretical HS-code structures with practical product data, the system enabled systematic comparison of classification results, highlighting and justifying the top 10 most suitable HS codes for any given query. Finally, the project emphasized evaluation and continuous improvement, including ablation studies on embedding models and chunking strategies to optimize retrieval quality.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "386cb6b6-585f-4eca-a97b-86df776585c8"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/166ba86b-4305-499c-8989-de0c28463adc/evidence/03b2b5f5-689d-402c-b8e4-e5004cf97b18/asset",
+            "fileName": "project--bojhona.pdf",
+            "chunkText": "Status | Scope\nin dev | Mid",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1,
+            "sourceChunkId": "03b2b5f5-689d-402c-b8e4-e5004cf97b18"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source describes the underlying dataset as “65.5+1.8 million” product descriptions on one page and “65.5M+” on another. It reports search and classification time reduced “from minutes to seconds,” but supplies no test conditions, baseline details or measurement method. These are project-reported technical and operational claims, not independently validated business-impact results.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/166ba86b-4305-499c-8989-de0c28463adc/evidence/afa03214-65cc-4fde-ad82-634e5000d2bc/asset",
+            "fileName": "project--bojhona.pdf",
+            "chunkText": "International trade depends on the Harmonized System (HS), a globally standardized method for classifying goods. However, aligning the legal definitions of HS codes with the descriptions of real-world products has long been a complex challenge. Phase A addressed the theoretical side of the system by structuring the legal framework of HS codes, including sections, chapters, and official explanatory notes. While this provided the essential foundation for compliance, it lacked practical application, as officers and businesses often struggled to connect abstract definitions to actual goods. Phase B, on the other hand, focused on the practical side, compiling a massive dataset of 65.5+1.8 million product descriptions from customs declarations. This dataset reflected the reality of international trade but was plagued by issues such as duplication, inconsistency, and the absence of alignment with the official HS-code structure. Operating these two phases of the project separately created a fundamental gap: customs officers and businesses had to choose between rigid theoretical definitions or messy real-world data, with no unified tool to bridge the two. This slowed classification, introduced errors, and limited the ability to make informed, data-driven decisions.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "afa03214-65cc-4fde-ad82-634e5000d2bc"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/166ba86b-4305-499c-8989-de0c28463adc/evidence/b94f3b26-9ba0-4e5e-bf4f-787e7d5aeaa2/asset",
+            "fileName": "project--bojhona.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAdvanced AI system unifying theoretical HS-code definitions with real-world trade data, featuring 65.5M+ product descriptions for accurate customs classification.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "b94f3b26-9ba0-4e5e-bf4f-787e7d5aeaa2"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/166ba86b-4305-499c-8989-de0c28463adc/evidence/3d5e00c3-d1e0-48b9-a6fa-bd19c6a33a9a/asset",
+            "fileName": "project--bojhona.pdf",
+            "chunkText": "The project delivered significant improvements across multiple dimensions of HS-code classification and customs operations. Operational efficiency was dramatically enhanced, reducing search and classification time from minutes to seconds, allowing customs officers to process queries far more quickly and effectively. Accuracy and reliability were also improved, as duplicate and inconsistent data were eliminated, and the chatbot provided citation-backed answers drawn from both theoretical definitions and real-world product examples, increasing trust in automated recommendations. By integrating outputs from Phase A and Phase B, the system enabled unified decision-making, allowing managers to conduct side-by-side comparisons of classification results and identify the top 10 most relevant HS codes for compliance purposes. Finally, the project empowered business users by delivering a self-service chatbot interface for importers and exporters, reducing reliance on external consultants, cutting costs, and accelerating trade-related decision-making. Overall, the solution established a faster, more accurate, and more transparent HS-code classification process that benefited both authorities and industry stakeholders.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "3d5e00c3-d1e0-48b9-a6fa-bd19c6a33a9a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Differentiators",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supported distinction is the combination of structured HS definitions with historical product descriptions in a single classification workflow. The source also describes citation-backed answers and side-by-side comparison of candidate codes. It provides no comparative evidence against other products, so no superiority claim is made.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/166ba86b-4305-499c-8989-de0c28463adc/evidence/3d5e00c3-d1e0-48b9-a6fa-bd19c6a33a9a/asset",
+            "fileName": "project--bojhona.pdf",
+            "chunkText": "The project delivered significant improvements across multiple dimensions of HS-code classification and customs operations. Operational efficiency was dramatically enhanced, reducing search and classification time from minutes to seconds, allowing customs officers to process queries far more quickly and effectively. Accuracy and reliability were also improved, as duplicate and inconsistent data were eliminated, and the chatbot provided citation-backed answers drawn from both theoretical definitions and real-world product examples, increasing trust in automated recommendations. By integrating outputs from Phase A and Phase B, the system enabled unified decision-making, allowing managers to conduct side-by-side comparisons of classification results and identify the top 10 most relevant HS codes for compliance purposes. Finally, the project empowered business users by delivering a self-service chatbot interface for importers and exporters, reducing reliance on external consultants, cutting costs, and accelerating trade-related decision-making. Overall, the solution established a faster, more accurate, and more transparent HS-code classification process that benefited both authorities and industry stakeholders.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "3d5e00c3-d1e0-48b9-a6fa-bd19c6a33a9a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Current Availability and Roadmap",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The project is published as “in dev,” with a “Mid” scope designation. No demo URL or further availability details are listed. The source describes the pipeline and chatbot, but the project’s current deployed functionality and access arrangements have not been specified.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/166ba86b-4305-499c-8989-de0c28463adc/evidence/03b2b5f5-689d-402c-b8e4-e5004cf97b18/asset",
+            "fileName": "project--bojhona.pdf",
+            "chunkText": "Status | Scope\nin dev | Mid",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1,
+            "sourceChunkId": "03b2b5f5-689d-402c-b8e4-e5004cf97b18"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/166ba86b-4305-499c-8989-de0c28463adc/evidence/386cb6b6-585f-4eca-a97b-86df776585c8/asset",
+            "fileName": "project--bojhona.pdf",
+            "chunkText": "The project implemented a comprehensive AI-powered pipeline to optimize customs data and provide an intelligent chatbot interface for HS-code classification. The first step involved data optimization and cleaning, where the team connected to the MSSQL database containing 65.5+1.8 million product descriptions and performed large-scale deduplication and normalization. This process ensured that the dataset was accurate, standardized, and ready for efficient AI-driven retrieval. Next, the data ingestion pipeline processed the cleaned dataset in batches. Each record was converted into semantic embeddings using OpenAI's text-embedding-3-small, then stored in Pinecone for fast, semantic search capabilities. Key metadata was mirrored in MongoDB, providing flexible filtering, analytics, and context for chatbot sessions. The system also included chatbot development built on FastAPI and LangChain, leveraging GPT models to generate accurate, context-aware responses. The chatbot could instantly provide HS-code suggestions along with supporting context from both theoretical definitions and real-world product examples. A crucial part of the solution was the integration of Phase A and Phase B. By combining theoretical HS-code structures with practical product data, the system enabled systematic comparison of classification results, highlighting and justifying the top 10 most suitable HS codes for any given query. Finally, the project emphasized evaluation and continuous improvement, including ablation studies on embedding models and chunking strategies to optimize retrieval quality.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "386cb6b6-585f-4eca-a97b-86df776585c8"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "No roadmap items or planned release dates are provided. Further availability and performance information would need to be confirmed before describing this as a production service.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Bojhona’s project description sets out an in-development approach to bringing formal HS-code definitions and real-world customs descriptions together for customs professionals and trade businesses. Its documented scope and reported results should be read alongside the stated development status; deployment details and test conditions remain unspecified.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/166ba86b-4305-499c-8989-de0c28463adc/evidence/72c6bda1-055c-4787-b912-5b390a549d4d/asset",
+            "fileName": "project--bojhona.pdf",
+            "chunkText": "The AI-Powered Customs Intelligence project delivers an advanced AI-powered system that unifies theoretical HS-code definitions with real-world trade data. By integrating two phases of projects - Phase A (official and structural HS-code definitions) and Phase B (historical large-scale product descriptions from customs declarations) - the solution provides a single platform for accurate and efficient classification. Built on a foundation of large-scale data optimization, semantic embeddings, and a LangChain-based chatbot, the system enables customs officers, managers, and business users to access both legal definitions and practical product HS code matches in one place. This unified approach improves compliance accuracy, reduces reliance on manual processes, and establishes a scalable framework for modern customs operations.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "72c6bda1-055c-4787-b912-5b390a549d4d"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/166ba86b-4305-499c-8989-de0c28463adc/evidence/3d5e00c3-d1e0-48b9-a6fa-bd19c6a33a9a/asset",
+            "fileName": "project--bojhona.pdf",
+            "chunkText": "The project delivered significant improvements across multiple dimensions of HS-code classification and customs operations. Operational efficiency was dramatically enhanced, reducing search and classification time from minutes to seconds, allowing customs officers to process queries far more quickly and effectively. Accuracy and reliability were also improved, as duplicate and inconsistent data were eliminated, and the chatbot provided citation-backed answers drawn from both theoretical definitions and real-world product examples, increasing trust in automated recommendations. By integrating outputs from Phase A and Phase B, the system enabled unified decision-making, allowing managers to conduct side-by-side comparisons of classification results and identify the top 10 most relevant HS codes for compliance purposes. Finally, the project empowered business users by delivering a self-service chatbot interface for importers and exporters, reducing reliance on external consultants, cutting costs, and accelerating trade-related decision-making. Overall, the solution established a faster, more accurate, and more transparent HS-code classification process that benefited both authorities and industry stakeholders.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "3d5e00c3-d1e0-48b9-a6fa-bd19c6a33a9a"
+          }
+        }
+      ]
+    }
+  ]
+}

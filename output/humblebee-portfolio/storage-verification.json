@@ -1,0 +1,266 @@
+{
+  "checked": 52,
+  "allExist": true,
+  "files": [
+    {
+      "id": "0721e36c-53bb-470b-a182-f772521eb0b9",
+      "filename": "case-study--ai-based-predictive.pdf",
+      "exists": true
+    },
+    {
+      "id": "a148ec5e-40dc-4ac4-9c64-1812afd15948",
+      "filename": "case-study--customs-document-automation.pdf",
+      "exists": true
+    },
+    {
+      "id": "aa978e8c-e59e-4142-bf14-d21a207b466e",
+      "filename": "company-update--vc-studio-qatar.pdf",
+      "exists": true
+    },
+    {
+      "id": "f6ec1f99-6a7f-4845-ab35-96f911de184e",
+      "filename": "case-study--avnrt-ablation-analytics.pdf",
+      "exists": true
+    },
+    {
+      "id": "41a8ff36-01f3-4645-bab6-8ddde670689a",
+      "filename": "case-study--impact-event-analysis.pdf",
+      "exists": true
+    },
+    {
+      "id": "01dfcbb6-a882-4b36-99ba-799789c43cdb",
+      "filename": "case-study--cartoned-analysis-dashboard.pdf",
+      "exists": true
+    },
+    {
+      "id": "2054d332-046e-4eb2-88a1-321d7c70d220",
+      "filename": "case-study--patient-data-analytics.pdf",
+      "exists": true
+    },
+    {
+      "id": "7772c0b7-eee2-4c64-a5d2-31786585a987",
+      "filename": "case-study--poster-recognition.pdf",
+      "exists": true
+    },
+    {
+      "id": "25850f33-b8b1-45bb-bbc1-035d134ca59c",
+      "filename": "case-study--fraud-detection.pdf",
+      "exists": true
+    },
+    {
+      "id": "d5de21ac-c68b-4aa1-af22-804bd01a7e01",
+      "filename": "case-study--shelf-analysis.pdf",
+      "exists": true
+    },
+    {
+      "id": "5c4f482b-74c0-4fe2-94bc-17209a9d9a0c",
+      "filename": "case-study--data-labeling-tool.pdf",
+      "exists": true
+    },
+    {
+      "id": "4cd2b277-c47b-42f8-868b-e006246f6758",
+      "filename": "case-study--automated-training-pipeline.pdf",
+      "exists": true
+    },
+    {
+      "id": "eec08e8c-2a60-40b0-a121-92ced527fa8b",
+      "filename": "case-study--optimizing-recognition-processing.pdf",
+      "exists": true
+    },
+    {
+      "id": "6c4406ef-5433-4c1b-ad88-2247f0c69951",
+      "filename": "case-study--lumiohub-platform.pdf",
+      "exists": true
+    },
+    {
+      "id": "5708d2c4-fca8-4b5c-a368-f756f98cb962",
+      "filename": "case-study--improving-recognition-accuracy.pdf",
+      "exists": true
+    },
+    {
+      "id": "4abb8770-d969-405d-949a-8de9dd0b78ed",
+      "filename": "case-study--amplifyr.pdf",
+      "exists": true
+    },
+    {
+      "id": "1b8c2850-15df-4e03-a738-9514a08afdb3",
+      "filename": "case-study--ai-customs-intelligence.pdf",
+      "exists": true
+    },
+    {
+      "id": "535c2eb8-e486-4b2a-b140-8d508f4fa26c",
+      "filename": "case-study--ai-powered-retail-cart.pdf",
+      "exists": true
+    },
+    {
+      "id": "968bf9c9-c400-4776-9146-68167edbd303",
+      "filename": "case-study--data-cleaning-hs-codes.pdf",
+      "exists": true
+    },
+    {
+      "id": "e15c8c90-3375-4cee-bd1e-db0c6f92cf3d",
+      "filename": "case-study--llm-results-analyzer.pdf",
+      "exists": true
+    },
+    {
+      "id": "4d896651-db70-4f0f-9989-c00e0201c53a",
+      "filename": "case-study--excel-automated-testing.pdf",
+      "exists": true
+    },
+    {
+      "id": "23055018-1ee8-4135-885c-3faf0e243c9b",
+      "filename": "case-study--iv-drip-flow-rate-estimator.pdf",
+      "exists": true
+    },
+    {
+      "id": "49012b80-2aa2-4811-a6a0-886706680984",
+      "filename": "company-update--innerworks-partnership.pdf",
+      "exists": true
+    },
+    {
+      "id": "0e9915a0-f763-4043-a234-c81ad73495a1",
+      "filename": "case-study--beef-carcass-detection.pdf",
+      "exists": true
+    },
+    {
+      "id": "0574d121-5672-4be8-be0f-11f263cf24a6",
+      "filename": "case-study--field-center-detection.pdf",
+      "exists": true
+    },
+    {
+      "id": "7aa7a0f0-4650-454e-8547-8264fd09f343",
+      "filename": "case-study--breast-cancer.pdf",
+      "exists": true
+    },
+    {
+      "id": "61d131ed-c4ef-4138-9e81-478131401afd",
+      "filename": "project--hstaff.pdf",
+      "exists": true
+    },
+    {
+      "id": "344f24e4-5ffb-4c14-a226-3da2560be29f",
+      "filename": "case-study--livescore-ai.pdf",
+      "exists": true
+    },
+    {
+      "id": "3596a22e-0d56-4a65-bf59-d856c2563fb9",
+      "filename": "project--lumiohub.pdf",
+      "exists": true
+    },
+    {
+      "id": "9d7dd8b9-5066-47a4-b5c1-cf60d307a7d5",
+      "filename": "project--ai-avatar.pdf",
+      "exists": true
+    },
+    {
+      "id": "f7aca299-e7a5-4e3a-9e11-2a4328e387d0",
+      "filename": "project--kumush-ai.pdf",
+      "exists": true
+    },
+    {
+      "id": "7be39a54-5866-4b4e-aaef-0a15ba230356",
+      "filename": "project--wakil-ai.pdf",
+      "exists": true
+    },
+    {
+      "id": "9dbfe0a8-ef19-49cc-b4ac-65b0c0b1d668",
+      "filename": "project--enlighten-qalb.pdf",
+      "exists": true
+    },
+    {
+      "id": "997d8cc7-6d12-4a51-81b3-262d98a39034",
+      "filename": "project--bojhona.pdf",
+      "exists": true
+    },
+    {
+      "id": "74d50290-f7a3-44ea-9815-cbbb542431c6",
+      "filename": "project--bride.pdf",
+      "exists": true
+    },
+    {
+      "id": "fdb205f0-a786-4507-a2d1-f4f84b15c84e",
+      "filename": "paper--2409.04187.pdf",
+      "exists": true
+    },
+    {
+      "id": "eefbb941-b740-4ea8-b1e1-dc2841badd1c",
+      "filename": "paper--10883969.pdf",
+      "exists": true
+    },
+    {
+      "id": "969f82af-3efe-4095-8dc4-d56b6aaaf485",
+      "filename": "paper--10316180.pdf",
+      "exists": true
+    },
+    {
+      "id": "b3539ad4-44e8-431e-8271-b5b6eee34dd2",
+      "filename": "paper--9661375.pdf",
+      "exists": true
+    },
+    {
+      "id": "9b44e633-07a9-4514-a82c-d2691be115e5",
+      "filename": "paper--515.pdf",
+      "exists": true
+    },
+    {
+      "id": "2b457a0c-c83a-4251-aef0-12bfcbc32596",
+      "filename": "paper--9064976.pdf",
+      "exists": true
+    },
+    {
+      "id": "6fa166d3-17ed-4b81-a9ce-a5721a1616eb",
+      "filename": "paper--1910.01091.pdf",
+      "exists": true
+    },
+    {
+      "id": "224b8cc9-8604-4a55-b6d1-d0624baf9f47",
+      "filename": "HumbleBeeAI Expands to Qatar with the Launch of Venture Studio LLC _ Case Study.pdf",
+      "exists": true
+    },
+    {
+      "id": "c4458951-7d2a-4592-8df2-a92d984a9ebc",
+      "filename": "IV Drip Flow Rate Estimator _ Case Study.pdf",
+      "exists": true
+    },
+    {
+      "id": "d46bf15c-9504-4a1d-8a81-d98701c22fcc",
+      "filename": "Johnson & Johnson Predictive Customer Targeting Achieves 96.8% Accuracy.pdf",
+      "exists": true
+    },
+    {
+      "id": "8281c2ee-6a4b-4ea3-8328-d3dcba3ab6e3",
+      "filename": "Johnson & Johnson Achieves 96.8% Accuracy in Customer Targeting _ Case Study.pdf",
+      "exists": true
+    },
+    {
+      "id": "e5058257-4d85-4aa5-a5c3-6f758b4d5305",
+      "filename": "LITE Multi-Object Tracking and IV Drip Flow Rate Estimation.pdf",
+      "exists": true
+    },
+    {
+      "id": "88727eaf-a58b-4a92-81f1-bf702da91bcf",
+      "filename": "HumbleBeeAI--source-review-tracker.md",
+      "exists": true
+    },
+    {
+      "id": "12cf9bc7-0112-438f-b0d3-5d13222e151f",
+      "filename": "HumbleBeeAI--metric-review-tracker.md",
+      "exists": true
+    },
+    {
+      "id": "069946b1-702e-4250-a079-205ff5c4ea01",
+      "filename": "HumbleBeeAI--figure-review-tracker.md",
+      "exists": true
+    },
+    {
+      "id": "71a01bb5-a623-45dd-9b45-2235a10ed993",
+      "filename": "HumbleBeeAI--review-decisions.md",
+      "exists": true
+    },
+    {
+      "id": "36b2f293-fac1-48ee-9ba8-4183d020f0fd",
+      "filename": "HumbleBeeAI--portfolio-draft.md",
+      "exists": true
+    }
+  ]
+}

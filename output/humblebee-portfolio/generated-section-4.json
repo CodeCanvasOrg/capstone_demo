@@ -1,0 +1,206 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Portfolio Working Section — Products",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "A concise overview of HumbleBeeAI products spanning team operations, workplace visibility, conversational AI, legal support, customs intelligence, spiritual reflection, and human-guided execution. Status labels are retained as reported; each entry links to its original project page.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Products",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HStaff — Combines Hubstaff activity, Discord progress reports, and team analytics for distributed-team leaders. Status: prod ready. https://humblebee.ai/projects/hstaff",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/1d617b66-d762-4228-9c34-23cdf56cd688/evidence/bb22044f-3165-4a84-84a9-ce79b66bf59e/asset",
+            "fileName": "project--hstaff.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nTeam management dashboard with analytics to help leaders understand talent and performance.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "bb22044f-3165-4a84-84a9-ce79b66bf59e"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "LumioHub AI — Workplace attendance, access visibility, presence analytics, and reporting for multi-site organizations, HR, and service providers. The supplied project description also identifies facial recognition for workplace security, attendance tracking, and real-time monitoring. Status: prod ready. https://humblebee.ai/projects/lumiohub",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/1d617b66-d762-4228-9c34-23cdf56cd688/evidence/99266eb0-2694-471e-840e-cca54587f2de/asset",
+            "fileName": "project--lumiohub.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAdvanced facial recognition system for workplace security, attendance tracking, and real-time monitoring\n\nScope Big",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "99266eb0-2694-471e-840e-cca54587f2de"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "AI Avatar-Photorealistic Real-Time Conversational Avatar — Real-time voice- and text-based conversational avatars for customer service, education, and communication teams. Status: prod demo. https://humblebee.ai/projects/ai-avatar",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Kumush AI — A voice-enabled natural-language platform for calls, reservations, and business workflows. Status: prod demo. https://humblebee.ai/projects/kumush-ai",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/1d617b66-d762-4228-9c34-23cdf56cd688/evidence/d4a66de6-1282-4a70-be3e-70d84950cc31/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nVoice-enabled natural language platform for conversational AI experiences.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "d4a66de6-1282-4a70-be3e-70d84950cc31"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Wakil AI — A legal-tech NLP assistant for legal workflows and document understanding, serving individuals, businesses, and legal professionals in Uzbekistan. Status: prod ready. https://humblebee.ai/projects/wakil-ai",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/1d617b66-d762-4228-9c34-23cdf56cd688/evidence/3c062e6f-d249-463c-8356-f4e9fca8553b/asset",
+            "fileName": "project--wakil-ai.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nLegal tech NLP assistant that simplifies legal workflows and document understanding.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "3c062e6f-d249-463c-8356-f4e9fca8553b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Bojhona: AI-Powered Customs Intelligence: HS Code Definitions — Unifies HS-code definitions with historical trade descriptions to support customs classification. Status: in dev. https://humblebee.ai/projects/bojhona",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/1d617b66-d762-4228-9c34-23cdf56cd688/evidence/b94f3b26-9ba0-4e5e-bf4f-787e7d5aeaa2/asset",
+            "fileName": "project--bojhona.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAdvanced AI system unifying theoretical HS-code definitions with real-world trade data, featuring 65.5M+ product descriptions for accurate customs classification.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "b94f3b26-9ba0-4e5e-bf4f-787e7d5aeaa2"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Enlighten Qalb: AI Spiritual Guide — An AI chatbot trained on Al-Ghazali’s The Alchemy of Happiness (Kimyai Saadat), offering spiritual guidance and wisdom for inner growth. Status: prod ready. https://humblebee.ai/projects/enlighten-qalb",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/1d617b66-d762-4228-9c34-23cdf56cd688/evidence/37336d44-f180-4ad9-aa1c-062172198b57/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAI chatbot trained on The Alchemy of Happiness (Kimyai Saadat) by Al-Ghazali, offering personalized spiritual guidance and wisdom for inner growth.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "37336d44-f180-4ad9-aa1c-062172198b57"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "bRide: Empowering Human Potential through AI Execution — A human-in-the-loop productivity platform designed to scale human capabilities and support AI-assisted execution and professional growth. Status: in dev. https://humblebee.ai/projects/bride",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/1d617b66-d762-4228-9c34-23cdf56cd688/evidence/ab8d8baf-2c41-4cd0-b679-514deec5fe8c/asset",
+            "fileName": "project--bride.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAI-powered productivity platform that scales human capabilities and optimizes execution, placing elite talent in the driver's seat with human-in-the-loop AI.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "ab8d8baf-2c41-4cd0-b679-514deec5fe8c"
+          }
+        }
+      ]
+    }
+  ]
+}

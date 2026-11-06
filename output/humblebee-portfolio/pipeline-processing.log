@@ -1,0 +1,13 @@
+PROCESS 2458cca4-de40-41ce-b88f-23a8cf1ffc89 project--bride.pdf
+PROCESS 0d48fe3f-cc8d-4c52-9f16-806d15bbf43e paper--2409.04187.pdf
+PIPELINE_ERROR Job class ProcessFile not found.
+Error: Job class ProcessFile not found.
+    at SyncAdapter.#execute (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/drivers/sync_adapter.ts:167:13)
+    at SyncAdapter.pushOn (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/drivers/sync_adapter.ts:37:17)
+    at <anonymous> (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/job_dispatcher.ts:309:46)
+    at noopInternalOperationWrapper (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/queue_manager.ts:12:19)
+    at <anonymous> (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/job_dispatcher.ts:309:19)
+    at TracingChannel.tracePromise (node:diagnostics_channel:362:14)
+    at JobDispatcher.run (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/job_dispatcher.ts:305:27)
+    at JobDispatcher.then (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/job_dispatcher.ts:340:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)

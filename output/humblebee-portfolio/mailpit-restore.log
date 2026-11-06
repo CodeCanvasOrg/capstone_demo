@@ -1,0 +1,12 @@
+latest: Pulling from axllent/mailpit
+b7bd401c30b2: Pulling fs layer
+f21257e00b55: Pulling fs layer
+b7bd401c30b2: Download complete
+44136fa355b3: Already exists
+c4a7f5612819: Download complete
+f21257e00b55: Download complete
+b7bd401c30b2: Pull complete
+f21257e00b55: Pull complete
+Digest: sha256:9b3a463be15354c0f0eba91697d80e3e0d8a5623ef0e627cacc836bc17fd5231
+Status: Downloaded newer image for axllent/mailpit:latest
+docker.io/axllent/mailpit:latest

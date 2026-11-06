@@ -1,0 +1,194 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "HumbleBeeAI Company Portfolio — Selected Context",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "These selected portfolio entries capture HumbleBeeAI’s reported expansion into Qatar and its R&D/product partnership with Innerworks. The Qatar venture studio is established, while operational setup and regional collaborations remain planned; Innerworks’ $4M seed round is reported as completed in August 2025.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/1cd9f1c4-fe02-48a1-b0cd-91d1173e5487/evidence/4d6a402b-0052-44e2-a463-ff7ffba45798/asset",
+            "fileName": "company-update--vc-studio-qatar.pdf",
+            "chunkText": "The Qatar entity has been established not only as a local company, but as a venture studio designed to:\n\nLaunch and support new AI startups and ventures in Qatar\n\nExplore partnerships with local organizations, investors, universities, and government programs\n\nBring HumbleBeeAI’s engineering, product development, and AI talent ecosystem into the Middle East\n\nSupport the future growth of HumbleBeeAI’s existing and upcoming products\n\nCreate a foundation for future regional offices, projects, and collaborations\n\nThe venture studio is expected to play a key role in supporting several initiatives under the HumbleBeeAI ecosystem, including AI productivity tools, venture-building projects, talent development programs, and future technology ventures.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "4d6a402b-0052-44e2-a463-ff7ffba45798"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/1cd9f1c4-fe02-48a1-b0cd-91d1173e5487/evidence/853bc1ee-d0c1-4b25-8f24-64146beb0da5/asset",
+            "fileName": "company-update--vc-studio-qatar.pdf",
+            "chunkText": "Over the coming months, HumbleBeeAI Venture Studio LLC plans to:\n\nComplete its operational setup in Qatar\n\nBuild relationships with local partners and stakeholders\n\nExplore office, residency, and investment opportunities\n\nIntroduce HumbleBeeAI’s existing products and future ventures to the Qatar market\n\nSeek collaboration with investors, strategic partners, universities, and government initiatives\n\nThe establishment of HumbleBeeAI Venture Studio LLC reflects HumbleBeeAI’s long-term vision: building globally connected, impact-driven AI ventures that create value across multiple regions.\n\nWe look forward to beginning this new chapter in Qatar.\n\nFor partnership, investment, or collaboration inquiries, please contact:\n\nHumbleBeeAI Venture Studio LLC\n\nQatar Financial Centre, Doha, Qatar",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "853bc1ee-d0c1-4b25-8f24-64146beb0da5"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/1cd9f1c4-fe02-48a1-b0cd-91d1173e5487/evidence/f5476103-0580-4b18-98c7-ed2fb9e856ae/asset",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "chunkText": "Innerworks is a cybersecurity / behavioral intelligence company focused on helping exchanges, finance platforms, and digital ecosystems identify and block bad actors. Their solution stack includes Account Takeover Protection, Geo Compliance, Bot detection, and deeper behavioral analysis, leveraging 200+ data points across device, network, and behavioral signals. They also employ a RedTeam ethical hacking platform (built on BitTensor) to stay ahead of AI-driven fraud techniques. Starting in January 2024, HumbleBeeAI partnered with Innerworks as their R&D and product arm, building the core infrastructure and capabilities that enabled them to secure a $4M seed round in August 2025 led by AlbionVC.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "f5476103-0580-4b18-98c7-ed2fb9e856ae"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Selected Company Updates",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "HumbleBeeAI Expands to Qatar with the Launch of Venture Studio LLC",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI established HumbleBeeAI Venture Studio LLC in the Qatar Financial Centre as a Middle East hub for building AI ventures. The studio plans to complete operational setup, develop local relationships, and explore opportunities; these activities are described as forthcoming.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/1cd9f1c4-fe02-48a1-b0cd-91d1173e5487/evidence/4d6a402b-0052-44e2-a463-ff7ffba45798/asset",
+            "fileName": "company-update--vc-studio-qatar.pdf",
+            "chunkText": "The Qatar entity has been established not only as a local company, but as a venture studio designed to:\n\nLaunch and support new AI startups and ventures in Qatar\n\nExplore partnerships with local organizations, investors, universities, and government programs\n\nBring HumbleBeeAI’s engineering, product development, and AI talent ecosystem into the Middle East\n\nSupport the future growth of HumbleBeeAI’s existing and upcoming products\n\nCreate a foundation for future regional offices, projects, and collaborations\n\nThe venture studio is expected to play a key role in supporting several initiatives under the HumbleBeeAI ecosystem, including AI productivity tools, venture-building projects, talent development programs, and future technology ventures.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "4d6a402b-0052-44e2-a463-ff7ffba45798"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/1cd9f1c4-fe02-48a1-b0cd-91d1173e5487/evidence/853bc1ee-d0c1-4b25-8f24-64146beb0da5/asset",
+            "fileName": "company-update--vc-studio-qatar.pdf",
+            "chunkText": "Over the coming months, HumbleBeeAI Venture Studio LLC plans to:\n\nComplete its operational setup in Qatar\n\nBuild relationships with local partners and stakeholders\n\nExplore office, residency, and investment opportunities\n\nIntroduce HumbleBeeAI’s existing products and future ventures to the Qatar market\n\nSeek collaboration with investors, strategic partners, universities, and government initiatives\n\nThe establishment of HumbleBeeAI Venture Studio LLC reflects HumbleBeeAI’s long-term vision: building globally connected, impact-driven AI ventures that create value across multiple regions.\n\nWe look forward to beginning this new chapter in Qatar.\n\nFor partnership, investment, or collaboration inquiries, please contact:\n\nHumbleBeeAI Venture Studio LLC\n\nQatar Financial Centre, Doha, Qatar",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "853bc1ee-d0c1-4b25-8f24-64146beb0da5"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Original URL: https://humblebee.ai/case-studies/vc-studio-qatar",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "From Collaboration to Innovation: Inside the Innerworks and HumblebeeAI Partnership",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Beginning in January 2024, HumbleBeeAI worked with Innerworks as its R&D and product arm, developing capabilities across device fingerprinting, VPN and bot detection, and RedTeam/adversarial testing. Innerworks reported raising a $4M seed round led by AlbionVC in August 2025; the source also says the developed capabilities are used in its product suite.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/1cd9f1c4-fe02-48a1-b0cd-91d1173e5487/evidence/f5476103-0580-4b18-98c7-ed2fb9e856ae/asset",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "chunkText": "Innerworks is a cybersecurity / behavioral intelligence company focused on helping exchanges, finance platforms, and digital ecosystems identify and block bad actors. Their solution stack includes Account Takeover Protection, Geo Compliance, Bot detection, and deeper behavioral analysis, leveraging 200+ data points across device, network, and behavioral signals. They also employ a RedTeam ethical hacking platform (built on BitTensor) to stay ahead of AI-driven fraud techniques. Starting in January 2024, HumbleBeeAI partnered with Innerworks as their R&D and product arm, building the core infrastructure and capabilities that enabled them to secure a $4M seed round in August 2025 led by AlbionVC.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "f5476103-0580-4b18-98c7-ed2fb9e856ae"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/1cd9f1c4-fe02-48a1-b0cd-91d1173e5487/evidence/3b0bfd1c-bd4b-4159-a559-7ce6d27888b7/asset",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nPartnering with Innerworks to advance research-driven innovations in device intelligence, behavioral analytics, and adversarial defense—strengthening the next generation of cybersecurity.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "3b0bfd1c-bd4b-4159-a559-7ce6d27888b7"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Original URL: https://humblebee.ai/case-studies/innerworks-partnership",
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}

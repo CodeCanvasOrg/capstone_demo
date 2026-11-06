@@ -127,8 +127,9 @@ is available for local commands that should not connect to Redis.
 Apply the new migrations after confirming the PostgreSQL `vector` extension is available on the
 database. The migrations create it when the database role has permission.
 
-Embeddings are configured in `config/embeddings.ts`. By default they come from OpenRouter
-(`OPENROUTER_EMBEDDING_MODEL`, `RAG_EMBEDDING_DIMENSIONS=1024`). Set `EMBEDDING_PROVIDER=ollama` and
-`RAG_EMBEDDING_DIMENSIONS=768` to use a local [Ollama](https://ollama.com) server
-(`ollama pull embeddinggemma-2:740m`) through its OpenAI-compatible endpoint instead. Embeddings of each width get their own HNSW index (768 and 1024 are
+Embeddings are configured in `config/embeddings.ts`. By default they come from OpenRouter using
+`perplexity/pplx-embed-v1-4b` (`OPENROUTER_EMBEDDING_MODEL`) at 1024 dimensions. To use a local
+[Ollama](https://ollama.com) server instead (`ollama pull embeddinggemma-2:740m`), set
+`EMBEDDING_PROVIDER=ollama`, `EMBEDDING_BASE_URL=http://127.0.0.1:11434/v1`,
+`EMBEDDING_MODEL=embeddinggemma-2:740m` and `RAG_EMBEDDING_DIMENSIONS=768`. Embeddings of each width get their own HNSW index (768 and 1024 are
 indexed); after changing the model or dimensions, retry source preparation so files are re-embedded.

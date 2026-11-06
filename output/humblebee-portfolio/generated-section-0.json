@@ -1,0 +1,284 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Portfolio Working Section — Document AI and Automation",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI’s customs portfolio spans document digitization, trade-data preparation, classification intelligence, and quality assurance. The projects combine AI and automation with human review where specified; reported metrics and planned capabilities are distinguished below.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Selected Work",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Automating Customs Documentation with Local AI and Computer Vision",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "A locally hosted computer-vision and LLM pipeline extracts information from invoices, packing lists, and identity documents into editable declaration templates. The MVP keeps document-type selection with users; automated classification is planned. Reported results estimate up to 90% less processing time and 97% fewer human errors than manual entry.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/6a43eb8c-72a0-4827-9d87-212e6b4cdf84/evidence/0a59fa4f-80cd-45e0-8744-5f55f752b50a/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "Computer Vision: The system analyzes uploaded images and PDFs to detect document features such as customs stamps, table structures, and field boundaries. Documents are converted into structured, machine-readable formats before data extraction begins.\n\nHybrid Classification: In the MVP phase, users manually select the document type (invoice, packing list, or ID) to guarantee 100% classification accuracy. An automated document classification engine is planned for Phase 2.\n\nDynamic Templates: Extracted data is automatically populated into standardized output templates — such as Excel spreadsheets or PDF forms — which users can review and edit in a dedicated workspace before final submission.\n\n3. Advanced Security and Encryption\n\nBeyond local hosting, the system implements end-to-end encryption for all data stored in the database, including names and identity numbers. Access to the platform is strictly controlled through an admin panel with individual login credentials for each user, ensuring full auditability and access control.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 2,
+            "sourceChunkId": "0a59fa4f-80cd-45e0-8744-5f55f752b50a"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/6a43eb8c-72a0-4827-9d87-212e6b4cdf84/evidence/70818b9e-bfa4-4144-a8e2-9fbe598da6c7/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "90% Reduction in Processing Time: Transitioning from manual data entry to AI-assisted extraction is estimated to reduce up to 90% of the time declarants previously spent processing documents. What once required careful, focused manual work is now handled in seconds by the pipeline.\n\n97% Reduction in Human Error: Moving from manual transcription to AI-assisted extraction eliminates the systematic errors that commonly occur in high-volume data entry. The structured extraction pipeline ensures consistent, validated output for every document processed.\n\nEnterprise-Grade Security: By deploying the LLM locally and implementing end-to-end database encryption, the project meets the highest standards of data protection and cybersecurity — fully compliant with data sovereignty regulations governing citizen identity information.\n\nScalable Foundation: The MVP architecture is designed to support an initial user base of up to 1,000 declarants, with a clear technical roadmap for Phase 2: automated document classification, deeper ERP integrations, and full end-to-end declaration generation without manual review steps.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 11,
+            "pageNumber": 3,
+            "sourceChunkId": "70818b9e-bfa4-4144-a8e2-9fbe598da6c7"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/6a43eb8c-72a0-4827-9d87-212e6b4cdf84/evidence/27b95ed5-7f64-49ea-b79d-b8568a63fd2a/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "Time-Intensive Manual Entry: Staff were manually transcribing data from physical or scanned documents — invoices, packing lists, and government-issued IDs — directly into declaration templates. Each document required focused human attention, making the process slow and difficult to scale as shipment volumes grew.\n\nData Sovereignty and Security Risks: Customs documents contain sensitive personal data, including citizen PIN codes and identity numbers. Using cloud-based AI providers such as OpenAI would expose this data to third-party systems, creating unacceptable cybersecurity and regulatory risk. Any viable solution had to operate entirely within the client's internal infrastructure.\n\nStructural Complexity of Documents: Invoices and packing lists vary significantly in layout and format depending on the supplier or country of origin. Basic OCR alone was insufficient — the system needed to understand document structure, extract semantically meaningful fields, and handle inconsistencies gracefully.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "27b95ed5-7f64-49ea-b79d-b8568a63fd2a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "https://humblebee.ai/case-studies/customs-document-automation",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "AI-powered Customs Intelligence System",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "A LangChain/GPT chatbot brings official HS-code definitions together with semantic search across 65.5 million historical product descriptions. Reported evaluation: 76.5% Top-1 accuracy, 94.1% Top-3 accuracy, and MRR 0.8515.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/6a43eb8c-72a0-4827-9d87-212e6b4cdf84/evidence/4f55f8ce-aa59-497e-b2e8-4346301c2750/asset",
+            "fileName": "case-study--ai-customs-intelligence.pdf",
+            "chunkText": "The Customs Optimization Project delivered an AI-powered system that bridges theoretical HS code definitions and real-world trade data. The solution integrates two separate projects: the Custom Clarification Project (official HS code definitions and frameworks) and the Custom Optimization Project (65.5 million product descriptions from customs declarations). The system features a chatbot built on LangChain and GPT models, semantic search through optimized embeddings, and a data pipeline that transforms fragmented information into a cohesive knowledge base. Users access both theoretical definitions and practical product matches in a single interface, reducing classification time from minutes to seconds.\n\nAccuracy: The chatbot achieves 76.5% Top-1 accuracy and 94.1% Top-3 accuracy (MRR 0.8515), with all predictions formatted as valid 10-digit HS codes.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "4f55f8ce-aa59-497e-b2e8-4346301c2750"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/6a43eb8c-72a0-4827-9d87-212e6b4cdf84/evidence/ee4cd7e4-027b-4383-92d8-336375474237/asset",
+            "fileName": "case-study--ai-customs-intelligence.pdf",
+            "chunkText": "Dramatic Operational Efficiency Gains: The most immediate and visible impact was the dramatic reduction in classification time. What previously required several minutes of manual searching and cross-referencing now takes only seconds through the AI-powered interface. Customs officers can process classification requests nearly instantaneously, allowing them to handle significantly higher volumes while maintaining accuracy standards. This efficiency improvement extends beyond individual queries to overall workflow optimization. Officers can now focus their expertise on complex edge cases and policy decisions rather than routine classification tasks, improving both job satisfaction and operational effectiveness.\n\nEnhanced Accuracy and Reliability: The comprehensive data cleaning and AI-powered analysis eliminated the confusion and errors associated with duplicate and inconsistent records. The chatbot provides citation-backed recommendations that reference both official definitions and real-world precedent, significantly increasing user confidence in automated suggestions. The integration of theoretical and practical data sources means recommendations are both legally compliant and practically validated, reducing the risk of classification errors that could lead to compliance issues or financial penalties.\n\nEvaluation Results: The chatbot achieves 76.5% Top-1 accuracy and 94.1% Top-3 accuracy (MRR 0.8515), with all predictions formatted as valid 10-digit HS codes. The correct HS code is the first suggestion ~76.5% of the time and appears within the top-3 ~94.1% of the time. Expanding from Top-3 to Top-5 doesn't increase coverage but lowers precision, so a Top-2/Top-3 presentation is recommended.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 3,
+            "sourceChunkId": "ee4cd7e4-027b-4383-92d8-336375474237"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "https://humblebee.ai/case-studies/ai-customs-intelligence",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Data Cleaning & Ingestion for HS Code Systems",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Official HS-code structures and trade descriptions were normalized and deduplicated for retrieval. The reported corpus was reduced from about 65.5 million descriptions to about 2 million unique records—a reported 97% reduction—while retaining frequency information.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/6a43eb8c-72a0-4827-9d87-212e6b4cdf84/evidence/465b701b-80e1-4633-ad70-304bee5d69a6/asset",
+            "fileName": "case-study--data-cleaning-hs-codes.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nConsolidated HS rulebooks and optimized 65.5M product descriptions into a dual-database system for faster, more accurate trade classification.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "465b701b-80e1-4633-ad70-304bee5d69a6"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "https://humblebee.ai/case-studies/data-cleaning-hs-codes",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Excel-based Automated Testing: Reducing Manual Validation Time",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "An Excel-based FastAPI framework compares predicted and expected HS codes for validation. Its first run processed 11,000 product descriptions in approximately four hours, against an estimated manual effort of more than a month.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/6a43eb8c-72a0-4827-9d87-212e6b4cdf84/evidence/b70c24f0-a2aa-4acf-898a-4acee140e651/asset",
+            "fileName": "case-study--excel-automated-testing.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAutomated Excel framework with FastAPI cut HS code validation from over a month to just 4 hours for 11,000 product descriptions.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "b70c24f0-a2aa-4acf-898a-4acee140e651"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "https://humblebee.ai/case-studies/excel-automated-testing",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "LLM Results Analyzer: Unified Analysis Framework",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The analyzer combines parallel outputs from Custom Clarification and Custom Optimization, preserving the original results while providing unified, explained recommendations. The source reports reduced manual comparison, but no quantified improvement in recommendation quality.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "https://humblebee.ai/case-studies/llm-results-analyzer",
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}

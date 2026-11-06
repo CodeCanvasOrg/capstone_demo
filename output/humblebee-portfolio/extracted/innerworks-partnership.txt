@@ -1,0 +1,116 @@
+ HUMBLEBEEAI / COMPANY UPDATE
+
+
+ From Collaboration to Innovation:
+ Inside the Innerworks and HumblebeeAI
+ Partnership
+ Open original HumbleBeeAI page
+
+ Partnering with Innerworks to advance research-driven innovations in device intelligence,
+ behavioral analytics, and adversarial defense—strengthening the next generation of
+ cybersecurity.
+
+   Modules_developed                       Investment                    Coverage
+   Device, VPN, Bot, and RedTeam           $4M Seed Round (AlbionVC)     200+ Device & Network Signals
+
+
+
+
+ Source image
+
+
+ Executive Summary
+ Innerworks is a cybersecurity / behavioral intelligence company focused on helping exchanges,
+ finance platforms, and digital ecosystems identify and block bad actors. Their solution stack includes
+ Account Takeover Protection, Geo Compliance, Bot detection, and deeper behavioral analysis,
+ leveraging 200+ data points across device, network, and behavioral signals. They also employ a
+ RedTeam ethical hacking platform (built on BitTensor) to stay ahead of AI-driven fraud techniques.
+ Starting in January 2024, HumbleBeeAI partnered with Innerworks as their R&D and product arm,
+ building the core infrastructure and capabilities that enabled them to secure a $4M seed round in
+ August 2025 led by AlbionVC.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                      1
+ Introduction
+ Innerworks is a cybersecurity / behavioral intelligence company focused on helping exchanges,
+ finance platforms, and digital ecosystems identify and block bad actors. Their solution stack includes
+ Account Takeover Protection, Geo Compliance, Bot detection, and deeper behavioral analysis,
+ leveraging 200+ data points across device, network, and behavioral signals. They also employ a
+ RedTeam ethical hacking platform (built on BitTensor) to stay ahead of AI-driven fraud techniques.
+
+ The Problem
+ When our collaboration began in January 2024, Innerworks had a single SDK (a foundational detection
+ and fingerprinting component) but lacked a fully integrated solution. Internally, they lacked a dedicated
+ R&D team, senior engineering leadership in fraud & AI, and the infrastructure to grow modules into a
+ cohesive, scalable platform.
+
+ They faced a high-stakes landscape: regulations for exchanges were tightening, forcing platforms to
+ proactively prevent fraud and sanction breaches, rather than just reacting. Meanwhile, increasingly
+ sophisticated fraudsters, especially using generative AI and identity spoofing, were outpacing legacy
+ detection systems.
+
+ The Solution
+ We stepped in not as an outsourcing shop, but as their R&D & product arm. Innerworks defined the
+ vision and product goals; our role was to design, research, prototype, iterate, and build those
+ capabilities in collaboration with the other teams of Innerworks.
+
+ Key principles of engagement:
+
+  •   Deep domain research: industry best practices, academic papers, red-team methods, advanced
+      heuristics.
+  •   Transparent knowledge transfer: all research, findings, designs, code, and docs are shared in
+      their repositories, fully accessible. This ensures trust and enables seamless eventual transition or
+      scaling by their team.
+  •   Successive iterations: we launched MVPs, collected feedback, adapted to adversarial behavior,
+      and hardened models.
+ We structured the architecture of Device Fingerprinting, VPN / True Location Detection, Bot Detection /
+ Behavioral Profiling, and RedTeam & Adversarial Testing Framework to be modular for research and
+ development (R&D) purposes, while also supporting collaboration for production integration. Each
+ component is designed to operate independently or feed into composite risk scoring flows. We have
+ built pipelines for internal data ingestion, feature extraction, model serving, API endpoints, and
+ monitoring, ensuring flexibility for both R&D experimentation and seamless production deployment
+ through collaboration.
+
+ Throughout, we prioritized observability, scalability, reliability, and defensibility so that Innerworks
+ could offer credible enterprise-grade services.
+
+ Results
+  •   In August 2025, Innerworks raised $4M in a Seed round led by AlbionVC, demonstrating investor
+      confidence in their technological foundation and trajectory.
+  •   They now maintain a stable client base across exchanges and digital platforms.
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                         2
+  •   They use their full suite: device fingerprinting, VPN detection, bot detection, and threat intelligence
+      – capabilities we co-built and matured.
+  •   Importantly, we ensured that all knowledge, research, code, documentation, and design artifacts
+      remain in their repos (not ours). This fosters mutual trust and enables seamless handover or future
+      scaling by their internal team.
+
+ Conclusion
+ This partnership works because we act as a technical cofounder, not just an external contractor. We
+ anchor on research-driven approaches (not just copying tools), enabling more innovativeness and
+ robustness. We commit to transparency and handover – the client retains full ownership, no black box.
+ Our model is flexible: from ground-up builds to module extensions, for startups, regulated platforms, or
+ government programs.
+
+ We are best suited for:
+
+  •   AI-centric startups that need deep technical infrastructure but lack the full internal team.
+  •   Platforms with high stakes that require defensible, reliable anti-fraud / trust systems.
+  •   Ethical, visionary ventures who value transparency, long-term partnerships, and technical depth
+      (like Innerworks).
+ Engagement Models:
+
+  •   6–18 month R&D engagements where we build and hand over.
+  •   Ongoing co-development / extended engineering partnership.
+  •   Module augmentation (you have some infrastructure; we plug in capabilities).
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                            3
+

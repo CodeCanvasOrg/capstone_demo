@@ -1,0 +1,2 @@
+[ info ] Extractor: pymupdf; python: /Users/johnpaul/projects/capstone_demo/python/pdf_worker/.venv/bin/python
+[ success ] Worker ready in 628 ms: Python 3.13.16, pymupdf:2.0, protocol 1

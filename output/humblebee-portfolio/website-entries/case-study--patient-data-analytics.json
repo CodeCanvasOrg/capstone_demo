@@ -1,0 +1,814 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Johnson & Johnson Patient Report Analyzer",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI developed a Patient Report Analyzer for Johnson & Johnson to automate the preparation and visualization of varied patient-data Excel files.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/a0f26bc1-5b1b-4bcd-857a-13dbc2efc0e1/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nPatient Report Analyzer automating data parsing, cleaning, and visualization for diverse patient datasets with varying Excel structures",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "a0f26bc1-5b1b-4bcd-857a-13dbc2efc0e1"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/0b330d22-3eac-44f6-8bfc-74e99ec7953c/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "HumbleBeeAI developed the Patient Report Analyzer with smart parsing that didn't just read files but adapted to them. Whether columns were renamed or sheets restructured, the system adjusted automatically. Sophisticated cleaning algorithms handled inconsistencies, ensuring reliable data without human involvement. Batch processing and caching turned sluggish workflows into lightning-fast runs, even for files over 1GB. Instead of static reports, teams got real-time charts, tables, and downloadable Excel summaries. Built on Python, JavaScript, Pandas, Plotly, and Flask, the tool scaled without compromising simplicity.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "0b330d22-3eac-44f6-8bfc-74e99ec7953c"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Johnson & Johnson’s analytics teams needed to make sense of patient datasets arriving in different formats, sizes and structures. The case study describes the Patient Report Analyzer as automating data parsing, cleaning and visualization for Excel files with varying structures. It reports an 80% decrease in preprocessing time; the material describes the solution as developed, but does not specify deployment or production status.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/46c1674f-a56e-4f2d-a87a-81767bca42d3/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "Johnson & Johnson isn't just a name on a Band-Aid box. Since 1886, the company has been shaping global healthcare from trusted consumer products to life-saving pharmaceuticals. But even a leader of this scale faces a modern challenge: making sense of the tidal wave of patient data that arrives in different formats, sizes, and structures. In an era where insights save lives, J&J needed more than just analysts: they needed a smarter way to turn data into decisions.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "46c1674f-a56e-4f2d-a87a-81767bca42d3"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/a0f26bc1-5b1b-4bcd-857a-13dbc2efc0e1/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nPatient Report Analyzer automating data parsing, cleaning, and visualization for diverse patient datasets with varying Excel structures",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "a0f26bc1-5b1b-4bcd-857a-13dbc2efc0e1"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/78bb7334-7237-4866-8a7c-2168cf401e13/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "For years, Johnson & Johnson fought with an invisible bottleneck: patient data locked inside messy Excel files. Each dataset looked different, slowing analysis and drowning teams in manual cleanup. Then came a breakthrough. With HumbleBeeAI's Patient Report Analyzer, J&J automated the chaos. Overnight, preprocessing time dropped by 80%, processing time halved, and healthcare professionals could finally focus on patients instead of spreadsheets.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "78bb7334-7237-4866-8a7c-2168cf401e13"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/0b330d22-3eac-44f6-8bfc-74e99ec7953c/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "HumbleBeeAI developed the Patient Report Analyzer with smart parsing that didn't just read files but adapted to them. Whether columns were renamed or sheets restructured, the system adjusted automatically. Sophisticated cleaning algorithms handled inconsistencies, ensuring reliable data without human involvement. Batch processing and caching turned sluggish workflows into lightning-fast runs, even for files over 1GB. Instead of static reports, teams got real-time charts, tables, and downloadable Excel summaries. Built on Python, JavaScript, Pandas, Plotly, and Flask, the tool scaled without compromising simplicity.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "0b330d22-3eac-44f6-8bfc-74e99ec7953c"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The original case-study PDF identifies the source page as “Open original HumbleBeeAI page,” but the supplied material does not include a URL, so a direct link cannot be reproduced here.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/a0f26bc1-5b1b-4bcd-857a-13dbc2efc0e1/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nPatient Report Analyzer automating data parsing, cleaning, and visualization for diverse patient datasets with varying Excel structures",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "a0f26bc1-5b1b-4bcd-857a-13dbc2efc0e1"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Before the analyzer, each workbook could present a different parsing challenge: columns shifted, sheet structures changed and file formats varied. Teams spent time manually cleaning and reshaping data, while large, complex Excel files created processing delays. The case study says this repetitive work left room for errors and made it difficult to support multiple formats reliably.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/40297078-7351-40d8-95a2-8719d559e0c7/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "Behind the scenes, J&J's analytics teams were stuck in a frustrating loop: every file was different with columns shifted, sheet structures changed, and formats varied, turning parsing into detective work. Large datasets slowed everything down, with processing complex Excel files often meaning long delays while healthcare teams waited. Manual work ruled with hours disappearing cleaning and reshaping data, leaving room for errors and wasted effort. Scaling was impossible as supporting multiple formats reliably became a wall too high to climb. End users were frustrated, wanting insights, not technical roadblocks.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "40297078-7351-40d8-95a2-8719d559e0c7"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The affected users were analytics teams and healthcare professionals waiting for usable analyses. The documented constraints included inconsistent workbook structures, large datasets and the effort required to turn files into information suitable for analysis; the source does not quantify the number of users or the volume of files.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/40297078-7351-40d8-95a2-8719d559e0c7/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "Behind the scenes, J&J's analytics teams were stuck in a frustrating loop: every file was different with columns shifted, sheet structures changed, and formats varied, turning parsing into detective work. Large datasets slowed everything down, with processing complex Excel files often meaning long delays while healthcare teams waited. Manual work ruled with hours disappearing cleaning and reshaping data, leaving room for errors and wasted effort. Scaling was impossible as supporting multiple formats reliably became a wall too high to climb. End users were frustrated, wanting insights, not technical roadblocks.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "40297078-7351-40d8-95a2-8719d559e0c7"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/46c1674f-a56e-4f2d-a87a-81767bca42d3/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "Johnson & Johnson isn't just a name on a Band-Aid box. Since 1886, the company has been shaping global healthcare from trusted consumer products to life-saving pharmaceuticals. But even a leader of this scale faces a modern challenge: making sense of the tidal wave of patient data that arrives in different formats, sizes, and structures. In an era where insights save lives, J&J needed more than just analysts: they needed a smarter way to turn data into decisions.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "46c1674f-a56e-4f2d-a87a-81767bca42d3"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI developed the Patient Report Analyzer to reduce manual preparation and make analysis outputs easier to access. The case study reports the following capabilities:",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/0b330d22-3eac-44f6-8bfc-74e99ec7953c/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "HumbleBeeAI developed the Patient Report Analyzer with smart parsing that didn't just read files but adapted to them. Whether columns were renamed or sheets restructured, the system adjusted automatically. Sophisticated cleaning algorithms handled inconsistencies, ensuring reliable data without human involvement. Batch processing and caching turned sluggish workflows into lightning-fast runs, even for files over 1GB. Instead of static reports, teams got real-time charts, tables, and downloadable Excel summaries. Built on Python, JavaScript, Pandas, Plotly, and Flask, the tool scaled without compromising simplicity.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "0b330d22-3eac-44f6-8bfc-74e99ec7953c"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Adaptive parsing: adjusts to changes such as renamed columns and restructured worksheets, addressing the variation in incoming Excel files.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/0b330d22-3eac-44f6-8bfc-74e99ec7953c/asset",
+                    "fileName": "case-study--patient-data-analytics.pdf",
+                    "chunkText": "HumbleBeeAI developed the Patient Report Analyzer with smart parsing that didn't just read files but adapted to them. Whether columns were renamed or sheets restructured, the system adjusted automatically. Sophisticated cleaning algorithms handled inconsistencies, ensuring reliable data without human involvement. Batch processing and caching turned sluggish workflows into lightning-fast runs, even for files over 1GB. Instead of static reports, teams got real-time charts, tables, and downloadable Excel summaries. Built on Python, JavaScript, Pandas, Plotly, and Flask, the tool scaled without compromising simplicity.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 2,
+                    "sourceChunkId": "0b330d22-3eac-44f6-8bfc-74e99ec7953c"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Automated data cleaning: handles inconsistencies to reduce the need for human cleanup before analysis.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/0b330d22-3eac-44f6-8bfc-74e99ec7953c/asset",
+                    "fileName": "case-study--patient-data-analytics.pdf",
+                    "chunkText": "HumbleBeeAI developed the Patient Report Analyzer with smart parsing that didn't just read files but adapted to them. Whether columns were renamed or sheets restructured, the system adjusted automatically. Sophisticated cleaning algorithms handled inconsistencies, ensuring reliable data without human involvement. Batch processing and caching turned sluggish workflows into lightning-fast runs, even for files over 1GB. Instead of static reports, teams got real-time charts, tables, and downloadable Excel summaries. Built on Python, JavaScript, Pandas, Plotly, and Flask, the tool scaled without compromising simplicity.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 2,
+                    "sourceChunkId": "0b330d22-3eac-44f6-8bfc-74e99ec7953c"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Batch processing and caching: used to speed up processing, including for files described as over 1GB.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/0b330d22-3eac-44f6-8bfc-74e99ec7953c/asset",
+                    "fileName": "case-study--patient-data-analytics.pdf",
+                    "chunkText": "HumbleBeeAI developed the Patient Report Analyzer with smart parsing that didn't just read files but adapted to them. Whether columns were renamed or sheets restructured, the system adjusted automatically. Sophisticated cleaning algorithms handled inconsistencies, ensuring reliable data without human involvement. Batch processing and caching turned sluggish workflows into lightning-fast runs, even for files over 1GB. Instead of static reports, teams got real-time charts, tables, and downloadable Excel summaries. Built on Python, JavaScript, Pandas, Plotly, and Flask, the tool scaled without compromising simplicity.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 2,
+                    "sourceChunkId": "0b330d22-3eac-44f6-8bfc-74e99ec7953c"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Analysis views and exports: presents charts and tables and supports downloadable Excel summaries, so teams can review and take data out of the interface.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/0b330d22-3eac-44f6-8bfc-74e99ec7953c/asset",
+                    "fileName": "case-study--patient-data-analytics.pdf",
+                    "chunkText": "HumbleBeeAI developed the Patient Report Analyzer with smart parsing that didn't just read files but adapted to them. Whether columns were renamed or sheets restructured, the system adjusted automatically. Sophisticated cleaning algorithms handled inconsistencies, ensuring reliable data without human involvement. Batch processing and caching turned sluggish workflows into lightning-fast runs, even for files over 1GB. Instead of static reports, teams got real-time charts, tables, and downloadable Excel summaries. Built on Python, JavaScript, Pandas, Plotly, and Flask, the tool scaled without compromising simplicity.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 2,
+                    "sourceChunkId": "0b330d22-3eac-44f6-8bfc-74e99ec7953c"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied interface image shows file selection and an Excel-report download control.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/a215caaa-d63e-4789-878f-1db5a8997560/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "Patient Report Analyzer\nDrag and Drop or Select Files |\nBPermutason of 20240214 095422 LenAWaPredciorsOAFSevertyisx\nB20240214_095422_LefAtrialPredictorsOfAF Severity. xisx\n1820231003 101910_LeftAtnalPredictorsOtAF Severity. xisx\n820231003_101910_InvestigationalReport xisx\n1820231003_101910_CilinicalReport xisx\n1820231003 _101910_AbiationStesExport xis\nB20230905_134915,LeRAviaPrediciorsOIAF Severy (copy) isx\n1B20230005_134915_LeftAtrialPredictorsOMAF Severity.xisx\nB20230005_134915_InvestigationalReportxisx\nB20230905_134915_ClinicalReport xlsx\n820230620 140606 LefAiaPrediciosOtAF Severtyxisx\n820230829 _140806_InvestigationalReport xisx",
+            "mediaType": "image/png",
+            "chunkIndex": 8,
+            "pageNumber": 2,
+            "sourceChunkId": "a215caaa-d63e-4789-878f-1db5a8997560"
+          }
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Patient Report Analyzer interface showing selected Excel files and a Download Report as Excel button",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/a215caaa-d63e-4789-878f-1db5a8997560/asset",
+        "align": "center",
+        "title": "File selection and Excel report export",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/a215caaa-d63e-4789-878f-1db5a8997560/asset",
+        "fileName": "case-study--patient-data-analytics.pdf",
+        "chunkText": "Patient Report Analyzer\nDrag and Drop or Select Files |\nBPermutason of 20240214 095422 LenAWaPredciorsOAFSevertyisx\nB20240214_095422_LefAtrialPredictorsOfAF Severity. xisx\n1820231003 101910_LeftAtnalPredictorsOtAF Severity. xisx\n820231003_101910_InvestigationalReport xisx\n1820231003_101910_CilinicalReport xisx\n1820231003 _101910_AbiationStesExport xis\nB20230905_134915,LeRAviaPrediciorsOIAF Severy (copy) isx\n1B20230005_134915_LeftAtrialPredictorsOMAF Severity.xisx\nB20230005_134915_InvestigationalReportxisx\nB20230905_134915_ClinicalReport xlsx\n820230620 140606 LefAiaPrediciosOtAF Severtyxisx\n820230829 _140806_InvestigationalReport xisx",
+        "mediaType": "image/png",
+        "chunkIndex": 8,
+        "pageNumber": 2,
+        "sourceChunkId": "a215caaa-d63e-4789-878f-1db5a8997560"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study names Python, JavaScript, Pandas, Plotly and Flask as the implementation technologies.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/0b330d22-3eac-44f6-8bfc-74e99ec7953c/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "HumbleBeeAI developed the Patient Report Analyzer with smart parsing that didn't just read files but adapted to them. Whether columns were renamed or sheets restructured, the system adjusted automatically. Sophisticated cleaning algorithms handled inconsistencies, ensuring reliable data without human involvement. Batch processing and caching turned sluggish workflows into lightning-fast runs, even for files over 1GB. Instead of static reports, teams got real-time charts, tables, and downloadable Excel summaries. Built on Python, JavaScript, Pandas, Plotly, and Flask, the tool scaled without compromising simplicity.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "0b330d22-3eac-44f6-8bfc-74e99ec7953c"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "A supplied example of the analysis interface shows a combined analysis with charts across six files; it illustrates a reported visualization capability and does not establish a particular clinical outcome.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/8f21d28b-6ad8-44cb-a8d8-b3d6339e1266/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "Left Atrial Predictors of AF Severity - Combined Analysis\n2 Prcenages cus esr Regan 0 te)\nB p=\nI il\nTUNG SU a Sa SO NL SOS\n~~, ~. “~~. CUR Va\n~ONN Sa NOS NS re,\n“~\n~\nOxon of Gots ve pecs is)\n~~ ~ “ ~ ~. ~~, “ ~, ~\n~., “~. EE NU “. ~. 5 a\nSn nN TN TN NN Se\nwy ay, ~, RN\n~.,\n~",
+            "mediaType": "image/png",
+            "chunkIndex": 10,
+            "pageNumber": 3,
+            "sourceChunkId": "8f21d28b-6ad8-44cb-a8d8-b3d6339e1266"
+          }
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Dashboard example with charts in a combined analysis across six files",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/8f21d28b-6ad8-44cb-a8d8-b3d6339e1266/asset",
+        "align": "center",
+        "title": "Example combined-analysis dashboard",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/8f21d28b-6ad8-44cb-a8d8-b3d6339e1266/asset",
+        "fileName": "case-study--patient-data-analytics.pdf",
+        "chunkText": "Left Atrial Predictors of AF Severity - Combined Analysis\n2 Prcenages cus esr Regan 0 te)\nB p=\nI il\nTUNG SU a Sa SO NL SOS\n~~, ~. “~~. CUR Va\n~ONN Sa NOS NS re,\n“~\n~\nOxon of Gots ve pecs is)\n~~ ~ “ ~ ~. ~~, “ ~, ~\n~., “~. EE NU “. ~. 5 a\nSn nN TN TN NN Se\nwy ay, ~, RN\n~.,\n~",
+        "mediaType": "image/png",
+        "chunkIndex": 10,
+        "pageNumber": 3,
+        "sourceChunkId": "8f21d28b-6ad8-44cb-a8d8-b3d6339e1266"
+      }
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study reports improvements in preparation and processing speed. These are reported project results; the supplied material does not provide a measurement method, baseline definition or independent validation.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/26dc5cc2-487f-4d1d-a20b-276a424f1b1b/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "The impact was immediate and measurable. Manual work decreased by 80% as analysts stopped spending their days cleaning data and started delivering insights. Processing became 50% faster with reports that once took hours appearing in minutes. Enterprise-scale performance meant even gigabyte-sized datasets ran smoothly. With consistent, accurate data, healthcare professionals could trust what they saw and act on it. The shift wasn't just about speed - it was about confidence. Teams could finally focus on improving patient care, not untangling spreadsheets.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 13,
+            "pageNumber": 3,
+            "sourceChunkId": "26dc5cc2-487f-4d1d-a20b-276a424f1b1b"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/78bb7334-7237-4866-8a7c-2168cf401e13/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "For years, Johnson & Johnson fought with an invisible bottleneck: patient data locked inside messy Excel files. Each dataset looked different, slowing analysis and drowning teams in manual cleanup. Then came a breakthrough. With HumbleBeeAI's Patient Report Analyzer, J&J automated the chaos. Overnight, preprocessing time dropped by 80%, processing time halved, and healthcare professionals could finally focus on patients instead of spreadsheets.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "78bb7334-7237-4866-8a7c-2168cf401e13"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Preprocessing time: decreased by 80%, according to the Executive Summary.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/78bb7334-7237-4866-8a7c-2168cf401e13/asset",
+                    "fileName": "case-study--patient-data-analytics.pdf",
+                    "chunkText": "For years, Johnson & Johnson fought with an invisible bottleneck: patient data locked inside messy Excel files. Each dataset looked different, slowing analysis and drowning teams in manual cleanup. Then came a breakthrough. With HumbleBeeAI's Patient Report Analyzer, J&J automated the chaos. Overnight, preprocessing time dropped by 80%, processing time halved, and healthcare professionals could finally focus on patients instead of spreadsheets.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 4,
+                    "pageNumber": 1,
+                    "sourceChunkId": "78bb7334-7237-4866-8a7c-2168cf401e13"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Manual work: decreased by 80%, according to the Results section.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/26dc5cc2-487f-4d1d-a20b-276a424f1b1b/asset",
+                    "fileName": "case-study--patient-data-analytics.pdf",
+                    "chunkText": "The impact was immediate and measurable. Manual work decreased by 80% as analysts stopped spending their days cleaning data and started delivering insights. Processing became 50% faster with reports that once took hours appearing in minutes. Enterprise-scale performance meant even gigabyte-sized datasets ran smoothly. With consistent, accurate data, healthcare professionals could trust what they saw and act on it. The shift wasn't just about speed - it was about confidence. Teams could finally focus on improving patient care, not untangling spreadsheets.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 13,
+                    "pageNumber": 3,
+                    "sourceChunkId": "26dc5cc2-487f-4d1d-a20b-276a424f1b1b"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Processing time: became 50% faster; the case study also says reports that once took hours appeared in minutes.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/26dc5cc2-487f-4d1d-a20b-276a424f1b1b/asset",
+                    "fileName": "case-study--patient-data-analytics.pdf",
+                    "chunkText": "The impact was immediate and measurable. Manual work decreased by 80% as analysts stopped spending their days cleaning data and started delivering insights. Processing became 50% faster with reports that once took hours appearing in minutes. Enterprise-scale performance meant even gigabyte-sized datasets ran smoothly. With consistent, accurate data, healthcare professionals could trust what they saw and act on it. The shift wasn't just about speed - it was about confidence. Teams could finally focus on improving patient care, not untangling spreadsheets.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 13,
+                    "pageNumber": 3,
+                    "sourceChunkId": "26dc5cc2-487f-4d1d-a20b-276a424f1b1b"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/78bb7334-7237-4866-8a7c-2168cf401e13/asset",
+                    "fileName": "case-study--patient-data-analytics.pdf",
+                    "chunkText": "For years, Johnson & Johnson fought with an invisible bottleneck: patient data locked inside messy Excel files. Each dataset looked different, slowing analysis and drowning teams in manual cleanup. Then came a breakthrough. With HumbleBeeAI's Patient Report Analyzer, J&J automated the chaos. Overnight, preprocessing time dropped by 80%, processing time halved, and healthcare professionals could finally focus on patients instead of spreadsheets.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 4,
+                    "pageNumber": 1,
+                    "sourceChunkId": "78bb7334-7237-4866-8a7c-2168cf401e13"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Large files: the Solution section says batch processing and caching supported fast runs for files over 1GB; it gives no more specific performance figure for those files.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/0b330d22-3eac-44f6-8bfc-74e99ec7953c/asset",
+                    "fileName": "case-study--patient-data-analytics.pdf",
+                    "chunkText": "HumbleBeeAI developed the Patient Report Analyzer with smart parsing that didn't just read files but adapted to them. Whether columns were renamed or sheets restructured, the system adjusted automatically. Sophisticated cleaning algorithms handled inconsistencies, ensuring reliable data without human involvement. Batch processing and caching turned sluggish workflows into lightning-fast runs, even for files over 1GB. Instead of static reports, teams got real-time charts, tables, and downloadable Excel summaries. Built on Python, JavaScript, Pandas, Plotly, and Flask, the tool scaled without compromising simplicity.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 2,
+                    "sourceChunkId": "0b330d22-3eac-44f6-8bfc-74e99ec7953c"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source attributes additional value to consistent data and more analyst focus on insights, but it does not report a measured effect on patient outcomes or quantify a business impact beyond the stated time and manual-work changes.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/26dc5cc2-487f-4d1d-a20b-276a424f1b1b/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "The impact was immediate and measurable. Manual work decreased by 80% as analysts stopped spending their days cleaning data and started delivering insights. Processing became 50% faster with reports that once took hours appearing in minutes. Enterprise-scale performance meant even gigabyte-sized datasets ran smoothly. With consistent, accurate data, healthcare professionals could trust what they saw and act on it. The shift wasn't just about speed - it was about confidence. Teams could finally focus on improving patient care, not untangling spreadsheets.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 13,
+            "pageNumber": 3,
+            "sourceChunkId": "26dc5cc2-487f-4d1d-a20b-276a424f1b1b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied case study describes the analyzer and its capabilities as developed, but does not state whether it was deployed in production, whether the screenshots represent a live production system, or what functionality is currently available to users. No future work or roadmap is provided.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/0b330d22-3eac-44f6-8bfc-74e99ec7953c/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "HumbleBeeAI developed the Patient Report Analyzer with smart parsing that didn't just read files but adapted to them. Whether columns were renamed or sheets restructured, the system adjusted automatically. Sophisticated cleaning algorithms handled inconsistencies, ensuring reliable data without human involvement. Batch processing and caching turned sluggish workflows into lightning-fast runs, even for files over 1GB. Instead of static reports, teams got real-time charts, tables, and downloadable Excel summaries. Built on Python, JavaScript, Pandas, Plotly, and Flask, the tool scaled without compromising simplicity.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "0b330d22-3eac-44f6-8bfc-74e99ec7953c"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/a215caaa-d63e-4789-878f-1db5a8997560/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "Patient Report Analyzer\nDrag and Drop or Select Files |\nBPermutason of 20240214 095422 LenAWaPredciorsOAFSevertyisx\nB20240214_095422_LefAtrialPredictorsOfAF Severity. xisx\n1820231003 101910_LeftAtnalPredictorsOtAF Severity. xisx\n820231003_101910_InvestigationalReport xisx\n1820231003_101910_CilinicalReport xisx\n1820231003 _101910_AbiationStesExport xis\nB20230905_134915,LeRAviaPrediciorsOIAF Severy (copy) isx\n1B20230005_134915_LeftAtrialPredictorsOMAF Severity.xisx\nB20230005_134915_InvestigationalReportxisx\nB20230905_134915_ClinicalReport xlsx\n820230620 140606 LefAiaPrediciosOtAF Severtyxisx\n820230829 _140806_InvestigationalReport xisx",
+            "mediaType": "image/png",
+            "chunkIndex": 8,
+            "pageNumber": 2,
+            "sourceChunkId": "a215caaa-d63e-4789-878f-1db5a8997560"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/8f21d28b-6ad8-44cb-a8d8-b3d6339e1266/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "Left Atrial Predictors of AF Severity - Combined Analysis\n2 Prcenages cus esr Regan 0 te)\nB p=\nI il\nTUNG SU a Sa SO NL SOS\n~~, ~. “~~. CUR Va\n~ONN Sa NOS NS re,\n“~\n~\nOxon of Gots ve pecs is)\n~~ ~ “ ~ ~. ~~, “ ~, ~\n~., “~. EE NU “. ~. 5 a\nSn nN TN TN NN Se\nwy ay, ~, RN\n~.,\n~",
+            "mediaType": "image/png",
+            "chunkIndex": 10,
+            "pageNumber": 3,
+            "sourceChunkId": "8f21d28b-6ad8-44cb-a8d8-b3d6339e1266"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The reported measurements are not accompanied by test conditions, sample sizes, calculation details or independent validation in the supplied material. It also does not provide quantified accuracy or reliability measures; therefore, claims about those dimensions cannot be assessed from this source.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/26dc5cc2-487f-4d1d-a20b-276a424f1b1b/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "The impact was immediate and measurable. Manual work decreased by 80% as analysts stopped spending their days cleaning data and started delivering insights. Processing became 50% faster with reports that once took hours appearing in minutes. Enterprise-scale performance meant even gigabyte-sized datasets ran smoothly. With consistent, accurate data, healthcare professionals could trust what they saw and act on it. The shift wasn't just about speed - it was about confidence. Teams could finally focus on improving patient care, not untangling spreadsheets.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 13,
+            "pageNumber": 3,
+            "sourceChunkId": "26dc5cc2-487f-4d1d-a20b-276a424f1b1b"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/0b330d22-3eac-44f6-8bfc-74e99ec7953c/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "HumbleBeeAI developed the Patient Report Analyzer with smart parsing that didn't just read files but adapted to them. Whether columns were renamed or sheets restructured, the system adjusted automatically. Sophisticated cleaning algorithms handled inconsistencies, ensuring reliable data without human involvement. Batch processing and caching turned sluggish workflows into lightning-fast runs, even for files over 1GB. Instead of static reports, teams got real-time charts, tables, and downloadable Excel summaries. Built on Python, JavaScript, Pandas, Plotly, and Flask, the tool scaled without compromising simplicity.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "0b330d22-3eac-44f6-8bfc-74e99ec7953c"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supported project value is a developed analyzer intended to reduce the manual effort involved in preparing varied patient-data workbooks and to return charts, tables and Excel summaries. The case study reports an 80% decrease in preprocessing time and 50% faster processing, while leaving deployment status and measurement methodology unspecified.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/a0f26bc1-5b1b-4bcd-857a-13dbc2efc0e1/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nPatient Report Analyzer automating data parsing, cleaning, and visualization for diverse patient datasets with varying Excel structures",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "a0f26bc1-5b1b-4bcd-857a-13dbc2efc0e1"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/0b330d22-3eac-44f6-8bfc-74e99ec7953c/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "HumbleBeeAI developed the Patient Report Analyzer with smart parsing that didn't just read files but adapted to them. Whether columns were renamed or sheets restructured, the system adjusted automatically. Sophisticated cleaning algorithms handled inconsistencies, ensuring reliable data without human involvement. Batch processing and caching turned sluggish workflows into lightning-fast runs, even for files over 1GB. Instead of static reports, teams got real-time charts, tables, and downloadable Excel summaries. Built on Python, JavaScript, Pandas, Plotly, and Flask, the tool scaled without compromising simplicity.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "0b330d22-3eac-44f6-8bfc-74e99ec7953c"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/26dc5cc2-487f-4d1d-a20b-276a424f1b1b/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "The impact was immediate and measurable. Manual work decreased by 80% as analysts stopped spending their days cleaning data and started delivering insights. Processing became 50% faster with reports that once took hours appearing in minutes. Enterprise-scale performance meant even gigabyte-sized datasets ran smoothly. With consistent, accurate data, healthcare professionals could trust what they saw and act on it. The shift wasn't just about speed - it was about confidence. Teams could finally focus on improving patient care, not untangling spreadsheets.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 13,
+            "pageNumber": 3,
+            "sourceChunkId": "26dc5cc2-487f-4d1d-a20b-276a424f1b1b"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/78bb7334-7237-4866-8a7c-2168cf401e13/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "For years, Johnson & Johnson fought with an invisible bottleneck: patient data locked inside messy Excel files. Each dataset looked different, slowing analysis and drowning teams in manual cleanup. Then came a breakthrough. With HumbleBeeAI's Patient Report Analyzer, J&J automated the chaos. Overnight, preprocessing time dropped by 80%, processing time halved, and healthcare professionals could finally focus on patients instead of spreadsheets.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "78bb7334-7237-4866-8a7c-2168cf401e13"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Original source: HumbleBeeAI case study, “How Johnson & Johnson reduced patient data analytics time by 80%?” A direct original-page URL was not included in the supplied source material.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/evidence/a0f26bc1-5b1b-4bcd-857a-13dbc2efc0e1/asset",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nPatient Report Analyzer automating data parsing, cleaning, and visualization for diverse patient datasets with varying Excel structures",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "a0f26bc1-5b1b-4bcd-857a-13dbc2efc0e1"
+          }
+        }
+      ]
+    }
+  ]
+}
