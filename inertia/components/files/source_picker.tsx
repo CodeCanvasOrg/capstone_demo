@@ -18,16 +18,35 @@ import FileUploadForm from './form'
 import type { FileUpload } from './card'
 import { ProcessingStatusBadge } from '@/components/documents/status'
 import { TruncatedName } from '@/components/truncated_name'
-export type SourceChoice = Pick<Data.File, 'id' | 'filename' | 'processingStatus'>
+export type SourceChoice = Pick<Data.File, 'id' | 'filename' | 'processingStatus' | 'projects'>
+/** Workspace files suit every case study; project files only suit their projects. */
+export function selectable(file: SourceChoice, projectId: string | null) {
+  return (
+    !file.projects?.length ||
+    (!!projectId && file.projects.some((project) => project.id === projectId))
+  )
+}
+function toChoice(file: FileUpload): SourceChoice {
+  return {
+    id: file.id,
+    filename: file.filename,
+    processingStatus: file.processingStatus,
+    projects: (file.projectIds ?? []).map((id) => ({ id, name: '' })),
+  }
+}
 export function SourcePicker({
   files,
   selected,
   onChange,
+  onUploaded,
+  projectId = null,
   disabled = false,
 }: {
   files: SourceChoice[]
   selected: string[]
   onChange: (ids: string[]) => void
+  onUploaded?: (file: SourceChoice) => void
+  projectId?: string | null
   disabled?: boolean
 }) {
   const latestSelection = useRef(selected)
@@ -39,7 +58,17 @@ export function SourcePicker({
   const [query, setQuery] = useState('')
   const [uploaded, setUploaded] = useState<FileUpload[]>([])
   const { dirtyKeys } = useWorkspace()
-  const options = [...new Map([...files, ...uploaded].map((file) => [file.id, file])).values()]
+  const uploadedChoices = uploaded.map(toChoice)
+  const options = [
+    ...new Map([...files, ...uploadedChoices].map((file) => [file.id, file])).values(),
+  ].filter((file) => selectable(file, projectId))
+  const matches = options.filter((file) =>
+    (file.filename ?? '').toLowerCase().includes(query.toLowerCase())
+  )
+  const groups = [
+    { label: 'This project', files: matches.filter((file) => file.projects?.length) },
+    { label: 'Workspace library', files: matches.filter((file) => !file.projects?.length) },
+  ].filter((group) => group.files.length)
   function allowLeave() {
     return (
       !dirtyKeys.includes('file-upload') ||
@@ -90,42 +119,50 @@ export function SourcePicker({
                 className="pl-9"
               />
             </div>
-            <div className="max-h-80 overflow-y-auto divide-y">
-              {options
-                .filter((file) => (file.filename ?? '').toLowerCase().includes(query.toLowerCase()))
-                .map((file) => (
-                  <label
-                    key={file.id}
-                    className="flex cursor-pointer items-center gap-3 py-3 text-sm"
-                  >
-                    <Checkbox
-                      checked={selected.includes(file.id)}
-                      onCheckedChange={(checked) =>
-                        onChange(
-                          checked ? [...selected, file.id] : selected.filter((id) => id !== file.id)
-                        )
-                      }
-                    />
-                    <TruncatedName name={file.filename ?? ''} className="flex-1" />
-                    <ProcessingStatusBadge status={file.processingStatus} />
-                  </label>
-                ))}
+            <div className="max-h-80 overflow-y-auto">
+              {groups.map((group) => (
+                <section key={group.label} aria-label={group.label}>
+                  {projectId && <h3 className="eyebrow pt-3 pb-1">{group.label}</h3>}
+                  <div className="divide-y">
+                    {group.files.map((file) => (
+                      <label
+                        key={file.id}
+                        className="flex cursor-pointer items-center gap-3 py-3 text-sm"
+                      >
+                        <Checkbox
+                          checked={selected.includes(file.id)}
+                          onCheckedChange={(checked) =>
+                            onChange(
+                              checked
+                                ? [...selected, file.id]
+                                : selected.filter((id) => id !== file.id)
+                            )
+                          }
+                        />
+                        <TruncatedName name={file.filename ?? ''} className="flex-1" />
+                        <ProcessingStatusBadge status={file.processingStatus} />
+                      </label>
+                    ))}
+                  </div>
+                </section>
+              ))}
               {!options.length && (
                 <p className="py-10 text-center text-sm text-muted-foreground">
                   No files yet. Upload a source.
                 </p>
               )}
-              {!!options.length &&
-                !options.some((file) =>
-                  (file.filename ?? '').toLowerCase().includes(query.toLowerCase())
-                ) && <p className="py-6 text-sm text-muted-foreground">No matching files.</p>}
+              {!!options.length && !matches.length && (
+                <p className="py-6 text-sm text-muted-foreground">No matching files.</p>
+              )}
             </div>
           </TabsContent>
           <TabsContent value="upload" className="space-y-3 pt-3">
             <FileUploadForm
+              projectId={projectId}
               files={uploaded}
               onSubmit={(file) => {
                 setUploaded((current) => [...current, file])
+                onUploaded?.(toChoice(file))
                 latestSelection.current = [...latestSelection.current, file.id]
                 onChange(latestSelection.current)
               }}
@@ -136,7 +173,9 @@ export function SourcePicker({
               }}
             />
             <p className="text-xs leading-relaxed text-muted-foreground">
-              Uploads are saved to the library, even if you cancel this draft.
+              {projectId
+                ? "Uploads are saved to this case study's project, even if you cancel this draft."
+                : 'Uploads are saved to the library, even if you cancel this draft.'}
             </p>
           </TabsContent>
         </Tabs>

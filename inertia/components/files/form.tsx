@@ -34,6 +34,8 @@ type FileUploadFormProps = {
   onSubmit: (file: FileUpload) => void
   onRemove: (index: number) => void
   disabled?: boolean
+  /** Links each upload to this project; omitted uploads go to the workspace library. */
+  projectId?: string | null
 }
 
 function validateFile(file: File) {
@@ -58,6 +60,7 @@ export default function FileUploadForm({
   onSubmit,
   onRemove,
   disabled,
+  projectId,
 }: FileUploadFormProps) {
   const workspaceId = useWorkspaceId()
   const inputRef = useRef<HTMLInputElement>(null)
@@ -94,6 +97,7 @@ export default function FileUploadForm({
   async function uploadFile(file: File) {
     const formData = new FormData()
     formData.append('file', file)
+    if (projectId) formData.append('projectId', projectId)
     try {
       const response = await fetch(`/workspaces/${workspaceId}/files/uploads`, {
         method: 'POST',

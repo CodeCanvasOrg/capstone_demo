@@ -523,6 +523,7 @@ export function DocumentInspector({
           <h2 className="eyebrow">Evidence</h2>
           <SourcePicker
             files={availableFiles}
+            projectId={document.projectId}
             selected={files}
             onChange={(ids) => {
               setFiles(ids)

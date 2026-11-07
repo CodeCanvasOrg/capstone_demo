@@ -12,11 +12,13 @@ export function CollectionSearch({
   q = '',
   status = '',
   project = '',
+  scope,
 }: {
   collection: 'documents' | 'files' | 'projects'
   q?: string
   status?: string
   project?: string
+  scope?: string
 }) {
   const [term, setTerm] = useState(q)
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -34,7 +36,7 @@ export function CollectionSearch({
     cancel.current?.()
     router.get(
       `/workspaces/${workspaceId}/${collection}`,
-      { q: value, status, project },
+      { q: value, status, project, ...(scope ? { scope } : {}) },
       {
         preserveState: true,
         preserveScroll: true,

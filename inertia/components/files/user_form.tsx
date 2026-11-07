@@ -5,12 +5,13 @@ import { useWorkspaceId } from '@/providers/workspace_provider'
 import { Button } from '@/components/ui/button'
 import FileUploadForm from './form'
 import type { FileUpload } from './card'
-export default function UserForm() {
+export default function UserForm({ projectId = null }: { projectId?: string | null }) {
   const workspaceId = useWorkspaceId()
   const [files, setFiles] = useState<FileUpload[]>([])
   return (
     <div className="space-y-5">
       <FileUploadForm
+        projectId={projectId}
         files={files}
         onSubmit={(file) => setFiles((current) => [...current, file])}
         onRemove={(index) => setFiles((current) => current.filter((_, i) => i !== index))}

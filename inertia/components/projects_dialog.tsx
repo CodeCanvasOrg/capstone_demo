@@ -68,7 +68,7 @@ export function ProjectDialog({ project }: { project?: Data.Project }) {
             {project ? 'Edit project' : 'New project'}
           </DialogTitle>
           <DialogDescription className="sr-only">
-            Name the project and write a brief. Creating a project opens its first AI case study.
+            Name the project and write a brief. You can add sources once it is created.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={submit}>
@@ -129,7 +129,7 @@ export function ProjectDialog({ project }: { project?: Data.Project }) {
                   : 'Creating…'
                 : project
                   ? 'Save'
-                  : 'Create project & draft'}
+                  : 'Create project'}
             </Button>
           </div>
         </form>

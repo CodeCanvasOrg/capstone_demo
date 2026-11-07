@@ -100,6 +100,10 @@ export interface ApiDefinition {
     destroy: typeof routes['files.destroy']
   }
   uploads: typeof routes['uploads']
+  fileProjects: {
+    store: typeof routes['fileProjects.store']
+    destroy: typeof routes['fileProjects.destroy']
+  }
   legacy: {
     document: typeof routes['legacy.document']
     export: typeof routes['legacy.export']

@@ -8,7 +8,11 @@ import { currentRunIdentity } from '#services/documents/pipeline_identity'
 import File from '#models/file'
 import FileRevision from '#models/file_revision'
 import ProcessingRun from '#models/processing_run'
-import AccessService, { type WorkspaceAccessContext } from '#services/workspaces/access_service'
+import Project from '#models/project'
+import AccessService, {
+  missingResource,
+  type WorkspaceAccessContext,
+} from '#services/workspaces/access_service'
 import TaskService from '#services/workspaces/task_service'
 const MIME_TYPES: Record<string, string> = {
   '.pdf': 'application/pdf',
@@ -23,7 +27,11 @@ const MIME_TYPES: Record<string, string> = {
 export default class UploadService {
   async upload(
     context: WorkspaceAccessContext,
-    { filename, contents }: { filename: string; contents: Buffer }
+    {
+      filename,
+      contents,
+      projectId = null,
+    }: { filename: string; contents: Buffer; projectId?: string | null }
   ) {
     const filetype = path.extname(filename).toLowerCase()
     const mime = MIME_TYPES[filetype]
@@ -34,6 +42,13 @@ export default class UploadService {
     // Keep the membership lock through the private write; revocation serializes with it.
     const file = await db.transaction(async (trx) => {
       await access.lock(context, trx)
+      if (
+        projectId &&
+        !(await Project.query({ client: trx })
+          .where({ id: projectId, workspaceId: context.workspaceId })
+          .first())
+      )
+        throw missingResource()
       await drive.use().put(objectKey, contents, { contentType: mime, visibility: 'private' })
       try {
         const stored = await File.create(
@@ -47,6 +62,13 @@ export default class UploadService {
           },
           { client: trx }
         )
+        if (projectId)
+          await trx.table('project_files').insert({
+            workspace_id: context.workspaceId,
+            project_id: projectId,
+            file_id: stored.id,
+            created_by: context.actorId,
+          })
         const revision = await FileRevision.create(
           {
             workspaceId: context.workspaceId,
@@ -95,6 +117,7 @@ export default class UploadService {
       id: file.id,
       filename: file.filename,
       filetype: file.filetype,
+      projectIds: projectId ? [projectId] : [],
       downloadUrl: `/workspaces/${context.workspaceId}/files/${file.id}/download`,
       processingStatus: 'queued' as const,
     }

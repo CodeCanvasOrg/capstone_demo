@@ -3,6 +3,7 @@ import RichTextService from '#services/rich_text_service'
 import ProjectInformationService from '#services/documents/project_information_service'
 import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
 import WorkflowService from '#services/documents/workflow_service'
+import SourceScopeService, { names } from '#services/files/source_scope_service'
 import db from '@adonisjs/lucid/services/db'
 import Document from '#models/document'
 import File from '#models/file'
@@ -76,6 +77,12 @@ export default class DocumentService {
       if (files.length !== ids.length) throw missingResource()
       if (input.sourceMode === 'input_only' && ids.length)
         throw conflict('Input-only documents cannot select source files')
+      await new SourceScopeService().assertSelectable(
+        trx,
+        context.workspaceId,
+        ids,
+        input.projectId ?? null
+      )
       const document = await Document.create(
         {
           workspaceId: context.workspaceId,
@@ -140,6 +147,22 @@ export default class DocumentService {
           .first())
       )
         throw missingResource()
+      if ((input.projectId ?? null) !== document.projectId) {
+        const selected = await trx
+          .from('document_files')
+          .where({ workspace_id: context.workspaceId, document_id: document.id })
+          .select('files_id')
+        const blocked = await new SourceScopeService().ineligible(
+          trx,
+          context.workspaceId,
+          selected.map((row) => row.files_id),
+          input.projectId ?? null
+        )
+        if (blocked.length)
+          throw conflict(
+            `This case study uses files from its current project: ${names(blocked.map((file) => file.filename))}. Remove them before moving it.`
+          )
+      }
       const informationChanged =
         input.projectInformation !== undefined &&
         INFORMATION_FIELDS.some(

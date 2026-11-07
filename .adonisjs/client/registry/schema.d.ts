@@ -631,6 +631,30 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/uploads_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'fileProjects.store': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/files/:id/projects'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/file').fileProjectValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/file').fileProjectValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/file_projects_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/file_projects_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'fileProjects.destroy': {
+    methods: ["DELETE"]
+    pattern: '/workspaces/:workspaceId/files/:id/projects/:projectId'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; id: ParamValue; projectId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/file_projects_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/file_projects_controller').default['destroy']>>>
+    }
+  }
   'files.index': {
     methods: ["GET","HEAD"]
     pattern: '/workspaces/:workspaceId/files'

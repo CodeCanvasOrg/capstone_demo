@@ -8,7 +8,7 @@ import { OutlinePicker } from '@/components/documents/outline_picker'
 import type { OutlineTemplate } from '../../../shared/templates/outlines'
 import { Disclosure } from '@/components/disclosure'
 import { Button } from '@/components/ui/button'
-import { SourcePicker } from '@/components/files/source_picker'
+import { SourcePicker, selectable, type SourceChoice } from '@/components/files/source_picker'
 import { RichTextEditor, emptyRichText, type RichText } from '@/components/rich_text_editor'
 
 export function DocumentForm({
@@ -27,6 +27,18 @@ export function DocumentForm({
   const [text, setText] = useState('')
   const [selected, setSelected] = useState<string[]>([])
   const [projectId, setProjectId] = useState(initialProjectId ?? '')
+  const [uploads, setUploads] = useState<SourceChoice[]>([])
+  const [droppedSources, setDroppedSources] = useState(0)
+  function changeProject(next: string) {
+    const choices = new Map([...files, ...uploads].map((file) => [file.id, file]))
+    const kept = selected.filter((id) => {
+      const file = choices.get(id)
+      return !file || selectable(file, next || null)
+    })
+    setDroppedSources(selected.length - kept.length)
+    setSelected(kept)
+    setProjectId(next)
+  }
   const form = useForm({
     templateId: null as string | null,
     description: '',
@@ -85,6 +97,8 @@ export function DocumentForm({
               files={files}
               selected={selected}
               onChange={setSelected}
+              onUploaded={(file) => setUploads((current) => [...current, file])}
+              projectId={projectId || null}
               disabled={form.processing}
             />
           </div>
@@ -114,7 +128,7 @@ export function DocumentForm({
               aria-invalid={!!form.errors.projectId}
               aria-describedby={form.errors.projectId ? 'brief-project-error' : undefined}
               value={projectId}
-              onChange={(event) => setProjectId(event.target.value)}
+              onChange={(event) => changeProject(event.target.value)}
               disabled={form.processing}
               className="min-w-0 max-w-40 bg-transparent py-1.5 outline-none"
             >
@@ -129,6 +143,13 @@ export function DocumentForm({
           {form.errors.projectId && (
             <p id="brief-project-error" role="alert" className="text-xs text-destructive">
               {form.errors.projectId}
+            </p>
+          )}
+          {droppedSources > 0 && (
+            <p role="status" className="text-xs text-muted-foreground">
+              {droppedSources === 1
+                ? '1 source from the previous project was removed.'
+                : `${droppedSources} sources from the previous project were removed.`}
             </p>
           )}
         </Disclosure>

@@ -19,6 +19,7 @@ import { documentValidator, documentUpdateValidator } from '#validators/document
 import DocumentService from '#services/documents/document_service'
 import CreationService from '#services/documents/creation_service'
 import AccessService from '#services/workspaces/access_service'
+import SourceScopeService from '#services/files/source_scope_service'
 import type { HttpContext } from '@adonisjs/core/http'
 export default class DocumentsController {
   async index({ workspace, workspaceAccess, bouncer, request, inertia }: HttpContext) {
@@ -56,6 +57,7 @@ export default class DocumentsController {
     const files = await workspace!
       .related('files')
       .query()
+      .preload('projects')
       .preload('revisions', (rev) =>
         rev
           .orderBy('revision', 'desc')
@@ -114,7 +116,7 @@ export default class DocumentsController {
       .where({ workspaceId: workspaceAccess!.workspaceId, documentId: document.id })
       .orderBy('createdAt', 'desc')
       .limit(20)
-    const availableFiles = await workspaceFiles(workspaceAccess!.workspaceId)
+    const availableFiles = await workspaceFiles(workspaceAccess!.workspaceId, document.projectId)
     return inertia.render('documents/edit', {
       unavailableEvidence,
       projects: ProjectTransformer.transform(
@@ -149,9 +151,10 @@ export default class DocumentsController {
   }
 }
 
-async function workspaceFiles(workspaceId: string) {
-  return File.query()
-    .where('workspaceId', workspaceId)
+async function workspaceFiles(workspaceId: string, projectId: string | null) {
+  return new SourceScopeService()
+    .eligible(File.query().where('workspaceId', workspaceId), projectId)
+    .preload('projects')
     .preload('revisions', (rev) =>
       rev
         .orderBy('revision', 'desc')

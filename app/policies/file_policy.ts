@@ -15,4 +15,7 @@ export default class FilePolicy extends BasePolicy {
   async delete(user: User, file: File) {
     return this.update(user, file)
   }
+  async manageProjects(user: User, file: File) {
+    return this.update(user, file)
+  }
 }

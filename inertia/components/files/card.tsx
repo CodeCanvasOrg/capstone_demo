@@ -9,6 +9,7 @@ export type FileUpload = {
   filetype: string | null
   objectKey?: string
   downloadUrl: string | null
+  projectIds?: string[]
   processingStatus?: 'uploaded' | 'processing' | 'ready' | 'failed'
 }
 

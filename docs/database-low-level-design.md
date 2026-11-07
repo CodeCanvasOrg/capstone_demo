@@ -35,6 +35,8 @@ erDiagram
     documents ||--o{ document_shares : grants
     documents ||--o{ document_files : attaches
     files ||--o{ document_files : reused_by
+    projects ||--o{ project_files : scopes
+    files ||--o{ project_files : scoped_by
     files ||--o{ file_revisions : revisions
     file_revisions ||--o{ processing_runs : processed_by
     processing_runs ||--o{ document_blocks : extracts
@@ -131,6 +133,21 @@ UQ (`user_id`, `document_id`) permits one grant per recipient/document pair. Own
 | `document_id` | uuid | NN, FK → `documents.id` |
 
 No unique constraint on (`document_id`, `files_id`) is defined, so duplicate attachments are possible at the database level.
+
+### `project_files` — project scope for source files
+
+Added by `1793866501407_create_project_files_table`. A file with no rows here is a workspace file; a file with rows is scoped to those projects. See `docs/project-files-implementation-plan.md`.
+
+| Column | Type | Constraints / purpose |
+| --- | --- | --- |
+| `id` | uuid | PK, default `gen_random_uuid()` |
+| `workspace_id` | uuid | NN, FK → `workspaces.id` ON DELETE CASCADE |
+| `project_id` | uuid | NN; FK (`workspace_id`, `project_id`) → `projects` ON DELETE CASCADE |
+| `file_id` | uuid | NN; FK (`workspace_id`, `file_id`) → `files` ON DELETE CASCADE |
+| `created_by` | integer | NULL, FK → `users.id` ON DELETE SET NULL |
+| `created_at`, `updated_at` | timestamptz | NN, default current time |
+
+UQ (`workspace_id`, `project_id`, `file_id`); index (`workspace_id`, `file_id`). Rule: a `document_files` row is valid only when its file has no `project_files` rows or has one for the document's `project_id`. Services enforce it with a 409; the deferred constraint triggers `document_files_project_scope`, `project_files_project_scope` and `documents_project_scope` (function `enforce_project_source_scope`, migration `1793866501827_create_project_source_scope_trigger`) reject violations at commit. `node ace files:verify-project-scope` audits existing data.
 
 ### `file_revisions` — source revision metadata
 

@@ -1074,6 +1074,33 @@ export class ProcessingRunSchema extends BaseModel {
   declare workspaceId: string | null
 }
 
+export class ProjectFileSchema extends BaseModel {
+  static $columns = [
+    'createdAt',
+    'createdBy',
+    'fileId',
+    'id',
+    'projectId',
+    'updatedAt',
+    'workspaceId',
+  ] as const
+  $columns = ProjectFileSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare createdBy: number | null
+  @column()
+  declare fileId: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare projectId: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare workspaceId: string
+}
+
 export class ProjectSchema extends BaseModel {
   static $columns = [
     'createdAt',

@@ -12,7 +12,14 @@ import { ProcessingStatusBadge } from '@/components/documents/status'
 import { Disclosure } from '@/components/disclosure'
 import { safeMessage } from '@/lib/api'
 import { ConfirmAction } from '@/components/confirm_action'
-export default function Edit({ file }: { file: Data.File }) {
+import { FileLocation } from '@/components/files/file_location'
+export default function Edit({
+  file,
+  projects = [],
+}: {
+  file: Data.File
+  projects?: Data.Project[]
+}) {
   const workspaceId = useWorkspaceId()
   const [filename, setFilename] = useState(file.filename ?? '')
   const processing = ['uploaded', 'queued', 'processing'].includes(file.processingStatus ?? '')
@@ -157,6 +164,7 @@ export default function Edit({ file }: { file: Data.File }) {
                 </Form>
               )}
           </section>
+          <FileLocation file={file} projects={projects} />
           <section className="space-y-4 rounded-xl border bg-sidebar p-5">
             <h2 className="eyebrow">Used in case studies</h2>
             {file.documents?.length ? (

@@ -15,6 +15,7 @@ export const controllers = {
   Documents: () => import('#controllers/documents_controller'),
   Entry: () => import('#controllers/entry_controller'),
   ExportPdfs: () => import('#controllers/export_pdfs_controller'),
+  FileProjects: () => import('#controllers/file_projects_controller'),
   Files: () => import('#controllers/files_controller'),
   InvitationAcceptances: () => import('#controllers/invitation_acceptances_controller'),
   LegacyResources: () => import('#controllers/legacy_resources_controller'),

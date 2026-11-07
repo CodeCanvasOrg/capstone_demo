@@ -116,6 +116,12 @@ router
           .get('/documents/:documentId/evidence/:chunkId/asset', [controllers.Assets, 'asset'])
           .as('assets.evidenceAsset')
         router.post('files/uploads', [controllers.Uploads, 'handle'])
+        router
+          .post('/files/:id/projects', [controllers.FileProjects, 'store'])
+          .as('fileProjects.store')
+        router
+          .delete('/files/:id/projects/:projectId', [controllers.FileProjects, 'destroy'])
+          .as('fileProjects.destroy')
         router.resource('files', controllers.Files).except(['show']).as('files')
       })
       .prefix('/workspaces/:workspaceId')

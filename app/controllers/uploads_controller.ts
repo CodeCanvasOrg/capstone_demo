@@ -6,7 +6,7 @@ import { fileValidator } from '#validators/upload'
 
 export default class UploadsController {
   async handle({ request, workspaceAccess, response }: HttpContext) {
-    const { file } = await request.validateUsing(fileValidator)
+    const { file, projectId } = await request.validateUsing(fileValidator)
 
     if (!file.tmpPath) {
       return response.badRequest({ message: 'File could not be processed' })
@@ -15,6 +15,7 @@ export default class UploadsController {
     const uploaded = await new UploadService().upload(workspaceAccess!, {
       filename: file.clientName,
       contents: await readFile(file.tmpPath),
+      projectId,
     })
 
     return response.ok(uploaded)

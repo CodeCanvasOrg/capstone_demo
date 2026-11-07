@@ -318,6 +318,18 @@ const routes = {
     tokens: [{"old":"/workspaces/:workspaceId/files/uploads","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/files/uploads","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/files/uploads","type":0,"val":"files","end":""},{"old":"/workspaces/:workspaceId/files/uploads","type":0,"val":"uploads","end":""}],
     types: placeholder as Registry['uploads']['types'],
   },
+  'fileProjects.store': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/files/:id/projects',
+    tokens: [{"old":"/workspaces/:workspaceId/files/:id/projects","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/files/:id/projects","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/files/:id/projects","type":0,"val":"files","end":""},{"old":"/workspaces/:workspaceId/files/:id/projects","type":1,"val":"id","end":""},{"old":"/workspaces/:workspaceId/files/:id/projects","type":0,"val":"projects","end":""}],
+    types: placeholder as Registry['fileProjects.store']['types'],
+  },
+  'fileProjects.destroy': {
+    methods: ["DELETE"],
+    pattern: '/workspaces/:workspaceId/files/:id/projects/:projectId',
+    tokens: [{"old":"/workspaces/:workspaceId/files/:id/projects/:projectId","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/files/:id/projects/:projectId","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/files/:id/projects/:projectId","type":0,"val":"files","end":""},{"old":"/workspaces/:workspaceId/files/:id/projects/:projectId","type":1,"val":"id","end":""},{"old":"/workspaces/:workspaceId/files/:id/projects/:projectId","type":0,"val":"projects","end":""},{"old":"/workspaces/:workspaceId/files/:id/projects/:projectId","type":1,"val":"projectId","end":""}],
+    types: placeholder as Registry['fileProjects.destroy']['types'],
+  },
   'files.index': {
     methods: ["GET","HEAD"],
     pattern: '/workspaces/:workspaceId/files',

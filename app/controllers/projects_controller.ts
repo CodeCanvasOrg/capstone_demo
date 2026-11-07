@@ -1,11 +1,10 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import ProjectPolicy from '#policies/project_policy'
 import ProjectService from '#services/workspaces/project_service'
-import CreationService from '#services/documents/creation_service'
-import DocumentPolicy from '#policies/document_policy'
 import AccessService from '#services/workspaces/access_service'
 import ProjectTransformer from '#transformers/project_transformer'
 import DocumentTransformer from '#transformers/document_transformer'
+import FileTransformer from '#transformers/file_transformer'
 import { createProjectValidator } from '#validators/project'
 export default class ProjectsController {
   async index({ workspace, workspaceAccess, bouncer, request, inertia }: HttpContext) {
@@ -32,19 +31,37 @@ export default class ProjectsController {
       .where('projectId', project.id)
       .preload('user')
       .orderBy('updatedAt', 'desc')
+    const files = await project
+      .related('files')
+      .query()
+      .preload('projects')
+      .preload('revisions', (revision) =>
+        revision
+          .orderBy('revision', 'desc')
+          .preload('processingRuns', (run) => run.orderBy('createdAt', 'desc'))
+      )
+      .orderBy('createdAt', 'desc')
+    // Linking is owner-only, so only the actor's own unlinked files are offered.
+    const attachable = await workspace!
+      .related('files')
+      .query()
+      .where('userId', workspaceAccess!.actorId)
+      .whereDoesntHave('projects', (projects) => projects.where('projects.id', project.id))
+      .orderBy('filename')
     return inertia.render('projects/show', {
       project: ProjectTransformer.transform(project),
       documents: DocumentTransformer.transform(documents, workspaceAccess!.actorId),
+      files: FileTransformer.transform(files, workspaceAccess!.actorId),
+      attachableFiles: FileTransformer.transform(attachable, workspaceAccess!.actorId),
     })
   }
   async store({ workspaceAccess, request, bouncer, response }: HttpContext) {
     await bouncer.with(ProjectPolicy).authorize('create', workspaceAccess!.workspaceId)
     const input = await request.validateUsing(createProjectValidator)
-    await bouncer.with(DocumentPolicy).authorize('create', workspaceAccess!.workspaceId)
-    const document = await new CreationService().project(workspaceAccess!, input)
-    return response.redirect().toRoute('documents.edit', {
+    const project = await new ProjectService().save(workspaceAccess!, input)
+    return response.redirect().toRoute('projects.show', {
       workspaceId: workspaceAccess!.workspaceId,
-      id: document.id,
+      projectId: project.id,
     })
   }
   async update({ workspaceAccess, request, params, bouncer, response }: HttpContext) {

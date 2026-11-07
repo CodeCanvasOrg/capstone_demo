@@ -7,13 +7,18 @@ import { CaseStudyList } from '@/components/documents/case_study_list'
 import { useWorkspaceId } from '@/providers/workspace_provider'
 import { Button } from '@/components/ui/button'
 import { ProjectDialog } from '@/components/projects_dialog'
+import { ProjectFiles } from '@/components/projects/project_files'
 import { RichTextEditor, textToRichText } from '@/components/rich_text_editor'
 export default function Show({
   project,
   documents,
+  files = [],
+  attachableFiles = [],
 }: {
   project: Data.Project
   documents: Data.Document[]
+  files?: Data.File[]
+  attachableFiles?: Data.File[]
 }) {
   const workspaceId = useWorkspaceId()
   const createUrl = `${urlFor('documents.create', { workspaceId })}?projectId=${project.id}`
@@ -47,6 +52,7 @@ export default function Show({
           className="mt-6 max-w-3xl"
         />
       )}
+      <ProjectFiles project={project} files={files} attachableFiles={attachableFiles} />
       <section className="mt-12">
         <div className="mb-4 flex items-center justify-between gap-3 border-b pb-4">
           <h2 className="text-sm font-medium">

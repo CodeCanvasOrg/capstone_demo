@@ -56,6 +56,8 @@ export type ScannedRoutes = {
     'assets.evidence': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'chunkId': ParamValue} }
     'assets.evidenceAsset': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'chunkId': ParamValue} }
     'uploads': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
+    'fileProjects.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue} }
+    'fileProjects.destroy': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue,'projectId': ParamValue} }
     'files.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'files.create': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'files.store': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
@@ -173,6 +175,7 @@ export type ScannedRoutes = {
     'documentTasks.generate': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'files.retry': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue} }
     'uploads': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
+    'fileProjects.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue} }
     'files.store': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'shares.store': { paramsTuple: [ParamValue]; params: {'documentId': ParamValue} }
     'legacy.documents.collection': { paramsTuple?: []; params?: {} }
@@ -195,6 +198,7 @@ export type ScannedRoutes = {
     'workspace_members.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'membershipId': ParamValue} }
     'workspaceInvitations.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'invitationId': ParamValue} }
     'documents.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue} }
+    'fileProjects.destroy': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue,'projectId': ParamValue} }
     'files.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue} }
     'shares.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'documentId': ParamValue,'id': ParamValue} }
     'legacy.documents.collection': { paramsTuple?: []; params?: {} }

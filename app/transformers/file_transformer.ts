@@ -38,7 +38,12 @@ export default class FileTransformer extends BaseTransformer<File> {
       capabilities: {
         rename: this.actorId === this.resource.userId,
         delete: this.actorId === this.resource.userId,
+        manageProjects: this.actorId === this.resource.userId,
       },
+      projects:
+        'projects' in this.resource.$preloaded
+          ? this.resource.projects.map((project) => ({ id: project.id, name: project.name }))
+          : undefined,
       processingStatus: revisionsAreLoaded ? (processingStatus ?? 'uploaded') : undefined,
       processingError: latestRun?.error ? 'Processing failed. Retry is available.' : null,
       processingWarnings: latestRun?.warnings ?? [],

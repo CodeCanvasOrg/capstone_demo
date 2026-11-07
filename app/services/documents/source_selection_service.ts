@@ -2,6 +2,7 @@ import db from '@adonisjs/lucid/services/db'
 import Document from '#models/document'
 import File from '#models/file'
 import WorkflowService from '#services/documents/workflow_service'
+import SourceScopeService from '#services/files/source_scope_service'
 import AccessService, {
   conflict,
   missingResource,
@@ -37,6 +38,12 @@ export default class SourceSelectionService {
       if (files.length !== ids.length) throw missingResource()
       if (input.sourceMode === 'input_only' && ids.length)
         throw conflict('Input-only writing cannot select files')
+      await new SourceScopeService().assertSelectable(
+        trx,
+        context.workspaceId,
+        ids,
+        document.projectId
+      )
       await trx
         .from('document_files')
         .where({ workspace_id: context.workspaceId, document_id: document.id })

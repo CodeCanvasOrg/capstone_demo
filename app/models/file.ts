@@ -6,6 +6,7 @@ import { DateTime } from 'luxon'
 import Chunk from './chunk.ts'
 import User from './user.ts'
 import FileRevision from './file_revision.ts'
+import Project from './project.ts'
 
 export default class File extends FileSchema {
   @column({ isPrimary: true })
@@ -42,6 +43,15 @@ export default class File extends FileSchema {
     pivotTimestamps: true,
   })
   declare documents: ManyToMany<typeof Document>
+
+  // Linked projects scope a file; a file with none stays in the workspace library.
+  @manyToMany(() => Project, {
+    pivotTable: 'project_files',
+    pivotForeignKey: 'file_id',
+    pivotRelatedForeignKey: 'project_id',
+    pivotTimestamps: true,
+  })
+  declare projects: ManyToMany<typeof Project>
 
   static createFileName(dir: string, end?: string) {
     return `${dir}/${crypto.randomUUID()}-${end ?? 'file'}`

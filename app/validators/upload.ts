@@ -5,4 +5,5 @@ export const fileValidator = vine.create({
     size: '10mb',
     extnames: ['pdf', 'docx', 'md', 'markdown', 'txt', 'png', 'jpg', 'jpeg'],
   }),
+  projectId: vine.string().uuid().optional(),
 })
