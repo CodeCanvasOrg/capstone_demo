@@ -1,0 +1,654 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "IV Drip Flow Rate Estimator: Real-Time, On-Device AI",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "An on-device mobile app estimates IV drip flow rates from a phone camera in real time, helping clinical staff replace manual drop counting with a faster, consistent reading. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/dbb05e8a-05c0-4610-be0e-08c5d9f82060/asset",
+            "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+            "chunkText": "A leading provider of medical technology solutions partnered with HumbleBeeAI to develop an AI-powered mobile application that automatically estimates IV drip flow rates in real time. This innovative solution replaced manual counting methods with a fast, accurate, and reliable system that delivers results within 15 seconds and achieves over 95% accuracy - all while running securely on mobile devices without internet dependence. By automating a critical but time-consuming clinical task, the solution has significantly improved patient safety, nursing efficiency, and operational consistency across healthcare settings.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "dbb05e8a-05c0-4610-be0e-08c5d9f82060"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/0acd7000-b813-4bd8-bb94-c4d6b0c7406d/asset",
+            "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+            "chunkText": "To address these challenges, the company - in collaboration with HumbleBeeAI - introduced a mobile application that estimates IV drip flow rate automatically in real time.\n\nThe app allows healthcare professionals to simply point their phone camera at the IV setup, and within seconds, the system displays the estimated flow rate. It eliminates manual counting, ensures consistent readings, and provides reliable results across different conditions - without requiring internet access.\n\nThe solution was designed to operate seamlessly on both iOS and Android devices, supporting on-site staff in hospitals, clinics, and even remote healthcare facilities.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "0acd7000-b813-4bd8-bb94-c4d6b0c7406d"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI collaborated with a medical technology solutions provider to develop an AI-powered mobile application for healthcare professionals monitoring IV infusions. The project addressed a routine but attention-intensive task: estimating flow by manually counting drops. The case study reports that the app returns an estimate within 15 seconds, achieves over 95% accuracy, and operates on mobile devices without internet dependence. The source describes the application as developed, but does not specify its deployment status or establish that it is generally available in clinical production.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/dbb05e8a-05c0-4610-be0e-08c5d9f82060/asset",
+            "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+            "chunkText": "A leading provider of medical technology solutions partnered with HumbleBeeAI to develop an AI-powered mobile application that automatically estimates IV drip flow rates in real time. This innovative solution replaced manual counting methods with a fast, accurate, and reliable system that delivers results within 15 seconds and achieves over 95% accuracy - all while running securely on mobile devices without internet dependence. By automating a critical but time-consuming clinical task, the solution has significantly improved patient safety, nursing efficiency, and operational consistency across healthcare settings.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "dbb05e8a-05c0-4610-be0e-08c5d9f82060"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The intended users are healthcare professionals in hospitals, clinics and remote healthcare facilities; the source does not identify the provider by name.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/0acd7000-b813-4bd8-bb94-c4d6b0c7406d/asset",
+            "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+            "chunkText": "To address these challenges, the company - in collaboration with HumbleBeeAI - introduced a mobile application that estimates IV drip flow rate automatically in real time.\n\nThe app allows healthcare professionals to simply point their phone camera at the IV setup, and within seconds, the system displays the estimated flow rate. It eliminates manual counting, ensures consistent readings, and provides reliable results across different conditions - without requiring internet access.\n\nThe solution was designed to operate seamlessly on both iOS and Android devices, supporting on-site staff in hospitals, clinics, and even remote healthcare facilities.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "0acd7000-b813-4bd8-bb94-c4d6b0c7406d"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Accurate IV flow monitoring matters because patients need to receive the intended fluid or medication dosage. In the described workflow, nurses counted drops manually, requiring sustained attention and leaving readings vulnerable to distraction, fatigue, differences in observer skill and visibility conditions.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/d86d933f-8e32-4db7-a5cf-1efe2190f86e/asset",
+            "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+            "chunkText": "Accurate IV flow rate monitoring is essential in hospitals to ensure that patients receive the correct dosage of fluids or medication. Traditionally, nurses have relied on manual counting of drops, which requires continuous attention and can lead to inconsistency, especially in high-pressure environments. Recognizing this challenge, the client aimed to create a smart, mobile-based solution that could automatically determine IV flow rates using the device's camera. The objective was to deliver fast, precise, and real-time measurements while maintaining full patient privacy and reliability in any healthcare environment.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "d86d933f-8e32-4db7-a5cf-1efe2190f86e"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/d2fa9320-9cbb-483b-9aa1-2fddf09f48ff/asset",
+            "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+            "chunkText": "Traditional IV monitoring methods, while simple, present several operational and clinical limitations:\n\nHuman Error: Counting drops manually often results in inconsistent readings due to distractions or fatigue.\n\nTime-Intensive: Staff must dedicate up to 3 minutes per observation, which is unsustainable when managing multiple patients.\n\nDelayed Detection: Problems like air bubbles, occlusions, or incorrect drip speeds may go unnoticed for several minutes.\n\nInconsistent Accuracy: Variations in lighting, visibility, and observer skill levels lead to unreliable data.\n\nIn a busy hospital setting, these limitations reduce efficiency, increase cognitive load on nurses, and can affect patient care outcomes.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "d2fa9320-9cbb-483b-9aa1-2fddf09f48ff"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Manual observation could take up to 3 minutes per observation, according to the case study.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/d2fa9320-9cbb-483b-9aa1-2fddf09f48ff/asset",
+                    "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+                    "chunkText": "Traditional IV monitoring methods, while simple, present several operational and clinical limitations:\n\nHuman Error: Counting drops manually often results in inconsistent readings due to distractions or fatigue.\n\nTime-Intensive: Staff must dedicate up to 3 minutes per observation, which is unsustainable when managing multiple patients.\n\nDelayed Detection: Problems like air bubbles, occlusions, or incorrect drip speeds may go unnoticed for several minutes.\n\nInconsistent Accuracy: Variations in lighting, visibility, and observer skill levels lead to unreliable data.\n\nIn a busy hospital setting, these limitations reduce efficiency, increase cognitive load on nurses, and can affect patient care outcomes.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 5,
+                    "pageNumber": 2,
+                    "sourceChunkId": "d2fa9320-9cbb-483b-9aa1-2fddf09f48ff"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The source identifies delayed detection of air bubbles, occlusions or incorrect drip speeds as a concern, noting these issues may go unnoticed for several minutes.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/d2fa9320-9cbb-483b-9aa1-2fddf09f48ff/asset",
+                    "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+                    "chunkText": "Traditional IV monitoring methods, while simple, present several operational and clinical limitations:\n\nHuman Error: Counting drops manually often results in inconsistent readings due to distractions or fatigue.\n\nTime-Intensive: Staff must dedicate up to 3 minutes per observation, which is unsustainable when managing multiple patients.\n\nDelayed Detection: Problems like air bubbles, occlusions, or incorrect drip speeds may go unnoticed for several minutes.\n\nInconsistent Accuracy: Variations in lighting, visibility, and observer skill levels lead to unreliable data.\n\nIn a busy hospital setting, these limitations reduce efficiency, increase cognitive load on nurses, and can affect patient care outcomes.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 5,
+                    "pageNumber": 2,
+                    "sourceChunkId": "d2fa9320-9cbb-483b-9aa1-2fddf09f48ff"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The client sought a camera-based mobile method for fast, precise, real-time measurement while maintaining patient privacy and reliability across healthcare environments.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/d86d933f-8e32-4db7-a5cf-1efe2190f86e/asset",
+                    "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+                    "chunkText": "Accurate IV flow rate monitoring is essential in hospitals to ensure that patients receive the correct dosage of fluids or medication. Traditionally, nurses have relied on manual counting of drops, which requires continuous attention and can lead to inconsistency, especially in high-pressure environments. Recognizing this challenge, the client aimed to create a smart, mobile-based solution that could automatically determine IV flow rates using the device's camera. The objective was to deliver fast, precise, and real-time measurements while maintaining full patient privacy and reliability in any healthcare environment.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 4,
+                    "pageNumber": 2,
+                    "sourceChunkId": "d86d933f-8e32-4db7-a5cf-1efe2190f86e"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The delivered solution described in the case study is a mobile app that uses the device camera to estimate IV drip flow automatically. A healthcare professional points a phone camera at the IV setup; the system displays an estimated flow rate within seconds. The source says the app is designed for iOS and Android, but does not provide device compatibility details or clinical validation protocols.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/dbb05e8a-05c0-4610-be0e-08c5d9f82060/asset",
+            "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+            "chunkText": "A leading provider of medical technology solutions partnered with HumbleBeeAI to develop an AI-powered mobile application that automatically estimates IV drip flow rates in real time. This innovative solution replaced manual counting methods with a fast, accurate, and reliable system that delivers results within 15 seconds and achieves over 95% accuracy - all while running securely on mobile devices without internet dependence. By automating a critical but time-consuming clinical task, the solution has significantly improved patient safety, nursing efficiency, and operational consistency across healthcare settings.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "dbb05e8a-05c0-4610-be0e-08c5d9f82060"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Camera-based flow estimation",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Estimates the drip flow rate from the phone camera view, replacing manual drop counting in the described workflow.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Presents an estimated reading within seconds; the case study reports a result within 15 seconds.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/dbb05e8a-05c0-4610-be0e-08c5d9f82060/asset",
+                    "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+                    "chunkText": "A leading provider of medical technology solutions partnered with HumbleBeeAI to develop an AI-powered mobile application that automatically estimates IV drip flow rates in real time. This innovative solution replaced manual counting methods with a fast, accurate, and reliable system that delivers results within 15 seconds and achieves over 95% accuracy - all while running securely on mobile devices without internet dependence. By automating a critical but time-consuming clinical task, the solution has significantly improved patient safety, nursing efficiency, and operational consistency across healthcare settings.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 3,
+                    "pageNumber": 1,
+                    "sourceChunkId": "dbb05e8a-05c0-4610-be0e-08c5d9f82060"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "On-device operation",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The app is described as running securely on mobile devices without requiring internet access. This supports use in low-connectivity settings, including remote facilities; the source does not describe the specific privacy or security controls.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/dbb05e8a-05c0-4610-be0e-08c5d9f82060/asset",
+            "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+            "chunkText": "A leading provider of medical technology solutions partnered with HumbleBeeAI to develop an AI-powered mobile application that automatically estimates IV drip flow rates in real time. This innovative solution replaced manual counting methods with a fast, accurate, and reliable system that delivers results within 15 seconds and achieves over 95% accuracy - all while running securely on mobile devices without internet dependence. By automating a critical but time-consuming clinical task, the solution has significantly improved patient safety, nursing efficiency, and operational consistency across healthcare settings.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "dbb05e8a-05c0-4610-be0e-08c5d9f82060"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Designed for clinical settings",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The solution is described as supporting on-site staff across hospitals, clinics and remote healthcare facilities, and as designed to operate on iOS and Android.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Illustration of a healthcare professional using a phone beside an IV bag",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/8cbac0a6-6928-4624-a2cc-74f248ff124c/asset",
+        "align": "center",
+        "title": "Illustrative image supplied with the source case study",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/8cbac0a6-6928-4624-a2cc-74f248ff124c/asset",
+        "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+        "chunkText": "Source image\n\nYs",
+        "mediaType": "image/png",
+        "chunkIndex": 2,
+        "pageNumber": 1,
+        "sourceChunkId": "8cbac0a6-6928-4624-a2cc-74f248ff124c"
+      }
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study reports the following technical and workflow observations. These are source-reported claims; independent testing methods, sample sizes and measurement conditions are not provided.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/dbb05e8a-05c0-4610-be0e-08c5d9f82060/asset",
+            "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+            "chunkText": "A leading provider of medical technology solutions partnered with HumbleBeeAI to develop an AI-powered mobile application that automatically estimates IV drip flow rates in real time. This innovative solution replaced manual counting methods with a fast, accurate, and reliable system that delivers results within 15 seconds and achieves over 95% accuracy - all while running securely on mobile devices without internet dependence. By automating a critical but time-consuming clinical task, the solution has significantly improved patient safety, nursing efficiency, and operational consistency across healthcare settings.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "dbb05e8a-05c0-4610-be0e-08c5d9f82060"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/17a3f42d-77fb-421a-9b75-9adc649f5487/asset",
+            "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+            "chunkText": "The transition from manual to AI flow rate estimation has led to:\n\nTime Savings: Over 10x faster than manual counting.\n\nHigher Reliability: Consistent accuracy independent of human factors.\n\nImproved Patient Safety: Rapid detection of irregularities or stoppages.\n\nStaff Efficiency: Frees up nurses to focus on higher-value clinical tasks.\n\nOperational Flexibility: Works seamlessly in any environment, including low-connectivity or rural settings.\n\nReduced Manual Workload: Nurses save valuable time and mental effort.\n\nImproved Clinical Reliability: Standardized readings across staff and shifts.\n\nIncreased Patient Safety: Early detection of flow irregularities and errors.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "17a3f42d-77fb-421a-9b75-9adc649f5487"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Performance: results within 15 seconds and over 95% accuracy, as reported in the executive summary.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/dbb05e8a-05c0-4610-be0e-08c5d9f82060/asset",
+                    "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+                    "chunkText": "A leading provider of medical technology solutions partnered with HumbleBeeAI to develop an AI-powered mobile application that automatically estimates IV drip flow rates in real time. This innovative solution replaced manual counting methods with a fast, accurate, and reliable system that delivers results within 15 seconds and achieves over 95% accuracy - all while running securely on mobile devices without internet dependence. By automating a critical but time-consuming clinical task, the solution has significantly improved patient safety, nursing efficiency, and operational consistency across healthcare settings.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 3,
+                    "pageNumber": 1,
+                    "sourceChunkId": "dbb05e8a-05c0-4610-be0e-08c5d9f82060"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Comparison with manual counting: the results section describes AI estimation as over 10x faster; it does not state the test protocol or comparison conditions.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/17a3f42d-77fb-421a-9b75-9adc649f5487/asset",
+                    "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+                    "chunkText": "The transition from manual to AI flow rate estimation has led to:\n\nTime Savings: Over 10x faster than manual counting.\n\nHigher Reliability: Consistent accuracy independent of human factors.\n\nImproved Patient Safety: Rapid detection of irregularities or stoppages.\n\nStaff Efficiency: Frees up nurses to focus on higher-value clinical tasks.\n\nOperational Flexibility: Works seamlessly in any environment, including low-connectivity or rural settings.\n\nReduced Manual Workload: Nurses save valuable time and mental effort.\n\nImproved Clinical Reliability: Standardized readings across staff and shifts.\n\nIncreased Patient Safety: Early detection of flow irregularities and errors.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 2,
+                    "sourceChunkId": "17a3f42d-77fb-421a-9b75-9adc649f5487"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Workflow and clinical value: the source attributes reduced manual effort, more consistent readings and earlier recognition of flow irregularities to the transition from manual counting. These business and patient-safety impacts are described qualitatively, without quantified outcome data.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/17a3f42d-77fb-421a-9b75-9adc649f5487/asset",
+                    "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+                    "chunkText": "The transition from manual to AI flow rate estimation has led to:\n\nTime Savings: Over 10x faster than manual counting.\n\nHigher Reliability: Consistent accuracy independent of human factors.\n\nImproved Patient Safety: Rapid detection of irregularities or stoppages.\n\nStaff Efficiency: Frees up nurses to focus on higher-value clinical tasks.\n\nOperational Flexibility: Works seamlessly in any environment, including low-connectivity or rural settings.\n\nReduced Manual Workload: Nurses save valuable time and mental effort.\n\nImproved Clinical Reliability: Standardized readings across staff and shifts.\n\nIncreased Patient Safety: Early detection of flow irregularities and errors.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 2,
+                    "sourceChunkId": "17a3f42d-77fb-421a-9b75-9adc649f5487"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The PDF identifies an original HumbleBeeAI project page, but its URL is not included in the supplied source material. An original source link therefore cannot be reproduced here.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/900220d5-8f12-4a0c-9d35-e446ffc8a884/asset",
+            "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+            "chunkText": "AI-powered mobile application that estimates IV drip flow rates in real time with over 95% accuracy, improving patient safety, nursing efficiency, and manufacturer quality control.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "900220d5-8f12-4a0c-9d35-e446ffc8a884"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/8cbac0a6-6928-4624-a2cc-74f248ff124c/asset",
+            "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+            "chunkText": "Source image\n\nYs",
+            "mediaType": "image/png",
+            "chunkIndex": 2,
+            "pageNumber": 1,
+            "sourceChunkId": "8cbac0a6-6928-4624-a2cc-74f248ff124c"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied case study does not specify whether the application has been deployed in routine clinical production, nor does it provide validation methods, testing population, device-level constraints or quantified real-world outcomes. Accordingly, the reported accuracy and speed are presented as case-study figures, not as independently verified clinical guarantees.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/dbb05e8a-05c0-4610-be0e-08c5d9f82060/asset",
+            "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+            "chunkText": "A leading provider of medical technology solutions partnered with HumbleBeeAI to develop an AI-powered mobile application that automatically estimates IV drip flow rates in real time. This innovative solution replaced manual counting methods with a fast, accurate, and reliable system that delivers results within 15 seconds and achieves over 95% accuracy - all while running securely on mobile devices without internet dependence. By automating a critical but time-consuming clinical task, the solution has significantly improved patient safety, nursing efficiency, and operational consistency across healthcare settings.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "dbb05e8a-05c0-4610-be0e-08c5d9f82060"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/17a3f42d-77fb-421a-9b75-9adc649f5487/asset",
+            "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+            "chunkText": "The transition from manual to AI flow rate estimation has led to:\n\nTime Savings: Over 10x faster than manual counting.\n\nHigher Reliability: Consistent accuracy independent of human factors.\n\nImproved Patient Safety: Rapid detection of irregularities or stoppages.\n\nStaff Efficiency: Frees up nurses to focus on higher-value clinical tasks.\n\nOperational Flexibility: Works seamlessly in any environment, including low-connectivity or rural settings.\n\nReduced Manual Workload: Nurses save valuable time and mental effort.\n\nImproved Clinical Reliability: Standardized readings across staff and shifts.\n\nIncreased Patient Safety: Early detection of flow irregularities and errors.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "17a3f42d-77fb-421a-9b75-9adc649f5487"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "No planned next steps are provided in the source. Further clinical validation, deployment details and measurement of operational outcomes are not described and should not be treated as completed work.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The IV Drip Flow Rate Estimator replaces a repetitive manual counting task with a camera-based mobile estimate intended for clinical staff, including those working in low-connectivity settings. The source reports rapid readings and over 95% accuracy, while broader patient-safety and efficiency benefits remain qualitative and unquantified in the material provided.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/dbb05e8a-05c0-4610-be0e-08c5d9f82060/asset",
+            "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+            "chunkText": "A leading provider of medical technology solutions partnered with HumbleBeeAI to develop an AI-powered mobile application that automatically estimates IV drip flow rates in real time. This innovative solution replaced manual counting methods with a fast, accurate, and reliable system that delivers results within 15 seconds and achieves over 95% accuracy - all while running securely on mobile devices without internet dependence. By automating a critical but time-consuming clinical task, the solution has significantly improved patient safety, nursing efficiency, and operational consistency across healthcare settings.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "dbb05e8a-05c0-4610-be0e-08c5d9f82060"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/evidence/17a3f42d-77fb-421a-9b75-9adc649f5487/asset",
+            "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+            "chunkText": "The transition from manual to AI flow rate estimation has led to:\n\nTime Savings: Over 10x faster than manual counting.\n\nHigher Reliability: Consistent accuracy independent of human factors.\n\nImproved Patient Safety: Rapid detection of irregularities or stoppages.\n\nStaff Efficiency: Frees up nurses to focus on higher-value clinical tasks.\n\nOperational Flexibility: Works seamlessly in any environment, including low-connectivity or rural settings.\n\nReduced Manual Workload: Nurses save valuable time and mental effort.\n\nImproved Clinical Reliability: Standardized readings across staff and shifts.\n\nIncreased Patient Safety: Early detection of flow irregularities and errors.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "17a3f42d-77fb-421a-9b75-9adc649f5487"
+          }
+        }
+      ]
+    }
+  ]
+}

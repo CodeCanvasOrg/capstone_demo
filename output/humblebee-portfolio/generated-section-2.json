@@ -1,0 +1,319 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Portfolio Working Section — Analytics",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Selected analytics engagements span customer targeting, clinical and patient-data analysis, marketing workflows, event measurement, and generative-engine visibility. The entries below retain reported outcomes and qualify claims where the source does not quantify results or establish causality.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Selected Work",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Johnson & Johnson Achieves 96.8% Accuracy in Customer Targeting — ",
+                  "type": "text"
+                },
+                {
+                  "text": "https://humblebee.ai/case-studies/ai-based-predictive",
+                  "type": "text",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "rel": "noopener noreferrer",
+                        "href": "https://humblebee.ai/case-studies/ai-based-predictive",
+                        "target": "_blank"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "text": " XGBoost customer purchase-probability model with feature engineering, SHAP explanations, and a Flask API; reported 96.8% accuracy.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c48ce6ff-d956-4ea1-9493-3c90ad9537e4/evidence/1e97f539-9e99-4189-b8bd-a980cfbbf382/asset",
+                    "fileName": "case-study--ai-based-predictive.pdf",
+                    "chunkText": "HumbleBeeAI designed a predictive modeling framework that combined cutting-edge machine learning with explainable AI:\n\nAdvanced model design: The solution leveraged XGBoost, fine-tuned through systematic grid search, to deliver powerful and accurate predictions.\n\nSophisticated Data Processing: Intelligent imputation strategies resolved missing values, while MinMax scaling created consistency across diverse datasets.\n\nFeature engineering with context: Custom features captured demographics, location data, transaction history, and usage patterns, giving the model a deep understanding of customer behavior.\n\nExplain AI with SHAP: Instead of black-box predictions, the system revealed which features mattered most, showing marketing teams exactly why certain customers had higher purchase probabilities.\n\nReal-Time Deployment: Through a Flask API, the model delivered instant predictions and interpretability metrics, enabling rapid marketing decisions on the fly.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 6,
+                    "pageNumber": 2,
+                    "sourceChunkId": "1e97f539-9e99-4189-b8bd-a980cfbbf382"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "How Johnson and Johnson Found Patterns Hidden in Ablation Data? — ",
+                  "type": "text"
+                },
+                {
+                  "text": "https://humblebee.ai/case-studies/avnrt-ablation-analytics",
+                  "type": "text",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "rel": "noopener noreferrer",
+                        "href": "https://humblebee.ai/case-studies/avnrt-ablation-analytics",
+                        "target": "_blank"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "text": " CARTONET normalizes procedure files and supports statistical analysis and interactive 3D views; the source reports improved consistency and efficiency without a numerical measure.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c48ce6ff-d956-4ea1-9493-3c90ad9537e4/evidence/a0750228-4515-45c0-8f95-716aa0f48f1b/asset",
+                    "fileName": "case-study--avnrt-ablation-analytics.pdf",
+                    "chunkText": "HumbleBeeAI responded with AVNRT Ablation Analysis with CARTONET, a custom framework built to transform raw, scattered data into clarity.\n\nIntegrated Data Processing and Normalization: All raw XLSX and CSV files were ingested into a unified system. By using UUID identifiers and reference-based normalization anchored on His signal coordinates, every dataset was aligned to a common spatial reference. This eliminated the core obstacle of cross-patient comparison.\n\nAutomated statistical analysis: The framework computed summary statistics such as power, temperature, impedance drop, and spatial distances. Box plots, percentiles, and comparative charts made trends visible at a glance, replacing manual calculation with automated precision.\n\nAdvanced 3D Visualization: With Plotly, HumbleBeeAI built interactive 3D models and LAO and RAO projections that revealed the spatial relationships between His signals, ablation sites, and outcome categories. Users could rotate views, filter by category, and quickly turn dense data clouds into clear visual narratives.\n\nPredictive Modeling: The system went a step further by correlating pre-ablation features with outcomes. This gave J&J early insights into predictors of procedural success and laid the foundation for more refined strategies in the future.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 6,
+                    "pageNumber": 2,
+                    "sourceChunkId": "a0750228-4515-45c0-8f95-716aa0f48f1b"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c48ce6ff-d956-4ea1-9493-3c90ad9537e4/evidence/40e623d3-efd9-4134-b349-99c0a0c04499/asset",
+                    "fileName": "case-study--avnrt-ablation-analytics.pdf",
+                    "chunkText": "For Johnson and Johnson, analyzing cardiac ablation data had always been a puzzle. Each procedure generated mountains of raw files that were hard to align, normalize, and interpret. With HumbleBeeAI's custom analytical framework, J&J turned this challenge into an opportunity. The solution automated data normalization, statistical analysis, and interactive 3D visualization, transforming complex procedural data into actionable insights that drove both efficiency and smarter decision making.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 3,
+                    "pageNumber": 1,
+                    "sourceChunkId": "40e623d3-efd9-4134-b349-99c0a0c04499"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "How Johnson & Johnson Turned Endless Data Work into Instant Strategy? — ",
+                  "type": "text"
+                },
+                {
+                  "text": "https://humblebee.ai/case-studies/cartoned-analysis-dashboard",
+                  "type": "text",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "rel": "noopener noreferrer",
+                        "href": "https://humblebee.ai/case-studies/cartoned-analysis-dashboard",
+                        "target": "_blank"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "text": " Cartonet Analysis Dashboard automates marketing-data processing and interactive reporting; reported 80% reduction in manual effort.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c48ce6ff-d956-4ea1-9493-3c90ad9537e4/evidence/e9fee05c-0c79-4e00-a9a8-c6318b92849b/asset",
+                    "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+                    "chunkText": "Johnson and Johnson's marketing team was trapped in slow, manual workflows. Every dataset demanded hours of cleaning, reviewing before it revealed any useful insights. With HumbleBeeAI's Cartonet Analysis Dashboard, everything changed. The solution automated data processing, highlighted key patterns instantly, and provided real-time visualizations. The result was an 80 percent reduction in manual effort and a marketing team free to focus on strategy rather than spreadsheets.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 4,
+                    "pageNumber": 1,
+                    "sourceChunkId": "e9fee05c-0c79-4e00-a9a8-c6318b92849b"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "How Johnson & Johnson Turned a Mountain of Event Data into a Clear Story of ROI? — ",
+                  "type": "text"
+                },
+                {
+                  "text": "https://humblebee.ai/case-studies/impact-event-analysis",
+                  "type": "text",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "rel": "noopener noreferrer",
+                        "href": "https://humblebee.ai/case-studies/impact-event-analysis",
+                        "target": "_blank"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "text": " Power BI integrates event records with procedure-volume data to support comparisons and ROI visibility; the source does not quantify returns or establish clinical causality.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c48ce6ff-d956-4ea1-9493-3c90ad9537e4/evidence/5ac8ab56-6a4a-41ce-b023-aa141162e522/asset",
+                    "fileName": "case-study--impact-event-analysis.pdf",
+                    "chunkText": "What began as a fragmented and frustrating data challenge became a powerful competitive advantage. Johnson and Johnson now has the ability to validate event ROI with precision, guide strategy with reliable benchmarks, and ensure every marketing investment contributes measurable value.\n\nThrough this collaboration, HumbleBeeAI demonstrated how structured analytics can transform raw information into insights that directly impact business growth. J&J is not only measuring its past events more effectively but is also building a scalable platform to guide future strategies with confidence.\n\nHumbleBeeAI continues to help industry leaders unlock similar value from their data.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 11,
+                    "pageNumber": 3,
+                    "sourceChunkId": "5ac8ab56-6a4a-41ce-b023-aa141162e522"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "How Johnson & Johnson reduced patient data analytics time by 80%? — ",
+                  "type": "text"
+                },
+                {
+                  "text": "https://humblebee.ai/case-studies/patient-data-analytics",
+                  "type": "text",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "rel": "noopener noreferrer",
+                        "href": "https://humblebee.ai/case-studies/patient-data-analytics",
+                        "target": "_blank"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "text": " Patient Report Analyzer adapts to varied Excel structures and uses cleaning, batch processing, and caching; source reports 80% less preprocessing/manual work and a separate 50% processing-time improvement.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c48ce6ff-d956-4ea1-9493-3c90ad9537e4/evidence/0b330d22-3eac-44f6-8bfc-74e99ec7953c/asset",
+                    "fileName": "case-study--patient-data-analytics.pdf",
+                    "chunkText": "HumbleBeeAI developed the Patient Report Analyzer with smart parsing that didn't just read files but adapted to them. Whether columns were renamed or sheets restructured, the system adjusted automatically. Sophisticated cleaning algorithms handled inconsistencies, ensuring reliable data without human involvement. Batch processing and caching turned sluggish workflows into lightning-fast runs, even for files over 1GB. Instead of static reports, teams got real-time charts, tables, and downloadable Excel summaries. Built on Python, JavaScript, Pandas, Plotly, and Flask, the tool scaled without compromising simplicity.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 2,
+                    "sourceChunkId": "0b330d22-3eac-44f6-8bfc-74e99ec7953c"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Driving Brand Visibility on Generative AI — ",
+                  "type": "text"
+                },
+                {
+                  "text": "https://humblebee.ai/case-studies/amplifyr",
+                  "type": "text",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "rel": "noopener noreferrer",
+                        "href": "https://humblebee.ai/case-studies/amplifyr",
+                        "target": "_blank"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "text": " Amazon QuickSight dashboard centralizes generative-engine visibility analytics and automates reporting; the source describes clearer analysis, while its “100% automation” label has no defined denominator.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

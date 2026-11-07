@@ -1,0 +1,667 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Flexible Campaigns with Poster Recognition AI: Retail Technology Case Study",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Poster Recognition AI gives an unnamed retail technology and distribution provider a way to adapt poster campaigns through reference-database updates instead of repeated model retraining. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/360e1314-6e01-4b1b-953b-0973cefb2fbf/asset",
+            "fileName": "case-study--poster-recognition.pdf",
+            "chunkText": "A leading retail technology company, provider of a comprehensive distribution platform, transformed poster recognition capabilities for their retail clients by integrating HumbleBeeAI's advanced Computer Vision solution. The integration eliminated traditional model limitations and achieved campaign flexibility, replacing costly 3-month retraining cycles with instant poster database updates, reducing deployment costs by 85%, and enabling real-time promotional campaign adaptability across 500+ retail locations.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "360e1314-6e01-4b1b-953b-0973cefb2fbf"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI integrated poster recognition into a distribution platform serving retail and FMCG clients. Previously, each new poster campaign could require a full model retraining cycle reported as three months, making fast campaign changes difficult. The case study says the delivered system allows new posters to be recognized after reference-database updates and reports 94% recognition accuracy, 90% less verification time, and 85% lower deployment costs. The provider is not named in the supplied case study.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/c26e47ef-e63d-4775-ac67-972d09131d51/asset",
+            "fileName": "case-study--poster-recognition.pdf",
+            "chunkText": "The retail technology company, operating an distribution platform serving retail and FMCG industries, needed to enhance its trade marketing and retail execution capabilities with dynamic poster recognition for its customers. The platform's clients manage promotional campaigns across diverse retail environments, requiring instant adaptability for seasonal campaigns, product launches, and brand promotions. Success depends on maintaining consistent brand presentation while supporting evolving marketing strategies across distributed retail networks.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "c26e47ef-e63d-4775-ac67-972d09131d51"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/94798007-045b-457b-bf31-d3a5b264738c/asset",
+            "fileName": "case-study--poster-recognition.pdf",
+            "chunkText": "The company's customers faced critical limitations with traditional poster recognition systems that constrained their operational efficiency and promotional campaign capabilities. Technical Constraints: Legacy-trained models could only recognize specific, pre-programmed poster designs, requiring complete model retraining for each new promotional campaign. This created a 3-month development cycle that prevented rapid campaign deployment and limited the platform's ability to support dynamic marketing strategies. Operational Inefficiencies: Platform users struggled to monitor promotional compliance across 500+ store locations in real-time, leading to inconsistent brand presentation during high-traffic promotional periods. Manual verification processes were time-intensive and prone to human error, compromising campaign effectiveness measurement. Scalability Challenges: Processing diverse poster formats, lighting conditions, and viewing angles while maintaining recognition accuracy across different poster sizes, materials, and installation methods proved technically demanding. Cost Implications: Traditional model retraining cycles required substantial investment in machine learning expertise and computational resources, with deployment costs escalating significantly for each campaign modification or seasonal update.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "94798007-045b-457b-bf31-d3a5b264738c"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/4564e019-1259-4f50-b9d2-ee42f7cd3816/asset",
+            "fileName": "case-study--poster-recognition.pdf",
+            "chunkText": "The implementation delivered transformative outcomes that revolutionized the agency's operational capabilities and client service delivery. Campaign Flexibility Achievement: Achieved 100% flexibility for new poster campaigns through instant database updates, eliminating traditional model constraints and enabling unlimited promotional material variations without technical limitations or development cycles. Operational Efficiency Gains: Reduced poster verification time by 90% through automated compliance monitoring, while establishing promotional standards across the entire retail network without manual intervention requirements. Cost Optimization Success: Eliminated 3-month model retraining cycles entirely, reducing deployment costs by 85% and enabling real-time promotional campaign adaptability that supports dynamic marketing strategies without computational overhead. Scalability Accomplishment: Successfully deployed real-time recognition capabilities across 500+ store locations with sub-second processing speeds, providing instant feedback systems and comprehensive compliance reporting that maintains consistent brand presentation standards. Quality Assurance Excellence: Maintained 94% poster recognition accuracy rates while eliminating human error in compliance reporting, delivering consistent, objective analysis of promotional material placement and authenticity verification across all retail environments.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "4564e019-1259-4f50-b9d2-ee42f7cd3816"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "These figures are implementation claims reported in a company case study, not findings from an identified academic research publication or a disclosed independent benchmark. The public case study is available at ",
+          "type": "text"
+        },
+        {
+          "text": "https://humblebee.ai/case-studies/poster-recognition",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://humblebee.ai/case-studies/poster-recognition",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "text": ".",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/360e1314-6e01-4b1b-953b-0973cefb2fbf/asset",
+            "fileName": "case-study--poster-recognition.pdf",
+            "chunkText": "A leading retail technology company, provider of a comprehensive distribution platform, transformed poster recognition capabilities for their retail clients by integrating HumbleBeeAI's advanced Computer Vision solution. The integration eliminated traditional model limitations and achieved campaign flexibility, replacing costly 3-month retraining cycles with instant poster database updates, reducing deployment costs by 85%, and enabling real-time promotional campaign adaptability across 500+ retail locations.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "360e1314-6e01-4b1b-953b-0973cefb2fbf"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The provider's customers run seasonal promotions, product launches and brand campaigns across varied retail settings. According to the case study, the previous system recognized only pre-programmed poster designs; a new campaign could trigger a complete model retraining cycle lasting three months. That constrained campaign timing and added deployment costs.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/c26e47ef-e63d-4775-ac67-972d09131d51/asset",
+            "fileName": "case-study--poster-recognition.pdf",
+            "chunkText": "The retail technology company, operating an distribution platform serving retail and FMCG industries, needed to enhance its trade marketing and retail execution capabilities with dynamic poster recognition for its customers. The platform's clients manage promotional campaigns across diverse retail environments, requiring instant adaptability for seasonal campaigns, product launches, and brand promotions. Success depends on maintaining consistent brand presentation while supporting evolving marketing strategies across distributed retail networks.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "c26e47ef-e63d-4775-ac67-972d09131d51"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/94798007-045b-457b-bf31-d3a5b264738c/asset",
+            "fileName": "case-study--poster-recognition.pdf",
+            "chunkText": "The company's customers faced critical limitations with traditional poster recognition systems that constrained their operational efficiency and promotional campaign capabilities. Technical Constraints: Legacy-trained models could only recognize specific, pre-programmed poster designs, requiring complete model retraining for each new promotional campaign. This created a 3-month development cycle that prevented rapid campaign deployment and limited the platform's ability to support dynamic marketing strategies. Operational Inefficiencies: Platform users struggled to monitor promotional compliance across 500+ store locations in real-time, leading to inconsistent brand presentation during high-traffic promotional periods. Manual verification processes were time-intensive and prone to human error, compromising campaign effectiveness measurement. Scalability Challenges: Processing diverse poster formats, lighting conditions, and viewing angles while maintaining recognition accuracy across different poster sizes, materials, and installation methods proved technically demanding. Cost Implications: Traditional model retraining cycles required substantial investment in machine learning expertise and computational resources, with deployment costs escalating significantly for each campaign modification or seasonal update.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "94798007-045b-457b-bf31-d3a5b264738c"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The challenge also involved monitoring promotional execution across a reported network of 500+ retail locations. The case study describes manual verification as time-intensive and prone to human error, while variations in poster format, lighting, viewing angle, size and installation added recognition complexity.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/94798007-045b-457b-bf31-d3a5b264738c/asset",
+            "fileName": "case-study--poster-recognition.pdf",
+            "chunkText": "The company's customers faced critical limitations with traditional poster recognition systems that constrained their operational efficiency and promotional campaign capabilities. Technical Constraints: Legacy-trained models could only recognize specific, pre-programmed poster designs, requiring complete model retraining for each new promotional campaign. This created a 3-month development cycle that prevented rapid campaign deployment and limited the platform's ability to support dynamic marketing strategies. Operational Inefficiencies: Platform users struggled to monitor promotional compliance across 500+ store locations in real-time, leading to inconsistent brand presentation during high-traffic promotional periods. Manual verification processes were time-intensive and prone to human error, compromising campaign effectiveness measurement. Scalability Challenges: Processing diverse poster formats, lighting conditions, and viewing angles while maintaining recognition accuracy across different poster sizes, materials, and installation methods proved technically demanding. Cost Implications: Traditional model retraining cycles required substantial investment in machine learning expertise and computational resources, with deployment costs escalating significantly for each campaign modification or seasonal update.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "94798007-045b-457b-bf31-d3a5b264738c"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/360e1314-6e01-4b1b-953b-0973cefb2fbf/asset",
+            "fileName": "case-study--poster-recognition.pdf",
+            "chunkText": "A leading retail technology company, provider of a comprehensive distribution platform, transformed poster recognition capabilities for their retail clients by integrating HumbleBeeAI's advanced Computer Vision solution. The integration eliminated traditional model limitations and achieved campaign flexibility, replacing costly 3-month retraining cycles with instant poster database updates, reducing deployment costs by 85%, and enabling real-time promotional campaign adaptability across 500+ retail locations.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "360e1314-6e01-4b1b-953b-0973cefb2fbf"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI’s delivered solution uses a two-stage recognition approach: generic poster detection followed by reference matching. The purpose is to let platform users add campaign artwork to the reference database without training a new model for each poster.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/1928711d-cb7c-4373-9447-42a21208dcff/asset",
+            "fileName": "case-study--poster-recognition.pdf",
+            "chunkText": "HumbleBeeAI deployed a comprehensive poster recognition system combining generic detection capabilities with advanced reference database matching, delivering flexibility and operational efficiency. Advanced Computer Vision Architecture: The solution implements a dual-stage pipeline featuring generic poster detection models for universal promotional material identification, followed by ReID technology for semantic similarity analysis against reference databases. Dynamic Database Management: The system enables instant recognition of any posters added to the database without model retraining, supporting unlimited promotional material variations through real-time database updates. Reference poster management provides complete flexibility for dynamic campaigns and seasonal updates. Scalable Cloud Infrastructure: Cloud-based processing architecture supports simultaneous poster monitoring across all retail locations with sub-second processing speeds, enabling instant compliance reporting and automated alert systems for promotional violations. Intelligent Validation Systems: Multi-stage validation mechanisms ensure reliable poster identification through similarity threshold verification, geometric consistency checks, and comprehensive reference database cross-validation.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "1928711d-cb7c-4373-9447-42a21208dcff"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Dynamic campaign updates: New reference posters can be added to the database for recognition without model retraining, supporting campaign and seasonal changes.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/1928711d-cb7c-4373-9447-42a21208dcff/asset",
+                    "fileName": "case-study--poster-recognition.pdf",
+                    "chunkText": "HumbleBeeAI deployed a comprehensive poster recognition system combining generic detection capabilities with advanced reference database matching, delivering flexibility and operational efficiency. Advanced Computer Vision Architecture: The solution implements a dual-stage pipeline featuring generic poster detection models for universal promotional material identification, followed by ReID technology for semantic similarity analysis against reference databases. Dynamic Database Management: The system enables instant recognition of any posters added to the database without model retraining, supporting unlimited promotional material variations through real-time database updates. Reference poster management provides complete flexibility for dynamic campaigns and seasonal updates. Scalable Cloud Infrastructure: Cloud-based processing architecture supports simultaneous poster monitoring across all retail locations with sub-second processing speeds, enabling instant compliance reporting and automated alert systems for promotional violations. Intelligent Validation Systems: Multi-stage validation mechanisms ensure reliable poster identification through similarity threshold verification, geometric consistency checks, and comprehensive reference database cross-validation.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 6,
+                    "pageNumber": 2,
+                    "sourceChunkId": "1928711d-cb7c-4373-9447-42a21208dcff"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Detection and matching: Generic poster detection identifies promotional material, then reference matching compares it with database examples.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/1928711d-cb7c-4373-9447-42a21208dcff/asset",
+                    "fileName": "case-study--poster-recognition.pdf",
+                    "chunkText": "HumbleBeeAI deployed a comprehensive poster recognition system combining generic detection capabilities with advanced reference database matching, delivering flexibility and operational efficiency. Advanced Computer Vision Architecture: The solution implements a dual-stage pipeline featuring generic poster detection models for universal promotional material identification, followed by ReID technology for semantic similarity analysis against reference databases. Dynamic Database Management: The system enables instant recognition of any posters added to the database without model retraining, supporting unlimited promotional material variations through real-time database updates. Reference poster management provides complete flexibility for dynamic campaigns and seasonal updates. Scalable Cloud Infrastructure: Cloud-based processing architecture supports simultaneous poster monitoring across all retail locations with sub-second processing speeds, enabling instant compliance reporting and automated alert systems for promotional violations. Intelligent Validation Systems: Multi-stage validation mechanisms ensure reliable poster identification through similarity threshold verification, geometric consistency checks, and comprehensive reference database cross-validation.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 6,
+                    "pageNumber": 2,
+                    "sourceChunkId": "1928711d-cb7c-4373-9447-42a21208dcff"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Validation: The case study describes similarity-threshold checks, geometric consistency checks and reference-database cross-validation to support identification.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/1928711d-cb7c-4373-9447-42a21208dcff/asset",
+                    "fileName": "case-study--poster-recognition.pdf",
+                    "chunkText": "HumbleBeeAI deployed a comprehensive poster recognition system combining generic detection capabilities with advanced reference database matching, delivering flexibility and operational efficiency. Advanced Computer Vision Architecture: The solution implements a dual-stage pipeline featuring generic poster detection models for universal promotional material identification, followed by ReID technology for semantic similarity analysis against reference databases. Dynamic Database Management: The system enables instant recognition of any posters added to the database without model retraining, supporting unlimited promotional material variations through real-time database updates. Reference poster management provides complete flexibility for dynamic campaigns and seasonal updates. Scalable Cloud Infrastructure: Cloud-based processing architecture supports simultaneous poster monitoring across all retail locations with sub-second processing speeds, enabling instant compliance reporting and automated alert systems for promotional violations. Intelligent Validation Systems: Multi-stage validation mechanisms ensure reliable poster identification through similarity threshold verification, geometric consistency checks, and comprehensive reference database cross-validation.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 6,
+                    "pageNumber": 2,
+                    "sourceChunkId": "1928711d-cb7c-4373-9447-42a21208dcff"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Network monitoring: The reported cloud-based processing supports monitoring across store locations and compliance reporting; the source also describes sub-second processing speeds.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/1928711d-cb7c-4373-9447-42a21208dcff/asset",
+                    "fileName": "case-study--poster-recognition.pdf",
+                    "chunkText": "HumbleBeeAI deployed a comprehensive poster recognition system combining generic detection capabilities with advanced reference database matching, delivering flexibility and operational efficiency. Advanced Computer Vision Architecture: The solution implements a dual-stage pipeline featuring generic poster detection models for universal promotional material identification, followed by ReID technology for semantic similarity analysis against reference databases. Dynamic Database Management: The system enables instant recognition of any posters added to the database without model retraining, supporting unlimited promotional material variations through real-time database updates. Reference poster management provides complete flexibility for dynamic campaigns and seasonal updates. Scalable Cloud Infrastructure: Cloud-based processing architecture supports simultaneous poster monitoring across all retail locations with sub-second processing speeds, enabling instant compliance reporting and automated alert systems for promotional violations. Intelligent Validation Systems: Multi-stage validation mechanisms ensure reliable poster identification through similarity threshold verification, geometric consistency checks, and comprehensive reference database cross-validation.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 6,
+                    "pageNumber": 2,
+                    "sourceChunkId": "1928711d-cb7c-4373-9447-42a21208dcff"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Reference poster shown alongside a store photo in which the matching poster is highlighted",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/e7373f11-194e-4013-a2d9-bdba5f72e226/asset",
+        "align": "center",
+        "title": "Poster reference matching example",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/e7373f11-194e-4013-a2d9-bdba5f72e226/asset",
+        "fileName": "case-study--poster-recognition.pdf",
+        "chunkText": "Poster Recognition Hero\n\nteference poster in the database User photo\n| [Be hi\ni i\n» 3 a8\nFL Ee\nI& Taio rr\nEen” be £: A\nBILAN 5 ir | I\n; Hy f\nSN | |\n4 )\nJ\n/\ny 4",
+        "mediaType": "image/png",
+        "chunkIndex": 7,
+        "pageNumber": 3,
+        "sourceChunkId": "e7373f11-194e-4013-a2d9-bdba5f72e226"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied case-study image illustrates the reference-poster and in-store-photo comparison used to show the matching workflow.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/e7373f11-194e-4013-a2d9-bdba5f72e226/asset",
+            "fileName": "case-study--poster-recognition.pdf",
+            "chunkText": "Poster Recognition Hero\n\nteference poster in the database User photo\n| [Be hi\ni i\n» 3 a8\nFL Ee\nI& Taio rr\nEen” be £: A\nBILAN 5 ir | I\n; Hy f\nSN | |\n4 )\nJ\n/\ny 4",
+            "mediaType": "image/png",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "e7373f11-194e-4013-a2d9-bdba5f72e226"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study reports operational and technical outcomes for the implementation. It does not provide the measurement methodology, evaluation period or a separate independent assessment, so the figures below should be read as results reported by the case-study source rather than independently verified business impact.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/4564e019-1259-4f50-b9d2-ee42f7cd3816/asset",
+            "fileName": "case-study--poster-recognition.pdf",
+            "chunkText": "The implementation delivered transformative outcomes that revolutionized the agency's operational capabilities and client service delivery. Campaign Flexibility Achievement: Achieved 100% flexibility for new poster campaigns through instant database updates, eliminating traditional model constraints and enabling unlimited promotional material variations without technical limitations or development cycles. Operational Efficiency Gains: Reduced poster verification time by 90% through automated compliance monitoring, while establishing promotional standards across the entire retail network without manual intervention requirements. Cost Optimization Success: Eliminated 3-month model retraining cycles entirely, reducing deployment costs by 85% and enabling real-time promotional campaign adaptability that supports dynamic marketing strategies without computational overhead. Scalability Accomplishment: Successfully deployed real-time recognition capabilities across 500+ store locations with sub-second processing speeds, providing instant feedback systems and comprehensive compliance reporting that maintains consistent brand presentation standards. Quality Assurance Excellence: Maintained 94% poster recognition accuracy rates while eliminating human error in compliance reporting, delivering consistent, objective analysis of promotional material placement and authenticity verification across all retail environments.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "4564e019-1259-4f50-b9d2-ee42f7cd3816"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Recognition: 94% poster recognition accuracy was reported.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/4564e019-1259-4f50-b9d2-ee42f7cd3816/asset",
+                    "fileName": "case-study--poster-recognition.pdf",
+                    "chunkText": "The implementation delivered transformative outcomes that revolutionized the agency's operational capabilities and client service delivery. Campaign Flexibility Achievement: Achieved 100% flexibility for new poster campaigns through instant database updates, eliminating traditional model constraints and enabling unlimited promotional material variations without technical limitations or development cycles. Operational Efficiency Gains: Reduced poster verification time by 90% through automated compliance monitoring, while establishing promotional standards across the entire retail network without manual intervention requirements. Cost Optimization Success: Eliminated 3-month model retraining cycles entirely, reducing deployment costs by 85% and enabling real-time promotional campaign adaptability that supports dynamic marketing strategies without computational overhead. Scalability Accomplishment: Successfully deployed real-time recognition capabilities across 500+ store locations with sub-second processing speeds, providing instant feedback systems and comprehensive compliance reporting that maintains consistent brand presentation standards. Quality Assurance Excellence: Maintained 94% poster recognition accuracy rates while eliminating human error in compliance reporting, delivering consistent, objective analysis of promotional material placement and authenticity verification across all retail environments.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 8,
+                    "pageNumber": 3,
+                    "sourceChunkId": "4564e019-1259-4f50-b9d2-ee42f7cd3816"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Verification: Poster verification time was reported as reduced by 90%.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/4564e019-1259-4f50-b9d2-ee42f7cd3816/asset",
+                    "fileName": "case-study--poster-recognition.pdf",
+                    "chunkText": "The implementation delivered transformative outcomes that revolutionized the agency's operational capabilities and client service delivery. Campaign Flexibility Achievement: Achieved 100% flexibility for new poster campaigns through instant database updates, eliminating traditional model constraints and enabling unlimited promotional material variations without technical limitations or development cycles. Operational Efficiency Gains: Reduced poster verification time by 90% through automated compliance monitoring, while establishing promotional standards across the entire retail network without manual intervention requirements. Cost Optimization Success: Eliminated 3-month model retraining cycles entirely, reducing deployment costs by 85% and enabling real-time promotional campaign adaptability that supports dynamic marketing strategies without computational overhead. Scalability Accomplishment: Successfully deployed real-time recognition capabilities across 500+ store locations with sub-second processing speeds, providing instant feedback systems and comprehensive compliance reporting that maintains consistent brand presentation standards. Quality Assurance Excellence: Maintained 94% poster recognition accuracy rates while eliminating human error in compliance reporting, delivering consistent, objective analysis of promotional material placement and authenticity verification across all retail environments.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 8,
+                    "pageNumber": 3,
+                    "sourceChunkId": "4564e019-1259-4f50-b9d2-ee42f7cd3816"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Deployment costs and retraining: Deployment costs were reported as reduced by 85%, with the previous three-month retraining cycle eliminated.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/4564e019-1259-4f50-b9d2-ee42f7cd3816/asset",
+                    "fileName": "case-study--poster-recognition.pdf",
+                    "chunkText": "The implementation delivered transformative outcomes that revolutionized the agency's operational capabilities and client service delivery. Campaign Flexibility Achievement: Achieved 100% flexibility for new poster campaigns through instant database updates, eliminating traditional model constraints and enabling unlimited promotional material variations without technical limitations or development cycles. Operational Efficiency Gains: Reduced poster verification time by 90% through automated compliance monitoring, while establishing promotional standards across the entire retail network without manual intervention requirements. Cost Optimization Success: Eliminated 3-month model retraining cycles entirely, reducing deployment costs by 85% and enabling real-time promotional campaign adaptability that supports dynamic marketing strategies without computational overhead. Scalability Accomplishment: Successfully deployed real-time recognition capabilities across 500+ store locations with sub-second processing speeds, providing instant feedback systems and comprehensive compliance reporting that maintains consistent brand presentation standards. Quality Assurance Excellence: Maintained 94% poster recognition accuracy rates while eliminating human error in compliance reporting, delivering consistent, objective analysis of promotional material placement and authenticity verification across all retail environments.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 8,
+                    "pageNumber": 3,
+                    "sourceChunkId": "4564e019-1259-4f50-b9d2-ee42f7cd3816"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/94798007-045b-457b-bf31-d3a5b264738c/asset",
+                    "fileName": "case-study--poster-recognition.pdf",
+                    "chunkText": "The company's customers faced critical limitations with traditional poster recognition systems that constrained their operational efficiency and promotional campaign capabilities. Technical Constraints: Legacy-trained models could only recognize specific, pre-programmed poster designs, requiring complete model retraining for each new promotional campaign. This created a 3-month development cycle that prevented rapid campaign deployment and limited the platform's ability to support dynamic marketing strategies. Operational Inefficiencies: Platform users struggled to monitor promotional compliance across 500+ store locations in real-time, leading to inconsistent brand presentation during high-traffic promotional periods. Manual verification processes were time-intensive and prone to human error, compromising campaign effectiveness measurement. Scalability Challenges: Processing diverse poster formats, lighting conditions, and viewing angles while maintaining recognition accuracy across different poster sizes, materials, and installation methods proved technically demanding. Cost Implications: Traditional model retraining cycles required substantial investment in machine learning expertise and computational resources, with deployment costs escalating significantly for each campaign modification or seasonal update.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 5,
+                    "pageNumber": 2,
+                    "sourceChunkId": "94798007-045b-457b-bf31-d3a5b264738c"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Scale: The source describes deployment across 500+ store locations and reports sub-second processing speeds; these are technical and deployment-scope claims, not quantified measures of business impact.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/4564e019-1259-4f50-b9d2-ee42f7cd3816/asset",
+                    "fileName": "case-study--poster-recognition.pdf",
+                    "chunkText": "The implementation delivered transformative outcomes that revolutionized the agency's operational capabilities and client service delivery. Campaign Flexibility Achievement: Achieved 100% flexibility for new poster campaigns through instant database updates, eliminating traditional model constraints and enabling unlimited promotional material variations without technical limitations or development cycles. Operational Efficiency Gains: Reduced poster verification time by 90% through automated compliance monitoring, while establishing promotional standards across the entire retail network without manual intervention requirements. Cost Optimization Success: Eliminated 3-month model retraining cycles entirely, reducing deployment costs by 85% and enabling real-time promotional campaign adaptability that supports dynamic marketing strategies without computational overhead. Scalability Accomplishment: Successfully deployed real-time recognition capabilities across 500+ store locations with sub-second processing speeds, providing instant feedback systems and comprehensive compliance reporting that maintains consistent brand presentation standards. Quality Assurance Excellence: Maintained 94% poster recognition accuracy rates while eliminating human error in compliance reporting, delivering consistent, objective analysis of promotional material placement and authenticity verification across all retail environments.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 8,
+                    "pageNumber": 3,
+                    "sourceChunkId": "4564e019-1259-4f50-b9d2-ee42f7cd3816"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied material does not establish a measured change in sales, campaign effectiveness, customer outcomes or other downstream business performance. No separate business-impact measurement has been provided.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied case study does not describe an accuracy breakdown by poster type or store conditions, the evaluation methodology, or the measurement period for the reported results. The provider and its retail clients are not named, and there is no information about data governance, service-level commitments or independent validation. These details have not been provided, so the reported figures should not be treated as guarantees.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/4564e019-1259-4f50-b9d2-ee42f7cd3816/asset",
+            "fileName": "case-study--poster-recognition.pdf",
+            "chunkText": "The implementation delivered transformative outcomes that revolutionized the agency's operational capabilities and client service delivery. Campaign Flexibility Achievement: Achieved 100% flexibility for new poster campaigns through instant database updates, eliminating traditional model constraints and enabling unlimited promotional material variations without technical limitations or development cycles. Operational Efficiency Gains: Reduced poster verification time by 90% through automated compliance monitoring, while establishing promotional standards across the entire retail network without manual intervention requirements. Cost Optimization Success: Eliminated 3-month model retraining cycles entirely, reducing deployment costs by 85% and enabling real-time promotional campaign adaptability that supports dynamic marketing strategies without computational overhead. Scalability Accomplishment: Successfully deployed real-time recognition capabilities across 500+ store locations with sub-second processing speeds, providing instant feedback systems and comprehensive compliance reporting that maintains consistent brand presentation standards. Quality Assurance Excellence: Maintained 94% poster recognition accuracy rates while eliminating human error in compliance reporting, delivering consistent, objective analysis of promotional material placement and authenticity verification across all retail environments.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "4564e019-1259-4f50-b9d2-ee42f7cd3816"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/94798007-045b-457b-bf31-d3a5b264738c/asset",
+            "fileName": "case-study--poster-recognition.pdf",
+            "chunkText": "The company's customers faced critical limitations with traditional poster recognition systems that constrained their operational efficiency and promotional campaign capabilities. Technical Constraints: Legacy-trained models could only recognize specific, pre-programmed poster designs, requiring complete model retraining for each new promotional campaign. This created a 3-month development cycle that prevented rapid campaign deployment and limited the platform's ability to support dynamic marketing strategies. Operational Inefficiencies: Platform users struggled to monitor promotional compliance across 500+ store locations in real-time, leading to inconsistent brand presentation during high-traffic promotional periods. Manual verification processes were time-intensive and prone to human error, compromising campaign effectiveness measurement. Scalability Challenges: Processing diverse poster formats, lighting conditions, and viewing angles while maintaining recognition accuracy across different poster sizes, materials, and installation methods proved technically demanding. Cost Implications: Traditional model retraining cycles required substantial investment in machine learning expertise and computational resources, with deployment costs escalating significantly for each campaign modification or seasonal update.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "94798007-045b-457b-bf31-d3a5b264738c"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The conclusion states that system optimization and expanded recognition capabilities are ongoing, but it does not specify a delivery schedule or individual planned features. Those activities are described as ongoing work, not as completed outcomes.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/ee5188e8-93ab-4791-86fa-54911178673a/asset",
+            "fileName": "case-study--poster-recognition.pdf",
+            "chunkText": "This successful implementation demonstrates how advanced AI technology can transform traditional marketing operations, eliminating technical constraints while delivering superior operational efficiency. The poster recognition solution integrated into the company's distribution platform enables them to provide enhanced services to their customers through flexible campaign management, real-time compliance monitoring, and cost-effective promotional oversight. The partnership between the retail technology company and HumbleBeeAI continues to evolve with ongoing system optimization and expanded recognition capabilities, supporting the company's growth objectives and strengthening its competitive positioning in the distribution market. This foundation provides scalable infrastructure for future promotional innovations and enhanced customer service delivery.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 4,
+            "sourceChunkId": "ee5188e8-93ab-4791-86fa-54911178673a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "This project addresses a specific operational constraint for a retail technology and distribution provider: adapting poster recognition to new campaigns without repeating a lengthy model-training cycle. The case study reports that reference-database updates enabled campaign flexibility and cites improvements in recognition accuracy, verification time and deployment costs. The project’s downstream commercial impact is not measured in the supplied material.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/1928711d-cb7c-4373-9447-42a21208dcff/asset",
+            "fileName": "case-study--poster-recognition.pdf",
+            "chunkText": "HumbleBeeAI deployed a comprehensive poster recognition system combining generic detection capabilities with advanced reference database matching, delivering flexibility and operational efficiency. Advanced Computer Vision Architecture: The solution implements a dual-stage pipeline featuring generic poster detection models for universal promotional material identification, followed by ReID technology for semantic similarity analysis against reference databases. Dynamic Database Management: The system enables instant recognition of any posters added to the database without model retraining, supporting unlimited promotional material variations through real-time database updates. Reference poster management provides complete flexibility for dynamic campaigns and seasonal updates. Scalable Cloud Infrastructure: Cloud-based processing architecture supports simultaneous poster monitoring across all retail locations with sub-second processing speeds, enabling instant compliance reporting and automated alert systems for promotional violations. Intelligent Validation Systems: Multi-stage validation mechanisms ensure reliable poster identification through similarity threshold verification, geometric consistency checks, and comprehensive reference database cross-validation.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "1928711d-cb7c-4373-9447-42a21208dcff"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/evidence/4564e019-1259-4f50-b9d2-ee42f7cd3816/asset",
+            "fileName": "case-study--poster-recognition.pdf",
+            "chunkText": "The implementation delivered transformative outcomes that revolutionized the agency's operational capabilities and client service delivery. Campaign Flexibility Achievement: Achieved 100% flexibility for new poster campaigns through instant database updates, eliminating traditional model constraints and enabling unlimited promotional material variations without technical limitations or development cycles. Operational Efficiency Gains: Reduced poster verification time by 90% through automated compliance monitoring, while establishing promotional standards across the entire retail network without manual intervention requirements. Cost Optimization Success: Eliminated 3-month model retraining cycles entirely, reducing deployment costs by 85% and enabling real-time promotional campaign adaptability that supports dynamic marketing strategies without computational overhead. Scalability Accomplishment: Successfully deployed real-time recognition capabilities across 500+ store locations with sub-second processing speeds, providing instant feedback systems and comprehensive compliance reporting that maintains consistent brand presentation standards. Quality Assurance Excellence: Maintained 94% poster recognition accuracy rates while eliminating human error in compliance reporting, delivering consistent, objective analysis of promotional material placement and authenticity verification across all retail environments.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "4564e019-1259-4f50-b9d2-ee42f7cd3816"
+          }
+        }
+      ]
+    }
+  ]
+}

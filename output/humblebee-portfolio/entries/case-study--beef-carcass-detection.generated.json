@@ -1,0 +1,331 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Predicting Carcass Quality Before Slaughter with On-Device Computer Vision",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Predicting carcass-quality bands from live-cattle images on mobile devices before slaughter.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "This HumbleBeeAI case study describes a computer-vision system for cattle producers and feedlot managers who need a useful quality signal before slaughter, rather than only after post-slaughter grading. The described mobile detector/classifier predicts premium, medium or poor quality bands from live-cattle images and is reported to run offline on mobile devices. The case-study PDF text has been reviewed, while owner approval remains pending; production availability is not specified. ",
+          "type": "text"
+        },
+        {
+          "text": "Source case study",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://humblebee.ai/case-studies/beef-carcass-detection",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0f3ff52a-c517-430b-bea3-dd5a8d2b4d78/evidence/3a640fc8-ebc4-4c5b-8fa3-f63556ea9767/asset",
+            "fileName": "case-study--beef-carcass-detection.pdf",
+            "chunkText": "Producers have long relied on subjective, post-slaughter grading to understand carcass quality—too late to influence timing or lot selection. Beef Carcass Grading changes that. Using a streamlined on-device vision model refined on domain data, the system predicts carcass-quality bands (premium / medium / poor) from images of live cattle. Confidence-scored results run in real time on common mobile devices, giving managers objective guidance on slaughter timing and lot composition—without depending on connectivity or costly hardware.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "3a640fc8-ebc4-4c5b-8fa3-f63556ea9767"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0f3ff52a-c517-430b-bea3-dd5a8d2b4d78/evidence/61d4ec55-7327-42d6-bdf9-43952c462012/asset",
+            "fileName": "case-study--beef-carcass-detection.pdf",
+            "chunkText": "The model is packaged for efficient, offline use on mobile phones, delivering instant, confidence-scored predictions at the point of capture. This keeps the experience fast and reliable in field conditions, without specialized equipment or network access.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 2,
+            "sourceChunkId": "61d4ec55-7327-42d6-bdf9-43952c462012"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The challenge is that traditional carcass grading takes place after slaughter, when managers have fewer options to adjust timing or sort lots. The case study also identifies variation in visual assessments across personnel, lighting and field conditions, plus operational friction from separate detection and classification tools. Field use calls for low-latency, offline mobile inference; labeled data are described as limited, with class imbalance and variation by breed, camera angle and lighting.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0f3ff52a-c517-430b-bea3-dd5a8d2b4d78/evidence/f1bb31fe-be7c-4c0f-8ef2-5d881f33b962/asset",
+            "fileName": "case-study--beef-carcass-detection.pdf",
+            "chunkText": "Insights arrive too late: Traditional grading happens post-slaughter, limiting options to optimize timing and sort lots.\n\nSubjectivity & inconsistency: Visual assessments vary across personnel, lighting, and conditions. Operational friction: Multi-tool workflows (detect here, classify there) introduce errors and latency. Field constraints: Ranch and feedlot environments demand offline, low-latency, battery-friendly inference on mobile devices.\n\nData challenges: Limited labeled images, class imbalance across grade bands, and variation by breed, angle, and lighting.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "f1bb31fe-be7c-4c0f-8ef2-5d881f33b962"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Unified detection and grading",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The described single-stage deep-learning model performs cattle detection and three-class grading together. The case study says this avoids error propagation between separate models and simplifies deployment and maintenance.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0f3ff52a-c517-430b-bea3-dd5a8d2b4d78/evidence/90b45c2f-2fcc-4e1b-b0cb-fad6023febc5/asset",
+            "fileName": "case-study--beef-carcass-detection.pdf",
+            "chunkText": "A single deep-learning architecture performs both detection and three-class grading in an end-to-end manner. This eliminates cascading errors between separate models, simplifying deployment and maintenance.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "90b45c2f-2fcc-4e1b-b0cb-fad6023febc5"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Field-oriented predictions",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "A custom-labeled dataset reflecting farm conditions was used for fine-tuning, with class weighting and targeted augmentations described as responses to class imbalance and real-world variation. Predictions provide probability-weighted premium, medium or poor grades, with visual overlays intended to help users verify detections. The system is described as packaged for offline mobile use, returning confidence-scored predictions at the point of image capture.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0f3ff52a-c517-430b-bea3-dd5a8d2b4d78/evidence/88c4077f-63fe-45f8-9369-918da12dc876/asset",
+            "fileName": "case-study--beef-carcass-detection.pdf",
+            "chunkText": "We fine-tuned on a custom-labeled dataset reflecting real-world farm conditions (breed diversity, camera angles, and variable lighting). Class weighting and targeted augmentations mitigate imbalance and improve robustness.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "88c4077f-63fe-45f8-9369-918da12dc876"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0f3ff52a-c517-430b-bea3-dd5a8d2b4d78/evidence/305c02ad-cc6a-4f0f-a2a5-decf0b955e44/asset",
+            "fileName": "case-study--beef-carcass-detection.pdf",
+            "chunkText": "Each prediction includes a probability (confidence score) for premium/medium/poor, enabling risk-aware choices about slaughter timing and lot selection. Visual overlays help users verify detections in the field.\n\nThe Browser Extention: Your browser does not support the video tag.\n\nView media online",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 2,
+            "sourceChunkId": "305c02ad-cc6a-4f0f-a2a5-decf0b955e44"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0f3ff52a-c517-430b-bea3-dd5a8d2b4d78/evidence/61d4ec55-7327-42d6-bdf9-43952c462012/asset",
+            "fileName": "case-study--beef-carcass-detection.pdf",
+            "chunkText": "The model is packaged for efficient, offline use on mobile phones, delivering instant, confidence-scored predictions at the point of capture. This keeps the experience fast and reliable in field conditions, without specialized equipment or network access.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 2,
+            "sourceChunkId": "61d4ec55-7327-42d6-bdf9-43952c462012"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source reports “95% precision accuracy” for estimates of likely grade from live-cattle images across premium, medium and poor bands. This wording conflates precision and accuracy, and the source does not provide the sample size, ground-truth follow-up, class-level metrics, external validation, or test conditions; the figure is source-reported and not independently validated. Offline inference on mobile devices is also reported, but no latency, battery or device measurements are supplied. Business outcomes such as improved timing, lot composition, consistency or margins have not been measured in the provided material.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0f3ff52a-c517-430b-bea3-dd5a8d2b4d78/evidence/777bb413-4ba8-48a6-887c-ae836b8a64d2/asset",
+            "fileName": "case-study--beef-carcass-detection.pdf",
+            "chunkText": "Earlier decisions: Managers can estimate the likely grade before slaughter, improving timing and lot composition with 95% precision accuracy.\n\nConsistency at scale: Confidence-scored, model-based grading reduces subjective variance across teams and conditions.\n\nField-ready performance: Real-time, on-device inference works in low-connectivity environments with commodity mobile hardware.\n\nSimpler operations: A single model reduces pipeline complexity, maintenance burden, and opportunities for error.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 10,
+            "pageNumber": 2,
+            "sourceChunkId": "777bb413-4ba8-48a6-887c-ae836b8a64d2"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The available evidence describes the system’s capabilities but does not establish whether it is commercially available, deployed with customers, or still a demonstration. No roadmap or future work is specified. The reported performance needs clarification of the metric and supporting evaluation details; owner approval of the case-study text is pending. Accordingly, the reported 95% figure should not be treated as a validated client outcome.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0f3ff52a-c517-430b-bea3-dd5a8d2b4d78/evidence/777bb413-4ba8-48a6-887c-ae836b8a64d2/asset",
+            "fileName": "case-study--beef-carcass-detection.pdf",
+            "chunkText": "Earlier decisions: Managers can estimate the likely grade before slaughter, improving timing and lot composition with 95% precision accuracy.\n\nConsistency at scale: Confidence-scored, model-based grading reduces subjective variance across teams and conditions.\n\nField-ready performance: Real-time, on-device inference works in low-connectivity environments with commodity mobile hardware.\n\nSimpler operations: A single model reduces pipeline complexity, maintenance burden, and opportunities for error.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 10,
+            "pageNumber": 2,
+            "sourceChunkId": "777bb413-4ba8-48a6-887c-ae836b8a64d2"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study presents an on-device approach intended to move quality estimation earlier in the cattle operation’s decision process. Its supported capability is image-based grading into three bands with confidence-scored, offline mobile inference; the magnitude of operational or financial impact remains unestablished.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0f3ff52a-c517-430b-bea3-dd5a8d2b4d78/evidence/3a640fc8-ebc4-4c5b-8fa3-f63556ea9767/asset",
+            "fileName": "case-study--beef-carcass-detection.pdf",
+            "chunkText": "Producers have long relied on subjective, post-slaughter grading to understand carcass quality—too late to influence timing or lot selection. Beef Carcass Grading changes that. Using a streamlined on-device vision model refined on domain data, the system predicts carcass-quality bands (premium / medium / poor) from images of live cattle. Confidence-scored results run in real time on common mobile devices, giving managers objective guidance on slaughter timing and lot composition—without depending on connectivity or costly hardware.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "3a640fc8-ebc4-4c5b-8fa3-f63556ea9767"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0f3ff52a-c517-430b-bea3-dd5a8d2b4d78/evidence/61d4ec55-7327-42d6-bdf9-43952c462012/asset",
+            "fileName": "case-study--beef-carcass-detection.pdf",
+            "chunkText": "The model is packaged for efficient, offline use on mobile phones, delivering instant, confidence-scored predictions at the point of capture. This keeps the experience fast and reliable in field conditions, without specialized equipment or network access.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 2,
+            "sourceChunkId": "61d4ec55-7327-42d6-bdf9-43952c462012"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+ HUMBLEBEEAI / CASE STUDY
+
+
+ Data Cleaning & Ingestion for HS Code
+ Systems
+ Open original HumbleBeeAI page
+
+ Consolidated HS rulebooks and optimized 65.5M product descriptions into a dual-database
+ system for faster, more accurate trade classification.
+
+   Reduction                               Speed                          Accuracy
+   97%                                     Faster                         Higher
+
+
+
+
+ Source image
+
+
+ Executive Summary
+ This report covers two related projects that turned messy Harmonized System (HS) code data into a
+ practical, searchable database for international trade classification. The Custom Clarification Project
+ organized HS code structures from scattered PDF files into clean databases. The Custom
+ Optimization Project reduced a dataset of 65.5 million product descriptions down to 2 million unique
+ records by removing duplicates. These projects built a working foundation for AI-powered trade
+ classification. We use Pinecone vector databases for semantic search and MongoDB for structured
+ navigation. The result: much faster queries, better search accuracy, and 97% less redundant data
+ while keeping track of product frequency. This clean data now supports faster customs processing,
+ more accurate tariff calculations, and automated trade compliance systems.
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                       1
+ Introduction
+ Harmonized System codes are the standard for international trade classification. They determine
+ tariffs, regulations, and tracking for products crossing borders. But HS code data is typically
+ fragmented, inconsistent, and hard to search effectively. We tackled this through two projects. The
+ Custom Clarification Project consolidated HS code definitions, rules, and hierarchical relationships
+ from multiple sources. The Custom Optimization Project dealt with the scale and quality problems in a
+ massive product description database. The goal was to build a system that works for customs officers
+ who need quick classifications, businesses planning international expansion, and developers building
+ automated trade applications. We combined data cleaning techniques with modern database design to
+ turn unusable data into a useful resource.
+
+ The Problem
+ Custom Clarification Project: Scattered Data
+ The original HS code data was spread across disconnected PDF files. Some had 4-digit code
+ definitions, others had 6-digit details, and some included special rules and exceptions. This created
+ several problems:
+
+ Information overlapped and sometimes contradicted itself. Users had to search through multiple files to
+ find complete information about a single HS code. Inconsistent formatting made automation
+ impossible. Cross-referencing related codes required manual work.
+
+ When we first tried loading this scattered data into separate databases, retrieval was slow. Finding
+ complete information about any code required multiple queries, leading to slow response times and
+ incomplete results.
+
+ Custom Optimization Project: Massive Scale and Quality Issues
+ The second challenge was a dataset of about 65.5 million product descriptions mapped to 10-digit HS
+ codes. While comprehensive, it had severe quality issues. The main problem was duplication. The
+ same products appeared hundreds or thousands of times with slight variations in spelling, punctuation,
+ or formatting. For example, iPhone 13 might also appear as iPhone 13 Color Red, IPHONE 13
+ Storage 256GB, iPhone13 Pro Max, etc. This caused two problems. First, massive storage waste—the
+ same information repeated millions of times. Second, terrible search quality. Users got pages of nearly
+ identical results instead of useful variety. The 65.5 million records also made processing slow and
+ resource-heavy, making real-time applications impractical.
+
+ The Solution
+ Custom Clarification Project: Organized Data and Dual Storage
+ We consolidated all HS code information into two structured Excel datasets. The first has
+ comprehensive 4-digit HS code information: definitions, redirections, rules, and clarifications in a
+ standard format. The second shows hierarchical relationships between codes across the HS
+ taxonomy. For storage, we use a dual-index setup. Pinecone vector databases enable semantic
+ search—users can describe products naturally and find relevant HS codes. MongoDB supports
+ structured queries and hierarchical browsing for systematic navigation. The ingestion pipeline
+ processes data row-by-row for consistency. The hierarchical data uses set-based formatting to link
+ each 4-digit code with its subcategories under unified indexes. This supports both smart searching and
+ systematic browsing.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                       2
+ Custom Optimization Project: Advanced Deduplication and Optimization
+ We built a cleaning process to handle the scale and quality issues. First, text normalization: converting
+ descriptions to lowercase and standardizing formatting to eliminate inconsistencies. Next, we used text
+ analysis algorithms to identify products that were essentially identical despite minor wording
+ differences. Rather than just deleting duplicates, we used clustering to group similar descriptions while
+ keeping statistical information. The clustering merged duplicate entries while tracking how often each
+ product appears in real trade data. This cut dataset size while preserving information about product
+ popularity. After optimization, we ingested the cleaned data using the same dual storage setup. Each
+ unique product description goes into both Pinecone for semantic search and MongoDB for structured
+ storage. The merged count strategy ensures efficient storage and better retrieval while maintaining
+ accuracy.
+
+ Results
+ Custom Clarification Project Achievements
+ Consolidating HS code data into standard Excel files fixed the fragmentation. Users now access
+ complete information about any HS code through a single query instead of searching multiple sources.
+ The dual-index storage supports both semantic searches and hierarchical navigation. Query response
+ times improved dramatically. What used to require manual searches through multiple PDFs now
+ returns results in seconds. The structured format ensures consistent, reliable information.
+
+ Custom Optimization Project Achievements
+ Optimizing 65.5 million product descriptions achieved a 97% reduction to about 2 million unique
+ records. This eliminated redundancy while preserving essential information through frequency
+ counting. Search quality improved significantly—users now get diverse, representative results instead
+ of pages of duplicates. Query performance increased with the smaller dataset, enabling practical
+ real-time applications. Storage costs dropped while performance improved. The frequency counts
+ maintain valuable data about product popularity without storing redundant entries.
+
+ Combined System Benefits
+ The integrated system now supports AI and machine learning applications that need clean, structured
+ training data. Combining theoretical HS code knowledge with real product descriptions enables
+ classification algorithms that understand both regulations and practical trade patterns. The architecture
+ handles current needs and future growth with efficient ingestion pipelines. The dual storage approach
+ optimizes different use cases while maintaining consistency across vector and traditional databases.
+
+ Conclusion
+ These projects show how systematic data cleaning and smart ingestion can turn unusable data into a
+ practical resource. By addressing both theoretical and practical aspects of HS code data, we built a
+ knowledge base that serves the international trade community. Consolidating theoretical HS code
+ information eliminated years of fragmentation, giving users reliable access to classification guidance.
+ Optimizing real product descriptions tackled massive scale and redundancy, creating a clean dataset
+ that supports current and future applications.
+
+ The 97% size reduction while maintaining completeness shows how good data engineering creates
+ major improvements. The dual storage architecture balances semantic search and structured access,
+ providing a flexible foundation. This work creates a replicable approach for large-scale data projects.
+ The methods—consolidation, deduplication, clustering, and scalable ingestion—offer proven ways to
+ transform problematic datasets into useful assets. This system now serves customs officers
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                         3
+ processing shipments, businesses planning expansion, and developers building automated trade
+ tools. The clean data enables faster decisions, better compliance, and innovation in trade technology.
+ The infrastructure positions the organization for future advances in AI-powered trade classification,
+ automated compliance checking, and trade analytics.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                      4
+

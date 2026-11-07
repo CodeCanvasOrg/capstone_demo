@@ -1,0 +1,95 @@
+ HUMBLEBEEAI / CASE STUDY
+
+
+ Breast Cancer Biomarker Classification
+ Revolutionizes Pathology Workflows
+ Open original HumbleBeeAI page
+
+ The Breast Cancer Biomarker Classification project uses AI to predict ER, PR, Ki-67 and
+ HER2 directly from routine H&E histology images, accelerating triage, reducing reliance on
+ costly IHC panels, and offering a validated, scalable web app ready for clinical validation and
+ workflow integration.
+
+   Accuracy                                Speed                           Deployment
+   High                                    Seconds                         web app
+
+
+
+
+ Source image
+
+
+ Executive Summary
+ The Breast Cancer Biomarker Classification project leverages artificial intelligence to predict four
+ critical biomarkers—ER, PR, Ki-67, and HER2—from routine H&E histology images. This AI-driven
+ solution accelerates triage workflows and reduces reliance on expensive and time-consuming IHC
+ panels. By automating the biomarker prediction process, the platform helps pathologists quickly
+ prioritize cases for further testing, improving diagnostic efficiency, and reducing costs. With strong
+ validation results and a scalable web app, this solution is primed for clinical validation and integration
+ into existing workflows.
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                          1
+ Introduction
+ Breast cancer diagnosis relies heavily on the assessment of biomarker expression to determine the
+ most effective treatment plans. Traditionally, immunohistochemistry (IHC) panels are used to evaluate
+ biomarkers like ER, PR, Ki-67, and HER2, but this process is time-consuming, costly, and
+ labor-intensive. The Breast Cancer Biomarker Classification project aims to automate this process,
+ enabling faster and more cost-effective triage by leveraging AI models trained on the IHC4BC dataset.
+ This solution not only supports pathologists by providing rapid, accurate predictions but also offers
+ substantial cost savings by reducing the need for routine IHC panels.
+
+ The Problem
+ Cost and Time Constraints: Traditional IHC testing can be expensive and time-consuming, leading to
+ delays in diagnosis and increasing healthcare costs. Labor-Intensive Process: Manual biomarker
+ evaluation requires substantial labor and expertise, making it difficult to scale in high-volume clinical
+ settings. Backlog in Pathology: Laboratories are often overwhelmed by large volumes of cases,
+ leading to delays in processing and reporting, which can impact patient outcomes. Inconsistent
+ Quality Control: The quality and consistency of manual assessments can vary, affecting the reliability
+ of results and creating challenges in audits and quality assurance.
+
+ The Solution
+ The Breast Cancer Biomarker Classification project introduces an AI-powered pipeline designed to
+ streamline and automate the biomarker classification process.
+
+ Predictive AI Models
+ The system uses deep learning models trained on the IHC4BC dataset to predict the expression of
+ ER, PR, Ki-67, and HER2 from routine H&E histology images. This enables rapid, accurate
+ assessments of breast cancer biomarkers without the need for costly and time-consuming
+ confirmatory testing.
+
+ Lightweight Web Application
+ A user-friendly web app allows pathologists to upload slides, run batch inferences, and visualize
+ positive/negative examples with ease. The app provides results that are exportable for downstream
+ reporting, making it easy to integrate into existing laboratory information systems (LIS) or laboratory
+ management systems (LIMS).
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                         2
+ Case Study Hero Image
+
+ Cost-Saving Workflow
+ The AI triage model dramatically reduces the need for routine IHC panels by prioritizing cases for
+ confirmatory testing. This results in significant cost savings, as the per-case reagent cost drops from
+ hundreds of dollars to a fraction of that when AI is used for triage.
+
+ Conclusion
+ The Breast Cancer Biomarker Classification project represents a significant step forward in automating
+ and streamlining breast cancer diagnosis. By reducing the need for expensive IHC panels, the
+ platform offers substantial cost savings while improving the speed and consistency of biomarker
+ assessments. With strong validation performance and an intuitive web app for integration, this solution
+ is poised for clinical validation and adoption as a triage and decision-support tool in pathology
+ workflows.
+
+ This project showcases the transformative potential of AI in healthcare, providing a clear path for
+ scaling and clinical validation to enhance patient care while reducing the costs and workload for
+ pathologists.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                       3
+

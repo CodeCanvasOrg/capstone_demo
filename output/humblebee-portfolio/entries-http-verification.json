@@ -1,0 +1,254 @@
+{
+  "authenticated": true,
+  "projectStatus": 200,
+  "indexStatus": 200,
+  "entriesChecked": 41,
+  "entries": [
+    {
+      "key": "company-update:vc-studio-qatar",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "3c081ef4-60a9-4545-8024-211cffd5ea3e"
+    },
+    {
+      "key": "case-study:ai-based-predictive",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "b5e77099-a9cb-47bc-bfe7-8493a72e9142"
+    },
+    {
+      "key": "case-study:customs-document-automation",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "659d9730-981a-4c79-baed-5c9c61615bee"
+    },
+    {
+      "key": "case-study:avnrt-ablation-analytics",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "9721fb6a-3aa3-471b-a4fb-31917e089c07"
+    },
+    {
+      "key": "case-study:cartoned-analysis-dashboard",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "852d21e3-45d3-431e-bd35-a72da5f31b63"
+    },
+    {
+      "key": "case-study:impact-event-analysis",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "c223e82c-14b2-4cf8-a23a-f7624799a159"
+    },
+    {
+      "key": "case-study:patient-data-analytics",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "78ce351b-de01-405e-92d8-1d29b2d7a43b"
+    },
+    {
+      "key": "case-study:shelf-analysis",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "c0cf0c16-f10a-401c-9643-4afb350b9479"
+    },
+    {
+      "key": "case-study:fraud-detection",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93"
+    },
+    {
+      "key": "case-study:poster-recognition",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "3ff94381-ad6a-4603-ae52-ad1b57e5f6a3"
+    },
+    {
+      "key": "case-study:automated-training-pipeline",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "65c4907c-5c07-4d60-8132-51a92d6440b1"
+    },
+    {
+      "key": "case-study:data-labeling-tool",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "c6c8589d-35ad-4acd-8457-189429fe2808"
+    },
+    {
+      "key": "case-study:improving-recognition-accuracy",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "deeaa238-71ff-4e77-aa51-bf3e16b3bd84"
+    },
+    {
+      "key": "case-study:optimizing-recognition-processing",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "80bea5a9-7ac4-4c1a-ac11-390d0b23509a"
+    },
+    {
+      "key": "case-study:lumiohub-platform",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "f48bb8f9-0bcf-4d53-ba21-833306574c58"
+    },
+    {
+      "key": "case-study:amplifyr",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "e2949908-4fc4-4842-b50a-44806e150811"
+    },
+    {
+      "key": "case-study:ai-powered-retail-cart",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "478482de-fbac-4d47-86ee-8c141d939da1"
+    },
+    {
+      "key": "case-study:ai-customs-intelligence",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "b4427b7c-d192-409f-ab8f-8a5c8e37b08e"
+    },
+    {
+      "key": "case-study:data-cleaning-hs-codes",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "93bcb2be-ad4a-4716-b613-692348cffc58"
+    },
+    {
+      "key": "case-study:excel-automated-testing",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "b26278b3-bad5-449c-9d01-4daebb8a22c3"
+    },
+    {
+      "key": "case-study:llm-results-analyzer",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "c3d8237d-3448-4e36-8fec-8596f77b5719"
+    },
+    {
+      "key": "case-study:iv-drip-flow-rate-estimator",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "8f34f1fe-91f1-4e41-8380-d517e4fbee69"
+    },
+    {
+      "key": "company-update:innerworks-partnership",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "48ff52e1-62cd-45ca-a687-79b40b714e69"
+    },
+    {
+      "key": "case-study:field-center-detection",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "b797d763-5917-4377-a986-e3bf36b62cf7"
+    },
+    {
+      "key": "case-study:beef-carcass-detection",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "0f3ff52a-c517-430b-bea3-dd5a8d2b4d78"
+    },
+    {
+      "key": "case-study:livescore-ai",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "2d077799-c260-422c-9218-2c8b339a91e0"
+    },
+    {
+      "key": "case-study:breast-cancer",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "b3e067ff-c004-4856-97aa-612a2515cb5e"
+    },
+    {
+      "key": "project:hstaff",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "536eb852-dc1e-4274-ba80-c303c9b126df"
+    },
+    {
+      "key": "project:ai-avatar",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "a33eaf07-f7dd-46a1-9d54-1994532227e0"
+    },
+    {
+      "key": "project:kumush-ai",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "752affd0-b45f-47e8-b022-62d1684aef89"
+    },
+    {
+      "key": "project:wakil-ai",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "956234f4-93a9-4b27-8112-3d6572c4f14b"
+    },
+    {
+      "key": "project:bojhona",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "166ba86b-4305-499c-8989-de0c28463adc"
+    },
+    {
+      "key": "project:enlighten-qalb",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "8a94eff7-ed2c-45f0-a564-5d0ea5058d1c"
+    },
+    {
+      "key": "project:bride",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "f666afb6-4f88-426b-a3d1-861573290783"
+    },
+    {
+      "key": "paper:2409.04187",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "ab8184e2-9abd-4dc1-af34-7230167d92ec"
+    },
+    {
+      "key": "paper:10883969",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "7dd4f247-f585-4d0b-8f46-2cf4cb61b0e9"
+    },
+    {
+      "key": "paper:10316180",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "304043c7-a0ab-4016-8e24-735f59bddefd"
+    },
+    {
+      "key": "paper:515",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "177e84d4-0b3c-4208-aabd-864304028f7e"
+    },
+    {
+      "key": "paper:9661375",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe"
+    },
+    {
+      "key": "paper:9064976",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "b98c42ac-05d0-45b3-85d5-f0fb0a328934"
+    },
+    {
+      "key": "paper:1910.01091",
+      "editorStatus": 200,
+      "evidenceStatus": 200,
+      "documentId": "2089db00-6d6c-4ceb-a7c4-1ce2970c951a"
+    }
+  ]
+}

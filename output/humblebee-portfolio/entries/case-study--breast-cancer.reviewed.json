@@ -1,0 +1,433 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Breast Cancer Biomarker Classification Revolutionizes Pathology Workflows"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "HumbleBeeAI developed an H&E-image biomarker triage tool for pathology laboratories that predicts four breast cancer biomarkers and is described as ready for clinical validation."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "5e637708-d89f-4830-a0e4-69a9437a07ad",
+            "chunkText": "Open original HumbleBeeAI page\n\nThe Breast Cancer Biomarker Classification project uses AI to predict ER, PR, Ki-67 and HER2 directly from routine H&E histology images, accelerating triage, reducing reliance on costly IHC panels, and offering a validated, scalable web app ready for clinical validation and workflow integration.\n\nAccuracy High\n\nSpeed Seconds\n\nDeployment web app",
+            "fileName": "case-study--breast-cancer.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b3e067ff-c004-4856-97aa-612a2515cb5e/evidence/5e637708-d89f-4830-a0e4-69a9437a07ad/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Executive Summary"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The Breast Cancer Biomarker Classification project serves pathology laboratories seeking to manage the cost and labor involved in immunohistochemistry (IHC) biomarker workflows. Deep-learning models trained on the IHC4BC dataset predict ER, PR, Ki-67 and HER2 from routine H&E histology images. The case study describes a web application for triage, but states that clinical validation is still needed; it supplies no numerical diagnostic-performance result."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "517384ad-a5d7-4fd1-bdea-19496c92b907",
+            "chunkText": "Breast cancer diagnosis relies heavily on the assessment of biomarker expression to determine the most effective treatment plans. Traditionally, immunohistochemistry (IHC) panels are used to evaluate biomarkers like ER, PR, Ki-67, and HER2, but this process is time-consuming, costly, and labor-intensive. The Breast Cancer Biomarker Classification project aims to automate this process, enabling faster and more cost-effective triage by leveraging AI models trained on the IHC4BC dataset. This solution not only supports pathologists by providing rapid, accurate predictions but also offers substantial cost savings by reducing the need for routine IHC panels.",
+            "fileName": "case-study--breast-cancer.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b3e067ff-c004-4856-97aa-612a2515cb5e/evidence/517384ad-a5d7-4fd1-bdea-19496c92b907/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "08c58391-a495-4209-928e-8174e32d3468",
+            "chunkText": "The system uses deep learning models trained on the IHC4BC dataset to predict the expression of ER, PR, Ki-67, and HER2 from routine H&E histology images. This enables rapid, accurate assessments of breast cancer biomarkers without the need for costly and time-consuming confirmatory testing.",
+            "fileName": "case-study--breast-cancer.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b3e067ff-c004-4856-97aa-612a2515cb5e/evidence/08c58391-a495-4209-928e-8174e32d3468/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "5e637708-d89f-4830-a0e4-69a9437a07ad",
+            "chunkText": "Open original HumbleBeeAI page\n\nThe Breast Cancer Biomarker Classification project uses AI to predict ER, PR, Ki-67 and HER2 directly from routine H&E histology images, accelerating triage, reducing reliance on costly IHC panels, and offering a validated, scalable web app ready for clinical validation and workflow integration.\n\nAccuracy High\n\nSpeed Seconds\n\nDeployment web app",
+            "fileName": "case-study--breast-cancer.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b3e067ff-c004-4856-97aa-612a2515cb5e/evidence/5e637708-d89f-4830-a0e4-69a9437a07ad/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Context and Challenge"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Traditional testing uses IHC panels to assess these biomarkers. The source describes this workflow as time-consuming, costly and labor-intensive, with manual evaluation requiring expertise and presenting scaling challenges in high-volume settings. It also identifies pathology backlogs and variability in manual assessments as concerns. These are the stated workflow challenges; the reviewed materials do not report a measured baseline, test conditions or quantified delays."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "517384ad-a5d7-4fd1-bdea-19496c92b907",
+            "chunkText": "Breast cancer diagnosis relies heavily on the assessment of biomarker expression to determine the most effective treatment plans. Traditionally, immunohistochemistry (IHC) panels are used to evaluate biomarkers like ER, PR, Ki-67, and HER2, but this process is time-consuming, costly, and labor-intensive. The Breast Cancer Biomarker Classification project aims to automate this process, enabling faster and more cost-effective triage by leveraging AI models trained on the IHC4BC dataset. This solution not only supports pathologists by providing rapid, accurate predictions but also offers substantial cost savings by reducing the need for routine IHC panels.",
+            "fileName": "case-study--breast-cancer.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b3e067ff-c004-4856-97aa-612a2515cb5e/evidence/517384ad-a5d7-4fd1-bdea-19496c92b907/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "9dd75fc2-6f3e-4bfc-9759-90d65868d470",
+            "chunkText": "Cost and Time Constraints: Traditional IHC testing can be expensive and time-consuming, leading to delays in diagnosis and increasing healthcare costs. Labor-Intensive Process: Manual biomarker evaluation requires substantial labor and expertise, making it difficult to scale in high-volume clinical settings. Backlog in Pathology: Laboratories are often overwhelmed by large volumes of cases, leading to delays in processing and reporting, which can impact patient outcomes. Inconsistent Quality Control: The quality and consistency of manual assessments can vary, affecting the reliability of results and creating challenges in audits and quality assurance.",
+            "fileName": "case-study--breast-cancer.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b3e067ff-c004-4856-97aa-612a2515cb5e/evidence/9dd75fc2-6f3e-4bfc-9759-90d65868d470/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution and Capabilities"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The solution applies deep-learning models trained on IHC4BC to routine H&E images, producing predictions for ER, PR, Ki-67 and HER2. It is intended to help prioritize cases for further testing, rather than establish a replacement for confirmatory IHC."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "08c58391-a495-4209-928e-8174e32d3468",
+            "chunkText": "The system uses deep learning models trained on the IHC4BC dataset to predict the expression of ER, PR, Ki-67, and HER2 from routine H&E histology images. This enables rapid, accurate assessments of breast cancer biomarkers without the need for costly and time-consuming confirmatory testing.",
+            "fileName": "case-study--breast-cancer.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b3e067ff-c004-4856-97aa-612a2515cb5e/evidence/08c58391-a495-4209-928e-8174e32d3468/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "2bfc3061-1ddf-466a-bdbb-ecba90749eb2",
+            "chunkText": "The Breast Cancer Biomarker Classification project introduces an AI-powered pipeline designed to streamline and automate the biomarker classification process.",
+            "fileName": "case-study--breast-cancer.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b3e067ff-c004-4856-97aa-612a2515cb5e/evidence/2bfc3061-1ddf-466a-bdbb-ecba90749eb2/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Web application for triage"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The case study describes a web app that accepts slide uploads, supports batch inference, displays positive/negative examples and makes results exportable for downstream reporting. The source presents integration with laboratory information systems (LIS) or laboratory management systems (LIMS) as an intended integration capability, not as a confirmed production deployment."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "bed20b65-6294-4738-b677-717f26cda181",
+            "chunkText": "A user-friendly web app allows pathologists to upload slides, run batch inferences, and visualize positive/negative examples with ease. The app provides results that are exportable for downstream reporting, making it easy to integrate into existing laboratory information systems (LIS) or laboratory management systems (LIMS).",
+            "fileName": "case-study--breast-cancer.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b3e067ff-c004-4856-97aa-612a2515cb5e/evidence/bed20b65-6294-4738-b677-717f26cda181/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Results and Business Impact"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The supported outcome is a described web triage tool, positioned to support clinical validation. Although the source makes qualitative claims about speed, consistency and cost savings, no numerical diagnostic-performance result or measured cost-saving study is provided. Its reference to per-case reagent costs falling from “hundreds of dollars” to “a fraction” supplies no exact amount, comparison conditions or measured study, so it should not be treated as an established business result."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "5e637708-d89f-4830-a0e4-69a9437a07ad",
+            "chunkText": "Open original HumbleBeeAI page\n\nThe Breast Cancer Biomarker Classification project uses AI to predict ER, PR, Ki-67 and HER2 directly from routine H&E histology images, accelerating triage, reducing reliance on costly IHC panels, and offering a validated, scalable web app ready for clinical validation and workflow integration.\n\nAccuracy High\n\nSpeed Seconds\n\nDeployment web app",
+            "fileName": "case-study--breast-cancer.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b3e067ff-c004-4856-97aa-612a2515cb5e/evidence/5e637708-d89f-4830-a0e4-69a9437a07ad/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "f9261b33-4fd6-4244-840c-121eda786bf1",
+            "chunkText": "The AI triage model dramatically reduces the need for routine IHC panels by prioritizing cases for confirmatory testing. This results in significant cost savings, as the per-case reagent cost drops from hundreds of dollars to a fraction of that when AI is used for triage.",
+            "fileName": "case-study--breast-cancer.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b3e067ff-c004-4856-97aa-612a2515cb5e/evidence/f9261b33-4fd6-4244-840c-121eda786bf1/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 11,
+            "pageNumber": 3
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Limitations and Next Steps"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Clinical validation is pending. The reviewed material does not provide validation protocols, numerical performance results, diagnostic approval, measured savings or evidence that the tool replaces confirmatory testing. Clinical workflow integration is described as a future application, not a verified deployment. No additional roadmap or next steps have been provided."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "5e637708-d89f-4830-a0e4-69a9437a07ad",
+            "chunkText": "Open original HumbleBeeAI page\n\nThe Breast Cancer Biomarker Classification project uses AI to predict ER, PR, Ki-67 and HER2 directly from routine H&E histology images, accelerating triage, reducing reliance on costly IHC panels, and offering a validated, scalable web app ready for clinical validation and workflow integration.\n\nAccuracy High\n\nSpeed Seconds\n\nDeployment web app",
+            "fileName": "case-study--breast-cancer.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b3e067ff-c004-4856-97aa-612a2515cb5e/evidence/5e637708-d89f-4830-a0e4-69a9437a07ad/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "bed20b65-6294-4738-b677-717f26cda181",
+            "chunkText": "A user-friendly web app allows pathologists to upload slides, run batch inferences, and visualize positive/negative examples with ease. The app provides results that are exportable for downstream reporting, making it easy to integrate into existing laboratory information systems (LIS) or laboratory management systems (LIMS).",
+            "fileName": "case-study--breast-cancer.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b3e067ff-c004-4856-97aa-612a2515cb5e/evidence/bed20b65-6294-4738-b677-717f26cda181/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Conclusion"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The project demonstrates a web-based approach to using H&E images to triage breast cancer biomarker testing across four markers. Its value is currently described as workflow support; clinical validation and measured diagnostic or financial outcomes remain unreported. Read the "
+        },
+        {
+          "type": "text",
+          "text": "original HumbleBeeAI case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/breast-cancer",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "5e637708-d89f-4830-a0e4-69a9437a07ad",
+            "chunkText": "Open original HumbleBeeAI page\n\nThe Breast Cancer Biomarker Classification project uses AI to predict ER, PR, Ki-67 and HER2 directly from routine H&E histology images, accelerating triage, reducing reliance on costly IHC panels, and offering a validated, scalable web app ready for clinical validation and workflow integration.\n\nAccuracy High\n\nSpeed Seconds\n\nDeployment web app",
+            "fileName": "case-study--breast-cancer.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b3e067ff-c004-4856-97aa-612a2515cb5e/evidence/5e637708-d89f-4830-a0e4-69a9437a07ad/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Sources and Review Notes"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Breast Cancer Biomarker Classification Revolutionizes Pathology Workflows — original source. PDF evidence pages: 1–3."
+        },
+        {
+          "type": "text",
+          "text": " Open source",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/breast-cancer",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "2cd6a8b5-1800-49f9-a9c3-0527c63e4d03",
+            "chunkText": "The Breast Cancer Biomarker Classification project leverages artificial intelligence to predict four critical biomarkers—ER, PR, Ki-67, and HER2—from routine H&E histology images. This AI-driven solution accelerates triage workflows and reduces reliance on expensive and time-consuming IHC panels. By automating the biomarker prediction process, the platform helps pathologists quickly prioritize cases for further testing, improving diagnostic efficiency, and reducing costs. With strong validation results and a scalable web app, this solution is primed for clinical validation and integration into existing workflows.",
+            "fileName": "case-study--breast-cancer.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b3e067ff-c004-4856-97aa-612a2515cb5e/evidence/2cd6a8b5-1800-49f9-a9c3-0527c63e4d03/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Source-reviewed outcome: Source describes a tool ready for clinical validation; no numerical diagnostic-performance result is supplied."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Evidence gaps: Clinical validation pending; do not imply diagnostic approval or replacement of confirmatory testing. Cost-saving claims lack a measured study."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Review draft. Company approval of claims and figures is pending. Original URLs are transcribed from the supplied PDFs; current remote availability has not been verified."
+        }
+      ]
+    }
+  ]
+}

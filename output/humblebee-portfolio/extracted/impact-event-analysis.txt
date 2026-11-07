@@ -1,0 +1,115 @@
+ HUMBLEBEEAI / CASE STUDY
+
+
+ How Johnson & Johnson Turned a
+ Mountain of Event Data into a Clear
+ Story of ROI?
+ Open original HumbleBeeAI page
+
+ Power BI solution for quantifying event impact on medical procedure volumes with dynamic
+ analytics platform
+
+   Roi                                     Visibility                 Efficiency
+   Quantified                              Clear                      Enhanced
+
+
+
+
+ Source image
+
+
+ Executive Summary
+ Johnson and Johnson partnered with HumbleBeeAI to answer a critical question: Do their events
+ actually increase medical procedure volumes?. The answer came through a powerful Power BI
+ solution. HumbleBeeAI gave J&J the ability to measure event effectiveness, compare regional
+ performance, and prove return on investment with confidence by turning fragmented and inconsistent
+ data into a unified analytics platform.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                  1
+ Introduction
+ As a global healthcare leader, Johnson and Johnson invests heavily in educational and promotional
+ events for medical professionals. These events are designed to strengthen relationships and
+ encourage the adoption of J&J products. But for all the resources spent, one challenge remained:
+ could the company demonstrate a clear link between events and actual increases in procedure
+ volume? To move beyond anecdotal feedback, J&J needed a reliable data driven solution.
+
+ The Problem
+ J&J's teams faced major roadblocks in evaluating event performance:
+
+  •   Event data sat in isolation from procedure data, making impact measurement impossible.
+  •   There were no benchmarks to compare accounts with events against those without them.
+  •   Datasets were riddled with inconsistencies such as missing account codes and formatting issues,
+      demanding hours of manual cleanup.
+  •   Regional comparisons were limited, leaving decision makers with little clarity on where utilization
+      was strongest or weakest.
+  •   Any future solution needed to handle thousands of records smoothly while being easy enough for
+      non technical users to explore independently.
+ Without a unified analytics framework, J&J could not confidently assess whether events were truly
+ delivering value.
+
+ The Solution
+ HumbleBeeAI built a complete analytics system around Microsoft Power BI. The design focused on
+ three pillars.
+
+ 1. Data Integration and Preprocessing
+
+ The first challenge was data quality. Using Power Query, HumbleBeeAI cleaned and merged account
+ records, event logs, and procedure data. Missing codes were filled, duplicates resolved, and
+ inconsistencies corrected. The result was a single reliable dataset that eliminated hours of manual
+ effort and created a trustworthy foundation for analysis.
+
+ 2. Advanced Event-Impact Analysis
+
+ With clean data, the team introduced multiple analytical perspectives inside Power BI. Procedure
+ volumes before and after events were compared to calculate growth at the account level. Benchmarks
+ were established by contrasting event hosting accounts with non event accounts. Utilization was
+ mapped geographically, giving leaders a clear picture of where events were working and where they
+ were not.
+
+ 3. Interactive and Scalable Dashboards
+
+ Finally, HumbleBeeAI delivered sleek and dynamic dashboards. Stakeholders could filter by account,
+ event type, procedure, or timeframe and immediately see the results. This interactivity allowed them to
+ drill into the data at any level, uncover insights quickly, and adapt strategies on the fly without needing
+ technical support.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                           2
+ Result
+ The impact of the Power BI solution was transformative:
+
+  •   J&J gained clear visibility into event ROI, identifying accounts where procedure volumes rose
+      directly after events.
+  •   Leaders could now make data driven decisions, reallocating resources toward high growth regions
+      and refining underperforming strategies.
+  •   Concrete performance benchmarks proved that accounts hosting events consistently outperformed
+      those that did not.
+  •   Manual cleaning work was eliminated, saving countless hours and freeing teams to focus on
+      strategy.
+  •   Data accuracy and reliability improved significantly thanks to structured mapping and consistent
+      calculations.
+  •   Stakeholders across the company felt empowered by intuitive dashboards that encouraged
+      exploration and insight discovery.
+
+ Conclusion
+ What began as a fragmented and frustrating data challenge became a powerful competitive
+ advantage. Johnson and Johnson now has the ability to validate event ROI with precision, guide
+ strategy with reliable benchmarks, and ensure every marketing investment contributes measurable
+ value.
+
+ Through this collaboration, HumbleBeeAI demonstrated how structured analytics can transform raw
+ information into insights that directly impact business growth. J&J is not only measuring its past events
+ more effectively but is also building a scalable platform to guide future strategies with confidence.
+
+ HumbleBeeAI continues to help industry leaders unlock similar value from their data.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                         3
+

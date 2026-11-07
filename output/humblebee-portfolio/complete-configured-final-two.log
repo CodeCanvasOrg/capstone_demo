@@ -1,0 +1,50 @@
+CONFIGURED_QUEUED 2
+CONFIGURED_GENERATING project:hstaff 78d214ee-b38e-4eb6-9264-f9a57afbdbee
+CONFIGURED_GENERATING paper:10316180 917d8206-5f04-40e4-95a9-06128cfb0798
+[generation f12aaa4e-b999-4f34-9be8-63afa9a86d7e] retrieval finished in 1521ms with 20 chunks
+[generation f12aaa4e-b999-4f34-9be8-63afa9a86d7e] generation started (outline)
+[generation 06b09a1a-12aa-444e-bd9f-b70209eeed36] retrieval finished in 1552ms with 20 chunks
+[generation 06b09a1a-12aa-444e-bd9f-b70209eeed36] generation started (outline)
+CONFIGURED_RETRY project:hstaff paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "The supplied dashboard image illustrates the combined team view of work patterns and progress-planning information."
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "9a?",
+                    "}}]},{": "image",
+                    "attrs": {
+                      "sourceChunkId": "6660d8eb-01b6-4624-b34b-ea9ca4d0c944",
+                      "alt": "HStaff dashboard showing a team activity and progress-planning view"
+                    }
+                  },
+                  ":{": ":"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}". Error: [{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",1,"content",1,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""},{"code":"invalid_value","values":["paragraph","heading","text","bulletList","orderedList","listItem","blockquote","codeBlock","horizontalRule","hardBreak","image","sourceCitation"],"path":["sections",1,"content",1,"content",1,"type"],"message":"Invalid option: expected one of \"paragraph\"|\"heading\"|\"text\"|\"bulletList\"|\"orderedList\"|\"listItem\"|\"blockquote\"|\"codeBlock\"|\"horizontalRule\"|\"hardBreak\"|\"image\"|\"sourceCitation\""}]
+
+Troubleshooting URL: https://docs.langchain.com/oss/javascript/langchain/errors/OUTPUT_PARSING_FAILURE/
+
+CONFIGURED_GENERATING project:hstaff 9085ad6f-dda9-49f1-ac37-03e5e4470d94
+[generation f12aaa4e-b999-4f34-9be8-63afa9a86d7e] retrieval finished in 1281ms with 20 chunks
+[generation f12aaa4e-b999-4f34-9be8-63afa9a86d7e] generation started (outline)
+{"level":40,"time":1793935725487,"pid":33108,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+{"level":40,"time":1793935739246,"pid":33108,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+[generation 06b09a1a-12aa-444e-bd9f-b70209eeed36] generation finished in 202170ms
+CONFIGURED_READY paper:10316180 6b0296de-7b4b-4a90-ba98-79f18a3f012e
+CONFIGURED_RETRY project:hstaff The operation was aborted due to timeout
+CONFIGURED_GENERATING project:hstaff 2c549539-fc46-4039-b7ee-6c15ea30d5c8
+[generation f12aaa4e-b999-4f34-9be8-63afa9a86d7e] retrieval finished in 1978ms with 20 chunks
+[generation f12aaa4e-b999-4f34-9be8-63afa9a86d7e] generation started (outline)
+[generation f12aaa4e-b999-4f34-9be8-63afa9a86d7e] generation finished in 20657ms
+CONFIGURED_READY project:hstaff f69d0a82-83d4-4001-b4d0-3536f58b5ac5
+CONFIGURED_BATCH_FINISHED

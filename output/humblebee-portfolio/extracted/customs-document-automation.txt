@@ -1,0 +1,132 @@
+ HUMBLEBEEAI / CASE STUDY
+
+
+ Automating Customs Documentation
+ with Local AI and Computer Vision
+ Open original HumbleBeeAI page
+
+ An intelligent system for automated recognition and digitization of customs documents —
+ invoices, packing lists, and identity documents — using locally hosted LLMs and Computer
+ Vision, delivering 90% faster processing and 97% fewer errors with full data sovereignty.
+
+   Processing time                         Error reduction               Security
+   90% faster                              97%                           Local AI
+
+
+
+
+ Source image
+
+
+ Executive Summary
+ This project developed an intelligent system for the automated recognition and digitization of critical
+ customs documents — including invoices, packing lists, and identity documents. By combining
+ Computer Vision and locally hosted Large Language Models, we transformed a manual, error-prone
+ workflow into a secure, automated pipeline for generating customs declarations. The solution delivers
+ an estimated 90% reduction in processing time and 97% reduction in human error, while meeting the
+ highest standards of data privacy through fully local AI deployment.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                       1
+ Introduction
+ Customs documentation processing sits at the heart of international trade logistics. Every shipment
+ requires the accurate transcription and validation of data from invoices, packing lists, and identity
+ documents before a customs declaration can be formed. For organizations handling high volumes of
+ cross-border shipments, this process represents a significant operational bottleneck.
+
+ The client — a logistics and customs brokerage firm — faced compounding challenges: a growing
+ volume of documents, an overworked manual team, and increasingly strict data privacy requirements.
+ The solution needed to be not only accurate and fast, but also fully compliant with data sovereignty
+ regulations that prohibit sending citizen identity data to external cloud services.
+
+ The Problem
+ Time-Intensive Manual Entry: Staff were manually transcribing data from physical or scanned
+ documents — invoices, packing lists, and government-issued IDs — directly into declaration
+ templates. Each document required focused human attention, making the process slow and difficult to
+ scale as shipment volumes grew.
+
+ Data Sovereignty and Security Risks: Customs documents contain sensitive personal data,
+ including citizen PIN codes and identity numbers. Using cloud-based AI providers such as OpenAI
+ would expose this data to third-party systems, creating unacceptable cybersecurity and regulatory risk.
+ Any viable solution had to operate entirely within the client's internal infrastructure.
+
+ Structural Complexity of Documents: Invoices and packing lists vary significantly in layout and
+ format depending on the supplier or country of origin. Basic OCR alone was insufficient — the system
+ needed to understand document structure, extract semantically meaningful fields, and handle
+ inconsistencies gracefully.
+
+ The Solution
+ We proposed and implemented a two-phased approach: a functional MVP delivering immediate utility
+ to 100–1,000 users, followed by a roadmap toward full end-to-end automation.
+
+ 1. Local AI Deployment
+
+ To address security concerns at the foundation, the system was built entirely on local infrastructure.
+ OCR engines and LLM services are hosted on the client's internal servers, ensuring that sensitive
+ document data — including names, PIN codes, and identity numbers — never leaves the
+ organization's perimeter. This architecture eliminated the risk of third-party data exposure entirely.
+
+ 2. Intelligent Data Extraction Pipeline
+
+  •   Computer Vision: The system analyzes uploaded images and PDFs to detect document features
+      such as customs stamps, table structures, and field boundaries. Documents are converted into
+      structured, machine-readable formats before data extraction begins.
+  •   Hybrid Classification: In the MVP phase, users manually select the document type (invoice,
+      packing list, or ID) to guarantee 100% classification accuracy. An automated document
+      classification engine is planned for Phase 2.
+  •   Dynamic Templates: Extracted data is automatically populated into standardized output
+      templates — such as Excel spreadsheets or PDF forms — which users can review and edit in a
+      dedicated workspace before final submission.
+ 3. Advanced Security and Encryption
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                       2
+ Beyond local hosting, the system implements end-to-end encryption for all data stored in the database,
+ including names and identity numbers. Access to the platform is strictly controlled through an admin
+ panel with individual login credentials for each user, ensuring full auditability and access control.
+
+ 4. Resource-Optimized Model Selection
+
+ The team selected lightweight yet high-performance models specifically chosen to run efficiently on
+ on-premise hardware. This ensured fast processing speeds without the need for expensive GPU
+ infrastructure or cloud compute, making the solution viable for the client's existing server environment.
+
+ Results
+ 90% Reduction in Processing Time: Transitioning from manual data entry to AI-assisted extraction
+ is estimated to reduce up to 90% of the time declarants previously spent processing documents. What
+ once required careful, focused manual work is now handled in seconds by the pipeline.
+
+ 97% Reduction in Human Error: Moving from manual transcription to AI-assisted extraction
+ eliminates the systematic errors that commonly occur in high-volume data entry. The structured
+ extraction pipeline ensures consistent, validated output for every document processed.
+
+ Enterprise-Grade Security: By deploying the LLM locally and implementing end-to-end database
+ encryption, the project meets the highest standards of data protection and cybersecurity — fully
+ compliant with data sovereignty regulations governing citizen identity information.
+
+ Scalable Foundation: The MVP architecture is designed to support an initial user base of up to 1,000
+ declarants, with a clear technical roadmap for Phase 2: automated document classification, deeper
+ ERP integrations, and full end-to-end declaration generation without manual review steps.
+
+ Conclusion
+ This project demonstrates how organizations handling sensitive regulatory data can adopt AI without
+ compromising security or compliance. By deploying Computer Vision and LLMs locally — rather than
+ relying on cloud APIs — the solution achieves the speed and accuracy benefits of modern AI while
+ keeping all sensitive citizen data entirely within the client's control.
+
+ The two-phase architecture allowed the client to capture immediate operational value through the MVP
+ while establishing a solid technical foundation for future automation. The result is a system that not
+ only solves today's bottleneck, but is designed to evolve alongside the client's growing needs — from
+ assisted extraction today to fully automated customs declaration generation tomorrow.
+
+ For logistics and customs organizations navigating the intersection of operational efficiency and data
+ privacy, this project offers a proven template: start local, start secure, and build toward full automation
+ incrementally.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                           3
+

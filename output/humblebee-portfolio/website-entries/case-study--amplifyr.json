@@ -1,0 +1,601 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Driving Brand Visibility on Generative AI with Amazon QuickSight",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI built an Amazon QuickSight dashboard to help enterprise marketing, SEO and product teams measure how their brand appears across generative AI platforms.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/05daf0de-82a8-408d-9cdc-b37ed15e2821/asset",
+            "fileName": "case-study--amplifyr.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nGenerative Engine Visibility Dashboard using Amazon QuickSight for measuring brand visibility on AI platforms like ChatGPT and Gemini",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "05daf0de-82a8-408d-9cdc-b37ed15e2821"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "A leading enterprise client lacked a consistent way to understand its brand visibility in generative AI platforms such as ChatGPT and Gemini. HumbleBeeAI developed the Generative Engine Visibility Dashboard on Amazon QuickSight to centralize automated analytics and turn scattered generative-engine outputs into insights for marketing, SEO and product teams. The case study describes the dashboard as deployed; the client is unnamed.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/a39bd092-c7a9-44a5-8776-f8e3ce7c728f/asset",
+            "fileName": "case-study--amplifyr.pdf",
+            "chunkText": "A leading enterprise client struggled to measure its brand visibility on generative AI platforms like ChatGPT and Gemini, hindering strategic decision-making. HumbleBee AI developed the 'Generative Engine Visibility Dashboard' using Amazon QuickSight, creating a centralized, automated analytics platform. This solution transformed the client's manual guesswork into a streamlined, data-driven workflow, providing clear, accurate, and convenient insights for marketing, SEO, and product teams.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "a39bd092-c7a9-44a5-8776-f8e3ce7c728f"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/ec4865fe-0d2c-43c2-bbb0-fb31f838b6ec/asset",
+            "fileName": "case-study--amplifyr.pdf",
+            "chunkText": "The deployment of the Generative Engine Visibility Dashboard delivered transformative results, providing the client with a significant competitive advantage. The project successfully converted a manual, inefficient process into a streamlined, automated workflow that provides immediate value across the organization.\n\nData-Driven Decision-Making: The client can now accurately measure and analyze their brand's visibility on generative AI platforms. This has enabled them to make informed, strategic decisions to enhance their online presence and marketing efforts based on concrete data.\n\nUnprecedented Accuracy: The dashboards offer a clear, data-backed view of brand performance. This ensures that strategic planning is based on reliable, precise, and up-to-date information, removing ambiguity and increasing confidence in outcomes.\n\nEnhanced Convenience and Collaboration: The user-friendly, interactive interface allows teams across marketing, SEO, and product to self-serve their data needs. This accessibility has fostered greater collaboration and aligned departmental efforts toward common visibility goals, democratizing insights across the organization.\n\nUltimately, the solution provided by HumbleBee AI has led to more consistent visibility gains and a stronger competitive position for the client in the rapidly evolving digital landscape.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "ec4865fe-0d2c-43c2-bbb0-fb31f838b6ec"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The project is presented as a client case study, not an independent research study. No research authors, peer-review status or separate publication status are provided. ",
+          "type": "text"
+        },
+        {
+          "text": "Read the complete HumbleBeeAI case study.",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://humblebee.ai/case-studies/amplifyr",
+                "target": "_blank"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Before the dashboard, the client did not have a systematic way to track brand mentions, ranking positions or the context in which the brand appeared in generative AI responses. The case study characterizes the previous process as manual guesswork, making it difficult to use consistent evidence when making strategic decisions.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/8fb19394-dd92-4d93-b11e-049c9676d26e/asset",
+            "fileName": "case-study--amplifyr.pdf",
+            "chunkText": "The client faced a significant and multifaceted challenge that impeded their ability to compete effectively in the age of AI.\n\nLack of Measurability: The primary obstacle was the inability to track brand visibility on generative AI engines. Without a systematic way to monitor mentions, rankings, and the context of their appearances, the client was operating in the dark. This made it impossible to formulate data-driven strategies to improve their digital presence on these influential platforms.\n\nScalability Issues: The volume of data generated by these engines is immense and constantly growing. The client needed a solution capable of processing large, unstructured text outputs from multiple sources and transforming them into structured, actionable insights. A manual approach was not only time-consuming but also prone to error and incapable of scaling.\n\nPoor User Experience for Non-Technical Teams: Any potential solution had to be accessible to various departments, including marketing, SEO, and product management. The client required an intuitive interface that would allow non-technical users to explore complex data, apply filters, and extract meaningful insights without extensive training or reliance on data science teams.\n\nWithout a solution, the client risked falling behind competitors, missing opportunities for brand enhancement, and making strategic decisions based on incomplete information rather than empirical evidence.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "8fb19394-dd92-4d93-b11e-049c9676d26e"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/a39bd092-c7a9-44a5-8776-f8e3ce7c728f/asset",
+            "fileName": "case-study--amplifyr.pdf",
+            "chunkText": "A leading enterprise client struggled to measure its brand visibility on generative AI platforms like ChatGPT and Gemini, hindering strategic decision-making. HumbleBee AI developed the 'Generative Engine Visibility Dashboard' using Amazon QuickSight, creating a centralized, automated analytics platform. This solution transformed the client's manual guesswork into a streamlined, data-driven workflow, providing clear, accurate, and convenient insights for marketing, SEO, and product teams.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "a39bd092-c7a9-44a5-8776-f8e3ce7c728f"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The challenge extended beyond measurement. Generative engines produce large and growing volumes of unstructured text, which the client needed to convert into useful analytics. At the same time, marketing, SEO and product users needed to explore the information without depending on technical specialists for every question.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/8fb19394-dd92-4d93-b11e-049c9676d26e/asset",
+            "fileName": "case-study--amplifyr.pdf",
+            "chunkText": "The client faced a significant and multifaceted challenge that impeded their ability to compete effectively in the age of AI.\n\nLack of Measurability: The primary obstacle was the inability to track brand visibility on generative AI engines. Without a systematic way to monitor mentions, rankings, and the context of their appearances, the client was operating in the dark. This made it impossible to formulate data-driven strategies to improve their digital presence on these influential platforms.\n\nScalability Issues: The volume of data generated by these engines is immense and constantly growing. The client needed a solution capable of processing large, unstructured text outputs from multiple sources and transforming them into structured, actionable insights. A manual approach was not only time-consuming but also prone to error and incapable of scaling.\n\nPoor User Experience for Non-Technical Teams: Any potential solution had to be accessible to various departments, including marketing, SEO, and product management. The client required an intuitive interface that would allow non-technical users to explore complex data, apply filters, and extract meaningful insights without extensive training or reliance on data science teams.\n\nWithout a solution, the client risked falling behind competitors, missing opportunities for brand enhancement, and making strategic decisions based on incomplete information rather than empirical evidence.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "8fb19394-dd92-4d93-b11e-049c9676d26e"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI delivered a Generative Engine Visibility Dashboard centered on Amazon QuickSight. The reported capabilities address data collection, analysis and access for business users:",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/d3679728-8c8b-4152-81e5-9b006db0f57a/asset",
+            "fileName": "case-study--amplifyr.pdf",
+            "chunkText": "To address these challenges, HumbleBee AI engineered a powerful and sophisticated data analytics solution centered around Amazon QuickSight. We developed the Generative Engine Visibility Dashboard, a custom-built platform designed to deliver clear, real-time insights into brand performance on generative AI.\n\nOur approach was comprehensive, leveraging a robust tech stack to ensure automation, scalability, and an exceptional user experience.\n\n1. Automated Data Ingestion and Processing: We utilized Amazon Athena to automatically connect to and query data from various sources, including files stored in Amazon S3. This eliminated manual data handling and allowed for the on-the-fly processing of unstructured text from generative engines. Python scripts were employed for more complex data transformations, converting raw text into a structured, quantifiable format.\n\n2. Advanced Analytics and Metrics: Within Amazon QuickSight, we implemented custom logic using calculated fields and Level-Aware Calculations (LAC) to generate meaningful metrics. The dashboard provides a real-time view of visibility trends, including brand mention frequency, ranking positions, and comparative performance analysis against competitors.\n\n3. Interactive and Intuitive Visualizations: The solution features a multi-tabbed dashboard with a range of interactive charts, graphs, and tables. Key metrics are presented in an easy-to-digest format, allowing users to quickly grasp performance at a glance. Dynamic filtering and drill-down capabilities empower users to explore the data by specific companies, date ranges, or other variables, uncovering granular insights with ease.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "d3679728-8c8b-4152-81e5-9b006db0f57a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Automated ingestion and processing: Amazon Athena queries data from sources including files in Amazon S3; Python scripts transform raw, unstructured generative-engine text into structured data. This is intended to reduce manual data handling and make the inputs usable for analysis.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/d3679728-8c8b-4152-81e5-9b006db0f57a/asset",
+                    "fileName": "case-study--amplifyr.pdf",
+                    "chunkText": "To address these challenges, HumbleBee AI engineered a powerful and sophisticated data analytics solution centered around Amazon QuickSight. We developed the Generative Engine Visibility Dashboard, a custom-built platform designed to deliver clear, real-time insights into brand performance on generative AI.\n\nOur approach was comprehensive, leveraging a robust tech stack to ensure automation, scalability, and an exceptional user experience.\n\n1. Automated Data Ingestion and Processing: We utilized Amazon Athena to automatically connect to and query data from various sources, including files stored in Amazon S3. This eliminated manual data handling and allowed for the on-the-fly processing of unstructured text from generative engines. Python scripts were employed for more complex data transformations, converting raw text into a structured, quantifiable format.\n\n2. Advanced Analytics and Metrics: Within Amazon QuickSight, we implemented custom logic using calculated fields and Level-Aware Calculations (LAC) to generate meaningful metrics. The dashboard provides a real-time view of visibility trends, including brand mention frequency, ranking positions, and comparative performance analysis against competitors.\n\n3. Interactive and Intuitive Visualizations: The solution features a multi-tabbed dashboard with a range of interactive charts, graphs, and tables. Key metrics are presented in an easy-to-digest format, allowing users to quickly grasp performance at a glance. Dynamic filtering and drill-down capabilities empower users to explore the data by specific companies, date ranges, or other variables, uncovering granular insights with ease.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 6,
+                    "pageNumber": 2,
+                    "sourceChunkId": "d3679728-8c8b-4152-81e5-9b006db0f57a"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Visibility metrics: QuickSight calculated fields and Level-Aware Calculations (LAC) are used to present brand-mention frequency, ranking positions, visibility trends and comparisons with competitors.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/d3679728-8c8b-4152-81e5-9b006db0f57a/asset",
+                    "fileName": "case-study--amplifyr.pdf",
+                    "chunkText": "To address these challenges, HumbleBee AI engineered a powerful and sophisticated data analytics solution centered around Amazon QuickSight. We developed the Generative Engine Visibility Dashboard, a custom-built platform designed to deliver clear, real-time insights into brand performance on generative AI.\n\nOur approach was comprehensive, leveraging a robust tech stack to ensure automation, scalability, and an exceptional user experience.\n\n1. Automated Data Ingestion and Processing: We utilized Amazon Athena to automatically connect to and query data from various sources, including files stored in Amazon S3. This eliminated manual data handling and allowed for the on-the-fly processing of unstructured text from generative engines. Python scripts were employed for more complex data transformations, converting raw text into a structured, quantifiable format.\n\n2. Advanced Analytics and Metrics: Within Amazon QuickSight, we implemented custom logic using calculated fields and Level-Aware Calculations (LAC) to generate meaningful metrics. The dashboard provides a real-time view of visibility trends, including brand mention frequency, ranking positions, and comparative performance analysis against competitors.\n\n3. Interactive and Intuitive Visualizations: The solution features a multi-tabbed dashboard with a range of interactive charts, graphs, and tables. Key metrics are presented in an easy-to-digest format, allowing users to quickly grasp performance at a glance. Dynamic filtering and drill-down capabilities empower users to explore the data by specific companies, date ranges, or other variables, uncovering granular insights with ease.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 6,
+                    "pageNumber": 2,
+                    "sourceChunkId": "d3679728-8c8b-4152-81e5-9b006db0f57a"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Interactive exploration: A multi-tab dashboard with charts, graphs and tables supports filtering and drill-down by companies, date ranges and other variables, so users can inspect performance at different levels of detail.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/d3679728-8c8b-4152-81e5-9b006db0f57a/asset",
+                    "fileName": "case-study--amplifyr.pdf",
+                    "chunkText": "To address these challenges, HumbleBee AI engineered a powerful and sophisticated data analytics solution centered around Amazon QuickSight. We developed the Generative Engine Visibility Dashboard, a custom-built platform designed to deliver clear, real-time insights into brand performance on generative AI.\n\nOur approach was comprehensive, leveraging a robust tech stack to ensure automation, scalability, and an exceptional user experience.\n\n1. Automated Data Ingestion and Processing: We utilized Amazon Athena to automatically connect to and query data from various sources, including files stored in Amazon S3. This eliminated manual data handling and allowed for the on-the-fly processing of unstructured text from generative engines. Python scripts were employed for more complex data transformations, converting raw text into a structured, quantifiable format.\n\n2. Advanced Analytics and Metrics: Within Amazon QuickSight, we implemented custom logic using calculated fields and Level-Aware Calculations (LAC) to generate meaningful metrics. The dashboard provides a real-time view of visibility trends, including brand mention frequency, ranking positions, and comparative performance analysis against competitors.\n\n3. Interactive and Intuitive Visualizations: The solution features a multi-tabbed dashboard with a range of interactive charts, graphs, and tables. Key metrics are presented in an easy-to-digest format, allowing users to quickly grasp performance at a glance. Dynamic filtering and drill-down capabilities empower users to explore the data by specific companies, date ranges, or other variables, uncovering granular insights with ease.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 6,
+                    "pageNumber": 2,
+                    "sourceChunkId": "d3679728-8c8b-4152-81e5-9b006db0f57a"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "AWS and QuickSight SPICE: The case study describes the architecture as designed to support large and growing data volumes. It does not provide a quantified capacity or performance benchmark.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/26500ec6-600f-4323-99c9-f354f0ca9ac1/asset",
+                    "fileName": "case-study--amplifyr.pdf",
+                    "chunkText": "4. Scalable and Robust Architecture: By building the platform on AWS and leveraging the SPICE (Super-fast, Parallel, In-memory Calculation Engine) in QuickSight, we ensured the solution could handle large and growing data volumes without sacrificing performance. This architecture provides the client with a scalable, future-proof platform for their analytics needs.\n\nThe implementation of the Generative Engine Visibility Dashboard empowered the client to move from reactive guesswork to a proactive, data-driven strategy.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 3,
+                    "sourceChunkId": "26500ec6-600f-4323-99c9-f354f0ca9ac1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied case-study image illustrates an analytics dashboard concept; it is not identified as a measured result or benchmark.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Illustration of a user viewing an analytics dashboard with charts and filters",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/82f0349d-f0ff-4eaa-be66-de82a600748d/asset",
+        "align": "center",
+        "title": "Generative Engine Visibility Dashboard",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/82f0349d-f0ff-4eaa-be66-de82a600748d/asset",
+        "fileName": "case-study--amplifyr.pdf",
+        "chunkText": "Source image\n\nplas\na",
+        "mediaType": "image/png",
+        "chunkIndex": 2,
+        "pageNumber": 1,
+        "sourceChunkId": "82f0349d-f0ff-4eaa-be66-de82a600748d"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The cover labels automation as 100%, but it does not define the denominator or explain how that figure was calculated. It should therefore be read as a cover label, not as a quantified measure of operational coverage or business impact.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/05daf0de-82a8-408d-9cdc-b37ed15e2821/asset",
+            "fileName": "case-study--amplifyr.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nGenerative Engine Visibility Dashboard using Amazon QuickSight for measuring brand visibility on AI platforms like ChatGPT and Gemini",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "05daf0de-82a8-408d-9cdc-b37ed15e2821"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study reports that the dashboard replaced a manual process with automated visibility reporting and gave the client a clearer, more accessible view of brand performance. These are qualitative project-reported findings, not independently verified or quantified business outcomes.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/ec4865fe-0d2c-43c2-bbb0-fb31f838b6ec/asset",
+            "fileName": "case-study--amplifyr.pdf",
+            "chunkText": "The deployment of the Generative Engine Visibility Dashboard delivered transformative results, providing the client with a significant competitive advantage. The project successfully converted a manual, inefficient process into a streamlined, automated workflow that provides immediate value across the organization.\n\nData-Driven Decision-Making: The client can now accurately measure and analyze their brand's visibility on generative AI platforms. This has enabled them to make informed, strategic decisions to enhance their online presence and marketing efforts based on concrete data.\n\nUnprecedented Accuracy: The dashboards offer a clear, data-backed view of brand performance. This ensures that strategic planning is based on reliable, precise, and up-to-date information, removing ambiguity and increasing confidence in outcomes.\n\nEnhanced Convenience and Collaboration: The user-friendly, interactive interface allows teams across marketing, SEO, and product to self-serve their data needs. This accessibility has fostered greater collaboration and aligned departmental efforts toward common visibility goals, democratizing insights across the organization.\n\nUltimately, the solution provided by HumbleBee AI has led to more consistent visibility gains and a stronger competitive position for the client in the rapidly evolving digital landscape.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "ec4865fe-0d2c-43c2-bbb0-fb31f838b6ec"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The client is reported to be able to measure and analyze its visibility on generative AI platforms and use that information for strategic decisions.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/ec4865fe-0d2c-43c2-bbb0-fb31f838b6ec/asset",
+                    "fileName": "case-study--amplifyr.pdf",
+                    "chunkText": "The deployment of the Generative Engine Visibility Dashboard delivered transformative results, providing the client with a significant competitive advantage. The project successfully converted a manual, inefficient process into a streamlined, automated workflow that provides immediate value across the organization.\n\nData-Driven Decision-Making: The client can now accurately measure and analyze their brand's visibility on generative AI platforms. This has enabled them to make informed, strategic decisions to enhance their online presence and marketing efforts based on concrete data.\n\nUnprecedented Accuracy: The dashboards offer a clear, data-backed view of brand performance. This ensures that strategic planning is based on reliable, precise, and up-to-date information, removing ambiguity and increasing confidence in outcomes.\n\nEnhanced Convenience and Collaboration: The user-friendly, interactive interface allows teams across marketing, SEO, and product to self-serve their data needs. This accessibility has fostered greater collaboration and aligned departmental efforts toward common visibility goals, democratizing insights across the organization.\n\nUltimately, the solution provided by HumbleBee AI has led to more consistent visibility gains and a stronger competitive position for the client in the rapidly evolving digital landscape.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 8,
+                    "pageNumber": 3,
+                    "sourceChunkId": "ec4865fe-0d2c-43c2-bbb0-fb31f838b6ec"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The case study reports that interactive, self-service access supports marketing, SEO and product teams and helps align their work around shared visibility goals.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/ec4865fe-0d2c-43c2-bbb0-fb31f838b6ec/asset",
+                    "fileName": "case-study--amplifyr.pdf",
+                    "chunkText": "The deployment of the Generative Engine Visibility Dashboard delivered transformative results, providing the client with a significant competitive advantage. The project successfully converted a manual, inefficient process into a streamlined, automated workflow that provides immediate value across the organization.\n\nData-Driven Decision-Making: The client can now accurately measure and analyze their brand's visibility on generative AI platforms. This has enabled them to make informed, strategic decisions to enhance their online presence and marketing efforts based on concrete data.\n\nUnprecedented Accuracy: The dashboards offer a clear, data-backed view of brand performance. This ensures that strategic planning is based on reliable, precise, and up-to-date information, removing ambiguity and increasing confidence in outcomes.\n\nEnhanced Convenience and Collaboration: The user-friendly, interactive interface allows teams across marketing, SEO, and product to self-serve their data needs. This accessibility has fostered greater collaboration and aligned departmental efforts toward common visibility goals, democratizing insights across the organization.\n\nUltimately, the solution provided by HumbleBee AI has led to more consistent visibility gains and a stronger competitive position for the client in the rapidly evolving digital landscape.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 8,
+                    "pageNumber": 3,
+                    "sourceChunkId": "ec4865fe-0d2c-43c2-bbb0-fb31f838b6ec"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "No numerical change in visibility, time saved, accuracy, adoption, revenue or other business outcome is provided. The case study's statements about competitive position and visibility gains are not accompanied by measurements.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/ec4865fe-0d2c-43c2-bbb0-fb31f838b6ec/asset",
+                    "fileName": "case-study--amplifyr.pdf",
+                    "chunkText": "The deployment of the Generative Engine Visibility Dashboard delivered transformative results, providing the client with a significant competitive advantage. The project successfully converted a manual, inefficient process into a streamlined, automated workflow that provides immediate value across the organization.\n\nData-Driven Decision-Making: The client can now accurately measure and analyze their brand's visibility on generative AI platforms. This has enabled them to make informed, strategic decisions to enhance their online presence and marketing efforts based on concrete data.\n\nUnprecedented Accuracy: The dashboards offer a clear, data-backed view of brand performance. This ensures that strategic planning is based on reliable, precise, and up-to-date information, removing ambiguity and increasing confidence in outcomes.\n\nEnhanced Convenience and Collaboration: The user-friendly, interactive interface allows teams across marketing, SEO, and product to self-serve their data needs. This accessibility has fostered greater collaboration and aligned departmental efforts toward common visibility goals, democratizing insights across the organization.\n\nUltimately, the solution provided by HumbleBee AI has led to more consistent visibility gains and a stronger competitive position for the client in the rapidly evolving digital landscape.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 8,
+                    "pageNumber": 3,
+                    "sourceChunkId": "ec4865fe-0d2c-43c2-bbb0-fb31f838b6ec"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source material does not provide a detailed account of current data-source coverage, refresh cadence, operational service levels or quantified dashboard performance. Although the case study describes the dashboard as real-time and scalable, it does not provide latency, volume or capacity figures; production availability beyond the described client deployment is not established.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/d3679728-8c8b-4152-81e5-9b006db0f57a/asset",
+            "fileName": "case-study--amplifyr.pdf",
+            "chunkText": "To address these challenges, HumbleBee AI engineered a powerful and sophisticated data analytics solution centered around Amazon QuickSight. We developed the Generative Engine Visibility Dashboard, a custom-built platform designed to deliver clear, real-time insights into brand performance on generative AI.\n\nOur approach was comprehensive, leveraging a robust tech stack to ensure automation, scalability, and an exceptional user experience.\n\n1. Automated Data Ingestion and Processing: We utilized Amazon Athena to automatically connect to and query data from various sources, including files stored in Amazon S3. This eliminated manual data handling and allowed for the on-the-fly processing of unstructured text from generative engines. Python scripts were employed for more complex data transformations, converting raw text into a structured, quantifiable format.\n\n2. Advanced Analytics and Metrics: Within Amazon QuickSight, we implemented custom logic using calculated fields and Level-Aware Calculations (LAC) to generate meaningful metrics. The dashboard provides a real-time view of visibility trends, including brand mention frequency, ranking positions, and comparative performance analysis against competitors.\n\n3. Interactive and Intuitive Visualizations: The solution features a multi-tabbed dashboard with a range of interactive charts, graphs, and tables. Key metrics are presented in an easy-to-digest format, allowing users to quickly grasp performance at a glance. Dynamic filtering and drill-down capabilities empower users to explore the data by specific companies, date ranges, or other variables, uncovering granular insights with ease.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "d3679728-8c8b-4152-81e5-9b006db0f57a"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/26500ec6-600f-4323-99c9-f354f0ca9ac1/asset",
+            "fileName": "case-study--amplifyr.pdf",
+            "chunkText": "4. Scalable and Robust Architecture: By building the platform on AWS and leveraging the SPICE (Super-fast, Parallel, In-memory Calculation Engine) in QuickSight, we ensured the solution could handle large and growing data volumes without sacrificing performance. This architecture provides the client with a scalable, future-proof platform for their analytics needs.\n\nThe implementation of the Generative Engine Visibility Dashboard empowered the client to move from reactive guesswork to a proactive, data-driven strategy.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "26500ec6-600f-4323-99c9-f354f0ca9ac1"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/ec4865fe-0d2c-43c2-bbb0-fb31f838b6ec/asset",
+            "fileName": "case-study--amplifyr.pdf",
+            "chunkText": "The deployment of the Generative Engine Visibility Dashboard delivered transformative results, providing the client with a significant competitive advantage. The project successfully converted a manual, inefficient process into a streamlined, automated workflow that provides immediate value across the organization.\n\nData-Driven Decision-Making: The client can now accurately measure and analyze their brand's visibility on generative AI platforms. This has enabled them to make informed, strategic decisions to enhance their online presence and marketing efforts based on concrete data.\n\nUnprecedented Accuracy: The dashboards offer a clear, data-backed view of brand performance. This ensures that strategic planning is based on reliable, precise, and up-to-date information, removing ambiguity and increasing confidence in outcomes.\n\nEnhanced Convenience and Collaboration: The user-friendly, interactive interface allows teams across marketing, SEO, and product to self-serve their data needs. This accessibility has fostered greater collaboration and aligned departmental efforts toward common visibility goals, democratizing insights across the organization.\n\nUltimately, the solution provided by HumbleBee AI has led to more consistent visibility gains and a stronger competitive position for the client in the rapidly evolving digital landscape.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "ec4865fe-0d2c-43c2-bbb0-fb31f838b6ec"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study describes future work as an ongoing partnership focused on adding data sources and refining analytical models. Those activities are presented as next steps, not as completed capabilities. No further delivery schedule or measured follow-up results are provided.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/b858bc8e-585f-403f-882d-2f21af29832d/asset",
+            "fileName": "case-study--amplifyr.pdf",
+            "chunkText": "The partnership between HumbleBee AI and our client demonstrates the power of harnessing specialized AI and data science to solve complex, real-world business problems. By creating the Generative Engine Visibility Dashboard, we provided not just a tool but a strategic asset that turns raw data into a competitive edge.\n\nAs the influence of generative AI continues to grow, our client is now well-positioned to adapt and thrive. Our ongoing partnership will focus on evolving the platform's capabilities, incorporating new data sources, and refining the analytical models to ensure sustained success. This project stands as a testament to our mission: to deliver exceptional, scalable AI-driven solutions that elevate businesses.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 3,
+            "sourceChunkId": "b858bc8e-585f-403f-882d-2f21af29832d"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The Generative Engine Visibility Dashboard gives the unnamed enterprise client a centralized way to structure and explore brand visibility data from generative AI platforms. The supported value is clearer, automated reporting for marketing, SEO and product teams; quantified business impact has not been provided.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/a39bd092-c7a9-44a5-8776-f8e3ce7c728f/asset",
+            "fileName": "case-study--amplifyr.pdf",
+            "chunkText": "A leading enterprise client struggled to measure its brand visibility on generative AI platforms like ChatGPT and Gemini, hindering strategic decision-making. HumbleBee AI developed the 'Generative Engine Visibility Dashboard' using Amazon QuickSight, creating a centralized, automated analytics platform. This solution transformed the client's manual guesswork into a streamlined, data-driven workflow, providing clear, accurate, and convenient insights for marketing, SEO, and product teams.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "a39bd092-c7a9-44a5-8776-f8e3ce7c728f"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/evidence/ec4865fe-0d2c-43c2-bbb0-fb31f838b6ec/asset",
+            "fileName": "case-study--amplifyr.pdf",
+            "chunkText": "The deployment of the Generative Engine Visibility Dashboard delivered transformative results, providing the client with a significant competitive advantage. The project successfully converted a manual, inefficient process into a streamlined, automated workflow that provides immediate value across the organization.\n\nData-Driven Decision-Making: The client can now accurately measure and analyze their brand's visibility on generative AI platforms. This has enabled them to make informed, strategic decisions to enhance their online presence and marketing efforts based on concrete data.\n\nUnprecedented Accuracy: The dashboards offer a clear, data-backed view of brand performance. This ensures that strategic planning is based on reliable, precise, and up-to-date information, removing ambiguity and increasing confidence in outcomes.\n\nEnhanced Convenience and Collaboration: The user-friendly, interactive interface allows teams across marketing, SEO, and product to self-serve their data needs. This accessibility has fostered greater collaboration and aligned departmental efforts toward common visibility goals, democratizing insights across the organization.\n\nUltimately, the solution provided by HumbleBee AI has led to more consistent visibility gains and a stronger competitive position for the client in the rapidly evolving digital landscape.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "ec4865fe-0d2c-43c2-bbb0-fb31f838b6ec"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,641 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Shelf Analysis AI for Retail Compliance",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI delivered a computer-vision Shelf Analysis AI platform integrated with a retail technology company’s distribution SaaS to automate product and shelf-compliance analysis across a reported 500+ retail locations.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/e9f03557-99b9-407c-b96c-049b44ad533c/asset",
+            "fileName": "case-study--shelf-analysis.pdf",
+            "chunkText": "A leading retail technology company, provider of a comprehensive cloud SaaS platform for distribution, partnered with HumbleBeeAI to revolutionize retail compliance monitoring for their 600+ customers across FMCG, beverage, pharmaceutical, and automotive industries. Through our comprehensive Shelf Analysis AI platform integrated into their distribution platform, we delivered automated product detection and intelligent shelf positioning analysis across 500+ locations. The solution achieved 90%+ detection accuracy, reduced manual audit time by 80% within the first month, resulting in enhanced brand visibility and increased sales performance for their end clients.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "e9f03557-99b9-407c-b96c-049b44ad533c"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "A retail technology company serving more than 600 customers across Central Asia and beyond partnered with HumbleBeeAI to add AI-powered shelf recognition to its cloud distribution platform. The work addressed the effort and limited coverage of manual shelf audits, as well as delayed and inconsistent detection of merchandising violations. The case study describes the platform as implemented and integrated, with reported results across 500+ retail locations; it also says algorithm enhancements and expansion to additional retail formats are ongoing.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/1a05c660-5dde-4375-bd50-e7e8b20652a0/asset",
+            "fileName": "case-study--shelf-analysis.pdf",
+            "chunkText": "The retail and consumer goods industries face unprecedented challenges in maintaining consistent product placement and merchandising compliance across distributed networks. With thousands of retail locations and complex planogram requirements, traditional manual auditing methods prove insufficient for modern brand management demands. The retail technology company provides a comprehensive cloud SaaS platform for distribution. The all-in-one platform manages sales and field teams, trade marketing, retail execution, warehouses, finance, and analytics for over 600 customers across Central Asia and beyond. Serving distributors and manufacturers in FMCG, beverage, pharmaceutical, automotive, and similar verticals, the company needed to enhance its platform with advanced AI-powered shelf recognition capabilities. Their end clients operate across 500+ retail locations with stringent merchandising standards and exclusive brand positioning agreements.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "1a05c660-5dde-4375-bd50-e7e8b20652a0"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/e9f03557-99b9-407c-b96c-049b44ad533c/asset",
+            "fileName": "case-study--shelf-analysis.pdf",
+            "chunkText": "A leading retail technology company, provider of a comprehensive cloud SaaS platform for distribution, partnered with HumbleBeeAI to revolutionize retail compliance monitoring for their 600+ customers across FMCG, beverage, pharmaceutical, and automotive industries. Through our comprehensive Shelf Analysis AI platform integrated into their distribution platform, we delivered automated product detection and intelligent shelf positioning analysis across 500+ locations. The solution achieved 90%+ detection accuracy, reduced manual audit time by 80% within the first month, resulting in enhanced brand visibility and increased sales performance for their end clients.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "e9f03557-99b9-407c-b96c-049b44ad533c"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/a7d89540-2637-4397-8f4a-9c62589436ab/asset",
+            "fileName": "case-study--shelf-analysis.pdf",
+            "chunkText": "HumbleBeeAI's Shelf Analysis AI platform represents a transformative advancement in retail compliance monitoring, delivering measurable improvements in operational efficiency, detection accuracy, and brand protection capabilities. The comprehensive solution addresses complex industry challenges through innovative Computer Vision technology while maintaining enterprise-grade security and scalability. Our long-term partnership with the retail technology company continues to evolve, with ongoing enhancements to detection algorithms and expanded deployment across additional retail formats. The integration of HumbleBeeAI's AI capabilities into their distribution platform has strengthened their all-in-one solution, benefiting their 600+ customers across Central Asia and beyond. The success of this implementation demonstrates the significant potential for AI-driven innovation in retail compliance management across FMCG, beverage, pharmaceutical, and automotive industries. The proven results - 80% reduction in audit time, 90%+ detection accuracy, and immediate identification of compliance violations - establish a compelling foundation for continued collaboration and strategic expansion of AI capabilities across the company's growing customer base and regional operations.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 13,
+            "pageNumber": 5,
+            "sourceChunkId": "a7d89540-2637-4397-8f4a-9c62589436ab"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The retail technology company’s platform supports distributors and manufacturers in FMCG, beverage, pharmaceutical, automotive and similar sectors. Its end clients manage merchandising standards and exclusive brand-positioning agreements across distributed retail networks.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/1a05c660-5dde-4375-bd50-e7e8b20652a0/asset",
+            "fileName": "case-study--shelf-analysis.pdf",
+            "chunkText": "The retail and consumer goods industries face unprecedented challenges in maintaining consistent product placement and merchandising compliance across distributed networks. With thousands of retail locations and complex planogram requirements, traditional manual auditing methods prove insufficient for modern brand management demands. The retail technology company provides a comprehensive cloud SaaS platform for distribution. The all-in-one platform manages sales and field teams, trade marketing, retail execution, warehouses, finance, and analytics for over 600 customers across Central Asia and beyond. Serving distributors and manufacturers in FMCG, beverage, pharmaceutical, automotive, and similar verticals, the company needed to enhance its platform with advanced AI-powered shelf recognition capabilities. Their end clients operate across 500+ retail locations with stringent merchandising standards and exclusive brand positioning agreements.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "1a05c660-5dde-4375-bd50-e7e8b20652a0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Before the AI capability, field agents spent hours counting products and checking planogram compliance. Manual audits consumed significant staff time while covering a wide retail network; competitor products could appear in exclusive brand zones and violations were detected inconsistently or late. The client also needed to handle images captured under varied lighting, camera angles and store conditions, alongside differences in product size, packaging and shelf layouts.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/29976373-a2c0-4ab5-936f-4941920467e4/asset",
+            "fileName": "case-study--shelf-analysis.pdf",
+            "chunkText": "The client encountered multiple critical challenges that threatened their retail compliance effectiveness. Manual Audit Limitations: Traditional shelf auditing required extensive human resources, consuming significant time while providing limited coverage across their expansive retail network. Field agents spent hours manually counting products and verifying planogram compliance, creating operational bottlenecks. Competitive Product Encroachment: Unauthorized competitor products frequently appeared in exclusive brand zones, violating merchandising agreements and reducing optimal shelf positioning. Manual detection of these violations was inconsistent and often delayed. Data Processing Challenges: The company struggled with processing diverse image qualities from various lighting conditions, camera angles, and retail environments while maintaining consistent detection accuracy across different product sizes and packaging variations. Scalability Constraints: Generating reliable detection results across thousands of retail locations with varying shelf configurations, product arrangements, and environmental factors while maintaining real-time processing capabilities proved technically challenging.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "29976373-a2c0-4ab5-936f-4941920467e4"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI integrated an AI shelf-analysis capability into the distribution platform, combining automated product detection with shelf-position analysis and compliance reporting. The case study describes the following capabilities:",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Automated product detection: computer-vision models identify products in submitted retail images; the case study reports 90%+ detection accuracy and support for diverse image formats and environmental conditions.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/1b1edddd-10f3-480f-9ba5-e19277fa725d/asset",
+                    "fileName": "case-study--shelf-analysis.pdf",
+                    "chunkText": "HumbleBeeAI implemented a comprehensive Shelf Analysis AI platform featuring advanced Computer Vision algorithms and intelligent compliance monitoring capabilities. Automated Product Detection System: We deployed specialized models with 90%+ accuracy rates, enabling instant product identification across unlimited retail locations. The system processes diverse image formats while maintaining consistent detection performance across varying environmental conditions.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 6,
+                    "pageNumber": 2,
+                    "sourceChunkId": "1b1edddd-10f3-480f-9ba5-e19277fa725d"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Shelf order and planogram analysis: spatial analysis identifies vertical and horizontal product positions, assigns shelf numbers and checks whether placement matches the intended arrangement.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/66f639e8-180c-42fa-a740-e13481526563/asset",
+                    "fileName": "case-study--shelf-analysis.pdf",
+                    "chunkText": "Intelligent Shelf Order Analysis: Our sophisticated spatial analysis algorithms determine exact product positioning within shelf layouts, analyzing vertical and horizontal arrangements to ensure planogram compliance. The system automatically assigns shelf numbers and validates optimal product placement strategies.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 8,
+                    "pageNumber": 3,
+                    "sourceChunkId": "66f639e8-180c-42fa-a740-e13481526563"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Competitive-product detection: analysis identifies competitor products in exclusive brand zones, supporting follow-up on merchandising agreement violations.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/5d597095-6408-4cc8-92d1-91be839745fe/asset",
+                    "fileName": "case-study--shelf-analysis.pdf",
+                    "chunkText": "Operational Efficiency Enhancement: The automated system reduced manual audit time by 80%, enabling continuous monitoring capabilities across unlimited retail locations. Field agents now complete comprehensive shelf analysis in seconds rather than hours, dramatically improving operational productivity. Detection Accuracy Achievement: Our advanced Computer Vision models consistently deliver 90%+ accuracy rates in product detection and positioning analysis, eliminating human error in compliance reporting while providing objective, consistent measurements across all retail environments. Enhanced Brand Visibility: Automated detection of competitive product encroachment in exclusive brand zones enabled swift enforcement of merchandising agreements, protecting premium positioning investments and maximizing shelf share optimization.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 12,
+                    "pageNumber": 4,
+                    "sourceChunkId": "5d597095-6408-4cc8-92d1-91be839745fe"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/0b6b9f7a-83e7-4c97-af68-ed85cf7c35f9/asset",
+                    "fileName": "case-study--shelf-analysis.pdf",
+                    "chunkText": "Retail Compliance Hero\n\nETT EE——_—————.\ncompetitor products\n\nEEALLTATATAS\n\nJoi\n\nVA AAA ARNKNK\ni\n“AA AA ANKE\nHLL",
+                    "mediaType": "image/png",
+                    "chunkIndex": 11,
+                    "pageNumber": 4,
+                    "sourceChunkId": "0b6b9f7a-83e7-4c97-af68-ed85cf7c35f9"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Centralized reporting: cloud infrastructure with GPU acceleration processes image submissions and returns automated compliance analytics for monitoring and merchandising decisions.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/e3258ac0-8430-4d52-ac07-35a976ea30b3/asset",
+                    "fileName": "case-study--shelf-analysis.pdf",
+                    "chunkText": "Cloud-Native Architecture: The solution leverages scalable cloud infrastructure with GPU acceleration, enabling real-time processing of high-volume image submissions while maintaining enterprise-grade security protocols. Real-Time Compliance Reporting: Automated detection analytics provide instant feedback and comprehensive reporting through centralized monitoring systems, delivering actionable insights for strategic merchandising decisions.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 10,
+                    "pageNumber": 3,
+                    "sourceChunkId": "e3258ac0-8430-4d52-ac07-35a976ea30b3"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied figures illustrate shelf detection and numbering, product-and-shelf analysis, and competitor-product identification.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Three views of a retail shelf showing shelf detection, shelf numbering and combined product-and-shelf analysis",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/ec897242-0ced-43f9-83a9-d66aacd79568/asset",
+        "align": "center",
+        "title": "Shelf detection, numbering and product-plus-shelf analysis",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/ec897242-0ced-43f9-83a9-d66aacd79568/asset",
+        "fileName": "case-study--shelf-analysis.pdf",
+        "chunkText": "Retail Compliance Hero\n\nShelf Detection Shelf Numbering Products + Shelves\nEAN A TAN LACE A CA TA EAE EA CL TCE\ninning Jini Jini\n|",
+        "mediaType": "image/png",
+        "chunkIndex": 9,
+        "pageNumber": 3,
+        "sourceChunkId": "ec897242-0ced-43f9-83a9-d66aacd79568"
+      }
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Retail shelf images with competitor products highlighted by detection boxes",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/0b6b9f7a-83e7-4c97-af68-ed85cf7c35f9/asset",
+        "align": "center",
+        "title": "Competitor-product detection example",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/0b6b9f7a-83e7-4c97-af68-ed85cf7c35f9/asset",
+        "fileName": "case-study--shelf-analysis.pdf",
+        "chunkText": "Retail Compliance Hero\n\nETT EE——_—————.\ncompetitor products\n\nEEALLTATATAS\n\nJoi\n\nVA AAA ARNKNK\ni\n“AA AA ANKE\nHLL",
+        "mediaType": "image/png",
+        "chunkIndex": 11,
+        "pageNumber": 4,
+        "sourceChunkId": "0b6b9f7a-83e7-4c97-af68-ed85cf7c35f9"
+      }
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study reports these operational results:",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/5d597095-6408-4cc8-92d1-91be839745fe/asset",
+            "fileName": "case-study--shelf-analysis.pdf",
+            "chunkText": "Operational Efficiency Enhancement: The automated system reduced manual audit time by 80%, enabling continuous monitoring capabilities across unlimited retail locations. Field agents now complete comprehensive shelf analysis in seconds rather than hours, dramatically improving operational productivity. Detection Accuracy Achievement: Our advanced Computer Vision models consistently deliver 90%+ accuracy rates in product detection and positioning analysis, eliminating human error in compliance reporting while providing objective, consistent measurements across all retail environments. Enhanced Brand Visibility: Automated detection of competitive product encroachment in exclusive brand zones enabled swift enforcement of merchandising agreements, protecting premium positioning investments and maximizing shelf share optimization.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 12,
+            "pageNumber": 4,
+            "sourceChunkId": "5d597095-6408-4cc8-92d1-91be839745fe"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/e9f03557-99b9-407c-b96c-049b44ad533c/asset",
+            "fileName": "case-study--shelf-analysis.pdf",
+            "chunkText": "A leading retail technology company, provider of a comprehensive cloud SaaS platform for distribution, partnered with HumbleBeeAI to revolutionize retail compliance monitoring for their 600+ customers across FMCG, beverage, pharmaceutical, and automotive industries. Through our comprehensive Shelf Analysis AI platform integrated into their distribution platform, we delivered automated product detection and intelligent shelf positioning analysis across 500+ locations. The solution achieved 90%+ detection accuracy, reduced manual audit time by 80% within the first month, resulting in enhanced brand visibility and increased sales performance for their end clients.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "e9f03557-99b9-407c-b96c-049b44ad533c"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Manual audit time decreased by 80% within the first month, according to the executive summary.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/e9f03557-99b9-407c-b96c-049b44ad533c/asset",
+                    "fileName": "case-study--shelf-analysis.pdf",
+                    "chunkText": "A leading retail technology company, provider of a comprehensive cloud SaaS platform for distribution, partnered with HumbleBeeAI to revolutionize retail compliance monitoring for their 600+ customers across FMCG, beverage, pharmaceutical, and automotive industries. Through our comprehensive Shelf Analysis AI platform integrated into their distribution platform, we delivered automated product detection and intelligent shelf positioning analysis across 500+ locations. The solution achieved 90%+ detection accuracy, reduced manual audit time by 80% within the first month, resulting in enhanced brand visibility and increased sales performance for their end clients.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 3,
+                    "pageNumber": 1,
+                    "sourceChunkId": "e9f03557-99b9-407c-b96c-049b44ad533c"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Product detection accuracy was reported as 90%+.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/e9f03557-99b9-407c-b96c-049b44ad533c/asset",
+                    "fileName": "case-study--shelf-analysis.pdf",
+                    "chunkText": "A leading retail technology company, provider of a comprehensive cloud SaaS platform for distribution, partnered with HumbleBeeAI to revolutionize retail compliance monitoring for their 600+ customers across FMCG, beverage, pharmaceutical, and automotive industries. Through our comprehensive Shelf Analysis AI platform integrated into their distribution platform, we delivered automated product detection and intelligent shelf positioning analysis across 500+ locations. The solution achieved 90%+ detection accuracy, reduced manual audit time by 80% within the first month, resulting in enhanced brand visibility and increased sales performance for their end clients.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 3,
+                    "pageNumber": 1,
+                    "sourceChunkId": "e9f03557-99b9-407c-b96c-049b44ad533c"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The solution was reported across 500+ retail locations; the source also describes immediate identification of compliance violations.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/e9f03557-99b9-407c-b96c-049b44ad533c/asset",
+                    "fileName": "case-study--shelf-analysis.pdf",
+                    "chunkText": "A leading retail technology company, provider of a comprehensive cloud SaaS platform for distribution, partnered with HumbleBeeAI to revolutionize retail compliance monitoring for their 600+ customers across FMCG, beverage, pharmaceutical, and automotive industries. Through our comprehensive Shelf Analysis AI platform integrated into their distribution platform, we delivered automated product detection and intelligent shelf positioning analysis across 500+ locations. The solution achieved 90%+ detection accuracy, reduced manual audit time by 80% within the first month, resulting in enhanced brand visibility and increased sales performance for their end clients.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 3,
+                    "pageNumber": 1,
+                    "sourceChunkId": "e9f03557-99b9-407c-b96c-049b44ad533c"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/a7d89540-2637-4397-8f4a-9c62589436ab/asset",
+                    "fileName": "case-study--shelf-analysis.pdf",
+                    "chunkText": "HumbleBeeAI's Shelf Analysis AI platform represents a transformative advancement in retail compliance monitoring, delivering measurable improvements in operational efficiency, detection accuracy, and brand protection capabilities. The comprehensive solution addresses complex industry challenges through innovative Computer Vision technology while maintaining enterprise-grade security and scalability. Our long-term partnership with the retail technology company continues to evolve, with ongoing enhancements to detection algorithms and expanded deployment across additional retail formats. The integration of HumbleBeeAI's AI capabilities into their distribution platform has strengthened their all-in-one solution, benefiting their 600+ customers across Central Asia and beyond. The success of this implementation demonstrates the significant potential for AI-driven innovation in retail compliance management across FMCG, beverage, pharmaceutical, and automotive industries. The proven results - 80% reduction in audit time, 90%+ detection accuracy, and immediate identification of compliance violations - establish a compelling foundation for continued collaboration and strategic expansion of AI capabilities across the company's growing customer base and regional operations.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 13,
+                    "pageNumber": 5,
+                    "sourceChunkId": "a7d89540-2637-4397-8f4a-9c62589436ab"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study says automated detection helped protect brand visibility and support enforcement of merchandising agreements. It also mentions increased sales performance, but provides no sales figures or measurement method; that business impact therefore cannot be independently quantified from the supplied material.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/e9f03557-99b9-407c-b96c-049b44ad533c/asset",
+            "fileName": "case-study--shelf-analysis.pdf",
+            "chunkText": "A leading retail technology company, provider of a comprehensive cloud SaaS platform for distribution, partnered with HumbleBeeAI to revolutionize retail compliance monitoring for their 600+ customers across FMCG, beverage, pharmaceutical, and automotive industries. Through our comprehensive Shelf Analysis AI platform integrated into their distribution platform, we delivered automated product detection and intelligent shelf positioning analysis across 500+ locations. The solution achieved 90%+ detection accuracy, reduced manual audit time by 80% within the first month, resulting in enhanced brand visibility and increased sales performance for their end clients.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "e9f03557-99b9-407c-b96c-049b44ad533c"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/5d597095-6408-4cc8-92d1-91be839745fe/asset",
+            "fileName": "case-study--shelf-analysis.pdf",
+            "chunkText": "Operational Efficiency Enhancement: The automated system reduced manual audit time by 80%, enabling continuous monitoring capabilities across unlimited retail locations. Field agents now complete comprehensive shelf analysis in seconds rather than hours, dramatically improving operational productivity. Detection Accuracy Achievement: Our advanced Computer Vision models consistently deliver 90%+ accuracy rates in product detection and positioning analysis, eliminating human error in compliance reporting while providing objective, consistent measurements across all retail environments. Enhanced Brand Visibility: Automated detection of competitive product encroachment in exclusive brand zones enabled swift enforcement of merchandising agreements, protecting premium positioning investments and maximizing shelf share optimization.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 12,
+            "pageNumber": 4,
+            "sourceChunkId": "5d597095-6408-4cc8-92d1-91be839745fe"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study does not provide the accuracy-test methodology, a breakdown by store or product category, or details of the measurement process behind the reported audit-time reduction. It also does not quantify sales impact. These results are presented as reported case-study outcomes, not as independently verified measures.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source describes ongoing enhancements to detection algorithms and planned or continuing expansion across additional retail formats. It does not specify a delivery timeline or identify which additional formats are live. Although the solution is described as capable of supporting unlimited locations, the reported project scope is 500+ retail locations; broader deployment should not be assumed.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/a7d89540-2637-4397-8f4a-9c62589436ab/asset",
+            "fileName": "case-study--shelf-analysis.pdf",
+            "chunkText": "HumbleBeeAI's Shelf Analysis AI platform represents a transformative advancement in retail compliance monitoring, delivering measurable improvements in operational efficiency, detection accuracy, and brand protection capabilities. The comprehensive solution addresses complex industry challenges through innovative Computer Vision technology while maintaining enterprise-grade security and scalability. Our long-term partnership with the retail technology company continues to evolve, with ongoing enhancements to detection algorithms and expanded deployment across additional retail formats. The integration of HumbleBeeAI's AI capabilities into their distribution platform has strengthened their all-in-one solution, benefiting their 600+ customers across Central Asia and beyond. The success of this implementation demonstrates the significant potential for AI-driven innovation in retail compliance management across FMCG, beverage, pharmaceutical, and automotive industries. The proven results - 80% reduction in audit time, 90%+ detection accuracy, and immediate identification of compliance violations - establish a compelling foundation for continued collaboration and strategic expansion of AI capabilities across the company's growing customer base and regional operations.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 13,
+            "pageNumber": 5,
+            "sourceChunkId": "a7d89540-2637-4397-8f4a-9c62589436ab"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/1b1edddd-10f3-480f-9ba5-e19277fa725d/asset",
+            "fileName": "case-study--shelf-analysis.pdf",
+            "chunkText": "HumbleBeeAI implemented a comprehensive Shelf Analysis AI platform featuring advanced Computer Vision algorithms and intelligent compliance monitoring capabilities. Automated Product Detection System: We deployed specialized models with 90%+ accuracy rates, enabling instant product identification across unlimited retail locations. The system processes diverse image formats while maintaining consistent detection performance across varying environmental conditions.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "1b1edddd-10f3-480f-9ba5-e19277fa725d"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/e9f03557-99b9-407c-b96c-049b44ad533c/asset",
+            "fileName": "case-study--shelf-analysis.pdf",
+            "chunkText": "A leading retail technology company, provider of a comprehensive cloud SaaS platform for distribution, partnered with HumbleBeeAI to revolutionize retail compliance monitoring for their 600+ customers across FMCG, beverage, pharmaceutical, and automotive industries. Through our comprehensive Shelf Analysis AI platform integrated into their distribution platform, we delivered automated product detection and intelligent shelf positioning analysis across 500+ locations. The solution achieved 90%+ detection accuracy, reduced manual audit time by 80% within the first month, resulting in enhanced brand visibility and increased sales performance for their end clients.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "e9f03557-99b9-407c-b96c-049b44ad533c"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The PDF text includes the label “Open original HumbleBeeAI page,” but the supplied material does not include a URL. The original page link therefore cannot be reproduced here.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/e64fa84b-c93b-4d71-ab6f-0efcbee5b627/asset",
+            "fileName": "case-study--shelf-analysis.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAdvanced Computer Vision platform delivering 90%+ product detection accuracy while decreasing manual audit time by 80% across 500+ retail locations.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "e64fa84b-c93b-4d71-ab6f-0efcbee5b627"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The delivered integration adds automated product recognition, shelf-position analysis and compliance reporting to a retail distribution platform. In the case study, this work is associated with a reported 80% reduction in manual audit time within the first month and 90%+ detection accuracy, while further algorithm development and retail-format expansion remain ongoing.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/e9f03557-99b9-407c-b96c-049b44ad533c/asset",
+            "fileName": "case-study--shelf-analysis.pdf",
+            "chunkText": "A leading retail technology company, provider of a comprehensive cloud SaaS platform for distribution, partnered with HumbleBeeAI to revolutionize retail compliance monitoring for their 600+ customers across FMCG, beverage, pharmaceutical, and automotive industries. Through our comprehensive Shelf Analysis AI platform integrated into their distribution platform, we delivered automated product detection and intelligent shelf positioning analysis across 500+ locations. The solution achieved 90%+ detection accuracy, reduced manual audit time by 80% within the first month, resulting in enhanced brand visibility and increased sales performance for their end clients.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "e9f03557-99b9-407c-b96c-049b44ad533c"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/evidence/a7d89540-2637-4397-8f4a-9c62589436ab/asset",
+            "fileName": "case-study--shelf-analysis.pdf",
+            "chunkText": "HumbleBeeAI's Shelf Analysis AI platform represents a transformative advancement in retail compliance monitoring, delivering measurable improvements in operational efficiency, detection accuracy, and brand protection capabilities. The comprehensive solution addresses complex industry challenges through innovative Computer Vision technology while maintaining enterprise-grade security and scalability. Our long-term partnership with the retail technology company continues to evolve, with ongoing enhancements to detection algorithms and expanded deployment across additional retail formats. The integration of HumbleBeeAI's AI capabilities into their distribution platform has strengthened their all-in-one solution, benefiting their 600+ customers across Central Asia and beyond. The success of this implementation demonstrates the significant potential for AI-driven innovation in retail compliance management across FMCG, beverage, pharmaceutical, and automotive industries. The proven results - 80% reduction in audit time, 90%+ detection accuracy, and immediate identification of compliance violations - establish a compelling foundation for continued collaboration and strategic expansion of AI capabilities across the company's growing customer base and regional operations.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 13,
+            "pageNumber": 5,
+            "sourceChunkId": "a7d89540-2637-4397-8f4a-9c62589436ab"
+          }
+        }
+      ]
+    }
+  ]
+}

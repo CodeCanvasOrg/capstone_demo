@@ -1,0 +1,175 @@
+ HUMBLEBEEAI / PROJECT
+
+
+ Wakil AI
+ Open original HumbleBeeAI page
+
+ Legal tech NLP assistant that simplifies legal workflows and document understanding.
+
+   Status                                              Scope
+   prod ready                                          Big
+
+
+
+
+ Source image
+
+
+ Executive Summary
+ Wakil AI is a cutting-edge AI-driven legal ecosystem designed to democratize access to legal
+ services and intelligence in Uzbekistan. It pairs a multilingual, evidence-based AI legal assistant
+ with a trusted lawyer-client marketplace and introduces Wakil AI Associate - an upcoming private
+ AI companion for real casework. Built with strict data sovereignty, professional reliability, and local
+ legal grounding in mind, Wakil AI empowers individuals, businesses, and legal professionals to
+ navigate law with speed, clarity, and confidence.
+
+ Introduction
+ Accessing legal information and services remains a major challenge for many citizens and enterprises
+ in Uzbekistan. Legal texts are complex, official databases lack user-friendly explanation tools, and
+ professional legal help can be expensive or hard to find. Wakil AI aims to bridge this gap by leveraging
+ AI to provide clear legal answers, evidence-backed citation, and direct access to qualified
+ lawyers, all while respecting local language nuances and data privacy.
+
+ By combining generative AI, legal retrieval techniques, and a human professional network, Wakil AI
+ serves as a trusted legal companion that enhances access to justice and supports better outcomes
+ for users at every level.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                        1
+ Scope and Capabilities
+ AI Legal Assistant
+ Key Capabilities:
+
+ Wakil’s AI Legal Assistant is built on Retrieval-Augmented Generation (RAG), enabling it to ground
+ responses in authoritative legal sources (e.g., official law databases). This ensures factual accuracy
+ and transparency, unlike typical generative chatbots.
+
+ Multilingual Legal Understanding:Provides guidance in Uzbek (Latin & Cyrillic), Russian, and
+ English - a core feature for a multilingual population. |
+
+  •   Citation-Backed Responses: Answers link to legal articles and provisions, increasing trust and
+      verifiability.
+
+
+
+
+ Wakil AI Chatting Image
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                      2
+ AI Avatar Cover Image
+
+  •   Adaptive Retrieval Strategy: We have innovated a specific search method that is highly
+      optimized for citation-specific queries. The system serves as a Hybrid Routing Engine that
+      intelligently switches strategies based on query intent. If users ask for a specific law number, we
+      bypass standard vector search for a deterministic lookup.
+  •   Contextual Legal Interpretation: Moves beyond simple summaries to deliver context-aware
+      legal explanations tailored to user questions.
+  •   Secure, Local Deployment: Designed for on-premises or compliant deployment to protect
+      sensitive data and align with Uzbekistan’s data policies.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                        3
+ Wakil AI Image
+
+
+
+
+ Wakil AI Image
+
+  •   Measurably Superior Factual Correctness: Created a unique technical moat by combining
+      structural data integrity with sovereign deployment.Evaluated on 170+ real-world Soliq (Tax Law)
+      queries using the RAGAS evaluation framework:
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                     4
+ Lawyer-Client Marketplace
+ Critical to Wakil AI’s mission is connecting users with verified legal professionals who can offer
+ personalized advice, consultation, and advocacy.
+
+ Marketplace Features:
+
+  •   Lawyer Discovery & Comparison: Users can explore lawyers by specialization, reviews, and
+      pricing before engagement.
+  •   Integrated Communication Tools: Secure channels facilitate efficient dialogues, appointment
+      scheduling, and case coordination.
+  •   Transparent Engagement: Clear pricing and review systems help build trust and reduce barriers
+      to professional legal support.
+ This marketplace helps democratize legal representation and introduces efficient, tech-enabled
+ workflows between clients and lawyers.
+
+ Wakil AI Associate - Private AI for Real Casework
+ The “Associate” feature is Wakil’s newest capability, currently rolling out through limited early
+ access invitations. It functions as a private AI-powered legal companion tailored for actual
+ casework - supporting users and professionals with case-specific tasks that go beyond general legal
+ Q&A.
+
+ Associate Key Benefits:
+
+
+
+
+ AI Avatar Cover Image
+
+  •   Dedicated Case Workspace:Users get a personalized AI assistant that can help with ongoing
+      legal cases, document preparation, and strategy explorations.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                   5
+  •   Advanced Context Retention:Designed to understand case history and context across multiple
+      interactions.
+  •   Professional Support Integration: Can serve as an AI collaborator alongside a lawyer or legal
+      team.
+
+ Solutions
+ Wakil AI’s solutions address several legal system bottlenecks:
+
+ 1. Public Legal Empowerment
+ Anyone - from everyday citizens to entrepreneurs - can ask legal questions and receive clear,
+ accessible explanations grounded in official codes, reducing confusion and misinformation.
+
+ 2. Seamless Legal Engagement
+ The integrated marketplace minimizes friction in finding and working with lawyers. Users gain
+ transparency into legal services and can transition from AI guidance to professional representation as
+ needed.
+
+ 3. Data-Compliant Legal Intelligence
+ By supporting on-premises and localized deployment, Wakil AI ensures compliance with national
+ data regulations - a critical requirement in jurisdictions prioritizing data sovereignty.
+
+ Results and Business Impact
+ Wakil AI’s approach leads to tangible impact for multiple stakeholder groups:
+
+  •   Citizens & Businesses: Enhanced access to clear, reliable legal information reduces confusion
+      and lowers the cost of legal entry.
+  •   Legal Professionals: Lawyers gain new digital channels to reach clients, showcase expertise,
+      and grow their practices - diversifying revenue sources beyond traditional referral networks.
+  •   Government & Ecosystem: The platform supports broader digital transformation goals by
+      aligning legal services with national language support and data regulation priorities.
+  •   Trust & Integrity: Built-in citation and local legal corpus grounding improve confidence in
+      automated legal outputs compared to generic AI systems.
+ By integrating AI with professional legal services, Wakil AI is setting a new standard for accessible,
+ secure, and trustworthy legal support in Uzbekistan.
+
+ Conclusion
+ Wakil AI represents a next-generation legal platform that blends generative AI with real-world legal
+ expertise and service delivery. With its multilingual capabilities, evidence-based grounding, secure
+ architecture, and emerging private AI support through Wakil AI Associate, the platform offers a
+ holistic legal tech solution that enhances legal access, professional workflows, and user trust.
+
+ You can learn more about Wakil AI and also try it here: https://wakil.ai/
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                      6
+

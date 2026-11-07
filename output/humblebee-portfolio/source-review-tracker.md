@@ -1,0 +1,1747 @@
+# Source review tracker
+
+## company-update:vc-studio-qatar
+
+source_id: company-update:vc-studio-qatar
+
+kind: company-update
+
+title: HumbleBeeAI Expands to Qatar with the Launch of Venture Studio LLC
+
+original_url: https://humblebee.ai/case-studies/vc-studio-qatar
+
+pdf_path: company-updates/vc-studio-qatar.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: bda3104b6f95c6ac12d6f093aa943f235a120cc2363d5526530639bade1aecaa
+
+pdf_pages: 2
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Company context
+
+reported_outcome: Announces HumbleBeeAI Venture Studio LLC in the Qatar Financial Centre as a Middle East venture-building hub; operational setup and future partnerships remain planned.
+
+evidence_pages: 1–2
+
+missing_information: Confirm operating status and which regional-reach wording is approved; no implied list of completed regional deployments.
+
+## case-study:customs-document-automation
+
+source_id: case-study:customs-document-automation
+
+kind: case-study
+
+title: Automating Customs Documentation with Local AI and Computer Vision
+
+original_url: https://humblebee.ai/case-studies/customs-document-automation
+
+pdf_path: case-studies/customs-document-automation.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: a71dc6534aa343acec20e13eb297eed299546ace18023cafae9a589df25d79bb
+
+pdf_pages: 3
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Document AI and automation
+
+client_or_audience: Logistics and customs brokerage firm (unnamed)
+
+problem_or_question: Manual transcription of invoices, packing lists and IDs under local-data constraints.
+
+solution_or_function: Locally hosted OCR, computer vision and LLM extraction populate editable declaration templates.
+
+reported_outcome: Estimated up to 90% processing-time reduction and reported 97% fewer human errors relative to manual entry. MVP classification remains user-selected; automated classification is planned.
+
+evidence_pages: 1–3
+
+missing_information: Absolute timings, error counts, evaluation sample and measurement protocol absent; do not present estimates as measured production savings.
+
+flagship: No
+
+## case-study:ai-based-predictive
+
+source_id: case-study:ai-based-predictive
+
+kind: case-study
+
+title: Johnson & Johnson Achieves 96.8% Accuracy in Customer Targeting
+
+original_url: https://humblebee.ai/case-studies/ai-based-predictive
+
+pdf_path: case-studies/ai-based-predictive.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 01fa7ab9c73d5e8c37d427e1a11b13b34bef8314aac304a5e2ac9aa39cd37201
+
+pdf_pages: 3
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Analytics
+
+client_or_audience: Johnson & Johnson marketing
+
+problem_or_question: Purchase propensity is difficult to predict across varied markets and datasets.
+
+solution_or_function: XGBoost with preprocessing, feature engineering, SHAP explanations and a Flask prediction API.
+
+reported_outcome: Reported 96.8% accuracy for purchase-probability prediction.
+
+evidence_pages: 1–3
+
+missing_information: No test sample, class balance, split, comparison baseline or quantified conversion/revenue lift.
+
+flagship: No
+
+## case-study:avnrt-ablation-analytics
+
+source_id: case-study:avnrt-ablation-analytics
+
+kind: case-study
+
+title: How Johnson and Johnson Found Patterns Hidden in Ablation Data?
+
+original_url: https://humblebee.ai/case-studies/avnrt-ablation-analytics
+
+pdf_path: case-studies/avnrt-ablation-analytics.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 5cc2915b0d48ee77faa8b31bffd86941a2010dc8df129d5fde0851cc35af18a8
+
+pdf_pages: 3
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Analytics
+
+client_or_audience: Johnson & Johnson; cardiac ablation analysis
+
+problem_or_question: Patient-specific coordinate systems and fragmented procedure files obstruct comparison.
+
+solution_or_function: CARTONET framework normalizes XLSX/CSV data and supports statistical analysis and interactive 3D views.
+
+reported_outcome: Source reports improved consistency and analysis efficiency without a numerical performance measure.
+
+evidence_pages: 1–3
+
+missing_information: No measured time saving, predictive validation or clinical-outcome effect.
+
+flagship: No
+
+## case-study:cartoned-analysis-dashboard
+
+source_id: case-study:cartoned-analysis-dashboard
+
+kind: case-study
+
+title: How Johnson & Johnson Turned Endless Data Work into Instant Strategy?
+
+original_url: https://humblebee.ai/case-studies/cartoned-analysis-dashboard
+
+pdf_path: case-studies/cartoned-analysis-dashboard.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: ebec9a59a5325dfe48963048ab2e7cdd5b7c4bfbd66ca110def7faab20e9c1a4
+
+pdf_pages: 4
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Analytics
+
+client_or_audience: Johnson & Johnson marketing
+
+problem_or_question: Manual data cleaning and fragmented product analysis consume analyst time.
+
+solution_or_function: Cartonet Analysis Dashboard automates processing, statistical analysis and real-time visual reporting.
+
+reported_outcome: Reported 80% reduction in manual effort.
+
+evidence_pages: 1–4
+
+missing_information: Baseline hours, sample, observation period and measurement protocol absent; retain Cartonet spelling from the body.
+
+flagship: No
+
+## case-study:impact-event-analysis
+
+source_id: case-study:impact-event-analysis
+
+kind: case-study
+
+title: How Johnson & Johnson Turned a Mountain of Event Data into a Clear Story of ROI?
+
+original_url: https://humblebee.ai/case-studies/impact-event-analysis
+
+pdf_path: case-studies/impact-event-analysis.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 584fea51e6c0d5fe858ebf0dcdde3133caa14d33722416a61f4e5de1bd7dfdd9
+
+pdf_pages: 3
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Analytics
+
+client_or_audience: Johnson & Johnson event and commercial teams
+
+problem_or_question: Event records are disconnected from procedure-volume data.
+
+solution_or_function: Power BI integrates data with account/event comparisons and interactive filters.
+
+reported_outcome: Source reports improved event-effectiveness analysis and ROI visibility; it does not quantify a return or establish causal clinical impact.
+
+evidence_pages: 1–3
+
+missing_information: No numerical ROI, effect size or causal validation; do not claim events caused procedure growth.
+
+flagship: No
+
+## case-study:patient-data-analytics
+
+source_id: case-study:patient-data-analytics
+
+kind: case-study
+
+title: How Johnson & Johnson reduced patient data analytics time by 80%?
+
+original_url: https://humblebee.ai/case-studies/patient-data-analytics
+
+pdf_path: case-studies/patient-data-analytics.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 99f60f55f24c293db3c692408f7ec5463900015205e566a8998803c7be2ac837
+
+pdf_pages: 3
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Analytics
+
+client_or_audience: Johnson & Johnson analytics
+
+problem_or_question: Inconsistent Excel structures create parsing and preprocessing bottlenecks.
+
+solution_or_function: Patient Report Analyzer adapts parsing, cleans data and uses batch processing and caching.
+
+reported_outcome: Reported 80% preprocessing/manual-work reduction and a separate 50% processing improvement; source describes gigabyte-scale data.
+
+evidence_pages: 1–3
+
+missing_information: Source alternates between processing time halved and 50% faster; denominator, baseline times and test environment need confirmation.
+
+flagship: No
+
+## case-study:shelf-analysis
+
+source_id: case-study:shelf-analysis
+
+kind: case-study
+
+title: Shelf Analysis AI platform for Retail Compliance
+
+original_url: https://humblebee.ai/case-studies/shelf-analysis
+
+pdf_path: case-studies/shelf-analysis.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: f944811b82c97b97cfaaad65f116c3340f0bafd015eaee2ac42fb912640dcd05
+
+pdf_pages: 5
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Computer vision
+
+client_or_audience: Retail technology SaaS provider (unnamed)
+
+problem_or_question: Manual shelf compliance audits are slow across distributed stores.
+
+solution_or_function: Product detection and shelf-position analysis integrated into the distribution platform.
+
+reported_outcome: Reported 90%+ detection accuracy and 80% less manual audit time within the first month across 500+ locations; provider serves 600+ customers.
+
+evidence_pages: 1–5
+
+missing_information: No dataset size, accuracy definition or baseline audit hours; provider customer count is not a study sample.
+
+flagship: Yes
+
+## case-study:fraud-detection
+
+source_id: case-study:fraud-detection
+
+kind: case-study
+
+title: A Global Beverage Leader Prevents Retail Fraud with AI
+
+original_url: https://humblebee.ai/case-studies/fraud-detection
+
+pdf_path: case-studies/fraud-detection.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 492d44bc4a77eef0c275fe6cc451fcad2a2192b5d94bb293edb80beff6e17915
+
+pdf_pages: 4
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Computer vision
+
+client_or_audience: Retail distribution technology provider (unnamed)
+
+problem_or_question: Field agents can submit false or reused compliance evidence.
+
+solution_or_function: AI fraud detection integrated with retail field-report and planogram workflows.
+
+reported_outcome: Source reports over 90% fraudulent-submission detection accuracy within the first week and more than 90% improvement in audit reliability.
+
+evidence_pages: 1–4
+
+missing_information: Reliability denominator and test sample absent; headline mentions a global beverage leader while body identifies a platform provider. Client attribution needs confirmation.
+
+flagship: No
+
+## case-study:poster-recognition
+
+source_id: case-study:poster-recognition
+
+kind: case-study
+
+title: Flexible Campaigns with Poster Recognition AI
+
+original_url: https://humblebee.ai/case-studies/poster-recognition
+
+pdf_path: case-studies/poster-recognition.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: d287d4158b75369abcd4cd50fe537e62484f98cc14422441ebb25e54f05849fc
+
+pdf_pages: 4
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Computer vision
+
+client_or_audience: Retail technology/distribution provider (unnamed)
+
+problem_or_question: New poster campaigns previously required repeated model training.
+
+solution_or_function: Poster recognition uses instant reference-database updates for new campaigns.
+
+reported_outcome: Reported 94% recognition accuracy, 90% less verification time and 85% lower deployment costs; previous retraining cycle was three months.
+
+evidence_pages: 1–3
+
+missing_information: No cost basis, evaluation set or timed baseline; source alternates 94% and 94%+ and 500+ campaigns/locations.
+
+flagship: No
+
+## case-study:automated-training-pipeline
+
+source_id: case-study:automated-training-pipeline
+
+kind: case-study
+
+title: Automated Training Pipeline Reduces Model Development Time
+
+original_url: https://humblebee.ai/case-studies/automated-training-pipeline
+
+pdf_path: case-studies/automated-training-pipeline.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: ba321c96dc0e18897ba49fa415298bd8ac2ed32198b6237e22f66964bf99d82c
+
+pdf_pages: 4
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: AI platforms
+
+client_or_audience: Retail technology provider and nontechnical model teams
+
+problem_or_question: Custom model delivery and training management require substantial specialist effort.
+
+solution_or_function: Google Cloud Vertex AI automates training and deployment workflows.
+
+reported_outcome: Reported development time falls from two months to two weeks (source labels 75%); 90% less training management overhead for a client with over 20 brands.
+
+evidence_pages: 1–3
+
+missing_information: Month/week conversion is approximate; overhead measurement method and observation period absent.
+
+flagship: Yes
+
+## case-study:data-labeling-tool
+
+source_id: case-study:data-labeling-tool
+
+kind: case-study
+
+title: Enterprise Data Labeling Platform Deployment & Customization
+
+original_url: https://humblebee.ai/case-studies/data-labeling-tool
+
+pdf_path: case-studies/data-labeling-tool.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: cb5091b13033d581b65c41584ea2ce61aaf10db5215b3a3e7e8553b2d07b6967
+
+pdf_pages: 4
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: AI platforms
+
+client_or_audience: Computer vision service provider
+
+problem_or_question: Enterprise annotation needs isolation, backup and scalable model-assisted workflows.
+
+solution_or_function: Customized labeling platform with ML backend, isolated environments and GCS-backed recovery.
+
+reported_outcome: Source reports 15+ isolated deployments, 75% less annotation time and 90%+ labeling accuracy; also claims 99.9% data-protection reliability.
+
+evidence_pages: 1–4
+
+missing_information: No annotation sample/baseline; 99.9% reliability is undefined and omitted from client-facing claims pending evidence.
+
+flagship: No
+
+## case-study:improving-recognition-accuracy
+
+source_id: case-study:improving-recognition-accuracy
+
+kind: case-study
+
+title: Boosting Recognition Accuracy with AI-Powered Data Refinement
+
+original_url: https://humblebee.ai/case-studies/improving-recognition-accuracy
+
+pdf_path: case-studies/improving-recognition-accuracy.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 1b0ec711a53f0ab40b9339d1042fa24f21df7b122d6807cd3de555ff2f718f11
+
+pdf_pages: 3
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Computer vision
+
+client_or_audience: Workplace attendance/security organization (unnamed)
+
+problem_or_question: Unusable face images and identity fragmentation undermine attendance records.
+
+solution_or_function: Image filtering, track-level identity aggregation, virtual entry line and automatic face alignment.
+
+reported_outcome: Source reports cleaner data and reduced misrecognition. Approximately 5,000 unusable images daily describes the earlier problem, not a measured post-deployment reduction.
+
+evidence_pages: 1–3
+
+missing_information: No before/after recognition metric; no source-established relationship to a named product in this PDF.
+
+flagship: No
+
+## case-study:optimizing-recognition-processing
+
+source_id: case-study:optimizing-recognition-processing
+
+kind: case-study
+
+title: ROI Processing with Track-Timing Cuts LumioHub AI Costs
+
+original_url: https://humblebee.ai/case-studies/optimizing-recognition-processing
+
+pdf_path: case-studies/optimizing-recognition-processing.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 1be843a80e3ad0e2699302f01bcfb95c3c94b863dd03527561b54f145c3e4d75
+
+pdf_pages: 3
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: AI platforms
+
+client_or_audience: LumioHub AI platform provider
+
+problem_or_question: Whole-frame processing and long-lived tracks overload compute and memory.
+
+solution_or_function: Region-of-interest processing and a 30-second track-duration management mechanism.
+
+reported_outcome: Source reports lower computation, stable memory and faster response without quantified savings.
+
+evidence_pages: 1–3
+
+missing_information: 30 seconds is a configuration interval, not end-to-end latency; no compute/memory benchmark.
+
+flagship: No
+
+## case-study:lumiohub-platform
+
+source_id: case-study:lumiohub-platform
+
+kind: case-study
+
+title: Securing a Scalable Platform
+
+original_url: https://humblebee.ai/case-studies/lumiohub-platform
+
+pdf_path: case-studies/lumiohub-platform.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 94881c0b95ae2f9f2fc4156790c340d24396a90997875af967665a946a993916
+
+pdf_pages: 3
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: AI platforms
+
+client_or_audience: Enterprise LumioHub AI client (unnamed)
+
+problem_or_question: A workplace platform needs secure tenancy, permissions and scalable inference.
+
+solution_or_function: Multi-tenant architecture with hybrid RBAC/ABAC and dynamic AI recognition clusters.
+
+reported_outcome: Source reports secure isolation and scalable operation without a measured throughput or security benchmark.
+
+evidence_pages: 1–3
+
+missing_information: No audit report, scale test or quantified operational outcome.
+
+flagship: No
+
+## case-study:amplifyr
+
+source_id: case-study:amplifyr
+
+kind: case-study
+
+title: Driving Brand Visibility on Generative AI
+
+original_url: https://humblebee.ai/case-studies/amplifyr
+
+pdf_path: case-studies/amplifyr.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 7f2929bfc386bed4c265930ac71825fa67d9d8cfee8f8d2648e2329c8961ab2b
+
+pdf_pages: 3
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Analytics
+
+client_or_audience: Enterprise marketing, SEO and product teams (client unnamed)
+
+problem_or_question: Brand visibility across generative engines is hard to measure consistently.
+
+solution_or_function: Amazon QuickSight Generative Engine Visibility Dashboard centralizes automated analytics.
+
+reported_outcome: Source reports automated visibility reporting and clearer analysis; cover labels automation 100% without a defined denominator.
+
+evidence_pages: 1–3
+
+missing_information: No quantified brand lift or validation of the 100% automation label.
+
+flagship: No
+
+## case-study:ai-powered-retail-cart
+
+source_id: case-study:ai-powered-retail-cart
+
+kind: case-study
+
+title: How Retail AI solutions provider boosted accuracy by 20% with R&D
+
+original_url: https://humblebee.ai/case-studies/ai-powered-retail-cart
+
+pdf_path: case-studies/ai-powered-retail-cart.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 928140db93da79dcbcb0ed7cca1f42caf7875e7c005c6b0ff9ae83bc554aff3b
+
+pdf_pages: 3
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Computer vision
+
+client_or_audience: European checkout/loss-prevention technology company (unnamed)
+
+problem_or_question: Cart and generic item detection have low accuracy.
+
+solution_or_function: Focused computer vision R&D improves detection for varied checkout objects with edge deployment.
+
+reported_outcome: Reported mAP@50–95 improves from approximately 55% to approximately 75%: about 20 percentage points.
+
+evidence_pages: 1–3
+
+missing_information: No test-set size, split, hardware or measured FPS; do not call this a 20% relative improvement.
+
+flagship: Yes
+
+## case-study:ai-customs-intelligence
+
+source_id: case-study:ai-customs-intelligence
+
+kind: case-study
+
+title: AI-powered Customs Intelligence System
+
+original_url: https://humblebee.ai/case-studies/ai-customs-intelligence
+
+pdf_path: case-studies/ai-customs-intelligence.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 214bc22d7fa4273df7b35661a304f8490a36595f65bb27098d7c2628f7c0bc8e
+
+pdf_pages: 4
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Document AI and automation
+
+client_or_audience: Customs and international trade
+
+problem_or_question: HS-code definitions and historical declarations are fragmented.
+
+solution_or_function: LangChain/GPT chatbot combines official definitions, semantic search and historical trade descriptions.
+
+reported_outcome: Reported 76.5% Top-1 and 94.1% Top-3 HS-code accuracy, MRR 0.8515; source corpus contains 65.5 million descriptions.
+
+evidence_pages: 1–4
+
+missing_information: Evaluation set size, split and independent validation not provided; corpus size is not the number of evaluation queries.
+
+flagship: No
+
+## case-study:data-cleaning-hs-codes
+
+source_id: case-study:data-cleaning-hs-codes
+
+kind: case-study
+
+title: Data Cleaning & Ingestion for HS Code Systems
+
+original_url: https://humblebee.ai/case-studies/data-cleaning-hs-codes
+
+pdf_path: case-studies/data-cleaning-hs-codes.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 70101be4cc2ba7050426555e853d82efd7b8ba46778ebf53985b7d8eab26befe
+
+pdf_pages: 4
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Document AI and automation
+
+client_or_audience: Customs and international trade
+
+problem_or_question: Scattered HS-code PDFs and duplicated trade descriptions impede retrieval.
+
+solution_or_function: Normalize official structures into Excel/MongoDB and deduplicate descriptions for Pinecone semantic search.
+
+reported_outcome: About 65.5 million descriptions reduced to about 2 million unique records, reported as 97% reduction, while retaining frequency information.
+
+evidence_pages: 1–3
+
+missing_information: No benchmark query latency or retrieval-quality measurement; counts are rounded.
+
+flagship: No
+
+## case-study:excel-automated-testing
+
+source_id: case-study:excel-automated-testing
+
+kind: case-study
+
+title: Excel-based Automated Testing: Reducing Manual Validation Time
+
+original_url: https://humblebee.ai/case-studies/excel-automated-testing
+
+pdf_path: case-studies/excel-automated-testing.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 566a142adf9a385432bd8558bb92027747026f4b8dee5a558a13ea87381dce85
+
+pdf_pages: 4
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Document AI and automation
+
+client_or_audience: Customs classification QA teams
+
+problem_or_question: Manual validation cannot cover large sets of product descriptions efficiently.
+
+solution_or_function: Excel-based FastAPI testing framework compares predicted and expected HS codes.
+
+reported_outcome: First run processed 11,000 descriptions in approximately 4 hours against an estimated manual effort of more than a month.
+
+evidence_pages: 1–4
+
+missing_information: Manual baseline is estimated; headline 180x depends on unspecified working-hour assumptions and is omitted from the draft.
+
+flagship: No
+
+## case-study:llm-results-analyzer
+
+source_id: case-study:llm-results-analyzer
+
+kind: case-study
+
+title: LLM Results Analyzer: Unified Analysis Framework
+
+original_url: https://humblebee.ai/case-studies/llm-results-analyzer
+
+pdf_path: case-studies/llm-results-analyzer.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: a58a7f80edc7cab4a7d99c372a1917ebd4629ccb881bc5c3e7931c7d7e10d6b7
+
+pdf_pages: 4
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Document AI and automation
+
+client_or_audience: Customs classification users
+
+problem_or_question: Separate theoretical and historical classification systems leave users to reconcile answers.
+
+solution_or_function: Parallel calls to Custom Clarification and Custom Optimization feed an analyzer LLM, preserving original outputs.
+
+reported_outcome: Source reports unified, explained recommendations and less manual comparison; no quantified quality improvement.
+
+evidence_pages: 1–4
+
+missing_information: No controlled accuracy delta, latency benchmark or sample size.
+
+flagship: No
+
+## case-study:iv-drip-flow-rate-estimator
+
+source_id: case-study:iv-drip-flow-rate-estimator
+
+kind: case-study
+
+title: IV Drip Flow Rate Estimator
+
+original_url: https://humblebee.ai/case-studies/iv-drip-flow-rate-estimator
+
+pdf_path: case-studies/iv-drip-flow-rate-estimator.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 8e74502d998a4b89fc08f5fb59599e890e994bdee3ead719a21e939980f2ab96
+
+pdf_pages: 3
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Computer vision
+
+client_or_audience: Medical technology provider (unnamed); nursing teams
+
+problem_or_question: Manual IV-drop counting takes attention and can vary by observer.
+
+solution_or_function: Offline iOS/Android camera-based flow-rate estimation.
+
+reported_outcome: Reported over 95% accuracy and results within 15 seconds versus up to three minutes manually; source describes over 10x faster.
+
+evidence_pages: 1–3
+
+missing_information: Accuracy tolerance, reference instrument, lighting/device test matrix and clinical validation not supplied; patient benefit is not a measured clinical endpoint.
+
+flagship: No
+
+## company-update:innerworks-partnership
+
+source_id: company-update:innerworks-partnership
+
+kind: company-update
+
+title: From Collaboration to Innovation: Inside the Innerworks and HumblebeeAI Partnership
+
+original_url: https://humblebee.ai/case-studies/innerworks-partnership
+
+pdf_path: company-updates/innerworks-partnership.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 6facea321ab68444966157d1f00d8782fcf017767231b5df16581e54613d2918
+
+pdf_pages: 3
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Company context
+
+reported_outcome: Describes an R&D/product partnership with Innerworks beginning January 2024, covering device intelligence, VPN/bot detection and adversarial defense. Source reports Innerworks raised a $4M seed round led by AlbionVC in August 2025.
+
+evidence_pages: 1–3
+
+missing_information: Funding belongs to Innerworks, not HumbleBeeAI; avoid claiming the partnership alone caused the investment. No link from research papers to these modules is established.
+
+## case-study:field-center-detection
+
+source_id: case-study:field-center-detection
+
+kind: case-study
+
+title: Field Center Detection for Augmented Reality in Sports
+
+original_url: https://humblebee.ai/case-studies/field-center-detection
+
+pdf_path: case-studies/field-center-detection.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 0372daaf77dab59b274cd2c58c977833d1f6be5802c554e17f2a6dd7b14d9207
+
+pdf_pages: 3
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Computer vision
+
+client_or_audience: Augmented reality company (unnamed)
+
+problem_or_question: Manual field alignment limits sports AR experiences.
+
+solution_or_function: Offline mobile lightweight segmentation and keypoint estimation locate field center and alignment points.
+
+reported_outcome: Source reports real-time localization on iOS/Android; no numerical accuracy, latency or cost-saving measurement.
+
+evidence_pages: 1–3
+
+missing_information: No benchmark error, dataset or hardware.
+
+flagship: No
+
+## case-study:beef-carcass-detection
+
+source_id: case-study:beef-carcass-detection
+
+kind: case-study
+
+title: Predicting Carcass Quality Before Slaughter with On-Device Computer Vision
+
+original_url: https://humblebee.ai/case-studies/beef-carcass-detection
+
+pdf_path: case-studies/beef-carcass-detection.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 75d282b2a07ad1a3e617feb5d5154e8a9c42f22c96a47aad12002fc8c37435d1
+
+pdf_pages: 3
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Computer vision
+
+client_or_audience: Cattle producers and feedlot managers
+
+problem_or_question: Post-slaughter grading arrives too late for timing and lot decisions.
+
+solution_or_function: Unified mobile detector/classifier predicts premium, medium and poor quality bands from live cattle images.
+
+reported_outcome: Source reports 95% “precision accuracy” and offline inference on mobile devices.
+
+evidence_pages: 1–3
+
+missing_information: Precision versus accuracy is ambiguous; class metrics, ground-truth follow-up, sample size and external validation absent.
+
+flagship: No
+
+## case-study:livescore-ai
+
+source_id: case-study:livescore-ai
+
+kind: case-study
+
+title: LiveScore AI Revolutionizes Real-Time Basketball Scoring
+
+original_url: https://humblebee.ai/case-studies/livescore-ai
+
+pdf_path: case-studies/livescore-ai.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: e511e96d37984b19f3ec9dde2f6c67c5d1f49ca1e4dda0b1b8bc021f3fd4abc4
+
+pdf_pages: 4
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Computer vision
+
+client_or_audience: Basketball event organizers and venues
+
+problem_or_question: Manual scoring delays feedback and complicates live event operation.
+
+solution_or_function: On-premise video inference, player/trick recognition, animated scores, persistent leaderboards and admin controls.
+
+reported_outcome: Source reports faster scoring and more consistent administration without quantified accuracy, latency or engagement lift.
+
+evidence_pages: 1–4
+
+missing_information: No measured benchmark or event sample; architecture and integration claims need publication approval.
+
+flagship: No
+
+## case-study:breast-cancer
+
+source_id: case-study:breast-cancer
+
+kind: case-study
+
+title: Breast Cancer Biomarker Classification Revolutionizes Pathology Workflows
+
+original_url: https://humblebee.ai/case-studies/breast-cancer
+
+pdf_path: case-studies/breast-cancer.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 00ba0ce34e804f5b92afad9be722f4385c3d9b4d7a6e9127be0092f3df86611c
+
+pdf_pages: 3
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Computer vision
+
+client_or_audience: Pathology laboratories
+
+problem_or_question: Biomarker testing involves costly, labor-intensive IHC workflows.
+
+solution_or_function: H&E-image models trained on IHC4BC predict ER, PR, Ki-67 and HER2 in a web triage tool.
+
+reported_outcome: Source describes a tool ready for clinical validation; no numerical diagnostic-performance result is supplied.
+
+evidence_pages: 1–3
+
+missing_information: Clinical validation pending; do not imply diagnostic approval or replacement of confirmatory testing. Cost-saving claims lack a measured study.
+
+flagship: No
+
+## project:hstaff
+
+source_id: project:hstaff
+
+kind: project
+
+title: HStaff
+
+original_url: https://humblebee.ai/projects/hstaff
+
+pdf_path: projects/hstaff.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: c1ddf6356ce349bcb01cff81965a6910c212723a085d8be7d2e58fbc5aefa428
+
+pdf_pages: 7
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Products
+
+client_or_audience: Distributed-team leaders
+
+solution_or_function: Combines Hubstaff activity, Discord progress reports and team analytics.
+
+published_status: prod ready
+
+demo_url: 
+
+evidence_pages: 1–7
+
+missing_information: No demo link printed in PDF.
+
+## project:lumiohub
+
+source_id: project:lumiohub
+
+kind: project
+
+title: LumioHub AI
+
+original_url: https://humblebee.ai/projects/lumiohub
+
+pdf_path: projects/lumiohub.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: d1be62344656eb90093956677b7c97cf9ba4a3ee06018ada0a5446fea6d865a4
+
+pdf_pages: 4
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Products
+
+client_or_audience: Multi-site organizations, HR and service providers
+
+solution_or_function: Workplace attendance, access visibility, presence analytics and reporting.
+
+published_status: prod ready
+
+demo_url: https://lumiohub.ai/
+
+evidence_pages: 1–4
+
+missing_information: Confirm approved monitoring scope and demo availability.
+
+## project:ai-avatar
+
+source_id: project:ai-avatar
+
+kind: project
+
+title: AI Avatar-Photorealistic Real-Time Conversational Avatar
+
+original_url: https://humblebee.ai/projects/ai-avatar
+
+pdf_path: projects/ai-avatar.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 0bcad7113f5ea894558c69365d312a929eeef1a79820f7baf9a815a0495235c7
+
+pdf_pages: 5
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Products
+
+client_or_audience: Customer service, education and communication teams
+
+solution_or_function: Real-time voice/text conversational avatars.
+
+published_status: prod demo
+
+demo_url: https://avatar.humblebee.ai/
+
+evidence_pages: 1–5
+
+missing_information: Header describes language learning more narrowly than body. Performance conditions are incomplete.
+
+## project:kumush-ai
+
+source_id: project:kumush-ai
+
+kind: project
+
+title: Kumush AI
+
+original_url: https://humblebee.ai/projects/kumush-ai
+
+pdf_path: projects/kumush-ai.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: e01957f2fce8eaddcc131756adb47d8fe4b8a54096ab0fb5158b4a90022217ed
+
+pdf_pages: 5
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Products
+
+client_or_audience: Organizations serving Uzbek-speaking customers
+
+solution_or_function: Voice agent for calls, reservations and business workflows.
+
+published_status: prod demo
+
+demo_url: https://kumush.ai/
+
+evidence_pages: 1–5
+
+missing_information: Body calls it production-ready with early customers; retain cover status until owner confirms.
+
+## project:wakil-ai
+
+source_id: project:wakil-ai
+
+kind: project
+
+title: Wakil AI
+
+original_url: https://humblebee.ai/projects/wakil-ai
+
+pdf_path: projects/wakil-ai.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 3b29eef197c1d14ffe0611124cbf7aa9f4bc0bbde2b5007396bac25cf29be3f7
+
+pdf_pages: 6
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Products
+
+client_or_audience: Individuals, businesses and legal professionals in Uzbekistan
+
+solution_or_function: Evidence-based multilingual legal assistant and lawyer marketplace.
+
+published_status: prod ready
+
+demo_url: https://wakil.ai/
+
+evidence_pages: 1–6
+
+missing_information: Wakil AI Associate is upcoming, not a released feature.
+
+## project:bojhona
+
+source_id: project:bojhona
+
+kind: project
+
+title: Bojhona: AI-Powered Customs Intelligence: HS Code Definitions
+
+original_url: https://humblebee.ai/projects/bojhona
+
+pdf_path: projects/bojhona.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 8286a36b0e9ec48eb6fcc41c856f1cc60c3b8f3c485259c3c94966d1b08d5276
+
+pdf_pages: 3
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Products
+
+client_or_audience: Customs officers, managers and trade businesses
+
+solution_or_function: Unifies HS definitions with historical product descriptions for classification.
+
+published_status: in dev
+
+demo_url: 
+
+evidence_pages: 1–3
+
+missing_information: No demo URL printed. Similar content to customs cases; shared concepts do not establish every case-to-product implementation link.
+
+## project:enlighten-qalb
+
+source_id: project:enlighten-qalb
+
+kind: project
+
+title: Enlighten Qalb: AI Spiritual Guide
+
+original_url: https://humblebee.ai/projects/enlighten-qalb
+
+pdf_path: projects/enlighten-qalb.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: a82e2b84a6bc7d71de2a2fd8ad34eb91f1c939b198657225fc56ea41e2774fe5
+
+pdf_pages: 8
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Products
+
+client_or_audience: People seeking faith-aligned spiritual reflection
+
+solution_or_function: Memory-enabled AI companion grounded in curated spiritual sources.
+
+published_status: prod ready
+
+demo_url: 
+
+evidence_pages: 1–8
+
+missing_information: No demo URL printed; avoid therapeutic-outcome claims.
+
+## project:bride
+
+source_id: project:bride
+
+kind: project
+
+title: bRide: Empowering Human Potential through AI Execution
+
+original_url: https://humblebee.ai/projects/bride
+
+pdf_path: projects/bride.pdf
+
+pdf_download_url: 
+
+pdf_version: website snapshot
+
+sha256: 6d50cf07c932523e311f62755313c0f9ed3118eb34483df0b03c96315a37a2b5
+
+pdf_pages: 4
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Products
+
+client_or_audience: Knowledge workers and organizations
+
+solution_or_function: Human-guided AI execution and longitudinal professional growth support.
+
+published_status: in dev
+
+demo_url: 
+
+evidence_pages: 1–4
+
+missing_information: No demo URL printed; capabilities are development-stage descriptions.
+
+## paper:2409.04187
+
+source_id: paper:2409.04187
+
+kind: paper
+
+title: LITE: A Paradigm Shift in Multi-Object Tracking with Efficient ReID Feature Integration
+
+original_url: https://arxiv.org/abs/2409.04187
+
+pdf_path: papers/2409.04187-lite-the-lightweight-integrated-tracking-feature-extraction-paradi.pdf
+
+pdf_download_url: https://arxiv.org/pdf/2409.04187
+
+pdf_version: arXiv preprint
+
+sha256: a693e175431d32d9cddc0d5fbeaf552019c5dbbfa2f2fc655142759d863535b3
+
+pdf_pages: 15
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Research
+
+authors: Jumabek Alikhanov, Dilshod Obidov, Hakil Kim
+
+published_status: arXiv preprint v2, 1 October 2024
+
+problem_or_question: Can ReID features be integrated into detection/tracking without separate model overhead?
+
+reported_outcome: DeepSORT+LITE reports HOTA 43.03 at 28.3 FPS on MOT17, about twice DeepSORT speed on MOT17 and four times on MOT20 with similar accuracy.
+
+test_conditions: MOT17/MOT20 comparisons; framework, detector and configuration determine results.
+
+evidence_pages: 1
+
+missing_information: Listing title differs from downloaded v2. HUMBLEBEE R&D support is explicit. No product/case implementation link established.
+
+established_product_relationship: None established in supplied evidence
+
+## paper:10883969
+
+source_id: paper:10883969
+
+kind: paper
+
+title: Practical Evaluation Framework for Real-Time Multi-Object Tracking: Achieving Optimal and Realistic Performance
+
+original_url: https://ieeexplore.ieee.org/abstract/document/10883969
+
+pdf_path: papers/10883969-prime-practical-evaluation-framework-for-real-time-multi-object-tr.pdf
+
+pdf_download_url: https://raw.githubusercontent.com/Jumabek/LITE/main/docs/Practical_Evaluation_Framework_for_Real-Time_Multi-Object_Tracking_Achieving_Optimal_and_Realistic_Performance.pdf
+
+pdf_version: publisher PDF hosted by an author
+
+sha256: 26c2d9e8ba8872119765531ecbaa939076b8662e3e2f8bc2396f03d338697692
+
+pdf_pages: 21
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Research
+
+authors: Jumabek Alikhanov, Dilshod Obidov, Mirsaid Abdurasulov, Hakil Kim
+
+published_status: Published, IEEE Access, volume 13, 2025; DOI 10.1109/ACCESS.2025.3541177
+
+problem_or_question: How should tracking be evaluated under practical detector, ReID and runtime constraints?
+
+reported_outcome: Framework reports that resolution/threshold choices can yield HOTA up to 30 versus 10 without optimization; LITE reduces appearance-feature overhead.
+
+test_conditions: Configuration-dependent experimental finding, not a universal 20-point improvement.
+
+evidence_pages: 1
+
+missing_information: Manifest says IEEE 2024, but PDF states publication 13 February 2025. PDF explicitly discusses LITE; no named product deployment established.
+
+established_product_relationship: None established in supplied evidence
+
+## paper:10316180
+
+source_id: paper:10316180
+
+kind: paper
+
+title: Design of Contextual Filtered Features for Better Smartphone-User Receptivity Prediction
+
+original_url: https://ieeexplore.ieee.org/abstract/document/10316180
+
+pdf_path: papers/10316180-design-of-contextual-filtered-features-for-better-smartphone-user-.pdf
+
+pdf_download_url: https://imc.hanyang.ac.kr/publications/displayFile?idx=292
+
+pdf_version: publisher PDF hosted by an author’s university lab
+
+sha256: 189b9377ab023fb07d933f702fee84b85b97f9cf391195a5cf4220081d5ffa20
+
+pdf_pages: 16
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Research
+
+authors: Jumabek Alikhanov, Panyu Zhang, Youngtae Noh; Hakil Kim
+
+published_status: Published, IEEE Internet of Things Journal 11(7), 1 April 2024; listing says 2023
+
+problem_or_question: Do contextually filtered phone/watch features better predict receptivity to just-in-time interventions?
+
+reported_outcome: Average ROC-AUC 56.5% versus 54.7% for conventional features on KEmoPhone: 3,334 responses from 73 participants over one week.
+
+test_conditions: Across multiple classifiers; baseline conventional time-series statistics uses an 80-minute window.
+
+evidence_pages: 1
+
+missing_information: Distinguish listing year from issue date; this predicts receptivity, not health-intervention efficacy. No product/case link established.
+
+established_product_relationship: None established in supplied evidence
+
+## paper:515
+
+source_id: paper:515
+
+kind: paper
+
+title: Performance Evaluation of Deep Learning Based Network Intrusion Detection System across Multiple Balanced and Imbalanced Datasets
+
+original_url: https://www.mdpi.com/2079-9292/11/4/515
+
+pdf_path: papers/515-performance-evaluation-of-deep-learning-based-network-intrusion-de.pdf
+
+pdf_download_url: https://www.mdpi.com/2079-9292/11/4/515/pdf
+
+pdf_version: publisher PDF
+
+sha256: 4cd8b9c7e99185f171d8fe667ae0bf59eb11b3bf07beaaaafb51205b7aa13336
+
+pdf_pages: 13
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Research
+
+authors: Azizjon Meliboev; Jumabek Alikhanov; Wooseong Kim
+
+published_status: Published, Electronics 11(4), 515, 9 February 2022; DOI 10.3390/electronics11040515
+
+problem_or_question: How do CNN, recurrent and hybrid intrusion detectors compare across balanced/imbalanced benchmark data?
+
+reported_outcome: Single CNN and CNN/LSTM combinations outperform other evaluated architectures in the reported experiments.
+
+test_conditions: UNSW-NB15, KDDCup 99 and NSL-KDD; up to 100 epochs, learning rate 0.0001. Results vary by dataset and balance.
+
+evidence_pages: 1
+
+missing_information: Use PDF author order, not listing name order. No product/case implementation link established.
+
+established_product_relationship: None established in supplied evidence
+
+## paper:9661375
+
+source_id: paper:9661375
+
+kind: paper
+
+title: Investigating the Effect of Traffic Sampling on Machine Learning-Based Network Intrusion Detection Approaches
+
+original_url: https://ieeexplore.ieee.org/abstract/document/9661375
+
+pdf_path: papers/9661375-investigating-the-effect-of-traffic-sampling-on-machine-learning-b.pdf
+
+pdf_download_url: https://abuhamad.cs.luc.edu/pub/Investigating_the_Effect_of_Traffic_Sampling_on_Machine_Learning-Based_Network_Intrusion_Detection_Approaches.pdf
+
+pdf_version: publisher PDF hosted by an author’s university
+
+sha256: f289f5f708eaa6d73c9d6a4fe9c6b9366d4a8392d3a75ace31247c6ba72ebaff
+
+pdf_pages: 23
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Research
+
+authors: Jumabek Alikhanov, Rhongho Jang, Mohammed Abuhamad, David Mohaisen, Daehun Nyang, Youngtae Noh
+
+published_status: Published online 23 December 2021; IEEE Access volume 10, 2022; DOI 10.1109/ACCESS.2021.3137318
+
+problem_or_question: How do packet sampling choices affect intrusion-detection rate and false alarms?
+
+reported_outcome: Short malicious flows can disappear even at sampling rates 1/10 and 1/100; random forest with SketchFlow gives a favorable detection/false-alarm combination in the evaluated settings.
+
+test_conditions: Four samplers, three classifiers and rates 1/10, 1/100 and 1/1000; do not generalize to all networks.
+
+evidence_pages: 1
+
+missing_information: Abstract has a SketFlow/SketchFlow spelling inconsistency. No evidence connecting this paper to Innerworks or another product/case.
+
+established_product_relationship: None established in supplied evidence
+
+## paper:9064976
+
+source_id: paper:9064976
+
+kind: paper
+
+title: 1D CNN based network intrusion detection with normalization on imbalanced data
+
+original_url: https://ieeexplore.ieee.org/abstract/document/9064976
+
+pdf_path: papers/9064976-1d-cnn-based-network-intrusion-detection-with-normalization-on-imb.pdf
+
+pdf_download_url: https://arxiv.org/pdf/2003.00476v1
+
+pdf_version: arXiv preprint v1
+
+sha256: de76a97bc54fa392a648a3d9d4f12fcd871c7dc5f5c0155783d01eea8af69f56
+
+pdf_pages: 7
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Research
+
+authors: Azizjon Meliboev; Jumabek Alikhanov; Wooseong Kim
+
+published_status: Downloaded evidence: arXiv:2003.00476v1, 1 March 2020; listing links an IEEE conference record
+
+problem_or_question: Can normalized 1D-CNN traffic models improve intrusion detection on imbalanced data?
+
+reported_outcome: 1D-CNN variants outperform RF/SVM comparators in the reported UNSW-NB15 experiments.
+
+test_conditions: Balanced and imbalanced training; up to 200 epochs, learning rate 0.0001; no single cross-setting accuracy claimed.
+
+evidence_pages: 1
+
+missing_information: PDF is a preprint, not the publisher PDF. Confirm conference metadata before final citation. No product/case link established.
+
+established_product_relationship: None established in supplied evidence
+
+## paper:1910.01091
+
+source_id: paper:1910.01091
+
+kind: paper
+
+title: W-Net: A CNN-based Architecture for White Blood Cells Image Classification
+
+original_url: https://arxiv.org/abs/1910.01091
+
+pdf_path: papers/1910.01091-w-net-a-cnn-based-architecture-for-white-blood-cells-image-classif.pdf
+
+pdf_download_url: https://arxiv.org/pdf/1910.01091
+
+pdf_version: arXiv preprint
+
+sha256: 901c04f29ef84268aed0372c4f48c921a6d4f6124708d7f94197e11a978a775f
+
+pdf_pages: 6
+
+review_status: PDF text reviewed; owner approval pending
+
+portfolio_feedback: Pending HumbleBeeAI review
+
+app_gap: Tracked separately in app-gaps.md
+
+capability: Research
+
+authors: Changhun Jung, Mohammed Abuhamad, Jumabek Alikhanov, Aziz Mohaisen, Kyungja Han, DaeHun Nyang
+
+published_status: Downloaded evidence: arXiv:1910.01091v1, 2 October 2019
+
+problem_or_question: Can a compact CNN classify five white-blood-cell types?
+
+reported_outcome: Reports average 97% classification accuracy on a private 6,562-image dataset; also evaluates LISC transfer learning.
+
+test_conditions: Five WBC types; private Catholic University of Korea dataset. This is not a breast-cancer biomarker result.
+
+evidence_pages: 1
+
+missing_information: AAAI copyright notice alone does not establish formal venue metadata; retain preprint status. No product/case link established.
+
+established_product_relationship: None established in supplied evidence

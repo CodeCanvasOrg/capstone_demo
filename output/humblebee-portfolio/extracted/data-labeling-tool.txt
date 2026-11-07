@@ -1,0 +1,144 @@
+ HUMBLEBEEAI / CASE STUDY
+
+
+ Enterprise Data Labeling Platform
+ Deployment & Customization
+ Open original HumbleBeeAI page
+
+ Customized labeling platform with ML backend enabled 15+ secure deployments, cut
+ annotation time by 75%, and ensured 99.9% data protection reliability.
+
+   Security                                Annotation                   Scalability
+   Safe                                    Fast                         Scale
+
+
+
+
+ Source image
+
+
+ Executive Summary
+ A Computer Vision service provider faced scalability and security challenges when deploying
+ annotation platforms for over 15 enterprise clients. By implementing customized labeling platform with
+ an ML backend, the client deployed 15+ isolated annotation environments, achieving a 75% reduction
+ in annotation time and establishing a secure, scalable architecture for further expansion.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                      1
+ Introduction
+ In the Computer Vision field, the ability to generate high-quality, large-scale annotated datasets is
+ essential for building effective AI models. A Computer Vision service provider, delivering solutions to
+ more than 15 enterprise clients, faced an operational challenge. Each client required custom
+ annotation platforms with unique specifications, complete data isolation, and strong security, creating
+ a complex situation that limited their growth and service delivery.
+
+ The Problem
+ The client's primary challenge spanned data handling, scalability, and user experience. They needed
+ to manage large annotation projects for multiple companies, each with distinct security requirements
+ and various annotation needs, including object detection, segmentation, video tracking, and keypoint
+ analysis.
+
+ Key pain points included:
+
+ Data Handling & Security: Managing numerous large-scale annotation projects with strict data
+ protection requirements was a significant challenge. Ensuring complete data isolation between clients
+ while facilitating complex model management was important, but difficult to achieve with their existing
+ infrastructure. The risk of data loss and the need for automated backups and disaster recovery were
+ major concerns.
+
+ Scalability Limitations: The infrastructure struggled to support an increasing number of client
+ deployments, each requiring an isolated environment. The system could not efficiently manage
+ concurrent model processing across various annotation types, leading to poor GPU memory utilization
+ and unreliable auto-labeling performance.
+
+ Complex User Experience: Creating secure yet user-friendly annotation interfaces for distributed
+ teams was a challenge. The lack of smooth model integration across seven different annotation types
+ created inefficient workflows for annotators, slowing down project timelines.
+
+ The provider needed a unified solution that could deliver performance, security, and scalability,
+ enabling them to meet the requirements of their growing client base.
+
+ The Solution
+ HumbleBeeAI was engaged to design and implement a data labeling platform. The solution was built
+ around a customized labeling platform, enhanced with an ML backend and integrated with Google
+ Cloud Platform for security and scalability.
+
+ The implementation was delivered in three core pillars:
+
+ Enterprise-Secured Labeling Platform: We deployed a secured version of labeling platform with
+ security controls. This included disabling all local file imports to enforce a single source of truth in
+ Google Cloud Storage (GCS), implementing an invite-only user registration system, and establishing
+ automated, configurable database backups to GCS for disaster recovery and server migration. This
+ ensured complete data isolation and met security standards.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                        2
+ Case Study Hero Image
+
+ Advanced ML Backend with Multi-Instance Support: An ML backend was integrated to support all
+ seven required annotation types. This system featured model caching, automatic model detection
+ based on the labeling configuration, and dynamic model loading from GCS. This eliminated manual
+ model management and improved annotation workflows by providing AI-assisted labeling.
+
+
+
+
+ Case Study Hero Image
+
+ Cloud-Native Multi-Company Deployment Architecture: We built a scalable deployment system
+ capable of supporting multiple isolated labeling instances for each of the client's customers. The
+ architecture managed company-specific configurations, dedicated GCS buckets with correct CORS
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                  3
+ policies, and automated port allocation, ensuring that each client operated in a segregated and secure
+ environment.
+
+ This custom-built Data Labeling Tool provided a platform that directly addressed the client's
+ requirements for security, scalability, and operational efficiency.
+
+ Results
+ The implementation of Data Labeling Tool delivered strong results, helping the client overcome their
+ operational challenges and improve their service offering. The outcomes were measured across
+ efficiency, accuracy, and overall convenience.
+
+ 75% Reduction in Annotation Time: The auto-labeling feature automated a significant portion of the
+ manual labeling process, reducing the time required to complete large-scale annotation projects.
+
+ Successful Deployment of 15+ Isolated Environments: The scalable architecture enabled the client
+ to deploy and manage over 15 fully isolated annotation environments, ensuring complete data security
+ and privacy for each of their enterprise customers.
+
+ 99.9% Data Protection Reliability: The automated backup system, with configurable frequencies and
+ GCS integration, eliminated the risk of data loss and reduced server migration times from days to
+ hours.
+
+ Elimination of Manual Model Management: The automated model caching and ML backend
+ removed the overhead associated with manual model management, freeing up engineering resources
+ to focus on innovation and client delivery.
+
+ 90%+ Labeling Accuracy: The integration of specialized model types and validation workflows
+ ensured consistent annotation quality across all projects and annotation types.
+
+ Conclusion
+ The partnership with HumbleBeeAI equipped the Computer Vision service provider with a secure and
+ scalable data annotation platform. This solution addressed their immediate operational challenges and
+ established a foundation for growth. By automating key processes and ensuring security, the client can
+ now onboard new customers, deliver projects faster, and maintain high standards of data quality.
+
+ As our partnership continues, we are exploring further enhancements, including advanced analytics
+ dashboards and deeper integration with other MLOps tools. This collaboration demonstrates
+ HumbleBeeAI's commitment to delivering practical AI solutions that provide real business outcomes.
+
+ Ready to revolutionize your data labeling workflow?
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                      4
+

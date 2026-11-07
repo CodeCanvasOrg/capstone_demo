@@ -1,0 +1,32 @@
+CONFIGURED_QUEUED 1
+CONFIGURED_GENERATING project:bride 12ea359d-d755-4799-975a-77047b318588
+[generation f82ecd54-4473-465d-8877-5f6081adbbd5] retrieval finished in 1669ms with 19 chunks
+[generation f82ecd54-4473-465d-8877-5f6081adbbd5] generation started (outline)
+CONFIGURED_RETRY project:bride Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type":
+CONFIGURED_GENERATING project:bride 95e09af0-4943-45b1-92dd-a77acd80011b
+[generation f82ecd54-4473-465d-8877-5f6081adbbd5] retrieval finished in 1044ms with 19 chunks
+[generation f82ecd54-4473-465d-8877-5f6081adbbd5] generation started (outline)
+CONFIGURED_RETRY project:bride Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type":
+CONFIGURED_GENERATING project:bride 567d0cae-f85e-4b7b-b746-5197e9ecbac6
+[generation f82ecd54-4473-465d-8877-5f6081adbbd5] retrieval finished in 990ms with 19 chunks
+[generation f82ecd54-4473-465d-8877-5f6081adbbd5] generation started (outline)
+CONFIGURED_RETRY project:bride Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type":
+CONFIGURED_BATCH_FINISHED

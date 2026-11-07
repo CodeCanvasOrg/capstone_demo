@@ -1,0 +1,1034 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Kumush AI: Native Uzbek Voice Automation at Scale",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Kumush AI is a centralized voice automation platform designed to help organizations serve Uzbek-speaking customers through natural conversations and task-oriented support.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/c8f65be7-5ace-4d44-87c0-858f8096df0d/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Global voice automation platforms often struggle in linguistically complex markets, where effective interaction requires more than basic speech recognition. For Uzbek-speaking audiences, successful automation depends on deep language understanding, accurate handling of regional dialects, culturally appropriate phrasing, and workflows aligned with local business processes.\n\nKumush AI was created to address these challenges by moving beyond translated scripts and conversational demos. It is engineered to speak and reason in native-level Uzbek, manage multi-turn conversations, and execute outcome-driven tasks through direct integration with business systems. The platform supports real-time intent understanding, data retrieval and validation, and task completion across diverse operational scenarios.\n\nDesigned for organizations that require reliable, scalable voice automation, Kumush AI delivers consistent, native-language support across industries including education, healthcare, banking, hospitality, and retail.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 1,
+            "sourceChunkId": "c8f65be7-5ace-4d44-87c0-858f8096df0d"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/c2215075-b2dd-4247-a945-ad9325376c08/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Kumush AI is designed as a centralized, configurable voice service that supports many clients from a single deployment while preserving client-specific behaviors and data separation. The homepage will present capabilities at a high level.\n\nCore capabilities:\n\nNative Uzbek conversational fluency: Handles standard Uzbek, major regional dialects, code-switching, and colloquial speech so conversations feel natural and culturally appropriate.\n\nPersonality & brand alignment: Each client gets a distinct voice persona and instruction set so the agent represents the brand consistently (tone, formality, phrasing).",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "c2215075-b2dd-4247-a945-ad9325376c08"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Kumush AI addresses the gap between generic voice automation and the needs of Uzbek-speaking audiences. The project describes a voice-enabled natural-language platform for organizations that need customer conversations to reflect local language, dialects, phrasing and business workflows. The source describes deployments with early customers and reports results from live deployments; its status label is “prod demo,” so the precise deployment scope is not fully clarified.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/c8f65be7-5ace-4d44-87c0-858f8096df0d/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Global voice automation platforms often struggle in linguistically complex markets, where effective interaction requires more than basic speech recognition. For Uzbek-speaking audiences, successful automation depends on deep language understanding, accurate handling of regional dialects, culturally appropriate phrasing, and workflows aligned with local business processes.\n\nKumush AI was created to address these challenges by moving beyond translated scripts and conversational demos. It is engineered to speak and reason in native-level Uzbek, manage multi-turn conversations, and execute outcome-driven tasks through direct integration with business systems. The platform supports real-time intent understanding, data retrieval and validation, and task completion across diverse operational scenarios.\n\nDesigned for organizations that require reliable, scalable voice automation, Kumush AI delivers consistent, native-language support across industries including education, healthcare, banking, hospitality, and retail.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 1,
+            "sourceChunkId": "c8f65be7-5ace-4d44-87c0-858f8096df0d"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/be2f4dab-b536-40d9-b058-928b5f150d1b/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Kumush AI is a production-ready, multi-tenant voice agent designed for Uzbek-speaking customers. It conducts natural, contextual conversations in native-level Uzbek (including regional dialects and colloquialisms) and autonomously completes real tasks: answering inbound calls, guiding multi-step application flows, booking reservations, and triggering business workflows. Deployed with early customers, Kumush AI provides 24/7 intelligent support that increases satisfaction, captures more leads, and substantially reduces operating costs — all while preserving a human conversational experience.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 1,
+            "sourceChunkId": "be2f4dab-b536-40d9-b058-928b5f150d1b"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/6349bf02-1fcb-4d61-b838-34c64f2a8873/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Status | Scope\nprod demo | Big",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1,
+            "sourceChunkId": "6349bf02-1fcb-4d61-b838-34c64f2a8873"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/f8a39c71-bc3c-4c50-a15d-bd85c918e33a/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Kumush AI’s live deployments demonstrate strong operational and commercial impact:\n\nComplete coverage: Achieved 100% inbound call coverage in a production deployment, eliminating missed inquiries and capturing all potential leads.\n\nHigh autonomous resolution: Approximately 85% of calls were fully resolved by the agent without human handoff, reducing load on live staff.\n\nFaster response times: Average response time for callers dropped from hours (with legacy methods) to seconds — improving the customer experience and increasing conversion rates.\n\nHigher satisfaction: Customer/student satisfaction scores increased by roughly 40% following deployment.\n\nSubstantial cost reduction: Support operating costs were reduced by about 90%, driven by automation of routine interactions and reduced staffing needs.\n\nScalability & consistency: The system supports concurrent sessions at scale while delivering consistent, brand-aligned interactions across clients.\n\nBusiness benefits (what stakeholders care about): higher lead capture and conversion, faster onboarding and resolution for customers, lower operating costs for support and contact centers, consistent brand experiences in native language, and the ability to scale support coverage 24/7 without proportional increases in headcount.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 17,
+            "pageNumber": 5,
+            "sourceChunkId": "f8a39c71-bc3c-4c50-a15d-bd85c918e33a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The platform is intended for organizations serving Uzbek speakers, with the source naming education, healthcare, banking, hospitality and retail among the relevant sectors. A public demo is linked from the project source.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/c8f65be7-5ace-4d44-87c0-858f8096df0d/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Global voice automation platforms often struggle in linguistically complex markets, where effective interaction requires more than basic speech recognition. For Uzbek-speaking audiences, successful automation depends on deep language understanding, accurate handling of regional dialects, culturally appropriate phrasing, and workflows aligned with local business processes.\n\nKumush AI was created to address these challenges by moving beyond translated scripts and conversational demos. It is engineered to speak and reason in native-level Uzbek, manage multi-turn conversations, and execute outcome-driven tasks through direct integration with business systems. The platform supports real-time intent understanding, data retrieval and validation, and task completion across diverse operational scenarios.\n\nDesigned for organizations that require reliable, scalable voice automation, Kumush AI delivers consistent, native-language support across industries including education, healthcare, banking, hospitality, and retail.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 1,
+            "sourceChunkId": "c8f65be7-5ace-4d44-87c0-858f8096df0d"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/d99bdb6d-d737-40c2-8042-cabea29e3ed1/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Kumush AI demonstrates that localized, language-first voice automation can deliver outcomes that generic voice agents cannot: better customer experiences, higher autonomous resolution rates, lower costs, and reliable 24/7 coverage for Uzbek-speaking markets. Its centralized, multi-tenant delivery model enables rapid onboarding of new clients while preserving each customer’s unique voice and business logic. For organizations serving Uzbek speakers in education, hospitality, healthcare, financial services, telecom, and retail, Kumush provides a scalable path to native-language voice automation that both protects brand voice and drives measurable business results.\n\nYou can learn more about Kumush AI and also try its Demo here: https://kumush.ai/",
+            "mediaType": "application/pdf",
+            "chunkIndex": 18,
+            "pageNumber": 5,
+            "sourceChunkId": "d99bdb6d-d737-40c2-8042-cabea29e3ed1"
+          }
+        },
+        {
+          "text": " Try the demo at ",
+          "type": "text"
+        },
+        {
+          "text": "kumush.ai",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://kumush.ai/",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "text": ".",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/d99bdb6d-d737-40c2-8042-cabea29e3ed1/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Kumush AI demonstrates that localized, language-first voice automation can deliver outcomes that generic voice agents cannot: better customer experiences, higher autonomous resolution rates, lower costs, and reliable 24/7 coverage for Uzbek-speaking markets. Its centralized, multi-tenant delivery model enables rapid onboarding of new clients while preserving each customer’s unique voice and business logic. For organizations serving Uzbek speakers in education, hospitality, healthcare, financial services, telecom, and retail, Kumush provides a scalable path to native-language voice automation that both protects brand voice and drives measurable business results.\n\nYou can learn more about Kumush AI and also try its Demo here: https://kumush.ai/",
+            "mediaType": "application/pdf",
+            "chunkIndex": 18,
+            "pageNumber": 5,
+            "sourceChunkId": "d99bdb6d-d737-40c2-8042-cabea29e3ed1"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "For businesses serving Uzbek-speaking customers, effective voice automation requires more than basic speech recognition or translated scripts. The source identifies regional dialects, colloquial language, culturally appropriate phrasing and locally aligned workflows as core challenges; without these, automated interactions may not understand callers or complete the task they contacted the business to perform.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/c8f65be7-5ace-4d44-87c0-858f8096df0d/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Global voice automation platforms often struggle in linguistically complex markets, where effective interaction requires more than basic speech recognition. For Uzbek-speaking audiences, successful automation depends on deep language understanding, accurate handling of regional dialects, culturally appropriate phrasing, and workflows aligned with local business processes.\n\nKumush AI was created to address these challenges by moving beyond translated scripts and conversational demos. It is engineered to speak and reason in native-level Uzbek, manage multi-turn conversations, and execute outcome-driven tasks through direct integration with business systems. The platform supports real-time intent understanding, data retrieval and validation, and task completion across diverse operational scenarios.\n\nDesigned for organizations that require reliable, scalable voice automation, Kumush AI delivers consistent, native-language support across industries including education, healthcare, banking, hospitality, and retail.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 1,
+            "sourceChunkId": "c8f65be7-5ace-4d44-87c0-858f8096df0d"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The project is presented as moving beyond conversational demos toward multi-turn dialogue and outcome-driven actions, including calls, application flows, reservations and business workflows. The source does not provide a detailed account of a specific customer's previous process or quantify the operational burden before deployment.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/c8f65be7-5ace-4d44-87c0-858f8096df0d/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Global voice automation platforms often struggle in linguistically complex markets, where effective interaction requires more than basic speech recognition. For Uzbek-speaking audiences, successful automation depends on deep language understanding, accurate handling of regional dialects, culturally appropriate phrasing, and workflows aligned with local business processes.\n\nKumush AI was created to address these challenges by moving beyond translated scripts and conversational demos. It is engineered to speak and reason in native-level Uzbek, manage multi-turn conversations, and execute outcome-driven tasks through direct integration with business systems. The platform supports real-time intent understanding, data retrieval and validation, and task completion across diverse operational scenarios.\n\nDesigned for organizations that require reliable, scalable voice automation, Kumush AI delivers consistent, native-language support across industries including education, healthcare, banking, hospitality, and retail.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 1,
+            "sourceChunkId": "c8f65be7-5ace-4d44-87c0-858f8096df0d"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/be2f4dab-b536-40d9-b058-928b5f150d1b/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Kumush AI is a production-ready, multi-tenant voice agent designed for Uzbek-speaking customers. It conducts natural, contextual conversations in native-level Uzbek (including regional dialects and colloquialisms) and autonomously completes real tasks: answering inbound calls, guiding multi-step application flows, booking reservations, and triggering business workflows. Deployed with early customers, Kumush AI provides 24/7 intelligent support that increases satisfaction, captures more leads, and substantially reduces operating costs — all while preserving a human conversational experience.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 1,
+            "sourceChunkId": "be2f4dab-b536-40d9-b058-928b5f150d1b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Kumush AI is described as a centrally managed, multi-client voice service. Client-specific agents can be configured without separate installations or duplicated platform code. The capabilities below reflect the project source's described scope; it does not specify which features are enabled in every customer deployment.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/1b697f09-3b38-40c5-a8ab-335bfca13c5b/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Kumush AI Workflow Image\n\nPrivacy & compliance controls: Configurable data-retention, access control, and PII handling policies to meet client-specific regulatory needs.\n\nHow the multi-client model is presented (user-facing language): Kumush operates as a single, centrally managed service that dynamically adapts its behavior per client. Each client receives a fully personalized agent - voice, language, prompts, tools, and knowledge - without needing a separate installation or duplicated platform code. This approach reduces time-to-market for new clients, simplifies ongoing maintenance, and enables rapid updates to agent behavior via the management dashboard.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 16,
+            "pageNumber": 4,
+            "sourceChunkId": "1b697f09-3b38-40c5-a8ab-335bfca13c5b"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/c2215075-b2dd-4247-a945-ad9325376c08/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Kumush AI is designed as a centralized, configurable voice service that supports many clients from a single deployment while preserving client-specific behaviors and data separation. The homepage will present capabilities at a high level.\n\nCore capabilities:\n\nNative Uzbek conversational fluency: Handles standard Uzbek, major regional dialects, code-switching, and colloquial speech so conversations feel natural and culturally appropriate.\n\nPersonality & brand alignment: Each client gets a distinct voice persona and instruction set so the agent represents the brand consistently (tone, formality, phrasing).",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "c2215075-b2dd-4247-a945-ad9325376c08"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Native Uzbek conversations",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Handles standard Uzbek, major regional dialects, code-switching and colloquial speech to support more natural, culturally appropriate conversations.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/c2215075-b2dd-4247-a945-ad9325376c08/asset",
+                    "fileName": "project--kumush-ai.pdf",
+                    "chunkText": "Kumush AI is designed as a centralized, configurable voice service that supports many clients from a single deployment while preserving client-specific behaviors and data separation. The homepage will present capabilities at a high level.\n\nCore capabilities:\n\nNative Uzbek conversational fluency: Handles standard Uzbek, major regional dialects, code-switching, and colloquial speech so conversations feel natural and culturally appropriate.\n\nPersonality & brand alignment: Each client gets a distinct voice persona and instruction set so the agent represents the brand consistently (tone, formality, phrasing).",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 2,
+                    "sourceChunkId": "c2215075-b2dd-4247-a945-ad9325376c08"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Maintains context across turns to support branching conversations and multi-step processes without repeatedly asking for the same information.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/266c3099-624b-4aba-bfa1-c1f52934118f/asset",
+                    "fileName": "project--kumush-ai.pdf",
+                    "chunkText": "Kumush AI Workflow Image\n\nMulti-channel voice support: Accepts and manages incoming voice calls and can interoperate with existing telephony and contact points.\n\nCustomized tools & knowledge bases: Clients can attach their knowledge resources and business tools (schedules, CRM, catalogs) so the agent uses accurate, up-to-date information when responding.\n\nContextual, multi-turn dialogs: Maintains context across turns to handle branching conversations and multi-step processes without repeating questions.\n\nHuman-in-the-loop escalation: Seamless handoff to human agents for complex or sensitive cases, with preserved conversational context to reduce customer friction.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 11,
+                    "pageNumber": 3,
+                    "sourceChunkId": "266c3099-624b-4aba-bfa1-c1f52934118f"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Client-specific agents and business knowledge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Configures each client's voice persona, tone, formality, prompts and instruction set so the agent can follow the organization's brand and interaction guidance.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/c2215075-b2dd-4247-a945-ad9325376c08/asset",
+                    "fileName": "project--kumush-ai.pdf",
+                    "chunkText": "Kumush AI is designed as a centralized, configurable voice service that supports many clients from a single deployment while preserving client-specific behaviors and data separation. The homepage will present capabilities at a high level.\n\nCore capabilities:\n\nNative Uzbek conversational fluency: Handles standard Uzbek, major regional dialects, code-switching, and colloquial speech so conversations feel natural and culturally appropriate.\n\nPersonality & brand alignment: Each client gets a distinct voice persona and instruction set so the agent represents the brand consistently (tone, formality, phrasing).",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 2,
+                    "sourceChunkId": "c2215075-b2dd-4247-a945-ad9325376c08"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/1b697f09-3b38-40c5-a8ab-335bfca13c5b/asset",
+                    "fileName": "project--kumush-ai.pdf",
+                    "chunkText": "Kumush AI Workflow Image\n\nPrivacy & compliance controls: Configurable data-retention, access control, and PII handling policies to meet client-specific regulatory needs.\n\nHow the multi-client model is presented (user-facing language): Kumush operates as a single, centrally managed service that dynamically adapts its behavior per client. Each client receives a fully personalized agent - voice, language, prompts, tools, and knowledge - without needing a separate installation or duplicated platform code. This approach reduces time-to-market for new clients, simplifies ongoing maintenance, and enables rapid updates to agent behavior via the management dashboard.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 16,
+                    "pageNumber": 4,
+                    "sourceChunkId": "1b697f09-3b38-40c5-a8ab-335bfca13c5b"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Allows client knowledge resources and business tools—such as schedules, CRM systems and catalogs—to inform responses with relevant information.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/266c3099-624b-4aba-bfa1-c1f52934118f/asset",
+                    "fileName": "project--kumush-ai.pdf",
+                    "chunkText": "Kumush AI Workflow Image\n\nMulti-channel voice support: Accepts and manages incoming voice calls and can interoperate with existing telephony and contact points.\n\nCustomized tools & knowledge bases: Clients can attach their knowledge resources and business tools (schedules, CRM, catalogs) so the agent uses accurate, up-to-date information when responding.\n\nContextual, multi-turn dialogs: Maintains context across turns to handle branching conversations and multi-step processes without repeating questions.\n\nHuman-in-the-loop escalation: Seamless handoff to human agents for complex or sensitive cases, with preserved conversational context to reduce customer friction.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 11,
+                    "pageNumber": 3,
+                    "sourceChunkId": "266c3099-624b-4aba-bfa1-c1f52934118f"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Kumush AI personality configuration screen with text and file options for setting the agent's behavior and response style",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/64d8e35c-fe9f-4eeb-b502-cbeea823e962/asset",
+        "align": "center",
+        "title": "Configuring an agent's personality and instructions",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/64d8e35c-fe9f-4eeb-b502-cbeea823e962/asset",
+        "fileName": "project--kumush-ai.pdf",
+        "chunkText": "4S CUSTOMIZE Al PERSONALITY\npa— EE\nPE—— — - -\n2, Upload File\n\n| Describe the AL's personality, response style, and instructions here...\n\nExample: You are a professional AT assistant for restaurants known for hospitality. Always be courteous and offer to\n\nmake reservations.\n\n© chars\n\"QO Here you define the AI's behavior, response style, and special instructions. The Al will follow your guidelines in voice conversations.",
+        "mediaType": "image/png",
+        "chunkIndex": 8,
+        "pageNumber": 2,
+        "sourceChunkId": "64d8e35c-fe9f-4eeb-b502-cbeea823e962"
+      }
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Voice workflows and task completion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Supports incoming voice calls and can interoperate with existing telephony and contact points.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/266c3099-624b-4aba-bfa1-c1f52934118f/asset",
+                    "fileName": "project--kumush-ai.pdf",
+                    "chunkText": "Kumush AI Workflow Image\n\nMulti-channel voice support: Accepts and manages incoming voice calls and can interoperate with existing telephony and contact points.\n\nCustomized tools & knowledge bases: Clients can attach their knowledge resources and business tools (schedules, CRM, catalogs) so the agent uses accurate, up-to-date information when responding.\n\nContextual, multi-turn dialogs: Maintains context across turns to handle branching conversations and multi-step processes without repeating questions.\n\nHuman-in-the-loop escalation: Seamless handoff to human agents for complex or sensitive cases, with preserved conversational context to reduce customer friction.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 11,
+                    "pageNumber": 3,
+                    "sourceChunkId": "266c3099-624b-4aba-bfa1-c1f52934118f"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The described task scope includes scheduling and reservations, registrations and applications, support-request creation, account and case-status retrieval, data updates and transaction confirmations. The source says the agent can interact with client systems to validate inputs, persist changes and confirm outcomes.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/c37d6642-9dbb-4708-ba17-fd8e107bcdc5/asset",
+                    "fileName": "project--kumush-ai.pdf",
+                    "chunkText": "Kumush AI Workflow Image\n\nTask completion: Handles end-to-end, outcome-driven actions through voice – scheduling and reservations, form-based registrations and applications, support request creation, account and case status retrieval, data updates, and transaction confirmations. The agent interacts directly with client systems to validate inputs, persist changes, and confirm results, enabling users to complete real tasks without human intervention.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 9,
+                    "pageNumber": 2,
+                    "sourceChunkId": "c37d6642-9dbb-4708-ba17-fd8e107bcdc5"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Can escalate complex or sensitive cases to human agents while preserving conversational context.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/266c3099-624b-4aba-bfa1-c1f52934118f/asset",
+                    "fileName": "project--kumush-ai.pdf",
+                    "chunkText": "Kumush AI Workflow Image\n\nMulti-channel voice support: Accepts and manages incoming voice calls and can interoperate with existing telephony and contact points.\n\nCustomized tools & knowledge bases: Clients can attach their knowledge resources and business tools (schedules, CRM, catalogs) so the agent uses accurate, up-to-date information when responding.\n\nContextual, multi-turn dialogs: Maintains context across turns to handle branching conversations and multi-step processes without repeating questions.\n\nHuman-in-the-loop escalation: Seamless handoff to human agents for complex or sensitive cases, with preserved conversational context to reduce customer friction.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 11,
+                    "pageNumber": 3,
+                    "sourceChunkId": "266c3099-624b-4aba-bfa1-c1f52934118f"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Kumush AI administrative dashboard showing session counts and system status indicators",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/8a3d9f54-8a4c-49c1-ad3d-4fafef5a5b26/asset",
+        "align": "center",
+        "title": "Administrative dashboard for monitoring voice-agent operations",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/8a3d9f54-8a4c-49c1-ad3d-4fafef5a5b26/asset",
+        "fileName": "project--kumush-ai.pdf",
+        "chunkText": "Kumush AI Workflow Image\n\nfo Yruroin Dashboard =r\n| =o Welcome to HBAI Voice Agent Dashboard « system Onin\n[3 sessions. Monitor your voice agent's performance and manage conversations in real-time\n\nod e\n\nAcie Sessions Tota Sessions Tot Messages Custom prompts\n\n4] [+] 0 [4]\n\nSystem Status\n\nRote astm beat a parmance\n\napstous Sopusiens | Database Come) Voosseries frees\n\n0m",
+        "mediaType": "image/png",
+        "chunkIndex": 14,
+        "pageNumber": 4,
+        "sourceChunkId": "8a3d9f54-8a4c-49c1-ad3d-4fafef5a5b26"
+      }
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Administration and controls",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "An administrative dashboard is described for managing organizations, agents, phone routing and call history, supporting monitoring, quality review and iterative improvement.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/ef248b75-8990-4093-a1ad-dd8bdcf64b6a/asset",
+                    "fileName": "project--kumush-ai.pdf",
+                    "chunkText": "Kumush AI Workflow Image\n\nOperational visibility & control: Administrative dashboard for managing organizations, agents, phone routing, and call history — enabling monitoring, quality review, and iterative improvement!",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 13,
+                    "pageNumber": 3,
+                    "sourceChunkId": "ef248b75-8990-4093-a1ad-dd8bdcf64b6a"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Configurable data-retention, access-control and personally identifiable information (PII) handling policies are listed for client-specific regulatory needs; the source does not identify particular certifications or regulatory approvals.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/1b697f09-3b38-40c5-a8ab-335bfca13c5b/asset",
+                    "fileName": "project--kumush-ai.pdf",
+                    "chunkText": "Kumush AI Workflow Image\n\nPrivacy & compliance controls: Configurable data-retention, access control, and PII handling policies to meet client-specific regulatory needs.\n\nHow the multi-client model is presented (user-facing language): Kumush operates as a single, centrally managed service that dynamically adapts its behavior per client. Each client receives a fully personalized agent - voice, language, prompts, tools, and knowledge - without needing a separate installation or duplicated platform code. This approach reduces time-to-market for new clients, simplifies ongoing maintenance, and enables rapid updates to agent behavior via the management dashboard.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 16,
+                    "pageNumber": 4,
+                    "sourceChunkId": "1b697f09-3b38-40c5-a8ab-335bfca13c5b"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The project source reports the following observations from live deployments. These are reported deployment results, not a stated aggregate across all customers; measurement methods, dates and deployment sample sizes are not provided.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/f8a39c71-bc3c-4c50-a15d-bd85c918e33a/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Kumush AI’s live deployments demonstrate strong operational and commercial impact:\n\nComplete coverage: Achieved 100% inbound call coverage in a production deployment, eliminating missed inquiries and capturing all potential leads.\n\nHigh autonomous resolution: Approximately 85% of calls were fully resolved by the agent without human handoff, reducing load on live staff.\n\nFaster response times: Average response time for callers dropped from hours (with legacy methods) to seconds — improving the customer experience and increasing conversion rates.\n\nHigher satisfaction: Customer/student satisfaction scores increased by roughly 40% following deployment.\n\nSubstantial cost reduction: Support operating costs were reduced by about 90%, driven by automation of routine interactions and reduced staffing needs.\n\nScalability & consistency: The system supports concurrent sessions at scale while delivering consistent, brand-aligned interactions across clients.\n\nBusiness benefits (what stakeholders care about): higher lead capture and conversion, faster onboarding and resolution for customers, lower operating costs for support and contact centers, consistent brand experiences in native language, and the ability to scale support coverage 24/7 without proportional increases in headcount.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 17,
+            "pageNumber": 5,
+            "sourceChunkId": "f8a39c71-bc3c-4c50-a15d-bd85c918e33a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "100% inbound call coverage in a production deployment, with the source stating that missed inquiries were eliminated and all potential leads were captured.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/f8a39c71-bc3c-4c50-a15d-bd85c918e33a/asset",
+                    "fileName": "project--kumush-ai.pdf",
+                    "chunkText": "Kumush AI’s live deployments demonstrate strong operational and commercial impact:\n\nComplete coverage: Achieved 100% inbound call coverage in a production deployment, eliminating missed inquiries and capturing all potential leads.\n\nHigh autonomous resolution: Approximately 85% of calls were fully resolved by the agent without human handoff, reducing load on live staff.\n\nFaster response times: Average response time for callers dropped from hours (with legacy methods) to seconds — improving the customer experience and increasing conversion rates.\n\nHigher satisfaction: Customer/student satisfaction scores increased by roughly 40% following deployment.\n\nSubstantial cost reduction: Support operating costs were reduced by about 90%, driven by automation of routine interactions and reduced staffing needs.\n\nScalability & consistency: The system supports concurrent sessions at scale while delivering consistent, brand-aligned interactions across clients.\n\nBusiness benefits (what stakeholders care about): higher lead capture and conversion, faster onboarding and resolution for customers, lower operating costs for support and contact centers, consistent brand experiences in native language, and the ability to scale support coverage 24/7 without proportional increases in headcount.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 17,
+                    "pageNumber": 5,
+                    "sourceChunkId": "f8a39c71-bc3c-4c50-a15d-bd85c918e33a"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Approximately 85% of calls were fully resolved by the agent without human handoff.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/f8a39c71-bc3c-4c50-a15d-bd85c918e33a/asset",
+                    "fileName": "project--kumush-ai.pdf",
+                    "chunkText": "Kumush AI’s live deployments demonstrate strong operational and commercial impact:\n\nComplete coverage: Achieved 100% inbound call coverage in a production deployment, eliminating missed inquiries and capturing all potential leads.\n\nHigh autonomous resolution: Approximately 85% of calls were fully resolved by the agent without human handoff, reducing load on live staff.\n\nFaster response times: Average response time for callers dropped from hours (with legacy methods) to seconds — improving the customer experience and increasing conversion rates.\n\nHigher satisfaction: Customer/student satisfaction scores increased by roughly 40% following deployment.\n\nSubstantial cost reduction: Support operating costs were reduced by about 90%, driven by automation of routine interactions and reduced staffing needs.\n\nScalability & consistency: The system supports concurrent sessions at scale while delivering consistent, brand-aligned interactions across clients.\n\nBusiness benefits (what stakeholders care about): higher lead capture and conversion, faster onboarding and resolution for customers, lower operating costs for support and contact centers, consistent brand experiences in native language, and the ability to scale support coverage 24/7 without proportional increases in headcount.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 17,
+                    "pageNumber": 5,
+                    "sourceChunkId": "f8a39c71-bc3c-4c50-a15d-bd85c918e33a"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Average caller response time dropped from hours with legacy methods to seconds.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/f8a39c71-bc3c-4c50-a15d-bd85c918e33a/asset",
+                    "fileName": "project--kumush-ai.pdf",
+                    "chunkText": "Kumush AI’s live deployments demonstrate strong operational and commercial impact:\n\nComplete coverage: Achieved 100% inbound call coverage in a production deployment, eliminating missed inquiries and capturing all potential leads.\n\nHigh autonomous resolution: Approximately 85% of calls were fully resolved by the agent without human handoff, reducing load on live staff.\n\nFaster response times: Average response time for callers dropped from hours (with legacy methods) to seconds — improving the customer experience and increasing conversion rates.\n\nHigher satisfaction: Customer/student satisfaction scores increased by roughly 40% following deployment.\n\nSubstantial cost reduction: Support operating costs were reduced by about 90%, driven by automation of routine interactions and reduced staffing needs.\n\nScalability & consistency: The system supports concurrent sessions at scale while delivering consistent, brand-aligned interactions across clients.\n\nBusiness benefits (what stakeholders care about): higher lead capture and conversion, faster onboarding and resolution for customers, lower operating costs for support and contact centers, consistent brand experiences in native language, and the ability to scale support coverage 24/7 without proportional increases in headcount.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 17,
+                    "pageNumber": 5,
+                    "sourceChunkId": "f8a39c71-bc3c-4c50-a15d-bd85c918e33a"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Customer/student satisfaction scores increased by roughly 40% following deployment.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/f8a39c71-bc3c-4c50-a15d-bd85c918e33a/asset",
+                    "fileName": "project--kumush-ai.pdf",
+                    "chunkText": "Kumush AI’s live deployments demonstrate strong operational and commercial impact:\n\nComplete coverage: Achieved 100% inbound call coverage in a production deployment, eliminating missed inquiries and capturing all potential leads.\n\nHigh autonomous resolution: Approximately 85% of calls were fully resolved by the agent without human handoff, reducing load on live staff.\n\nFaster response times: Average response time for callers dropped from hours (with legacy methods) to seconds — improving the customer experience and increasing conversion rates.\n\nHigher satisfaction: Customer/student satisfaction scores increased by roughly 40% following deployment.\n\nSubstantial cost reduction: Support operating costs were reduced by about 90%, driven by automation of routine interactions and reduced staffing needs.\n\nScalability & consistency: The system supports concurrent sessions at scale while delivering consistent, brand-aligned interactions across clients.\n\nBusiness benefits (what stakeholders care about): higher lead capture and conversion, faster onboarding and resolution for customers, lower operating costs for support and contact centers, consistent brand experiences in native language, and the ability to scale support coverage 24/7 without proportional increases in headcount.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 17,
+                    "pageNumber": 5,
+                    "sourceChunkId": "f8a39c71-bc3c-4c50-a15d-bd85c918e33a"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Support operating costs were reduced by about 90%, which the source attributes to automation of routine interactions and reduced staffing needs.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/f8a39c71-bc3c-4c50-a15d-bd85c918e33a/asset",
+                    "fileName": "project--kumush-ai.pdf",
+                    "chunkText": "Kumush AI’s live deployments demonstrate strong operational and commercial impact:\n\nComplete coverage: Achieved 100% inbound call coverage in a production deployment, eliminating missed inquiries and capturing all potential leads.\n\nHigh autonomous resolution: Approximately 85% of calls were fully resolved by the agent without human handoff, reducing load on live staff.\n\nFaster response times: Average response time for callers dropped from hours (with legacy methods) to seconds — improving the customer experience and increasing conversion rates.\n\nHigher satisfaction: Customer/student satisfaction scores increased by roughly 40% following deployment.\n\nSubstantial cost reduction: Support operating costs were reduced by about 90%, driven by automation of routine interactions and reduced staffing needs.\n\nScalability & consistency: The system supports concurrent sessions at scale while delivering consistent, brand-aligned interactions across clients.\n\nBusiness benefits (what stakeholders care about): higher lead capture and conversion, faster onboarding and resolution for customers, lower operating costs for support and contact centers, consistent brand experiences in native language, and the ability to scale support coverage 24/7 without proportional increases in headcount.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 17,
+                    "pageNumber": 5,
+                    "sourceChunkId": "f8a39c71-bc3c-4c50-a15d-bd85c918e33a"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source also reports concurrent-session scalability and consistent, brand-aligned interactions across clients, but supplies no concurrency count or other technical scale measurement. These statements should be read separately from the reported customer and cost outcomes above.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/f8a39c71-bc3c-4c50-a15d-bd85c918e33a/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Kumush AI’s live deployments demonstrate strong operational and commercial impact:\n\nComplete coverage: Achieved 100% inbound call coverage in a production deployment, eliminating missed inquiries and capturing all potential leads.\n\nHigh autonomous resolution: Approximately 85% of calls were fully resolved by the agent without human handoff, reducing load on live staff.\n\nFaster response times: Average response time for callers dropped from hours (with legacy methods) to seconds — improving the customer experience and increasing conversion rates.\n\nHigher satisfaction: Customer/student satisfaction scores increased by roughly 40% following deployment.\n\nSubstantial cost reduction: Support operating costs were reduced by about 90%, driven by automation of routine interactions and reduced staffing needs.\n\nScalability & consistency: The system supports concurrent sessions at scale while delivering consistent, brand-aligned interactions across clients.\n\nBusiness benefits (what stakeholders care about): higher lead capture and conversion, faster onboarding and resolution for customers, lower operating costs for support and contact centers, consistent brand experiences in native language, and the ability to scale support coverage 24/7 without proportional increases in headcount.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 17,
+            "pageNumber": 5,
+            "sourceChunkId": "f8a39c71-bc3c-4c50-a15d-bd85c918e33a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source describes the service as production-ready and deployed with early customers, while also marking the project status “prod demo.” The public demo is available at kumush.ai, but a demo alone does not establish that every listed capability is available in production. Deployment-by-deployment availability is not specified.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/be2f4dab-b536-40d9-b058-928b5f150d1b/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Kumush AI is a production-ready, multi-tenant voice agent designed for Uzbek-speaking customers. It conducts natural, contextual conversations in native-level Uzbek (including regional dialects and colloquialisms) and autonomously completes real tasks: answering inbound calls, guiding multi-step application flows, booking reservations, and triggering business workflows. Deployed with early customers, Kumush AI provides 24/7 intelligent support that increases satisfaction, captures more leads, and substantially reduces operating costs — all while preserving a human conversational experience.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 1,
+            "sourceChunkId": "be2f4dab-b536-40d9-b058-928b5f150d1b"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/6349bf02-1fcb-4d61-b838-34c64f2a8873/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Status | Scope\nprod demo | Big",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1,
+            "sourceChunkId": "6349bf02-1fcb-4d61-b838-34c64f2a8873"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/d99bdb6d-d737-40c2-8042-cabea29e3ed1/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Kumush AI demonstrates that localized, language-first voice automation can deliver outcomes that generic voice agents cannot: better customer experiences, higher autonomous resolution rates, lower costs, and reliable 24/7 coverage for Uzbek-speaking markets. Its centralized, multi-tenant delivery model enables rapid onboarding of new clients while preserving each customer’s unique voice and business logic. For organizations serving Uzbek speakers in education, hospitality, healthcare, financial services, telecom, and retail, Kumush provides a scalable path to native-language voice automation that both protects brand voice and drives measurable business results.\n\nYou can learn more about Kumush AI and also try its Demo here: https://kumush.ai/",
+            "mediaType": "application/pdf",
+            "chunkIndex": 18,
+            "pageNumber": 5,
+            "sourceChunkId": "d99bdb6d-d737-40c2-8042-cabea29e3ed1"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The provided material does not name customer deployments, specify the evaluation period or methodology behind the reported results, or detail technical limits and planned next steps. The source mentions client-specific privacy and compliance controls but does not provide certification details. No further roadmap is stated.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/f8a39c71-bc3c-4c50-a15d-bd85c918e33a/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Kumush AI’s live deployments demonstrate strong operational and commercial impact:\n\nComplete coverage: Achieved 100% inbound call coverage in a production deployment, eliminating missed inquiries and capturing all potential leads.\n\nHigh autonomous resolution: Approximately 85% of calls were fully resolved by the agent without human handoff, reducing load on live staff.\n\nFaster response times: Average response time for callers dropped from hours (with legacy methods) to seconds — improving the customer experience and increasing conversion rates.\n\nHigher satisfaction: Customer/student satisfaction scores increased by roughly 40% following deployment.\n\nSubstantial cost reduction: Support operating costs were reduced by about 90%, driven by automation of routine interactions and reduced staffing needs.\n\nScalability & consistency: The system supports concurrent sessions at scale while delivering consistent, brand-aligned interactions across clients.\n\nBusiness benefits (what stakeholders care about): higher lead capture and conversion, faster onboarding and resolution for customers, lower operating costs for support and contact centers, consistent brand experiences in native language, and the ability to scale support coverage 24/7 without proportional increases in headcount.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 17,
+            "pageNumber": 5,
+            "sourceChunkId": "f8a39c71-bc3c-4c50-a15d-bd85c918e33a"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/1b697f09-3b38-40c5-a8ab-335bfca13c5b/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Kumush AI Workflow Image\n\nPrivacy & compliance controls: Configurable data-retention, access control, and PII handling policies to meet client-specific regulatory needs.\n\nHow the multi-client model is presented (user-facing language): Kumush operates as a single, centrally managed service that dynamically adapts its behavior per client. Each client receives a fully personalized agent - voice, language, prompts, tools, and knowledge - without needing a separate installation or duplicated platform code. This approach reduces time-to-market for new clients, simplifies ongoing maintenance, and enables rapid updates to agent behavior via the management dashboard.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 16,
+            "pageNumber": 4,
+            "sourceChunkId": "1b697f09-3b38-40c5-a8ab-335bfca13c5b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Kumush AI's supported value proposition is language-first voice automation for Uzbek-speaking customers: conversations can be tailored to local speech and each organization's brand, while the described service connects dialogue to business tasks. The source reports positive operational results in live deployments, while leaving the scope and measurement detail of those results unspecified.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/c8f65be7-5ace-4d44-87c0-858f8096df0d/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Global voice automation platforms often struggle in linguistically complex markets, where effective interaction requires more than basic speech recognition. For Uzbek-speaking audiences, successful automation depends on deep language understanding, accurate handling of regional dialects, culturally appropriate phrasing, and workflows aligned with local business processes.\n\nKumush AI was created to address these challenges by moving beyond translated scripts and conversational demos. It is engineered to speak and reason in native-level Uzbek, manage multi-turn conversations, and execute outcome-driven tasks through direct integration with business systems. The platform supports real-time intent understanding, data retrieval and validation, and task completion across diverse operational scenarios.\n\nDesigned for organizations that require reliable, scalable voice automation, Kumush AI delivers consistent, native-language support across industries including education, healthcare, banking, hospitality, and retail.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 1,
+            "sourceChunkId": "c8f65be7-5ace-4d44-87c0-858f8096df0d"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/c2215075-b2dd-4247-a945-ad9325376c08/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Kumush AI is designed as a centralized, configurable voice service that supports many clients from a single deployment while preserving client-specific behaviors and data separation. The homepage will present capabilities at a high level.\n\nCore capabilities:\n\nNative Uzbek conversational fluency: Handles standard Uzbek, major regional dialects, code-switching, and colloquial speech so conversations feel natural and culturally appropriate.\n\nPersonality & brand alignment: Each client gets a distinct voice persona and instruction set so the agent represents the brand consistently (tone, formality, phrasing).",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "c2215075-b2dd-4247-a945-ad9325376c08"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/f8a39c71-bc3c-4c50-a15d-bd85c918e33a/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Kumush AI’s live deployments demonstrate strong operational and commercial impact:\n\nComplete coverage: Achieved 100% inbound call coverage in a production deployment, eliminating missed inquiries and capturing all potential leads.\n\nHigh autonomous resolution: Approximately 85% of calls were fully resolved by the agent without human handoff, reducing load on live staff.\n\nFaster response times: Average response time for callers dropped from hours (with legacy methods) to seconds — improving the customer experience and increasing conversion rates.\n\nHigher satisfaction: Customer/student satisfaction scores increased by roughly 40% following deployment.\n\nSubstantial cost reduction: Support operating costs were reduced by about 90%, driven by automation of routine interactions and reduced staffing needs.\n\nScalability & consistency: The system supports concurrent sessions at scale while delivering consistent, brand-aligned interactions across clients.\n\nBusiness benefits (what stakeholders care about): higher lead capture and conversion, faster onboarding and resolution for customers, lower operating costs for support and contact centers, consistent brand experiences in native language, and the ability to scale support coverage 24/7 without proportional increases in headcount.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 17,
+            "pageNumber": 5,
+            "sourceChunkId": "f8a39c71-bc3c-4c50-a15d-bd85c918e33a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Original project source: ",
+          "type": "text"
+        },
+        {
+          "text": "Kumush AI website and demo",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://kumush.ai/",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/d99bdb6d-d737-40c2-8042-cabea29e3ed1/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Kumush AI demonstrates that localized, language-first voice automation can deliver outcomes that generic voice agents cannot: better customer experiences, higher autonomous resolution rates, lower costs, and reliable 24/7 coverage for Uzbek-speaking markets. Its centralized, multi-tenant delivery model enables rapid onboarding of new clients while preserving each customer’s unique voice and business logic. For organizations serving Uzbek speakers in education, hospitality, healthcare, financial services, telecom, and retail, Kumush provides a scalable path to native-language voice automation that both protects brand voice and drives measurable business results.\n\nYou can learn more about Kumush AI and also try its Demo here: https://kumush.ai/",
+            "mediaType": "application/pdf",
+            "chunkIndex": 18,
+            "pageNumber": 5,
+            "sourceChunkId": "d99bdb6d-d737-40c2-8042-cabea29e3ed1"
+          }
+        },
+        {
+          "text": " The PDF references an original HumbleBeeAI project page, but its URL was not included in the supplied material.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/evidence/d4a66de6-1282-4a70-be3e-70d84950cc31/asset",
+            "fileName": "project--kumush-ai.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nVoice-enabled natural language platform for conversational AI experiences.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "d4a66de6-1282-4a70-be3e-70d84950cc31"
+          }
+        }
+      ]
+    }
+  ]
+}

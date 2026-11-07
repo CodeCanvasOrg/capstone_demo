@@ -1,0 +1,66 @@
+# Securing LumioHub AI for Enterprise Scale
+
+HumbleBee AI delivered LumioHub AI’s secure, multi-tenant platform architecture to help enterprise organizations manage workplace operations across complex hierarchies. [PDF p. 1](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/65db0def-cab7-4bf8-b20f-259054b4bfad/asset)
+
+## Executive Summary
+
+LumioHub AI was conceived as a B2B workplace management and AI platform for enterprise clients, including organizations operating across multiple branches. Its architecture needed to protect tenant data and support complex access rules, while providing a foundation for workplace management features such as attendance and access control. HumbleBee AI reports that it designed and delivered a resilient, multi-tenant platform using schema-per-tenant isolation, centralized permission enforcement and independently deployable services. [PDF p. 2](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/77b5bbba-c08b-4e03-a043-514d7a8791b9/asset) [PDF p. 1](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/65db0def-cab7-4bf8-b20f-259054b4bfad/asset) [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ede611b7-c53c-4739-b196-44d5d9bc2bf4/asset)
+
+The case study describes the platform architecture and its implementation outcomes, but provides no quantitative performance or business-impact measurements. A separate LumioHub product overview describes broader workplace capabilities; the supplied material does not establish that every capability in that overview was delivered as part of this architecture engagement. [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset) [PDF p. 1](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/37324f42-5f07-4210-b82a-b6e0572d3874/asset)
+
+## Context and Challenge
+
+The platform was intended for enterprise customers with organizational hierarchies spanning branches and departments. The previous workflow is not described in the case study; the architectural challenge was instead to build a cohesive foundation from scratch without compromising data separation, access control or the ability to scale services independently. [PDF p. 2](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/77b5bbba-c08b-4e03-a043-514d7a8791b9/asset) [PDF p. 2](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/0e0b9f6b-6fd8-45ac-a547-0b949e9abe41/asset)
+
+Three related constraints shaped the work: [PDF p. 2](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/0e0b9f6b-6fd8-45ac-a547-0b949e9abe41/asset)
+
+- Branch-level permissions had to let managers see only relevant branch data while preserving organization-wide oversight for owners; a permissions error could expose internal data. [PDF p. 2](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/0e0b9f6b-6fd8-45ac-a547-0b949e9abe41/asset)
+- Tenant information needed strict separation within a multi-tenant SaaS environment. [PDF p. 2](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/0e0b9f6b-6fd8-45ac-a547-0b949e9abe41/asset)
+- The architecture needed to coordinate multiple components and allow resource-intensive face-recognition inference to scale separately; the case study states that a traditional monolith would not meet the platform’s security and scalability needs. [PDF p. 2](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/0e0b9f6b-6fd8-45ac-a547-0b949e9abe41/asset) [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset)
+
+## Solution and Capabilities
+
+HumbleBee AI describes a service-oriented architecture built around a PostgreSQL database, a Node.js API, a Python face-recognition microservice and a React frontend. REST APIs support synchronous actions, while Redis provides asynchronous messaging between components. [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ede611b7-c53c-4739-b196-44d5d9bc2bf4/asset)
+
+### Tenant isolation and access control
+
+To protect data across enterprise tenants and branches, the implementation combines schema-per-tenant database isolation with role- and attribute-based permissions. The centralized middleware enforces permissions consistently across the API. [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ede611b7-c53c-4739-b196-44d5d9bc2bf4/asset) [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset)
+
+- Organization roles are Owner, Manager and Viewer; branch_id is the key attribute used to scope access. [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ede611b7-c53c-4739-b196-44d5d9bc2bf4/asset)
+- Login-issued JWTs carry the user’s role and permitted branch_ids. For list endpoints, middleware injects a WHERE branch_id IN (...) restriction into database queries. [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ede611b7-c53c-4739-b196-44d5d9bc2bf4/asset)
+- The case study reports PostgreSQL schema-per-tenant separation as the database isolation approach. [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ede611b7-c53c-4739-b196-44d5d9bc2bf4/asset)
+
+### Service separation and scaling
+
+Separating business logic, AI inference and the user interface was intended to make platform components easier to evolve and scale independently. In particular, the face-recognition service could be scaled separately from the API and frontend. [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ede611b7-c53c-4739-b196-44d5d9bc2bf4/asset) [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset)
+
+
+
+![Illustration of a person using a face-recognition access terminal](assets/fce425bb-c224-441b-ad73-75a6a89dcdaf.png)
+
+The project overview also describes LumioHub AI as a workplace platform for identity-based attendance and on-premise security. Those broader product functions provide context for the architecture but are not individually validated as delivered features in the case study. [PDF p. 1](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/99266eb0-2694-471e-840e-cca54587f2de/asset) [PDF p. 2](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/77b5bbba-c08b-4e03-a043-514d7a8791b9/asset)
+
+## Results and Business Impact
+
+The case study reports qualitative implementation outcomes. It does not provide measured values, baseline comparisons, or quantified business impact. [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset)
+
+- Access enforcement: the case study says the hybrid RBAC + ABAC model prevented cross-branch data access and centralized rules in middleware for consistent enforcement and auditability. [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset)
+- Tenant separation: the schema-per-tenant model is reported to have addressed the data-isolation requirement. [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset)
+- Independent scaling: the service-oriented design allows face-recognition inference to be scaled separately; the source describes this as optimizing cost and performance but supplies no measured cost or performance figures. [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset)
+
+
+
+![Overhead view of a busy workplace with people outlined by detection boxes](assets/bb6d0683-5589-495f-8b4c-b799cdff46fa.png)
+
+The supplied product overview separately describes workplace monitoring and analytics functions. It lists intended business benefits—including attendance integrity, faster security response and reduced administrative workload—but contains no measurements, and the architecture case study does not report these as measured results of this engagement. [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/e8c56111-83ad-4a40-a0f6-cd1af90ab817/asset) [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset)
+
+## Limitations and Next Steps
+
+No numerical capacity, latency, availability, cost-savings, adoption or other business-impact metrics are supplied. The project material does not state a specific next-step roadmap or provide the original HumbleBeeAI case-study URL. The case-study conclusion mentions an ongoing relationship focused on further capability enhancements and exploring additional AI integration, without specifying scope or dates. [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset) [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ffe608a5-d83a-4c59-8782-fc969747f0b0/asset)
+
+The separate LumioHub product document provides a demo link, but it does not establish which features are currently in production. Learn more or try the LumioHub demo at . [PDF p. 4](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/397214e5-7d25-4b16-8cd4-75949ea3c59a/asset)
+
+## Conclusion
+
+HumbleBee AI’s reported work addressed LumioHub AI’s foundational enterprise requirements: tenant and branch data separation, centrally enforced permissions, and a service-oriented design that supports independent scaling of face-recognition inference. The case study supports these architectural outcomes, while quantified performance and business results remain unreported. [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ede611b7-c53c-4739-b196-44d5d9bc2bf4/asset) [PDF p. 3](http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/evidence/ce097ae1-c401-4c5c-aad4-cbd09cdecf19/asset)
+

@@ -1,0 +1,117 @@
+ HUMBLEBEEAI / CASE STUDY
+
+
+ How Retail AI solutions provider
+ boosted accuracy by 20% with R&D
+ Open original HumbleBeeAI page
+
+ AI-powered shopping cart monitoring system that boosted detection accuracy from 55% to
+ 75% with real-time performance on edge devices for enhanced loss prevention
+
+   Accuracy                                Performance                 Deployment
+   +20% mAP                                Real-time                   Scalable
+
+
+
+
+ Source image
+
+
+ Executive Summary
+ A European retail technology company specializing in intelligent checkout and loss prevention systems
+ faced major challenges in accurately detecting shopping carts and items during checkout. Partnering
+ with HumbleBeeAI, they improved a custom Computer Vision system reaching from ~55% to ~75%
+ accuracy on mAP@50-95, one of the most demanding and comprehensive performance metrics.
+ Through focused R&D, the team overcame the low accuracy of detecting the 'items' - a category
+ encompassing all purchasable goods of varied shapes, sizes, and colors - resulting in a highly robust
+ and reliable detection framework that improved operational efficiency and loss prevention accuracy.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                     1
+ Introduction
+ The client, a retail AI technology company with over a decade of experience delivering smart retail
+ systems across Europe, specializes in real-time communication, product recognition, and loss
+ prevention solutions. Operating in diverse retail environments - from local stores to large supermarket
+ chains - the company is dedicated to enhancing customer experience and operational security through
+ advanced AI-driven technologies.
+
+ As retail environments grow more dynamic and product diversity increases, ensuring accurate and
+ efficient visual detection of carts and items has become a core challenge. The company sought to
+ advance its detection capabilities using cutting-edge AI research and a more scientifically rigorous
+ evaluation framework.
+
+ The Problem
+ The client faced several critical challenges that limited detection reliability and performance:
+
+ Low Detection Accuracy: The existing detection model achieved only ~55% accuracy, leading to
+ missed detections of non-empty carts and contributing to potential revenue loss through untracked
+ items.
+
+ Difficult Item Class: The 'item' category included every possible purchasable object - from packaged
+ goods to produce - appearing in countless shapes, materials, and colors. This variability made it one of
+ the most complex classes to detect consistently.
+
+ Inconsistent Data Quality: Significant variation across retail environments and lighting conditions
+ caused inconsistent model performance and hindered proper model evaluation.
+
+ Unreliable Evaluation Metrics: The previous accuracy assessments failed to reflect true model
+ reliability, with wide fluctuations depending on test data composition.
+
+ The Solution
+ HumbleBeeAI's team provided a specialized R&D that directly addressed these core challenges
+ through:
+
+ Focused Detection Model: A single-stage detection network was custom-trained with an emphasis
+ on the complex 'item' class, allowing the system to learn nuanced visual features across diverse retail
+ scenarios.
+
+ Enhanced Dataset Design: The training dataset was significantly expanded and diversified using
+ real-world retail footage. Advanced augmentation methods - including scaling, random cropping, color
+ and brightness variation, and geometric transformations - were applied to strengthen generalization.
+
+ Confidence Interval-Based Evaluation: A confidence interval evaluation methodology was
+ introduced to provide statistically sound performance reporting. This approach offered a more reliable
+ and stable understanding of model accuracy, even under dataset noise and domain variability.
+
+ Continuous Research-Driven Refinement: By analyzing error distributions and confidence variance
+ across object categories, the team iteratively refined data sampling strategies and model architectures
+ to achieve consistent, reproducible improvements.
+
+ Results
+ The R&D team delivered breakthrough results for detection ensuring reliability in retail environments:
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                        2
+ Substantial Accuracy Gains: Detection accuracy improved from ~55% to ~75% mAP@50-95 - an
+ considerable achievement given the difficulty of the target metric and the variability of real-world data.
+
+ Reliable Evaluation and Validation: Confidence interval-based evaluation provided statistically
+ grounded accuracy reports, reducing variance across datasets and making model assessments more
+ dependable.
+
+ Robust Item Recognition: The system demonstrated strong recognition performance across
+ thousands of different item types, achieving stable accuracy in varied lighting and shelf configurations.
+
+ Improved Operational Effectiveness: The more accurate and reliable detection framework directly
+ contributed to reduced shrinkage, more efficient checkout monitoring, and improved overall loss
+ prevention outcomes.
+
+ Conclusion
+ This collaboration highlights how targeted AI research and scientific evaluation can dramatically
+ enhance retail detection performance. By focusing on the hardest-to-detect 'item' class and optimizing
+ under a strict mAP@50-95 metric, the solution achieved meaningful, validated accuracy
+ improvements. The confidence interval-based evaluation method further ensured that reported
+ performance truly represented real-world reliability.
+
+ As the retail industry evolves, this research-driven approach to model design and validation provides a
+ scalable foundation for continued innovation-delivering measurable value, reduced operational risk,
+ and enhanced customer experience.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                          3
+

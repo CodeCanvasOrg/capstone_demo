@@ -1,0 +1,493 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "1D CNN Network Intrusion Detection with Normalization on Imbalanced UNSW-NB15 Data",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "A research prototype evaluates normalized 1D-CNN intrusion detection on balanced and imbalanced UNSW-NB15 network-traffic data.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c5708598-1321-4762-a649-84c301061134/evidence/8eff2167-12de-4208-8bdf-43cf92c8a556/asset",
+            "fileName": "paper--9064976.pdf",
+            "chunkText": "Abstract—Intrusion detection system (IDS) plays an essential role in computer networks protecting computing resources and data from outside attacks. Recent IDS faces challenges improving flexibility and efficiency of the IDS for unexpected and unpredictable attacks. Deep neural network (DNN) is considered popularly for complex systems to abstract features and learn as a machine learning technique. In this paper, we propose a deep learning approach for developing the efficient and flexible IDS using one-dimensional Convolutional Neural Network (1DCNN). Two-dimensional CNN methods have shown remarkable performance in detecting objects of images in computer vision area. Meanwhile, the 1D-CNN can be used for supervised learning on time-series data. We establish a machine learning model based on the 1D-CNN by serializing Transmission Control Protocol/Internet Protocol (TCP/IP) packets in a predetermined time range as an invasion Internet traffic model for the IDS, where normal and abnormal network traffics are categorized and labeled for supervised learning in the 1D-CNN. We evaluated our model on UNSW NB15 IDS dataset to show the effectiveness of our method. For comparison study in performance, machine learning-based Random Forest (RF) and Support Vector Machine (SVM) models in addition to the 1D-CNN with various network parameters and architecture are exploited. In each experiment, the models are run up to 200 epochs with a learning rate in 0.0001 on imbalanced and balanced data. 1D-CNN and its variant architectures have outperformed compared to the classical machine learning classifiers. This is mainly due to the reason that CNN has the capability to extract high-level feature representations that represent the abstract form of low-level feature sets of network traffic connections.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1,
+            "sourceChunkId": "8eff2167-12de-4208-8bdf-43cf92c8a556"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "This project examines whether one-dimensional convolutional neural networks (1D-CNNs), using batch normalization, can classify normal and attack traffic when the training data are imbalanced. The work is an experimental evaluation on the UNSW-NB15 benchmark, not evidence of a deployed HumbleBeeAI client system. The paper is by Azizjon Meliboev, Jumabek Alikhanov and Wooseong Kim; the provided evidence is arXiv:2003.00476v1 dated 1 March 2020, and its listing links to an IEEE conference record. ",
+          "type": "text"
+        },
+        {
+          "text": "View the IEEE record",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://ieeexplore.ieee.org/abstract/document/9064976",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c5708598-1321-4762-a649-84c301061134/evidence/a3461e8f-fe8a-4d8b-80a2-216f485ac4a0/asset",
+            "fileName": "paper--9064976.pdf",
+            "chunkText": "Azizjon Meliboev Dept. of Computer engineering Gachon university SeongNam, S.Korea meliboyevabdulaziz@gmail.com Jumabek Alikhanov Dept. of Computer Science Inha university Incheon, S.Korea jumabek4044@gmail.com Wooseong Kim Dept. of Computer engineering Gachon university SeongNam, S.Korea wooseong@gachon.ac.kr",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "a3461e8f-fe8a-4d8b-80a2-216f485ac4a0"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c5708598-1321-4762-a649-84c301061134/evidence/8eff2167-12de-4208-8bdf-43cf92c8a556/asset",
+            "fileName": "paper--9064976.pdf",
+            "chunkText": "Abstract—Intrusion detection system (IDS) plays an essential role in computer networks protecting computing resources and data from outside attacks. Recent IDS faces challenges improving flexibility and efficiency of the IDS for unexpected and unpredictable attacks. Deep neural network (DNN) is considered popularly for complex systems to abstract features and learn as a machine learning technique. In this paper, we propose a deep learning approach for developing the efficient and flexible IDS using one-dimensional Convolutional Neural Network (1DCNN). Two-dimensional CNN methods have shown remarkable performance in detecting objects of images in computer vision area. Meanwhile, the 1D-CNN can be used for supervised learning on time-series data. We establish a machine learning model based on the 1D-CNN by serializing Transmission Control Protocol/Internet Protocol (TCP/IP) packets in a predetermined time range as an invasion Internet traffic model for the IDS, where normal and abnormal network traffics are categorized and labeled for supervised learning in the 1D-CNN. We evaluated our model on UNSW NB15 IDS dataset to show the effectiveness of our method. For comparison study in performance, machine learning-based Random Forest (RF) and Support Vector Machine (SVM) models in addition to the 1D-CNN with various network parameters and architecture are exploited. In each experiment, the models are run up to 200 epochs with a learning rate in 0.0001 on imbalanced and balanced data. 1D-CNN and its variant architectures have outperformed compared to the classical machine learning classifiers. This is mainly due to the reason that CNN has the capability to extract high-level feature representations that represent the abstract form of low-level feature sets of network traffic connections.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1,
+            "sourceChunkId": "8eff2167-12de-4208-8bdf-43cf92c8a556"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The experiments compare 1D-CNN variants and a CNN–LSTM combination with Random Forest (RF) and Support Vector Machine (SVM) classifiers. They consider balanced and imbalanced data; the paper reports benchmark metrics, not measured operational or business outcomes.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c5708598-1321-4762-a649-84c301061134/evidence/6ea83cd5-bfe9-47fb-b5a5-cbed05d1de56/asset",
+            "fileName": "paper--9064976.pdf",
+            "chunkText": "outside attack in advance rather than the HBIDS. IDS inspects the network traffic and raises alarms if a breach is observed when the traffic passes through the network devices of an organization. According to methodologies, IDSs are categorized into two classes: a) signature detection, and b) anomaly detection. Signature based detection uses predefined signatures and filters. This method effectively detects the known intrusions while unknown malicious behavior is not caught well. Consequently, these unknown threats can be detected only after they are recognized by some other techniques and tagged with a signature for them. In contrast, an anomaly based detection depends on heuristic approaches to detect the unknown intrusion. It categories network breaches as attack when observing a deviation from normal traffic pattern. Recent researches showed that a self-learning system can be applied as a reliable solution for IDS. The self-learning system is one of powerful and proactive method that use deep learning concepts such as supervised and unsupervised algorithms. Deep learning-based method is able to extract the features from big amount of traffic data and learn the abstract representation of complex features with sequence information of TCP/IP. In short, the deep learning-based method can help to overcome the challenges of developing an efficient and flexible IDS. The training data have been considered important for machine learning, also in the deep learning. In our work, traffic data are collected and labeled by normal and anomalous traffic records from different network sources. A good feature representation from these data is obtained using deep learning techniques, which finally enables a supervised classification to come up with remarkable results. In detail, we use a deep learningbased 1D-CNN supervised classification, batch normalization and soft-max regression, for our IDS. Our architecture is depicted in Figure 1. We demonstrate the usability of 1DCNN based IDS by applying on UNSW NB15, a recent new intrusion dataset. We provide a comparison of our work with RF and SVM machine learning classifiers as well. The rest of the paper is organized as follows. Section II introduces existing works on IDS. Section III gives our proposed method of CNN and combination of LSTM (Long short term memory) and their network architecture. Data description, as well as random sampling techniques for imbalanced data that we use, are explained in Section IV. The experimental results of our",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 1,
+            "sourceChunkId": "6ea83cd5-bfe9-47fb-b5a5-cbed05d1de56"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Intrusion detection teams need to identify malicious activity among normal network records. Signature-based approaches can miss previously unknown behavior, while anomaly-based detection looks for deviations from normal traffic. The study frames flexible detection as a challenge and tests supervised learning on labeled traffic rather than describing a prior customer workflow or production deployment.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c5708598-1321-4762-a649-84c301061134/evidence/6ea83cd5-bfe9-47fb-b5a5-cbed05d1de56/asset",
+            "fileName": "paper--9064976.pdf",
+            "chunkText": "outside attack in advance rather than the HBIDS. IDS inspects the network traffic and raises alarms if a breach is observed when the traffic passes through the network devices of an organization. According to methodologies, IDSs are categorized into two classes: a) signature detection, and b) anomaly detection. Signature based detection uses predefined signatures and filters. This method effectively detects the known intrusions while unknown malicious behavior is not caught well. Consequently, these unknown threats can be detected only after they are recognized by some other techniques and tagged with a signature for them. In contrast, an anomaly based detection depends on heuristic approaches to detect the unknown intrusion. It categories network breaches as attack when observing a deviation from normal traffic pattern. Recent researches showed that a self-learning system can be applied as a reliable solution for IDS. The self-learning system is one of powerful and proactive method that use deep learning concepts such as supervised and unsupervised algorithms. Deep learning-based method is able to extract the features from big amount of traffic data and learn the abstract representation of complex features with sequence information of TCP/IP. In short, the deep learning-based method can help to overcome the challenges of developing an efficient and flexible IDS. The training data have been considered important for machine learning, also in the deep learning. In our work, traffic data are collected and labeled by normal and anomalous traffic records from different network sources. A good feature representation from these data is obtained using deep learning techniques, which finally enables a supervised classification to come up with remarkable results. In detail, we use a deep learningbased 1D-CNN supervised classification, batch normalization and soft-max regression, for our IDS. Our architecture is depicted in Figure 1. We demonstrate the usability of 1DCNN based IDS by applying on UNSW NB15, a recent new intrusion dataset. We provide a comparison of our work with RF and SVM machine learning classifiers as well. The rest of the paper is organized as follows. Section II introduces existing works on IDS. Section III gives our proposed method of CNN and combination of LSTM (Long short term memory) and their network architecture. Data description, as well as random sampling techniques for imbalanced data that we use, are explained in Section IV. The experimental results of our",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 1,
+            "sourceChunkId": "6ea83cd5-bfe9-47fb-b5a5-cbed05d1de56"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The core experimental constraint is class imbalance: the authors state that attack and normal records occur in unequal amounts. Their evaluation uses UNSW-NB15, with records labeled as normal or attack, and reports results separately for imbalanced and balanced data. This benchmark setup does not establish how a model would perform on a particular organization's live traffic.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c5708598-1321-4762-a649-84c301061134/evidence/6fc812f4-764c-436f-9f6b-d5910d37fa08/asset",
+            "fileName": "paper--9064976.pdf",
+            "chunkText": "Centre for Cyber Security (ACCS) for generating a hybrid of real modern normal activities and synthetic contemporary attack behaviors, is widely used in intrusion detection experiments. According to their characteristics, this dataset has nine attack types namely, Fuzzers, Analysis, Backdoors, DoS, Exploits, Generic, Reconnaissance, Shellcode and Worms. The Argus, Bro-IDS tools are used and twelve algorithms are developed to generate totally 44 features without a class label. The features contain Nominal, Float, Integer and Binary types of features as reflected in Table 2. The features include a various of packet-based features and flow-based features. The packet-based features help the inspection of the payload beside the headers of the packets. The flow-based features are based on a direction, an inter-arrival time and an inter-packet length. The flow feature are srcip, sport, dstip, dsport, proto. The features are categorised Basic(2,4,5,6,7,8,9,11,12,13,14,15,16), Content (21,22,23,24,28,29,30,31), Time (19,20,25,26,27) and Additional(32,33,34,35,36,37,38,39,40,41,42,43). This data set is labelled as attack categories(44) and label for each record either 0 if the record is normal and 1 if the record is attack.\n\nA partition from this dataset is configured as a training set and testing set, namely, UNSW NB15 training-set.csv and UNSW NB15 testing-set.csv respectively. Due to the amount of attack and normal is quite different, we solve imbalanced data problem using Random Over-Sampling technique [22]. We introduce details of this technique in Section V. The original and balanced, normal and attack records as shown Table 1.\n\nTABLE I\n\nORIGINAL AND BALANCED UNSW NB15 DATASET",
+            "mediaType": "application/pdf",
+            "chunkIndex": 16,
+            "pageNumber": 3,
+            "sourceChunkId": "6fc812f4-764c-436f-9f6b-d5910d37fa08"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The study builds supervised classifiers from network-traffic features and compares their performance under two class distributions. The documented work includes these capabilities:",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "1D-CNN classification: packet-derived feature vectors of shape 42 × 1 are used to classify records as normal or attack.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Normalization and regularization: the documented best 1D-CNN model combines convolutional and max-pooling layers with batch normalization, dropout and fully connected classification layers.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Class-balance comparison: the authors evaluate imbalanced data and data balanced using random oversampling, then compare model metrics across the settings.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c5708598-1321-4762-a649-84c301061134/evidence/6fc812f4-764c-436f-9f6b-d5910d37fa08/asset",
+                    "fileName": "paper--9064976.pdf",
+                    "chunkText": "Centre for Cyber Security (ACCS) for generating a hybrid of real modern normal activities and synthetic contemporary attack behaviors, is widely used in intrusion detection experiments. According to their characteristics, this dataset has nine attack types namely, Fuzzers, Analysis, Backdoors, DoS, Exploits, Generic, Reconnaissance, Shellcode and Worms. The Argus, Bro-IDS tools are used and twelve algorithms are developed to generate totally 44 features without a class label. The features contain Nominal, Float, Integer and Binary types of features as reflected in Table 2. The features include a various of packet-based features and flow-based features. The packet-based features help the inspection of the payload beside the headers of the packets. The flow-based features are based on a direction, an inter-arrival time and an inter-packet length. The flow feature are srcip, sport, dstip, dsport, proto. The features are categorised Basic(2,4,5,6,7,8,9,11,12,13,14,15,16), Content (21,22,23,24,28,29,30,31), Time (19,20,25,26,27) and Additional(32,33,34,35,36,37,38,39,40,41,42,43). This data set is labelled as attack categories(44) and label for each record either 0 if the record is normal and 1 if the record is attack.\n\nA partition from this dataset is configured as a training set and testing set, namely, UNSW NB15 training-set.csv and UNSW NB15 testing-set.csv respectively. Due to the amount of attack and normal is quite different, we solve imbalanced data problem using Random Over-Sampling technique [22]. We introduce details of this technique in Section V. The original and balanced, normal and attack records as shown Table 1.\n\nTABLE I\n\nORIGINAL AND BALANCED UNSW NB15 DATASET",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 16,
+                    "pageNumber": 3,
+                    "sourceChunkId": "6fc812f4-764c-436f-9f6b-d5910d37fa08"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c5708598-1321-4762-a649-84c301061134/evidence/ef94d6de-e948-4c07-b023-09651605f4af/asset",
+                    "fileName": "paper--9064976.pdf",
+                    "chunkText": "Fig. 2. Train and test accuracy score.\n\nAccuracy\n0.96\n094\n092\ng\ng 090\ni\n>\n© 088\n2\n£086\n084\n082 — Train Accuracy\n—— Test Accuracy\n0 25 0 75 100 125 150 175 200\nEpoch",
+                    "mediaType": "image/png",
+                    "chunkIndex": 33,
+                    "pageNumber": 5,
+                    "sourceChunkId": "ef94d6de-e948-4c07-b023-09651605f4af"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Model benchmarking: the experiments include 1D-CNN variants, a CNN–LSTM combination, RF and SVM. Each experiment is described as running up to 200 epochs with a learning rate of 0.0001.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c5708598-1321-4762-a649-84c301061134/evidence/8eff2167-12de-4208-8bdf-43cf92c8a556/asset",
+                    "fileName": "paper--9064976.pdf",
+                    "chunkText": "Abstract—Intrusion detection system (IDS) plays an essential role in computer networks protecting computing resources and data from outside attacks. Recent IDS faces challenges improving flexibility and efficiency of the IDS for unexpected and unpredictable attacks. Deep neural network (DNN) is considered popularly for complex systems to abstract features and learn as a machine learning technique. In this paper, we propose a deep learning approach for developing the efficient and flexible IDS using one-dimensional Convolutional Neural Network (1DCNN). Two-dimensional CNN methods have shown remarkable performance in detecting objects of images in computer vision area. Meanwhile, the 1D-CNN can be used for supervised learning on time-series data. We establish a machine learning model based on the 1D-CNN by serializing Transmission Control Protocol/Internet Protocol (TCP/IP) packets in a predetermined time range as an invasion Internet traffic model for the IDS, where normal and abnormal network traffics are categorized and labeled for supervised learning in the 1D-CNN. We evaluated our model on UNSW NB15 IDS dataset to show the effectiveness of our method. For comparison study in performance, machine learning-based Random Forest (RF) and Support Vector Machine (SVM) models in addition to the 1D-CNN with various network parameters and architecture are exploited. In each experiment, the models are run up to 200 epochs with a learning rate in 0.0001 on imbalanced and balanced data. 1D-CNN and its variant architectures have outperformed compared to the classical machine learning classifiers. This is mainly due to the reason that CNN has the capability to extract high-level feature representations that represent the abstract form of low-level feature sets of network traffic connections.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 2,
+                    "pageNumber": 1,
+                    "sourceChunkId": "8eff2167-12de-4208-8bdf-43cf92c8a556"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Diagram of the study's 1D-CNN intrusion-detection model, showing input features passing through convolution, pooling, flattening, normalization, dropout and fully connected layers.",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c5708598-1321-4762-a649-84c301061134/evidence/abfb7451-f919-4b37-b88d-3b484763934a/asset",
+        "align": "center",
+        "title": "paper--9064976.pdf",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c5708598-1321-4762-a649-84c301061134/evidence/abfb7451-f919-4b37-b88d-3b484763934a/asset",
+        "fileName": "paper--9064976.pdf",
+        "chunkText": "Fig. 1. The architecture of the 1D-CNN simple model for intrusion detection. The network consists of following layers: input layer, one convolution layer, one max-pooling layer, two fully connected layers and output layer. We used Batch normalization, Dropout techniques as well.\n\n=\n-\nPa pes .\nfi- B- - -BER-Lg\n|i.\n—\n| ctaam|\n|\nmpue Comvouion Pooling Flatten Batch Drap Fully output\npd ver\" Clr” Semen mom out canmict",
+        "mediaType": "image/png",
+        "chunkIndex": 12,
+        "pageNumber": 3,
+        "sourceChunkId": "abfb7451-f919-4b37-b88d-3b484763934a"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The figure illustrates the model pipeline. The paper also describes using high-level header-based packet data and states that the approach does not rely on IP addresses or payload data.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c5708598-1321-4762-a649-84c301061134/evidence/b3f8bd15-5a3e-4211-a87e-05209a422add/asset",
+            "fileName": "paper--9064976.pdf",
+            "chunkText": "In this paper, we develop a reliable classification using a deep learning technique for intrusion detection with a vector of time series data. We use 1D-CNN and combination of LSTM for network architectures, batch size was set to 32 for all networks but for combination network 64 due to time consumption of training. We implement all networks by ourselves and train on both the imbalanced and balanced data using GPU CUDA acceleration to reduce time consumption. When we feed the models we used high-level header-based data extracted from packets. It does not rely on IP addresses or payload data. To show the advantages of deep learning method and the usefulness of using balanced data, we compare 1D-CNN and combination of LSTM with traditional machine learning techniques, SVM [2] and RF [4]. Table 9 and 10 show throughput summary of all explored algorithms the imbalanced and balanced data. The imbalanced data problem, caused by an unequal set of data for training, leads to poor performance in neural network models. To solve this problem, we balanced a number of attacks and normals by using random sampling techniques.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 47,
+            "pageNumber": 6,
+            "sourceChunkId": "b3f8bd15-5a3e-4211-a87e-05209a422add"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Reported findings are benchmark results on UNSW-NB15, not measured business impact. The table below gives the study's reported scores; the exact comparison matters because the leading model changes with the data balance and metric.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c5708598-1321-4762-a649-84c301061134/evidence/cea1ec58-e1a8-4ddb-9539-2c13cf790023/asset",
+            "fileName": "paper--9064976.pdf",
+            "chunkText": "Algorithms | Inputvaluesize | Imbalanced data |  |  | \n |  | Acc (%) | Pre (%) | Re(%) | F-sc (%)\n1D-CNN 1 layer | [42,1] | 83.19 | 76.76 | 99.61 | 86.71\n1D-CNN 2 layers | [42,1] | 84.13 | 77.99 | 99.16 | 87.31\n1D-CNN 3 layers | [42,1] | 85.86 | 80.33 | 98.42 | 88.46\n1D-CNN+LSTM | [42,1] | 85.11 | 79.57 | 98.16 | 87.89\nRF | [42,1] | 87.82 | 89.56 | 87.39 | 87.27\nSVM | [42,1] | 68.04 | 90.11 | 47.13 | 61.89",
+            "mediaType": "application/pdf",
+            "chunkIndex": 40,
+            "pageNumber": 6,
+            "sourceChunkId": "cea1ec58-e1a8-4ddb-9539-2c13cf790023"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Imbalanced data: the 3-layer 1D-CNN reports 85.86% accuracy, 80.33% precision, 98.42% recall and 88.46% F-score. RF reports 87.82% accuracy, 89.56% precision, 87.39% recall and 87.27% F-score; SVM reports 68.04%, 90.11%, 47.13% and 61.89%, respectively. Thus, the 3-layer CNN has higher recall and F-score than RF in this table, but lower accuracy and precision.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Balanced data: the 3-layer 1D-CNN reports 91.2% accuracy, 87.53% precision, 96.17% recall and 91.59% F-score. In the same table, RF reports 87.39%, 88.88%, 87.39% and 87.27%; SVM reports 61.69%, 62.15%, 59.82% and 60.96%, respectively.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The paper reports that the best balanced-data 1D-CNN identifies 96% of attack records correctly and identifies 86% of normal records correctly; it also reports corresponding misses and false detections. These are benchmark observations, not evidence of an alerting system's field performance.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c5708598-1321-4762-a649-84c301061134/evidence/aa4d7717-62b9-4a67-bc30-279dea54b8e6/asset",
+                    "fileName": "paper--9064976.pdf",
+                    "chunkText": "COMPARISONS ALL MODELS APPLIED | TO ID USING IMBALANCED\nUNSW NB15 | DATA.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 37,
+                    "pageNumber": 6,
+                    "sourceChunkId": "aa4d7717-62b9-4a67-bc30-279dea54b8e6"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "No client-specific impact, live-traffic evaluation, operational deployment outcome or business metric is provided in the available evidence. The results should therefore be read as experimental model performance only.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The findings are limited to the reported UNSW-NB15 experiments and the metrics shown; they do not establish detection quality on other datasets or live networks. Performance also varies with data balancing and the choice of metric: on imbalanced data, RF has higher reported accuracy and precision than the 3-layer 1D-CNN, while the CNN has higher recall and F-score.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source describes experimental models, not a production-ready intrusion-detection service. No deployment, integration, monitoring, latency, throughput, or customer validation details are provided. The supplied materials do not specify planned next steps, so further validation or implementation should not be treated as completed or committed work.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "This research provides a benchmark-based evaluation of normalized 1D-CNN approaches for binary network intrusion detection on imbalanced and balanced UNSW-NB15 data. It documents where the models perform well—and where comparisons depend on the metric—while leaving real-world operational and business impact unmeasured.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c5708598-1321-4762-a649-84c301061134/evidence/8eff2167-12de-4208-8bdf-43cf92c8a556/asset",
+            "fileName": "paper--9064976.pdf",
+            "chunkText": "Abstract—Intrusion detection system (IDS) plays an essential role in computer networks protecting computing resources and data from outside attacks. Recent IDS faces challenges improving flexibility and efficiency of the IDS for unexpected and unpredictable attacks. Deep neural network (DNN) is considered popularly for complex systems to abstract features and learn as a machine learning technique. In this paper, we propose a deep learning approach for developing the efficient and flexible IDS using one-dimensional Convolutional Neural Network (1DCNN). Two-dimensional CNN methods have shown remarkable performance in detecting objects of images in computer vision area. Meanwhile, the 1D-CNN can be used for supervised learning on time-series data. We establish a machine learning model based on the 1D-CNN by serializing Transmission Control Protocol/Internet Protocol (TCP/IP) packets in a predetermined time range as an invasion Internet traffic model for the IDS, where normal and abnormal network traffics are categorized and labeled for supervised learning in the 1D-CNN. We evaluated our model on UNSW NB15 IDS dataset to show the effectiveness of our method. For comparison study in performance, machine learning-based Random Forest (RF) and Support Vector Machine (SVM) models in addition to the 1D-CNN with various network parameters and architecture are exploited. In each experiment, the models are run up to 200 epochs with a learning rate in 0.0001 on imbalanced and balanced data. 1D-CNN and its variant architectures have outperformed compared to the classical machine learning classifiers. This is mainly due to the reason that CNN has the capability to extract high-level feature representations that represent the abstract form of low-level feature sets of network traffic connections.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1,
+            "sourceChunkId": "8eff2167-12de-4208-8bdf-43cf92c8a556"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,267 @@
+ HUMBLEBEEAI / PROJECT
+
+
+ HStaff
+ Open original HumbleBeeAI page
+
+ Team management dashboard with analytics to help leaders understand talent and
+ performance.
+
+   Status                                              Scope
+   prod ready                                          Mid
+
+
+
+
+ Source image
+
+
+ Executive Summary
+ HStaff is a comprehensive workforce analytics platform that transforms how organizations manage
+ distributed teams through automated data synchronization and intelligent analytics. The platform
+ automatically collects activity metrics from Hubstaff and progress reports from Discord, unifying them
+ into a powerful dashboard. With real-time deepwork analysis, progress planning scoring,
+ mentorship tracking, and fully responsive design across all devices, HStaff provides managers
+ with instant visibility into team productivity and progress compliance.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                      1
+ Introduction
+ Managing distributed teams requires visibility across multiple platforms - Hubstaff tracks work hours
+ and productivity, Discord hosts daily progress reports, while internal systems manage team
+ relationships. HStaff eliminates the burden of manual data collection by automatically synchronizing
+ all these data sources into one unified platform, providing actionable insights through an intuitive
+ web interface.
+
+ The Challenge
+ Data Fragmentation: Employee activity scattered across Hubstaff, Discord, and internal databases
+ makes it difficult to get a complete picture of team performance.
+
+ Manual Reporting: Managers spend significant time visiting multiple platforms, downloading data,
+ and manually calculating team metrics.
+
+ Progress Tracking: No centralized way to monitor who's submitting daily progress reports and track
+ submission patterns.
+
+ Mobile Access: Desktop-only tools prevent managers from checking team metrics and reports on the
+ go.
+
+ Core Features
+ Unified Dashboard
+
+
+
+
+ HStaff Dashboard
+
+ The dashboard provides an instant team overview with key metrics and recent activity. The clean
+ interface presents complex information clearly, making it easy to understand team performance at a
+ glance.
+
+ Key Capabilities:
+
+  •   Team productivity overviewwith tracked hours and deepwork percentages
+  •   Recent activity highlights
+  •   Progress planning compliance tracking
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                     2
+  •   Quick navigationto detailed reports
+  •   Role-based viewsshowing relevant data
+
+ Activity Logs & Analytics
+
+
+
+
+ Activity Logs & Reports
+
+ Automated Time Tracking
+
+  •   Automatic integration with Hubstaff for activity collection
+  •   Hourly synchronization capturing tracked hours and project allocations
+  •   Historical data for trend analysis
+ Deepwork Intelligence
+
+  •   Automatic calculation of focused work versus routine tasks
+  •   Project-based deepwork classification
+  •   Percentage metrics showing work quality
+ Smart Filtering
+
+  •   Filter by deepwork percentage (≥80% high performers, <80% needs attention)
+  •   Filter by tracked hours (≥80h full time, <80h part time)
+  •   Search by name or email
+  •   Combined filters for precise analysis
+ Responsive Design
+
+  •   Desktop: Full tables with detailed metrics
+  •   Mobile: Card-based layouts optimized for touch
+  •   Tablet: Adaptive layouts for medium screens
+  •   Consistent features across all devices
+ User Detail Views
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                               3
+  •   Individual activity breakdowns by day
+  •   Project distribution showing time allocation
+  •   Daily deepwork and tracked hour metrics
+  •   Date range selection for custom periods
+
+ Progress Planning System
+
+
+
+
+ Progress Planning & Scoring
+
+ Discord Integration
+
+  •   Automatic synchronization of daily progress reports from Discord
+  •   Real-time updates as new reports are submitted
+  •   Markdown formatting preserved from Discord
+ Scoring System
+
+  •   Manager scoring on a 1-10 scale
+  •   Score display with scorer information
+  •   Average score calculations
+  •   Scoring timestamp tracking
+ Visual Calendar
+
+  •   Color-coded date header showing submission status
+  •   Green: Report submitted
+  •   Red: Report missing
+  •   Gray: Future dates
+  •   Gold star: Report scored
+ Report Interface
+
+  •   Chat-like view for natural reading
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                     4
+  •   Chronological display of all reports
+  •   Date-based navigation
+  •   User statistics showing total submissions and average scores
+ Mobile Experience
+
+  •   Bottom sheet on mobile devices
+  •   Back button for easy navigation
+  •   Responsive entry cards
+  •   Touch-optimized interface
+
+ Mentorship & Team Structure
+
+
+
+
+ Mentorship Management
+
+ Relationship Management
+
+  •   Mentor-mentee relationship tracking
+  •   Department organization
+  •   Project team assignments
+  •   Hierarchical access control
+ Access Control
+
+  •   Role-based data visibility
+  •   Mentors see their mentees' data
+  •   Department heads view department metrics
+  •   Project-based cross-department access
+ Supported Roles
+
+  •   Superadmin: Full platform access
+  •   C-Level: Organization-wide visibility
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                 5
+  •   Department Head: Department management
+  •   PM (Project Manager): Project team access
+  •   Mentor: Mentee monitoring
+  •   Talent: Personal data view
+
+ Comprehensive Reporting
+
+
+
+
+ Hstaff-Reporting
+
+ Activity Logs Reports
+
+  •   Users tab: Individual performance metrics with filtering
+  •   Projects tab: Team contributions grouped by project
+  •   Date range selection for flexible periods
+  •   Deepwork and tracked hours for each user/project
+ Progress Planning Reports
+
+  •   User list with search functionality
+  •   Submission statistics per user
+  •   Date calendar showing submission patterns
+  •   Individual report viewing with scores
+ Responsive Excellence
+
+  •   Tables convert to cards on mobile
+  •   Filters slide in from right (desktop) or bottom (mobile)
+  •   Touch-optimized navigation
+  •   Consistent experience on all screen sizes
+
+ Results
+ Efficiency Improvements
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy             6
+  •   Automated data collection eliminating manual work
+  •   Instant insights replacing manual analysis
+  •   Single platform instead of multiple tools
+  •   Consistent data accuracy through automation
+ User Benefits
+
+  •   Real-time team visibility
+  •   Mobile access to all features
+  •   Easy progress tracking and compliance monitoring
+  •   Clear performance metrics and trends
+ Platform Reliability
+
+  •   Automatic hourly synchronization
+  •   Error handling and recovery
+  •   Secure authentication and access control
+  •   Responsive design for any device
+
+ Key Innovations
+ Full Responsiveness: Every page, table, and feature works perfectly on desktop, tablet, and mobile
+ devices with optimized layouts for each screen size.
+
+ Smart Filtering: One-click filters to identify high performers or team members needing support based
+ on deepwork and tracked hours metrics.
+
+ Unified Data: Single platform combining Hubstaff time tracking, Discord progress reports, and team
+ relationships.
+
+ Deepwork Analysis: Automatic calculation of focused work patterns without manual categorization.
+
+ Progress Compliance: Visual indicators making it easy to see who's submitting reports and who
+ needs follow-up.
+
+ Conclusion
+ HStaff transforms workforce management by automating data collection and providing intelligent
+ analytics in one unified platform. The comprehensive responsive design ensures managers can
+ access critical insights anywhere, on any device. With proven reliability in production and continuous
+ feature development, HStaff demonstrates how automation and thoughtful design can dramatically
+ improve team management efficiency while reducing administrative overhead. As remote and hybrid
+ work becomes standard, HStaff provides essential infrastructure for maintaining visibility,
+ accountability, and productivity across distributed teams.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                      7
+

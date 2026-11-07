@@ -1,0 +1,538 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Investigating the Effect of Traffic Sampling on Machine Learning-Based Network Intrusion Detection Approaches"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Investigating the Effect of Traffic Sampling on Machine Learning-Based Network Intrusion Detection Approaches"
+        },
+        {
+          "type": "hardBreak"
+        },
+        {
+          "type": "text",
+          "text": "A published study examines how packet sampling affects flow-based machine-learning intrusion detection and its ability to identify malicious network traffic."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "487d5639-2d3d-439a-8504-9a892ab21a03",
+            "chunkText": "ABSTRACT Machine Learning (ML) based Network Intrusion Systems (NIDSs) operate on flow features which are obtained from flow exporting protocols (i.e., NetFlow). Recent success of ML and Deep Learning (DL) based NIDS solutions assume such flow information (e.g., avg. packet size) is obtained from all packets of the flow. However, often in practice flow exporter is deployed on commodity devices where packet sampling is inevitable. As a result, applicability of such ML based NIDS solutions in the presence of sampling (i.e., when flow information is obtained from sampled set of packets instead of full traffic) is an open question. In this study, we explore the impact of packet sampling on the performance and efficiency of ML-based NIDSs. Unlike previous work, our proposed evaluation procedure is immune to different settings of flow export stage. Hence, it can provide a robust evaluation of NIDS even in the presence of sampling. Through sampling experiments we established that malicious flows with shorter size (i.e., number of packets) are likely to go unnoticed even with mild sampling rates such as 1/10 and 1/100. Next, using the proposed evaluation procedure we investigated the impact of various sampling techniques on NIDS detection rate and false alarm rate. Detection rate and false alarm rate is computed for three sampling rates (i.e., 1/10, 1/100, 1/1000), for four different sampling techniques and for three (two tree-based, one deep learning based) classifiers. Experimental results show that systematic linear sampler - SketFlow performs better compared to non-linear samplers such as Sketch Guided and Fast Filtered sampling. We also found that random forest classifier with SketchFlow sampling was a better combination. The combination showed higher detection rate and lower false alarm rate across multiple sampling rates compared to other sampler-classifier combinations. Our results are consistent in multiple sampling rates, exceptional case is observed for Sketch Guided Sampling (SGS) as it caused a drastic performance drop when sampling rate was changed from 1/100 to 1/1000. Our results provide valuable insights for network practitioners and researchers regarding on how packet sampling effects ML-based NIDS performance. In this regard full source code for sampling and ML experiments has been released: github.com/Jumabek/sampledFlowMeter and github.com/Jumabek/nids-with-sampling",
+            "fileName": "paper--9661375.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe/evidence/487d5639-2d3d-439a-8504-9a892ab21a03/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Executive Summary"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "This research addresses network practitioners and researchers assessing machine-learning network intrusion detection systems (NIDS) when commodity flow-export devices sample packets rather than process every packet. Jumabek Alikhanov, Rhongho Jang, Mohammed Abuhamad, David Mohaisen, Daehun Nyang and Youngtae Noh published the paper online on 23 December 2021; it appeared in IEEE Access volume 10 (2022), DOI 10.1109/ACCESS.2021.3137318. It is a research publication, not evidence of a HumbleBeeAI client delivery or product; no such relationship is established in the supplied sources. Publication approval for this portfolio draft is pending."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "c8d103d2-e43a-4c01-b91e-98100577abad",
+            "chunkText": "Evaluation framework for flow-level ML-based NIDSs: (1) in contrast to findings in previous literature [14], the time to train a convolutional neural network CNN) is reduced by 3× using larger batch sizes without sacrificing the performance, (2) a 42% higher detection rate (DR) is achieved by addressing the training-data imbalance, and (3) flow level evaluation framework is proposed that is reliable even when the number of extracted flow records varies owing to configurations of the flow metering & export stage.\n\nEffect of sampling technique on malicious flow visibility: From the perspective of network security, we observed that the linear systematic sampler - SketchFlow sampling (SFS) is most applicable when target malicious attack is formed from a longer flows, and the nonlinear sketch-guided sampling (SGS) is suitable for attacks with shorter flow length.\n\nNIDS on sampled data: The systematic linear SFS sampler provides a higher DR and lower false alarm rate (FAR) on multiple sampling rates. Hence, the most suitable solution for NIDS is an SFS sampler paired with random forest (RF) classifier.\n\nEffect of constrained flow cache on the NIDS: Experiments show that under-dimensioned flow cache (i.e., when switch memory becomes under-dimensioned due to high traffic speed and volume) significantly increases the resource usage for the NIDS. Intuitively, this increase is caused by the increase in the number of extracted flow records. The DR decreased significantly when the flow cache is smaller than the working set of active flows.\n\nIn this paper, we are using a few acronyms and readers are referred to Table 1 for their definitions.",
+            "fileName": "paper--9661375.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe/evidence/c8d103d2-e43a-4c01-b91e-98100577abad/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "487d5639-2d3d-439a-8504-9a892ab21a03",
+            "chunkText": "ABSTRACT Machine Learning (ML) based Network Intrusion Systems (NIDSs) operate on flow features which are obtained from flow exporting protocols (i.e., NetFlow). Recent success of ML and Deep Learning (DL) based NIDS solutions assume such flow information (e.g., avg. packet size) is obtained from all packets of the flow. However, often in practice flow exporter is deployed on commodity devices where packet sampling is inevitable. As a result, applicability of such ML based NIDS solutions in the presence of sampling (i.e., when flow information is obtained from sampled set of packets instead of full traffic) is an open question. In this study, we explore the impact of packet sampling on the performance and efficiency of ML-based NIDSs. Unlike previous work, our proposed evaluation procedure is immune to different settings of flow export stage. Hence, it can provide a robust evaluation of NIDS even in the presence of sampling. Through sampling experiments we established that malicious flows with shorter size (i.e., number of packets) are likely to go unnoticed even with mild sampling rates such as 1/10 and 1/100. Next, using the proposed evaluation procedure we investigated the impact of various sampling techniques on NIDS detection rate and false alarm rate. Detection rate and false alarm rate is computed for three sampling rates (i.e., 1/10, 1/100, 1/1000), for four different sampling techniques and for three (two tree-based, one deep learning based) classifiers. Experimental results show that systematic linear sampler - SketFlow performs better compared to non-linear samplers such as Sketch Guided and Fast Filtered sampling. We also found that random forest classifier with SketchFlow sampling was a better combination. The combination showed higher detection rate and lower false alarm rate across multiple sampling rates compared to other sampler-classifier combinations. Our results are consistent in multiple sampling rates, exceptional case is observed for Sketch Guided Sampling (SGS) as it caused a drastic performance drop when sampling rate was changed from 1/100 to 1/1000. Our results provide valuable insights for network practitioners and researchers regarding on how packet sampling effects ML-based NIDS performance. In this regard full source code for sampling and ML experiments has been released: github.com/Jumabek/sampledFlowMeter and github.com/Jumabek/nids-with-sampling",
+            "fileName": "paper--9661375.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe/evidence/487d5639-2d3d-439a-8504-9a892ab21a03/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Context and Challenge"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Flow-based NIDS models commonly rely on flow features generated from packet traffic. On commodity switches and routers, processing and exporting flow information can be constrained by traffic volume, memory and CPU demand, making packet sampling a practical compromise. But sampling may omit packets or entire short malicious flows, so systems evaluated on complete traffic may not behave the same way on sampled records. The study asks how sampling choices affect detection rate and false alarm rate."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "c82103c2-5b46-4f22-bef8-a80b832055a4",
+            "chunkText": "The associate editor coordinating the review of this manuscript and approving it for publication was Derek Abbott .\n\nNetwork monitoring applications such as flow analysis, intrusion detection, and performance monitoring have become\n\nThis work is licensed under a Creative Commons Attribution 4.0 License. For more information, see https://creativecommons.org/licenses/by/4.0/\n\nincreasingly popular owing to the continuous increase in the speed and volume of network traffic [1]. Flow-based network monitoring is favored owing to its efficiency over fullpacket-monitoring techniques such as deep packet inspection (DPI) [2]. Efficiency is achieved by inspecting the flow records [3] instead of individual packets. The network load owing to flow record collection and export (e.g., NetFlow) is only 0.2% of the packet exporting technologies [2], [4]. However, with the increased volume and speed of internet traffic even flow record export has become a challenge for commodity devices (i.e., switch, router). This is because processing each packet requires a certain bandwidth, memory, and CPU cycles of the measuring device. Therefore, packet sampling is used to reduce the overhead of the flowinformation-measuring device [1], [5].",
+            "fileName": "paper--9661375.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe/evidence/c82103c2-5b46-4f22-bef8-a80b832055a4/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "46004ecf-b618-49d9-9a2c-adcaa6730f7e",
+            "chunkText": "Flow-based Network Intrusion Detection Systems (NIDSs) use flow records as inputs and examine whether the specific flow is normal or malicious [2]. Recent research has proposed a large body of machine learning (ML) and deep learning (DL) solutions for flow-based NIDSs [6]–[13]. These solutions have demonstrated promising results in terms of their robust detection rates (DRs). However, to the best of our knowledge majority of the state-of-the-art solutions assume flow records are computed from full traffic, while in practice they are collected from sampled packets. As a result the success of state-of-the-art ML/DL based methods in practical scenarios is unknown. In this regard we investigate the impact of sampling on ML-based NIDS by considering real-world scenario (i.e., when sampling is inevitable).\n\nTrack changes is on 3",
+            "fileName": "paper--9661375.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe/evidence/46004ecf-b618-49d9-9a2c-adcaa6730f7e/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "487d5639-2d3d-439a-8504-9a892ab21a03",
+            "chunkText": "ABSTRACT Machine Learning (ML) based Network Intrusion Systems (NIDSs) operate on flow features which are obtained from flow exporting protocols (i.e., NetFlow). Recent success of ML and Deep Learning (DL) based NIDS solutions assume such flow information (e.g., avg. packet size) is obtained from all packets of the flow. However, often in practice flow exporter is deployed on commodity devices where packet sampling is inevitable. As a result, applicability of such ML based NIDS solutions in the presence of sampling (i.e., when flow information is obtained from sampled set of packets instead of full traffic) is an open question. In this study, we explore the impact of packet sampling on the performance and efficiency of ML-based NIDSs. Unlike previous work, our proposed evaluation procedure is immune to different settings of flow export stage. Hence, it can provide a robust evaluation of NIDS even in the presence of sampling. Through sampling experiments we established that malicious flows with shorter size (i.e., number of packets) are likely to go unnoticed even with mild sampling rates such as 1/10 and 1/100. Next, using the proposed evaluation procedure we investigated the impact of various sampling techniques on NIDS detection rate and false alarm rate. Detection rate and false alarm rate is computed for three sampling rates (i.e., 1/10, 1/100, 1/1000), for four different sampling techniques and for three (two tree-based, one deep learning based) classifiers. Experimental results show that systematic linear sampler - SketFlow performs better compared to non-linear samplers such as Sketch Guided and Fast Filtered sampling. We also found that random forest classifier with SketchFlow sampling was a better combination. The combination showed higher detection rate and lower false alarm rate across multiple sampling rates compared to other sampler-classifier combinations. Our results are consistent in multiple sampling rates, exceptional case is observed for Sketch Guided Sampling (SGS) as it caused a drastic performance drop when sampling rate was changed from 1/100 to 1/1000. Our results provide valuable insights for network practitioners and researchers regarding on how packet sampling effects ML-based NIDS performance. In this regard full source code for sampling and ML experiments has been released: github.com/Jumabek/sampledFlowMeter and github.com/Jumabek/nids-with-sampling",
+            "fileName": "paper--9661375.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe/evidence/487d5639-2d3d-439a-8504-9a892ab21a03/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Technical Approach"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The authors propose a flow-level evaluation procedure intended to remain reliable when sampling or flow-export configuration changes the number of available records. They sample packet-capture traces from the CIC-IDS-2018 dataset, derive sampled flow records, and evaluate classifiers against flow-level ground truth. The comparison covers four samplers—Simple Random Sampling, Fast Filtered Sampling, SketchFlow and Sketch-Guided Sampling—and three classifiers: decision tree, random forest and a convolutional neural network."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "8c5b583f-7537-42de-81d5-0d32f1b2c640",
+            "chunkText": "Our proposed evaluation framework establishes a foundation for the research on the domain of ML-based NIDSs that consider practical scenario where sampling is inevitable. Proposed procedure for accurate assessment of ML model demonstrates the performance gains achieved by addressing data imbalance and emphasizes the importance of using the right aggregation metric for multi-class classification to avoid positively biased results. To achieve consistency in the ground truth that is not affected by the presence of sampling or configurations of flow export, we proposed the usage of flow level (e.g., TCP connection level) evaluation. Next, by sampling packet capture (PCAP) traces from CIC-IDS-2018 dataset we investigated the effect of various sampling techniques on the visibility of cyber attacks. Then, using the proposed evaluation framework, the effect of sampling on NIDS is investigated where ML classifiers are evaluated on sampled flow records instead of flow records obtained from full trace. Experimental results show that even moderate sampling rates such as 1/10, 1/100 and 1/1000 results in 20%, 50% and 80% loss of flow visibility respectively. Note, loss of flow visibility implies that NIDS has no chance of analyzing the malicious flow. Insights derived from this study paves the way for researchers in understanding and further studying the effect of sampling on ML-based NIDSs for ensuring the usability of ML-based\n\nNIDSs even in the presence of packet sampling. In this regard full source code for sampling and ML experiments has been released: github.com/Jumabek/sampledFlowMeter and github.com/Jumabek/nids-with-sampling. Our contributions in this paper, can be listed as follows:",
+            "fileName": "paper--9661375.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe/evidence/8c5b583f-7537-42de-81d5-0d32f1b2c640/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "3448ed69-924c-4366-a05c-622e930db14c",
+            "chunkText": "FIGURE 6. Performance of ML classifiers on a given sampler. x-axis represents choice of sampler deployed during flow information export. y-axis represent DR and FAR. FAR is reduced as harsher sampling rates used. flow records are obtained from sampled packets which sampling rates of 1/10, 1/100 and 1/1000. Simple Random Sampling (SRS), Fast Filtered Sampling (FFS), SketchFlow Sampling (SFS) and Sketch-Guided Sampling (SGS) samplers are color-coded.\n\n290 z\n\nS | mem Decision Tree Random Forest mms CNN 5 4f mm Decision Tree Random Forest ii CNN\n\nFi 5\nml BW Bw EEN ele\n\nZoo go\n\na FFS SFS SGS SRS. ° FFS SFS SGS SRS\n\n(a) Sampling Rate 1/10: Detection Rate (b) Sampling Rate 1/10: False Alarm Rate\n\n> >\n\nHH Zz\n\nS 4o| = Decision Tree = Random Forest mss CNN 5 gf ww Decision Tree Random Forest ssi CNN\nEH rwegwpll gu &\nxg 3 Za,\n\ni Li ll | | 72 lll Z | 3, |\n\ne FFS SFS SGS SRS ° FFS SFS SGS SRS\n\n(c) Sampling Rate 1/100: Detection Rate (d) Sampling Rate 1/100: False Alarm Rate\n\n220 g\n\nS| mem DecisionTree «= Random Forest mms CNN 8 4fm_Decision Tree Random Forest mii CNN\nRE RE\nzg zi\nfl 1D IM | I aa———\n\n8, i 8,\n\ne FFS SFS SGS SRS ° FFS SFS SGS SRS\n\n(e) Sampling Rate 1/1000: Detection Rate (f) Sampling Rate 1/1000: False Alarm Rate",
+            "fileName": "paper--9661375.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe/evidence/3448ed69-924c-4366-a05c-622e930db14c/asset",
+            "mediaType": "image/png",
+            "chunkIndex": 98,
+            "pageNumber": 17
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Implementation"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The work implements an experimental evaluation, not a production NIDS or customer integration. Its procedure compares sampled-flow model results while using flow-level evaluation to address differences in exported-record counts. The paper reports that source code for its sampling and machine-learning experiments was released; the provided evidence does not establish deployment, operational support or integration with a HumbleBeeAI product."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "8c5b583f-7537-42de-81d5-0d32f1b2c640",
+            "chunkText": "Our proposed evaluation framework establishes a foundation for the research on the domain of ML-based NIDSs that consider practical scenario where sampling is inevitable. Proposed procedure for accurate assessment of ML model demonstrates the performance gains achieved by addressing data imbalance and emphasizes the importance of using the right aggregation metric for multi-class classification to avoid positively biased results. To achieve consistency in the ground truth that is not affected by the presence of sampling or configurations of flow export, we proposed the usage of flow level (e.g., TCP connection level) evaluation. Next, by sampling packet capture (PCAP) traces from CIC-IDS-2018 dataset we investigated the effect of various sampling techniques on the visibility of cyber attacks. Then, using the proposed evaluation framework, the effect of sampling on NIDS is investigated where ML classifiers are evaluated on sampled flow records instead of flow records obtained from full trace. Experimental results show that even moderate sampling rates such as 1/10, 1/100 and 1/1000 results in 20%, 50% and 80% loss of flow visibility respectively. Note, loss of flow visibility implies that NIDS has no chance of analyzing the malicious flow. Insights derived from this study paves the way for researchers in understanding and further studying the effect of sampling on ML-based NIDSs for ensuring the usability of ML-based\n\nNIDSs even in the presence of packet sampling. In this regard full source code for sampling and ML experiments has been released: github.com/Jumabek/sampledFlowMeter and github.com/Jumabek/nids-with-sampling. Our contributions in this paper, can be listed as follows:",
+            "fileName": "paper--9661375.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe/evidence/8c5b583f-7537-42de-81d5-0d32f1b2c640/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "487d5639-2d3d-439a-8504-9a892ab21a03",
+            "chunkText": "ABSTRACT Machine Learning (ML) based Network Intrusion Systems (NIDSs) operate on flow features which are obtained from flow exporting protocols (i.e., NetFlow). Recent success of ML and Deep Learning (DL) based NIDS solutions assume such flow information (e.g., avg. packet size) is obtained from all packets of the flow. However, often in practice flow exporter is deployed on commodity devices where packet sampling is inevitable. As a result, applicability of such ML based NIDS solutions in the presence of sampling (i.e., when flow information is obtained from sampled set of packets instead of full traffic) is an open question. In this study, we explore the impact of packet sampling on the performance and efficiency of ML-based NIDSs. Unlike previous work, our proposed evaluation procedure is immune to different settings of flow export stage. Hence, it can provide a robust evaluation of NIDS even in the presence of sampling. Through sampling experiments we established that malicious flows with shorter size (i.e., number of packets) are likely to go unnoticed even with mild sampling rates such as 1/10 and 1/100. Next, using the proposed evaluation procedure we investigated the impact of various sampling techniques on NIDS detection rate and false alarm rate. Detection rate and false alarm rate is computed for three sampling rates (i.e., 1/10, 1/100, 1/1000), for four different sampling techniques and for three (two tree-based, one deep learning based) classifiers. Experimental results show that systematic linear sampler - SketFlow performs better compared to non-linear samplers such as Sketch Guided and Fast Filtered sampling. We also found that random forest classifier with SketchFlow sampling was a better combination. The combination showed higher detection rate and lower false alarm rate across multiple sampling rates compared to other sampler-classifier combinations. Our results are consistent in multiple sampling rates, exceptional case is observed for Sketch Guided Sampling (SGS) as it caused a drastic performance drop when sampling rate was changed from 1/100 to 1/1000. Our results provide valuable insights for network practitioners and researchers regarding on how packet sampling effects ML-based NIDS performance. In this regard full source code for sampling and ML experiments has been released: github.com/Jumabek/sampledFlowMeter and github.com/Jumabek/nids-with-sampling",
+            "fileName": "paper--9661375.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe/evidence/487d5639-2d3d-439a-8504-9a892ab21a03/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Evaluation"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The evaluation tests sampling rates 1/10, 1/100 and 1/1000 across the four samplers and three classifiers. Reported metrics are detection rate and false alarm rate; figures express these as percentages and use a majority aggregation metric for flow-level detection. The study reports that sampled traffic can lose 20%, 50% and 80% of flow visibility at rates 1/10, 1/100 and 1/1000, respectively; loss of visibility means the NIDS cannot analyze the affected flow. These measurements are specific to the study, not universal network estimates. The supplied evidence does not give complete test conditions such as trace split details, repetitions, confidence intervals or hardware, so measurement reproducibility and generalization cannot be assessed here."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "8c5b583f-7537-42de-81d5-0d32f1b2c640",
+            "chunkText": "Our proposed evaluation framework establishes a foundation for the research on the domain of ML-based NIDSs that consider practical scenario where sampling is inevitable. Proposed procedure for accurate assessment of ML model demonstrates the performance gains achieved by addressing data imbalance and emphasizes the importance of using the right aggregation metric for multi-class classification to avoid positively biased results. To achieve consistency in the ground truth that is not affected by the presence of sampling or configurations of flow export, we proposed the usage of flow level (e.g., TCP connection level) evaluation. Next, by sampling packet capture (PCAP) traces from CIC-IDS-2018 dataset we investigated the effect of various sampling techniques on the visibility of cyber attacks. Then, using the proposed evaluation framework, the effect of sampling on NIDS is investigated where ML classifiers are evaluated on sampled flow records instead of flow records obtained from full trace. Experimental results show that even moderate sampling rates such as 1/10, 1/100 and 1/1000 results in 20%, 50% and 80% loss of flow visibility respectively. Note, loss of flow visibility implies that NIDS has no chance of analyzing the malicious flow. Insights derived from this study paves the way for researchers in understanding and further studying the effect of sampling on ML-based NIDSs for ensuring the usability of ML-based\n\nNIDSs even in the presence of packet sampling. In this regard full source code for sampling and ML experiments has been released: github.com/Jumabek/sampledFlowMeter and github.com/Jumabek/nids-with-sampling. Our contributions in this paper, can be listed as follows:",
+            "fileName": "paper--9661375.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe/evidence/8c5b583f-7537-42de-81d5-0d32f1b2c640/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "3448ed69-924c-4366-a05c-622e930db14c",
+            "chunkText": "FIGURE 6. Performance of ML classifiers on a given sampler. x-axis represents choice of sampler deployed during flow information export. y-axis represent DR and FAR. FAR is reduced as harsher sampling rates used. flow records are obtained from sampled packets which sampling rates of 1/10, 1/100 and 1/1000. Simple Random Sampling (SRS), Fast Filtered Sampling (FFS), SketchFlow Sampling (SFS) and Sketch-Guided Sampling (SGS) samplers are color-coded.\n\n290 z\n\nS | mem Decision Tree Random Forest mms CNN 5 4f mm Decision Tree Random Forest ii CNN\n\nFi 5\nml BW Bw EEN ele\n\nZoo go\n\na FFS SFS SGS SRS. ° FFS SFS SGS SRS\n\n(a) Sampling Rate 1/10: Detection Rate (b) Sampling Rate 1/10: False Alarm Rate\n\n> >\n\nHH Zz\n\nS 4o| = Decision Tree = Random Forest mss CNN 5 gf ww Decision Tree Random Forest ssi CNN\nEH rwegwpll gu &\nxg 3 Za,\n\ni Li ll | | 72 lll Z | 3, |\n\ne FFS SFS SGS SRS ° FFS SFS SGS SRS\n\n(c) Sampling Rate 1/100: Detection Rate (d) Sampling Rate 1/100: False Alarm Rate\n\n220 g\n\nS| mem DecisionTree «= Random Forest mms CNN 8 4fm_Decision Tree Random Forest mii CNN\nRE RE\nzg zi\nfl 1D IM | I aa———\n\n8, i 8,\n\ne FFS SFS SGS SRS ° FFS SFS SGS SRS\n\n(e) Sampling Rate 1/1000: Detection Rate (f) Sampling Rate 1/1000: False Alarm Rate",
+            "fileName": "paper--9661375.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe/evidence/3448ed69-924c-4366-a05c-622e930db14c/asset",
+            "mediaType": "image/png",
+            "chunkIndex": 98,
+            "pageNumber": 17
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Results and Business Impact"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Technically, the authors report that short malicious flows can go unnoticed even at sampling rates 1/10 and 1/100. Across the evaluated settings, SketchFlow generally performed better than the nonlinear samplers, and random forest paired with SketchFlow produced the reported favorable combination of higher detection and lower false alarm rates relative to other tested sampler-classifier combinations. The paper notes an exception: Sketch-Guided Sampling had a marked performance drop when the rate changed from 1/100 to 1/1000. No business outcomes, customer results or quantified operational savings are reported."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "487d5639-2d3d-439a-8504-9a892ab21a03",
+            "chunkText": "ABSTRACT Machine Learning (ML) based Network Intrusion Systems (NIDSs) operate on flow features which are obtained from flow exporting protocols (i.e., NetFlow). Recent success of ML and Deep Learning (DL) based NIDS solutions assume such flow information (e.g., avg. packet size) is obtained from all packets of the flow. However, often in practice flow exporter is deployed on commodity devices where packet sampling is inevitable. As a result, applicability of such ML based NIDS solutions in the presence of sampling (i.e., when flow information is obtained from sampled set of packets instead of full traffic) is an open question. In this study, we explore the impact of packet sampling on the performance and efficiency of ML-based NIDSs. Unlike previous work, our proposed evaluation procedure is immune to different settings of flow export stage. Hence, it can provide a robust evaluation of NIDS even in the presence of sampling. Through sampling experiments we established that malicious flows with shorter size (i.e., number of packets) are likely to go unnoticed even with mild sampling rates such as 1/10 and 1/100. Next, using the proposed evaluation procedure we investigated the impact of various sampling techniques on NIDS detection rate and false alarm rate. Detection rate and false alarm rate is computed for three sampling rates (i.e., 1/10, 1/100, 1/1000), for four different sampling techniques and for three (two tree-based, one deep learning based) classifiers. Experimental results show that systematic linear sampler - SketFlow performs better compared to non-linear samplers such as Sketch Guided and Fast Filtered sampling. We also found that random forest classifier with SketchFlow sampling was a better combination. The combination showed higher detection rate and lower false alarm rate across multiple sampling rates compared to other sampler-classifier combinations. Our results are consistent in multiple sampling rates, exceptional case is observed for Sketch Guided Sampling (SGS) as it caused a drastic performance drop when sampling rate was changed from 1/100 to 1/1000. Our results provide valuable insights for network practitioners and researchers regarding on how packet sampling effects ML-based NIDS performance. In this regard full source code for sampling and ML experiments has been released: github.com/Jumabek/sampledFlowMeter and github.com/Jumabek/nids-with-sampling",
+            "fileName": "paper--9661375.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe/evidence/487d5639-2d3d-439a-8504-9a892ab21a03/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "6c8b47af-946b-4843-a58a-4e01c865fd6d",
+            "chunkText": "We proposed an evaluation framework for the proper evaluation of ML-based NIDS. To the best of our knowledge, we are the first to propose flow-level NIDS evaluation framework that is applicable even in the presence of sampling. Using proposed evaluation framework we demonstrated a remarkable performance gain achieved by addressing training-data imbalance. Sampling experiments show that 50% of the malicious flows are not exported even with mild 1/10 sampling rate. Our investigation on the feasibility of the state-of-theart ML-based NIDS in the presence of sampling reveal that generally sampling degrades NIDS performance. However, we observed that sampling can also increase performance compared with no sampling when resources such as the flow cache of the measuring device (e.g., switch) are constrained.",
+            "fileName": "paper--9661375.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe/evidence/6c8b47af-946b-4843-a58a-4e01c865fd6d/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 117,
+            "pageNumber": 20
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Limitations and Next Steps"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The findings are bounded by the studied dataset, samplers, classifiers and three sampling rates; they should not be generalized to all networks. The paper also discusses constrained flow-cache conditions, but the supplied material does not provide a basis for translating its findings into production performance guarantees. No HumbleBeeAI-specific implementation, roadmap or next steps are documented. Further test conditions and independent validation are not provided in the reviewed evidence; no additional work is claimed here."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "487d5639-2d3d-439a-8504-9a892ab21a03",
+            "chunkText": "ABSTRACT Machine Learning (ML) based Network Intrusion Systems (NIDSs) operate on flow features which are obtained from flow exporting protocols (i.e., NetFlow). Recent success of ML and Deep Learning (DL) based NIDS solutions assume such flow information (e.g., avg. packet size) is obtained from all packets of the flow. However, often in practice flow exporter is deployed on commodity devices where packet sampling is inevitable. As a result, applicability of such ML based NIDS solutions in the presence of sampling (i.e., when flow information is obtained from sampled set of packets instead of full traffic) is an open question. In this study, we explore the impact of packet sampling on the performance and efficiency of ML-based NIDSs. Unlike previous work, our proposed evaluation procedure is immune to different settings of flow export stage. Hence, it can provide a robust evaluation of NIDS even in the presence of sampling. Through sampling experiments we established that malicious flows with shorter size (i.e., number of packets) are likely to go unnoticed even with mild sampling rates such as 1/10 and 1/100. Next, using the proposed evaluation procedure we investigated the impact of various sampling techniques on NIDS detection rate and false alarm rate. Detection rate and false alarm rate is computed for three sampling rates (i.e., 1/10, 1/100, 1/1000), for four different sampling techniques and for three (two tree-based, one deep learning based) classifiers. Experimental results show that systematic linear sampler - SketFlow performs better compared to non-linear samplers such as Sketch Guided and Fast Filtered sampling. We also found that random forest classifier with SketchFlow sampling was a better combination. The combination showed higher detection rate and lower false alarm rate across multiple sampling rates compared to other sampler-classifier combinations. Our results are consistent in multiple sampling rates, exceptional case is observed for Sketch Guided Sampling (SGS) as it caused a drastic performance drop when sampling rate was changed from 1/100 to 1/1000. Our results provide valuable insights for network practitioners and researchers regarding on how packet sampling effects ML-based NIDS performance. In this regard full source code for sampling and ML experiments has been released: github.com/Jumabek/sampledFlowMeter and github.com/Jumabek/nids-with-sampling",
+            "fileName": "paper--9661375.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe/evidence/487d5639-2d3d-439a-8504-9a892ab21a03/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "8c5b583f-7537-42de-81d5-0d32f1b2c640",
+            "chunkText": "Our proposed evaluation framework establishes a foundation for the research on the domain of ML-based NIDSs that consider practical scenario where sampling is inevitable. Proposed procedure for accurate assessment of ML model demonstrates the performance gains achieved by addressing data imbalance and emphasizes the importance of using the right aggregation metric for multi-class classification to avoid positively biased results. To achieve consistency in the ground truth that is not affected by the presence of sampling or configurations of flow export, we proposed the usage of flow level (e.g., TCP connection level) evaluation. Next, by sampling packet capture (PCAP) traces from CIC-IDS-2018 dataset we investigated the effect of various sampling techniques on the visibility of cyber attacks. Then, using the proposed evaluation framework, the effect of sampling on NIDS is investigated where ML classifiers are evaluated on sampled flow records instead of flow records obtained from full trace. Experimental results show that even moderate sampling rates such as 1/10, 1/100 and 1/1000 results in 20%, 50% and 80% loss of flow visibility respectively. Note, loss of flow visibility implies that NIDS has no chance of analyzing the malicious flow. Insights derived from this study paves the way for researchers in understanding and further studying the effect of sampling on ML-based NIDSs for ensuring the usability of ML-based\n\nNIDSs even in the presence of packet sampling. In this regard full source code for sampling and ML experiments has been released: github.com/Jumabek/sampledFlowMeter and github.com/Jumabek/nids-with-sampling. Our contributions in this paper, can be listed as follows:",
+            "fileName": "paper--9661375.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe/evidence/8c5b583f-7537-42de-81d5-0d32f1b2c640/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Conclusion"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The paper offers an evidence-based comparison of packet-sampling choices for machine-learning flow-based intrusion detection. Its central practical caution is that sampling can hide malicious traffic before a classifier sees it, while the reported SketchFlow and random-forest combination is a promising result within the evaluated settings—not a demonstrated product or client outcome. Publication: "
+        },
+        {
+          "type": "text",
+          "text": "IEEE Xplore record",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://ieeexplore.ieee.org/abstract/document/9661375",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "; publisher PDF hosted by an author’s university: "
+        },
+        {
+          "type": "text",
+          "text": "PDF",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://abuhamad.cs.luc.edu/pub/Investigating_the_effect_of_Traffic_Sampling_on_Machine_Learning-Based_Network_Intrusion_Detection_Approaches.pdf",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "487d5639-2d3d-439a-8504-9a892ab21a03",
+            "chunkText": "ABSTRACT Machine Learning (ML) based Network Intrusion Systems (NIDSs) operate on flow features which are obtained from flow exporting protocols (i.e., NetFlow). Recent success of ML and Deep Learning (DL) based NIDS solutions assume such flow information (e.g., avg. packet size) is obtained from all packets of the flow. However, often in practice flow exporter is deployed on commodity devices where packet sampling is inevitable. As a result, applicability of such ML based NIDS solutions in the presence of sampling (i.e., when flow information is obtained from sampled set of packets instead of full traffic) is an open question. In this study, we explore the impact of packet sampling on the performance and efficiency of ML-based NIDSs. Unlike previous work, our proposed evaluation procedure is immune to different settings of flow export stage. Hence, it can provide a robust evaluation of NIDS even in the presence of sampling. Through sampling experiments we established that malicious flows with shorter size (i.e., number of packets) are likely to go unnoticed even with mild sampling rates such as 1/10 and 1/100. Next, using the proposed evaluation procedure we investigated the impact of various sampling techniques on NIDS detection rate and false alarm rate. Detection rate and false alarm rate is computed for three sampling rates (i.e., 1/10, 1/100, 1/1000), for four different sampling techniques and for three (two tree-based, one deep learning based) classifiers. Experimental results show that systematic linear sampler - SketFlow performs better compared to non-linear samplers such as Sketch Guided and Fast Filtered sampling. We also found that random forest classifier with SketchFlow sampling was a better combination. The combination showed higher detection rate and lower false alarm rate across multiple sampling rates compared to other sampler-classifier combinations. Our results are consistent in multiple sampling rates, exceptional case is observed for Sketch Guided Sampling (SGS) as it caused a drastic performance drop when sampling rate was changed from 1/100 to 1/1000. Our results provide valuable insights for network practitioners and researchers regarding on how packet sampling effects ML-based NIDS performance. In this regard full source code for sampling and ML experiments has been released: github.com/Jumabek/sampledFlowMeter and github.com/Jumabek/nids-with-sampling",
+            "fileName": "paper--9661375.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe/evidence/487d5639-2d3d-439a-8504-9a892ab21a03/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Sources and Review Notes"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Investigating the Effect of Traffic Sampling on Machine Learning-Based Network Intrusion Detection Approaches — original source. PDF evidence pages: 1."
+        },
+        {
+          "type": "text",
+          "text": " Open source",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://ieeexplore.ieee.org/abstract/document/9661375",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "487d5639-2d3d-439a-8504-9a892ab21a03",
+            "chunkText": "ABSTRACT Machine Learning (ML) based Network Intrusion Systems (NIDSs) operate on flow features which are obtained from flow exporting protocols (i.e., NetFlow). Recent success of ML and Deep Learning (DL) based NIDS solutions assume such flow information (e.g., avg. packet size) is obtained from all packets of the flow. However, often in practice flow exporter is deployed on commodity devices where packet sampling is inevitable. As a result, applicability of such ML based NIDS solutions in the presence of sampling (i.e., when flow information is obtained from sampled set of packets instead of full traffic) is an open question. In this study, we explore the impact of packet sampling on the performance and efficiency of ML-based NIDSs. Unlike previous work, our proposed evaluation procedure is immune to different settings of flow export stage. Hence, it can provide a robust evaluation of NIDS even in the presence of sampling. Through sampling experiments we established that malicious flows with shorter size (i.e., number of packets) are likely to go unnoticed even with mild sampling rates such as 1/10 and 1/100. Next, using the proposed evaluation procedure we investigated the impact of various sampling techniques on NIDS detection rate and false alarm rate. Detection rate and false alarm rate is computed for three sampling rates (i.e., 1/10, 1/100, 1/1000), for four different sampling techniques and for three (two tree-based, one deep learning based) classifiers. Experimental results show that systematic linear sampler - SketFlow performs better compared to non-linear samplers such as Sketch Guided and Fast Filtered sampling. We also found that random forest classifier with SketchFlow sampling was a better combination. The combination showed higher detection rate and lower false alarm rate across multiple sampling rates compared to other sampler-classifier combinations. Our results are consistent in multiple sampling rates, exceptional case is observed for Sketch Guided Sampling (SGS) as it caused a drastic performance drop when sampling rate was changed from 1/100 to 1/1000. Our results provide valuable insights for network practitioners and researchers regarding on how packet sampling effects ML-based NIDS performance. In this regard full source code for sampling and ML experiments has been released: github.com/Jumabek/sampledFlowMeter and github.com/Jumabek/nids-with-sampling",
+            "fileName": "paper--9661375.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/915f3e8f-c6bf-4ed2-be67-274d3e1cf4fe/evidence/487d5639-2d3d-439a-8504-9a892ab21a03/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Authors: Jumabek Alikhanov, Rhongho Jang, Mohammed Abuhamad, David Mohaisen, Daehun Nyang, Youngtae Noh"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Published status: Published online 23 December 2021; IEEE Access volume 10, 2022; DOI 10.1109/ACCESS.2021.3137318"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Source-reviewed outcome: Short malicious flows can disappear even at sampling rates 1/10 and 1/100; random forest with SketchFlow gives a favorable detection/false-alarm combination in the evaluated settings."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Evidence gaps: Abstract has a SketFlow/SketchFlow spelling inconsistency. No evidence connecting this paper to Innerworks or another product/case."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Measurement — Traffic sampling rates: 1/10, 1/100, 1/1000. PDF p. 1. Comparison / conditions: Four samplers; three classifiers. Qualification: Short malicious flows can disappear even at mild sampling"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Review draft. Company approval of claims and figures is pending. Original URLs are transcribed from the supplied PDFs; current remote availability has not been verified."
+        }
+      ]
+    }
+  ]
+}

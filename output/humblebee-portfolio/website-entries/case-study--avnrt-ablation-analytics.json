@@ -1,0 +1,647 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "AVNRT Ablation Analysis with CARTONET for Johnson & Johnson",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "How Johnson & Johnson used HumbleBeeAI’s AVNRT ablation analysis framework to organize procedural data and explore patterns across patients",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Johnson & Johnson needed a clearer way to analyze cardiac ablation data from AVNRT procedures. Procedural information arrived in scattered files and inconsistent formats, while patient-specific 3D mapping coordinates made comparisons difficult. HumbleBeeAI describes delivering a custom framework that automated data normalization and statistical analysis and provided interactive 3D visualizations. The case study also describes predictive modeling, but does not report validation metrics or quantified clinical outcomes.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/d69d4f25-eb5c-48ce-a211-e82e8d94be54/asset",
+            "fileName": "case-study--avnrt-ablation-analytics.pdf",
+            "chunkText": "As a global leader in healthcare, Johnson and Johnson is constantly searching for new ways to improve procedural outcomes and patient care. One area of focus was the analysis of cardiac ablation data from AVNRT procedures. Each case carried valuable information hidden inside electrophysiological recordings and biophysical metrics. But without a structured way to interpret this information across multiple patients, the insights remained locked away.\n\nTo unlock them, J&J needed more than spreadsheets. They needed a system that could standardize complexity, highlight patterns, and provide clear answers.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "d69d4f25-eb5c-48ce-a211-e82e8d94be54"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/a0750228-4515-45c0-8f95-716aa0f48f1b/asset",
+            "fileName": "case-study--avnrt-ablation-analytics.pdf",
+            "chunkText": "HumbleBeeAI responded with AVNRT Ablation Analysis with CARTONET, a custom framework built to transform raw, scattered data into clarity.\n\nIntegrated Data Processing and Normalization: All raw XLSX and CSV files were ingested into a unified system. By using UUID identifiers and reference-based normalization anchored on His signal coordinates, every dataset was aligned to a common spatial reference. This eliminated the core obstacle of cross-patient comparison.\n\nAutomated statistical analysis: The framework computed summary statistics such as power, temperature, impedance drop, and spatial distances. Box plots, percentiles, and comparative charts made trends visible at a glance, replacing manual calculation with automated precision.\n\nAdvanced 3D Visualization: With Plotly, HumbleBeeAI built interactive 3D models and LAO and RAO projections that revealed the spatial relationships between His signals, ablation sites, and outcome categories. Users could rotate views, filter by category, and quickly turn dense data clouds into clear visual narratives.\n\nPredictive Modeling: The system went a step further by correlating pre-ablation features with outcomes. This gave J&J early insights into predictors of procedural success and laid the foundation for more refined strategies in the future.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "a0750228-4515-45c0-8f95-716aa0f48f1b"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/08120407-511b-405c-98e9-a239eae7a512/asset",
+            "fileName": "case-study--avnrt-ablation-analytics.pdf",
+            "chunkText": "The results were transformative.\n\nEfficiency skyrocketed as automated pipelines replaced manual preprocessing, cutting down time from data collection to insight generation.\n\nAccuracy improved through standardized formats and structured calculations, making cross-patient comparisons both reliable and consistent.\n\nInsights became actionable. Interactive visualizations and clear statistical summaries revealed patterns that were previously invisible, helping clinical experts identify outcome predictors with confidence.\n\nThe predictive framework created a foundation for long-term learning, opening doors for J&J to refine procedural strategies and advance patient care.\n\nIn short, what was once raw and chaotic became structured, interpretable, and deeply valuable.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "08120407-511b-405c-98e9-a239eae7a512"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The project focused on helping Johnson & Johnson make better use of information from AVNRT ablation procedures, including electrophysiological recordings and biophysical measures. The case study says that valuable procedural information was difficult to interpret across patients without a structured analysis approach.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/d69d4f25-eb5c-48ce-a211-e82e8d94be54/asset",
+            "fileName": "case-study--avnrt-ablation-analytics.pdf",
+            "chunkText": "As a global leader in healthcare, Johnson and Johnson is constantly searching for new ways to improve procedural outcomes and patient care. One area of focus was the analysis of cardiac ablation data from AVNRT procedures. Each case carried valuable information hidden inside electrophysiological recordings and biophysical metrics. But without a structured way to interpret this information across multiple patients, the insights remained locked away.\n\nTo unlock them, J&J needed more than spreadsheets. They needed a system that could standardize complexity, highlight patterns, and provide clear answers.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "d69d4f25-eb5c-48ce-a211-e82e8d94be54"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The previous workflow was constrained by several related problems:",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Patient mapping data used different coordinate systems, obstructing cross-patient comparison.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/f554738e-d5d0-4688-ba6c-2f5c7203e34e/asset",
+                    "fileName": "case-study--avnrt-ablation-analytics.pdf",
+                    "chunkText": "The challenge was not the lack of data but the lack of structure.\n\nData alignment was broken: Each patient's 3D mapping data used different coordinates, making cross-patient comparison nearly impossible.\n\nFormats were inconsistent: XLSX and CSV files arrived with categorical mismatches, free-text annotations, and missing codes that required endless manual cleanup.\n\nThe scale was daunting: With multi-patient datasets growing rapidly, traditional methods were slow and unreliable.\n\nInterpretation was difficult: Even when processed, 3D ablation data was overwhelming to visualize and compare in a way that made sense to clinical experts.\n\nWithout a streamlined solution, J&J faced long manual hours, inconsistent outputs, and missed opportunities to uncover the procedural insights that could improve patient outcomes.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 5,
+                    "pageNumber": 2,
+                    "sourceChunkId": "f554738e-d5d0-4688-ba6c-2f5c7203e34e"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "XLSX and CSV files contained categorical mismatches, free-text annotations, and missing codes that required manual cleanup.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/f554738e-d5d0-4688-ba6c-2f5c7203e34e/asset",
+                    "fileName": "case-study--avnrt-ablation-analytics.pdf",
+                    "chunkText": "The challenge was not the lack of data but the lack of structure.\n\nData alignment was broken: Each patient's 3D mapping data used different coordinates, making cross-patient comparison nearly impossible.\n\nFormats were inconsistent: XLSX and CSV files arrived with categorical mismatches, free-text annotations, and missing codes that required endless manual cleanup.\n\nThe scale was daunting: With multi-patient datasets growing rapidly, traditional methods were slow and unreliable.\n\nInterpretation was difficult: Even when processed, 3D ablation data was overwhelming to visualize and compare in a way that made sense to clinical experts.\n\nWithout a streamlined solution, J&J faced long manual hours, inconsistent outputs, and missed opportunities to uncover the procedural insights that could improve patient outcomes.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 5,
+                    "pageNumber": 2,
+                    "sourceChunkId": "f554738e-d5d0-4688-ba6c-2f5c7203e34e"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Growing multi-patient datasets made traditional processing slow and unreliable, while dense 3D data was difficult for clinical experts to interpret.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/f554738e-d5d0-4688-ba6c-2f5c7203e34e/asset",
+                    "fileName": "case-study--avnrt-ablation-analytics.pdf",
+                    "chunkText": "The challenge was not the lack of data but the lack of structure.\n\nData alignment was broken: Each patient's 3D mapping data used different coordinates, making cross-patient comparison nearly impossible.\n\nFormats were inconsistent: XLSX and CSV files arrived with categorical mismatches, free-text annotations, and missing codes that required endless manual cleanup.\n\nThe scale was daunting: With multi-patient datasets growing rapidly, traditional methods were slow and unreliable.\n\nInterpretation was difficult: Even when processed, 3D ablation data was overwhelming to visualize and compare in a way that made sense to clinical experts.\n\nWithout a streamlined solution, J&J faced long manual hours, inconsistent outputs, and missed opportunities to uncover the procedural insights that could improve patient outcomes.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 5,
+                    "pageNumber": 2,
+                    "sourceChunkId": "f554738e-d5d0-4688-ba6c-2f5c7203e34e"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The central challenge was therefore not a lack of data, but a lack of consistent structure for preparing, comparing, and interpreting it.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/f554738e-d5d0-4688-ba6c-2f5c7203e34e/asset",
+            "fileName": "case-study--avnrt-ablation-analytics.pdf",
+            "chunkText": "The challenge was not the lack of data but the lack of structure.\n\nData alignment was broken: Each patient's 3D mapping data used different coordinates, making cross-patient comparison nearly impossible.\n\nFormats were inconsistent: XLSX and CSV files arrived with categorical mismatches, free-text annotations, and missing codes that required endless manual cleanup.\n\nThe scale was daunting: With multi-patient datasets growing rapidly, traditional methods were slow and unreliable.\n\nInterpretation was difficult: Even when processed, 3D ablation data was overwhelming to visualize and compare in a way that made sense to clinical experts.\n\nWithout a streamlined solution, J&J faced long manual hours, inconsistent outputs, and missed opportunities to uncover the procedural insights that could improve patient outcomes.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "f554738e-d5d0-4688-ba6c-2f5c7203e34e"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI developed AVNRT Ablation Analysis with CARTONET, a custom analytical framework intended to turn scattered procedural files into data that could be compared and explored. The case study describes these capabilities:",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/a0750228-4515-45c0-8f95-716aa0f48f1b/asset",
+            "fileName": "case-study--avnrt-ablation-analytics.pdf",
+            "chunkText": "HumbleBeeAI responded with AVNRT Ablation Analysis with CARTONET, a custom framework built to transform raw, scattered data into clarity.\n\nIntegrated Data Processing and Normalization: All raw XLSX and CSV files were ingested into a unified system. By using UUID identifiers and reference-based normalization anchored on His signal coordinates, every dataset was aligned to a common spatial reference. This eliminated the core obstacle of cross-patient comparison.\n\nAutomated statistical analysis: The framework computed summary statistics such as power, temperature, impedance drop, and spatial distances. Box plots, percentiles, and comparative charts made trends visible at a glance, replacing manual calculation with automated precision.\n\nAdvanced 3D Visualization: With Plotly, HumbleBeeAI built interactive 3D models and LAO and RAO projections that revealed the spatial relationships between His signals, ablation sites, and outcome categories. Users could rotate views, filter by category, and quickly turn dense data clouds into clear visual narratives.\n\nPredictive Modeling: The system went a step further by correlating pre-ablation features with outcomes. This gave J&J early insights into predictors of procedural success and laid the foundation for more refined strategies in the future.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "a0750228-4515-45c0-8f95-716aa0f48f1b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Data processing and normalization",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The framework ingested raw XLSX and CSV files and aligned datasets using UUID identifiers and reference-based normalization anchored on His signal coordinates. This established a common spatial reference for cross-patient analysis.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/a0750228-4515-45c0-8f95-716aa0f48f1b/asset",
+            "fileName": "case-study--avnrt-ablation-analytics.pdf",
+            "chunkText": "HumbleBeeAI responded with AVNRT Ablation Analysis with CARTONET, a custom framework built to transform raw, scattered data into clarity.\n\nIntegrated Data Processing and Normalization: All raw XLSX and CSV files were ingested into a unified system. By using UUID identifiers and reference-based normalization anchored on His signal coordinates, every dataset was aligned to a common spatial reference. This eliminated the core obstacle of cross-patient comparison.\n\nAutomated statistical analysis: The framework computed summary statistics such as power, temperature, impedance drop, and spatial distances. Box plots, percentiles, and comparative charts made trends visible at a glance, replacing manual calculation with automated precision.\n\nAdvanced 3D Visualization: With Plotly, HumbleBeeAI built interactive 3D models and LAO and RAO projections that revealed the spatial relationships between His signals, ablation sites, and outcome categories. Users could rotate views, filter by category, and quickly turn dense data clouds into clear visual narratives.\n\nPredictive Modeling: The system went a step further by correlating pre-ablation features with outcomes. This gave J&J early insights into predictors of procedural success and laid the foundation for more refined strategies in the future.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "a0750228-4515-45c0-8f95-716aa0f48f1b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Automated statistical analysis",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Automated calculations covered measures including power, temperature, impedance drop, and spatial distances. Box plots, percentiles, and comparative charts were used to make distributions and trends easier to inspect.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/a0750228-4515-45c0-8f95-716aa0f48f1b/asset",
+            "fileName": "case-study--avnrt-ablation-analytics.pdf",
+            "chunkText": "HumbleBeeAI responded with AVNRT Ablation Analysis with CARTONET, a custom framework built to transform raw, scattered data into clarity.\n\nIntegrated Data Processing and Normalization: All raw XLSX and CSV files were ingested into a unified system. By using UUID identifiers and reference-based normalization anchored on His signal coordinates, every dataset was aligned to a common spatial reference. This eliminated the core obstacle of cross-patient comparison.\n\nAutomated statistical analysis: The framework computed summary statistics such as power, temperature, impedance drop, and spatial distances. Box plots, percentiles, and comparative charts made trends visible at a glance, replacing manual calculation with automated precision.\n\nAdvanced 3D Visualization: With Plotly, HumbleBeeAI built interactive 3D models and LAO and RAO projections that revealed the spatial relationships between His signals, ablation sites, and outcome categories. Users could rotate views, filter by category, and quickly turn dense data clouds into clear visual narratives.\n\nPredictive Modeling: The system went a step further by correlating pre-ablation features with outcomes. This gave J&J early insights into predictors of procedural success and laid the foundation for more refined strategies in the future.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "a0750228-4515-45c0-8f95-716aa0f48f1b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Interactive 3D exploration",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Interactive 3D models and LAO and RAO projections represented spatial relationships among His signals, ablation sites, and outcome categories. Users could rotate views and filter by category to examine the data from different perspectives.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/a0750228-4515-45c0-8f95-716aa0f48f1b/asset",
+            "fileName": "case-study--avnrt-ablation-analytics.pdf",
+            "chunkText": "HumbleBeeAI responded with AVNRT Ablation Analysis with CARTONET, a custom framework built to transform raw, scattered data into clarity.\n\nIntegrated Data Processing and Normalization: All raw XLSX and CSV files were ingested into a unified system. By using UUID identifiers and reference-based normalization anchored on His signal coordinates, every dataset was aligned to a common spatial reference. This eliminated the core obstacle of cross-patient comparison.\n\nAutomated statistical analysis: The framework computed summary statistics such as power, temperature, impedance drop, and spatial distances. Box plots, percentiles, and comparative charts made trends visible at a glance, replacing manual calculation with automated precision.\n\nAdvanced 3D Visualization: With Plotly, HumbleBeeAI built interactive 3D models and LAO and RAO projections that revealed the spatial relationships between His signals, ablation sites, and outcome categories. Users could rotate views, filter by category, and quickly turn dense data clouds into clear visual narratives.\n\nPredictive Modeling: The system went a step further by correlating pre-ablation features with outcomes. This gave J&J early insights into predictors of procedural success and laid the foundation for more refined strategies in the future.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "a0750228-4515-45c0-8f95-716aa0f48f1b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Illustration of an analyst examining clustered points in a three-dimensional chart; this is an illustrative image, not a screenshot of the delivered system.",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/3379fe9f-cc01-40b7-b9b1-8bb1489b6cbb/asset",
+        "align": "center",
+        "title": "Illustrative visualization concept",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/3379fe9f-cc01-40b7-b9b1-8bb1489b6cbb/asset",
+        "fileName": "case-study--avnrt-ablation-analytics.pdf",
+        "chunkText": "Source image\n\nA 3\n:\nA |e\n\n- ¢",
+        "mediaType": "image/png",
+        "chunkIndex": 2,
+        "pageNumber": 1,
+        "sourceChunkId": "3379fe9f-cc01-40b7-b9b1-8bb1489b6cbb"
+      }
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Predictive modeling",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study says the framework correlated pre-ablation features with outcomes to explore potential predictors of procedural success. It presents this as an early insight and a foundation for future refinement, not as a reported, validated prediction performance result.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/a0750228-4515-45c0-8f95-716aa0f48f1b/asset",
+            "fileName": "case-study--avnrt-ablation-analytics.pdf",
+            "chunkText": "HumbleBeeAI responded with AVNRT Ablation Analysis with CARTONET, a custom framework built to transform raw, scattered data into clarity.\n\nIntegrated Data Processing and Normalization: All raw XLSX and CSV files were ingested into a unified system. By using UUID identifiers and reference-based normalization anchored on His signal coordinates, every dataset was aligned to a common spatial reference. This eliminated the core obstacle of cross-patient comparison.\n\nAutomated statistical analysis: The framework computed summary statistics such as power, temperature, impedance drop, and spatial distances. Box plots, percentiles, and comparative charts made trends visible at a glance, replacing manual calculation with automated precision.\n\nAdvanced 3D Visualization: With Plotly, HumbleBeeAI built interactive 3D models and LAO and RAO projections that revealed the spatial relationships between His signals, ablation sites, and outcome categories. Users could rotate views, filter by category, and quickly turn dense data clouds into clear visual narratives.\n\nPredictive Modeling: The system went a step further by correlating pre-ablation features with outcomes. This gave J&J early insights into predictors of procedural success and laid the foundation for more refined strategies in the future.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "a0750228-4515-45c0-8f95-716aa0f48f1b"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/08120407-511b-405c-98e9-a239eae7a512/asset",
+            "fileName": "case-study--avnrt-ablation-analytics.pdf",
+            "chunkText": "The results were transformative.\n\nEfficiency skyrocketed as automated pipelines replaced manual preprocessing, cutting down time from data collection to insight generation.\n\nAccuracy improved through standardized formats and structured calculations, making cross-patient comparisons both reliable and consistent.\n\nInsights became actionable. Interactive visualizations and clear statistical summaries revealed patterns that were previously invisible, helping clinical experts identify outcome predictors with confidence.\n\nThe predictive framework created a foundation for long-term learning, opening doors for J&J to refine procedural strategies and advance patient care.\n\nIn short, what was once raw and chaotic became structured, interpretable, and deeply valuable.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "08120407-511b-405c-98e9-a239eae7a512"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied case study reports qualitative improvements, but does not provide numeric measurements, baselines, or study details to quantify them. Its reported observations are:",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/08120407-511b-405c-98e9-a239eae7a512/asset",
+            "fileName": "case-study--avnrt-ablation-analytics.pdf",
+            "chunkText": "The results were transformative.\n\nEfficiency skyrocketed as automated pipelines replaced manual preprocessing, cutting down time from data collection to insight generation.\n\nAccuracy improved through standardized formats and structured calculations, making cross-patient comparisons both reliable and consistent.\n\nInsights became actionable. Interactive visualizations and clear statistical summaries revealed patterns that were previously invisible, helping clinical experts identify outcome predictors with confidence.\n\nThe predictive framework created a foundation for long-term learning, opening doors for J&J to refine procedural strategies and advance patient care.\n\nIn short, what was once raw and chaotic became structured, interpretable, and deeply valuable.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "08120407-511b-405c-98e9-a239eae7a512"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Automated pipelines replaced manual preprocessing, which the case study says reduced the time from data collection to insight generation; no time savings are specified.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/08120407-511b-405c-98e9-a239eae7a512/asset",
+                    "fileName": "case-study--avnrt-ablation-analytics.pdf",
+                    "chunkText": "The results were transformative.\n\nEfficiency skyrocketed as automated pipelines replaced manual preprocessing, cutting down time from data collection to insight generation.\n\nAccuracy improved through standardized formats and structured calculations, making cross-patient comparisons both reliable and consistent.\n\nInsights became actionable. Interactive visualizations and clear statistical summaries revealed patterns that were previously invisible, helping clinical experts identify outcome predictors with confidence.\n\nThe predictive framework created a foundation for long-term learning, opening doors for J&J to refine procedural strategies and advance patient care.\n\nIn short, what was once raw and chaotic became structured, interpretable, and deeply valuable.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 7,
+                    "pageNumber": 2,
+                    "sourceChunkId": "08120407-511b-405c-98e9-a239eae7a512"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Standardized formats and structured calculations were reported to make cross-patient comparisons more reliable and consistent; no accuracy metric is provided.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Statistical summaries and visualizations were reported to make previously hard-to-see patterns easier for clinical experts to examine.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The predictive framework was described as creating a foundation for longer-term learning and strategy refinement; measured effects on procedure strategy or patient outcomes were not reported.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "These are qualitative claims in the source case study. No percentages, sample sizes, time reductions, predictive performance measures, or patient outcome results were supplied.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source describes a custom framework and its analytical capabilities, but does not specify deployment status, user adoption, validation methodology, dataset size, or ongoing operational support. It also provides no quantitative evaluation of the predictive modeling, so its predictive performance and clinical utility cannot be assessed from the supplied information.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/a0750228-4515-45c0-8f95-716aa0f48f1b/asset",
+            "fileName": "case-study--avnrt-ablation-analytics.pdf",
+            "chunkText": "HumbleBeeAI responded with AVNRT Ablation Analysis with CARTONET, a custom framework built to transform raw, scattered data into clarity.\n\nIntegrated Data Processing and Normalization: All raw XLSX and CSV files were ingested into a unified system. By using UUID identifiers and reference-based normalization anchored on His signal coordinates, every dataset was aligned to a common spatial reference. This eliminated the core obstacle of cross-patient comparison.\n\nAutomated statistical analysis: The framework computed summary statistics such as power, temperature, impedance drop, and spatial distances. Box plots, percentiles, and comparative charts made trends visible at a glance, replacing manual calculation with automated precision.\n\nAdvanced 3D Visualization: With Plotly, HumbleBeeAI built interactive 3D models and LAO and RAO projections that revealed the spatial relationships between His signals, ablation sites, and outcome categories. Users could rotate views, filter by category, and quickly turn dense data clouds into clear visual narratives.\n\nPredictive Modeling: The system went a step further by correlating pre-ablation features with outcomes. This gave J&J early insights into predictors of procedural success and laid the foundation for more refined strategies in the future.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "a0750228-4515-45c0-8f95-716aa0f48f1b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study frames further refinement of procedural strategies as a future opportunity, rather than reporting it as completed work. No additional planned steps or timelines are provided.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source PDF references an “Open original HumbleBeeAI page” link, but the actual URL was not included in the supplied material.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/36f7363c-1cc3-475f-ae56-f185e3103090/asset",
+            "fileName": "case-study--avnrt-ablation-analytics.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nCustom analytical framework for AVNRT ablation procedures with automated data normalization, statistical analysis, and 3D visualization",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "36f7363c-1cc3-475f-ae56-f185e3103090"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The AVNRT ablation analysis framework addressed a practical data problem: scattered, inconsistently formatted procedure files and spatial data that were difficult to compare. The reported approach brought normalization, statistical summaries, and interactive 3D exploration into one analytical workflow, giving Johnson & Johnson a more structured basis for examining patterns. The source reports qualitative benefits, while leaving quantified performance and patient impact unreported.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/f554738e-d5d0-4688-ba6c-2f5c7203e34e/asset",
+            "fileName": "case-study--avnrt-ablation-analytics.pdf",
+            "chunkText": "The challenge was not the lack of data but the lack of structure.\n\nData alignment was broken: Each patient's 3D mapping data used different coordinates, making cross-patient comparison nearly impossible.\n\nFormats were inconsistent: XLSX and CSV files arrived with categorical mismatches, free-text annotations, and missing codes that required endless manual cleanup.\n\nThe scale was daunting: With multi-patient datasets growing rapidly, traditional methods were slow and unreliable.\n\nInterpretation was difficult: Even when processed, 3D ablation data was overwhelming to visualize and compare in a way that made sense to clinical experts.\n\nWithout a streamlined solution, J&J faced long manual hours, inconsistent outputs, and missed opportunities to uncover the procedural insights that could improve patient outcomes.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "f554738e-d5d0-4688-ba6c-2f5c7203e34e"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/evidence/a0750228-4515-45c0-8f95-716aa0f48f1b/asset",
+            "fileName": "case-study--avnrt-ablation-analytics.pdf",
+            "chunkText": "HumbleBeeAI responded with AVNRT Ablation Analysis with CARTONET, a custom framework built to transform raw, scattered data into clarity.\n\nIntegrated Data Processing and Normalization: All raw XLSX and CSV files were ingested into a unified system. By using UUID identifiers and reference-based normalization anchored on His signal coordinates, every dataset was aligned to a common spatial reference. This eliminated the core obstacle of cross-patient comparison.\n\nAutomated statistical analysis: The framework computed summary statistics such as power, temperature, impedance drop, and spatial distances. Box plots, percentiles, and comparative charts made trends visible at a glance, replacing manual calculation with automated precision.\n\nAdvanced 3D Visualization: With Plotly, HumbleBeeAI built interactive 3D models and LAO and RAO projections that revealed the spatial relationships between His signals, ablation sites, and outcome categories. Users could rotate views, filter by category, and quickly turn dense data clouds into clear visual narratives.\n\nPredictive Modeling: The system went a step further by correlating pre-ablation features with outcomes. This gave J&J early insights into predictors of procedural success and laid the foundation for more refined strategies in the future.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "a0750228-4515-45c0-8f95-716aa0f48f1b"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+UPLOADED 1 company-update--vc-studio-qatar.pdf
+UPLOADED 2 case-study--customs-document-automation.pdf
+UPLOADED 3 case-study--ai-based-predictive.pdf
+UPLOADED 4 case-study--avnrt-ablation-analytics.pdf
+UPLOADED 5 case-study--cartoned-analysis-dashboard.pdf
+UPLOADED 6 case-study--impact-event-analysis.pdf
+UPLOADED 7 case-study--patient-data-analytics.pdf
+UPLOADED 8 case-study--shelf-analysis.pdf
+UPLOADED 9 case-study--fraud-detection.pdf
+UPLOADED 10 case-study--poster-recognition.pdf
+UPLOADED 11 case-study--automated-training-pipeline.pdf
+UPLOADED 12 case-study--data-labeling-tool.pdf
+UPLOADED 13 case-study--improving-recognition-accuracy.pdf
+UPLOADED 14 case-study--optimizing-recognition-processing.pdf
+UPLOADED 15 case-study--lumiohub-platform.pdf
+UPLOADED 16 case-study--amplifyr.pdf
+UPLOADED 17 case-study--ai-powered-retail-cart.pdf
+UPLOADED 18 case-study--ai-customs-intelligence.pdf
+UPLOADED 19 case-study--data-cleaning-hs-codes.pdf
+UPLOADED 20 case-study--excel-automated-testing.pdf
+UPLOADED 21 case-study--llm-results-analyzer.pdf
+UPLOADED 22 case-study--iv-drip-flow-rate-estimator.pdf
+UPLOADED 23 company-update--innerworks-partnership.pdf
+UPLOADED 24 case-study--field-center-detection.pdf
+UPLOADED 25 case-study--beef-carcass-detection.pdf
+UPLOADED 26 case-study--livescore-ai.pdf
+UPLOADED 27 case-study--breast-cancer.pdf
+UPLOADED 28 project--hstaff.pdf
+UPLOADED 29 project--lumiohub.pdf
+UPLOADED 30 project--ai-avatar.pdf
+UPLOADED 31 project--kumush-ai.pdf
+UPLOADED 32 project--wakil-ai.pdf
+UPLOADED 33 project--bojhona.pdf
+UPLOADED 34 project--enlighten-qalb.pdf
+UPLOADED 35 project--bride.pdf
+UPLOADED 36 paper--2409.04187.pdf
+UPLOADED 37 paper--10883969.pdf
+UPLOADED 38 paper--10316180.pdf
+UPLOADED 39 paper--515.pdf
+UPLOADED 40 paper--9661375.pdf
+UPLOADED 41 paper--9064976.pdf
+UPLOADED 42 paper--1910.01091.pdf
+UPLOADED 43 HumbleBeeAI Expands to Qatar with the Launch of Venture Studio LLC _ Case Study.pdf
+UPLOADED 44 IV Drip Flow Rate Estimator _ Case Study.pdf
+PIPELINE_ERROR URI malformed
+URIError: URI malformed
+    at open (node:internal/fs/promises:694:10)
+    at readFile (node:internal/fs/promises:1348:20)
+    at file:///Users/johnpaul/projects/capstone_demo/output/humblebee-portfolio/run-pipeline.mjs:52:24

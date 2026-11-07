@@ -1,0 +1,380 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Data Cleaning & Ingestion for HS Code Systems",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Data Cleaning & Ingestion for HS Code Systems: structuring fragmented customs data and reducing duplicate trade descriptions for searchable classification resources.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI’s case study describes work intended to support customs officers, businesses planning international expansion, and developers building automated trade applications. The challenge was to make scattered Harmonized System (HS) rules and a very large, repetitive collection of product descriptions usable for retrieval and trade classification. The reported solution organizes HS information into structured Excel datasets and MongoDB, and deduplicates product descriptions for semantic search through Pinecone. The source reports a reduction from 65.5 million descriptions to about 2 million unique records, retaining frequency information; the counts and percentage are rounded. This is a review draft: source-owner approval and portfolio feedback are pending.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/93bcb2be-ad4a-4716-b613-692348cffc58/evidence/a8add353-db22-4345-b417-b6941090a7df/asset",
+            "fileName": "case-study--data-cleaning-hs-codes.pdf",
+            "chunkText": "Harmonized System codes are the standard for international trade classification. They determine tariffs, regulations, and tracking for products crossing borders. But HS code data is typically fragmented, inconsistent, and hard to search effectively. We tackled this through two projects. The Custom Clarification Project consolidated HS code definitions, rules, and hierarchical relationships from multiple sources. The Custom Optimization Project dealt with the scale and quality problems in a massive product description database. The goal was to build a system that works for customs officers who need quick classifications, businesses planning international expansion, and developers building automated trade applications. We combined data cleaning techniques with modern database design to turn unusable data into a useful resource.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "a8add353-db22-4345-b417-b6941090a7df"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/93bcb2be-ad4a-4716-b613-692348cffc58/evidence/430023b2-11e6-4771-8cdc-cf06aa95418b/asset",
+            "fileName": "case-study--data-cleaning-hs-codes.pdf",
+            "chunkText": "We consolidated all HS code information into two structured Excel datasets. The first has comprehensive 4-digit HS code information: definitions, redirections, rules, and clarifications in a standard format. The second shows hierarchical relationships between codes across the HS taxonomy. For storage, we use a dual-index setup. Pinecone vector databases enable semantic search—users can describe products naturally and find relevant HS codes. MongoDB supports structured queries and hierarchical browsing for systematic navigation. The ingestion pipeline processes data row-by-row for consistency. The hierarchical data uses set-based formatting to link each 4-digit code with its subcategories under unified indexes. This supports both smart searching and systematic browsing.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "430023b2-11e6-4771-8cdc-cf06aa95418b"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/93bcb2be-ad4a-4716-b613-692348cffc58/evidence/c7a85860-5e73-4fdd-bc6e-9c9bd8622a29/asset",
+            "fileName": "case-study--data-cleaning-hs-codes.pdf",
+            "chunkText": "We built a cleaning process to handle the scale and quality issues. First, text normalization: converting descriptions to lowercase and standardizing formatting to eliminate inconsistencies. Next, we used text analysis algorithms to identify products that were essentially identical despite minor wording differences. Rather than just deleting duplicates, we used clustering to group similar descriptions while keeping statistical information. The clustering merged duplicate entries while tracking how often each product appears in real trade data. This cut dataset size while preserving information about product popularity. After optimization, we ingested the cleaned data using the same dual storage setup. Each unique product description goes into both Pinecone for semantic search and MongoDB for structured storage. The merged count strategy ensures efficient storage and better retrieval while maintaining accuracy.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "c7a85860-5e73-4fdd-bc6e-9c9bd8622a29"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/93bcb2be-ad4a-4716-b613-692348cffc58/evidence/a1350216-64f3-4741-abe7-482f2afb8d13/asset",
+            "fileName": "case-study--data-cleaning-hs-codes.pdf",
+            "chunkText": "This report covers two related projects that turned messy Harmonized System (HS) code data into a practical, searchable database for international trade classification. The Custom Clarification Project organized HS code structures from scattered PDF files into clean databases. The Custom Optimization Project reduced a dataset of 65.5 million product descriptions down to 2 million unique records by removing duplicates. These projects built a working foundation for AI-powered trade classification. We use Pinecone vector databases for semantic search and MongoDB for structured navigation. The result: much faster queries, better search accuracy, and 97% less redundant data while keeping track of product frequency. This clean data now supports faster customs processing, more accurate tariff calculations, and automated trade compliance systems.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "a1350216-64f3-4741-abe7-482f2afb8d13"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source describes two related retrieval problems. HS-code definitions, rules, exceptions, and hierarchical details were distributed across PDFs, sometimes overlapping or contradicting one another. Users had to consult multiple files and manually cross-reference codes; inconsistent formats also hindered automation. Separately, about 65.5 million product descriptions mapped to 10-digit HS codes contained repeated entries with variations in spelling, punctuation, or formatting. This volume created redundant storage and made results repetitive, while processing was described as slow and resource-intensive. These are the case study’s reported conditions; independent test conditions are not provided.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/93bcb2be-ad4a-4716-b613-692348cffc58/evidence/ed66c42f-b635-4991-8958-8cd917f8b7bc/asset",
+            "fileName": "case-study--data-cleaning-hs-codes.pdf",
+            "chunkText": "The original HS code data was spread across disconnected PDF files. Some had 4-digit code definitions, others had 6-digit details, and some included special rules and exceptions. This created several problems:\n\nInformation overlapped and sometimes contradicted itself. Users had to search through multiple files to find complete information about a single HS code. Inconsistent formatting made automation impossible. Cross-referencing related codes required manual work.\n\nWhen we first tried loading this scattered data into separate databases, retrieval was slow. Finding complete information about any code required multiple queries, leading to slow response times and incomplete results.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "ed66c42f-b635-4991-8958-8cd917f8b7bc"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/93bcb2be-ad4a-4716-b613-692348cffc58/evidence/a3142871-e6f2-4b4d-8e5c-fd8bee5b6b1e/asset",
+            "fileName": "case-study--data-cleaning-hs-codes.pdf",
+            "chunkText": "The second challenge was a dataset of about 65.5 million product descriptions mapped to 10-digit HS codes. While comprehensive, it had severe quality issues. The main problem was duplication. The same products appeared hundreds or thousands of times with slight variations in spelling, punctuation, or formatting. For example, iPhone 13 might also appear as iPhone 13 Color Red, IPHONE 13 Storage 256GB, iPhone13 Pro Max, etc. This caused two problems. First, massive storage waste—the same information repeated millions of times. Second, terrible search quality. Users got pages of nearly identical results instead of useful variety. The 65.5 million records also made processing slow and resource-heavy, making real-time applications impractical.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "a3142871-e6f2-4b4d-8e5c-fd8bee5b6b1e"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Structured HS-code reference data",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The clarification work consolidated HS-code definitions, redirections, rules, and clarifications into a standardized Excel dataset, alongside a second dataset representing code relationships across the HS hierarchy. The case study says Pinecone supports semantic search from natural-language product descriptions, while MongoDB supports structured queries and hierarchical browsing. A row-by-row ingestion process and unified indexing were used to organize the information for both search and navigation.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/93bcb2be-ad4a-4716-b613-692348cffc58/evidence/430023b2-11e6-4771-8cdc-cf06aa95418b/asset",
+            "fileName": "case-study--data-cleaning-hs-codes.pdf",
+            "chunkText": "We consolidated all HS code information into two structured Excel datasets. The first has comprehensive 4-digit HS code information: definitions, redirections, rules, and clarifications in a standard format. The second shows hierarchical relationships between codes across the HS taxonomy. For storage, we use a dual-index setup. Pinecone vector databases enable semantic search—users can describe products naturally and find relevant HS codes. MongoDB supports structured queries and hierarchical browsing for systematic navigation. The ingestion pipeline processes data row-by-row for consistency. The hierarchical data uses set-based formatting to link each 4-digit code with its subcategories under unified indexes. This supports both smart searching and systematic browsing.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "430023b2-11e6-4771-8cdc-cf06aa95418b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Deduplicated product descriptions",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "For the optimization work, the described process normalized text formatting, applied text-analysis algorithms to identify substantially similar descriptions, and clustered duplicates. Rather than discard all repeated entries, it retained frequency counts to represent how often products appeared in the trade data. The resulting unique descriptions were ingested into Pinecone for semantic search and MongoDB for structured storage.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/93bcb2be-ad4a-4716-b613-692348cffc58/evidence/c7a85860-5e73-4fdd-bc6e-9c9bd8622a29/asset",
+            "fileName": "case-study--data-cleaning-hs-codes.pdf",
+            "chunkText": "We built a cleaning process to handle the scale and quality issues. First, text normalization: converting descriptions to lowercase and standardizing formatting to eliminate inconsistencies. Next, we used text analysis algorithms to identify products that were essentially identical despite minor wording differences. Rather than just deleting duplicates, we used clustering to group similar descriptions while keeping statistical information. The clustering merged duplicate entries while tracking how often each product appears in real trade data. This cut dataset size while preserving information about product popularity. After optimization, we ingested the cleaned data using the same dual storage setup. Each unique product description goes into both Pinecone for semantic search and MongoDB for structured storage. The merged count strategy ensures efficient storage and better retrieval while maintaining accuracy.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "c7a85860-5e73-4fdd-bc6e-9c9bd8622a29"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source-reported project description is available at ",
+          "type": "text"
+        },
+        {
+          "text": "Data Cleaning & Ingestion for HS Code Systems",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://humblebee.ai/case-studies/data-cleaning-hs-codes",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "text": ".",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/93bcb2be-ad4a-4716-b613-692348cffc58/evidence/465b701b-80e1-4633-ad70-304bee5d69a6/asset",
+            "fileName": "case-study--data-cleaning-hs-codes.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nConsolidated HS rulebooks and optimized 65.5M product descriptions into a dual-database system for faster, more accurate trade classification.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "465b701b-80e1-4633-ad70-304bee5d69a6"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study reports reducing 65.5 million product descriptions to about 2 million unique records—a reported 97% reduction—while retaining frequency information. The source presents this as deduplication with product-frequency retention; counts and percentage are rounded, and the figure is not independently validated. It also reports more representative search results and improved query performance, but supplies no benchmark query latency, retrieval-quality measurement, baseline test design, or test conditions. No quantified business impact, such as customs-processing time or tariff-calculation accuracy, is provided, so those effects have not been measured in the supplied evidence.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/93bcb2be-ad4a-4716-b613-692348cffc58/evidence/51d537e4-7e98-4c47-a52f-fd30b9d518ba/asset",
+            "fileName": "case-study--data-cleaning-hs-codes.pdf",
+            "chunkText": "Optimizing 65.5 million product descriptions achieved a 97% reduction to about 2 million unique records. This eliminated redundancy while preserving essential information through frequency counting. Search quality improved significantly—users now get diverse, representative results instead of pages of duplicates. Query performance increased with the smaller dataset, enabling practical real-time applications. Storage costs dropped while performance improved. The frequency counts maintain valuable data about product popularity without storing redundant entries.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 10,
+            "pageNumber": 3,
+            "sourceChunkId": "51d537e4-7e98-4c47-a52f-fd30b9d518ba"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/93bcb2be-ad4a-4716-b613-692348cffc58/evidence/a1350216-64f3-4741-abe7-482f2afb8d13/asset",
+            "fileName": "case-study--data-cleaning-hs-codes.pdf",
+            "chunkText": "This report covers two related projects that turned messy Harmonized System (HS) code data into a practical, searchable database for international trade classification. The Custom Clarification Project organized HS code structures from scattered PDF files into clean databases. The Custom Optimization Project reduced a dataset of 65.5 million product descriptions down to 2 million unique records by removing duplicates. These projects built a working foundation for AI-powered trade classification. We use Pinecone vector databases for semantic search and MongoDB for structured navigation. The result: much faster queries, better search accuracy, and 97% less redundant data while keeping track of product frequency. This clean data now supports faster customs processing, more accurate tariff calculations, and automated trade compliance systems.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "a1350216-64f3-4741-abe7-482f2afb8d13"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied case-study material describes the data structuring, deduplication, and dual-storage work as completed, but does not establish deployment status, production availability, or measured performance under defined test conditions. It gives no benchmark for retrieval latency or quality. The source discusses future AI-powered classification, compliance checking, and analytics as potential applications, not as delivered capabilities; no approved next-step plan has been provided. Publication approval remains pending.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/93bcb2be-ad4a-4716-b613-692348cffc58/evidence/18a52617-fb26-42bc-ba8d-edcf2e36022f/asset",
+            "fileName": "case-study--data-cleaning-hs-codes.pdf",
+            "chunkText": "The integrated system now supports AI and machine learning applications that need clean, structured training data. Combining theoretical HS code knowledge with real product descriptions enables classification algorithms that understand both regulations and practical trade patterns. The architecture handles current needs and future growth with efficient ingestion pipelines. The dual storage approach optimizes different use cases while maintaining consistency across vector and traditional databases.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 11,
+            "pageNumber": 3,
+            "sourceChunkId": "18a52617-fb26-42bc-ba8d-edcf2e36022f"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "This work addresses fragmented HS-code references and repetitive trade descriptions by organizing reference data for structured browsing and semantic retrieval, while reducing duplicate records and preserving frequency information. The supported quantitative result is the rounded, source-reported 97% reduction from 65.5 million descriptions to about 2 million unique records. Further claims about operational or business impact require measurements not included in the reviewed material.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/93bcb2be-ad4a-4716-b613-692348cffc58/evidence/51d537e4-7e98-4c47-a52f-fd30b9d518ba/asset",
+            "fileName": "case-study--data-cleaning-hs-codes.pdf",
+            "chunkText": "Optimizing 65.5 million product descriptions achieved a 97% reduction to about 2 million unique records. This eliminated redundancy while preserving essential information through frequency counting. Search quality improved significantly—users now get diverse, representative results instead of pages of duplicates. Query performance increased with the smaller dataset, enabling practical real-time applications. Storage costs dropped while performance improved. The frequency counts maintain valuable data about product popularity without storing redundant entries.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 10,
+            "pageNumber": 3,
+            "sourceChunkId": "51d537e4-7e98-4c47-a52f-fd30b9d518ba"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/93bcb2be-ad4a-4716-b613-692348cffc58/evidence/465b701b-80e1-4633-ad70-304bee5d69a6/asset",
+            "fileName": "case-study--data-cleaning-hs-codes.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nConsolidated HS rulebooks and optimized 65.5M product descriptions into a dual-database system for faster, more accurate trade classification.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "465b701b-80e1-4633-ad70-304bee5d69a6"
+          }
+        }
+      ]
+    }
+  ]
+}

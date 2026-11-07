@@ -1,0 +1,37 @@
+[
+  {
+    "key": "case-study:beef-carcass-detection",
+    "documentId": "3ccf1cc1-742a-40e6-9409-ff1fc385d33b",
+    "taskId": "5a310c05-2255-4f17-9858-90a9cc0e518a"
+  },
+  {
+    "key": "project:hstaff",
+    "documentId": "f12aaa4e-b999-4f34-9be8-63afa9a86d7e",
+    "taskId": "57e336ee-207c-417d-9ae3-f495c2229f7e"
+  },
+  {
+    "key": "project:wakil-ai",
+    "documentId": "73956dc4-bd5f-405b-8c4f-45c02c81c18e",
+    "taskId": "5094b39e-a07b-4b16-a56e-3768c385e279"
+  },
+  {
+    "key": "paper:10316180",
+    "documentId": "06b09a1a-12aa-444e-bd9f-b70209eeed36",
+    "taskId": "769435c9-dc34-4f98-84a2-c8cd14fd0733"
+  },
+  {
+    "key": "paper:515",
+    "documentId": "711f52f3-88da-49aa-aa71-f277a1f9f722",
+    "taskId": "1677a785-3383-4ee8-992a-9649f0886f2c"
+  },
+  {
+    "key": "paper:9661375",
+    "documentId": "2bd2034f-7a1b-4b82-8985-e22e6e0a92c6",
+    "taskId": "bfca122d-fb4d-49cf-873d-c082e1676ff0"
+  },
+  {
+    "key": "paper:9064976",
+    "documentId": "c5708598-1321-4762-a649-84c301061134",
+    "taskId": "4d0e86eb-681e-4d4e-8255-0cd6c4a88201"
+  }
+]

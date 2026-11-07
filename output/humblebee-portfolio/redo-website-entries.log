@@ -1,0 +1,69 @@
+WEBSITE_ENTRY_GENERATING company-update:vc-studio-qatar 5162d3bf-9a57-42ce-b8ab-3c04c7c6b035
+WEBSITE_ENTRY_GENERATING case-study:ai-based-predictive 31b8addc-2098-4ed6-8670-410ec572c4ca
+WEBSITE_ENTRY_GENERATING case-study:customs-document-automation 08499636-03de-4b76-a7ee-82d5f663a0e6
+[generation 31b8addc-2098-4ed6-8670-410ec572c4ca] retrieval finished in 1632ms with 9 chunks
+[generation 08499636-03de-4b76-a7ee-82d5f663a0e6] retrieval finished in 1681ms with 13 chunks
+[generation 5162d3bf-9a57-42ce-b8ab-3c04c7c6b035] retrieval finished in 1704ms with 7 chunks
+[generation 5162d3bf-9a57-42ce-b8ab-3c04c7c6b035] generation started (outline)
+[generation 31b8addc-2098-4ed6-8670-410ec572c4ca] generation started (outline)
+[generation 08499636-03de-4b76-a7ee-82d5f663a0e6] generation started (outline)
+[generation 31b8addc-2098-4ed6-8670-410ec572c4ca] generation finished in 24617ms
+WEBSITE_ENTRY_READY case-study:ai-based-predictive 31b8addc-2098-4ed6-8670-410ec572c4ca bc1c7663-296c-4124-bf46-0b4326ad2094
+WEBSITE_ENTRY_GENERATING case-study:avnrt-ablation-analytics 34971225-fadb-4af4-a7f5-6883a845760d
+[generation 34971225-fadb-4af4-a7f5-6883a845760d] retrieval finished in 936ms with 9 chunks
+[generation 34971225-fadb-4af4-a7f5-6883a845760d] generation started (outline)
+[generation 34971225-fadb-4af4-a7f5-6883a845760d] generation finished in 29285ms
+WEBSITE_ENTRY_READY case-study:avnrt-ablation-analytics 34971225-fadb-4af4-a7f5-6883a845760d 51507805-b627-4d36-9132-f681a53df9af
+WEBSITE_ENTRY_GENERATING case-study:cartoned-analysis-dashboard 0eccff37-c19a-4333-b04f-779ad164e7c3
+[generation 0eccff37-c19a-4333-b04f-779ad164e7c3] retrieval finished in 4984ms with 14 chunks
+[generation 0eccff37-c19a-4333-b04f-779ad164e7c3] generation started (outline)
+{"level":40,"time":1793898562958,"pid":28529,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+{"level":40,"time":1793898563068,"pid":28529,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+{"level":40,"time":1793898626027,"pid":28529,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+WEBSITE_ENTRY_RETRY_PENDING company-update:vc-studio-qatar The operation was aborted due to timeout
+WEBSITE_ENTRY_GENERATING case-study:impact-event-analysis eb4805d8-ac27-420c-a4c5-d08fe48e42d5
+WEBSITE_ENTRY_RETRY_PENDING case-study:customs-document-automation The operation was aborted due to timeout
+WEBSITE_ENTRY_GENERATING case-study:patient-data-analytics 467a4530-a428-4941-aa44-77cd6d9459ce
+[generation eb4805d8-ac27-420c-a4c5-d08fe48e42d5] retrieval finished in 1477ms with 12 chunks
+[generation 467a4530-a428-4941-aa44-77cd6d9459ce] retrieval finished in 1855ms with 15 chunks
+[generation eb4805d8-ac27-420c-a4c5-d08fe48e42d5] generation started (outline)
+[generation 467a4530-a428-4941-aa44-77cd6d9459ce] generation started (outline)
+[generation eb4805d8-ac27-420c-a4c5-d08fe48e42d5] generation finished in 15340ms
+WEBSITE_ENTRY_READY case-study:impact-event-analysis eb4805d8-ac27-420c-a4c5-d08fe48e42d5 2d346cdd-f11b-48ca-bad5-b210e157bd40
+WEBSITE_ENTRY_GENERATING case-study:shelf-analysis b4d78a05-a82c-4f2c-be2c-da605c86fee6
+[generation b4d78a05-a82c-4f2c-be2c-da605c86fee6] retrieval finished in 1677ms with 14 chunks
+[generation b4d78a05-a82c-4f2c-be2c-da605c86fee6] generation started (outline)
+WEBSITE_ENTRY_RETRY_PENDING case-study:shelf-analysis Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 1
+          },
+          "
+WEBSITE_ENTRY_GENERATING case-study:fraud-detection 9301d410-ac80-4094-a5d7-5f11c20d02fe
+[generation 9301d410-ac80-4094-a5d7-5f11c20d02fe] retrieval finished in 1975ms with 16 chunks
+[generation 9301d410-ac80-4094-a5d7-5f11c20d02fe] generation started (outline)
+WEBSITE_ENTRY_RETRY_PENDING case-study:cartoned-analysis-dashboard The operation was aborted due to timeout
+WEBSITE_ENTRY_GENERATING case-study:poster-recognition a44defcb-e44c-42a3-b775-6a9315f1e4d1
+[generation a44defcb-e44c-42a3-b775-6a9315f1e4d1] retrieval finished in 1247ms with 10 chunks
+[generation a44defcb-e44c-42a3-b775-6a9315f1e4d1] generation started (outline)
+{"level":40,"time":1793898926377,"pid":28529,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+{"level":40,"time":1793898969222,"pid":28529,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+{"level":40,"time":1793898988806,"pid":28529,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+WEBSITE_ENTRY_RETRY_PENDING case-study:fraud-detection Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+WEBSITE_ENTRY_GENERATING case-study:automated-training-pipeline f85a96f4-5df9-4e2d-9038-d41a5730c852
+[generation f85a96f4-5df9-4e2d-9038-d41a5730c852] retrieval finished in 899ms with 11 chunks
+[generation f85a96f4-5df9-4e2d-9038-d41a5730c852] generation started (outline)

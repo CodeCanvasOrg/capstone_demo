@@ -1,0 +1,429 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "How Johnson & Johnson Turned a Mountain of Event Data into a Clear Story of ROI?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "HumbleBeeAI built a Power BI analytics solution to help Johnson & Johnson’s event and commercial teams compare event activity with medical procedure-volume data. "
+        },
+        {
+          "type": "text",
+          "text": "Read the case study: “How Johnson & Johnson Turned a Mountain of Event Data into a Clear Story of ROI?”",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/impact-event-analysis",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "08738728-0692-4692-9c93-c63adb938233",
+            "chunkText": "Open original HumbleBeeAI page\n\nPower BI solution for quantifying event impact on medical procedure volumes with dynamic analytics platform",
+            "fileName": "case-study--impact-event-analysis.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c223e82c-14b2-4cf8-a23a-f7624799a159/evidence/08738728-0692-4692-9c93-c63adb938233/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Executive Summary"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Johnson & Johnson invests in educational and promotional events for medical professionals, but its teams needed a clearer way to assess whether those events aligned with changes in procedure volumes. HumbleBeeAI’s case study describes a Power BI solution that brings event, account and procedure data together for analysis. The case-study PDF has been reviewed, while owner approval remains pending; the source reports improved event-effectiveness analysis and ROI visibility, but gives no quantified return or causal validation."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "5ac8ab56-6a4a-41ce-b023-aa141162e522",
+            "chunkText": "What began as a fragmented and frustrating data challenge became a powerful competitive advantage. Johnson and Johnson now has the ability to validate event ROI with precision, guide strategy with reliable benchmarks, and ensure every marketing investment contributes measurable value.\n\nThrough this collaboration, HumbleBeeAI demonstrated how structured analytics can transform raw information into insights that directly impact business growth. J&J is not only measuring its past events more effectively but is also building a scalable platform to guide future strategies with confidence.\n\nHumbleBeeAI continues to help industry leaders unlock similar value from their data.",
+            "fileName": "case-study--impact-event-analysis.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c223e82c-14b2-4cf8-a23a-f7624799a159/evidence/5ac8ab56-6a4a-41ce-b023-aa141162e522/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 11,
+            "pageNumber": 3
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "e29717b2-8eac-4ac1-bbbd-dd990ebda74e",
+            "chunkText": "Johnson and Johnson partnered with HumbleBeeAI to answer a critical question: Do their events actually increase medical procedure volumes?. The answer came through a powerful Power BI solution. HumbleBeeAI gave J&J the ability to measure event effectiveness, compare regional performance, and prove return on investment with confidence by turning fragmented and inconsistent data into a unified analytics platform.",
+            "fileName": "case-study--impact-event-analysis.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c223e82c-14b2-4cf8-a23a-f7624799a159/evidence/e29717b2-8eac-4ac1-bbbd-dd990ebda74e/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Context and Challenge"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Event records were isolated from procedure data, leaving teams without a unified basis for examining event performance. The source also describes missing account codes, inconsistent formatting and hours spent on manual cleanup, alongside limited regional comparisons and a lack of benchmarks between accounts that hosted events and those that did not. The intended users needed an approach that could accommodate thousands of records and remain accessible to non-technical stakeholders; no detailed test conditions or dataset scale are reported."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "00a8abb0-d589-4675-be0f-54a904e80e02",
+            "chunkText": "J&J's teams faced major roadblocks in evaluating event performance:\n\nEvent data sat in isolation from procedure data, making impact measurement impossible.\n\nThere were no benchmarks to compare accounts with events against those without them.\n\nDatasets were riddled with inconsistencies such as missing account codes and formatting issues, demanding hours of manual cleanup.\n\nRegional comparisons were limited, leaving decision makers with little clarity on where utilization was strongest or weakest.\n\nAny future solution needed to handle thousands of records smoothly while being easy enough for non technical users to explore independently.\n\nWithout a unified analytics framework, J&J could not confidently assess whether events were truly delivering value.",
+            "fileName": "case-study--impact-event-analysis.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c223e82c-14b2-4cf8-a23a-f7624799a159/evidence/00a8abb0-d589-4675-be0f-54a904e80e02/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution and Capabilities"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Data integration and analysis"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The case study describes Power Query cleaning and merging account records, event logs and procedure data, including filling missing codes, resolving duplicates and correcting inconsistencies. Within Power BI, the team compared procedure volumes before and after events at account level, contrasted event-hosting accounts with non-event accounts, and mapped utilization geographically. These views are comparative analyses; they do not by themselves establish that events caused procedure changes."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "0792e0c6-e0b2-4f71-8a9c-2fb01a2736b6",
+            "chunkText": "The first challenge was data quality. Using Power Query, HumbleBeeAI cleaned and merged account records, event logs, and procedure data. Missing codes were filled, duplicates resolved, and inconsistencies corrected. The result was a single reliable dataset that eliminated hours of manual effort and created a trustworthy foundation for analysis.",
+            "fileName": "case-study--impact-event-analysis.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c223e82c-14b2-4cf8-a23a-f7624799a159/evidence/0792e0c6-e0b2-4f71-8a9c-2fb01a2736b6/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "426fc694-5cea-4412-b122-61ff93d0753d",
+            "chunkText": "With clean data, the team introduced multiple analytical perspectives inside Power BI. Procedure volumes before and after events were compared to calculate growth at the account level. Benchmarks were established by contrasting event hosting accounts with non event accounts. Utilization was mapped geographically, giving leaders a clear picture of where events were working and where they were not.",
+            "fileName": "case-study--impact-event-analysis.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c223e82c-14b2-4cf8-a23a-f7624799a159/evidence/426fc694-5cea-4412-b122-61ff93d0753d/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Interactive dashboards"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Delivered dashboards let stakeholders filter results by account, event type, procedure or timeframe and explore the data through drill-downs. This was intended to support independent exploration without technical support; the source provides no usability-test results or quantified time savings."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "a505591f-83d7-46fa-941b-a50a04a6ab10",
+            "chunkText": "Finally, HumbleBeeAI delivered sleek and dynamic dashboards. Stakeholders could filter by account, event type, procedure, or timeframe and immediately see the results. This interactivity allowed them to drill into the data at any level, uncover insights quickly, and adapt strategies on the fly without needing technical support.",
+            "fileName": "case-study--impact-event-analysis.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c223e82c-14b2-4cf8-a23a-f7624799a159/evidence/a505591f-83d7-46fa-941b-a50a04a6ab10/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Results and Business Impact"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The source reports clearer visibility into event ROI, account-level comparisons and regional performance, and says teams could use the views to identify accounts where procedure volumes rose after events. It also reports improved event-effectiveness analysis and ROI visibility. However, it provides no numerical ROI, effect size, quantified operational savings or causal validation. No comparison period, sample size, test conditions or measured business-impact figures are supplied, so the reported observations should not be read as proof that events caused procedure growth."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "2a9cf378-a1b5-4eec-90ee-a7067f4c0af9",
+            "chunkText": "The impact of the Power BI solution was transformative:\n\nJ&J gained clear visibility into event ROI, identifying accounts where procedure volumes rose directly after events.\n\nLeaders could now make data driven decisions, reallocating resources toward high growth regions and refining underperforming strategies.\n\nConcrete performance benchmarks proved that accounts hosting events consistently outperformed those that did not.\n\nManual cleaning work was eliminated, saving countless hours and freeing teams to focus on strategy.\n\nData accuracy and reliability improved significantly thanks to structured mapping and consistent calculations.\n\nStakeholders across the company felt empowered by intuitive dashboards that encouraged exploration and insight discovery.",
+            "fileName": "case-study--impact-event-analysis.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c223e82c-14b2-4cf8-a23a-f7624799a159/evidence/2a9cf378-a1b5-4eec-90ee-a7067f4c0af9/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 10,
+            "pageNumber": 3
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "e29717b2-8eac-4ac1-bbbd-dd990ebda74e",
+            "chunkText": "Johnson and Johnson partnered with HumbleBeeAI to answer a critical question: Do their events actually increase medical procedure volumes?. The answer came through a powerful Power BI solution. HumbleBeeAI gave J&J the ability to measure event effectiveness, compare regional performance, and prove return on investment with confidence by turning fragmented and inconsistent data into a unified analytics platform.",
+            "fileName": "case-study--impact-event-analysis.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c223e82c-14b2-4cf8-a23a-f7624799a159/evidence/e29717b2-8eac-4ac1-bbbd-dd990ebda74e/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Limitations and Next Steps"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The source does not provide numerical outcome measures, validation methodology, detailed implementation or performance-test conditions. Although it describes the analytics solution and dashboards as delivered, the available evidence does not establish causal clinical impact or quantify ROI. No future work or roadmap is specified in the reviewed material."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "e29717b2-8eac-4ac1-bbbd-dd990ebda74e",
+            "chunkText": "Johnson and Johnson partnered with HumbleBeeAI to answer a critical question: Do their events actually increase medical procedure volumes?. The answer came through a powerful Power BI solution. HumbleBeeAI gave J&J the ability to measure event effectiveness, compare regional performance, and prove return on investment with confidence by turning fragmented and inconsistent data into a unified analytics platform.",
+            "fileName": "case-study--impact-event-analysis.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c223e82c-14b2-4cf8-a23a-f7624799a159/evidence/e29717b2-8eac-4ac1-bbbd-dd990ebda74e/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "a505591f-83d7-46fa-941b-a50a04a6ab10",
+            "chunkText": "Finally, HumbleBeeAI delivered sleek and dynamic dashboards. Stakeholders could filter by account, event type, procedure, or timeframe and immediately see the results. This interactivity allowed them to drill into the data at any level, uncover insights quickly, and adapt strategies on the fly without needing technical support.",
+            "fileName": "case-study--impact-event-analysis.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c223e82c-14b2-4cf8-a23a-f7624799a159/evidence/a505591f-83d7-46fa-941b-a50a04a6ab10/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Conclusion"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The project brings event and procedure information into a Power BI environment for account, event and regional comparisons, giving Johnson & Johnson’s teams a more structured basis for reviewing event effectiveness. The supported value is improved visibility and analysis—not a quantified return or demonstrated causal effect."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "24ecdd69-6e54-4962-809e-56b669c938e7",
+            "chunkText": "HumbleBeeAI built a complete analytics system around Microsoft Power BI. The design focused on three pillars.",
+            "fileName": "case-study--impact-event-analysis.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c223e82c-14b2-4cf8-a23a-f7624799a159/evidence/24ecdd69-6e54-4962-809e-56b669c938e7/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "e29717b2-8eac-4ac1-bbbd-dd990ebda74e",
+            "chunkText": "Johnson and Johnson partnered with HumbleBeeAI to answer a critical question: Do their events actually increase medical procedure volumes?. The answer came through a powerful Power BI solution. HumbleBeeAI gave J&J the ability to measure event effectiveness, compare regional performance, and prove return on investment with confidence by turning fragmented and inconsistent data into a unified analytics platform.",
+            "fileName": "case-study--impact-event-analysis.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c223e82c-14b2-4cf8-a23a-f7624799a159/evidence/e29717b2-8eac-4ac1-bbbd-dd990ebda74e/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Sources and Review Notes"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "How Johnson & Johnson Turned a Mountain of Event Data into a Clear Story of ROI? — original source. PDF evidence pages: 1–3."
+        },
+        {
+          "type": "text",
+          "text": " Open source",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/impact-event-analysis",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "e29717b2-8eac-4ac1-bbbd-dd990ebda74e",
+            "chunkText": "Johnson and Johnson partnered with HumbleBeeAI to answer a critical question: Do their events actually increase medical procedure volumes?. The answer came through a powerful Power BI solution. HumbleBeeAI gave J&J the ability to measure event effectiveness, compare regional performance, and prove return on investment with confidence by turning fragmented and inconsistent data into a unified analytics platform.",
+            "fileName": "case-study--impact-event-analysis.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c223e82c-14b2-4cf8-a23a-f7624799a159/evidence/e29717b2-8eac-4ac1-bbbd-dd990ebda74e/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Source-reviewed outcome: Source reports improved event-effectiveness analysis and ROI visibility; it does not quantify a return or establish causal clinical impact."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Evidence gaps: No numerical ROI, effect size or causal validation; do not claim events caused procedure growth."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Review draft. Company approval of claims and figures is pending. Original URLs are transcribed from the supplied PDFs; current remote availability has not been verified."
+        }
+      ]
+    }
+  ]
+}

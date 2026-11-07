@@ -1,0 +1,414 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "ROI Processing with Track-Timing Cuts LumioHub AI Costs"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "HumbleBeeAI optimized LumioHub AI’s video-recognition processing to reduce unnecessary frame analysis and bound memory retained for long-running tracks."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "d2a0ebc6-84c6-4e33-97e6-4dfb597ffe17",
+            "chunkText": "Open original HumbleBeeAI page\n\nCustom AI optimization using Region of Interest processing and 30-second track-timing protocol dramatically reducing computational costs while preventing RAM overload in enterprise environments.",
+            "fileName": "case-study--optimizing-recognition-processing.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/80bea5a9-7ac4-4c1a-ac11-390d0b23509a/evidence/d2a0ebc6-84c6-4e33-97e6-4dfb597ffe17/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Executive Summary"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "LumioHub AI, a provider of workplace-management software using computer vision and real-time analytics, faced compute and memory bottlenecks as its platform expanded. HumbleBeeAI implemented region-of-interest (ROI) processing and track-duration management to address the load from analyzing entire video frames and retaining frames throughout prolonged tracks. This is a delivered implementation described in the case study; the source-reviewed record says owner approval remains pending. "
+        },
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/optimizing-recognition-processing",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "d04eac3b-313d-464d-8844-c921d2651fe3",
+            "chunkText": "The client operates at the forefront of workplace management technology, offering the LumioHub AI platform—a next-generation solution for modern enterprises. Their system leverages advanced Computer Vision and real-time analytics to automate attendance, bolster on-premise security, and streamline administrative workflows. With a cloud-native design and a focus on enterprise-grade privacy, the platform is engineered to help organizations modernize their operations while ensuring accuracy, compliance, and scalability. As a provider of cutting-edge AI-driven services, the client's platform must perform flawlessly under demanding conditions, processing high volumes of video data to deliver consistent and reliable insights.",
+            "fileName": "case-study--optimizing-recognition-processing.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/80bea5a9-7ac4-4c1a-ac11-390d0b23509a/evidence/d04eac3b-313d-464d-8844-c921d2651fe3/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Context and Challenge"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Before the change, the platform’s computer-vision models processed full video frames even when faces occupied only small areas, increasing computational load. Separately, each active track retained every frame until the person left the camera’s view. The case study reports that some individuals remained visible for over an hour, creating a memory bottleneck and risk of instability, particularly in higher-traffic settings. These constraints affected the platform’s ability to process video efficiently and scale its workload."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "c8819c88-b345-4eff-8ea7-4e44006f8623",
+            "chunkText": "As the client expanded its deployment, their LumioHub AI platform encountered two critical performance bottlenecks that threatened its efficiency and scalability. Excessive Computational Load: The platform's Computer Vision models processed entire video frames, even when faces were only visible in small, specific sections. This comprehensive analysis of unnecessary data led to a significant increase in computational expenditure, slowing down processing times and straining system resources. RAM Overload from Prolonged Tracking: The system was designed to save every frame of an active track until the tracked individual disappeared from the camera's view. When a person remained visible for an extended period—sometimes over an hour—the sheer volume of saved frames created a severe memory bottleneck. This issue risked system instability and placed a hard limit on the platform's ability to handle high-traffic environments.",
+            "fileName": "case-study--optimizing-recognition-processing.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/80bea5a9-7ac4-4c1a-ac11-390d0b23509a/evidence/c8819c88-b345-4eff-8ea7-4e44006f8623/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution and Capabilities"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Process relevant image regions"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The implemented ROI framework isolates the sections where faces are detected instead of analyzing the entire frame. By reducing the pixels passed to analysis, it targets the unnecessary computation identified in the previous workflow."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "680522ad-ce8e-414e-a6c3-aa59d9ad09ab",
+            "chunkText": "HumbleBee AI was engaged to architect and implement a sophisticated, two-pronged solution designed to address the client's specific performance challenges. Our team of elite AI engineers developed a custom strategy focused on intelligent data processing and resource management. Region of Interest (ROI) Processing: To tackle the issue of excessive computational cost, we integrated a Region of Interest (ROI) processing framework. Instead of analyzing the entire video frame, this solution intelligently identifies and isolates only the necessary sections where faces are detected. By cutting the frame to process only the relevant pixels, the system could perform its analytical tasks with a fraction of the original data. Track Duration Management Protocol: To resolve the memory overload caused by long-duration tracks, HumbleBee AI developed and implemented a track-timing mechanism. We configured a 30-second timer for each active track. If a track remained active beyond this predefined period, the system automatically designated it as removed and assigned a new track ID if the person remained in view. This protocol effectively caps the number of frames stored for any single track, preventing memory usage from escalating uncontrollably.",
+            "fileName": "case-study--optimizing-recognition-processing.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/80bea5a9-7ac4-4c1a-ac11-390d0b23509a/evidence/680522ad-ce8e-414e-a6c3-aa59d9ad09ab/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Bound retained track frames"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "A timer is configured for each active track. At 30 seconds, a track still active is designated as removed; if the person remains in view, the system assigns a new track ID. The 30-second value is a track-reset configuration interval—not a measure of end-to-end response latency. This mechanism caps the frames retained for one track, addressing the accumulation that caused memory pressure."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "680522ad-ce8e-414e-a6c3-aa59d9ad09ab",
+            "chunkText": "HumbleBee AI was engaged to architect and implement a sophisticated, two-pronged solution designed to address the client's specific performance challenges. Our team of elite AI engineers developed a custom strategy focused on intelligent data processing and resource management. Region of Interest (ROI) Processing: To tackle the issue of excessive computational cost, we integrated a Region of Interest (ROI) processing framework. Instead of analyzing the entire video frame, this solution intelligently identifies and isolates only the necessary sections where faces are detected. By cutting the frame to process only the relevant pixels, the system could perform its analytical tasks with a fraction of the original data. Track Duration Management Protocol: To resolve the memory overload caused by long-duration tracks, HumbleBee AI developed and implemented a track-timing mechanism. We configured a 30-second timer for each active track. If a track remained active beyond this predefined period, the system automatically designated it as removed and assigned a new track ID if the person remained in view. This protocol effectively caps the number of frames stored for any single track, preventing memory usage from escalating uncontrollably.",
+            "fileName": "case-study--optimizing-recognition-processing.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/80bea5a9-7ac4-4c1a-ac11-390d0b23509a/evidence/680522ad-ce8e-414e-a6c3-aa59d9ad09ab/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Results and Business Impact"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The case study reports lower computation, stable memory, and faster processing or response, including improved ability to handle video streams without overburdening compute resources. However, it provides no quantified compute or memory benchmark, savings amount, baseline measurement, test conditions, or quantified latency result. The reported qualitative benefits are source claims, not independently validated measurements; the 30-second setting should not be interpreted as a response-time result."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "509118b1-24e0-40ea-8264-ad07784eee95",
+            "chunkText": "The implementation of HumbleBee AI's custom solutions delivered immediate and measurable improvements to the LumioHub AI platform's performance and efficiency. Drastically Lowered Computational Costs: The ROI framework successfully minimized the data requiring analysis, leading to faster and more efficient processing. The client's system can now handle a higher volume of video streams simultaneously without overburdening its computational resources. Controlled and Optimized Memory Usage: The track-timing protocol has completely mitigated the risk of RAM overload. The platform maintains stable memory consumption, even when individuals remain visible on camera for extended periods, ensuring system reliability and scalability. Enhanced Real-Time Processing: By enabling track data to be processed without waiting for a subject to disappear, the solution has improved the platform's overall responsiveness. The system can now deliver insights and analytics with even lower latency.",
+            "fileName": "case-study--optimizing-recognition-processing.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/80bea5a9-7ac4-4c1a-ac11-390d0b23509a/evidence/509118b1-24e0-40ea-8264-ad07784eee95/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "680522ad-ce8e-414e-a6c3-aa59d9ad09ab",
+            "chunkText": "HumbleBee AI was engaged to architect and implement a sophisticated, two-pronged solution designed to address the client's specific performance challenges. Our team of elite AI engineers developed a custom strategy focused on intelligent data processing and resource management. Region of Interest (ROI) Processing: To tackle the issue of excessive computational cost, we integrated a Region of Interest (ROI) processing framework. Instead of analyzing the entire video frame, this solution intelligently identifies and isolates only the necessary sections where faces are detected. By cutting the frame to process only the relevant pixels, the system could perform its analytical tasks with a fraction of the original data. Track Duration Management Protocol: To resolve the memory overload caused by long-duration tracks, HumbleBee AI developed and implemented a track-timing mechanism. We configured a 30-second timer for each active track. If a track remained active beyond this predefined period, the system automatically designated it as removed and assigned a new track ID if the person remained in view. This protocol effectively caps the number of frames stored for any single track, preventing memory usage from escalating uncontrollably.",
+            "fileName": "case-study--optimizing-recognition-processing.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/80bea5a9-7ac4-4c1a-ac11-390d0b23509a/evidence/680522ad-ce8e-414e-a6c3-aa59d9ad09ab/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Limitations and Next Steps"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The supplied record does not provide benchmark data or detailed test conditions, so the scale of performance change cannot be established from the available evidence. The case-study PDF text has been reviewed, but owner approval and portfolio feedback are pending. No additional planned work is specified in the reviewed record; claims about further optimization or future capabilities are therefore not included."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "509118b1-24e0-40ea-8264-ad07784eee95",
+            "chunkText": "The implementation of HumbleBee AI's custom solutions delivered immediate and measurable improvements to the LumioHub AI platform's performance and efficiency. Drastically Lowered Computational Costs: The ROI framework successfully minimized the data requiring analysis, leading to faster and more efficient processing. The client's system can now handle a higher volume of video streams simultaneously without overburdening its computational resources. Controlled and Optimized Memory Usage: The track-timing protocol has completely mitigated the risk of RAM overload. The platform maintains stable memory consumption, even when individuals remain visible on camera for extended periods, ensuring system reliability and scalability. Enhanced Real-Time Processing: By enabling track data to be processed without waiting for a subject to disappear, the solution has improved the platform's overall responsiveness. The system can now deliver insights and analytics with even lower latency.",
+            "fileName": "case-study--optimizing-recognition-processing.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/80bea5a9-7ac4-4c1a-ac11-390d0b23509a/evidence/509118b1-24e0-40ea-8264-ad07784eee95/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Conclusion"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "This engagement addressed two specific platform pressures with complementary changes: ROI processing reduced the frame area analyzed, while a configured 30-second track reset bounded retained frames. HumbleBeeAI’s case study describes lower computation and stable memory, but does not quantify those effects or establish latency gains through reported test measurements."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "680522ad-ce8e-414e-a6c3-aa59d9ad09ab",
+            "chunkText": "HumbleBee AI was engaged to architect and implement a sophisticated, two-pronged solution designed to address the client's specific performance challenges. Our team of elite AI engineers developed a custom strategy focused on intelligent data processing and resource management. Region of Interest (ROI) Processing: To tackle the issue of excessive computational cost, we integrated a Region of Interest (ROI) processing framework. Instead of analyzing the entire video frame, this solution intelligently identifies and isolates only the necessary sections where faces are detected. By cutting the frame to process only the relevant pixels, the system could perform its analytical tasks with a fraction of the original data. Track Duration Management Protocol: To resolve the memory overload caused by long-duration tracks, HumbleBee AI developed and implemented a track-timing mechanism. We configured a 30-second timer for each active track. If a track remained active beyond this predefined period, the system automatically designated it as removed and assigned a new track ID if the person remained in view. This protocol effectively caps the number of frames stored for any single track, preventing memory usage from escalating uncontrollably.",
+            "fileName": "case-study--optimizing-recognition-processing.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/80bea5a9-7ac4-4c1a-ac11-390d0b23509a/evidence/680522ad-ce8e-414e-a6c3-aa59d9ad09ab/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "509118b1-24e0-40ea-8264-ad07784eee95",
+            "chunkText": "The implementation of HumbleBee AI's custom solutions delivered immediate and measurable improvements to the LumioHub AI platform's performance and efficiency. Drastically Lowered Computational Costs: The ROI framework successfully minimized the data requiring analysis, leading to faster and more efficient processing. The client's system can now handle a higher volume of video streams simultaneously without overburdening its computational resources. Controlled and Optimized Memory Usage: The track-timing protocol has completely mitigated the risk of RAM overload. The platform maintains stable memory consumption, even when individuals remain visible on camera for extended periods, ensuring system reliability and scalability. Enhanced Real-Time Processing: By enabling track data to be processed without waiting for a subject to disappear, the solution has improved the platform's overall responsiveness. The system can now deliver insights and analytics with even lower latency.",
+            "fileName": "case-study--optimizing-recognition-processing.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/80bea5a9-7ac4-4c1a-ac11-390d0b23509a/evidence/509118b1-24e0-40ea-8264-ad07784eee95/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Sources and Review Notes"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "ROI Processing with Track-Timing Cuts LumioHub AI Costs — original source. PDF evidence pages: 1–3."
+        },
+        {
+          "type": "text",
+          "text": " Open source",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/optimizing-recognition-processing",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "5f4fdfed-c2e3-4106-b9c5-4fb451db84e7",
+            "chunkText": "A leading LumioHub AI platform provider faced significant computational and memory challenges that hindered system performance and scalability. By partnering with HumbleBee AI, the client implemented a Region of Interest (ROI) processing model and a track-timing mechanism. This custom AI solution resulted in substantially lower computational costs, controlled memory usage, and more efficient, real-time data processing.",
+            "fileName": "case-study--optimizing-recognition-processing.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/80bea5a9-7ac4-4c1a-ac11-390d0b23509a/evidence/5f4fdfed-c2e3-4106-b9c5-4fb451db84e7/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "680522ad-ce8e-414e-a6c3-aa59d9ad09ab",
+            "chunkText": "HumbleBee AI was engaged to architect and implement a sophisticated, two-pronged solution designed to address the client's specific performance challenges. Our team of elite AI engineers developed a custom strategy focused on intelligent data processing and resource management. Region of Interest (ROI) Processing: To tackle the issue of excessive computational cost, we integrated a Region of Interest (ROI) processing framework. Instead of analyzing the entire video frame, this solution intelligently identifies and isolates only the necessary sections where faces are detected. By cutting the frame to process only the relevant pixels, the system could perform its analytical tasks with a fraction of the original data. Track Duration Management Protocol: To resolve the memory overload caused by long-duration tracks, HumbleBee AI developed and implemented a track-timing mechanism. We configured a 30-second timer for each active track. If a track remained active beyond this predefined period, the system automatically designated it as removed and assigned a new track ID if the person remained in view. This protocol effectively caps the number of frames stored for any single track, preventing memory usage from escalating uncontrollably.",
+            "fileName": "case-study--optimizing-recognition-processing.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/80bea5a9-7ac4-4c1a-ac11-390d0b23509a/evidence/680522ad-ce8e-414e-a6c3-aa59d9ad09ab/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Source-reviewed outcome: Source reports lower computation, stable memory and faster response without quantified savings."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Evidence gaps: 30 seconds is a configuration interval, not end-to-end latency; no compute/memory benchmark."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Measurement — Track reset interval: 30 seconds. PDF p. 1,2. Comparison / conditions: Long tracks reset to bound retained frames. Qualification: Configuration, not measured response latency"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Review draft. Company approval of claims and figures is pending. Original URLs are transcribed from the supplied PDFs; current remote availability has not been verified."
+        }
+      ]
+    }
+  ]
+}

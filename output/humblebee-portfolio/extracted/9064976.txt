@@ -1,0 +1,468 @@
+                                            1D CNN based network intrusion detection with
+                                                 normalization on imbalanced data
+                                                       Azizjon Meliboev                        Jumabek Alikhanov                            Wooseong Kim
+                                                 Dept. of Computer engineering              Dept. of Computer Science              Dept. of Computer engineering
+                                                       Gachon university                          Inha university                         Gachon university
+                                                      SeongNam, S.Korea                         Incheon, S.Korea                        SeongNam, S.Korea
+                                                 meliboyevabdulaziz@gmail.com                jumabek4044@gmail.com                    wooseong@gachon.ac.kr
+
+
+
+
+arXiv:2003.00476v1 [cs.CR] 1 Mar 2020
+                                           Abstract—Intrusion detection system (IDS) plays an essential      outside attack in advance rather than the HBIDS. IDS inspects
+                                        role in computer networks protecting computing resources and         the network traffic and raises alarms if a breach is observed
+                                        data from outside attacks. Recent IDS faces challenges improving     when the traffic passes through the network devices of an
+                                        flexibility and efficiency of the IDS for unexpected and un-
+                                        predictable attacks. Deep neural network (DNN) is considered         organization. According to methodologies, IDSs are catego-
+                                        popularly for complex systems to abstract features and learn         rized into two classes: a) signature detection, and b) anomaly
+                                        as a machine learning technique. In this paper, we propose a         detection. Signature based detection uses predefined signa-
+                                        deep learning approach for developing the efficient and flexible     tures and filters. This method effectively detects the known
+                                        IDS using one-dimensional Convolutional Neural Network (1D-          intrusions while unknown malicious behavior is not caught
+                                        CNN). Two-dimensional CNN methods have shown remarkable
+                                        performance in detecting objects of images in computer vision        well. Consequently, these unknown threats can be detected
+                                        area. Meanwhile, the 1D-CNN can be used for supervised               only after they are recognized by some other techniques and
+                                        learning on time-series data. We establish a machine learning        tagged with a signature for them. In contrast, an anomaly
+                                        model based on the 1D-CNN by serializing Transmission Control        based detection depends on heuristic approaches to detect the
+                                        Protocol/Internet Protocol (TCP/IP) packets in a predetermined       unknown intrusion. It categories network breaches as attack
+                                        time range as an invasion Internet traffic model for the IDS,
+                                        where normal and abnormal network traffics are categorized           when observing a deviation from normal traffic pattern. Recent
+                                        and labeled for supervised learning in the 1D-CNN. We evaluated      researches showed that a self-learning system can be applied
+                                        our model on UNSW NB15 IDS dataset to show the effectiveness         as a reliable solution for IDS. The self-learning system is one
+                                        of our method. For comparison study in performance, machine          of powerful and proactive method that use deep learning con-
+                                        learning-based Random Forest (RF) and Support Vector Machine         cepts such as supervised and unsupervised algorithms. Deep
+                                        (SVM) models in addition to the 1D-CNN with various network
+                                        parameters and architecture are exploited. In each experiment,       learning-based method is able to extract the features from big
+                                        the models are run up to 200 epochs with a learning rate             amount of traffic data and learn the abstract representation
+                                        in 0.0001 on imbalanced and balanced data. 1D-CNN and                of complex features with sequence information of TCP/IP. In
+                                        its variant architectures have outperformed compared to the          short, the deep learning-based method can help to overcome
+                                        classical machine learning classifiers. This is mainly due to the    the challenges of developing an efficient and flexible IDS.
+                                        reason that CNN has the capability to extract high-level feature
+                                        representations that represent the abstract form of low-level        The training data have been considered important for machine
+                                        feature sets of network traffic connections.                         learning, also in the deep learning. In our work, traffic data are
+                                           Index Terms—Deep learning, Machine learning, 1D CNN,              collected and labeled by normal and anomalous traffic records
+                                        RNN, LSTM, IDS, SVM, RF, UNSW NB15.                                  from different network sources. A good feature representation
+                                                                                                             from these data is obtained using deep learning techniques,
+                                                              I. I NTRODUCTION                               which finally enables a supervised classification to come up
+                                           Intrusion Detection System (IDS) is an essential tool for the     with remarkable results. In detail, we use a deep learning-
+                                        cybersecurity to detect various security threatens in computer       based 1D-CNN supervised classification, batch normalization
+                                        networks. There are two major types of the IDS: (1) host-based       and soft-max regression, for our IDS. Our architecture is
+                                        intrusion detection system (HBIDS) and (2) network-based             depicted in Figure 1. We demonstrate the usability of 1D-
+                                        intrusion detection system (NBIDS). The HBIDS regularly              CNN based IDS by applying on UNSW NB15, a recent new
+                                        investigates the characteristics of a host device such as sensors,   intrusion dataset. We provide a comparison of our work with
+                                        system logs, software logs, file systems, disk resources and         RF and SVM machine learning classifiers as well. The rest
+                                        others to detect the intrusion. Meanwhile, the NBIDS inspects        of the paper is organized as follows. Section II introduces
+                                        all incoming packets and identifies for any mistrustful patterns.    existing works on IDS. Section III gives our proposed method
+                                        When intrusions are observed, the system can raise alarms            of CNN and combination of LSTM (Long short term memory)
+                                        to cause following operations, or block the access with the          and their network architecture. Data description, as well as
+                                        source IP address in the network. This paper focus on popular        random sampling techniques for imbalanced data that we use,
+                                        NBIDS which can protect own autonomous network from                  are explained in Section IV. The experimental results of our
+models and the comparison of the performance with RF and             features(input nodes) 2 output in the binary classification. The
+SVM models are detailed in Section V. Section VI concludes           authors claim their method obtained 83.28% in 2-category
+the paper.                                                           classification and 81.29% 5-category classification accuracy
+                                                                     rate using NSL-KDD dataset. Vinayakumar and Soman [13]
+                     II. R ELATED WORK                               applied deep learning-based CNN algorithm for IDS. They
+   There have been various machine learning techniques used          generated the hybrid network models which are CNN-RNN,
+to develop IDSs, such as Support Vector Machines (SVM) [2],          CNN-LSTM, CNN-GRU and evaluated them KDDCup 99
+Random Forests (RF) [3], [4], Naive-Bayesian (NB) [5], K-            dataset. Their hybrid model that CNN-LSTM gets 99.7% of
+Nearest Neighbors (KNN) [5]. The IDSs are developed as clas-         accuracy in 2 class calssification and 98.7% of accuracy in 5
+sifiers to differentiate the normal traffic from the anomalous       calss classification. Other results are also considerable higher
+traffic. Many IDSs perform a feature selection task to extract a     than other existing works. Lloret et al. [14] present a new
+subset of relevant features from the traffic dataset to enhance      technique for network traffic classification (NTC) based on
+classification results. Feature selection helps in the elimination   a combination of deep learning models RNN and CNN. The
+of the possibility of incorrect training through the removal of      model attains an accuracy of 96.32% when evaluated it on
+redundant features and noises. Recently, deep learning based         RedIRIS dataset.
+methods have been successfully applied in audio, image, and             Liu et al. [15] proposed an algorithm using the load
+speech processing applications. These methods aim to learn a         imbalance of network server in a clustered system of high
+good feature representation from a large amount of unlabeled         concurrency. The authors evaluated only detection rate and
+data and subsequently apply these learned features on a limited      false alarm rate score in their method by using KDD Cup
+amount of labeled data in a supervised classification using          99 dataset. In [16] authors propose a deep learning to build
+supervised learning algorithms [26]. Supervised learning, main       a convolutional neural networks that can detect intrusions in
+part of deep learning, is a learning model built to make             cyber physical system. The IDS is applied on the NSL-KDD
+prediction. The algorithm takes a labeled (known) set of input       dataset and the performances of the proposed approach are
+dataset and its known responses to the data (output) to learn        presented and compared with the state of art. The model
+the classification model.                                            evaluated on the test data by giving a accuracy of 80.07% and
+   In the cyber-security field, deep learning has applied suc-       77.15% respectively on the 2 class and 5 class classification.
+cessfully for intrusion detection and become popular with
+significant results. According to recent research results, deep                        III. P ROPOSED METHOD
+learning-based IDS completely outperform compared to tra-               2D-CNNs were initially applied to image processing tasks,
+ditional methods. In [7] the authors represented experimen-          as a biologically inspired deep learning model to perform
+tal comparison between traditional IDS techniques and deep           image classification, face identification, pattern recognition
+learning-based methods. They claimed that the approach of the        [20], [23]. Convolution operations extract complex features of
+deep learning-based Synthetic Minority Oversampling Tech-            patterns automatically from the image using a filter (kernel)
+nique comes up with improved detection accuracy across a             extracts. In our task, we have used this image-processing
+range of sample sizes and traffic anomaly types on NSL-KDD           method to apply the technique to a very different, one dimen-
+[8] dataset that is an improved and reduced version of the KDD       sional numeric array data according to our data dimension.
+Cup 99 dataset [9]. The KDD Cup dataset was prepared using           We consider the matrix formed by the time-series of feature
+the network traffic captured by 1998 DARPA IDS evaluation            vectors as an image. Image pixels are locally correspond to;
+program.                                                             similarly, feature vectors connect with consecutive time-series
+   Javaid and Ahmad [10] represented a deep learning based           and represent a correlated local features, which allows us to
+approach to building an effective and flexible IDS in their          adopt this similarity.
+paper. They utilized a self-taught learning (STL) deep learning         Our proposed 1D-CNN architecture is depicted in Fig. 1.
+algorithm which combines sparse auto-encoder with soft-max           We use 32 convolution filters, 5 kernel size, 42 features and
+regression. They have implemented their method and evaluated         1 time steps in convolution layer on top rate. We used a
+it on NSL-KDD dataset. STL achieved 88.38% for the 2-                sigmoid activation function in the convolution layer. Defining
+class classification and 79.10% for the 5-class classification       one filter would allow the 1D-CNN model to learn one single
+accuracy rate. Shone and Shi [11] proposed a deep learning-          feature in the first convolution layer. This is insufficient;
+based Non Symmetric Deep Auto-encoder (NDAE) for the                 therefore we generate 32 filters which allows us to extract
+unsupervised feature learning. Their method has been im-             32 different features on the first convolution layer of the
+plemented in GPU enabled Tensorflow and evaluated using              network. The output of the first convolution layer is a 37 x
+the benchmark KDD Cup 99 and NSL-KDD datasets. The                   32 neuron matrix. Each filter contains own weight with the
+authors argue that their solution achieves an accuracy 85.42%        defined kernel size, considering the length of the input matrix.
+in 5-class and 89.22% in 13-class classification on NSL-KDD          Other convolution layers are following the same logic as first
+dataset.                                                             convolution layer. Max pooling [24], a kind of convolution
+   Yin [12] propose an approach using Recurrent Neural               layer is adopted in our network for a down sampled output. In
+Network (RNN) for IDS. The model has 122 dimensional                 the max pooling, a max-filter selects the maximum value of
+                                                                                Centre for Cyber Security (ACCS) for generating a hybrid
+                                                                                of real modern normal activities and synthetic contemporary
+                                                                                attack behaviors, is widely used in intrusion detection ex-
+                                                                                periments. According to their characteristics, this dataset has
+                                                                                nine attack types namely, Fuzzers, Analysis, Backdoors, DoS,
+                                                                                Exploits, Generic, Reconnaissance, Shellcode and Worms. The
+                                                                                Argus, Bro-IDS tools are used and twelve algorithms are
+                                                                                developed to generate totally 44 features without a class label.
+                                                                                The features contain Nominal, Float, Integer and Binary types
+                                                                                of features as reflected in Table 2. The features include a
+                                                                                various of packet-based features and flow-based features. The
+                                                                                packet-based features help the inspection of the payload beside
+                                                                                the headers of the packets. The flow-based features are based
+Fig. 1. The architecture of the 1D-CNN simple model for intrusion detection.    on a direction, an inter-arrival time and an inter-packet length.
+The network consists of following layers: input layer, one convolution layer,   The flow feature are srcip, sport, dstip, dsport, proto. The fea-
+one max-pooling layer, two fully connected layers and output layer. We used
+Batch normalization, Dropout techniques as well.
+                                                                                tures are categorised Basic(2,4,5,6,7,8,9,11,12,13,14,15,16),
+                                                                                Content (21,22,23,24,28,29,30,31), Time (19,20,25,26,27) and
+                                                                                Additional(32,33,34,35,36,37,38,39,40,41,42,43). This data set
+the region to which the filter is applied. It reduces the spatial               is labelled as attack categories(44) and label for each record
+size of the output, decreasing the number of features and the                   either 0 if the record is normal and 1 if the record is attack.
+computational complexity of the network. Similar to a dropout                      A partition from this dataset is configured as a training
+layer, a max pooling layer provides regularization. We used 1D                  set and testing set, namely, UNSW NB15 training-set.csv and
+max pooling with a pooling size 2 and stride size 1. At the end                 UNSW NB15 testing-set.csv respectively. Due to the amount
+of the network, we add two fully-connected layer to perform                     of attack and normal is quite different, we solve imbalanced
+the classification. Generally, fully-connected layers include                   data problem using Random Over-Sampling technique [22].
+most of the learnable parameters. To prevent over-fitting we                    We introduce details of this technique in Section V. The
+use the softmax function, which computes the probability for                    original and balanced, normal and attack records as shown
+each class. Also, we used Dropout [25] techniques before                        Table 1.
+fully-connected layer. A dropout provides regularization (a
+generalization of results for unseen data) by dropping out                                                  TABLE I
+                                                                                          O RIGINAL AND BALANCED UNSW NB15 DATASET
+(setting to zero) a percentage of outputs from the previous
+layer. This apparently nonsensical action forces the network to                     Dataset
+                                                                                                     Number of   Number of
+                                                                                                                             Total    Type
+not over-rely on any particular input, for preventing over-fitting                                   Normal      Attack
+                                                                                    Train            56000       119341      175341   Original
+and improving generalization. We used Batch normalization                           Test             37000       45332       82332    Original
+[19] to make training convergence faster and can improve                            Balanced train   119341      119341      238682   Fixed
+performance results. It is done by normalizing, at training time,                   Balanced test    45332       45332       90664    Fixed
+every feature at batch level (scaling inputs to zero mean and
+unit variance) and re-scaling again later considering the whole
+training dataset. The newly learned mean and variance replace                   A. Data numericalization.
+the ones obtained at batch-level.                                                  According to the UNSW NB15 dataset, there are 41 nu-
+   In case of combination model, we used LSTM [18] that                         meric features and 3 non-numeric features. Since we only can
+modified version of RNN(recurrent neural network). In con-                      feed our 1D-CNN model with the input value of a numeric
+tract to RNN it has memory blocks. A memory block contains                      matrix, we have to convert that non-numeric features, such as
+memory cell and set of gates. It allows LSTM can be suited                      proto, service and state features, into numeric features. For
+to classify, process and predict time series given time lags of                 example, the feature state has seven types of attributes, FIN,
+unknown time scale. In our combination model, after operating                   INT, CON, REQ, ACC, CLO, RST and its numeric values
+one convolution and one pooling layers, we process these out-                   are encoded as binary vectors. Similarly, other non-numeric
+puts of previous layers further with an LSTM layer. At the end                  features are processed; for example, proto, has 131 types of
+of the module we put only one fully-connected layer. When we                    attributes and service has 13 types of attributes. Moreover, we
+set 100 feature detectors and a tanh activation function with                   do not use the first feature which is id and 44-th label feature
+hyper parameters, our combination model performed well.                         that is attack cat nominal type.
+                    IV. DATA SET DESCRIPTION                                    B. Data normalization
+  We used UNSW NB15 [21], [27] dataset in our work. The                           There are some features such as dur[2.093085],
+UNSW NB15 intrusion dataset, created in 2015 by the IXIA                        sbytes[1762] and dbytes[1172], where the range between the
+PerfectStorm tool in the Cyber Range Lab of the Australian                      maximum and minimum values is used for normalization.
+                          TABLE II                                   heavy training time consumption. As consequence, we decided
+          F EATURE EXMAPLES OF UNSW NB15 DATASET                     to set 0.0001 learning rate, 32 filters, 5 filter size for the rest of
+   No   Feature    Types    No          Feature       Types          the experiments considering the accuracy, over-fitting and the
+    1       id    Nominal   23            dtcpb      Integer         detection performance on following network models of Table
+    2      dur     Float    24            dwin       Integer         3.
+    3     proto   Nominal   25            tcprtt      Float
+    4   service   Nominal   26           synack       Float
+    5     state   Nominal   27           ackdat       Float                                  TABLE III
+    6     spkts   Integer   28           smean       Integer           1D-CNN MODELS AND LSTM COMBINATION MODEL ARCHITECTURE
+                                                                                        FOR THE EXPERIMENT.
+    7    dpkts    Integer   29           dmean       Integer
+    8    sbytes   Integer   30        trans depth    Integer          Model        Architecture detail
+    9    dbytes   Integer   31   response body len   Integer          1D-CNN       Conv(32,5)-MaxPool(2,1)-BatchNorm(32)-DR(0.5)-
+   10      rate   Integer   32         ct srv src    Integer          1 layer      FC()-FC()
+   11      sttl   Integer   33        ct state ttl   Integer          1D-CNN       Conv(32,5)-Conv(32,5)-MaxPool(2,1)-BatchNorm(32)-
+   12      dttl   Integer   34         ct dst ltm    Integer          2 layer      DR(0.5)-FC()-FC()
+   13     sload    Float    35    ct src dport ltm   Integer          1D-CNN       Conv(32,5)-Conv(32,5)-MaxPool(2,1)-Conv(32,5)-
+   14    dload     Float    36    ct dst sport ltm   Integer          3 layer      MaxPool(2,1)-BatchNorm(32)-DR(0.5)-FC()-FC()
+   15     sloss   Integer   37      ct dst src ltm   Integer          1D-CNN+      Conv(32,5)-MaxPool(2,1)-BatchNorm(32)-LSTM(100)-
+   16     dloss   Integer   38       is ftp login     Binary          LSTM         BatchNorm(32)-DR(0.5)-FC()
+   17    sinpkt   Integer   39        ct ftp cmd     Integer
+   18    dinpkt   Integer   40    ct flw http mthd   Integer
+   19      sjit    Float    41         ct src ltm    Integer
+                                                                        To evaluate our IDS model on UNSW NB15 intrusion
+   20      djit    Float    42         ct srv dst    Integer         dataset, identifying attacks among normal records and clas-
+   21     swin    Integer   43     is sm ips ports    Binary         sifying into binary classification, two trails of experiments
+   22     stcpb   Integer   44         attack cat    Nominal         that use imbalanced and balanced data are conducted with
+                                                                     the above network architectures until 200 epochs. Through all
+                                                                     experiments, we can obtain following observations on those
+We use a logarithmic scaling method to get the ranges of             models.
+dur[0,0119], sbytes[0,002] and dbytes[0,0007]. Hereafter, the           • The single 1D-CNN achieves comparable performance in
+value of every feature is mapped to the [0,1] range linearly,              terms of accuracy, precision, recall and f-score. Eventu-
+where Max denotes the maximum value and Min denotes                        ally, the combination network is supposed to attain good
+minimum value for each feature as in Eq. (1).                              accuracy.
+                                                                        • 1D-CNN 3 layer model has performed best in comparison
+                                                                           to other models.
+                                                                        • 1D-CNN 3 layer model and the combination network
+                                                               (1)
+                                                                           have took more number of epochs, more than 200 to get
+               V. E XPERIMENT AND RESULTS                                  the comparable accuracy.
+                                                                        • CNN, RNN combination model does not show improve-
+   All experiments are performed using the Keras [1] software
+package and Scikits Learn(Sklearn), Panda library, together                ment in performance
+with Python3 language on the Ubuntu 18.04 operating system,          Our best trained model contains 3 convolutional layers, 2 max-
+running on a HP Laptop with Intel(R) Core(TM) i7-6500U               pooling layers, batch normalization, dropout layer and two
+CPU 2.50 GHz, 8 GB memory with a Nvidia GeForse 940M                 fully-connected layers. An input data of shape is 42*1 and
+GPU. For comparative purposes, we also implement some of             passes to 2 convolutional operations. A 1D-CNN constructs a
+the other leading CNNs using Keras.                                  tensor of shape 42*1*32 (32 denoted the number of filters)
+                                                                     and is passed to max-pooling layer (2 filter size and 1 stride
+A. Experiment of CNN and combination of LSTM                         size). Pooling reduces the tensor shape into 21*1*32. Reduced
+   1D-CNN can apply for identifying simple patterns from our         tensor is passed to convolutional operation again and then
+data which model can extract patterns, more complex features         normalized by using normalization layers (batch size is 32)
+inside higher layers. The network consisting an input layer,         [19]. Batch normalized tensor is passed to a dropout layer [25]
+hidden layer and output layer with corresponding parameters.         that provides regularization by setting a percentage of outputs
+Our experiments run on two trails which are using imbalanced         from the previous layer to zero. At the end of the network
+and balanced data with 32 filters, filter size 5 and 32 batch        module, we put two fully-connected layers for classification.
+size as the optimal parameters. We have also run the 64 filters         In the first trail experiments running on the imbalanced data
+with filter size 10 and 64 filters size 3 but results are not        as illustrated in Table 4, the model of 1D-CNN 3 layers and
+considerable. The optimal parameters can be chosen from              2 max pooling layers obtains an accuracy score of 85.86,
+results we performed on our models with varied learning rate         a precision score of 80.33, a recall score of 98.42 and F-
+0.01, 0.001 and 0.0001. According to results, optimal learning       score of 88.46 as the best output. Meanwhile, the CNN
+rate was 0.0001 so we run all trails of experiments with             and RNN combination model attained comparable results in
+0.0001 learning rate till 200 epochs. However, in case of the        all performance metrics but which consumes more time for
+combination of LSTM, we set the learning rate 0.001 due to           training.
+                           TABLE IV
+     E VALUATION RESULTS OF THE 1D-CNN MODELS AND LSTM
+   COMBINATION RESULTS , USING I MBALANCED UNSW NB15 DATA
+
+                        Accuracy     Precision   Recall     F-score
+     Algorithm
+                          (%)           (%)       (%)         (%)
+     1D-CNN 1 layer      83.19         76.76     99.61       86.71
+     1D-CNN 2 layers     84.13         77.99     99.16       87.31
+     1D-CNN 3 layers     85.86         80.33     98.42       88.46
+     1D-NN+LSTM          85.11         79.57     98.16       87.89
+
+
+                            TABLE V
+   E VALUATION RESULTS OF THE 1D-CNN MODULE WITH DIFFERENT
+     LAYERS AND LSTM COMBINATION RESULTS , USING BALANCED
+                       UNSW NB15 DATA .
+
+                        Accuracy     Precision   Recall     F-score
+     Algorithm
+                          (%)           (%)       (%)         (%)
+     1D-CNN 1 layer      90.91         85.54     96.57       90.94
+     1D-CNN 2 layers     89.88         85.22      96.5        90.5
+     1D-CNN 3 layers      91.2         87.53     96.17       91.59                   Fig. 2. Train and test accuracy score.
+     1D-CNN+LSTM         89.93         86.15     95.15       90.43
+
+
+
+
+   We solve the imbalanced problem by using a random
+oversampling technique that improves performance. In second
+trail experiments in Table 5, models feed the balanced data
+that have equaled number of attacks and normals. According to
+experiments, results much better than previous trail experiment
+as shown in the table. In this trail, the best model that
+contained 3 layers convolutional and 2 layer max pooling
+attained an accuracy score of 91.17, precision score of 87.53,
+recall score of 96.17, f-score of 91.59. In case of combination,
+the CNN and LSTM model obtains comparable results but
+lower than the best outcome. Moreover, changing the value
+of layers leads to change in the number of additional param-
+eters. Inevitably, this affects on the training process. The best
+training and test accuracy of the 1D-CNN 3 layer model are
+illustrated in Fig. 2. Here the accuracy reaches approximately
+96% after about 150 epochs and remains stable. For the CNN
+                                                                      Fig. 3. Confusion matrix of 1D-CNN classification on balanced &
+and LSTM combination model, training for more epochs are              UNSW NB15 data.
+required (i.e., more training time) rather than others because of
+the complexity of network in order to achieve similar training
+accuracy (around 97%).                                                B. Experiments with different activation functions.
+   Our best model detects 96% of all attack records truly                Deep learning performance can be impacted by an activa-
+and does not detect 4% of all attacks. In case of normal              tion function. Thus, we had experiments with several most
+traffic, 86% of all normal records are detected truly, 14% of         popularly used activation functions [17]. To demonstrate the
+them are detected wrongly. The confusion matrix of the best           advantages of using 1D-CNN over traditional Sigmoid, ReLU
+performance model and the real numbers of attack and normal           and Tangent activation functions, we compare the results
+records are presented in Figure 3 and Table 6.                        of our 1D-CNN model with this three activation functions.
+                                                                      We only change the activation functions of our model to
+                           TABLE VI                                   Sigmoid, ReLU and Tangent activation functions; other hyper
+ C ONFUSION MATRIX OF CLASSIFICATION ON BALANCED UNSW NB15            parameters remain unchanged. We trained and evaluated our
+                       DATA IN REAL NUMBERS                           best model using the balanced data. Evaluation results, listed
+                   Confusion           Predicted class                in Table 7, show that 1D-CNN performs better with Sigmoid
+                   Matrix              Normal      Attack             activation function in convolutional layers. Specifically, we can
+                           Normal      48160       7840               achieve the highest Accuracy of 91.20%, Precision of 87.53%,
+             Actual class
+                            Attack      4534      108807
+                                                                      Recall of 96.17%, F1-score 91.59%. The lowest Accuracy
+                                                                      of 86.68%, Precision of 81.07%, Recall of 95.70%, F1-score
+87.78% results when we use Relu.                                                                         TABLE X
+                                                                                   C OMPARISONS ALL MODELS APPLIED TO ID USING IMBALANCED
+                                                                                                     UNSW NB15 DATA .
+                           TABLE VII
+  E VALUATION OF PERFORMANCE OF 3 LAYERS CNN WITH DIFFERENT                                         Input
+                     ACTIVATION FUNCTIONS .                                      Algorithms         value                 Imbalanced data
+                                                                                                    size
+                            Accuracy      Precision    Recall     F-score                                    Acc (%)     Pre (%)    Re(%)       F-sc (%)
+    Activation function
+                              (%)            (%)        (%)         (%)          1D-CNN 1 layer     [42,1]   83.19       76.76      99.61       86.71
+    Sigmoid                   91.2          87.53      96.17       91.59         1D-CNN 2 layers    [42,1]   84.13       77.99      99.16       87.31
+    Tanh                     88.71          83.96       95.7       89.45         1D-CNN 3 layers    [42,1]   85.86       80.33      98.42       88.46
+    Relu                     86.68          81.07       95.7       87.78         1D-CNN+LSTM        [42,1]   85.11       79.57      98.16       87.89
+                                                                                 RF                 [42,1]   87.82       89.56      87.39       87.27
+                                                                                 SVM                [42,1]   68.04       90.11      47.13       61.89
+C. Experiments of SVM and RF
+   We compare machine learning algorithms as traditional                                              VI. CONCLUSION
+approach for classification problems with the deep learning
+                                                                                   In this paper, we develop a reliable classification using a
+approach based on the CNN. Almost the same structure of the
+                                                                                deep learning technique for intrusion detection with a vector
+learning algorithm such as data preprocessing, apply classifier,
+                                                                                of time series data. We use 1D-CNN and combination of
+evaluate the result can be used for the SVM and RF; data
+                                                                                LSTM for network architectures, batch size was set to 32
+preprocessing is the same as we did in CNN case, i.e.,
+                                                                                for all networks but for combination network 64 due to
+numericalization and deletion of unnecessary features. Also,
+                                                                                time consumption of training. We implement all networks by
+evaluation is performed same as in previous experiments, for
+                                                                                ourselves and train on both the imbalanced and balanced data
+Accuracy, Precision, Recall, F1-score results. Moreover, we
+                                                                                using GPU CUDA acceleration to reduce time consumption.
+experiment balanced and unbalanced data on both classifiers.
+                                                                                When we feed the models we used high-level header-based
+We utilize Scikits Learn(Sklearn) machine learning library
+                                                                                data extracted from packets. It does not rely on IP addresses
+for both SVM and RF classifiers. In the case of SVM, we
+                                                                                or payload data. To show the advantages of deep learning
+use SVM LinearSVC with 8000 iterations and for RF, we
+                                                                                method and the usefulness of using balanced data, we compare
+use RandomForestClassifier from sklearn.obtain. From exper-
+                                                                                1D-CNN and combination of LSTM with traditional machine
+iment, we can obtain Accuracy 61.69%, Precision 62.15%,
+                                                                                learning techniques, SVM [2] and RF [4]. Table 9 and 10 show
+Recall 59.82%, F1-score 60.96% results, respectively when
+                                                                                throughput summary of all explored algorithms the imbalanced
+we use the SVM algorithm with the balanced data as shown
+                                                                                and balanced data. The imbalanced data problem, caused by
+in Table 8. With less number of iteration, comparable accuracy
+                                                                                an unequal set of data for training, leads to poor performance
+cannot be achievable. With RF, we could achieve better results
+                                                                                in neural network models. To solve this problem, we balanced
+than SVM as shown in Accuracy 87.39%, Precision 88.88%,
+                                                                                a number of attacks and normals by using random sampling
+Recall 87.39%, F1-score 87.27%.
+                                                                                techniques.
+                           TABLE VIII
+    E VALUATION RESULTS OF THE SVM AND RF, USING BALANCED
+                      UNSW NB15 DATA .
+
+   Balanced?   Classifier     Accuracy     Precision    Recall     F-score
+               SVM            61.69        62.15        59.82      60.96
+   No
+               RF             87.39        88.88        87.39      87.27
+               SVM            68.04        90.11        47.13      61.89
+   YES
+               RF             87.82        89.56        87.39      87.27
+
+
+
+                          TABLE IX
+     C OMPARISONS ALL MODELS APPLIED TO ID USING BALANCED
+                      UNSW NB15 DATA .
+
+                     Input
+ Algorithms          value                     Balanced data
+                     Size
+                                Acc (%)      Pre (%)     Re (%)      F-sc (%)             Fig. 4. Performs of all models using balanced data.
+ 1D-CNN 1 layer      [42,1]     90.91        85.54       96.07       90.94
+ 1D-CNN 2 layers     [42,1]     89.88        85.22       96.5        90.5         As a result, the models showed results are comparable
+ 1D-CNN 3 layers     [42,1]     91.2         87.53       96.17       91.59
+ 1D-CNN+LSTM         [42,1]     89.93        86.15       95.15       90.43      to 1D-CNN in most of the cases. However, the 1D-CNN
+ RF                  [42,1]     87.39        88.88       87.39       87.27      3 layer model outperforms achieving the highest Accuracy,
+ SVM                 [42,1]     61.69        62.15       59.82       60.96      Recall, F-score when it trains on balanced data compared to
+                                                                                imbalanced data. RF obtained best Accuracy when it works
+with imbalanced data. SVM achieved only best Precision by                       [14] Lopez-Martin, M., Carro, B., Sanchez-Esguevillas, A., Lloret, J. (2017).
+using imbalanced data but did not perform well other all                             Network traffic classifier with convolutional and recurrent neural net-
+                                                                                     works for Internet of Things. IEEE Access, 5, 18042-18050.
+cases compare to other models. Fig. 4 shows comparison                          [15] Liu, Yuchen, Shengli Liu, and Xing Zhao. ”Intrusion detection algorithm
+of 4 performance metrics of all algorithms on the balanced                           based on convolutional neural network.” DEStech Transactions on
+data. From this, we can claim that deep learning-based ap-                           Engineering and Technology Research iceta (2017).
+                                                                                [16] De Teyou, Gael Kamdem, and Junior Ziazet. ”Convolutional Neural
+proaches including 1D-CNN are suitable for network traffic                           Network for Intrusion Detection System In Cyber Physical Systems.”
+data as a sequence of TCP/IP packets compared to other                               arXiv preprin arXiv:1905.03168 (2019).
+conventional machine learning classifiers SVM, RF, etc. The                     [17] Salakhutdinov R, Hinton G. Learning a nonlinear embedding by preserv-
+                                                                                     ing class neighbourhood structure. InArtificial Intelligence and Statistics
+main advantages of the deep learning-based method are the                            2007 Mar 11 (pp. 412-419).
+robustness in the performance with a large amount of data                       [18] Kim J, Kim J, Thu HL, Kim H. Long short term memory recurrent
+and the computational benefit which can help a model learn                           neural network classifier for intrusion detection. In2016 International
+                                                                                     Conference on Platform Technology and Service (PlatCon) 2016 Feb
+the features very fast. Considering that, we aim to apply other                      15 (pp. 1-5). IEEE..
+deep learning algorithms such as GRU, MLP and ANN or                            [19] S. Ioffe and C. Szegedy. (Mar. 2015). Batch normalization: Accelerating
+combination of them in the future.                                                   deep network training by reducing internal covariate shift. [Online].
+                                                                                     Available: https://arxiv.org/abs/1502.03167
+                                                                                [20] Zeiler, Matthew D., and Rob Fergus. ”Visualizing and understanding
+                         ACKNOWLEDGMENT                                              convolutional networks.” European Conference on Computer Vision, pp.
+  This research was supported by Basic Science Research                              818-833, 2014.
+                                                                                [21] Moustafa, N., Slay, J. (2015, November). UNSW-NB15: a comprehen-
+Program through the National Research Foundation of Korea                            sive data set for network intrusion detection systems (UNSW-NB15
+(NRF) funded by the Ministry of Science and ICT (no. NRF-                            network data set). In 2015 military communications and information
+2017R1C1B1006607).                                                                   systems conference (MilCIS) (pp. 1-6). IEEE.
+                                                                                [22] Kotsiantis, Sotiris, Dimitris Kanellopoulos, and Panayiotis Pintelas.
+                                                                                     ”Handling imbalanced datasets: A review.”GESTS International Trans-
+                             R EFERENCES                                             actions on Computer Science and Engineering30.1 (2006): 25-36.
+ [1] https://keras.io/.                                                         [23] Krizhevsky A, Sutskever I, Hinton GE. Imagenet classification with
+ [2] Reddy, R. R., Ramadevi, Y., Sunitha, K. N. (2016, September). Effective         deep convolutional neural networks. InAdvances in neural information
+     discriminant function for intrusion detection using SVM. In 2016                processing systems 2012 (pp. 1097-1105).
+     International Conference on Advances in Computing, Communications          [24] C.-Y. Lee, P. W. Gallagher, and Z. Tu. (Oct. 2015). Generalizing pooling
+     and Informatics (ICACCI) (pp. 1148-1153). IEEE.                                 functions in convolutional neural networks: Mixed, gated, and tree.
+ [3] Zhang, Jiong, Mohammad Zulkernine, and Anwar Haque. ”Random-                    [Online]. Available: https://arxiv.org/abs/1509.08985
+     forests-based network intrusion detection systems.” IEEE Transactions      [25] N. Srivastava, G. Hinton, A. Krizhevsky, I. Sutskever, and R. Salakhutdi-
+     on Systems, Man, and Cybernetics, Part C (Applications and Reviews)             nov, Dropout: A simple way to prevent neural networks from overfitting,
+     38.5 (2008): 649-659.                                                           J. Mach. Learn. Res., vol. 15, no. 1, pp. 19291958, 2014.
+ [4] Farnaaz, N., Jabbar, M. A. (2016). Random forest modeling for network      [26] Laskov, P., Dssel, P., Schfer, C., Rieck, K. (2005, September). Learning
+     intrusion detection system. Procedia Computer Science,89, 213-217.              intrusion detection: supervised or unsupervised?. In International Con-
+ [5] Koc, L., Mazzuchi, T.A. and Sarkani, S., 2012. A network intrusion              ference on Image Analysis and Processing (pp. 50-57). Springer, Berlin,
+     detection system based on a Hidden Nave Bayes multiclass classifier.            Heidelberg.
+     Expert Systems with Applications, 39(18), pp.13492-13500.                  [27] UNSW NB15,
+ [6] Li, W., Yi, P., Wu, Y., Pan, L., & Li, J. (2014). A new intrusion               ”https://www.unsw.adfa.edu.au/unsw-canberra-cyber/cybersecurity/
+     detection system based on KNN classification algorithm in wireless              ADFA-NB15-Datasets/”
+     sensor network. Journal of Electrical and Computer Engineering, 2014.
+     Art. no. 240217
+ [7] Dong, B., Wang, X. (2016, June). Comparison deep learning method
+     to traditional methods using for network intrusion detection. In 2016
+     8th IEEE International Conference on Communication Software and
+     Networks (ICCSN) (pp. 581-585). IEEE.
+ [8] Dhanabal, L., and S. P. Shantharajah. ”A study on NSL-KDD dataset for
+     intrusion detection system based on classification algorithms.” Interna-
+     tional Journal of Advanced Research in Computer and Communication
+     Engineering 4.6 (2015): 446-452.
+ [9] M. Tavallaee, E. Bagheri, W. Lu, and A. Ghorbani, A Detailed Analysis
+     of the KDD CUP 99 Data Set, in Computational Intelligence for Security
+     and Defense Applications, 2009. CISDA 2009. IEEE Symposium on, pp.
+     16, July 2009.
+[10] Javaid, Ahmad, et al. ”A deep learning approach for network intrusion
+     detection system.” Proceedings of the 9th EAI International Confer-
+     ence on Bio-inspired Information and Communications Technologies
+     (formerly BIONETICS). ICST (Institute for Computer Sciences, Social-
+     Informatics and Telecommunications Engineering), 2016.
+[11] Shone, Nathan, Tran Nguyen Ngoc, Vu Dinh Phai, and Qi Shi. ”A deep
+     learning approach to network intrusion detection.” IEEE Transactions on
+     Emerging Topics in Computational Intelligence 2, no. 1 (2018): 41-50.
+[12] Yin Chuanlong, Yuefei Zhu, Jinlong Fei, and Xinzheng He. ”A deep
+     learning approach for intrusion detection using recurrent neural net-
+     works.” Ieee Access 5 (2017): 21954-21961.
+[13] Vinayakumar, R., Soman, K. P., Poornachandran, P. (2017, September).
+     Applying convolutional neural network for network intrusion detection.
+     In 2017 International Conference on Advances in Computing, Commu-
+     nications and Informatics (ICACCI) (pp. 1222-1228). IEEE.
+

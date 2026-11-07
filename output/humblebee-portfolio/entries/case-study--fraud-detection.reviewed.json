@@ -1,0 +1,438 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "A Global Beverage Leader Prevents Retail Fraud with AI"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "HumbleBeeAI integrated AI fraud detection into a retail distribution platform."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "781ffd75-4b6e-41d1-bc10-df125bbf6480",
+            "chunkText": "A leading retail technology company, provider of a comprehensive cloud SaaS platform for distribution, transformed retail compliance monitoring for their 600+ customers by partnering with HumbleBeeAI. By implementing an AI-powered fraud detection system into their platform, the company now enables their clients - including distributors and manufacturers across FMCG, beverage, pharmaceutical, and automotive industries - to eliminate fraudulent reporting from field agents, ensure planogram adherence across thousands of locations, and achieve high accuracy in retail audits.",
+            "fileName": "case-study--fraud-detection.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93/evidence/781ffd75-4b6e-41d1-bc10-df125bbf6480/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Executive Summary"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "This project addressed the risk of field agents submitting false or reused compliance evidence in retail audits. HumbleBeeAI integrated fraud detection into an unnamed retail technology provider’s cloud distribution platform, which serves more than 600 customers across industries including FMCG and beverage. The case-study page headline refers to a global beverage leader, but its body describes the platform provider; the client attribution therefore remains unconfirmed. This entry is based on the source-reviewed case study, with owner approval pending: "
+        },
+        {
+          "type": "text",
+          "text": "A Global Beverage Leader Prevents Retail Fraud with AI",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/fraud-detection",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "781ffd75-4b6e-41d1-bc10-df125bbf6480",
+            "chunkText": "A leading retail technology company, provider of a comprehensive cloud SaaS platform for distribution, transformed retail compliance monitoring for their 600+ customers by partnering with HumbleBeeAI. By implementing an AI-powered fraud detection system into their platform, the company now enables their clients - including distributors and manufacturers across FMCG, beverage, pharmaceutical, and automotive industries - to eliminate fraudulent reporting from field agents, ensure planogram adherence across thousands of locations, and achieve high accuracy in retail audits.",
+            "fileName": "case-study--fraud-detection.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93/evidence/781ffd75-4b6e-41d1-bc10-df125bbf6480/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "822425a5-8565-4599-a9ca-9f70c101ff79",
+            "chunkText": "The retail technology company provides a comprehensive cloud SaaS platform for distribution. The all-in-one platform manages sales and field teams, trade marketing, retail execution, warehouses, finance, and analytics for over 600 customers across Central Asia and beyond. Serving distributors and manufacturers in FMCG, beverage, pharmaceutical, automotive, and similar verticals, the company's platform integrates AI-powered shelf recognition and marking/code scanning as critical components of their retail execution capabilities.\n\nThe platform's end users - major players in these industries with products distributed across thousands of retail locations - depend on precise in-store execution to maintain their competitive edge. Effective visual merchandising, optimal product placement, and consistent promotional campaigns are critical to driving sales and reinforcing brand identity. To ensure these standards were met, these corporations relied on vast networks of field agents to manually audit product displays, a process that was not only costly but also vulnerable to inaccuracies and fraud.",
+            "fileName": "case-study--fraud-detection.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93/evidence/822425a5-8565-4599-a9ca-9f70c101ff79/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Context and Challenge"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Field teams manually audited product displays across thousands of retail locations. The source describes reports containing images of device screens, miniature reference displays and closed coolers, making audit evidence unreliable. Manual verification at this scale was labor-intensive and costly; inconsistent field data also constrained merchandising and retail-execution decisions. The affected platform users included distributors and manufacturers relying on field agents to verify in-store execution."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "1de9ea14-99c9-4c41-986d-e14270819d32",
+            "chunkText": "The company faced significant operational hurdles that undermined the integrity and efficiency of its retail compliance strategy. The manual auditing process was plagued by several critical issues:\n\nInaccurate and Fraudulent Reporting: Field agents were found to be submitting fraudulent reports, including images of device screens, photos of miniature reference displays, and pictures of closed coolers. This compromised the validity of the audit data, leading to incorrect assessments of in-store conditions.\n\nDifficulty Monitoring Fraud at Scale: With thousands of retail outlets, manually verifying fraud actions was an insurmountable task. This resulted in inconsistent visual merchandising and diluted the impact of marketing efforts.\n\nHigh Operational Costs: The manual checking of fraud actions was labor-intensive and expensive, requiring significant investment in personnel and resources without guaranteeing reliable results.\n\nLack of Data-Driven Insights: The inconsistent and often inaccurate data collected from the field made it impossible to derive actionable insights, hindering the company's ability to make strategic decisions about its retail partnerships and merchandising strategies.\n\nThese challenges created a significant gap between the company's merchandising goals and its actual in-store execution, threatening brand positioning and ROI.",
+            "fileName": "case-study--fraud-detection.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93/evidence/1de9ea14-99c9-4c41-986d-e14270819d32/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "822425a5-8565-4599-a9ca-9f70c101ff79",
+            "chunkText": "The retail technology company provides a comprehensive cloud SaaS platform for distribution. The all-in-one platform manages sales and field teams, trade marketing, retail execution, warehouses, finance, and analytics for over 600 customers across Central Asia and beyond. Serving distributors and manufacturers in FMCG, beverage, pharmaceutical, automotive, and similar verticals, the company's platform integrates AI-powered shelf recognition and marking/code scanning as critical components of their retail execution capabilities.\n\nThe platform's end users - major players in these industries with products distributed across thousands of retail locations - depend on precise in-store execution to maintain their competitive edge. Effective visual merchandising, optimal product placement, and consistent promotional campaigns are critical to driving sales and reinforcing brand identity. To ensure these standards were met, these corporations relied on vast networks of field agents to manually audit product displays, a process that was not only costly but also vulnerable to inaccuracies and fraud.",
+            "fileName": "case-study--fraud-detection.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93/evidence/822425a5-8565-4599-a9ca-9f70c101ff79/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution and Capabilities"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Integrated fraud checks"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "HumbleBeeAI delivered an AI fraud-detection system integrated with retail field-report and planogram workflows. Its described checks target three forms of suspect evidence: a classification model detects images captured from a phone or tablet screen; a separate model identifies closed cooler doors; and an OCR-based algorithm examines product-label text to identify miniature or printed reference images. Together, these checks support validation of submitted visual evidence within the distribution platform."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "b8333528-b67e-436a-b904-3e081491de0a",
+            "chunkText": "To overcome these challenges, HumbleBeeAI implemented a solution designed to automate and monitor agents' fraud actions. This multi-faceted system leveraged cutting-edge Computer Vision and AI to deliver unparalleled accuracy and efficiency.\n\nThe core components of the solution included:\n\nMulti-Layered Fraud Prevention: To combat fraudulent submissions, we integrated a powerful anti-fraud engine. This system utilized three distinct detection mechanisms:\n\nDevice Screen Detection: A specialized classification model identifies images captured from a phone or tablet screen.",
+            "fileName": "case-study--fraud-detection.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93/evidence/b8333528-b67e-436a-b904-3e081491de0a/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "10ca1e12-c5e3-4ee0-bc88-ba250d6becc2",
+            "chunkText": "Device Screen images:\nLa\nuw Z/",
+            "fileName": "case-study--fraud-detection.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93/evidence/10ca1e12-c5e3-4ee0-bc88-ba250d6becc2/asset",
+            "mediaType": "image/png",
+            "chunkIndex": 8,
+            "pageNumber": 3
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "f132fea8-2460-4684-8fa8-6e30e48279af",
+            "chunkText": "Case Study Hero Image\n\nClosed-Door Verification: Another model detects if cooler doors are closed, which violates audit guidelines.",
+            "fileName": "case-study--fraud-detection.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93/evidence/f132fea8-2460-4684-8fa8-6e30e48279af/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 3
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "3ac9be85-e210-46cb-b7f0-c13d753c84fd",
+            "chunkText": "Case Study Hero Image\n\nMiniature Image Analysis: An OCR-based algorithm analyzes text on product labels to identify the use of miniature or printed reference images.",
+            "fileName": "case-study--fraud-detection.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93/evidence/3ac9be85-e210-46cb-b7f0-c13d753c84fd/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 11,
+            "pageNumber": 3
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Results and Business Impact"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The case study reports fraudulent-submission detection accuracy of over 90% within the first week and an improvement in audit reliability of more than 90%. These are source-reported figures, not independently validated results. The source does not provide the test sample, fraud prevalence, error breakdown, reliability definition or denominator, nor a clear comparison basis for the reliability improvement. Business outcomes such as reduced costs or improved merchandising were not quantified in the reviewed material."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "dcd67a51-cc4b-403e-a08f-26053e82c5ed",
+            "chunkText": "The implementation of HumbleBeeAI's anti-fraud AI solution delivered immediate and transformative results, fundamentally solving a challenge that was previously impossible to manage at scale.\n\nFraudulent submissions were detected with over 90% accuracy within the first week, increasing overall audit reliability by more than 90% and restoring integrity to the field reporting process.\n\nThe system's ability to process a massive volume of image inputs from thousands of locations automated an unfeasible task to evaluate manually, ensuring consistent visual merchandising across the entire retail network.\n\nBy providing clean, validated data, the platform enabled the company to make data-driven decisions, leading to optimized merchandising strategies, stronger retail partnerships, and maximized return on investment.",
+            "fileName": "case-study--fraud-detection.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93/evidence/dcd67a51-cc4b-403e-a08f-26053e82c5ed/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 14,
+            "pageNumber": 4
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Limitations and Next Steps"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The underlying measurement conditions and audit-reliability calculation have not been provided, so the reported figures should be treated as qualified case-study claims rather than independently verified performance. The case-study source and portfolio review are pending owner approval. No further implementation work or future plans are specified in the reviewed material; accordingly, no roadmap is asserted here."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "dcd67a51-cc4b-403e-a08f-26053e82c5ed",
+            "chunkText": "The implementation of HumbleBeeAI's anti-fraud AI solution delivered immediate and transformative results, fundamentally solving a challenge that was previously impossible to manage at scale.\n\nFraudulent submissions were detected with over 90% accuracy within the first week, increasing overall audit reliability by more than 90% and restoring integrity to the field reporting process.\n\nThe system's ability to process a massive volume of image inputs from thousands of locations automated an unfeasible task to evaluate manually, ensuring consistent visual merchandising across the entire retail network.\n\nBy providing clean, validated data, the platform enabled the company to make data-driven decisions, leading to optimized merchandising strategies, stronger retail partnerships, and maximized return on investment.",
+            "fileName": "case-study--fraud-detection.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93/evidence/dcd67a51-cc4b-403e-a08f-26053e82c5ed/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 14,
+            "pageNumber": 4
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "781ffd75-4b6e-41d1-bc10-df125bbf6480",
+            "chunkText": "A leading retail technology company, provider of a comprehensive cloud SaaS platform for distribution, transformed retail compliance monitoring for their 600+ customers by partnering with HumbleBeeAI. By implementing an AI-powered fraud detection system into their platform, the company now enables their clients - including distributors and manufacturers across FMCG, beverage, pharmaceutical, and automotive industries - to eliminate fraudulent reporting from field agents, ensure planogram adherence across thousands of locations, and achieve high accuracy in retail audits.",
+            "fileName": "case-study--fraud-detection.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93/evidence/781ffd75-4b6e-41d1-bc10-df125bbf6480/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Conclusion"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The delivered integration applies computer vision and OCR to flag several documented types of invalid retail evidence within field-reporting workflows. It addresses the challenge of manually checking submissions at scale, while the available evidence leaves attribution and reported measurement conditions unresolved."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "b8333528-b67e-436a-b904-3e081491de0a",
+            "chunkText": "To overcome these challenges, HumbleBeeAI implemented a solution designed to automate and monitor agents' fraud actions. This multi-faceted system leveraged cutting-edge Computer Vision and AI to deliver unparalleled accuracy and efficiency.\n\nThe core components of the solution included:\n\nMulti-Layered Fraud Prevention: To combat fraudulent submissions, we integrated a powerful anti-fraud engine. This system utilized three distinct detection mechanisms:\n\nDevice Screen Detection: A specialized classification model identifies images captured from a phone or tablet screen.",
+            "fileName": "case-study--fraud-detection.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93/evidence/b8333528-b67e-436a-b904-3e081491de0a/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "dcd67a51-cc4b-403e-a08f-26053e82c5ed",
+            "chunkText": "The implementation of HumbleBeeAI's anti-fraud AI solution delivered immediate and transformative results, fundamentally solving a challenge that was previously impossible to manage at scale.\n\nFraudulent submissions were detected with over 90% accuracy within the first week, increasing overall audit reliability by more than 90% and restoring integrity to the field reporting process.\n\nThe system's ability to process a massive volume of image inputs from thousands of locations automated an unfeasible task to evaluate manually, ensuring consistent visual merchandising across the entire retail network.\n\nBy providing clean, validated data, the platform enabled the company to make data-driven decisions, leading to optimized merchandising strategies, stronger retail partnerships, and maximized return on investment.",
+            "fileName": "case-study--fraud-detection.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93/evidence/dcd67a51-cc4b-403e-a08f-26053e82c5ed/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 14,
+            "pageNumber": 4
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Sources and Review Notes"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "A Global Beverage Leader Prevents Retail Fraud with AI — original source. PDF evidence pages: 1–4."
+        },
+        {
+          "type": "text",
+          "text": " Open source",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/fraud-detection",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "dcd67a51-cc4b-403e-a08f-26053e82c5ed",
+            "chunkText": "The implementation of HumbleBeeAI's anti-fraud AI solution delivered immediate and transformative results, fundamentally solving a challenge that was previously impossible to manage at scale.\n\nFraudulent submissions were detected with over 90% accuracy within the first week, increasing overall audit reliability by more than 90% and restoring integrity to the field reporting process.\n\nThe system's ability to process a massive volume of image inputs from thousands of locations automated an unfeasible task to evaluate manually, ensuring consistent visual merchandising across the entire retail network.\n\nBy providing clean, validated data, the platform enabled the company to make data-driven decisions, leading to optimized merchandising strategies, stronger retail partnerships, and maximized return on investment.",
+            "fileName": "case-study--fraud-detection.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9c04ee15-4773-4f0f-b5b9-8dabb5c9ac93/evidence/dcd67a51-cc4b-403e-a08f-26053e82c5ed/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 14,
+            "pageNumber": 4
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Source-reviewed outcome: Source reports over 90% fraudulent-submission detection accuracy within the first week and more than 90% improvement in audit reliability."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Evidence gaps: Reliability denominator and test sample absent; headline mentions a global beverage leader while body identifies a platform provider. Client attribution needs confirmation."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Measurement — Fraudulent submission detection accuracy: Over 90%. PDF p. 4. Comparison / conditions: Within first week. Qualification: No sample, prevalence or error breakdown"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Measurement — Audit reliability improvement: More than 90%. PDF p. 4. Comparison / conditions: Earlier field reporting; denominator absent. Qualification: Undefined reliability measure; hold exact lift pending confirmation"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Review draft. Company approval of claims and figures is pending. Original URLs are transcribed from the supplied PDFs; current remote availability has not been verified."
+        }
+      ]
+    }
+  ]
+}

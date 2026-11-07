@@ -1,0 +1,397 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Enterprise Data Labeling Platform Deployment & Customization",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "A customized, ML-assisted data-labeling platform helped a computer vision service provider deploy isolated annotation environments for enterprise customers.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c6c8589d-35ad-4acd-8457-189429fe2808/evidence/dbe9ed7c-06d9-4c00-bd5c-3d516850ece4/asset",
+            "fileName": "case-study--data-labeling-tool.pdf",
+            "chunkText": "A Computer Vision service provider faced scalability and security challenges when deploying annotation platforms for over 15 enterprise clients. By implementing customized labeling platform with an ML backend, the client deployed 15+ isolated annotation environments, achieving a 75% reduction in annotation time and establishing a secure, scalable architecture for further expansion.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "dbe9ed7c-06d9-4c00-bd5c-3d516850ece4"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI designed and implemented a customized labeling platform for a computer vision service provider serving more than 15 enterprise clients. The provider needed to handle client-specific annotation requirements while keeping data isolated and improving the scalability of model-assisted workflows. The case-study snapshot reports that 15+ isolated environments were deployed. The PDF text has been reviewed, but owner approval and portfolio feedback are pending; this is a review draft, not a claim of independent validation. ",
+          "type": "text"
+        },
+        {
+          "text": "View the original case study",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://humblebee.ai/case-studies/data-labeling-tool",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c6c8589d-35ad-4acd-8457-189429fe2808/evidence/dbe9ed7c-06d9-4c00-bd5c-3d516850ece4/asset",
+            "fileName": "case-study--data-labeling-tool.pdf",
+            "chunkText": "A Computer Vision service provider faced scalability and security challenges when deploying annotation platforms for over 15 enterprise clients. By implementing customized labeling platform with an ML backend, the client deployed 15+ isolated annotation environments, achieving a 75% reduction in annotation time and establishing a secure, scalable architecture for further expansion.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "dbe9ed7c-06d9-4c00-bd5c-3d516850ece4"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c6c8589d-35ad-4acd-8457-189429fe2808/evidence/d4fa84cd-6cf8-4d89-aff1-a50b753b6ad9/asset",
+            "fileName": "case-study--data-labeling-tool.pdf",
+            "chunkText": "HUMBLEBEEAI / CASE STUDY",
+            "mediaType": "application/pdf",
+            "chunkIndex": 0,
+            "pageNumber": 1,
+            "sourceChunkId": "d4fa84cd-6cf8-4d89-aff1-a50b753b6ad9"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The provider managed large annotation projects for multiple companies, each with distinct security requirements and needs such as object detection, segmentation, video tracking and keypoint analysis. Its existing infrastructure made it difficult to isolate client data, manage backups and support growing deployments. The source also describes challenges with concurrent model processing, GPU memory utilization and the user experience of connecting models across seven annotation types. These constraints affected annotators and the provider’s ability to deliver projects across its customer base.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c6c8589d-35ad-4acd-8457-189429fe2808/evidence/827205d2-d6d8-4929-97f4-40b44da4a73a/asset",
+            "fileName": "case-study--data-labeling-tool.pdf",
+            "chunkText": "The client's primary challenge spanned data handling, scalability, and user experience. They needed to manage large annotation projects for multiple companies, each with distinct security requirements and various annotation needs, including object detection, segmentation, video tracking, and keypoint analysis.\n\nKey pain points included:\n\nData Handling & Security: Managing numerous large-scale annotation projects with strict data protection requirements was a significant challenge. Ensuring complete data isolation between clients while facilitating complex model management was important, but difficult to achieve with their existing infrastructure. The risk of data loss and the need for automated backups and disaster recovery were major concerns.\n\nScalability Limitations: The infrastructure struggled to support an increasing number of client deployments, each requiring an isolated environment. The system could not efficiently manage concurrent model processing across various annotation types, leading to poor GPU memory utilization and unreliable auto-labeling performance.\n\nComplex User Experience: Creating secure yet user-friendly annotation interfaces for distributed teams was a challenge. The lack of smooth model integration across seven different annotation types created inefficient workflows for annotators, slowing down project timelines.\n\nThe provider needed a unified solution that could deliver performance, security, and scalability, enabling them to meet the requirements of their growing client base.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "827205d2-d6d8-4929-97f4-40b44da4a73a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Isolated data handling and recovery",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The delivered platform used Google Cloud Platform and Google Cloud Storage (GCS) as part of its security and scalability approach. Local file imports were disabled to maintain GCS as the single source of truth; user registration was invite-only; and configurable automated database backups to GCS supported disaster recovery and server migration.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c6c8589d-35ad-4acd-8457-189429fe2808/evidence/0ccca8c9-6e06-40d9-9d92-a5325f12baa8/asset",
+            "fileName": "case-study--data-labeling-tool.pdf",
+            "chunkText": "HumbleBeeAI was engaged to design and implement a data labeling platform. The solution was built around a customized labeling platform, enhanced with an ML backend and integrated with Google Cloud Platform for security and scalability.\n\nThe implementation was delivered in three core pillars:\n\nEnterprise-Secured Labeling Platform: We deployed a secured version of labeling platform with security controls. This included disabling all local file imports to enforce a single source of truth in Google Cloud Storage (GCS), implementing an invite-only user registration system, and establishing automated, configurable database backups to GCS for disaster recovery and server migration. This ensured complete data isolation and met security standards.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "0ccca8c9-6e06-40d9-9d92-a5325f12baa8"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Model-assisted annotation",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "An ML backend supported the seven required annotation types, with model caching, automatic model detection based on labeling configuration and dynamic model loading from GCS. These functions were intended to reduce manual model handling and support AI-assisted labeling workflows.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c6c8589d-35ad-4acd-8457-189429fe2808/evidence/b68ab74a-d4c3-406c-9034-27ff103efe55/asset",
+            "fileName": "case-study--data-labeling-tool.pdf",
+            "chunkText": "Case Study Hero Image\n\nAdvanced ML Backend with Multi-Instance Support: An ML backend was integrated to support all seven required annotation types. This system featured model caching, automatic model detection based on the labeling configuration, and dynamic model loading from GCS. This eliminated manual model management and improved annotation workflows by providing AI-assisted labeling.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 3,
+            "sourceChunkId": "b68ab74a-d4c3-406c-9034-27ff103efe55"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Multi-company deployment",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The deployment architecture supported multiple isolated labeling instances, with company-specific configurations, dedicated GCS buckets and automated port allocation. This separated customer environments as the provider onboarded and managed deployments.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c6c8589d-35ad-4acd-8457-189429fe2808/evidence/1e1f0149-3340-4e91-91da-3454957d032c/asset",
+            "fileName": "case-study--data-labeling-tool.pdf",
+            "chunkText": "Case Study Hero Image\n\nCloud-Native Multi-Company Deployment Architecture: We built a scalable deployment system capable of supporting multiple isolated labeling instances for each of the client's customers. The architecture managed company-specific configurations, dedicated GCS buckets with correct CORS\n\npolicies, and automated port allocation, ensuring that each client operated in a segregated and secure environment.\n\nThis custom-built Data Labeling Tool provided a platform that directly addressed the client's requirements for security, scalability, and operational efficiency.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 10,
+            "pageNumber": 3,
+            "sourceChunkId": "1e1f0149-3340-4e91-91da-3454957d032c"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study reports 15+ isolated annotation environments for enterprise client environments. It also reports a 75% reduction in annotation time for ML-assisted versus manual labeling. The source does not provide dataset size or baseline hours, so the comparison conditions cannot be assessed further.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c6c8589d-35ad-4acd-8457-189429fe2808/evidence/dbe9ed7c-06d9-4c00-bd5c-3d516850ece4/asset",
+            "fileName": "case-study--data-labeling-tool.pdf",
+            "chunkText": "A Computer Vision service provider faced scalability and security challenges when deploying annotation platforms for over 15 enterprise clients. By implementing customized labeling platform with an ML backend, the client deployed 15+ isolated annotation environments, achieving a 75% reduction in annotation time and establishing a secure, scalable architecture for further expansion.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "dbe9ed7c-06d9-4c00-bd5c-3d516850ece4"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c6c8589d-35ad-4acd-8457-189429fe2808/evidence/8b8b39d1-1e6f-4139-9a9a-4b2b2c1f0032/asset",
+            "fileName": "case-study--data-labeling-tool.pdf",
+            "chunkText": "The implementation of Data Labeling Tool delivered strong results, helping the client overcome their operational challenges and improve their service offering. The outcomes were measured across efficiency, accuracy, and overall convenience.\n\n75% Reduction in Annotation Time: The auto-labeling feature automated a significant portion of the manual labeling process, reducing the time required to complete large-scale annotation projects.\n\nSuccessful Deployment of 15+ Isolated Environments: The scalable architecture enabled the client to deploy and manage over 15 fully isolated annotation environments, ensuring complete data security and privacy for each of their enterprise customers.\n\n99.9% Data Protection Reliability: The automated backup system, with configurable frequencies and GCS integration, eliminated the risk of data loss and reduced server migration times from days to hours.\n\nElimination of Manual Model Management: The automated model caching and ML backend removed the overhead associated with manual model management, freeing up engineering resources to focus on innovation and client delivery.\n\n90%+ Labeling Accuracy: The integration of specialized model types and validation workflows ensured consistent annotation quality across all projects and annotation types.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 11,
+            "pageNumber": 4,
+            "sourceChunkId": "8b8b39d1-1e6f-4139-9a9a-4b2b2c1f0032"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source also reports 90%+ labeling accuracy, attributing it to specialized model types and validation workflows. No quality-metric definition or labeled evaluation sample is provided, so this remains a source-reported figure rather than an independently validated result. The case study mentions 99.9% data-protection reliability, but does not define the measure; it is excluded here as a portfolio performance claim pending evidence. Business impact beyond these reported observations has not been independently measured.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c6c8589d-35ad-4acd-8457-189429fe2808/evidence/8b8b39d1-1e6f-4139-9a9a-4b2b2c1f0032/asset",
+            "fileName": "case-study--data-labeling-tool.pdf",
+            "chunkText": "The implementation of Data Labeling Tool delivered strong results, helping the client overcome their operational challenges and improve their service offering. The outcomes were measured across efficiency, accuracy, and overall convenience.\n\n75% Reduction in Annotation Time: The auto-labeling feature automated a significant portion of the manual labeling process, reducing the time required to complete large-scale annotation projects.\n\nSuccessful Deployment of 15+ Isolated Environments: The scalable architecture enabled the client to deploy and manage over 15 fully isolated annotation environments, ensuring complete data security and privacy for each of their enterprise customers.\n\n99.9% Data Protection Reliability: The automated backup system, with configurable frequencies and GCS integration, eliminated the risk of data loss and reduced server migration times from days to hours.\n\nElimination of Manual Model Management: The automated model caching and ML backend removed the overhead associated with manual model management, freeing up engineering resources to focus on innovation and client delivery.\n\n90%+ Labeling Accuracy: The integration of specialized model types and validation workflows ensured consistent annotation quality across all projects and annotation types.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 11,
+            "pageNumber": 4,
+            "sourceChunkId": "8b8b39d1-1e6f-4139-9a9a-4b2b2c1f0032"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source does not provide annotation sample sizes, baseline hours, a definition or evaluation conditions for labeling accuracy, or a reliability methodology for the 99.9% data-protection claim. It also does not specify test conditions for the reported measurements. The 99.9% figure is therefore not presented as a substantiated result. The source describes advanced analytics dashboards and deeper MLOps integrations as enhancements being explored, not as delivered capabilities or confirmed future commitments. Owner approval remains pending.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c6c8589d-35ad-4acd-8457-189429fe2808/evidence/8b8b39d1-1e6f-4139-9a9a-4b2b2c1f0032/asset",
+            "fileName": "case-study--data-labeling-tool.pdf",
+            "chunkText": "The implementation of Data Labeling Tool delivered strong results, helping the client overcome their operational challenges and improve their service offering. The outcomes were measured across efficiency, accuracy, and overall convenience.\n\n75% Reduction in Annotation Time: The auto-labeling feature automated a significant portion of the manual labeling process, reducing the time required to complete large-scale annotation projects.\n\nSuccessful Deployment of 15+ Isolated Environments: The scalable architecture enabled the client to deploy and manage over 15 fully isolated annotation environments, ensuring complete data security and privacy for each of their enterprise customers.\n\n99.9% Data Protection Reliability: The automated backup system, with configurable frequencies and GCS integration, eliminated the risk of data loss and reduced server migration times from days to hours.\n\nElimination of Manual Model Management: The automated model caching and ML backend removed the overhead associated with manual model management, freeing up engineering resources to focus on innovation and client delivery.\n\n90%+ Labeling Accuracy: The integration of specialized model types and validation workflows ensured consistent annotation quality across all projects and annotation types.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 11,
+            "pageNumber": 4,
+            "sourceChunkId": "8b8b39d1-1e6f-4139-9a9a-4b2b2c1f0032"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c6c8589d-35ad-4acd-8457-189429fe2808/evidence/cae528ec-cafb-48e5-bffc-7b1365691804/asset",
+            "fileName": "case-study--data-labeling-tool.pdf",
+            "chunkText": "The partnership with HumbleBeeAI equipped the Computer Vision service provider with a secure and scalable data annotation platform. This solution addressed their immediate operational challenges and established a foundation for growth. By automating key processes and ensuring security, the client can now onboard new customers, deliver projects faster, and maintain high standards of data quality.\n\nAs our partnership continues, we are exploring further enhancements, including advanced analytics dashboards and deeper integration with other MLOps tools. This collaboration demonstrates HumbleBeeAI's commitment to delivering practical AI solutions that provide real business outcomes.\n\nReady to revolutionize your data labeling workflow?",
+            "mediaType": "application/pdf",
+            "chunkIndex": 12,
+            "pageNumber": 4,
+            "sourceChunkId": "cae528ec-cafb-48e5-bffc-7b1365691804"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The delivered platform addressed the provider’s stated needs for separated customer environments, GCS-backed recovery and model-assisted annotation. The source-reported deployment count and workflow measurements indicate the intended operational value, with important evaluation details still unavailable and publication approval pending.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c6c8589d-35ad-4acd-8457-189429fe2808/evidence/0ccca8c9-6e06-40d9-9d92-a5325f12baa8/asset",
+            "fileName": "case-study--data-labeling-tool.pdf",
+            "chunkText": "HumbleBeeAI was engaged to design and implement a data labeling platform. The solution was built around a customized labeling platform, enhanced with an ML backend and integrated with Google Cloud Platform for security and scalability.\n\nThe implementation was delivered in three core pillars:\n\nEnterprise-Secured Labeling Platform: We deployed a secured version of labeling platform with security controls. This included disabling all local file imports to enforce a single source of truth in Google Cloud Storage (GCS), implementing an invite-only user registration system, and establishing automated, configurable database backups to GCS for disaster recovery and server migration. This ensured complete data isolation and met security standards.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "0ccca8c9-6e06-40d9-9d92-a5325f12baa8"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c6c8589d-35ad-4acd-8457-189429fe2808/evidence/8b8b39d1-1e6f-4139-9a9a-4b2b2c1f0032/asset",
+            "fileName": "case-study--data-labeling-tool.pdf",
+            "chunkText": "The implementation of Data Labeling Tool delivered strong results, helping the client overcome their operational challenges and improve their service offering. The outcomes were measured across efficiency, accuracy, and overall convenience.\n\n75% Reduction in Annotation Time: The auto-labeling feature automated a significant portion of the manual labeling process, reducing the time required to complete large-scale annotation projects.\n\nSuccessful Deployment of 15+ Isolated Environments: The scalable architecture enabled the client to deploy and manage over 15 fully isolated annotation environments, ensuring complete data security and privacy for each of their enterprise customers.\n\n99.9% Data Protection Reliability: The automated backup system, with configurable frequencies and GCS integration, eliminated the risk of data loss and reduced server migration times from days to hours.\n\nElimination of Manual Model Management: The automated model caching and ML backend removed the overhead associated with manual model management, freeing up engineering resources to focus on innovation and client delivery.\n\n90%+ Labeling Accuracy: The integration of specialized model types and validation workflows ensured consistent annotation quality across all projects and annotation types.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 11,
+            "pageNumber": 4,
+            "sourceChunkId": "8b8b39d1-1e6f-4139-9a9a-4b2b2c1f0032"
+          }
+        }
+      ]
+    }
+  ]
+}

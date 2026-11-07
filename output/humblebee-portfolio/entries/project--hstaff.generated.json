@@ -1,0 +1,372 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "HStaff",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HStaff brings Hubstaff activity, Discord progress reports and team analytics together for leaders of distributed teams.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/536eb852-dc1e-4274-ba80-c303c9b126df/evidence/efe49f50-b2ac-4bdf-aa35-5d285b6c1e34/asset",
+            "fileName": "project--hstaff.pdf",
+            "chunkText": "Managing distributed teams requires visibility across multiple platforms - Hubstaff tracks work hours and productivity, Discord hosts daily progress reports, while internal systems manage team relationships. HStaff eliminates the burden of manual data collection by automatically synchronizing all these data sources into one unified platform, providing actionable insights through an intuitive web interface.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "efe49f50-b2ac-4bdf-aa35-5d285b6c1e34"
+          }
+        },
+        {
+          "text": " Project page: ",
+          "type": "text"
+        },
+        {
+          "text": "HStaff",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://humblebee.ai/projects/hstaff",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "text": ".",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HStaff is presented as a workforce analytics platform that consolidates work activity and team progress information in a shared dashboard. The reviewed project record lists its published status as “prod ready.” No demo URL is provided in the record, and production access or deployment details have not been supplied.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "User Need",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Distributed-team leaders need a clear view of work and reporting across separate systems. The project material describes Hubstaff as the source of work-hour and productivity data, Discord as the home for daily progress reports, and internal systems as a source of team relationships. It identifies the resulting fragmentation, manual collection and calculation, and lack of a central way to monitor report submissions as management burdens.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/536eb852-dc1e-4274-ba80-c303c9b126df/evidence/97b23065-e904-420c-8ae0-352178bce73b/asset",
+            "fileName": "project--hstaff.pdf",
+            "chunkText": "Data Fragmentation: Employee activity scattered across Hubstaff, Discord, and internal databases makes it difficult to get a complete picture of team performance.\n\nManual Reporting: Managers spend significant time visiting multiple platforms, downloading data, and manually calculating team metrics.\n\nProgress Tracking: No centralized way to monitor who's submitting daily progress reports and track submission patterns.\n\nMobile Access: Desktop-only tools prevent managers from checking team metrics and reports on the go.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "97b23065-e904-420c-8ae0-352178bce73b"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/536eb852-dc1e-4274-ba80-c303c9b126df/evidence/efe49f50-b2ac-4bdf-aa35-5d285b6c1e34/asset",
+            "fileName": "project--hstaff.pdf",
+            "chunkText": "Managing distributed teams requires visibility across multiple platforms - Hubstaff tracks work hours and productivity, Discord hosts daily progress reports, while internal systems manage team relationships. HStaff eliminates the burden of manual data collection by automatically synchronizing all these data sources into one unified platform, providing actionable insights through an intuitive web interface.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "efe49f50-b2ac-4bdf-aa35-5d285b6c1e34"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Product Vision",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The product direction is a unified, accessible view that helps managers review activity, progress and team structure without manually assembling information from separate platforms. The project materials describe mobile access as part of the intended experience; no measured change in management efficiency or administrative effort is reported.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/536eb852-dc1e-4274-ba80-c303c9b126df/evidence/bb22044f-3165-4a84-84a9-ce79b66bf59e/asset",
+            "fileName": "project--hstaff.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nTeam management dashboard with analytics to help leaders understand talent and performance.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "bb22044f-3165-4a84-84a9-ce79b66bf59e"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Capabilities and Experience",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The documented capabilities include Hubstaff activity collection with hourly synchronization and historical data for trend analysis, alongside synchronization of daily Discord progress reports. A dashboard summarizes tracked hours, deepwork measures, recent activity and progress-planning compliance. Reports provide individual and project views with date-range selection; user detail views show activity by day, project time allocation, deepwork and tracked hours. The materials also describe mentorship and team-relationship tracking, filtering, and responsive layouts for desktop, tablet and mobile.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/536eb852-dc1e-4274-ba80-c303c9b126df/evidence/512e5df4-2fdc-4ba3-b65f-174e2af64b09/asset",
+            "fileName": "project--hstaff.pdf",
+            "chunkText": "Automatic integration with Hubstaff for activity collection\n\nHourly synchronization capturing tracked hours and project allocations\n\nHistorical data for trend analysis",
+            "mediaType": "application/pdf",
+            "chunkIndex": 11,
+            "pageNumber": 3,
+            "sourceChunkId": "512e5df4-2fdc-4ba3-b65f-174e2af64b09"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/536eb852-dc1e-4274-ba80-c303c9b126df/evidence/276911a9-f002-4b38-b12b-00afa0468eae/asset",
+            "fileName": "project--hstaff.pdf",
+            "chunkText": "Users tab: Individual performance metrics with filtering\n\nProjects tab: Team contributions grouped by project\n\nDate range selection for flexible periods\n\nDeepwork and tracked hours for each user/project",
+            "mediaType": "application/pdf",
+            "chunkIndex": 30,
+            "pageNumber": 6,
+            "sourceChunkId": "276911a9-f002-4b38-b12b-00afa0468eae"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/536eb852-dc1e-4274-ba80-c303c9b126df/evidence/9610a7c5-0ce9-42ff-a574-dfebd4522a96/asset",
+            "fileName": "project--hstaff.pdf",
+            "chunkText": "Team productivity overviewwith tracked hours and deepwork percentages\n\nRecent activity highlights\n\nProgress planning compliance tracking\n\nQuick navigationto detailed reports\n\nRole-based viewsshowing relevant data",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 2,
+            "sourceChunkId": "9610a7c5-0ce9-42ff-a574-dfebd4522a96"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/536eb852-dc1e-4274-ba80-c303c9b126df/evidence/d4f96de4-f9c5-4b93-97b9-1fa97130c0c6/asset",
+            "fileName": "project--hstaff.pdf",
+            "chunkText": "Full Responsiveness: Every page, table, and feature works perfectly on desktop, tablet, and mobile devices with optimized layouts for each screen size.\n\nSmart Filtering: One-click filters to identify high performers or team members needing support based on deepwork and tracked hours metrics.\n\nUnified Data: Single platform combining Hubstaff time tracking, Discord progress reports, and team relationships.\n\nDeepwork Analysis: Automatic calculation of focused work patterns without manual categorization.\n\nProgress Compliance: Visual indicators making it easy to see who's submitting reports and who needs follow-up.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 36,
+            "pageNumber": 7,
+            "sourceChunkId": "d4f96de4-f9c5-4b93-97b9-1fa97130c0c6"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source describes synchronization as hourly for Hubstaff and “real-time” for new Discord reports, but supplies no test conditions or measured reliability figures. These are product descriptions, not independently reported performance results.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/536eb852-dc1e-4274-ba80-c303c9b126df/evidence/512e5df4-2fdc-4ba3-b65f-174e2af64b09/asset",
+            "fileName": "project--hstaff.pdf",
+            "chunkText": "Automatic integration with Hubstaff for activity collection\n\nHourly synchronization capturing tracked hours and project allocations\n\nHistorical data for trend analysis",
+            "mediaType": "application/pdf",
+            "chunkIndex": 11,
+            "pageNumber": 3,
+            "sourceChunkId": "512e5df4-2fdc-4ba3-b65f-174e2af64b09"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/536eb852-dc1e-4274-ba80-c303c9b126df/evidence/276911a9-f002-4b38-b12b-00afa0468eae/asset",
+            "fileName": "project--hstaff.pdf",
+            "chunkText": "Users tab: Individual performance metrics with filtering\n\nProjects tab: Team contributions grouped by project\n\nDate range selection for flexible periods\n\nDeepwork and tracked hours for each user/project",
+            "mediaType": "application/pdf",
+            "chunkIndex": 30,
+            "pageNumber": 6,
+            "sourceChunkId": "276911a9-f002-4b38-b12b-00afa0468eae"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Differentiators",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HStaff’s documented distinction is its combination of data from Hubstaff, Discord and team relationships in one place, with built-in views for activity and progress compliance. The materials also describe automatic deepwork calculation and responsive layouts. No comparative testing or evidence supporting superiority over other products has been provided.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/536eb852-dc1e-4274-ba80-c303c9b126df/evidence/d4f96de4-f9c5-4b93-97b9-1fa97130c0c6/asset",
+            "fileName": "project--hstaff.pdf",
+            "chunkText": "Full Responsiveness: Every page, table, and feature works perfectly on desktop, tablet, and mobile devices with optimized layouts for each screen size.\n\nSmart Filtering: One-click filters to identify high performers or team members needing support based on deepwork and tracked hours metrics.\n\nUnified Data: Single platform combining Hubstaff time tracking, Discord progress reports, and team relationships.\n\nDeepwork Analysis: Automatic calculation of focused work patterns without manual categorization.\n\nProgress Compliance: Visual indicators making it easy to see who's submitting reports and who needs follow-up.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 36,
+            "pageNumber": 7,
+            "sourceChunkId": "d4f96de4-f9c5-4b93-97b9-1fa97130c0c6"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/536eb852-dc1e-4274-ba80-c303c9b126df/evidence/7b4a1f30-f752-491f-9592-7e64025cbf93/asset",
+            "fileName": "project--hstaff.pdf",
+            "chunkText": "Clad coe @r\npy Jat ee\nack DET\nae | [EE\n\nCe\nDr 5 5 5 5 l=\n2 Mentorship. —— nid a on 57m. hae\na 5 pies pe re =\nQ mepors a a £3 - 2 £3 ES nn\nSo = =r a8 [-] 8 [-] [-]\nSjEmteecte sim mam rene imc = ra ms\nSe",
+            "mediaType": "image/png",
+            "chunkIndex": 9,
+            "pageNumber": 3,
+            "sourceChunkId": "7b4a1f30-f752-491f-9592-7e64025cbf93"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Current Availability and Roadmap",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The reviewed record labels HStaff “prod ready,” but does not include a demo link or details on deployment, user access, pilot scope or validation. No roadmap or future work has been provided, so planned functionality cannot be distinguished beyond the capabilities documented in the project materials.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HStaff addresses the practical challenge of reviewing distributed-team activity and progress across separate tools by consolidating those inputs into dashboards and reports. The materials document a broad set of capabilities, while independent performance measurements, business outcomes, test conditions and access details remain unreported.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/536eb852-dc1e-4274-ba80-c303c9b126df/evidence/efe49f50-b2ac-4bdf-aa35-5d285b6c1e34/asset",
+            "fileName": "project--hstaff.pdf",
+            "chunkText": "Managing distributed teams requires visibility across multiple platforms - Hubstaff tracks work hours and productivity, Discord hosts daily progress reports, while internal systems manage team relationships. HStaff eliminates the burden of manual data collection by automatically synchronizing all these data sources into one unified platform, providing actionable insights through an intuitive web interface.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "efe49f50-b2ac-4bdf-aa35-5d285b6c1e34"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/536eb852-dc1e-4274-ba80-c303c9b126df/evidence/512e5df4-2fdc-4ba3-b65f-174e2af64b09/asset",
+            "fileName": "project--hstaff.pdf",
+            "chunkText": "Automatic integration with Hubstaff for activity collection\n\nHourly synchronization capturing tracked hours and project allocations\n\nHistorical data for trend analysis",
+            "mediaType": "application/pdf",
+            "chunkIndex": 11,
+            "pageNumber": 3,
+            "sourceChunkId": "512e5df4-2fdc-4ba3-b65f-174e2af64b09"
+          }
+        }
+      ]
+    }
+  ]
+}

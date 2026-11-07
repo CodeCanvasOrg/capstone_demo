@@ -1,0 +1,751 @@
+{
+  "case-study:customs-document-automation": {
+    "documentId": "08499636-03de-4b76-a7ee-82d5f663a0e6",
+    "sourceIds": [
+      "case-study:customs-document-automation"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "971a7779-7477-4700-a194-0483f91d669c",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Automating Customs Documentation with Local AI and Computer Vision using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "candidateDocumentIds": [
+      "08499636-03de-4b76-a7ee-82d5f663a0e6"
+    ],
+    "title": "Automating Customs Documentation with Local AI and Computer Vision",
+    "generatedVersionId": "0a2822cc-9035-4514-89dc-a212fe034e08",
+    "currentVersionId": "0a2822cc-9035-4514-89dc-a212fe034e08",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 1,
+    "imageCount": 1
+  },
+  "case-study:ai-customs-intelligence": {
+    "documentId": "1dd51dde-087e-4fd8-8645-d1a3ca95fc5d",
+    "sourceIds": [
+      "case-study:ai-customs-intelligence"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "7db106b8-82c6-4823-8d66-2ed443b390d4",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about AI-powered Customs Intelligence System using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "candidateDocumentIds": [
+      "1dd51dde-087e-4fd8-8645-d1a3ca95fc5d"
+    ],
+    "title": "AI-Powered Customs Intelligence System: Faster HS Code Classification",
+    "generatedVersionId": "ef484f82-c0f7-48da-8f4c-339003fbccb1",
+    "currentVersionId": "ef484f82-c0f7-48da-8f4c-339003fbccb1",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 1
+  },
+  "case-study:data-cleaning-hs-codes": {
+    "documentId": "7cb0ac09-4271-4028-8985-5430c8e78a03",
+    "sourceIds": [
+      "case-study:data-cleaning-hs-codes"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "e656a4cc-abf4-4449-8261-fd8aa9b2bc23",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Data Cleaning & Ingestion for HS Code Systems using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "generatedVersionId": "e89458ae-38ad-4439-884e-37aa620031e2",
+    "status": "generated",
+    "title": "HS Code Data Cleaning and Ingestion for Trade Classification",
+    "candidateDocumentIds": [],
+    "currentVersionId": "e89458ae-38ad-4439-884e-37aa620031e2",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 1,
+    "imageCount": 1
+  },
+  "case-study:excel-automated-testing": {
+    "documentId": "c092713a-8812-421b-996f-73a77e75725a",
+    "sourceIds": [
+      "case-study:excel-automated-testing"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "60d67668-d30a-47f9-98dc-1591de1d74dc",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Excel-based Automated Testing: Reducing Manual Validation Time using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "generatedVersionId": "201e429d-72a9-43b3-8df6-fc1236e16b93",
+    "status": "generated",
+    "title": "Excel-Based HS Code Testing Framework: 11,000 Descriptions in Four Hours",
+    "candidateDocumentIds": [
+      "c092713a-8812-421b-996f-73a77e75725a"
+    ],
+    "currentVersionId": "201e429d-72a9-43b3-8df6-fc1236e16b93",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 1
+  },
+  "case-study:llm-results-analyzer": {
+    "documentId": "d317c1ce-95c6-4e5a-b38d-403e4826878a",
+    "sourceIds": [
+      "case-study:llm-results-analyzer"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "8b25b443-5773-4328-9ef8-52098db17c63",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about LLM Results Analyzer: Unified Analysis Framework using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "generatedVersionId": "c6b55467-9ae7-441a-b2c0-3cb099db3850",
+    "status": "generated",
+    "title": "LLM Results Analyzer for Unified HS Code Classification",
+    "candidateDocumentIds": [
+      "d317c1ce-95c6-4e5a-b38d-403e4826878a"
+    ],
+    "currentVersionId": "c6b55467-9ae7-441a-b2c0-3cb099db3850",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 3,
+    "imageCount": 2
+  },
+  "case-study:shelf-analysis": {
+    "documentId": "b4d78a05-a82c-4f2c-be2c-da605c86fee6",
+    "sourceIds": [
+      "case-study:shelf-analysis"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "39220b80-ccd8-4051-93d1-9bcbb854d708",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Shelf Analysis AI platform for Retail Compliance using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "generatedVersionId": "aa6bba56-eb15-45fa-aff5-e7e6ed0b6d99",
+    "status": "generated",
+    "title": "Shelf Analysis AI for Retail Compliance",
+    "candidateDocumentIds": [
+      "b4d78a05-a82c-4f2c-be2c-da605c86fee6"
+    ],
+    "currentVersionId": "aa6bba56-eb15-45fa-aff5-e7e6ed0b6d99",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 2
+  },
+  "case-study:fraud-detection": {
+    "documentId": "9301d410-ac80-4094-a5d7-5f11c20d02fe",
+    "sourceIds": [
+      "case-study:fraud-detection"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "7bd0415a-c031-45a5-8b42-08eb4d170aa4",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about A Global Beverage Leader Prevents Retail Fraud with AI using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "candidateDocumentIds": [
+      "9301d410-ac80-4094-a5d7-5f11c20d02fe"
+    ],
+    "title": "AI Fraud Detection for Retail Compliance",
+    "generatedVersionId": "4591658f-14c4-43dd-a1dc-34025e7917a8",
+    "currentVersionId": "4591658f-14c4-43dd-a1dc-34025e7917a8",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 2
+  },
+  "case-study:poster-recognition": {
+    "documentId": "a44defcb-e44c-42a3-b775-6a9315f1e4d1",
+    "sourceIds": [
+      "case-study:poster-recognition"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "0b62a696-59c7-4c95-aebe-49bc29dced32",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Flexible Campaigns with Poster Recognition AI using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "candidateDocumentIds": [],
+    "title": "Flexible Campaigns with Poster Recognition AI: Retail Technology Case Study",
+    "generatedVersionId": "6dd9d875-0359-41e1-b0bc-05a46065e576",
+    "currentVersionId": "6dd9d875-0359-41e1-b0bc-05a46065e576",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 1
+  },
+  "case-study:improving-recognition-accuracy": {
+    "documentId": "260f80d8-d7e8-4164-a1de-160882a5658f",
+    "sourceIds": [
+      "case-study:improving-recognition-accuracy"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "6b529d69-31e1-4f29-932d-a463f9134129",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Boosting Recognition Accuracy with AI-Powered Data Refinement using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "generatedVersionId": "b1e151c1-1185-4a94-b310-cf588b34f994",
+    "status": "generated",
+    "title": "Improving Facial Recognition Accuracy with AI-Powered Data Refinement",
+    "candidateDocumentIds": [
+      "260f80d8-d7e8-4164-a1de-160882a5658f"
+    ],
+    "currentVersionId": "b1e151c1-1185-4a94-b310-cf588b34f994",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 1
+  },
+  "case-study:ai-powered-retail-cart": {
+    "documentId": "a21954ea-d02e-46e9-baf2-0afe71f92127",
+    "sourceIds": [
+      "case-study:ai-powered-retail-cart"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "a27f571f-539c-4e15-b811-c060062f5993",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about How Retail AI solutions provider boosted accuracy by 20% with R&D using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "generatedVersionId": "b30af2c5-2812-4605-93f7-d49349743f6f",
+    "status": "generated",
+    "title": "AI-Powered Retail Cart Detection Accuracy Improvement",
+    "candidateDocumentIds": [
+      "a21954ea-d02e-46e9-baf2-0afe71f92127"
+    ],
+    "currentVersionId": "b30af2c5-2812-4605-93f7-d49349743f6f",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 1,
+    "imageCount": 1
+  },
+  "case-study:iv-drip-flow-rate-estimator": {
+    "documentId": "5077dd91-04f8-4943-9e17-c32791ccd2b7",
+    "sourceIds": [
+      "case-study:iv-drip-flow-rate-estimator"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "d719ed88-9057-4b21-9730-5e9f56662c19",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about IV Drip Flow Rate Estimator using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "candidateDocumentIds": [
+      "5077dd91-04f8-4943-9e17-c32791ccd2b7"
+    ],
+    "title": "IV Drip Flow Rate Estimator: Real-Time, On-Device AI",
+    "generatedVersionId": "6b83eda2-33cb-475a-822c-736ad9d0e6fc",
+    "currentVersionId": "6b83eda2-33cb-475a-822c-736ad9d0e6fc",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 3,
+    "imageCount": 1
+  },
+  "case-study:field-center-detection": {
+    "documentId": "59cecf0a-c37a-4b1e-93e5-9447dbdf1c72",
+    "sourceIds": [
+      "case-study:field-center-detection"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "1918d12d-de3a-45f0-b6b6-f73d90529b4b",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Field Center Detection for Augmented Reality in Sports using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "candidateDocumentIds": [
+      "59cecf0a-c37a-4b1e-93e5-9447dbdf1c72"
+    ],
+    "title": "Real-Time Sports Field Center Detection for Augmented Reality",
+    "generatedVersionId": "eedb4b18-ad98-4035-88d2-31f7fd6804d6",
+    "currentVersionId": "eedb4b18-ad98-4035-88d2-31f7fd6804d6",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 1
+  },
+  "case-study:beef-carcass-detection": {
+    "documentId": "3ccf1cc1-742a-40e6-9409-ff1fc385d33b",
+    "sourceIds": [
+      "case-study:beef-carcass-detection"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "94d40462-9ea5-429b-b331-1b055a2b0f45",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Predicting Carcass Quality Before Slaughter with On-Device Computer Vision using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "candidateDocumentIds": [],
+    "title": "Predicting Beef Carcass Quality Before Slaughter with On-Device Computer Vision",
+    "generatedVersionId": "2fbd5ce8-e948-4317-a8c7-a8b694a3a383",
+    "currentVersionId": "2fbd5ce8-e948-4317-a8c7-a8b694a3a383",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 1
+  },
+  "case-study:livescore-ai": {
+    "documentId": "d56b0818-e252-4909-a105-01c511b2f5df",
+    "sourceIds": [
+      "case-study:livescore-ai"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "633fc71a-3682-4f3b-a62a-f092b85f8f0f",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about LiveScore AI Revolutionizes Real-Time Basketball Scoring using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "candidateDocumentIds": [
+      "d56b0818-e252-4909-a105-01c511b2f5df"
+    ],
+    "title": "LiveScore AI Real-Time Basketball Scoring Platform",
+    "generatedVersionId": "61cac9ad-283e-4fc5-86e8-629bd1d83b02",
+    "currentVersionId": "61cac9ad-283e-4fc5-86e8-629bd1d83b02",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 1
+  },
+  "case-study:breast-cancer": {
+    "documentId": "97c50cf2-c4e9-4d63-80bc-5f3ed57c01f6",
+    "sourceIds": [
+      "case-study:breast-cancer"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "b995ed7a-0868-4abd-8fd6-0f66a6faa17c",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Breast Cancer Biomarker Classification Revolutionizes Pathology Workflows using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "candidateDocumentIds": [],
+    "title": "AI Breast Cancer Biomarker Classification from H&E Histology Images",
+    "generatedVersionId": "4d9e807c-1865-4519-8900-b2e159401927",
+    "currentVersionId": "4d9e807c-1865-4519-8900-b2e159401927",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 3,
+    "imageCount": 1
+  },
+  "case-study:ai-based-predictive": {
+    "documentId": "31b8addc-2098-4ed6-8670-410ec572c4ca",
+    "sourceIds": [
+      "case-study:ai-based-predictive"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "a9e5ab48-069c-4487-81cc-457fc37d1ff2",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Johnson & Johnson Achieves 96.8% Accuracy in Customer Targeting using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "generatedVersionId": "bc1c7663-296c-4124-bf46-0b4326ad2094",
+    "status": "generated",
+    "title": "Johnson & Johnson Predictive Customer Targeting With 96.8% Accuracy",
+    "candidateDocumentIds": [
+      "31b8addc-2098-4ed6-8670-410ec572c4ca"
+    ],
+    "currentVersionId": "bc1c7663-296c-4124-bf46-0b4326ad2094",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 3,
+    "imageCount": 1
+  },
+  "case-study:avnrt-ablation-analytics": {
+    "documentId": "34971225-fadb-4af4-a7f5-6883a845760d",
+    "sourceIds": [
+      "case-study:avnrt-ablation-analytics"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "acd74bb1-dcc2-43a3-b953-ed61aeb6ffb3",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about How Johnson and Johnson Found Patterns Hidden in Ablation Data? using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "generatedVersionId": "51507805-b627-4d36-9132-f681a53df9af",
+    "status": "generated",
+    "title": "AVNRT Ablation Analysis with CARTONET for Johnson & Johnson",
+    "candidateDocumentIds": [
+      "34971225-fadb-4af4-a7f5-6883a845760d"
+    ],
+    "currentVersionId": "51507805-b627-4d36-9132-f681a53df9af",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 1
+  },
+  "case-study:cartoned-analysis-dashboard": {
+    "documentId": "0eccff37-c19a-4333-b04f-779ad164e7c3",
+    "sourceIds": [
+      "case-study:cartoned-analysis-dashboard"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "85671fa5-fa70-41ca-8083-963eaa4b7a8c",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about How Johnson & Johnson Turned Endless Data Work into Instant Strategy? using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "generatedVersionId": "3b485778-953d-44f0-8edb-8a5a5f87cc7c",
+    "status": "generated",
+    "title": "Johnson & Johnson’s Cartonet Analysis Dashboard",
+    "candidateDocumentIds": [
+      "0eccff37-c19a-4333-b04f-779ad164e7c3"
+    ],
+    "currentVersionId": "3b485778-953d-44f0-8edb-8a5a5f87cc7c",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 4,
+    "imageCount": 2
+  },
+  "case-study:impact-event-analysis": {
+    "documentId": "eb4805d8-ac27-420c-a4c5-d08fe48e42d5",
+    "sourceIds": [
+      "case-study:impact-event-analysis"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "6b47d1d9-419c-4b31-b286-a5323508e9a9",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about How Johnson & Johnson Turned a Mountain of Event Data into a Clear Story of ROI? using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "generatedVersionId": "2d346cdd-f11b-48ca-bad5-b210e157bd40",
+    "status": "generated",
+    "title": "Johnson & Johnson Event Impact Analytics in Power BI",
+    "candidateDocumentIds": [
+      "eb4805d8-ac27-420c-a4c5-d08fe48e42d5"
+    ],
+    "currentVersionId": "2d346cdd-f11b-48ca-bad5-b210e157bd40",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 1
+  },
+  "case-study:patient-data-analytics": {
+    "documentId": "467a4530-a428-4941-aa44-77cd6d9459ce",
+    "sourceIds": [
+      "case-study:patient-data-analytics"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "1dd1a738-c800-447b-8a18-5212529e07a9",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about How Johnson & Johnson reduced patient data analytics time by 80%? using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "candidateDocumentIds": [
+      "467a4530-a428-4941-aa44-77cd6d9459ce"
+    ],
+    "title": "Johnson & Johnson Patient Report Analyzer",
+    "generatedVersionId": "0f9905e9-e0cd-42fa-a3a5-5b71a069b448",
+    "currentVersionId": "0f9905e9-e0cd-42fa-a3a5-5b71a069b448",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 2
+  },
+  "case-study:amplifyr": {
+    "documentId": "bce2fae1-0935-468e-864f-dd8e81736753",
+    "sourceIds": [
+      "case-study:amplifyr"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "0297d0de-fbdf-41aa-a9fd-c1b093fe8609",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Driving Brand Visibility on Generative AI using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "candidateDocumentIds": [],
+    "title": "Driving Brand Visibility on Generative AI with Amazon QuickSight",
+    "generatedVersionId": "73198761-dc71-4801-8422-c30ec8b86e38",
+    "currentVersionId": "73198761-dc71-4801-8422-c30ec8b86e38",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 1
+  },
+  "case-study:automated-training-pipeline": {
+    "documentId": "57cefac9-51b9-4034-8805-aff98dc6681e",
+    "sourceIds": [
+      "case-study:automated-training-pipeline"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "61301de4-cec1-43c4-ae27-9045a087c3ee",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Automated Training Pipeline Reduces Model Development Time using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "candidateDocumentIds": [
+      "f85a96f4-5df9-4e2d-9038-d41a5730c852",
+      "57cefac9-51b9-4034-8805-aff98dc6681e"
+    ],
+    "title": "Automated Training Pipeline for Retail Product Detection",
+    "generatedVersionId": "de322633-d513-4262-a0a1-ae8835f70d16",
+    "currentVersionId": "de322633-d513-4262-a0a1-ae8835f70d16",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 1,
+    "imageCount": 1
+  },
+  "case-study:data-labeling-tool": {
+    "documentId": "17f57d5a-143c-4189-a85c-a9ee82b6af2b",
+    "sourceIds": [
+      "case-study:data-labeling-tool"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "6b00a785-fdf2-497c-a7ed-6aa8d17fbde8",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Enterprise Data Labeling Platform Deployment & Customization using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "generatedVersionId": "05b97282-bfb8-47c6-a314-e888b27bc65e",
+    "status": "generated",
+    "title": "Enterprise Data Labeling Platform Deployment and Customization",
+    "candidateDocumentIds": [
+      "17f57d5a-143c-4189-a85c-a9ee82b6af2b"
+    ],
+    "currentVersionId": "05b97282-bfb8-47c6-a314-e888b27bc65e",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 3,
+    "imageCount": 2
+  },
+  "case-study:optimizing-recognition-processing": {
+    "documentId": "23f5a23d-84a1-4ae4-acfd-1957268d08da",
+    "sourceIds": [
+      "case-study:optimizing-recognition-processing"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "08d611d7-4786-4ae1-9188-d0bd6e79a23b",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about ROI Processing with Track-Timing Cuts LumioHub AI Costs using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "candidateDocumentIds": [],
+    "title": "LumioHub AI: Reducing Computational Costs and RAM Overload with ROI Processing",
+    "generatedVersionId": "d87738b8-c58f-4c32-abd0-eea6a93d533a",
+    "currentVersionId": "d87738b8-c58f-4c32-abd0-eea6a93d533a",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 1
+  },
+  "case-study:lumiohub-platform": {
+    "documentId": "b703664c-9e75-4c46-8adc-5066fea1de6a",
+    "sourceIds": [
+      "case-study:lumiohub-platform",
+      "project:lumiohub"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "8df63276-59e5-4c5b-8708-93cbdd59c52c",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Securing a Scalable Platform using the attached source PDFs. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "candidateDocumentIds": [
+      "b703664c-9e75-4c46-8adc-5066fea1de6a"
+    ],
+    "title": "Securing LumioHub AI for Enterprise Scale",
+    "generatedVersionId": "440d45b9-ff1d-432e-bac3-978189b39e47",
+    "currentVersionId": "440d45b9-ff1d-432e-bac3-978189b39e47",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 3,
+    "imageCount": 2
+  },
+  "project:hstaff": {
+    "documentId": "f12aaa4e-b999-4f34-9be8-63afa9a86d7e",
+    "sourceIds": [
+      "project:hstaff"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "2c549539-fc46-4039-b7ee-6c15ea30d5c8",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about HStaff using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "candidateDocumentIds": [],
+    "title": "HStaff Workforce Analytics Platform for Distributed Team Management",
+    "generatedVersionId": "f69d0a82-83d4-4001-b4d0-3536f58b5ac5",
+    "currentVersionId": "f69d0a82-83d4-4001-b4d0-3536f58b5ac5",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 1,
+    "imageCount": 1
+  },
+  "project:ai-avatar": {
+    "documentId": "8fabe22b-34e8-4d87-b0c5-d3a96a934b4c",
+    "sourceIds": [
+      "project:ai-avatar"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "05caf5c0-10c7-41c5-8999-ea96b80f2933",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about AI Avatar-Photorealistic Real-Time Conversational Avatar using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "generatedVersionId": "febf1558-e0a8-45f2-94bb-5bfc861e607c",
+    "status": "generated",
+    "title": "AI Avatar: Real-Time Photorealistic Conversational Experiences",
+    "candidateDocumentIds": [
+      "8fabe22b-34e8-4d87-b0c5-d3a96a934b4c"
+    ],
+    "currentVersionId": "febf1558-e0a8-45f2-94bb-5bfc861e607c",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 1
+  },
+  "project:kumush-ai": {
+    "documentId": "7e618968-e5e5-4fcc-8f48-a47ea861bfd4",
+    "sourceIds": [
+      "project:kumush-ai"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "dd87b8af-ad1d-493c-a6a2-6fc50f3ce58c",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Kumush AI using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "generatedVersionId": "69770356-9cf8-4c9a-9430-cd9fab2ce801",
+    "status": "generated",
+    "title": "Kumush AI: Native Uzbek Voice Automation at Scale",
+    "candidateDocumentIds": [
+      "7e618968-e5e5-4fcc-8f48-a47ea861bfd4"
+    ],
+    "currentVersionId": "69770356-9cf8-4c9a-9430-cd9fab2ce801",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 5,
+    "imageCount": 2
+  },
+  "project:wakil-ai": {
+    "documentId": "73956dc4-bd5f-405b-8c4f-45c02c81c18e",
+    "sourceIds": [
+      "project:wakil-ai"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "5094b39e-a07b-4b16-a56e-3768c385e279",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Wakil AI using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "candidateDocumentIds": [],
+    "title": "Wakil AI: Multilingual Legal Assistant for Uzbekistan",
+    "generatedVersionId": "b6a307d7-c886-4e72-9518-85a74335acd8",
+    "currentVersionId": "b6a307d7-c886-4e72-9518-85a74335acd8",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 1
+  },
+  "project:bojhona": {
+    "documentId": "a4131402-bce4-4cb7-96f3-bfc2e5900631",
+    "sourceIds": [
+      "project:bojhona"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "5e988c4c-4ce4-4c05-abe3-594908503e09",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Bojhona: AI-Powered Customs Intelligence: HS Code Definitions using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "generatedVersionId": "16afff3e-fbee-4ea1-b83e-8d8664af6e43",
+    "status": "generated",
+    "title": "Bojhona AI-Powered Customs Intelligence and HS Code Classification",
+    "candidateDocumentIds": [
+      "a4131402-bce4-4cb7-96f3-bfc2e5900631"
+    ],
+    "currentVersionId": "16afff3e-fbee-4ea1-b83e-8d8664af6e43",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 4,
+    "imageCount": 1
+  },
+  "project:enlighten-qalb": {
+    "documentId": "14127b64-26ef-4d63-9e59-8d4642da28c3",
+    "sourceIds": [
+      "project:enlighten-qalb"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "8f7ac747-7938-48bf-bb21-d147d10709a4",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Enlighten Qalb: AI Spiritual Guide using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "generatedVersionId": "be9b72ab-b8ff-4737-860f-18f78f9b0fe2",
+    "status": "generated",
+    "title": "Enlighten Qalb: A Memory-Based AI Companion for Spiritual Growth",
+    "candidateDocumentIds": [],
+    "currentVersionId": "be9b72ab-b8ff-4737-860f-18f78f9b0fe2",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 1
+  },
+  "project:bride": {
+    "documentId": "f82ecd54-4473-465d-8877-5f6081adbbd5",
+    "sourceIds": [
+      "project:bride"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "5a242db4-9c12-4f04-8903-4da59cc07721",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about bRide: Empowering Human Potential through AI Execution using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "candidateDocumentIds": [],
+    "title": "bRide: Human-in-the-Loop AI Execution Platform for Knowledge Workers",
+    "generatedVersionId": "4bfc4ac8-b000-4d72-a320-05928f297b22",
+    "currentVersionId": "4bfc4ac8-b000-4d72-a320-05928f297b22",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 3,
+    "imageCount": 1
+  },
+  "paper:2409.04187": {
+    "documentId": "0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050",
+    "sourceIds": [
+      "paper:2409.04187"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "9b3b219b-54d4-48fc-90be-2ea38686a7a0",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about LITE: A Paradigm Shift in Multi-Object Tracking with Efficient ReID Feature Integration using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links, the paper title, authors and publication or preprint status.",
+    "candidateDocumentIds": [
+      "0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050"
+    ],
+    "title": "LITE: Efficient ReID Integration for Real-Time Multi-Object Tracking",
+    "generatedVersionId": "c8638e3d-ae81-4e70-9af3-4e161fb2eccd",
+    "currentVersionId": "c8638e3d-ae81-4e70-9af3-4e161fb2eccd",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 2
+  },
+  "paper:10883969": {
+    "documentId": "96dd77ca-8a40-4cb5-8e6b-4366f590b526",
+    "sourceIds": [
+      "paper:10883969"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "59ba1a6c-eb33-4af2-a17a-adc4bff3f003",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Practical Evaluation Framework for Real-Time Multi-Object Tracking: Achieving Optimal and Realistic Performance using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links, the paper title, authors and publication or preprint status.",
+    "candidateDocumentIds": [],
+    "title": "Evaluating Real-Time Multi-Object Tracking for Practical Edge Deployment",
+    "generatedVersionId": "3c430d26-6931-4cc6-8ced-9b45a131b9d9",
+    "currentVersionId": "3c430d26-6931-4cc6-8ced-9b45a131b9d9",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 1
+  },
+  "paper:10316180": {
+    "documentId": "06b09a1a-12aa-444e-bd9f-b70209eeed36",
+    "sourceIds": [
+      "paper:10316180"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "917d8206-5f04-40e4-95a9-06128cfb0798",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Design of Contextual Filtered Features for Better Smartphone-User Receptivity Prediction using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links, the paper title, authors and publication or preprint status.",
+    "candidateDocumentIds": [],
+    "title": "Contextual Filtered Features for Smartphone User Receptivity Prediction",
+    "generatedVersionId": "6b0296de-7b4b-4a90-ba98-79f18a3f012e",
+    "currentVersionId": "6b0296de-7b4b-4a90-ba98-79f18a3f012e",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 4,
+    "imageCount": 1
+  },
+  "paper:515": {
+    "documentId": "711f52f3-88da-49aa-aa71-f277a1f9f722",
+    "sourceIds": [
+      "paper:515"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "1677a785-3383-4ee8-992a-9649f0886f2c",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Performance Evaluation of Deep Learning Based Network Intrusion Detection System across Multiple Balanced and Imbalanced Datasets using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links, the paper title, authors and publication or preprint status.",
+    "candidateDocumentIds": [],
+    "title": "HumbleBeeAI Case Study: Deep Learning Network Intrusion Detection Across Balanced and Imbalanced Datasets",
+    "generatedVersionId": "897c879c-63e7-42e2-b67d-f4b6918b887b",
+    "currentVersionId": "897c879c-63e7-42e2-b67d-f4b6918b887b",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 1
+  },
+  "paper:9661375": {
+    "documentId": "2bd2034f-7a1b-4b82-8985-e22e6e0a92c6",
+    "sourceIds": [
+      "paper:9661375"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "bfca122d-fb4d-49cf-873d-c082e1676ff0",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about Investigating the Effect of Traffic Sampling on Machine Learning-Based Network Intrusion Detection Approaches using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links, the paper title, authors and publication or preprint status.",
+    "candidateDocumentIds": [],
+    "title": "Evaluating Traffic Sampling Effects on ML-Based Network Intrusion Detection",
+    "generatedVersionId": "54d84723-54a7-4016-ba61-50609267d10a",
+    "currentVersionId": "54d84723-54a7-4016-ba61-50609267d10a",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 1
+  },
+  "paper:9064976": {
+    "documentId": "c5708598-1321-4762-a649-84c301061134",
+    "sourceIds": [
+      "paper:9064976"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "b911d75a-dd06-4129-a201-947135aa57cb",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about 1D CNN based network intrusion detection with normalization on imbalanced data using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links, the paper title, authors and publication or preprint status.",
+    "candidateDocumentIds": [],
+    "title": "1D CNN Network Intrusion Detection with Normalization on Imbalanced UNSW-NB15 Data",
+    "generatedVersionId": "68e78ecd-3dc8-4326-8f35-6d4cc17170c2",
+    "currentVersionId": "68e78ecd-3dc8-4326-8f35-6d4cc17170c2",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 1
+  },
+  "paper:1910.01091": {
+    "documentId": "b74e8726-a2f3-43ac-a810-ff296ba20621",
+    "sourceIds": [
+      "paper:1910.01091"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "e3b24273-1cb6-49f8-8ee4-1516aed3948c",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about W-Net: A CNN-based Architecture for White Blood Cells Image Classification using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links, the paper title, authors and publication or preprint status.",
+    "generatedVersionId": "1e1d6bf1-72fd-4875-8167-178286b608cf",
+    "status": "generated",
+    "title": "W-Net White Blood Cell Image Classification",
+    "candidateDocumentIds": [
+      "b74e8726-a2f3-43ac-a810-ff296ba20621"
+    ],
+    "currentVersionId": "1e1d6bf1-72fd-4875-8167-178286b608cf",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 1,
+    "imageCount": 3
+  },
+  "company-update:vc-studio-qatar": {
+    "documentId": "5162d3bf-9a57-42ce-b8ab-3c04c7c6b035",
+    "sourceIds": [
+      "company-update:vc-studio-qatar"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "dd5899e9-fcbe-48f9-a4fc-31e07652daa0",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about HumbleBeeAI Expands to Qatar with the Launch of Venture Studio LLC using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "generatedVersionId": "507353e3-36cd-45da-b5da-96a94022b56e",
+    "status": "generated",
+    "title": "HumbleBeeAI Venture Studio LLC Launches in Qatar",
+    "candidateDocumentIds": [
+      "5162d3bf-9a57-42ce-b8ab-3c04c7c6b035"
+    ],
+    "currentVersionId": "507353e3-36cd-45da-b5da-96a94022b56e",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 4,
+    "imageCount": 1
+  },
+  "company-update:innerworks-partnership": {
+    "documentId": "02cf5cf8-7ac4-4c0d-9bb6-5137d7d92c5a",
+    "sourceIds": [
+      "company-update:innerworks-partnership"
+    ],
+    "templateId": "portfolio",
+    "generationTaskId": "1f47fa89-dd18-4637-b60d-ac4d48f2e577",
+    "brief": "Create a client-facing HumbleBeeAI website portfolio entry about From Collaboration to Innovation: Inside the Innerworks and HumblebeeAI Partnership using the attached source PDF. Follow the Website portfolio entry template. Use clear bullet lists for key capabilities and supported results, alongside readable prose. Include relevant supplied source images inline, next to the capability or result they illustrate. Use at least one supplied image when available; prefer system diagrams, product screenshots or result figures. Reference supplied image chunk IDs and never invent image URLs. Preserve the source-reported metrics, units, project status and qualifiers. Include original source links.",
+    "candidateDocumentIds": [],
+    "title": "Innerworks and HumbleBeeAI: Building Fraud-Defense Infrastructure Through R&D Partnership",
+    "generatedVersionId": "7ba29a25-0c3f-4e7e-9239-d4fdc80e108e",
+    "currentVersionId": "7ba29a25-0c3f-4e7e-9239-d4fdc80e108e",
+    "status": "generated",
+    "generationModel": "openai/gpt-6-luna",
+    "bulletLists": 2,
+    "imageCount": 1
+  }
+}

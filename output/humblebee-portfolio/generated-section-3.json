@@ -1,0 +1,279 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Portfolio Working Section — AI Platforms",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI’s AI platform work spans automated model training, enterprise data labeling, video-recognition optimization and secure multi-tenant architecture. The cases report operational improvements, while quantified outcomes are included only where stated in the supplied materials.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/83654bf1-0a15-4059-97af-11d8b51e5534/evidence/b5e32b3c-b3b8-41ae-831e-c5f127360062/asset",
+            "fileName": "case-study--automated-training-pipeline.pdf",
+            "chunkText": "The implementation of HumbleBeeAI's Automated Training Pipeline delivered substantial results, improving the client's operational capabilities and service delivery.\n\n75% Reduction in Model Development Time: The time required to develop a custom model was reduced from 2 months to 2 weeks. This improvement enabled the client to respond more quickly to customer requests and deploy solutions faster.\n\n90% Decrease in Training Management Overhead: Automation of the training and deployment workflows for their largest client, with over 20 brands, led to a 90% reduction in management overhead. The system successfully managed over 20 models with automated updates.\n\nEmpowerment of Non-Technical Teams: The interface allowed client success teams to manage the AI model creation process independently. This reduced the ML engineering bottleneck and improved overall team efficiency.\n\nIncreased Client Satisfaction: The ability to deliver custom models quickly and with improved detection accuracy led to increased client satisfaction and retention.\n\nThe solution addressed the immediate operational challenges and provided a scalable foundation for future growth.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 3,
+            "sourceChunkId": "b5e32b3c-b3b8-41ae-831e-c5f127360062"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/83654bf1-0a15-4059-97af-11d8b51e5534/evidence/4a6967db-be9c-40d0-b0d6-92190bb06bcf/asset",
+            "fileName": "case-study--data-labeling-tool.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nCustomized labeling platform with ML backend enabled 15+ secure deployments, cut annotation time by 75%, and ensured 99.9% data protection reliability.\n\nSecurity Safe Annotation Fast Scalability Scale",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "4a6967db-be9c-40d0-b0d6-92190bb06bcf"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/83654bf1-0a15-4059-97af-11d8b51e5534/evidence/5f4fdfed-c2e3-4106-b9c5-4fb451db84e7/asset",
+            "fileName": "case-study--optimizing-recognition-processing.pdf",
+            "chunkText": "A leading LumioHub AI platform provider faced significant computational and memory challenges that hindered system performance and scalability. By partnering with HumbleBee AI, the client implemented a Region of Interest (ROI) processing model and a track-timing mechanism. This custom AI solution resulted in substantially lower computational costs, controlled memory usage, and more efficient, real-time data processing.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "5f4fdfed-c2e3-4106-b9c5-4fb451db84e7"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/83654bf1-0a15-4059-97af-11d8b51e5534/evidence/65db0def-cab7-4bf8-b20f-259054b4bfad/asset",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "chunkText": "HumbleBee AI partnered with an enterprise client to architect a secure, scalable LumioHub AI platform from the ground up. By implementing a sophisticated architecture with a hybrid RBAC + ABAC permission model and a dynamic AI recognition cluster, HumbleBee AI successfully delivered a resilient, multi-tenant solution. The platform now offers data isolation, scalability, and real-time operational efficiency, positioning the client for growth.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "65db0def-cab7-4bf8-b20f-259054b4bfad"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Selected Case Studies",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Automated Training Pipeline Reduces Model Development Time — ",
+                  "type": "text"
+                },
+                {
+                  "text": "https://humblebee.ai/case-studies/automated-training-pipeline",
+                  "type": "text",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "rel": "noopener noreferrer",
+                        "href": "https://humblebee.ai/case-studies/automated-training-pipeline",
+                        "target": "_blank"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "text": ". A Google Cloud Vertex AI pipeline reportedly reduced custom model development from two months to two weeks and cut training-management overhead by 90% for a client supporting more than 20 brands.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/83654bf1-0a15-4059-97af-11d8b51e5534/evidence/b5e32b3c-b3b8-41ae-831e-c5f127360062/asset",
+                    "fileName": "case-study--automated-training-pipeline.pdf",
+                    "chunkText": "The implementation of HumbleBeeAI's Automated Training Pipeline delivered substantial results, improving the client's operational capabilities and service delivery.\n\n75% Reduction in Model Development Time: The time required to develop a custom model was reduced from 2 months to 2 weeks. This improvement enabled the client to respond more quickly to customer requests and deploy solutions faster.\n\n90% Decrease in Training Management Overhead: Automation of the training and deployment workflows for their largest client, with over 20 brands, led to a 90% reduction in management overhead. The system successfully managed over 20 models with automated updates.\n\nEmpowerment of Non-Technical Teams: The interface allowed client success teams to manage the AI model creation process independently. This reduced the ML engineering bottleneck and improved overall team efficiency.\n\nIncreased Client Satisfaction: The ability to deliver custom models quickly and with improved detection accuracy led to increased client satisfaction and retention.\n\nThe solution addressed the immediate operational challenges and provided a scalable foundation for future growth.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 9,
+                    "pageNumber": 3,
+                    "sourceChunkId": "b5e32b3c-b3b8-41ae-831e-c5f127360062"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Enterprise Data Labeling Platform Deployment & Customization — ",
+                  "type": "text"
+                },
+                {
+                  "text": "https://humblebee.ai/case-studies/data-labeling-tool",
+                  "type": "text",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "rel": "noopener noreferrer",
+                        "href": "https://humblebee.ai/case-studies/data-labeling-tool",
+                        "target": "_blank"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "text": ". The customized labeling platform reportedly enabled 15+ secure deployments, reduced annotation time by 75%, and reported 99.9% data-protection reliability.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/83654bf1-0a15-4059-97af-11d8b51e5534/evidence/4a6967db-be9c-40d0-b0d6-92190bb06bcf/asset",
+                    "fileName": "case-study--data-labeling-tool.pdf",
+                    "chunkText": "Open original HumbleBeeAI page\n\nCustomized labeling platform with ML backend enabled 15+ secure deployments, cut annotation time by 75%, and ensured 99.9% data protection reliability.\n\nSecurity Safe Annotation Fast Scalability Scale",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 1,
+                    "pageNumber": 1,
+                    "sourceChunkId": "4a6967db-be9c-40d0-b0d6-92190bb06bcf"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "ROI Processing with Track-Timing Cuts LumioHub AI Costs — ",
+                  "type": "text"
+                },
+                {
+                  "text": "https://humblebee.ai/case-studies/optimizing-recognition-processing",
+                  "type": "text",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "rel": "noopener noreferrer",
+                        "href": "https://humblebee.ai/case-studies/optimizing-recognition-processing",
+                        "target": "_blank"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "text": ". Region-of-interest processing and a 30-second track-duration mechanism reportedly reduced computation, stabilized memory and improved responsiveness; no savings figure is stated.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/83654bf1-0a15-4059-97af-11d8b51e5534/evidence/0ccca8c9-6e06-40d9-9d92-a5325f12baa8/asset",
+                    "fileName": "case-study--data-labeling-tool.pdf",
+                    "chunkText": "HumbleBeeAI was engaged to design and implement a data labeling platform. The solution was built around a customized labeling platform, enhanced with an ML backend and integrated with Google Cloud Platform for security and scalability.\n\nThe implementation was delivered in three core pillars:\n\nEnterprise-Secured Labeling Platform: We deployed a secured version of labeling platform with security controls. This included disabling all local file imports to enforce a single source of truth in Google Cloud Storage (GCS), implementing an invite-only user registration system, and establishing automated, configurable database backups to GCS for disaster recovery and server migration. This ensured complete data isolation and met security standards.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 6,
+                    "pageNumber": 2,
+                    "sourceChunkId": "0ccca8c9-6e06-40d9-9d92-a5325f12baa8"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Securing a Scalable Platform — ",
+                  "type": "text"
+                },
+                {
+                  "text": "https://humblebee.ai/case-studies/lumiohub-platform",
+                  "type": "text",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "rel": "noopener noreferrer",
+                        "href": "https://humblebee.ai/case-studies/lumiohub-platform",
+                        "target": "_blank"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "text": ". A multi-tenant LumioHub AI platform using hybrid RBAC/ABAC permissions and dynamic recognition clusters reportedly provides data isolation and scalability; no measured throughput or security benchmark is stated.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/83654bf1-0a15-4059-97af-11d8b51e5534/evidence/65db0def-cab7-4bf8-b20f-259054b4bfad/asset",
+                    "fileName": "case-study--lumiohub-platform.pdf",
+                    "chunkText": "HumbleBee AI partnered with an enterprise client to architect a secure, scalable LumioHub AI platform from the ground up. By implementing a sophisticated architecture with a hybrid RBAC + ABAC permission model and a dynamic AI recognition cluster, HumbleBee AI successfully delivered a resilient, multi-tenant solution. The platform now offers data isolation, scalability, and real-time operational efficiency, positioning the client for growth.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 3,
+                    "pageNumber": 1,
+                    "sourceChunkId": "65db0def-cab7-4bf8-b20f-259054b4bfad"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

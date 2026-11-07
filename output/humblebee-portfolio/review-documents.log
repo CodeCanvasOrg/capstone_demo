@@ -1,0 +1,6 @@
+Exception: A newer version exists. Keep your local content and compare it before saving again.
+    at conflict (/Users/johnpaul/projects/capstone_demo/app/services/workspaces/access_service.ts:20:3)
+    at <anonymous> (/Users/johnpaul/projects/capstone_demo/app/services/documents/version_service.ts:44:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async QueryClient.transaction (file:///Users/johnpaul/projects/capstone_demo/node_modules/@adonisjs/lucid/build/src/query_client/index.js:166:34)
+    at async file:///Users/johnpaul/projects/capstone_demo/output/humblebee-portfolio/save-review-documents.mjs:11:17

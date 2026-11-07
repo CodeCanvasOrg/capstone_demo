@@ -1,0 +1,12 @@
+FORMAT_REGENERATING project:enlighten-qalb
+[generation 14127b64-26ef-4d63-9e59-8d4642da28c3] retrieval finished in 2404ms with 20 chunks
+[generation 14127b64-26ef-4d63-9e59-8d4642da28c3] generation started (outline)
+{"level":40,"time":1793900299134,"pid":29514,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+FORMAT_RETRY_PENDING project:enlighten-qalb Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "conte

@@ -1,0 +1,138 @@
+ HUMBLEBEEAI / CASE STUDY
+
+
+ A Global Beverage Leader Prevents
+ Retail Fraud with AI
+ Open original HumbleBeeAI page
+
+ AI-powered fraud detection system achieving 90%+ accuracy in eliminating false field reports
+ and ensuring planogram compliance across thousands of retail locations.
+
+   Detection                               Prevention                   Coverage
+   Precision                               Elimination                  Scale
+
+
+
+
+ Source image
+
+
+ Executive Summary
+ A leading retail technology company, provider of a comprehensive cloud SaaS platform for distribution,
+ transformed retail compliance monitoring for their 600+ customers by partnering with HumbleBeeAI.
+ By implementing an AI-powered fraud detection system into their platform, the company now enables
+ their clients - including distributors and manufacturers across FMCG, beverage, pharmaceutical, and
+ automotive industries - to eliminate fraudulent reporting from field agents, ensure planogram
+ adherence across thousands of locations, and achieve high accuracy in retail audits.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                      1
+ Introduction
+ The retail technology company provides a comprehensive cloud SaaS platform for distribution. The
+ all-in-one platform manages sales and field teams, trade marketing, retail execution, warehouses,
+ finance, and analytics for over 600 customers across Central Asia and beyond. Serving distributors
+ and manufacturers in FMCG, beverage, pharmaceutical, automotive, and similar verticals, the
+ company's platform integrates AI-powered shelf recognition and marking/code scanning as critical
+ components of their retail execution capabilities.
+
+ The platform's end users - major players in these industries with products distributed across thousands
+ of retail locations - depend on precise in-store execution to maintain their competitive edge. Effective
+ visual merchandising, optimal product placement, and consistent promotional campaigns are critical to
+ driving sales and reinforcing brand identity. To ensure these standards were met, these corporations
+ relied on vast networks of field agents to manually audit product displays, a process that was not only
+ costly but also vulnerable to inaccuracies and fraud.
+
+ The Problem
+ The company faced significant operational hurdles that undermined the integrity and efficiency of its
+ retail compliance strategy. The manual auditing process was plagued by several critical issues:
+
+ Inaccurate and Fraudulent Reporting: Field agents were found to be submitting fraudulent reports,
+ including images of device screens, photos of miniature reference displays, and pictures of closed
+ coolers. This compromised the validity of the audit data, leading to incorrect assessments of in-store
+ conditions.
+
+ Difficulty Monitoring Fraud at Scale: With thousands of retail outlets, manually verifying fraud
+ actions was an insurmountable task. This resulted in inconsistent visual merchandising and diluted the
+ impact of marketing efforts.
+
+ High Operational Costs: The manual checking of fraud actions was labor-intensive and expensive,
+ requiring significant investment in personnel and resources without guaranteeing reliable results.
+
+ Lack of Data-Driven Insights: The inconsistent and often inaccurate data collected from the field
+ made it impossible to derive actionable insights, hindering the company's ability to make strategic
+ decisions about its retail partnerships and merchandising strategies.
+
+ These challenges created a significant gap between the company's merchandising goals and its actual
+ in-store execution, threatening brand positioning and ROI.
+
+ The Solution
+ To overcome these challenges, HumbleBeeAI implemented a solution designed to automate and
+ monitor agents' fraud actions. This multi-faceted system leveraged cutting-edge Computer Vision and
+ AI to deliver unparalleled accuracy and efficiency.
+
+ The core components of the solution included:
+
+ Multi-Layered Fraud Prevention: To combat fraudulent submissions, we integrated a powerful
+ anti-fraud engine. This system utilized three distinct detection mechanisms:
+
+  •   Device Screen Detection: A specialized classification model identifies images captured from a
+      phone or tablet screen.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                        2
+ Case Study Hero Image
+
+  •   Closed-Door Verification: Another model detects if cooler doors are closed, which violates audit
+      guidelines.
+
+
+
+
+ Case Study Hero Image
+
+  •   Miniature Image Analysis: An OCR-based algorithm analyzes text on product labels to identify
+      the use of miniature or printed reference images.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                     3
+ Case Study Hero Image
+
+ This end-to-end solution transformed the client's fraud checking process from a manual, error-prone
+ task into an automated, data-driven, and highly reliable operation.
+
+ Results
+ The implementation of HumbleBeeAI's anti-fraud AI solution delivered immediate and transformative
+ results, fundamentally solving a challenge that was previously impossible to manage at scale.
+
+ Fraudulent submissions were detected with over 90% accuracy within the first week, increasing
+ overall audit reliability by more than 90% and restoring integrity to the field reporting process.
+
+ The system's ability to process a massive volume of image inputs from thousands of locations
+ automated an unfeasible task to evaluate manually, ensuring consistent visual merchandising
+ across the entire retail network.
+
+ By providing clean, validated data, the platform enabled the company to make data-driven decisions,
+ leading to optimized merchandising strategies, stronger retail partnerships, and maximized return on
+ investment.
+
+ Conclusion
+ The partnership between the retail technology company and HumbleBeeAI showcases the power of
+ enterprise AI to solve complex, real-world business challenges across multiple industries. By
+ integrating HumbleBeeAI's fraud detection solution into the company's distribution platform, they have
+ enhanced their all-in-one solution, enabling their 600+ customers to eradicate fraud, ensure
+ compliance, and unlock strategic insights into retail operations across FMCG, beverage,
+ pharmaceutical, and automotive sectors.
+
+ Discover how our custom AI solutions can transform your business operations.
+
+
+
+
+HumbleBeeAI source snapshot / CodeCanvas review copy                                                      4
+

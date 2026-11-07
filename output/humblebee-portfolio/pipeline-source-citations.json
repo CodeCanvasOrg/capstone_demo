@@ -1,0 +1,254 @@
+[
+  {
+    "sourceChunkId": "e9f03557-99b9-407c-b96c-049b44ad533c",
+    "fileId": "d5de21ac-c68b-4aa1-af22-804bd01a7e01",
+    "pdfPage": 1,
+    "source": "case-study:shelf-analysis"
+  },
+  {
+    "sourceChunkId": "d869c90d-603f-4b0c-9b3f-d0bfb60ec880",
+    "fileId": "535c2eb8-e486-4b2a-b140-8d508f4fa26c",
+    "pdfPage": 1,
+    "source": "case-study:ai-powered-retail-cart"
+  },
+  {
+    "sourceChunkId": "4c5ea7eb-5b69-4dc9-b953-10dc1dd77802",
+    "fileId": "4cd2b277-c47b-42f8-868b-e006246f6758",
+    "pdfPage": 1,
+    "source": "case-study:automated-training-pipeline"
+  },
+  {
+    "sourceChunkId": "ba9f4d0e-9a2c-4049-a8ec-ec0caca7c393",
+    "fileId": "a148ec5e-40dc-4ac4-9c64-1812afd15948",
+    "pdfPage": 1,
+    "source": "case-study:customs-document-automation"
+  },
+  {
+    "sourceChunkId": "4f55f8ce-aa59-497e-b2e8-4346301c2750",
+    "fileId": "1b8c2850-15df-4e03-a738-9514a08afdb3",
+    "pdfPage": 1,
+    "source": "case-study:ai-customs-intelligence"
+  },
+  {
+    "sourceChunkId": "a1350216-64f3-4741-abe7-482f2afb8d13",
+    "fileId": "968bf9c9-c400-4776-9146-68167edbd303",
+    "pdfPage": 1,
+    "source": "case-study:data-cleaning-hs-codes"
+  },
+  {
+    "sourceChunkId": "b70c24f0-a2aa-4acf-898a-4acee140e651",
+    "fileId": "4d896651-db70-4f0f-9989-c00e0201c53a",
+    "pdfPage": 1,
+    "source": "case-study:excel-automated-testing"
+  },
+  {
+    "sourceChunkId": "7fbea8e1-e1b4-4a02-a749-ca15584da4c6",
+    "fileId": "e15c8c90-3375-4cee-bd1e-db0c6f92cf3d",
+    "pdfPage": 1,
+    "source": "case-study:llm-results-analyzer"
+  },
+  {
+    "sourceChunkId": "781ffd75-4b6e-41d1-bc10-df125bbf6480",
+    "fileId": "25850f33-b8b1-45bb-bbc1-035d134ca59c",
+    "pdfPage": 1,
+    "source": "case-study:fraud-detection"
+  },
+  {
+    "sourceChunkId": "360e1314-6e01-4b1b-953b-0973cefb2fbf",
+    "fileId": "7772c0b7-eee2-4c64-a5d2-31786585a987",
+    "pdfPage": 1,
+    "source": "case-study:poster-recognition"
+  },
+  {
+    "sourceChunkId": "f6fa6965-8842-4808-833c-f932c4296550",
+    "fileId": "5708d2c4-fca8-4b5c-a368-f756f98cb962",
+    "pdfPage": 1,
+    "source": "case-study:improving-recognition-accuracy"
+  },
+  {
+    "sourceChunkId": "dbb05e8a-05c0-4610-be0e-08c5d9f82060",
+    "fileId": "23055018-1ee8-4135-885c-3faf0e243c9b",
+    "pdfPage": 1,
+    "source": "case-study:iv-drip-flow-rate-estimator"
+  },
+  {
+    "sourceChunkId": "bea4afff-bd56-4e26-95d5-6057b5e68e8e",
+    "fileId": "0574d121-5672-4be8-be0f-11f263cf24a6",
+    "pdfPage": 1,
+    "source": "case-study:field-center-detection"
+  },
+  {
+    "sourceChunkId": "3a640fc8-ebc4-4c5b-8fa3-f63556ea9767",
+    "fileId": "0e9915a0-f763-4043-a234-c81ad73495a1",
+    "pdfPage": 1,
+    "source": "case-study:beef-carcass-detection"
+  },
+  {
+    "sourceChunkId": "356651fb-27ec-4901-a225-0a52e8f9cc9b",
+    "fileId": "344f24e4-5ffb-4c14-a226-3da2560be29f",
+    "pdfPage": 1,
+    "source": "case-study:livescore-ai"
+  },
+  {
+    "sourceChunkId": "2cd6a8b5-1800-49f9-a9c3-0527c63e4d03",
+    "fileId": "7aa7a0f0-4650-454e-8547-8264fd09f343",
+    "pdfPage": 1,
+    "source": "case-study:breast-cancer"
+  },
+  {
+    "sourceChunkId": "a68143ba-8a4e-4fd6-8815-bf63b1a9cf63",
+    "fileId": "0721e36c-53bb-470b-a182-f772521eb0b9",
+    "pdfPage": 1,
+    "source": "case-study:ai-based-predictive"
+  },
+  {
+    "sourceChunkId": "40e623d3-efd9-4134-b349-99c0a0c04499",
+    "fileId": "f6ec1f99-6a7f-4845-ab35-96f911de184e",
+    "pdfPage": 1,
+    "source": "case-study:avnrt-ablation-analytics"
+  },
+  {
+    "sourceChunkId": "e9fee05c-0c79-4e00-a9a8-c6318b92849b",
+    "fileId": "01dfcbb6-a882-4b36-99ba-799789c43cdb",
+    "pdfPage": 1,
+    "source": "case-study:cartoned-analysis-dashboard"
+  },
+  {
+    "sourceChunkId": "e29717b2-8eac-4ac1-bbbd-dd990ebda74e",
+    "fileId": "41a8ff36-01f3-4645-bab6-8ddde670689a",
+    "pdfPage": 1,
+    "source": "case-study:impact-event-analysis"
+  },
+  {
+    "sourceChunkId": "78bb7334-7237-4866-8a7c-2168cf401e13",
+    "fileId": "2054d332-046e-4eb2-88a1-321d7c70d220",
+    "pdfPage": 1,
+    "source": "case-study:patient-data-analytics"
+  },
+  {
+    "sourceChunkId": "a39bd092-c7a9-44a5-8776-f8e3ce7c728f",
+    "fileId": "4abb8770-d969-405d-949a-8de9dd0b78ed",
+    "pdfPage": 1,
+    "source": "case-study:amplifyr"
+  },
+  {
+    "sourceChunkId": "dbe9ed7c-06d9-4c00-bd5c-3d516850ece4",
+    "fileId": "5c4f482b-74c0-4fe2-94bc-17209a9d9a0c",
+    "pdfPage": 1,
+    "source": "case-study:data-labeling-tool"
+  },
+  {
+    "sourceChunkId": "5f4fdfed-c2e3-4106-b9c5-4fb451db84e7",
+    "fileId": "eec08e8c-2a60-40b0-a121-92ced527fa8b",
+    "pdfPage": 1,
+    "source": "case-study:optimizing-recognition-processing"
+  },
+  {
+    "sourceChunkId": "65db0def-cab7-4bf8-b20f-259054b4bfad",
+    "fileId": "6c4406ef-5433-4c1b-ad88-2247f0c69951",
+    "pdfPage": 1,
+    "source": "case-study:lumiohub-platform"
+  },
+  {
+    "sourceChunkId": "1a14a763-06bd-4751-939f-16dcbae22e1d",
+    "fileId": "61d131ed-c4ef-4138-9e81-478131401afd",
+    "pdfPage": 1,
+    "source": "project:hstaff"
+  },
+  {
+    "sourceChunkId": "37324f42-5f07-4210-b82a-b6e0572d3874",
+    "fileId": "3596a22e-0d56-4a65-bf59-d856c2563fb9",
+    "pdfPage": 1,
+    "source": "project:lumiohub"
+  },
+  {
+    "sourceChunkId": "c7c448e7-a21a-4f46-be35-8c9fc571b7e5",
+    "fileId": "9d7dd8b9-5066-47a4-b5c1-cf60d307a7d5",
+    "pdfPage": 1,
+    "source": "project:ai-avatar"
+  },
+  {
+    "sourceChunkId": "c8f65be7-5ace-4d44-87c0-858f8096df0d",
+    "fileId": "f7aca299-e7a5-4e3a-9e11-2a4328e387d0",
+    "pdfPage": 1,
+    "source": "project:kumush-ai"
+  },
+  {
+    "sourceChunkId": "f670158d-0e5c-47d1-ab21-1285e09c430a",
+    "fileId": "7be39a54-5866-4b4e-aaef-0a15ba230356",
+    "pdfPage": 1,
+    "source": "project:wakil-ai"
+  },
+  {
+    "sourceChunkId": "72c6bda1-055c-4787-b912-5b390a549d4d",
+    "fileId": "997d8cc7-6d12-4a51-81b3-262d98a39034",
+    "pdfPage": 1,
+    "source": "project:bojhona"
+  },
+  {
+    "sourceChunkId": "37336d44-f180-4ad9-aa1c-062172198b57",
+    "fileId": "9dbfe0a8-ef19-49cc-b4ac-65b0c0b1d668",
+    "pdfPage": 1,
+    "source": "project:enlighten-qalb"
+  },
+  {
+    "sourceChunkId": "5ed9ab58-bfc1-4ff2-a130-04f5fb48e157",
+    "fileId": "74d50290-f7a3-44ea-9815-cbbb542431c6",
+    "pdfPage": 1,
+    "source": "project:bride"
+  },
+  {
+    "sourceChunkId": "fc17153e-4ae6-480a-ae3c-17678f617f10",
+    "fileId": "fdb205f0-a786-4507-a2d1-f4f84b15c84e",
+    "pdfPage": 1,
+    "source": "paper:2409.04187"
+  },
+  {
+    "sourceChunkId": "77577a47-3abf-43fb-8025-b7aa3244ccfb",
+    "fileId": "eefbb941-b740-4ea8-b1e1-dc2841badd1c",
+    "pdfPage": 1,
+    "source": "paper:10883969"
+  },
+  {
+    "sourceChunkId": "10714c6e-8015-484d-8315-715ac151a1c7",
+    "fileId": "969f82af-3efe-4095-8dc4-d56b6aaaf485",
+    "pdfPage": 1,
+    "source": "paper:10316180"
+  },
+  {
+    "sourceChunkId": "856170f9-0414-4dea-af59-ebbdfbbb9090",
+    "fileId": "9b44e633-07a9-4514-a82c-d2691be115e5",
+    "pdfPage": 1,
+    "source": "paper:515"
+  },
+  {
+    "sourceChunkId": "487d5639-2d3d-439a-8504-9a892ab21a03",
+    "fileId": "b3539ad4-44e8-431e-8271-b5b6eee34dd2",
+    "pdfPage": 1,
+    "source": "paper:9661375"
+  },
+  {
+    "sourceChunkId": "6ea83cd5-bfe9-47fb-b5a5-cbed05d1de56",
+    "fileId": "2b457a0c-c83a-4251-aef0-12bfcbc32596",
+    "pdfPage": 1,
+    "source": "paper:9064976"
+  },
+  {
+    "sourceChunkId": "f2765b26-100c-49d3-bc38-0cf9d621da33",
+    "fileId": "6fa166d3-17ed-4b81-a9ce-a5721a1616eb",
+    "pdfPage": 1,
+    "source": "paper:1910.01091"
+  },
+  {
+    "sourceChunkId": "4d6a402b-0052-44e2-a463-ff7ffba45798",
+    "fileId": "aa978e8c-e59e-4142-bf14-d21a207b466e",
+    "pdfPage": 1,
+    "source": "company-update:vc-studio-qatar"
+  },
+  {
+    "sourceChunkId": "f5476103-0580-4b18-98c7-ed2fb9e856ae",
+    "fileId": "49012b80-2aa2-4811-a6a0-886706680984",
+    "pdfPage": 1,
+    "source": "company-update:innerworks-partnership"
+  }
+]

@@ -1,0 +1,23 @@
+FORMAT_REGENERATING paper:10316180
+[generation 06b09a1a-12aa-444e-bd9f-b70209eeed36] retrieval finished in 1433ms with 20 chunks
+[generation 06b09a1a-12aa-444e-bd9f-b70209eeed36] generation started (outline)
+{"level":40,"time":1793900422922,"pid":29621,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","msg":"Model generation call attempt 1/3 timed out after 180 s; retrying"}
+FORMAT_RETRY_PENDING paper:10316180 Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "conte
+FORMAT_REGENERATING paper:9064976
+[generation c5708598-1321-4762-a649-84c301061134] retrieval finished in 1448ms with 20 chunks
+[generation c5708598-1321-4762-a649-84c301061134] generation started (outline)
+FORMAT_RETRY_PENDING paper:9064976 Failed to parse. Text: "{
+  "sections": [
+    {
+      "key": "section_0",
+      "content": [
+        {
+          "type": "paragraph",
+          "conte

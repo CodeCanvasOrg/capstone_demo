@@ -1,0 +1,416 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Performance Evaluation of Deep Learning Based Network Intrusion Detection System across Multiple Balanced and Imbalanced Datasets",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Performance Evaluation of Deep Learning Based Network Intrusion Detection System across Multiple Balanced and Imbalanced Datasets",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "This published research compares deep-learning approaches for network intrusion detection, serving researchers and security teams evaluating supervised detection models. Azizjon Meliboev, Jumabek Alikhanov and Wooseong Kim study CNN, LSTM, RNN, GRU and CNN–LSTM models across three benchmark datasets and balanced and imbalanced training scenarios. The paper was published in ",
+          "type": "text"
+        },
+        {
+          "text": "Electronics 11(4), 515, on 9 February 2022",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://www.mdpi.com/2079-9292/11/4/515",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "text": " (DOI 10.3390/electronics11040515). It reports stronger performance for single CNN and CNN/LSTM models in selected comparisons; this is a research evaluation, not a HumbleBeeAI client result or production product. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/177e84d4-0b3c-4208-aabd-864304028f7e/evidence/4a5231b1-0138-46ca-923c-d262c6464239/asset",
+            "fileName": "paper--515.pdf",
+            "chunkText": "Azizjon Meliboev 1 , Jumabek Alikhanov 2 and Wooseong Kim 1,*\n\n1 Computer Engineering Department, Gachon University, Seongnam 13120, Korea; meliboyevabdulaziz@gmail.com\n\n2 Computer Science and Information Engineering Department, Inha University, Incheon 22212, Korea; jumabek@nsl.inha.ac.kr\n\nCorrespondence: wooseong@gachon.ac.kr\n\n��������� �������\n\nCitation: Meliboev, A.; Alikhanov, J.; Kim, W. Performance Evaluation of Deep Learning Based Network Intrusion Detection System across Multiple Balanced and Imbalanced Datasets. Electronics 2022, 11, 515. https://doi.org/10.3390/ electronics11040515",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "4a5231b1-0138-46ca-923c-d262c6464239"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/177e84d4-0b3c-4208-aabd-864304028f7e/evidence/856170f9-0414-4dea-af59-ebbdfbbb9090/asset",
+            "fileName": "paper--515.pdf",
+            "chunkText": "Abstract: In the modern era of active network throughput and communication, the study of Intrusion Detection Systems (IDS) is a crucial role to ensure safe network resources and information from outside invasion. Recently, IDS has become a needful tool for improving flexibility and efficiency for unexpected and unpredictable invasions of the network. Deep learning (DL) is an essential and well-known tool to solve complex system problems and can learn rich features of enormous data. In this work, we aimed at a DL method for applying the effective and adaptive IDS by applying the architectures such as Convolutional Neural Network (CNN) and Long-Short Term Memory (LSTM), Recurrent Neural Network (RNN), Gated Recurrent Unit (GRU). CNN models have already proved an incredible performance in computer vision tasks. Moreover, the CNN can be applied to timesequence data. We implement the DL models such as CNN, LSTM, RNN, GRU by using sequential data in a prearranged time range as a malicious traffic record for developing the IDS. The benign and attack records of network activities are classified, and a label is given for the supervised-learning method. We applied our approaches to three different benchmark data sets which are UNSW NB15, KDDCup ’99, NSL-KDD to show the efficiency of DL approaches. For contrast in performance, we applied CNN and LSTM combination models with varied parameters and architectures. In each implementation, we trained the models until 100 epochs accompanied by a learning rate of 0.0001 for both balanced and imbalanced train data scenarios. The single CNN and combination of LSTM models have overcome compared to others. This is essentially because the CNN model can learn high-level features that characterize the abstract patterns from network traffic records data.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1,
+            "sourceChunkId": "856170f9-0414-4dea-af59-ebbdfbbb9090"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Network intrusion detectors must distinguish normal traffic from attacks, including less familiar behavior, while training data can be highly imbalanced. The research asks how convolutional, recurrent and hybrid detectors compare across balanced and imbalanced benchmark data. Its scope is offline evaluation using UNSW-NB15, KDD Cup ’99 and NSL-KDD, not a reported deployment in a live network. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/177e84d4-0b3c-4208-aabd-864304028f7e/evidence/47c1e6af-f270-4d7d-918f-873040501e74/asset",
+            "fileName": "paper--515.pdf",
+            "chunkText": "Due to the high demand for internet connectivity between computers, IDS becomes a vital application for network security to inspect various invasion behavior in networks. In our work, we developed network-based IDS which inspects all coming packets and determines any distrustful behavior. In the deployment scenario once malicious traffic is identified, IDS notifies admins/firewalls or intrusion prevention systems. According to methodologies, network-based IDS is divided into two methods which are Signaturedetection and Anomaly-detection. Signature detection works with pre-defined signatures and filters. This technique can inspect the defined intrusions effectively while an undefined attack record is not well determined. In contrast, the anomaly-detection technique relies on heuristic methods to detect the undefined attack behavior. That means when the system identifies a difference from benign traffic patterns then this traffic count as network intrusions. Recent studies showed that a heuristic method is a reliable approach for IDS. The heuristic approach is a proactive and strong method that can use ML and DL\n\nElectronics 2022, 11, 515. https://doi.org/10.3390/electronics11040515\n\nhttps://www.mdpi.com/journal/electronics",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 1,
+            "sourceChunkId": "47c1e6af-f270-4d7d-918f-873040501e74"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/177e84d4-0b3c-4208-aabd-864304028f7e/evidence/9a9e3a71-c990-4b28-b4cf-a5b011b8d107/asset",
+            "fileName": "paper--515.pdf",
+            "chunkText": "algorithms such as unsupervised and supervised. The DL-based system has the ability to extract complex features from a huge amount of network traffic data and can learn the characterization of that complex features. Therefore, the DL based approach can solve the network security tasks and develop a reliable and flexible IDS. The amount of training data and features of data are essential for DL as well. In our work, we used traffic data that was gathered and labeled as either normal or abnormal traffic records from various network resources. DL algorithms can learn reliable feature representations of the data, which can deal with a supervised classification to achieve noticeable outcomes. In our previous work [1] we applied CNN with various architecture and combinations of LSTM and we achieved considerable results. Inspired by our previous work and the promise of DL, we improved and expanded our work by applying various DL models for various datasets. In fact, we used CNN [2,3], LSTM [4], RNN [5,6] and GRU [7] for supervised-learning task with batch normalization and multinomial logistic regression technique. Our deep learning model architectures are depicted in Figures 1–3. We aimed to show the comparison of various DL models evaluation by three different datasets which are UNSW NB15 [8,9], KDDCup ’99 [10,11], NSL-KDD [12]. The remainder of the paper is arranged as follows. The Related Works section introduces related works which applied DL algorithms for intrusion detection problems. The Proposed Methods section details our proposed method of DL and its network architecture. The section of Data Description detailed all datasets and presented data imbalance. The section of Experimental Results described details of our models, solving an imbalanced problem, and all model results. The last section concludes the paper.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "9a9e3a71-c990-4b28-b4cf-a5b011b8d107"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Technical Approach",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The study frames detection as supervised binary classification: traffic records are labeled normal (0) or attack (1), with attack categories grouped together. It compares CNN, LSTM, GRU and RNN architectures, plus CNN–LSTM combinations. The authors describe using flow-level, header-based features; the method does not depend on IP addresses or payload data. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/177e84d4-0b3c-4208-aabd-864304028f7e/evidence/55f8ff00-28bb-4928-ae8c-ca4b4a5efcd1/asset",
+            "fileName": "paper--515.pdf",
+            "chunkText": "We used three different datasets for our model evaluation. In previous work we evaluated our model in UNSW_NB15 dataset but in this work, we aimed to apply KDD_cup99 and NSL-KDD datasets. The UNSW_NB15 intrusion dataset is generated in the Cyber Range Lab of the Australian Centre for Cyber Security (ACCS) for creating a mixture of real normal behaviors and artificial attack behaviors. This dataset was evaluated widely in experiments of IDS. The attack classes of the dataset have 9 types, namely, Generic, Reconnaissance, Fuzzers, Backdoors, DoS, Analysis, Exploits, Shellcode, and Worms. The features of the dataset generated 45 features with a label. This dataset is set up labeled as attack and normal categories respectively 0 if the activity is normal and 1 if the activity is attacked. For comparative study and to show the reliability of DL models, we evaluated our proposed models KDD_cup99 and NSL-KDD datasets. This is the main reason why we chose datasets that have been used in the evaluation of network flow analysis of intrusion detection to the highest extent. Stolfo, et al. The KDD Cup 1999 data was established by the data captured in the DARPA IDS evaluation procedure. This dataset is older but can ensure a good comparison for each IDS model. There are 4,898,431 network records in the dataset and each record has 41 features. According to record features, there are 22 attack categories but not proportional where one category attack is highest among all attack records or other one attacks only accounted for 1%. Therefore, each record of training and test sets is imbalanced. For the reason of imbalance, we applied binary classification that detects attacks and normal records.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 17,
+            "pageNumber": 5,
+            "sourceChunkId": "55f8ff00-28bb-4928-ae8c-ca4b4a5efcd1"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/177e84d4-0b3c-4208-aabd-864304028f7e/evidence/32d73ed8-c828-4825-b14e-56b36e31f7a5/asset",
+            "fileName": "paper--515.pdf",
+            "chunkText": "In this work, we expanded and developed our previous work [1] that adapted DL models for network intrusion detection by using flow-level data. In this regard we exploited flow-level datasets such as KDD Cup99, NSL-KDD, and UNSW NB15. We applied CNN, LSTM, GRU, RNN, and hybrid CNN and LSTM DL models, the size of the batch was set to 32, the Adam optimizer with a learning rate of 0.0001 for all networks. We implemented all models by ourselves and trained on both the balanced and imbalanced data of three different datasets by using GPU CUDA acceleration. Three different datasets created header-based high-level data. This method does not depend on IP addresses or payload data. More and balanced data significantly affects DL models as shown in Figure 6.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 34,
+            "pageNumber": 10,
+            "sourceChunkId": "32d73ed8-c828-4825-b14e-56b36e31f7a5"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Implementation",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The authors report implementing the models themselves and evaluating each dataset in balanced and imbalanced training tracks. For one track, minority-class samples were oversampled using SMOTE, and all attack types were treated as one class against normal traffic. Reported training settings include up to 100 epochs, batch size 32 and the Adam optimizer with learning rate 0.0001; GPU CUDA acceleration is also reported. No live alerting, firewall integration or production deployment is established by the supplied evidence. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/177e84d4-0b3c-4208-aabd-864304028f7e/evidence/b352b1b2-b4b9-43bc-a585-2c9587651e68/asset",
+            "fileName": "paper--515.pdf",
+            "chunkText": "Table 2. First Experiment Results.\n\nIn second track implementations in Table 3, Due to imbalanced classes, we used SMOTE technique that oversampled the instance in the minority class. That means simply duplicating instances from the minority class in the training dataset. As we mentioned above, we considered all attack classes as one class (1) and a normal class (0) and balanced these two classes that make an equal amount of attack and normal. According to the outcomes of the experiment, models performed much better than previous track experiments as illustrated in the Table 3. In this track, the CNN trained best on UNSW_NB15 and KDD_cup99 dataset respectively accuracy score of 91.2 and 95.2 but on NSL-KDD dataset combination model overcame with an accuracy score of 82.6. Other models also showed much better improvement particularly GRU and RNN significantly raised when model trains on UNSW_NB15 data rather than previous trail experiment respectively accuracy score of 77.9, 71.9.\n\nThe best train and test accuracy scores of the CNN model on the KDD_cup99 dataset are illustrated in Figure 4. Here the curve of training accuracy rate reaches roughly 100% after about 20 epochs and the curve of test accuracy around 95.3%. The GRU, RNN, and combination models are required more training time consumption rather than CNN because of models recurrently and sequentially computing and also the complexity of network.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 29,
+            "pageNumber": 8,
+            "sourceChunkId": "b352b1b2-b4b9-43bc-a585-2c9587651e68"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/177e84d4-0b3c-4208-aabd-864304028f7e/evidence/32d73ed8-c828-4825-b14e-56b36e31f7a5/asset",
+            "fileName": "paper--515.pdf",
+            "chunkText": "In this work, we expanded and developed our previous work [1] that adapted DL models for network intrusion detection by using flow-level data. In this regard we exploited flow-level datasets such as KDD Cup99, NSL-KDD, and UNSW NB15. We applied CNN, LSTM, GRU, RNN, and hybrid CNN and LSTM DL models, the size of the batch was set to 32, the Adam optimizer with a learning rate of 0.0001 for all networks. We implemented all models by ourselves and trained on both the balanced and imbalanced data of three different datasets by using GPU CUDA acceleration. Three different datasets created header-based high-level data. This method does not depend on IP addresses or payload data. More and balanced data significantly affects DL models as shown in Figure 6.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 34,
+            "pageNumber": 10,
+            "sourceChunkId": "32d73ed8-c828-4825-b14e-56b36e31f7a5"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/177e84d4-0b3c-4208-aabd-864304028f7e/evidence/856170f9-0414-4dea-af59-ebbdfbbb9090/asset",
+            "fileName": "paper--515.pdf",
+            "chunkText": "Abstract: In the modern era of active network throughput and communication, the study of Intrusion Detection Systems (IDS) is a crucial role to ensure safe network resources and information from outside invasion. Recently, IDS has become a needful tool for improving flexibility and efficiency for unexpected and unpredictable invasions of the network. Deep learning (DL) is an essential and well-known tool to solve complex system problems and can learn rich features of enormous data. In this work, we aimed at a DL method for applying the effective and adaptive IDS by applying the architectures such as Convolutional Neural Network (CNN) and Long-Short Term Memory (LSTM), Recurrent Neural Network (RNN), Gated Recurrent Unit (GRU). CNN models have already proved an incredible performance in computer vision tasks. Moreover, the CNN can be applied to timesequence data. We implement the DL models such as CNN, LSTM, RNN, GRU by using sequential data in a prearranged time range as a malicious traffic record for developing the IDS. The benign and attack records of network activities are classified, and a label is given for the supervised-learning method. We applied our approaches to three different benchmark data sets which are UNSW NB15, KDDCup ’99, NSL-KDD to show the efficiency of DL approaches. For contrast in performance, we applied CNN and LSTM combination models with varied parameters and architectures. In each implementation, we trained the models until 100 epochs accompanied by a learning rate of 0.0001 for both balanced and imbalanced train data scenarios. The single CNN and combination of LSTM models have overcome compared to others. This is essentially because the CNN model can learn high-level features that characterize the abstract patterns from network traffic records data.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1,
+            "sourceChunkId": "856170f9-0414-4dea-af59-ebbdfbbb9090"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Evaluation",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The comparison covers UNSW-NB15, KDD Cup ’99 and NSL-KDD, with accuracy, precision, recall and F-score reported as percentages. For the imbalanced track, reported accuracy was 85.8% (CNN) on UNSW-NB15, 92.3% (CNN) on KDD Cup ’99, and 85.5% (CNN–LSTM) on NSL-KDD. For the balanced track, accuracy was 91.2% (CNN) on UNSW-NB15, 95.2% (CNN) on KDD Cup ’99 and 82.6% (CNN–LSTM) on NSL-KDD. These are comparisons among the paper’s evaluated models on the named datasets, not business outcomes. The source reports training up to 100 epochs and a learning rate of 0.0001; supplied evidence does not establish hardware specifications, data-split protocol, repeated-run variability or inference latency. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/177e84d4-0b3c-4208-aabd-864304028f7e/evidence/13318f19-0858-436c-84c8-52b7bdc0c5db/asset",
+            "fileName": "paper--515.pdf",
+            "chunkText": "| Accuracy | Precision | Recall | F-Score\n |  | KDD_cup99 |  | \nCNN | 92.3 | 99.8 | 91 | 95.2\nLSTM | 91.8 | 98.6 | 91.1 | 94.7\nGRU | 90.7 | 99.7 | 88.7 | 93.8\nRNN | 91.7 | 99.4 | 90.2 | 94.6\nCNN + LSTM | 92.7 | 99.8 | 91 | 95.2\n |  | NSL-KDD |  | \nCNN | 78.8 | 96.7 | 65 | 77.7\nLSTM | 76.2 | 96.9 | 60.2 | 74.2\nGRU | 72.5 | 98.7 | 52.4 | 68.5\nRNN | 73.2 | 94.6 | 56.2 | 70.5\nCNN + LSTM | 85.5 | 96.1 | 77.1 | 85.9\n |  | UNSW_NB15 |  | \nCNN | 85.8 | 80.9 | 99.4 | 87.8\nLSTM | 84.9 | 79.2 | 98.3 | 87.7\nGRU | 57 | 56.3 | 97.3 | 71.3\nRNN | 55 | 55.1 | 100 | 71\nCNN + LSTM | 80.8 | 74.4 | 99.3 | 85",
+            "mediaType": "application/pdf",
+            "chunkIndex": 28,
+            "pageNumber": 8,
+            "sourceChunkId": "13318f19-0858-436c-84c8-52b7bdc0c5db"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Technically, results vary by dataset and balance condition: CNN and CNN–LSTM produce the leading reported accuracy scores in several comparisons, while the paper notes that recurrent and hybrid models can require more training time. The study does not report measured operational savings, reduced incident rates, customer outcomes or other business impact. No client implementation relationship is established in the supplied records. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/177e84d4-0b3c-4208-aabd-864304028f7e/evidence/b352b1b2-b4b9-43bc-a585-2c9587651e68/asset",
+            "fileName": "paper--515.pdf",
+            "chunkText": "Table 2. First Experiment Results.\n\nIn second track implementations in Table 3, Due to imbalanced classes, we used SMOTE technique that oversampled the instance in the minority class. That means simply duplicating instances from the minority class in the training dataset. As we mentioned above, we considered all attack classes as one class (1) and a normal class (0) and balanced these two classes that make an equal amount of attack and normal. According to the outcomes of the experiment, models performed much better than previous track experiments as illustrated in the Table 3. In this track, the CNN trained best on UNSW_NB15 and KDD_cup99 dataset respectively accuracy score of 91.2 and 95.2 but on NSL-KDD dataset combination model overcame with an accuracy score of 82.6. Other models also showed much better improvement particularly GRU and RNN significantly raised when model trains on UNSW_NB15 data rather than previous trail experiment respectively accuracy score of 77.9, 71.9.\n\nThe best train and test accuracy scores of the CNN model on the KDD_cup99 dataset are illustrated in Figure 4. Here the curve of training accuracy rate reaches roughly 100% after about 20 epochs and the curve of test accuracy around 95.3%. The GRU, RNN, and combination models are required more training time consumption rather than CNN because of models recurrently and sequentially computing and also the complexity of network.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 29,
+            "pageNumber": 8,
+            "sourceChunkId": "b352b1b2-b4b9-43bc-a585-2c9587651e68"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The reported benchmark results do not establish production readiness or generalization to live traffic. Detailed compute hardware, data partitioning and repeated-run methodology, latency, and business-impact measurements have not been provided in the reviewed source record. No future work or product roadmap is specified in the supplied brief; further deployment or validation plans therefore cannot be stated as established work. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/177e84d4-0b3c-4208-aabd-864304028f7e/evidence/856170f9-0414-4dea-af59-ebbdfbbb9090/asset",
+            "fileName": "paper--515.pdf",
+            "chunkText": "Abstract: In the modern era of active network throughput and communication, the study of Intrusion Detection Systems (IDS) is a crucial role to ensure safe network resources and information from outside invasion. Recently, IDS has become a needful tool for improving flexibility and efficiency for unexpected and unpredictable invasions of the network. Deep learning (DL) is an essential and well-known tool to solve complex system problems and can learn rich features of enormous data. In this work, we aimed at a DL method for applying the effective and adaptive IDS by applying the architectures such as Convolutional Neural Network (CNN) and Long-Short Term Memory (LSTM), Recurrent Neural Network (RNN), Gated Recurrent Unit (GRU). CNN models have already proved an incredible performance in computer vision tasks. Moreover, the CNN can be applied to timesequence data. We implement the DL models such as CNN, LSTM, RNN, GRU by using sequential data in a prearranged time range as a malicious traffic record for developing the IDS. The benign and attack records of network activities are classified, and a label is given for the supervised-learning method. We applied our approaches to three different benchmark data sets which are UNSW NB15, KDDCup ’99, NSL-KDD to show the efficiency of DL approaches. For contrast in performance, we applied CNN and LSTM combination models with varied parameters and architectures. In each implementation, we trained the models until 100 epochs accompanied by a learning rate of 0.0001 for both balanced and imbalanced train data scenarios. The single CNN and combination of LSTM models have overcome compared to others. This is essentially because the CNN model can learn high-level features that characterize the abstract patterns from network traffic records data.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1,
+            "sourceChunkId": "856170f9-0414-4dea-af59-ebbdfbbb9090"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The paper provides a comparative benchmark study of deep-learning IDS architectures across three datasets and both balanced and imbalanced training conditions. Its findings offer a dataset-specific basis for model comparison, while remaining research evidence rather than a demonstrated HumbleBeeAI deployment. The original publication and publisher PDF are available via the ",
+          "type": "text"
+        },
+        {
+          "text": "article page",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://www.mdpi.com/2079-9292/11/4/515",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "text": " and ",
+          "type": "text"
+        },
+        {
+          "text": "publisher PDF",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://www.mdpi.com/2079-9292/11/4/515/pdf",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "text": ".",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/177e84d4-0b3c-4208-aabd-864304028f7e/evidence/856170f9-0414-4dea-af59-ebbdfbbb9090/asset",
+            "fileName": "paper--515.pdf",
+            "chunkText": "Abstract: In the modern era of active network throughput and communication, the study of Intrusion Detection Systems (IDS) is a crucial role to ensure safe network resources and information from outside invasion. Recently, IDS has become a needful tool for improving flexibility and efficiency for unexpected and unpredictable invasions of the network. Deep learning (DL) is an essential and well-known tool to solve complex system problems and can learn rich features of enormous data. In this work, we aimed at a DL method for applying the effective and adaptive IDS by applying the architectures such as Convolutional Neural Network (CNN) and Long-Short Term Memory (LSTM), Recurrent Neural Network (RNN), Gated Recurrent Unit (GRU). CNN models have already proved an incredible performance in computer vision tasks. Moreover, the CNN can be applied to timesequence data. We implement the DL models such as CNN, LSTM, RNN, GRU by using sequential data in a prearranged time range as a malicious traffic record for developing the IDS. The benign and attack records of network activities are classified, and a label is given for the supervised-learning method. We applied our approaches to three different benchmark data sets which are UNSW NB15, KDDCup ’99, NSL-KDD to show the efficiency of DL approaches. For contrast in performance, we applied CNN and LSTM combination models with varied parameters and architectures. In each implementation, we trained the models until 100 epochs accompanied by a learning rate of 0.0001 for both balanced and imbalanced train data scenarios. The single CNN and combination of LSTM models have overcome compared to others. This is essentially because the CNN model can learn high-level features that characterize the abstract patterns from network traffic records data.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1,
+            "sourceChunkId": "856170f9-0414-4dea-af59-ebbdfbbb9090"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/177e84d4-0b3c-4208-aabd-864304028f7e/evidence/4a5231b1-0138-46ca-923c-d262c6464239/asset",
+            "fileName": "paper--515.pdf",
+            "chunkText": "Azizjon Meliboev 1 , Jumabek Alikhanov 2 and Wooseong Kim 1,*\n\n1 Computer Engineering Department, Gachon University, Seongnam 13120, Korea; meliboyevabdulaziz@gmail.com\n\n2 Computer Science and Information Engineering Department, Inha University, Incheon 22212, Korea; jumabek@nsl.inha.ac.kr\n\nCorrespondence: wooseong@gachon.ac.kr\n\n��������� �������\n\nCitation: Meliboev, A.; Alikhanov, J.; Kim, W. Performance Evaluation of Deep Learning Based Network Intrusion Detection System across Multiple Balanced and Imbalanced Datasets. Electronics 2022, 11, 515. https://doi.org/10.3390/ electronics11040515",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "4a5231b1-0138-46ca-923c-d262c6464239"
+          }
+        }
+      ]
+    }
+  ]
+}

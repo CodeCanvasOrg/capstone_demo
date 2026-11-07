@@ -1,0 +1,287 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Field Center Detection for Augmented Reality in Sports",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Field Center Detection for Augmented Reality in Sports",
+          "type": "text"
+        },
+        {
+          "text": " — a mobile computer-vision application designed to locate sports-field centers and alignment points for augmented reality.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b797d763-5917-4377-a986-e3bf36b62cf7/evidence/bea4afff-bd56-4e26-95d5-6057b5e68e8e/asset",
+            "fileName": "case-study--field-center-detection.pdf",
+            "chunkText": "An Augmented Reality (AR) based company partnered with HumbleBeeAI to solve challenges they faced in accurately detecting the center of sports fields using mobile devices. The goal was to create a solution that could provide real-time, precise field center detection and alignment, enhancing the user experience for AR applications. The solution developed by HumbleBeeAI involved a combination of deep learning models, optimized for real-time performance on mobile devices. The app delivers accurate field center localization with minimal computational overhead.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "bea4afff-bd56-4e26-95d5-6057b5e68e8e"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI’s case study describes work with an unnamed augmented reality company seeking to reduce the friction of aligning a sports field through a phone. The described solution uses offline mobile segmentation and keypoint estimation to identify the field center and alignment points. The source reports real-time localization on iOS and Android. The case-study record is a review draft: owner approval is pending, and the materials do not establish whether the application is currently available in production. ",
+          "type": "text"
+        },
+        {
+          "text": "Original case-study page",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://humblebee.ai/case-studies/field-center-detection",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b797d763-5917-4377-a986-e3bf36b62cf7/evidence/bea4afff-bd56-4e26-95d5-6057b5e68e8e/asset",
+            "fileName": "case-study--field-center-detection.pdf",
+            "chunkText": "An Augmented Reality (AR) based company partnered with HumbleBeeAI to solve challenges they faced in accurately detecting the center of sports fields using mobile devices. The goal was to create a solution that could provide real-time, precise field center detection and alignment, enhancing the user experience for AR applications. The solution developed by HumbleBeeAI involved a combination of deep learning models, optimized for real-time performance on mobile devices. The app delivers accurate field center localization with minimal computational overhead.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "bea4afff-bd56-4e26-95d5-6057b5e68e8e"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b797d763-5917-4377-a986-e3bf36b62cf7/evidence/3ddd653f-c2cf-4fcb-b625-38dff4e90e6d/asset",
+            "fileName": "case-study--field-center-detection.pdf",
+            "chunkText": "To address these challenges, the company collaborated with HumbleBeeAI to develop a mobile application that leverages deep learning for real-time field center detection. The solution combines lightweight segmentation models with keypoint estimation techniques, optimized for mobile devices. The app allows users to point their phone camera at the sports field, and within seconds, the system identifies the field center and key alignment points.\n\nThe solution was designed to operate seamlessly on both iOS and Android devices, providing accurate results without the need for internet connectivity. The app also includes features such as customizable thresholds, exportable logs, and easy integration with existing mobile applications.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "3ddd653f-c2cf-4fcb-b625-38dff4e90e6d"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The project addresses a practical constraint for sports broadcasting, coaching and AR experiences: precise overlays depend on reliable field alignment, while manual measurements and physical markers can take time and be prone to error. The case study also identifies cost and real-time feedback as challenges for approaches relying on specialized cameras or sensors. In a dynamic sports setting, inaccurate or slow alignment can disrupt the intended AR experience.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b797d763-5917-4377-a986-e3bf36b62cf7/evidence/64c38a76-a7a2-46ba-8dac-6fe60ad0880c/asset",
+            "fileName": "case-study--field-center-detection.pdf",
+            "chunkText": "Accurate field center detection is crucial for various applications, including sports broadcasting, coaching, and augmented reality experiences. Traditional methods of field alignment often rely on manual measurements or expensive equipment, which can be time-consuming and prone to errors. Recognizing these challenges, the client sought to develop a mobile application that could automatically detect the center of sports fields in real time.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "64c38a76-a7a2-46ba-8dac-6fe60ad0880c"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b797d763-5917-4377-a986-e3bf36b62cf7/evidence/5264f78a-70d1-497a-abf2-7a080e00f17d/asset",
+            "fileName": "case-study--field-center-detection.pdf",
+            "chunkText": "Traditional field center detection methods present several challenges:\n\nManual Measurements: Relying on physical markers or manual alignment can be inaccurate and time-consuming.\n\nEquipment Costs: High-quality cameras and sensors are often required, increasing the cost of implementation.\n\nEnvironmental Factors: Lighting conditions, weather, and field conditions can affect detection accuracy.\n\nReal-Time Requirements: Many applications need instant feedback, which traditional methods struggle to provide.\n\nIn a dynamic sports environment, these challenges can lead to inefficiencies and reduced user experience, particularly for AR applications that require precise alignment.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "5264f78a-70d1-497a-abf2-7a080e00f17d"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Offline field localization",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The described mobile application combines lightweight segmentation models with keypoint estimation. A user points a phone camera at the field; the system identifies its center and key alignment points, and the source says it works without an internet connection on iOS and Android.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b797d763-5917-4377-a986-e3bf36b62cf7/evidence/3ddd653f-c2cf-4fcb-b625-38dff4e90e6d/asset",
+            "fileName": "case-study--field-center-detection.pdf",
+            "chunkText": "To address these challenges, the company collaborated with HumbleBeeAI to develop a mobile application that leverages deep learning for real-time field center detection. The solution combines lightweight segmentation models with keypoint estimation techniques, optimized for mobile devices. The app allows users to point their phone camera at the sports field, and within seconds, the system identifies the field center and key alignment points.\n\nThe solution was designed to operate seamlessly on both iOS and Android devices, providing accurate results without the need for internet connectivity. The app also includes features such as customizable thresholds, exportable logs, and easy integration with existing mobile applications.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "3ddd653f-c2cf-4fcb-b625-38dff4e90e6d"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Mobile-oriented workflow",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case-study material also describes customizable thresholds, exportable logs and integration with existing mobile applications. These are features stated in the source; the available record does not provide further implementation details or establish their deployment status independently.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b797d763-5917-4377-a986-e3bf36b62cf7/evidence/3ddd653f-c2cf-4fcb-b625-38dff4e90e6d/asset",
+            "fileName": "case-study--field-center-detection.pdf",
+            "chunkText": "To address these challenges, the company collaborated with HumbleBeeAI to develop a mobile application that leverages deep learning for real-time field center detection. The solution combines lightweight segmentation models with keypoint estimation techniques, optimized for mobile devices. The app allows users to point their phone camera at the sports field, and within seconds, the system identifies the field center and key alignment points.\n\nThe solution was designed to operate seamlessly on both iOS and Android devices, providing accurate results without the need for internet connectivity. The app also includes features such as customizable thresholds, exportable logs, and easy integration with existing mobile applications.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "3ddd653f-c2cf-4fcb-b625-38dff4e90e6d"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Information for this section has not been provided.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Information for this section has not been provided.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Information for this section has not been provided.",
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}

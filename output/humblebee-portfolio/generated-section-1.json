@@ -1,0 +1,404 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Computer Vision — Selected Portfolio Work",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "A selection of HumbleBeeAI computer vision projects spanning retail, healthcare, sports, and agriculture. The entries below retain the reported outcomes and qualifications, including cases where results are qualitative or clinical validation remains pending.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Selected projects",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Shelf Analysis AI platform for Retail Compliance",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Automated product detection and shelf-position analysis integrated into a retail distribution platform; reported 90%+ detection accuracy and 80% less manual audit time within the first month across 500+ locations.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/37e9a0ad-0fa5-46ec-9f9f-f96275b91979/evidence/e9f03557-99b9-407c-b96c-049b44ad533c/asset",
+            "fileName": "case-study--shelf-analysis.pdf",
+            "chunkText": "A leading retail technology company, provider of a comprehensive cloud SaaS platform for distribution, partnered with HumbleBeeAI to revolutionize retail compliance monitoring for their 600+ customers across FMCG, beverage, pharmaceutical, and automotive industries. Through our comprehensive Shelf Analysis AI platform integrated into their distribution platform, we delivered automated product detection and intelligent shelf positioning analysis across 500+ locations. The solution achieved 90%+ detection accuracy, reduced manual audit time by 80% within the first month, resulting in enhanced brand visibility and increased sales performance for their end clients.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "e9f03557-99b9-407c-b96c-049b44ad533c"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Original URL: https://humblebee.ai/case-studies/shelf-analysis",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "A Global Beverage Leader Prevents Retail Fraud with AI",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "AI fraud detection integrated with retail field-reporting and planogram workflows; the source reports over 90% fraudulent-submission detection accuracy in the first week and more than 90% improvement in audit reliability.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/37e9a0ad-0fa5-46ec-9f9f-f96275b91979/evidence/dcd67a51-cc4b-403e-a08f-26053e82c5ed/asset",
+            "fileName": "case-study--fraud-detection.pdf",
+            "chunkText": "The implementation of HumbleBeeAI's anti-fraud AI solution delivered immediate and transformative results, fundamentally solving a challenge that was previously impossible to manage at scale.\n\nFraudulent submissions were detected with over 90% accuracy within the first week, increasing overall audit reliability by more than 90% and restoring integrity to the field reporting process.\n\nThe system's ability to process a massive volume of image inputs from thousands of locations automated an unfeasible task to evaluate manually, ensuring consistent visual merchandising across the entire retail network.\n\nBy providing clean, validated data, the platform enabled the company to make data-driven decisions, leading to optimized merchandising strategies, stronger retail partnerships, and maximized return on investment.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 14,
+            "pageNumber": 4,
+            "sourceChunkId": "dcd67a51-cc4b-403e-a08f-26053e82c5ed"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/37e9a0ad-0fa5-46ec-9f9f-f96275b91979/evidence/781ffd75-4b6e-41d1-bc10-df125bbf6480/asset",
+            "fileName": "case-study--fraud-detection.pdf",
+            "chunkText": "A leading retail technology company, provider of a comprehensive cloud SaaS platform for distribution, transformed retail compliance monitoring for their 600+ customers by partnering with HumbleBeeAI. By implementing an AI-powered fraud detection system into their platform, the company now enables their clients - including distributors and manufacturers across FMCG, beverage, pharmaceutical, and automotive industries - to eliminate fraudulent reporting from field agents, ensure planogram adherence across thousands of locations, and achieve high accuracy in retail audits.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "781ffd75-4b6e-41d1-bc10-df125bbf6480"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Original URL: https://humblebee.ai/case-studies/fraud-detection",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Flexible Campaigns with Poster Recognition AI",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Poster recognition with instant reference-database updates replaced a previous three-month retraining cycle; reported results include 94% recognition accuracy, 90% less verification time, and 85% lower deployment costs.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/37e9a0ad-0fa5-46ec-9f9f-f96275b91979/evidence/360e1314-6e01-4b1b-953b-0973cefb2fbf/asset",
+            "fileName": "case-study--poster-recognition.pdf",
+            "chunkText": "A leading retail technology company, provider of a comprehensive distribution platform, transformed poster recognition capabilities for their retail clients by integrating HumbleBeeAI's advanced Computer Vision solution. The integration eliminated traditional model limitations and achieved campaign flexibility, replacing costly 3-month retraining cycles with instant poster database updates, reducing deployment costs by 85%, and enabling real-time promotional campaign adaptability across 500+ retail locations.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "360e1314-6e01-4b1b-953b-0973cefb2fbf"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Original URL: https://humblebee.ai/case-studies/poster-recognition",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Boosting Recognition Accuracy with AI-Powered Data Refinement",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Image filtering, track-level identity aggregation, and security checks addressed unusable face images and fragmented attendance records; approximately 5,000 unusable images daily describes the earlier problem, not a measured post-deployment reduction.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/37e9a0ad-0fa5-46ec-9f9f-f96275b91979/evidence/81a4b35d-d62b-4b14-941c-e18ebeb14db5/asset",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "chunkText": "HumbleBee AI implemented a multi-faceted, AI-driven solution designed to systematically address each of the client's challenges. Our approach focused on enhancing data processing, improving recognition logic, and fortifying system security.\n\nIntelligent Image Filtering and Categorization: To tackle poor data quality, we developed a sophisticated filtering mechanism. The system now analyzes facial landmarks to assess image viability, automatically discarding unusable frames based on predefined parameters like a minimum face size of 640 pixels and frontal positioning. For security, we integrated person-tracking AI. If a tracked individual's face is not detectable (e.g., due to a mask), the system flags them as an unauthorized person and alerts management, ensuring security is maintained.\n\nAdvanced Face Tracking for Recognition: To eliminate misrecognition, we integrated facial tracking technology. Instead of analyzing each frame in isolation, the system now tracks an individual across multiple frames. Once the track is complete, it compares all captured images against the database and assigns the identity with the highest cumulative similarity score, ensuring a single, accurate",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "81a4b35d-d62b-4b14-941c-e18ebeb14db5"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Original URL: https://humblebee.ai/case-studies/improving-recognition-accuracy",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "How Retail AI solutions provider boosted accuracy by 20% with R&D",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Focused computer vision R&D improved cart and varied-item detection from approximately 55% to 75% mAP@50–95 (about 20 percentage points), with real-time performance on edge devices.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/37e9a0ad-0fa5-46ec-9f9f-f96275b91979/evidence/d869c90d-603f-4b0c-9b3f-d0bfb60ec880/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "A European retail technology company specializing in intelligent checkout and loss prevention systems faced major challenges in accurately detecting shopping carts and items during checkout. Partnering with HumbleBeeAI, they improved a custom Computer Vision system reaching from ~55% to ~75% accuracy on mAP@50-95, one of the most demanding and comprehensive performance metrics. Through focused R&D, the team overcame the low accuracy of detecting the 'items' - a category encompassing all purchasable goods of varied shapes, sizes, and colors - resulting in a highly robust and reliable detection framework that improved operational efficiency and loss prevention accuracy.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 1,
+            "sourceChunkId": "d869c90d-603f-4b0c-9b3f-d0bfb60ec880"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/37e9a0ad-0fa5-46ec-9f9f-f96275b91979/evidence/1bb16db3-252e-4d87-8d22-774b50e96860/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAI-powered shopping cart monitoring system that boosted detection accuracy from 55% to 75% with real-time performance on edge devices for enhanced loss prevention",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "1bb16db3-252e-4d87-8d22-774b50e96860"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Original URL: https://humblebee.ai/case-studies/ai-powered-retail-cart",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "IV Drip Flow Rate Estimator",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Offline iOS/Android camera-based IV flow-rate estimation for nursing teams; reported accuracy is over 95%, with results in 15 seconds versus up to three minutes manually (described by the source as over 10× faster).",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Original URL: https://humblebee.ai/case-studies/iv-drip-flow-rate-estimator",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Field Center Detection for Augmented Reality in Sports",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Offline mobile segmentation and keypoint estimation locate field-center and alignment points for sports AR on iOS/Android; real-time localization is reported, with no numerical accuracy, latency, or cost-saving measurement supplied.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Original URL: https://humblebee.ai/case-studies/field-center-detection",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Predicting Carcass Quality Before Slaughter with On-Device Computer Vision",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "A unified mobile detector/classifier predicts premium, medium, and poor quality bands from live-cattle images; the source reports 95% “precision accuracy” and offline inference on mobile devices.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Original URL: https://humblebee.ai/case-studies/beef-carcass-detection",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "LiveScore AI Revolutionizes Real-Time Basketball Scoring",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "On-premise video inference supports player and trick recognition, animated scores, persistent leaderboards, and administrator controls. The source reports faster scoring and more consistent administration, without quantified accuracy, latency, or engagement lift.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Original URL: https://humblebee.ai/case-studies/livescore-ai",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Breast Cancer Biomarker Classification Revolutionizes Pathology Workflows",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Models trained on H&E images using IHC4BC predict ER, PR, Ki-67, and HER2 in a web-based triage tool; the source describes it as ready for clinical validation and supplies no numerical diagnostic-performance result.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Original URL: https://humblebee.ai/case-studies/breast-cancer",
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}

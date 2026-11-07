@@ -1,0 +1,286 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "LLM Results Analyzer: Unified Analysis Framework",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "LLM Results Analyzer: Unified HS Code Classification Analysis",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI’s LLM Results Analyzer was developed for customs classification users who need to consider both theoretical HS code information and practical trade precedent. Because those perspectives came from separate systems, users had to compare and reconcile their outputs themselves. The framework sends requests to both systems and adds a synthesized analysis while retaining their original responses. The case-study PDF has been reviewed, while owner approval and portfolio feedback are pending. ",
+          "type": "text"
+        },
+        {
+          "text": "View the original case study",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://humblebee.ai/case-studies/llm-results-analyzer",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c3d8237d-3448-4e36-8fec-8596f77b5719/evidence/7fbea8e1-e1b4-4a02-a749-ca15584da4c6/asset",
+            "fileName": "case-study--llm-results-analyzer.pdf",
+            "chunkText": "The LLM Results Analyzer integrates outputs from the Custom Clarification Project (theoretical HS code data) and Custom Optimization Project (real-world product descriptions) into unified classification recommendations. This solution tackles the challenge of leveraging both theoretical compliance knowledge and practical trade data to provide accurate and well-justified HS code classifications. The system features a unified endpoint that simultaneously sends requests to both LLM systems, with a third specialized LLM analyzing and synthesizing the results from both sources, providing users with recommendations that consider both legal compliance requirements and practical trade precedent.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "7fbea8e1-e1b4-4a02-a749-ca15584da4c6"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c3d8237d-3448-4e36-8fec-8596f77b5719/evidence/02fba9da-bd82-44cf-8169-c0b41e0a9dcf/asset",
+            "fileName": "case-study--llm-results-analyzer.pdf",
+            "chunkText": "HUMBLEBEEAI / CASE STUDY",
+            "mediaType": "application/pdf",
+            "chunkIndex": 0,
+            "pageNumber": 1,
+            "sourceChunkId": "02fba9da-bd82-44cf-8169-c0b41e0a9dcf"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Before the analyzer, users had to submit the same classification query separately to Custom Clarification and Custom Optimization, wait for two responses, and manually reconcile differences. This left users without a single efficient way to weigh theoretical HS code definitions and compliance knowledge against practical classification evidence. The case study describes inconsistent recommendations as a source of confusion and says that manual comparison could be time-consuming and prone to human error; no user sample size or measured time burden is provided. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c3d8237d-3448-4e36-8fec-8596f77b5719/evidence/3a94c147-ade5-46f4-883b-3f518cc0c22d/asset",
+            "fileName": "case-study--llm-results-analyzer.pdf",
+            "chunkText": "The existence of two separate classification systems created an integration challenge that limited the potential value both systems could deliver when used together. Users found themselves with access to theoretical knowledge through the Custom Clarification Project and extensive practical data through the Custom Optimization Project, but no efficient way to combine these resources. The primary challenge was workflow complexity - users had to manually submit the same query to both systems, wait for separate responses, and then attempt to reconcile potentially different recommendations. Inconsistent results between the two systems created confusion and decision paralysis, with users lacking guidance on how to resolve these discrepancies or determine which recommendation to prioritize. The manual comparison process was prone to human error and inconsistency, and the time required to use both systems effectively became a barrier to adoption.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "3a94c147-ade5-46f4-883b-3f518cc0c22d"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c3d8237d-3448-4e36-8fec-8596f77b5719/evidence/7fd5799e-5cf1-42ac-aa56-e709ab819f44/asset",
+            "fileName": "case-study--llm-results-analyzer.pdf",
+            "chunkText": "The Custom Clarification Project and Custom Optimization Project created two powerful but separate systems for HS code classification. The Custom Clarification Project provided access to theoretical HS code definitions, official regulations, and legal frameworks essential for compliance accuracy. The Custom Optimization Project offered insights from 65.5 million real-world product descriptions, reflecting actual trade practices and classification precedents. While both systems delivered value independently, users faced the challenge of determining how to best utilize both sources of information for optimal classification decisions. The LLM Results Analyzer addresses this integration challenge through an orchestration framework that automatically combines insights from both systems and provides unified, well-reasoned recommendations.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "7fd5799e-5cf1-42ac-aa56-e709ab819f44"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Parallel analysis with preserved source outputs",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "A unified endpoint dispatches identical queries to Custom Clarification and Custom Optimization simultaneously. Once both responses return, an analyzer LLM synthesizes them, identifying agreement and explaining discrepancies to support a reasoned recommendation. The framework preserves the two original outputs alongside its analysis, so users can review the underlying perspectives rather than seeing only the synthesis. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c3d8237d-3448-4e36-8fec-8596f77b5719/evidence/084953c7-ca40-44e5-90cb-afff6f33b48e/asset",
+            "fileName": "case-study--llm-results-analyzer.pdf",
+            "chunkText": "The LLM Results Analyzer was developed as an orchestration framework that automatically combines the strengths of both the Custom Clarification and Custom Optimization projects into a single, unified user experience. When users submit a classification request to the unified endpoint, the system immediately dispatches identical queries to both the Custom Clarification and Custom Optimization endpoints simultaneously. This parallel processing approach ensures optimal efficiency by eliminating sequential wait times while gathering information from both theoretical and practical perspectives. Once both systems return their results, a specialized analyzer LLM processes the combined outputs using prompt engineering designed specifically for HS code classification synthesis. This analyzer LLM understands the nuances of both regulatory compliance and practical trade classification, enabling it to identify areas of agreement, explain discrepancies, and provide reasoned recommendations that consider both perspectives. The solution maintains full transparency by preserving the original outputs from both underlying systems while adding the synthesized analysis layer.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "084953c7-ca40-44e5-90cb-afff6f33b48e"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c3d8237d-3448-4e36-8fec-8596f77b5719/evidence/fdd28aa0-8e9a-49d4-9f8a-d6a0741bd2b1/asset",
+            "fileName": "case-study--llm-results-analyzer.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nIntegrated Clarification and Optimization outputs with an analyzer LLM to deliver unified, well-justified HS code recommendations.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "fdd28aa0-8e9a-49d4-9f8a-d6a0741bd2b1"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The reviewed project record reports unified, explained recommendations and less manual comparison. These are qualitative observations, not quantified business results. No controlled accuracy delta, latency benchmark, or sample size is reported, so the source does not establish a measured improvement in classification quality, response speed, or adoption. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c3d8237d-3448-4e36-8fec-8596f77b5719/evidence/fdd28aa0-8e9a-49d4-9f8a-d6a0741bd2b1/asset",
+            "fileName": "case-study--llm-results-analyzer.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nIntegrated Clarification and Optimization outputs with an analyzer LLM to deliver unified, well-justified HS code recommendations.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "fdd28aa0-8e9a-49d4-9f8a-d6a0741bd2b1"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The documented solution is the orchestration framework and synthesis layer; the supplied record does not specify deployment or production availability, and no demo URL is provided. Owner approval of the reviewed PDF and portfolio feedback remain pending. No future work or roadmap is stated in the supplied materials, so none is represented here. ",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The analyzer brings theoretical classification guidance and practical trade perspectives into one review flow while keeping the original system outputs visible. Its supported value is a more unified way to consider and compare recommendations; quantified accuracy and business impact have not been provided. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c3d8237d-3448-4e36-8fec-8596f77b5719/evidence/084953c7-ca40-44e5-90cb-afff6f33b48e/asset",
+            "fileName": "case-study--llm-results-analyzer.pdf",
+            "chunkText": "The LLM Results Analyzer was developed as an orchestration framework that automatically combines the strengths of both the Custom Clarification and Custom Optimization projects into a single, unified user experience. When users submit a classification request to the unified endpoint, the system immediately dispatches identical queries to both the Custom Clarification and Custom Optimization endpoints simultaneously. This parallel processing approach ensures optimal efficiency by eliminating sequential wait times while gathering information from both theoretical and practical perspectives. Once both systems return their results, a specialized analyzer LLM processes the combined outputs using prompt engineering designed specifically for HS code classification synthesis. This analyzer LLM understands the nuances of both regulatory compliance and practical trade classification, enabling it to identify areas of agreement, explain discrepancies, and provide reasoned recommendations that consider both perspectives. The solution maintains full transparency by preserving the original outputs from both underlying systems while adding the synthesized analysis layer.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "084953c7-ca40-44e5-90cb-afff6f33b48e"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c3d8237d-3448-4e36-8fec-8596f77b5719/evidence/fdd28aa0-8e9a-49d4-9f8a-d6a0741bd2b1/asset",
+            "fileName": "case-study--llm-results-analyzer.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nIntegrated Clarification and Optimization outputs with an analyzer LLM to deliver unified, well-justified HS code recommendations.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "fdd28aa0-8e9a-49d4-9f8a-d6a0741bd2b1"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "case-study:poster-recognition": {
+    "documentId": "a44defcb-e44c-42a3-b775-6a9315f1e4d1",
+    "model": "openai/gpt-6-luna",
+    "taskId": "0b62a696-59c7-4c95-aebe-49bc29dced32",
+    "attempt": 3,
+    "baseVersionId": "51b96539-251a-4de9-97ec-a4580c76a263",
+    "versionId": "6dd9d875-0359-41e1-b0bc-05a46065e576",
+    "status": "generated"
+  },
+  "case-study:amplifyr": {
+    "documentId": "bce2fae1-0935-468e-864f-dd8e81736753",
+    "model": "openai/gpt-6-luna",
+    "taskId": "0297d0de-fbdf-41aa-a9fd-c1b093fe8609",
+    "attempt": 3,
+    "baseVersionId": "77d8e404-c262-4d60-8f53-7c680b1db3f8",
+    "versionId": "73198761-dc71-4801-8422-c30ec8b86e38",
+    "status": "generated"
+  },
+  "case-study:optimizing-recognition-processing": {
+    "documentId": "23f5a23d-84a1-4ae4-acfd-1957268d08da",
+    "model": "openai/gpt-6-luna",
+    "taskId": "08d611d7-4786-4ae1-9188-d0bd6e79a23b",
+    "attempt": 2,
+    "baseVersionId": "ca293f0c-e7a2-487e-9fbe-5a10ebf58111",
+    "versionId": "d87738b8-c58f-4c32-abd0-eea6a93d533a",
+    "status": "generated"
+  },
+  "company-update:innerworks-partnership": {
+    "documentId": "02cf5cf8-7ac4-4c0d-9bb6-5137d7d92c5a",
+    "model": "openai/gpt-6-luna",
+    "taskId": "1f47fa89-dd18-4637-b60d-ac4d48f2e577",
+    "attempt": 2,
+    "baseVersionId": "32a63a08-5e71-4923-97be-9eed751b2845",
+    "versionId": "7ba29a25-0c3f-4e7e-9239-d4fdc80e108e",
+    "status": "generated"
+  },
+  "case-study:beef-carcass-detection": {
+    "documentId": "3ccf1cc1-742a-40e6-9409-ff1fc385d33b",
+    "model": "openai/gpt-6-luna",
+    "taskId": "94d40462-9ea5-429b-b331-1b055a2b0f45",
+    "versionId": "2fbd5ce8-e948-4317-a8c7-a8b694a3a383",
+    "status": "generated"
+  },
+  "case-study:breast-cancer": {
+    "documentId": "97c50cf2-c4e9-4d63-80bc-5f3ed57c01f6",
+    "model": "openai/gpt-6-luna",
+    "taskId": "b995ed7a-0868-4abd-8fd6-0f66a6faa17c",
+    "attempt": 2,
+    "baseVersionId": "7bb0fbaf-8a56-481c-a31e-4092e00a9ea7",
+    "versionId": "4d9e807c-1865-4519-8900-b2e159401927",
+    "status": "generated"
+  },
+  "project:hstaff": {
+    "documentId": "f12aaa4e-b999-4f34-9be8-63afa9a86d7e",
+    "model": "openai/gpt-6-luna",
+    "taskId": "2c549539-fc46-4039-b7ee-6c15ea30d5c8",
+    "versionId": "f69d0a82-83d4-4001-b4d0-3536f58b5ac5",
+    "status": "generated"
+  },
+  "project:wakil-ai": {
+    "documentId": "73956dc4-bd5f-405b-8c4f-45c02c81c18e",
+    "model": "openai/gpt-6-luna",
+    "taskId": "5094b39e-a07b-4b16-a56e-3768c385e279",
+    "versionId": "b6a307d7-c886-4e72-9518-85a74335acd8",
+    "status": "generated"
+  },
+  "project:enlighten-qalb": {
+    "documentId": "14127b64-26ef-4d63-9e59-8d4642da28c3",
+    "model": "openai/gpt-6-luna",
+    "taskId": "8f7ac747-7938-48bf-bb21-d147d10709a4",
+    "attempt": 1,
+    "baseVersionId": "85a0abe2-876c-4290-8a73-f0ef75d2f235",
+    "versionId": "be9b72ab-b8ff-4737-860f-18f78f9b0fe2",
+    "status": "generated"
+  },
+  "project:bride": {
+    "documentId": "f82ecd54-4473-465d-8877-5f6081adbbd5",
+    "model": "openai/gpt-6-luna",
+    "taskId": "9339f9d5-202a-4162-ae49-2887b106d9c7",
+    "attempt": 2,
+    "baseVersionId": "8573584e-bea9-45e0-9088-aa65e675e822",
+    "versionId": "a86b9ef4-d888-421c-9a72-d9f44f7d0ca8",
+    "status": "generated"
+  },
+  "paper:10883969": {
+    "documentId": "96dd77ca-8a40-4cb5-8e6b-4366f590b526",
+    "model": "openai/gpt-6-luna",
+    "taskId": "59ba1a6c-eb33-4af2-a17a-adc4bff3f003",
+    "attempt": 1,
+    "baseVersionId": "9155064f-cb95-4da3-91f8-e0caf9d85c04",
+    "versionId": "3c430d26-6931-4cc6-8ced-9b45a131b9d9",
+    "status": "generated"
+  },
+  "paper:10316180": {
+    "documentId": "06b09a1a-12aa-444e-bd9f-b70209eeed36",
+    "model": "openai/gpt-6-luna",
+    "taskId": "917d8206-5f04-40e4-95a9-06128cfb0798",
+    "versionId": "6b0296de-7b4b-4a90-ba98-79f18a3f012e",
+    "status": "generated"
+  },
+  "paper:515": {
+    "documentId": "711f52f3-88da-49aa-aa71-f277a1f9f722",
+    "model": "openai/gpt-6-luna",
+    "taskId": "1677a785-3383-4ee8-992a-9649f0886f2c",
+    "versionId": "897c879c-63e7-42e2-b67d-f4b6918b887b",
+    "status": "generated"
+  },
+  "paper:9661375": {
+    "documentId": "2bd2034f-7a1b-4b82-8985-e22e6e0a92c6",
+    "model": "openai/gpt-6-luna",
+    "taskId": "bfca122d-fb4d-49cf-873d-c082e1676ff0",
+    "versionId": "54d84723-54a7-4016-ba61-50609267d10a",
+    "status": "generated"
+  },
+  "paper:9064976": {
+    "documentId": "c5708598-1321-4762-a649-84c301061134",
+    "model": "openai/gpt-6-luna",
+    "taskId": "b911d75a-dd06-4129-a201-947135aa57cb",
+    "versionId": "68e78ecd-3dc8-4326-8f35-6d4cc17170c2",
+    "status": "generated"
+  }
+}

@@ -1,0 +1,628 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Evaluating Real-Time Multi-Object Tracking for Practical Edge Deployment",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "A research evaluation framework for testing real-time multi-object tracking under practical detector, ReID and edge-runtime constraints.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBee R&D researchers developed a practical framework to assess multi-object tracking (MOT) as a complete pipeline, rather than judging tracker components in isolation. The work is intended to help computer-vision practitioners and researchers understand how detection, re-identification (ReID) and tracking choices affect measured accuracy and runtime, especially in edge-device scenarios. This is a published research study, not a reported client deployment or product implementation. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/3b03eae1-4ae5-4b61-a58c-b28f80e50c18/asset",
+            "fileName": "paper--10883969.pdf",
+            "chunkText": "that may not fully reflect real-world constraints, particularly in edge computing environments [8], [9]. This paper addresses this gap by introducing a comprehensive evaluation framework designed to assess the entire tracking pipeline— including detection, ReID, and tracking updates—in realtime, focusing on edge-device performance.\n\nBuilding upon LITE’s contributions to MOT, this work integrates LITE within a novel, holistic evaluation framework. We apply it across several benchmark datasets to assess its efficiency and practical value. Our extensive experiments demonstrate the proposed framework’s reliability and adaptability, underscoring LITE’s strengths for resourceconstrained deployment.\n\nThe main contributions of this paper are summarized as follows:\n\nA novel evaluation framework that assesses the complete MOT pipeline provides a realistic tracker performance measure suitable for practical, edge-device scenarios.\n\nAn extension of the LITE paradigm within this framework to highlight its ability to deliver high-speed, lowoverhead tracking performance.\n\nComprehensive evaluations across diverse datasets and edge environments, establishing the robustness and applicability of both the framework and LITE-enhanced tracking methods.\n\nThis work addresses the following research questions:\n\nHow can trackers be evaluated on benchmark datasets in a way that reflects real-world deployment scenarios?\n\nWhat is the practical utility of ReID components in MOT, and how can their contributions be quantitatively assessed?\n\nCan existing tracking-by-detection models be reliably evaluated without considering the full tracking pipeline?\n\nHow do various trackers perform in terms of FPS when deployed on edge devices?",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "3b03eae1-4ae5-4b61-a58c-b28f80e50c18"
+          }
+        },
+        {
+          "text": "The paper, “Practical Evaluation Framework for Real-Time Multi-Object Tracking: Achieving Optimal and Realistic Performance,” is by Jumabek Alikhanov, Dilshod Obidov, Mirsaid Abdurasulov and Hakil Kim, and was published in IEEE Access, volume 13, in 2025 (DOI: 10.1109/ACCESS.2025.3541177). ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/033cafbc-c106-4ece-8438-1501f716789e/asset",
+            "fileName": "paper--10883969.pdf",
+            "chunkText": "Received 25 January 2025, accepted 7 February 2025, date of publication 13 February 2025, date of current version 27 February 2025. Digital Object Identifier 10.1109/ACCESS.2025.3541177",
+            "mediaType": "application/pdf",
+            "chunkIndex": 0,
+            "pageNumber": 1,
+            "sourceChunkId": "033cafbc-c106-4ece-8438-1501f716789e"
+          }
+        },
+        {
+          "text": "Read the ",
+          "type": "text"
+        },
+        {
+          "text": "complete public paper",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://ieeexplore.ieee.org/abstract/document/10883969",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "text": ".",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "MOT systems must maintain object identities across video frames. Appearance-based ReID can help with identity association, but it can add computational cost—an important constraint for real-time applications and edge hardware. The paper notes that common evaluation approaches may not reflect deployment conditions when they omit parts of the pipeline or assess speed only for tracking and matching, rather than including detection and preprocessing.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/fcddcdbe-e6dc-4afc-aef9-abf07dc99d8e/asset",
+            "fileName": "paper--10883969.pdf",
+            "chunkText": "Multi-object tracking (MOT) is a core challenge in computer vision, with applications across surveillance, autonomous driving, and sports analytics [1], [2], [3], [4]. The primary goal of MOT is to accurately maintain object identities across consecutive video frames, a task that becomes increasingly complex in dynamic or densely populated environments. To address this, re-identification (ReID) techniques have been integrated into MOT frameworks, leveraging appearance features to improve identity consistency. However, this\n\nThe associate editor coordinating the review of this manuscript and approving it for publication was Muammar Muhammad Kabir .\n\noften comes at the cost of increased computational load, particularly in real-time applications [5], [6].\n\nThe Lightweight Integrated Tracking-Feature Extraction (LITE) paradigm offers a resource-efficient solution by incorporating ReID capabilities directly into the tracking pipeline [7]. This approach removes the requirement for separate inference models or extensive training for identity matching, thereby minimizing computational demands while ensuring competitive tracking performance. It stands out as an effective option for real-time applications in resourceconstrained environments.\n\nExisting evaluation frameworks for MOT and ReIDintegrated systems typically emphasize specific benchmarks\n\n2025 The Authors. This work is licensed under a Creative Commons Attribution 4.0 License. For more information, see https://creativecommons.org/licenses/by/4.0/",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "fcddcdbe-e6dc-4afc-aef9-abf07dc99d8e"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/755129d1-0be0-4a5e-b00d-f07f09b3fbfd/asset",
+            "fileName": "paper--10883969.pdf",
+            "chunkText": "off-the-shelf detectors like YOLOv8 [18] are typically employed in real-world deployments. However, traditional benchmarks such as MOT17 and MOT20 primarily rely on detectors trained specifically on the benchmark’s dataset, which limits the generalizability of performance metrics to real deployment scenarios. Our proposed evaluation framework addresses this gap by providing a holistic evaluation more closely aligned with real-world, edge-device applications. Unlike existing protocols, this framework tests trackers with pre-trained detectors, delivering a realistic performance measure in practical tracking-by-detection setups.\n\nMoreover, traditional studies often measure FPS only for tracking and matching stages [6], [8], [9], [15], overlooking the substantial influence of detection and pre-processing on overall speed. In contrast, our framework extends FPS evaluation by incorporating the detector’s impact on speed, offering insights into balancing accuracy and performance in resource-limited, edge-based applications.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 14,
+            "pageNumber": 3,
+            "sourceChunkId": "755129d1-0be0-4a5e-b00d-f07f09b3fbfd"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The affected users are teams comparing trackers or considering constrained-device use; the study is an evaluation method and benchmark analysis, not evidence of a specific client's former workflow. Its central challenge is to make comparisons more realistic: use a common off-the-shelf detector, include preprocessing and ReID costs in the assessed pipeline, and measure end-to-end speed alongside tracking quality.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/4ae07264-3945-4e3a-bb81-d7d998b171e3/asset",
+            "fileName": "paper--10883969.pdf",
+            "chunkText": "FIGURE 1. Proposed evaluation framework for multi-object tracking. The main novel idea is to evaluate the whole tracking pipeline in real time to provide a practical, realistic evaluation. This allows all hidden costs such as pre-processing, cropping, and resizing done by ReID-enabled trackers to be uncovered. The second main idea is to use a generic and same detector for all trackers. This allows us to evaluate tracker strength by isolating the detector’s role. Finally, the importance of considering the detector as part of the tracking pipeline can be seen in Fig. 15 and Fig. 16.\n\nEvaluated Tracking Pipeline Components in the Proposed Framework\nFe\n[— wo nd ]\n1+ online processing is provided for holistic £75 = ssociation: {\n{| oemengip Hrs ph i\nH (85-550) (rackets Mansgement: ||\nwit rst ~ Update Kalmanficer ||\nuses off the shelf detectors to ensure practically Detector et pve\ni (Es) Reid Gating «Creme nen trackers ||\ni , Ki mactive rackets ||\nH JS [= H\n: Si Sreaeoes eS |\n’ oe SH\ni Camera Moon mode SS raksin race\ni E : « requires offline processing the domain T=] frame = t1 rame =t |\nH dataset to compute camera motion i]\n\nEvaluated Tracking Pipeline Components in the Literature\nReid module mmm eens\n« Requires offine training rors || Second H\n« offing processing can be used a Associaton: |\nDetector ee J Toy |\n+ Offin trining required on MOT datasets. H (Trackiets Management: | |\nByteTrack, OC-SORT, and BQtSORT train YOLOX  (~pasaster | | First + Update Kalman fiter | |\non the firs hol of video sequences. oa] Association « Update appearance | |\n« MOT Challenge troins Faster RCN on MOTI7 Rel & Gating, « Create newtracklets | |\nand MOT20 tain sats. «Kil nactve trackers | |\nRn er [==] H\n¢ Eats rediceed 8D = i\n’ Tlcamera Motion based on kr = i\n| camera odon module SS) racsin Toon |\nf {+ requires offing processing the domain = rame-t1 ramet |\n\\__dotesetco compute comerameren_______ TT}",
+            "mediaType": "image/png",
+            "chunkIndex": 12,
+            "pageNumber": 3,
+            "sourceChunkId": "4ae07264-3945-4e3a-bb81-d7d998b171e3"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/755129d1-0be0-4a5e-b00d-f07f09b3fbfd/asset",
+            "fileName": "paper--10883969.pdf",
+            "chunkText": "off-the-shelf detectors like YOLOv8 [18] are typically employed in real-world deployments. However, traditional benchmarks such as MOT17 and MOT20 primarily rely on detectors trained specifically on the benchmark’s dataset, which limits the generalizability of performance metrics to real deployment scenarios. Our proposed evaluation framework addresses this gap by providing a holistic evaluation more closely aligned with real-world, edge-device applications. Unlike existing protocols, this framework tests trackers with pre-trained detectors, delivering a realistic performance measure in practical tracking-by-detection setups.\n\nMoreover, traditional studies often measure FPS only for tracking and matching stages [6], [8], [9], [15], overlooking the substantial influence of detection and pre-processing on overall speed. In contrast, our framework extends FPS evaluation by incorporating the detector’s impact on speed, offering insights into balancing accuracy and performance in resource-limited, edge-based applications.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 14,
+            "pageNumber": 3,
+            "sourceChunkId": "755129d1-0be0-4a5e-b00d-f07f09b3fbfd"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The researchers propose a holistic evaluation framework that follows detection, ReID and tracking operations together. The supplied figure contrasts the proposed assessment with components commonly represented in the literature.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/4ae07264-3945-4e3a-bb81-d7d998b171e3/asset",
+            "fileName": "paper--10883969.pdf",
+            "chunkText": "FIGURE 1. Proposed evaluation framework for multi-object tracking. The main novel idea is to evaluate the whole tracking pipeline in real time to provide a practical, realistic evaluation. This allows all hidden costs such as pre-processing, cropping, and resizing done by ReID-enabled trackers to be uncovered. The second main idea is to use a generic and same detector for all trackers. This allows us to evaluate tracker strength by isolating the detector’s role. Finally, the importance of considering the detector as part of the tracking pipeline can be seen in Fig. 15 and Fig. 16.\n\nEvaluated Tracking Pipeline Components in the Proposed Framework\nFe\n[— wo nd ]\n1+ online processing is provided for holistic £75 = ssociation: {\n{| oemengip Hrs ph i\nH (85-550) (rackets Mansgement: ||\nwit rst ~ Update Kalmanficer ||\nuses off the shelf detectors to ensure practically Detector et pve\ni (Es) Reid Gating «Creme nen trackers ||\ni , Ki mactive rackets ||\nH JS [= H\n: Si Sreaeoes eS |\n’ oe SH\ni Camera Moon mode SS raksin race\ni E : « requires offline processing the domain T=] frame = t1 rame =t |\nH dataset to compute camera motion i]\n\nEvaluated Tracking Pipeline Components in the Literature\nReid module mmm eens\n« Requires offine training rors || Second H\n« offing processing can be used a Associaton: |\nDetector ee J Toy |\n+ Offin trining required on MOT datasets. H (Trackiets Management: | |\nByteTrack, OC-SORT, and BQtSORT train YOLOX  (~pasaster | | First + Update Kalman fiter | |\non the firs hol of video sequences. oa] Association « Update appearance | |\n« MOT Challenge troins Faster RCN on MOTI7 Rel & Gating, « Create newtracklets | |\nand MOT20 tain sats. «Kil nactve trackers | |\nRn er [==] H\n¢ Eats rediceed 8D = i\n’ Tlcamera Motion based on kr = i\n| camera odon module SS) racsin Toon |\nf {+ requires offing processing the domain = rame-t1 ramet |\n\\__dotesetco compute comerameren_______ TT}",
+            "mediaType": "image/png",
+            "chunkIndex": 12,
+            "pageNumber": 3,
+            "sourceChunkId": "4ae07264-3945-4e3a-bb81-d7d998b171e3"
+          }
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Diagram comparing tracking-pipeline components evaluated in the proposed framework and in prior literature",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/4ae07264-3945-4e3a-bb81-d7d998b171e3/asset",
+        "align": "center",
+        "title": "Whole-pipeline MOT evaluation",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/4ae07264-3945-4e3a-bb81-d7d998b171e3/asset",
+        "fileName": "paper--10883969.pdf",
+        "chunkText": "FIGURE 1. Proposed evaluation framework for multi-object tracking. The main novel idea is to evaluate the whole tracking pipeline in real time to provide a practical, realistic evaluation. This allows all hidden costs such as pre-processing, cropping, and resizing done by ReID-enabled trackers to be uncovered. The second main idea is to use a generic and same detector for all trackers. This allows us to evaluate tracker strength by isolating the detector’s role. Finally, the importance of considering the detector as part of the tracking pipeline can be seen in Fig. 15 and Fig. 16.\n\nEvaluated Tracking Pipeline Components in the Proposed Framework\nFe\n[— wo nd ]\n1+ online processing is provided for holistic £75 = ssociation: {\n{| oemengip Hrs ph i\nH (85-550) (rackets Mansgement: ||\nwit rst ~ Update Kalmanficer ||\nuses off the shelf detectors to ensure practically Detector et pve\ni (Es) Reid Gating «Creme nen trackers ||\ni , Ki mactive rackets ||\nH JS [= H\n: Si Sreaeoes eS |\n’ oe SH\ni Camera Moon mode SS raksin race\ni E : « requires offline processing the domain T=] frame = t1 rame =t |\nH dataset to compute camera motion i]\n\nEvaluated Tracking Pipeline Components in the Literature\nReid module mmm eens\n« Requires offine training rors || Second H\n« offing processing can be used a Associaton: |\nDetector ee J Toy |\n+ Offin trining required on MOT datasets. H (Trackiets Management: | |\nByteTrack, OC-SORT, and BQtSORT train YOLOX  (~pasaster | | First + Update Kalman fiter | |\non the firs hol of video sequences. oa] Association « Update appearance | |\n« MOT Challenge troins Faster RCN on MOTI7 Rel & Gating, « Create newtracklets | |\nand MOT20 tain sats. «Kil nactve trackers | |\nRn er [==] H\n¢ Eats rediceed 8D = i\n’ Tlcamera Motion based on kr = i\n| camera odon module SS) racsin Toon |\nf {+ requires offing processing the domain = rame-t1 ramet |\n\\__dotesetco compute comerameren_______ TT}",
+        "mediaType": "image/png",
+        "chunkIndex": 12,
+        "pageNumber": 3,
+        "sourceChunkId": "4ae07264-3945-4e3a-bb81-d7d998b171e3"
+      }
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Whole-pipeline assessment: includes detector effects and online processing such as preprocessing, cropping and resizing, so evaluation captures costs that can otherwise be missed.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/4ae07264-3945-4e3a-bb81-d7d998b171e3/asset",
+                    "fileName": "paper--10883969.pdf",
+                    "chunkText": "FIGURE 1. Proposed evaluation framework for multi-object tracking. The main novel idea is to evaluate the whole tracking pipeline in real time to provide a practical, realistic evaluation. This allows all hidden costs such as pre-processing, cropping, and resizing done by ReID-enabled trackers to be uncovered. The second main idea is to use a generic and same detector for all trackers. This allows us to evaluate tracker strength by isolating the detector’s role. Finally, the importance of considering the detector as part of the tracking pipeline can be seen in Fig. 15 and Fig. 16.\n\nEvaluated Tracking Pipeline Components in the Proposed Framework\nFe\n[— wo nd ]\n1+ online processing is provided for holistic £75 = ssociation: {\n{| oemengip Hrs ph i\nH (85-550) (rackets Mansgement: ||\nwit rst ~ Update Kalmanficer ||\nuses off the shelf detectors to ensure practically Detector et pve\ni (Es) Reid Gating «Creme nen trackers ||\ni , Ki mactive rackets ||\nH JS [= H\n: Si Sreaeoes eS |\n’ oe SH\ni Camera Moon mode SS raksin race\ni E : « requires offline processing the domain T=] frame = t1 rame =t |\nH dataset to compute camera motion i]\n\nEvaluated Tracking Pipeline Components in the Literature\nReid module mmm eens\n« Requires offine training rors || Second H\n« offing processing can be used a Associaton: |\nDetector ee J Toy |\n+ Offin trining required on MOT datasets. H (Trackiets Management: | |\nByteTrack, OC-SORT, and BQtSORT train YOLOX  (~pasaster | | First + Update Kalman fiter | |\non the firs hol of video sequences. oa] Association « Update appearance | |\n« MOT Challenge troins Faster RCN on MOTI7 Rel & Gating, « Create newtracklets | |\nand MOT20 tain sats. «Kil nactve trackers | |\nRn er [==] H\n¢ Eats rediceed 8D = i\n’ Tlcamera Motion based on kr = i\n| camera odon module SS) racsin Toon |\nf {+ requires offing processing the domain = rame-t1 ramet |\n\\__dotesetco compute comerameren_______ TT}",
+                    "mediaType": "image/png",
+                    "chunkIndex": 12,
+                    "pageNumber": 3,
+                    "sourceChunkId": "4ae07264-3945-4e3a-bb81-d7d998b171e3"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Common detector basis: the framework uses off-the-shelf detectors across trackers to support practical comparisons and help isolate tracker performance from detector differences.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/4ae07264-3945-4e3a-bb81-d7d998b171e3/asset",
+                    "fileName": "paper--10883969.pdf",
+                    "chunkText": "FIGURE 1. Proposed evaluation framework for multi-object tracking. The main novel idea is to evaluate the whole tracking pipeline in real time to provide a practical, realistic evaluation. This allows all hidden costs such as pre-processing, cropping, and resizing done by ReID-enabled trackers to be uncovered. The second main idea is to use a generic and same detector for all trackers. This allows us to evaluate tracker strength by isolating the detector’s role. Finally, the importance of considering the detector as part of the tracking pipeline can be seen in Fig. 15 and Fig. 16.\n\nEvaluated Tracking Pipeline Components in the Proposed Framework\nFe\n[— wo nd ]\n1+ online processing is provided for holistic £75 = ssociation: {\n{| oemengip Hrs ph i\nH (85-550) (rackets Mansgement: ||\nwit rst ~ Update Kalmanficer ||\nuses off the shelf detectors to ensure practically Detector et pve\ni (Es) Reid Gating «Creme nen trackers ||\ni , Ki mactive rackets ||\nH JS [= H\n: Si Sreaeoes eS |\n’ oe SH\ni Camera Moon mode SS raksin race\ni E : « requires offline processing the domain T=] frame = t1 rame =t |\nH dataset to compute camera motion i]\n\nEvaluated Tracking Pipeline Components in the Literature\nReid module mmm eens\n« Requires offine training rors || Second H\n« offing processing can be used a Associaton: |\nDetector ee J Toy |\n+ Offin trining required on MOT datasets. H (Trackiets Management: | |\nByteTrack, OC-SORT, and BQtSORT train YOLOX  (~pasaster | | First + Update Kalman fiter | |\non the firs hol of video sequences. oa] Association « Update appearance | |\n« MOT Challenge troins Faster RCN on MOTI7 Rel & Gating, « Create newtracklets | |\nand MOT20 tain sats. «Kil nactve trackers | |\nRn er [==] H\n¢ Eats rediceed 8D = i\n’ Tlcamera Motion based on kr = i\n| camera odon module SS) racsin Toon |\nf {+ requires offing processing the domain = rame-t1 ramet |\n\\__dotesetco compute comerameren_______ TT}",
+                    "mediaType": "image/png",
+                    "chunkIndex": 12,
+                    "pageNumber": 3,
+                    "sourceChunkId": "4ae07264-3945-4e3a-bb81-d7d998b171e3"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/755129d1-0be0-4a5e-b00d-f07f09b3fbfd/asset",
+                    "fileName": "paper--10883969.pdf",
+                    "chunkText": "off-the-shelf detectors like YOLOv8 [18] are typically employed in real-world deployments. However, traditional benchmarks such as MOT17 and MOT20 primarily rely on detectors trained specifically on the benchmark’s dataset, which limits the generalizability of performance metrics to real deployment scenarios. Our proposed evaluation framework addresses this gap by providing a holistic evaluation more closely aligned with real-world, edge-device applications. Unlike existing protocols, this framework tests trackers with pre-trained detectors, delivering a realistic performance measure in practical tracking-by-detection setups.\n\nMoreover, traditional studies often measure FPS only for tracking and matching stages [6], [8], [9], [15], overlooking the substantial influence of detection and pre-processing on overall speed. In contrast, our framework extends FPS evaluation by incorporating the detector’s impact on speed, offering insights into balancing accuracy and performance in resource-limited, edge-based applications.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 14,
+                    "pageNumber": 3,
+                    "sourceChunkId": "755129d1-0be0-4a5e-b00d-f07f09b3fbfd"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Runtime measured in context: speed evaluation accounts for the detector as well as tracking stages, addressing the influence of detection and preprocessing on overall FPS.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/755129d1-0be0-4a5e-b00d-f07f09b3fbfd/asset",
+                    "fileName": "paper--10883969.pdf",
+                    "chunkText": "off-the-shelf detectors like YOLOv8 [18] are typically employed in real-world deployments. However, traditional benchmarks such as MOT17 and MOT20 primarily rely on detectors trained specifically on the benchmark’s dataset, which limits the generalizability of performance metrics to real deployment scenarios. Our proposed evaluation framework addresses this gap by providing a holistic evaluation more closely aligned with real-world, edge-device applications. Unlike existing protocols, this framework tests trackers with pre-trained detectors, delivering a realistic performance measure in practical tracking-by-detection setups.\n\nMoreover, traditional studies often measure FPS only for tracking and matching stages [6], [8], [9], [15], overlooking the substantial influence of detection and pre-processing on overall speed. In contrast, our framework extends FPS evaluation by incorporating the detector’s impact on speed, offering insights into balancing accuracy and performance in resource-limited, edge-based applications.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 14,
+                    "pageNumber": 3,
+                    "sourceChunkId": "755129d1-0be0-4a5e-b00d-f07f09b3fbfd"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "LITE ReID integration: Lightweight Integrated Tracking-Feature Extraction integrates appearance features into the tracking pipeline to reduce computational overhead, with the study reporting speeds similar to motion-only systems without compromising accuracy in its experiments.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/77577a47-3abf-43fb-8025-b7aa3244ccfb/asset",
+                    "fileName": "paper--10883969.pdf",
+                    "chunkText": "ABSTRACT This paper introduces an enhanced evaluation framework to assess the real-world efficacy of multi-object tracking (MOT) systems, focusing on holistic assessment encompassing detection, ReID (ReIdentification), and tracking components. The Lightweight Integrated Tracking-Feature Extraction (LITE) paradigm is proposed as a novel method that seamlessly integrates ReID features within the tracking pipeline, minimizing computational overhead. Unlike conventional frameworks, which often overlook realworld constraints, our approach benchmarks tracker performance in practical scenarios using off-theshelf detectors. A significant insight derived from our framework indicates that practitioners can attain a HOTA (Higher Order Tracking Accuracy) score of up to 30% by customizing input resolutions and confidence thresholds. In contrast, those who are unaware of these optimizations may only achieve a HOTA score of 10%. This finding underscores the critical advantage offered by our evaluation method. Comprehensive experiments reveal that LITE enables ReID-based trackers to operate with similar speeds to motion-only systems (uses only motion cues, such as object trajectory and velocity, to detect and track objects over time without incorporating appearance features), without compromising accuracy. Our findings underscore the LITE paradigm’s potential to shift the dynamics of MOT, offering a balanced solution between computational efficiency and high-performance tracking. The evaluation framework not only standardizes tracker assessment but also highlights the versatility of LITE across diverse datasets and edge devices. The source code for this research is publicly available at https://github.com/Jumabek/LITE.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 2,
+                    "pageNumber": 1,
+                    "sourceChunkId": "77577a47-3abf-43fb-8025-b7aa3244ccfb"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The paper reports benchmark findings, not measured business outcomes for a client. Results are experimental and depend on dataset and configuration; they should not be read as a universal performance guarantee.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/77577a47-3abf-43fb-8025-b7aa3244ccfb/asset",
+            "fileName": "paper--10883969.pdf",
+            "chunkText": "ABSTRACT This paper introduces an enhanced evaluation framework to assess the real-world efficacy of multi-object tracking (MOT) systems, focusing on holistic assessment encompassing detection, ReID (ReIdentification), and tracking components. The Lightweight Integrated Tracking-Feature Extraction (LITE) paradigm is proposed as a novel method that seamlessly integrates ReID features within the tracking pipeline, minimizing computational overhead. Unlike conventional frameworks, which often overlook realworld constraints, our approach benchmarks tracker performance in practical scenarios using off-theshelf detectors. A significant insight derived from our framework indicates that practitioners can attain a HOTA (Higher Order Tracking Accuracy) score of up to 30% by customizing input resolutions and confidence thresholds. In contrast, those who are unaware of these optimizations may only achieve a HOTA score of 10%. This finding underscores the critical advantage offered by our evaluation method. Comprehensive experiments reveal that LITE enables ReID-based trackers to operate with similar speeds to motion-only systems (uses only motion cues, such as object trajectory and velocity, to detect and track objects over time without incorporating appearance features), without compromising accuracy. Our findings underscore the LITE paradigm’s potential to shift the dynamics of MOT, offering a balanced solution between computational efficiency and high-performance tracking. The evaluation framework not only standardizes tracker assessment but also highlights the versatility of LITE across diverse datasets and edge devices. The source code for this research is publicly available at https://github.com/Jumabek/LITE.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1,
+            "sourceChunkId": "77577a47-3abf-43fb-8025-b7aa3244ccfb"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/bdefae73-ad1e-4021-bf90-f390d75d0267/asset",
+            "fileName": "paper--10883969.pdf",
+            "chunkText": "FIGURE 4. Sample frames from various datasets were used in the analysis.\n\nhi i Vs = 7\n~ MA NE El 1M «\\ | 2\n= wy fou i i onli CR\n0 Bh PENT ee\nSs & VOR JR) = rr\n> oT he L- LA RL\n3 , Cd ‘ Na\nCR, D—— ~\nhoe Tp hl Con (| me v\no ade Nae), Fat\no EA Tok 4 19 pd 3 $a | 3 $\nco ® CSE RY Ret 7. 4 8 x ) 1\n= BBE Si way 1a ‘ Ean\nINR AT a\n= I —— : Ta\nes. LT i EE\n= ro] oy I\n< | ated |\noc FF, Ss _ Fey 5 ®\nSs ~, = ie Ca A. \\%\nPEN ge % eg\n[] : ! oS Pa A=2 Nal\nN  — a) : a. &\n; 5 r oun FET Be TER i -_—\n7) SL AE 6\n— - 4 f ¢ Hl i li ! E\\ Ce\nE il gl [ Lf bob Ap Ea )\n~ ag A oppo i] ¥ : eK Cid 3\nIN hte —-— ! » 7) \\ 3 NS A - oJ \\- :\n= NSIEEAREA CC | ; 1 [TNL A\nao FIRES § | J. ssm— Ty Rg jy]\nCRE pe Bl 3 x JE [ TE Sy\n3 Lain Vik ao URE FT\n= 5 8 REISE dls | AE\n& Lm LE 4 Ei\n= AEBRRE = d = wt",
+            "mediaType": "image/png",
+            "chunkIndex": 30,
+            "pageNumber": 7,
+            "sourceChunkId": "bdefae73-ad1e-4021-bf90-f390d75d0267"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The framework reports that careful input-resolution and confidence-threshold choices can yield HOTA scores up to 30%, while evaluations without those optimizations may reach 10%. This is a configuration-dependent comparison reported by the study, not a universal 20-point improvement.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/77577a47-3abf-43fb-8025-b7aa3244ccfb/asset",
+                    "fileName": "paper--10883969.pdf",
+                    "chunkText": "ABSTRACT This paper introduces an enhanced evaluation framework to assess the real-world efficacy of multi-object tracking (MOT) systems, focusing on holistic assessment encompassing detection, ReID (ReIdentification), and tracking components. The Lightweight Integrated Tracking-Feature Extraction (LITE) paradigm is proposed as a novel method that seamlessly integrates ReID features within the tracking pipeline, minimizing computational overhead. Unlike conventional frameworks, which often overlook realworld constraints, our approach benchmarks tracker performance in practical scenarios using off-theshelf detectors. A significant insight derived from our framework indicates that practitioners can attain a HOTA (Higher Order Tracking Accuracy) score of up to 30% by customizing input resolutions and confidence thresholds. In contrast, those who are unaware of these optimizations may only achieve a HOTA score of 10%. This finding underscores the critical advantage offered by our evaluation method. Comprehensive experiments reveal that LITE enables ReID-based trackers to operate with similar speeds to motion-only systems (uses only motion cues, such as object trajectory and velocity, to detect and track objects over time without incorporating appearance features), without compromising accuracy. Our findings underscore the LITE paradigm’s potential to shift the dynamics of MOT, offering a balanced solution between computational efficiency and high-performance tracking. The evaluation framework not only standardizes tracker assessment but also highlights the versatility of LITE across diverse datasets and edge devices. The source code for this research is publicly available at https://github.com/Jumabek/LITE.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 2,
+                    "pageNumber": 1,
+                    "sourceChunkId": "77577a47-3abf-43fb-8025-b7aa3244ccfb"
+                  }
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/4f0baf47-c7d3-4802-8062-7a5f56c94d32/asset",
+                    "fileName": "paper--10883969.pdf",
+                    "chunkText": "This research introduces an advanced evaluation framework for multi-object tracking (MOT) systems, encompassing a holistic approach that integrates detection, re-identification (ReID), and tracking components into the assessment process. The framework highlights the crucial role of optimizing detector settings to significantly enhance performance metrics. Analysis reveals that, through strategic adjustments, HOTA scores can be boosted from 10% to 30%. In other words, these findings demonstrate sharp differences from conventional evaluation frameworks, which can also achieve only about 10% HOTA without careful setting, underscoring the practical importance of the proposed comprehensive approach.\n\nFurthermore, evaluations show that integrating ReID components into MOT systems should be investigated in greater depth. Such a conclusion comes after uncovering the knowledge of where the ReID model’s distinctive power differs, but this is not capitalized properly in track matching, leading to similar performance across all tracking methods.\n\nOur findings stress the pressing need for adaptive tracking solutions that eschew static, user-defined parameter settings in favor of dynamic, automated optimization. This adaptability is crucial for accommodating the diverse challenges presented by varying datasets and edge-computing environments. The insights gained from this study pave the way for evolving MOT practices that focus on adaptive mechanisms to achieve robust tracking capabilities.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 237,
+                    "pageNumber": 20,
+                    "sourceChunkId": "4f0baf47-c7d3-4802-8062-7a5f56c94d32"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The authors report that LITE-enabled ReID trackers operated at similar speeds to motion-only systems without compromising accuracy in their experiments; this is a benchmark observation, not a measured operating-cost or customer-impact result.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/77577a47-3abf-43fb-8025-b7aa3244ccfb/asset",
+                    "fileName": "paper--10883969.pdf",
+                    "chunkText": "ABSTRACT This paper introduces an enhanced evaluation framework to assess the real-world efficacy of multi-object tracking (MOT) systems, focusing on holistic assessment encompassing detection, ReID (ReIdentification), and tracking components. The Lightweight Integrated Tracking-Feature Extraction (LITE) paradigm is proposed as a novel method that seamlessly integrates ReID features within the tracking pipeline, minimizing computational overhead. Unlike conventional frameworks, which often overlook realworld constraints, our approach benchmarks tracker performance in practical scenarios using off-theshelf detectors. A significant insight derived from our framework indicates that practitioners can attain a HOTA (Higher Order Tracking Accuracy) score of up to 30% by customizing input resolutions and confidence thresholds. In contrast, those who are unaware of these optimizations may only achieve a HOTA score of 10%. This finding underscores the critical advantage offered by our evaluation method. Comprehensive experiments reveal that LITE enables ReID-based trackers to operate with similar speeds to motion-only systems (uses only motion cues, such as object trajectory and velocity, to detect and track objects over time without incorporating appearance features), without compromising accuracy. Our findings underscore the LITE paradigm’s potential to shift the dynamics of MOT, offering a balanced solution between computational efficiency and high-performance tracking. The evaluation framework not only standardizes tracker assessment but also highlights the versatility of LITE across diverse datasets and edge devices. The source code for this research is publicly available at https://github.com/Jumabek/LITE.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 2,
+                    "pageNumber": 1,
+                    "sourceChunkId": "77577a47-3abf-43fb-8025-b7aa3244ccfb"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The paper emphasizes dataset-specific settings: for example, its analysis found that MOT20 and MOT17 favored different confidence thresholds and resolutions. This reinforces the need to evaluate configurations against the intended data rather than assume one setting works everywhere.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/bdefae73-ad1e-4021-bf90-f390d75d0267/asset",
+                    "fileName": "paper--10883969.pdf",
+                    "chunkText": "FIGURE 4. Sample frames from various datasets were used in the analysis.\n\nhi i Vs = 7\n~ MA NE El 1M «\\ | 2\n= wy fou i i onli CR\n0 Bh PENT ee\nSs & VOR JR) = rr\n> oT he L- LA RL\n3 , Cd ‘ Na\nCR, D—— ~\nhoe Tp hl Con (| me v\no ade Nae), Fat\no EA Tok 4 19 pd 3 $a | 3 $\nco ® CSE RY Ret 7. 4 8 x ) 1\n= BBE Si way 1a ‘ Ean\nINR AT a\n= I —— : Ta\nes. LT i EE\n= ro] oy I\n< | ated |\noc FF, Ss _ Fey 5 ®\nSs ~, = ie Ca A. \\%\nPEN ge % eg\n[] : ! oS Pa A=2 Nal\nN  — a) : a. &\n; 5 r oun FET Be TER i -_—\n7) SL AE 6\n— - 4 f ¢ Hl i li ! E\\ Ce\nE il gl [ Lf bob Ap Ea )\n~ ag A oppo i] ¥ : eK Cid 3\nIN hte —-— ! » 7) \\ 3 NS A - oJ \\- :\n= NSIEEAREA CC | ; 1 [TNL A\nao FIRES § | J. ssm— Ty Rg jy]\nCRE pe Bl 3 x JE [ TE Sy\n3 Lain Vik ao URE FT\n= 5 8 REISE dls | AE\n& Lm LE 4 Ei\n= AEBRRE = d = wt",
+                    "mediaType": "image/png",
+                    "chunkIndex": 30,
+                    "pageNumber": 7,
+                    "sourceChunkId": "bdefae73-ad1e-4021-bf90-f390d75d0267"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "No client business outcome, commercial deployment result or business-impact measurement has been provided. The supported impact is a research contribution: a more deployment-oriented basis for comparing tracking performance and runtime.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/3b03eae1-4ae5-4b61-a58c-b28f80e50c18/asset",
+            "fileName": "paper--10883969.pdf",
+            "chunkText": "that may not fully reflect real-world constraints, particularly in edge computing environments [8], [9]. This paper addresses this gap by introducing a comprehensive evaluation framework designed to assess the entire tracking pipeline— including detection, ReID, and tracking updates—in realtime, focusing on edge-device performance.\n\nBuilding upon LITE’s contributions to MOT, this work integrates LITE within a novel, holistic evaluation framework. We apply it across several benchmark datasets to assess its efficiency and practical value. Our extensive experiments demonstrate the proposed framework’s reliability and adaptability, underscoring LITE’s strengths for resourceconstrained deployment.\n\nThe main contributions of this paper are summarized as follows:\n\nA novel evaluation framework that assesses the complete MOT pipeline provides a realistic tracker performance measure suitable for practical, edge-device scenarios.\n\nAn extension of the LITE paradigm within this framework to highlight its ability to deliver high-speed, lowoverhead tracking performance.\n\nComprehensive evaluations across diverse datasets and edge environments, establishing the robustness and applicability of both the framework and LITE-enhanced tracking methods.\n\nThis work addresses the following research questions:\n\nHow can trackers be evaluated on benchmark datasets in a way that reflects real-world deployment scenarios?\n\nWhat is the practical utility of ReID components in MOT, and how can their contributions be quantitatively assessed?\n\nCan existing tracking-by-detection models be reliably evaluated without considering the full tracking pipeline?\n\nHow do various trackers perform in terms of FPS when deployed on edge devices?",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "3b03eae1-4ae5-4b61-a58c-b28f80e50c18"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The evidence describes a published research framework and experimental findings. It does not establish that the framework or LITE is deployed in a client production environment, nor does it report customer adoption or measured business outcomes.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The study also identifies open research needs. Its discussion calls for better matching strategies that make more effective use of ReID features and adaptive methods that reduce dependence on user-specified settings such as confidence thresholds. These are future research directions, not capabilities established as delivered by the reported work.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/4939b552-ba30-4a2c-b6df-18b4eb67bdf1/asset",
+            "fileName": "paper--10883969.pdf",
+            "chunkText": "research direction: the development of more carefully designed matching strategies that can better leverage the strengths of ReID features.\n\nUltimately, the insights from this study can guide future research in MOT. Future research should focus on creating adaptive, robust tracking solutions that seamlessly adjust to the challenges posed by real-world variability. Such solutions\n\ncould eliminate the dependency on user-specified settings, such as confidence thresholds, for optimal performance.\n\nAnother potential research avenue involves enhancing LITE’s discriminatory power by leveraging activation features from multiple layers. These could be optimized using techniques such as PCA [33] or other feature selection algorithms [34]. Such approaches could improve the distinctiveness of appearance features for MOT applications.\n\nThe proposed ReID component evaluation demonstrates LITE’s usefulness, particularly compared to dedicated CNN-based ReID models like those in DeepSORT. However, other applications, such as person search, use ReID-capable models more frequently than MOT. LITE’s features are extracted directly from the detector without identity-specific training, so its performance in person search is understandably limited. Figure 10 illustrates our findings on this unintended application of LITE. The primary factor contributing to LITE’s lower performance in person search is its tendency to generate overly similar embeddings, leading to high similarity scores regardless of whether matches are positive (same person) or negative (different person). This outcome aligns with expectations, as LITE leverages features from YOLOv8m—a model trained exclusively for object detection—resulting in embeddings that capture general visual similarity rather than identity-specific features.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 91,
+            "pageNumber": 16,
+            "sourceChunkId": "4939b552-ba30-4a2c-b6df-18b4eb67bdf1"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/4f0baf47-c7d3-4802-8062-7a5f56c94d32/asset",
+            "fileName": "paper--10883969.pdf",
+            "chunkText": "This research introduces an advanced evaluation framework for multi-object tracking (MOT) systems, encompassing a holistic approach that integrates detection, re-identification (ReID), and tracking components into the assessment process. The framework highlights the crucial role of optimizing detector settings to significantly enhance performance metrics. Analysis reveals that, through strategic adjustments, HOTA scores can be boosted from 10% to 30%. In other words, these findings demonstrate sharp differences from conventional evaluation frameworks, which can also achieve only about 10% HOTA without careful setting, underscoring the practical importance of the proposed comprehensive approach.\n\nFurthermore, evaluations show that integrating ReID components into MOT systems should be investigated in greater depth. Such a conclusion comes after uncovering the knowledge of where the ReID model’s distinctive power differs, but this is not capitalized properly in track matching, leading to similar performance across all tracking methods.\n\nOur findings stress the pressing need for adaptive tracking solutions that eschew static, user-defined parameter settings in favor of dynamic, automated optimization. This adaptability is crucial for accommodating the diverse challenges presented by varying datasets and edge-computing environments. The insights gained from this study pave the way for evolving MOT practices that focus on adaptive mechanisms to achieve robust tracking capabilities.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 237,
+            "pageNumber": 20,
+            "sourceChunkId": "4f0baf47-c7d3-4802-8062-7a5f56c94d32"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The reported limitation of LITE is that its detector-derived features are not identity-specific; the paper notes that this limits performance in person search, an application beyond the study’s primary MOT focus. No further deployment plan or delivery schedule has been provided.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/4939b552-ba30-4a2c-b6df-18b4eb67bdf1/asset",
+            "fileName": "paper--10883969.pdf",
+            "chunkText": "research direction: the development of more carefully designed matching strategies that can better leverage the strengths of ReID features.\n\nUltimately, the insights from this study can guide future research in MOT. Future research should focus on creating adaptive, robust tracking solutions that seamlessly adjust to the challenges posed by real-world variability. Such solutions\n\ncould eliminate the dependency on user-specified settings, such as confidence thresholds, for optimal performance.\n\nAnother potential research avenue involves enhancing LITE’s discriminatory power by leveraging activation features from multiple layers. These could be optimized using techniques such as PCA [33] or other feature selection algorithms [34]. Such approaches could improve the distinctiveness of appearance features for MOT applications.\n\nThe proposed ReID component evaluation demonstrates LITE’s usefulness, particularly compared to dedicated CNN-based ReID models like those in DeepSORT. However, other applications, such as person search, use ReID-capable models more frequently than MOT. LITE’s features are extracted directly from the detector without identity-specific training, so its performance in person search is understandably limited. Figure 10 illustrates our findings on this unintended application of LITE. The primary factor contributing to LITE’s lower performance in person search is its tendency to generate overly similar embeddings, leading to high similarity scores regardless of whether matches are positive (same person) or negative (different person). This outcome aligns with expectations, as LITE leverages features from YOLOv8m—a model trained exclusively for object detection—resulting in embeddings that capture general visual similarity rather than identity-specific features.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 91,
+            "pageNumber": 16,
+            "sourceChunkId": "4939b552-ba30-4a2c-b6df-18b4eb67bdf1"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "This published HumbleBee R&D research makes MOT evaluation more reflective of practical constraints by assessing detection, ReID, tracking and runtime together. Its benchmark results show why detector settings and lightweight appearance-feature integration merit careful, dataset-specific evaluation, while leaving client business impact and production deployment unclaimed.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/3b03eae1-4ae5-4b61-a58c-b28f80e50c18/asset",
+            "fileName": "paper--10883969.pdf",
+            "chunkText": "that may not fully reflect real-world constraints, particularly in edge computing environments [8], [9]. This paper addresses this gap by introducing a comprehensive evaluation framework designed to assess the entire tracking pipeline— including detection, ReID, and tracking updates—in realtime, focusing on edge-device performance.\n\nBuilding upon LITE’s contributions to MOT, this work integrates LITE within a novel, holistic evaluation framework. We apply it across several benchmark datasets to assess its efficiency and practical value. Our extensive experiments demonstrate the proposed framework’s reliability and adaptability, underscoring LITE’s strengths for resourceconstrained deployment.\n\nThe main contributions of this paper are summarized as follows:\n\nA novel evaluation framework that assesses the complete MOT pipeline provides a realistic tracker performance measure suitable for practical, edge-device scenarios.\n\nAn extension of the LITE paradigm within this framework to highlight its ability to deliver high-speed, lowoverhead tracking performance.\n\nComprehensive evaluations across diverse datasets and edge environments, establishing the robustness and applicability of both the framework and LITE-enhanced tracking methods.\n\nThis work addresses the following research questions:\n\nHow can trackers be evaluated on benchmark datasets in a way that reflects real-world deployment scenarios?\n\nWhat is the practical utility of ReID components in MOT, and how can their contributions be quantitatively assessed?\n\nCan existing tracking-by-detection models be reliably evaluated without considering the full tracking pipeline?\n\nHow do various trackers perform in terms of FPS when deployed on edge devices?",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "3b03eae1-4ae5-4b61-a58c-b28f80e50c18"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/evidence/77577a47-3abf-43fb-8025-b7aa3244ccfb/asset",
+            "fileName": "paper--10883969.pdf",
+            "chunkText": "ABSTRACT This paper introduces an enhanced evaluation framework to assess the real-world efficacy of multi-object tracking (MOT) systems, focusing on holistic assessment encompassing detection, ReID (ReIdentification), and tracking components. The Lightweight Integrated Tracking-Feature Extraction (LITE) paradigm is proposed as a novel method that seamlessly integrates ReID features within the tracking pipeline, minimizing computational overhead. Unlike conventional frameworks, which often overlook realworld constraints, our approach benchmarks tracker performance in practical scenarios using off-theshelf detectors. A significant insight derived from our framework indicates that practitioners can attain a HOTA (Higher Order Tracking Accuracy) score of up to 30% by customizing input resolutions and confidence thresholds. In contrast, those who are unaware of these optimizations may only achieve a HOTA score of 10%. This finding underscores the critical advantage offered by our evaluation method. Comprehensive experiments reveal that LITE enables ReID-based trackers to operate with similar speeds to motion-only systems (uses only motion cues, such as object trajectory and velocity, to detect and track objects over time without incorporating appearance features), without compromising accuracy. Our findings underscore the LITE paradigm’s potential to shift the dynamics of MOT, offering a balanced solution between computational efficiency and high-performance tracking. The evaluation framework not only standardizes tracker assessment but also highlights the versatility of LITE across diverse datasets and edge devices. The source code for this research is publicly available at https://github.com/Jumabek/LITE.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1,
+            "sourceChunkId": "77577a47-3abf-43fb-8025-b7aa3244ccfb"
+          }
+        }
+      ]
+    }
+  ]
+}

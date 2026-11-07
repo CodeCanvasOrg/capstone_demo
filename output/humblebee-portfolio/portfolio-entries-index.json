@@ -1,0 +1,828 @@
+{
+  "projectUrl": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/projects/4b65e54f-0f01-4648-aa31-ffcb4c394e19",
+  "indexUrl": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/760a5360-f1f7-4ca3-8f10-6bbdcc693e9d/edit",
+  "entries": [
+    {
+      "key": "case-study:customs-document-automation",
+      "title": "Automating Customs Documentation with Local AI and Computer Vision",
+      "kind": "case-study",
+      "capability": "Document AI and automation",
+      "templateId": "portfolio",
+      "documentId": "08499636-03de-4b76-a7ee-82d5f663a0e6",
+      "versionId": "0a2822cc-9035-4514-89dc-a212fe034e08",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/08499636-03de-4b76-a7ee-82d5f663a0e6/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/customs-document-automation"
+      ],
+      "sourceIds": [
+        "case-study:customs-document-automation"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 1,
+      "imageCount": 1
+    },
+    {
+      "key": "case-study:ai-customs-intelligence",
+      "title": "AI-Powered Customs Intelligence System: Faster HS Code Classification",
+      "kind": "case-study",
+      "capability": "Document AI and automation",
+      "templateId": "portfolio",
+      "documentId": "1dd51dde-087e-4fd8-8645-d1a3ca95fc5d",
+      "versionId": "ef484f82-c0f7-48da-8f4c-339003fbccb1",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/1dd51dde-087e-4fd8-8645-d1a3ca95fc5d/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/ai-customs-intelligence"
+      ],
+      "sourceIds": [
+        "case-study:ai-customs-intelligence"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 1
+    },
+    {
+      "key": "case-study:data-cleaning-hs-codes",
+      "title": "HS Code Data Cleaning and Ingestion for Trade Classification",
+      "kind": "case-study",
+      "capability": "Document AI and automation",
+      "templateId": "portfolio",
+      "documentId": "7cb0ac09-4271-4028-8985-5430c8e78a03",
+      "versionId": "e89458ae-38ad-4439-884e-37aa620031e2",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7cb0ac09-4271-4028-8985-5430c8e78a03/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/data-cleaning-hs-codes"
+      ],
+      "sourceIds": [
+        "case-study:data-cleaning-hs-codes"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 1,
+      "imageCount": 1
+    },
+    {
+      "key": "case-study:excel-automated-testing",
+      "title": "Excel-Based HS Code Testing Framework: 11,000 Descriptions in Four Hours",
+      "kind": "case-study",
+      "capability": "Document AI and automation",
+      "templateId": "portfolio",
+      "documentId": "c092713a-8812-421b-996f-73a77e75725a",
+      "versionId": "201e429d-72a9-43b3-8df6-fc1236e16b93",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c092713a-8812-421b-996f-73a77e75725a/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/excel-automated-testing"
+      ],
+      "sourceIds": [
+        "case-study:excel-automated-testing"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 1
+    },
+    {
+      "key": "case-study:llm-results-analyzer",
+      "title": "LLM Results Analyzer for Unified HS Code Classification",
+      "kind": "case-study",
+      "capability": "Document AI and automation",
+      "templateId": "portfolio",
+      "documentId": "d317c1ce-95c6-4e5a-b38d-403e4826878a",
+      "versionId": "c6b55467-9ae7-441a-b2c0-3cb099db3850",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d317c1ce-95c6-4e5a-b38d-403e4826878a/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/llm-results-analyzer"
+      ],
+      "sourceIds": [
+        "case-study:llm-results-analyzer"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 3,
+      "imageCount": 2
+    },
+    {
+      "key": "case-study:shelf-analysis",
+      "title": "Shelf Analysis AI for Retail Compliance",
+      "kind": "case-study",
+      "capability": "Computer vision",
+      "templateId": "portfolio",
+      "documentId": "b4d78a05-a82c-4f2c-be2c-da605c86fee6",
+      "versionId": "aa6bba56-eb15-45fa-aff5-e7e6ed0b6d99",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b4d78a05-a82c-4f2c-be2c-da605c86fee6/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/shelf-analysis"
+      ],
+      "sourceIds": [
+        "case-study:shelf-analysis"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 2
+    },
+    {
+      "key": "case-study:fraud-detection",
+      "title": "AI Fraud Detection for Retail Compliance",
+      "kind": "case-study",
+      "capability": "Computer vision",
+      "templateId": "portfolio",
+      "documentId": "9301d410-ac80-4094-a5d7-5f11c20d02fe",
+      "versionId": "4591658f-14c4-43dd-a1dc-34025e7917a8",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/9301d410-ac80-4094-a5d7-5f11c20d02fe/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/fraud-detection"
+      ],
+      "sourceIds": [
+        "case-study:fraud-detection"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 2
+    },
+    {
+      "key": "case-study:poster-recognition",
+      "title": "Flexible Campaigns with Poster Recognition AI: Retail Technology Case Study",
+      "kind": "case-study",
+      "capability": "Computer vision",
+      "templateId": "portfolio",
+      "documentId": "a44defcb-e44c-42a3-b775-6a9315f1e4d1",
+      "versionId": "6dd9d875-0359-41e1-b0bc-05a46065e576",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a44defcb-e44c-42a3-b775-6a9315f1e4d1/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/poster-recognition"
+      ],
+      "sourceIds": [
+        "case-study:poster-recognition"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 1
+    },
+    {
+      "key": "case-study:improving-recognition-accuracy",
+      "title": "Improving Facial Recognition Accuracy with AI-Powered Data Refinement",
+      "kind": "case-study",
+      "capability": "Computer vision",
+      "templateId": "portfolio",
+      "documentId": "260f80d8-d7e8-4164-a1de-160882a5658f",
+      "versionId": "b1e151c1-1185-4a94-b310-cf588b34f994",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/260f80d8-d7e8-4164-a1de-160882a5658f/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/improving-recognition-accuracy"
+      ],
+      "sourceIds": [
+        "case-study:improving-recognition-accuracy"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 1
+    },
+    {
+      "key": "case-study:ai-powered-retail-cart",
+      "title": "AI-Powered Retail Cart Detection Accuracy Improvement",
+      "kind": "case-study",
+      "capability": "Computer vision",
+      "templateId": "portfolio",
+      "documentId": "a21954ea-d02e-46e9-baf2-0afe71f92127",
+      "versionId": "b30af2c5-2812-4605-93f7-d49349743f6f",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/ai-powered-retail-cart"
+      ],
+      "sourceIds": [
+        "case-study:ai-powered-retail-cart"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 1,
+      "imageCount": 1
+    },
+    {
+      "key": "case-study:iv-drip-flow-rate-estimator",
+      "title": "IV Drip Flow Rate Estimator: Real-Time, On-Device AI",
+      "kind": "case-study",
+      "capability": "Computer vision",
+      "templateId": "portfolio",
+      "documentId": "5077dd91-04f8-4943-9e17-c32791ccd2b7",
+      "versionId": "6b83eda2-33cb-475a-822c-736ad9d0e6fc",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5077dd91-04f8-4943-9e17-c32791ccd2b7/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/iv-drip-flow-rate-estimator"
+      ],
+      "sourceIds": [
+        "case-study:iv-drip-flow-rate-estimator"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 3,
+      "imageCount": 1
+    },
+    {
+      "key": "case-study:field-center-detection",
+      "title": "Real-Time Sports Field Center Detection for Augmented Reality",
+      "kind": "case-study",
+      "capability": "Computer vision",
+      "templateId": "portfolio",
+      "documentId": "59cecf0a-c37a-4b1e-93e5-9447dbdf1c72",
+      "versionId": "eedb4b18-ad98-4035-88d2-31f7fd6804d6",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/59cecf0a-c37a-4b1e-93e5-9447dbdf1c72/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/field-center-detection"
+      ],
+      "sourceIds": [
+        "case-study:field-center-detection"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 1
+    },
+    {
+      "key": "case-study:beef-carcass-detection",
+      "title": "Predicting Beef Carcass Quality Before Slaughter with On-Device Computer Vision",
+      "kind": "case-study",
+      "capability": "Computer vision",
+      "templateId": "portfolio",
+      "documentId": "3ccf1cc1-742a-40e6-9409-ff1fc385d33b",
+      "versionId": "2fbd5ce8-e948-4317-a8c7-a8b694a3a383",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/3ccf1cc1-742a-40e6-9409-ff1fc385d33b/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/beef-carcass-detection"
+      ],
+      "sourceIds": [
+        "case-study:beef-carcass-detection"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 1
+    },
+    {
+      "key": "case-study:livescore-ai",
+      "title": "LiveScore AI Real-Time Basketball Scoring Platform",
+      "kind": "case-study",
+      "capability": "Computer vision",
+      "templateId": "portfolio",
+      "documentId": "d56b0818-e252-4909-a105-01c511b2f5df",
+      "versionId": "61cac9ad-283e-4fc5-86e8-629bd1d83b02",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/livescore-ai"
+      ],
+      "sourceIds": [
+        "case-study:livescore-ai"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 1
+    },
+    {
+      "key": "case-study:breast-cancer",
+      "title": "AI Breast Cancer Biomarker Classification from H&E Histology Images",
+      "kind": "case-study",
+      "capability": "Computer vision",
+      "templateId": "portfolio",
+      "documentId": "97c50cf2-c4e9-4d63-80bc-5f3ed57c01f6",
+      "versionId": "4d9e807c-1865-4519-8900-b2e159401927",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/97c50cf2-c4e9-4d63-80bc-5f3ed57c01f6/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/breast-cancer"
+      ],
+      "sourceIds": [
+        "case-study:breast-cancer"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 3,
+      "imageCount": 1
+    },
+    {
+      "key": "case-study:ai-based-predictive",
+      "title": "Johnson & Johnson Predictive Customer Targeting With 96.8% Accuracy",
+      "kind": "case-study",
+      "capability": "Analytics",
+      "templateId": "portfolio",
+      "documentId": "31b8addc-2098-4ed6-8670-410ec572c4ca",
+      "versionId": "bc1c7663-296c-4124-bf46-0b4326ad2094",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/31b8addc-2098-4ed6-8670-410ec572c4ca/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/ai-based-predictive"
+      ],
+      "sourceIds": [
+        "case-study:ai-based-predictive"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 3,
+      "imageCount": 1
+    },
+    {
+      "key": "case-study:avnrt-ablation-analytics",
+      "title": "AVNRT Ablation Analysis with CARTONET for Johnson & Johnson",
+      "kind": "case-study",
+      "capability": "Analytics",
+      "templateId": "portfolio",
+      "documentId": "34971225-fadb-4af4-a7f5-6883a845760d",
+      "versionId": "51507805-b627-4d36-9132-f681a53df9af",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/34971225-fadb-4af4-a7f5-6883a845760d/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/avnrt-ablation-analytics"
+      ],
+      "sourceIds": [
+        "case-study:avnrt-ablation-analytics"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 1
+    },
+    {
+      "key": "case-study:cartoned-analysis-dashboard",
+      "title": "Johnson & Johnson’s Cartonet Analysis Dashboard",
+      "kind": "case-study",
+      "capability": "Analytics",
+      "templateId": "portfolio",
+      "documentId": "0eccff37-c19a-4333-b04f-779ad164e7c3",
+      "versionId": "3b485778-953d-44f0-8edb-8a5a5f87cc7c",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0eccff37-c19a-4333-b04f-779ad164e7c3/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/cartoned-analysis-dashboard"
+      ],
+      "sourceIds": [
+        "case-study:cartoned-analysis-dashboard"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 4,
+      "imageCount": 2
+    },
+    {
+      "key": "case-study:impact-event-analysis",
+      "title": "Johnson & Johnson Event Impact Analytics in Power BI",
+      "kind": "case-study",
+      "capability": "Analytics",
+      "templateId": "portfolio",
+      "documentId": "eb4805d8-ac27-420c-a4c5-d08fe48e42d5",
+      "versionId": "2d346cdd-f11b-48ca-bad5-b210e157bd40",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/eb4805d8-ac27-420c-a4c5-d08fe48e42d5/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/impact-event-analysis"
+      ],
+      "sourceIds": [
+        "case-study:impact-event-analysis"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 1
+    },
+    {
+      "key": "case-study:patient-data-analytics",
+      "title": "Johnson & Johnson Patient Report Analyzer",
+      "kind": "case-study",
+      "capability": "Analytics",
+      "templateId": "portfolio",
+      "documentId": "467a4530-a428-4941-aa44-77cd6d9459ce",
+      "versionId": "0f9905e9-e0cd-42fa-a3a5-5b71a069b448",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/467a4530-a428-4941-aa44-77cd6d9459ce/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/patient-data-analytics"
+      ],
+      "sourceIds": [
+        "case-study:patient-data-analytics"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 2
+    },
+    {
+      "key": "case-study:amplifyr",
+      "title": "Driving Brand Visibility on Generative AI with Amazon QuickSight",
+      "kind": "case-study",
+      "capability": "Analytics",
+      "templateId": "portfolio",
+      "documentId": "bce2fae1-0935-468e-864f-dd8e81736753",
+      "versionId": "73198761-dc71-4801-8422-c30ec8b86e38",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/bce2fae1-0935-468e-864f-dd8e81736753/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/amplifyr"
+      ],
+      "sourceIds": [
+        "case-study:amplifyr"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 1
+    },
+    {
+      "key": "case-study:automated-training-pipeline",
+      "title": "Automated Training Pipeline for Retail Product Detection",
+      "kind": "case-study",
+      "capability": "AI platforms",
+      "templateId": "portfolio",
+      "documentId": "57cefac9-51b9-4034-8805-aff98dc6681e",
+      "versionId": "de322633-d513-4262-a0a1-ae8835f70d16",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/57cefac9-51b9-4034-8805-aff98dc6681e/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/automated-training-pipeline"
+      ],
+      "sourceIds": [
+        "case-study:automated-training-pipeline"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 1,
+      "imageCount": 1
+    },
+    {
+      "key": "case-study:data-labeling-tool",
+      "title": "Enterprise Data Labeling Platform Deployment and Customization",
+      "kind": "case-study",
+      "capability": "AI platforms",
+      "templateId": "portfolio",
+      "documentId": "17f57d5a-143c-4189-a85c-a9ee82b6af2b",
+      "versionId": "05b97282-bfb8-47c6-a314-e888b27bc65e",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/17f57d5a-143c-4189-a85c-a9ee82b6af2b/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/data-labeling-tool"
+      ],
+      "sourceIds": [
+        "case-study:data-labeling-tool"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 3,
+      "imageCount": 2
+    },
+    {
+      "key": "case-study:optimizing-recognition-processing",
+      "title": "LumioHub AI: Reducing Computational Costs and RAM Overload with ROI Processing",
+      "kind": "case-study",
+      "capability": "AI platforms",
+      "templateId": "portfolio",
+      "documentId": "23f5a23d-84a1-4ae4-acfd-1957268d08da",
+      "versionId": "d87738b8-c58f-4c32-abd0-eea6a93d533a",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/23f5a23d-84a1-4ae4-acfd-1957268d08da/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/optimizing-recognition-processing"
+      ],
+      "sourceIds": [
+        "case-study:optimizing-recognition-processing"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 1
+    },
+    {
+      "key": "case-study:lumiohub-platform",
+      "title": "Securing LumioHub AI for Enterprise Scale",
+      "kind": "case-study",
+      "capability": "AI platforms",
+      "templateId": "portfolio",
+      "documentId": "b703664c-9e75-4c46-8adc-5066fea1de6a",
+      "versionId": "440d45b9-ff1d-432e-bac3-978189b39e47",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b703664c-9e75-4c46-8adc-5066fea1de6a/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/lumiohub-platform",
+        "https://humblebee.ai/projects/lumiohub"
+      ],
+      "sourceIds": [
+        "case-study:lumiohub-platform",
+        "project:lumiohub"
+      ],
+      "mergeBasis": "LumioHub is explicitly named in the case PDF pp. 1–3 and product profile pp. 1–4.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 3,
+      "imageCount": 2
+    },
+    {
+      "key": "project:hstaff",
+      "title": "HStaff Workforce Analytics Platform for Distributed Team Management",
+      "kind": "project",
+      "capability": "Products",
+      "templateId": "portfolio",
+      "documentId": "f12aaa4e-b999-4f34-9be8-63afa9a86d7e",
+      "versionId": "f69d0a82-83d4-4001-b4d0-3536f58b5ac5",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/f12aaa4e-b999-4f34-9be8-63afa9a86d7e/edit",
+      "originalUrls": [
+        "https://humblebee.ai/projects/hstaff"
+      ],
+      "sourceIds": [
+        "project:hstaff"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 1,
+      "imageCount": 1
+    },
+    {
+      "key": "project:ai-avatar",
+      "title": "AI Avatar: Real-Time Photorealistic Conversational Experiences",
+      "kind": "project",
+      "capability": "Products",
+      "templateId": "portfolio",
+      "documentId": "8fabe22b-34e8-4d87-b0c5-d3a96a934b4c",
+      "versionId": "febf1558-e0a8-45f2-94bb-5bfc861e607c",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8fabe22b-34e8-4d87-b0c5-d3a96a934b4c/edit",
+      "originalUrls": [
+        "https://humblebee.ai/projects/ai-avatar"
+      ],
+      "sourceIds": [
+        "project:ai-avatar"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 1
+    },
+    {
+      "key": "project:kumush-ai",
+      "title": "Kumush AI: Native Uzbek Voice Automation at Scale",
+      "kind": "project",
+      "capability": "Products",
+      "templateId": "portfolio",
+      "documentId": "7e618968-e5e5-4fcc-8f48-a47ea861bfd4",
+      "versionId": "69770356-9cf8-4c9a-9430-cd9fab2ce801",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/7e618968-e5e5-4fcc-8f48-a47ea861bfd4/edit",
+      "originalUrls": [
+        "https://humblebee.ai/projects/kumush-ai"
+      ],
+      "sourceIds": [
+        "project:kumush-ai"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 5,
+      "imageCount": 2
+    },
+    {
+      "key": "project:wakil-ai",
+      "title": "Wakil AI: Multilingual Legal Assistant for Uzbekistan",
+      "kind": "project",
+      "capability": "Products",
+      "templateId": "portfolio",
+      "documentId": "73956dc4-bd5f-405b-8c4f-45c02c81c18e",
+      "versionId": "b6a307d7-c886-4e72-9518-85a74335acd8",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/73956dc4-bd5f-405b-8c4f-45c02c81c18e/edit",
+      "originalUrls": [
+        "https://humblebee.ai/projects/wakil-ai"
+      ],
+      "sourceIds": [
+        "project:wakil-ai"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 1
+    },
+    {
+      "key": "project:bojhona",
+      "title": "Bojhona AI-Powered Customs Intelligence and HS Code Classification",
+      "kind": "project",
+      "capability": "Products",
+      "templateId": "portfolio",
+      "documentId": "a4131402-bce4-4cb7-96f3-bfc2e5900631",
+      "versionId": "16afff3e-fbee-4ea1-b83e-8d8664af6e43",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a4131402-bce4-4cb7-96f3-bfc2e5900631/edit",
+      "originalUrls": [
+        "https://humblebee.ai/projects/bojhona"
+      ],
+      "sourceIds": [
+        "project:bojhona"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 4,
+      "imageCount": 1
+    },
+    {
+      "key": "project:enlighten-qalb",
+      "title": "Enlighten Qalb: A Memory-Based AI Companion for Spiritual Growth",
+      "kind": "project",
+      "capability": "Products",
+      "templateId": "portfolio",
+      "documentId": "14127b64-26ef-4d63-9e59-8d4642da28c3",
+      "versionId": "be9b72ab-b8ff-4737-860f-18f78f9b0fe2",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/14127b64-26ef-4d63-9e59-8d4642da28c3/edit",
+      "originalUrls": [
+        "https://humblebee.ai/projects/enlighten-qalb"
+      ],
+      "sourceIds": [
+        "project:enlighten-qalb"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 1
+    },
+    {
+      "key": "project:bride",
+      "title": "bRide: Human-in-the-Loop AI Execution Platform for Knowledge Workers",
+      "kind": "project",
+      "capability": "Products",
+      "templateId": "portfolio",
+      "documentId": "f82ecd54-4473-465d-8877-5f6081adbbd5",
+      "versionId": "4bfc4ac8-b000-4d72-a320-05928f297b22",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/f82ecd54-4473-465d-8877-5f6081adbbd5/edit",
+      "originalUrls": [
+        "https://humblebee.ai/projects/bride"
+      ],
+      "sourceIds": [
+        "project:bride"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 3,
+      "imageCount": 1
+    },
+    {
+      "key": "paper:2409.04187",
+      "title": "LITE: Efficient ReID Integration for Real-Time Multi-Object Tracking",
+      "kind": "paper",
+      "capability": "Research",
+      "templateId": "portfolio",
+      "documentId": "0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050",
+      "versionId": "c8638e3d-ae81-4e70-9af3-4e161fb2eccd",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/0fc0dba4-dd0a-4fb2-bb9e-658b8a2a2050/edit",
+      "originalUrls": [
+        "https://arxiv.org/abs/2409.04187"
+      ],
+      "sourceIds": [
+        "paper:2409.04187"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 2
+    },
+    {
+      "key": "paper:10883969",
+      "title": "Evaluating Real-Time Multi-Object Tracking for Practical Edge Deployment",
+      "kind": "paper",
+      "capability": "Research",
+      "templateId": "portfolio",
+      "documentId": "96dd77ca-8a40-4cb5-8e6b-4366f590b526",
+      "versionId": "3c430d26-6931-4cc6-8ced-9b45a131b9d9",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/96dd77ca-8a40-4cb5-8e6b-4366f590b526/edit",
+      "originalUrls": [
+        "https://ieeexplore.ieee.org/abstract/document/10883969"
+      ],
+      "sourceIds": [
+        "paper:10883969"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 1
+    },
+    {
+      "key": "paper:10316180",
+      "title": "Contextual Filtered Features for Smartphone User Receptivity Prediction",
+      "kind": "paper",
+      "capability": "Research",
+      "templateId": "portfolio",
+      "documentId": "06b09a1a-12aa-444e-bd9f-b70209eeed36",
+      "versionId": "6b0296de-7b4b-4a90-ba98-79f18a3f012e",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/06b09a1a-12aa-444e-bd9f-b70209eeed36/edit",
+      "originalUrls": [
+        "https://ieeexplore.ieee.org/abstract/document/10316180"
+      ],
+      "sourceIds": [
+        "paper:10316180"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 4,
+      "imageCount": 1
+    },
+    {
+      "key": "paper:515",
+      "title": "HumbleBeeAI Case Study: Deep Learning Network Intrusion Detection Across Balanced and Imbalanced Datasets",
+      "kind": "paper",
+      "capability": "Research",
+      "templateId": "portfolio",
+      "documentId": "711f52f3-88da-49aa-aa71-f277a1f9f722",
+      "versionId": "897c879c-63e7-42e2-b67d-f4b6918b887b",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/711f52f3-88da-49aa-aa71-f277a1f9f722/edit",
+      "originalUrls": [
+        "https://www.mdpi.com/2079-9292/11/4/515"
+      ],
+      "sourceIds": [
+        "paper:515"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 1
+    },
+    {
+      "key": "paper:9661375",
+      "title": "Evaluating Traffic Sampling Effects on ML-Based Network Intrusion Detection",
+      "kind": "paper",
+      "capability": "Research",
+      "templateId": "portfolio",
+      "documentId": "2bd2034f-7a1b-4b82-8985-e22e6e0a92c6",
+      "versionId": "54d84723-54a7-4016-ba61-50609267d10a",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/2bd2034f-7a1b-4b82-8985-e22e6e0a92c6/edit",
+      "originalUrls": [
+        "https://ieeexplore.ieee.org/abstract/document/9661375"
+      ],
+      "sourceIds": [
+        "paper:9661375"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 1
+    },
+    {
+      "key": "paper:9064976",
+      "title": "1D CNN Network Intrusion Detection with Normalization on Imbalanced UNSW-NB15 Data",
+      "kind": "paper",
+      "capability": "Research",
+      "templateId": "portfolio",
+      "documentId": "c5708598-1321-4762-a649-84c301061134",
+      "versionId": "68e78ecd-3dc8-4326-8f35-6d4cc17170c2",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/c5708598-1321-4762-a649-84c301061134/edit",
+      "originalUrls": [
+        "https://ieeexplore.ieee.org/abstract/document/9064976"
+      ],
+      "sourceIds": [
+        "paper:9064976"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 1
+    },
+    {
+      "key": "paper:1910.01091",
+      "title": "W-Net White Blood Cell Image Classification",
+      "kind": "paper",
+      "capability": "Research",
+      "templateId": "portfolio",
+      "documentId": "b74e8726-a2f3-43ac-a810-ff296ba20621",
+      "versionId": "1e1d6bf1-72fd-4875-8167-178286b608cf",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/b74e8726-a2f3-43ac-a810-ff296ba20621/edit",
+      "originalUrls": [
+        "https://arxiv.org/abs/1910.01091"
+      ],
+      "sourceIds": [
+        "paper:1910.01091"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 1,
+      "imageCount": 3
+    },
+    {
+      "key": "company-update:vc-studio-qatar",
+      "title": "HumbleBeeAI Venture Studio LLC Launches in Qatar",
+      "kind": "company-update",
+      "capability": "Company context",
+      "templateId": "portfolio",
+      "documentId": "5162d3bf-9a57-42ce-b8ab-3c04c7c6b035",
+      "versionId": "507353e3-36cd-45da-b5da-96a94022b56e",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/5162d3bf-9a57-42ce-b8ab-3c04c7c6b035/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/vc-studio-qatar"
+      ],
+      "sourceIds": [
+        "company-update:vc-studio-qatar"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 4,
+      "imageCount": 1
+    },
+    {
+      "key": "company-update:innerworks-partnership",
+      "title": "Innerworks and HumbleBeeAI: Building Fraud-Defense Infrastructure Through R&D Partnership",
+      "kind": "company-update",
+      "capability": "Company context",
+      "templateId": "portfolio",
+      "documentId": "02cf5cf8-7ac4-4c0d-9bb6-5137d7d92c5a",
+      "versionId": "7ba29a25-0c3f-4e7e-9239-d4fdc80e108e",
+      "url": "http://localhost:3344/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/02cf5cf8-7ac4-4c0d-9bb6-5137d7d92c5a/edit",
+      "originalUrls": [
+        "https://humblebee.ai/case-studies/innerworks-partnership"
+      ],
+      "sourceIds": [
+        "company-update:innerworks-partnership"
+      ],
+      "mergeBasis": "One primary source per entry; no established case-paper relationship.",
+      "generationModel": "openai/gpt-6-luna",
+      "bulletLists": 2,
+      "imageCount": 1
+    }
+  ]
+}

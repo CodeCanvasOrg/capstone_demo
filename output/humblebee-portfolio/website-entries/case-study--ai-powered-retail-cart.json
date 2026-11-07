@@ -1,0 +1,576 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "AI-Powered Retail Cart Detection Accuracy Improvement",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "How HumbleBeeAI improved retail cart and item detection from ~55% to ~75% mAP@50-95",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "A European retail technology company building intelligent checkout and loss-prevention systems needed more reliable detection of shopping carts and their contents across varied retail settings. HumbleBeeAI conducted focused R&D on the client’s computer-vision detection system, reporting an improvement from ~55% to ~75% accuracy on mAP@50-95. The case study describes real-time performance on edge devices, but does not specify deployment scope or production status.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/d869c90d-603f-4b0c-9b3f-d0bfb60ec880/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "A European retail technology company specializing in intelligent checkout and loss prevention systems faced major challenges in accurately detecting shopping carts and items during checkout. Partnering with HumbleBeeAI, they improved a custom Computer Vision system reaching from ~55% to ~75% accuracy on mAP@50-95, one of the most demanding and comprehensive performance metrics. Through focused R&D, the team overcame the low accuracy of detecting the 'items' - a category encompassing all purchasable goods of varied shapes, sizes, and colors - resulting in a highly robust and reliable detection framework that improved operational efficiency and loss prevention accuracy.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 1,
+            "sourceChunkId": "d869c90d-603f-4b0c-9b3f-d0bfb60ec880"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/1bb16db3-252e-4d87-8d22-774b50e96860/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAI-powered shopping cart monitoring system that boosted detection accuracy from 55% to 75% with real-time performance on edge devices for enhanced loss prevention",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "1bb16db3-252e-4d87-8d22-774b50e96860"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/bf6a0c29-13f6-43a9-a4e3-cfb4bb6b163a/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "The client, a retail AI technology company with over a decade of experience delivering smart retail systems across Europe, specializes in real-time communication, product recognition, and loss prevention solutions. Operating in diverse retail environments - from local stores to large supermarket chains - the company is dedicated to enhancing customer experience and operational security through advanced AI-driven technologies.\n\nAs retail environments grow more dynamic and product diversity increases, ensuring accurate and efficient visual detection of carts and items has become a core challenge. The company sought to advance its detection capabilities using cutting-edge AI research and a more scientifically rigorous evaluation framework.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "bf6a0c29-13f6-43a9-a4e3-cfb4bb6b163a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The client serves retailers ranging from local stores to large supermarket chains, where checkout monitoring and loss prevention depend on detecting carts and diverse purchasable goods. Its existing model achieved only ~55% accuracy, with missed detections of non-empty carts creating potential revenue loss from untracked items.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/bf6a0c29-13f6-43a9-a4e3-cfb4bb6b163a/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "The client, a retail AI technology company with over a decade of experience delivering smart retail systems across Europe, specializes in real-time communication, product recognition, and loss prevention solutions. Operating in diverse retail environments - from local stores to large supermarket chains - the company is dedicated to enhancing customer experience and operational security through advanced AI-driven technologies.\n\nAs retail environments grow more dynamic and product diversity increases, ensuring accurate and efficient visual detection of carts and items has become a core challenge. The company sought to advance its detection capabilities using cutting-edge AI research and a more scientifically rigorous evaluation framework.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "bf6a0c29-13f6-43a9-a4e3-cfb4bb6b163a"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/95d198b3-2867-4bd0-8af7-19f308ab8035/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "The client faced several critical challenges that limited detection reliability and performance:\n\nLow Detection Accuracy: The existing detection model achieved only ~55% accuracy, leading to missed detections of non-empty carts and contributing to potential revenue loss through untracked items.\n\nDifficult Item Class: The 'item' category included every possible purchasable object - from packaged goods to produce - appearing in countless shapes, materials, and colors. This variability made it one of the most complex classes to detect consistently.\n\nInconsistent Data Quality: Significant variation across retail environments and lighting conditions caused inconsistent model performance and hindered proper model evaluation.\n\nUnreliable Evaluation Metrics: The previous accuracy assessments failed to reflect true model reliability, with wide fluctuations depending on test data composition.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "95d198b3-2867-4bd0-8af7-19f308ab8035"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The most difficult category was “item”: products vary widely in shape, material, size and color, from packaged goods to produce. Differences in retail environments and lighting also affected model consistency, while prior evaluation results varied with test-data composition and did not provide a stable view of reliability.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/95d198b3-2867-4bd0-8af7-19f308ab8035/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "The client faced several critical challenges that limited detection reliability and performance:\n\nLow Detection Accuracy: The existing detection model achieved only ~55% accuracy, leading to missed detections of non-empty carts and contributing to potential revenue loss through untracked items.\n\nDifficult Item Class: The 'item' category included every possible purchasable object - from packaged goods to produce - appearing in countless shapes, materials, and colors. This variability made it one of the most complex classes to detect consistently.\n\nInconsistent Data Quality: Significant variation across retail environments and lighting conditions caused inconsistent model performance and hindered proper model evaluation.\n\nUnreliable Evaluation Metrics: The previous accuracy assessments failed to reflect true model reliability, with wide fluctuations depending on test data composition.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "95d198b3-2867-4bd0-8af7-19f308ab8035"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI’s R&D focused on improving recognition of the challenging item class and making performance evaluation more dependable. The case study reports the following delivered research activities:",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/de36d3af-5101-4712-83c0-d6d65f4d3879/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "HumbleBeeAI's team provided a specialized R&D that directly addressed these core challenges through:\n\nFocused Detection Model: A single-stage detection network was custom-trained with an emphasis on the complex 'item' class, allowing the system to learn nuanced visual features across diverse retail scenarios.\n\nEnhanced Dataset Design: The training dataset was significantly expanded and diversified using real-world retail footage. Advanced augmentation methods - including scaling, random cropping, color and brightness variation, and geometric transformations - were applied to strengthen generalization.\n\nConfidence Interval-Based Evaluation: A confidence interval evaluation methodology was introduced to provide statistically sound performance reporting. This approach offered a more reliable and stable understanding of model accuracy, even under dataset noise and domain variability.\n\nContinuous Research-Driven Refinement: By analyzing error distributions and confidence variance across object categories, the team iteratively refined data sampling strategies and model architectures to achieve consistent, reproducible improvements.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 2,
+            "sourceChunkId": "de36d3af-5101-4712-83c0-d6d65f4d3879"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Targeted detection model",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "A single-stage detection network was custom-trained to learn nuanced visual features for the item class across diverse retail scenarios.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/de36d3af-5101-4712-83c0-d6d65f4d3879/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "HumbleBeeAI's team provided a specialized R&D that directly addressed these core challenges through:\n\nFocused Detection Model: A single-stage detection network was custom-trained with an emphasis on the complex 'item' class, allowing the system to learn nuanced visual features across diverse retail scenarios.\n\nEnhanced Dataset Design: The training dataset was significantly expanded and diversified using real-world retail footage. Advanced augmentation methods - including scaling, random cropping, color and brightness variation, and geometric transformations - were applied to strengthen generalization.\n\nConfidence Interval-Based Evaluation: A confidence interval evaluation methodology was introduced to provide statistically sound performance reporting. This approach offered a more reliable and stable understanding of model accuracy, even under dataset noise and domain variability.\n\nContinuous Research-Driven Refinement: By analyzing error distributions and confidence variance across object categories, the team iteratively refined data sampling strategies and model architectures to achieve consistent, reproducible improvements.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 2,
+            "sourceChunkId": "de36d3af-5101-4712-83c0-d6d65f4d3879"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Expanded and diversified training data",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The team expanded and diversified the training dataset with real-world retail footage and used scaling, random cropping, color and brightness variation, and geometric transformations to strengthen generalization.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/de36d3af-5101-4712-83c0-d6d65f4d3879/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "HumbleBeeAI's team provided a specialized R&D that directly addressed these core challenges through:\n\nFocused Detection Model: A single-stage detection network was custom-trained with an emphasis on the complex 'item' class, allowing the system to learn nuanced visual features across diverse retail scenarios.\n\nEnhanced Dataset Design: The training dataset was significantly expanded and diversified using real-world retail footage. Advanced augmentation methods - including scaling, random cropping, color and brightness variation, and geometric transformations - were applied to strengthen generalization.\n\nConfidence Interval-Based Evaluation: A confidence interval evaluation methodology was introduced to provide statistically sound performance reporting. This approach offered a more reliable and stable understanding of model accuracy, even under dataset noise and domain variability.\n\nContinuous Research-Driven Refinement: By analyzing error distributions and confidence variance across object categories, the team iteratively refined data sampling strategies and model architectures to achieve consistent, reproducible improvements.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 2,
+            "sourceChunkId": "de36d3af-5101-4712-83c0-d6d65f4d3879"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Confidence-interval evaluation and iterative refinement",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Confidence interval-based evaluation was introduced to provide statistically grounded performance reporting under dataset noise and domain variability. The team also analyzed error distributions and confidence variance across object categories, then iteratively refined data-sampling strategies and model architectures.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/de36d3af-5101-4712-83c0-d6d65f4d3879/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "HumbleBeeAI's team provided a specialized R&D that directly addressed these core challenges through:\n\nFocused Detection Model: A single-stage detection network was custom-trained with an emphasis on the complex 'item' class, allowing the system to learn nuanced visual features across diverse retail scenarios.\n\nEnhanced Dataset Design: The training dataset was significantly expanded and diversified using real-world retail footage. Advanced augmentation methods - including scaling, random cropping, color and brightness variation, and geometric transformations - were applied to strengthen generalization.\n\nConfidence Interval-Based Evaluation: A confidence interval evaluation methodology was introduced to provide statistically sound performance reporting. This approach offered a more reliable and stable understanding of model accuracy, even under dataset noise and domain variability.\n\nContinuous Research-Driven Refinement: By analyzing error distributions and confidence variance across object categories, the team iteratively refined data sampling strategies and model architectures to achieve consistent, reproducible improvements.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 2,
+            "sourceChunkId": "de36d3af-5101-4712-83c0-d6d65f4d3879"
+          }
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "Illustration of a retail checkout monitoring a shopping cart and its items on a computer display",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/5cce0ef7-1cf9-4ab9-b207-65252b8de6ad/asset",
+        "align": "center",
+        "title": "AI-powered retail cart monitoring",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/5cce0ef7-1cf9-4ab9-b207-65252b8de6ad/asset",
+        "fileName": "case-study--ai-powered-retail-cart.pdf",
+        "chunkText": "23\n23\nag",
+        "mediaType": "image/png",
+        "chunkIndex": 3,
+        "pageNumber": 1,
+        "sourceChunkId": "5cce0ef7-1cf9-4ab9-b207-65252b8de6ad"
+      }
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study reports a substantial model-metric gain and improved evaluation reliability. It also describes stronger item recognition across varied retail conditions; the reported business effects are not quantified.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/51783a48-9107-4a8a-a42f-5d3a3e9ad9ea/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "The R&D team delivered breakthrough results for detection ensuring reliability in retail environments:\n\nSubstantial Accuracy Gains: Detection accuracy improved from ~55% to ~75% mAP@50-95 - an considerable achievement given the difficulty of the target metric and the variability of real-world data.\n\nReliable Evaluation and Validation: Confidence interval-based evaluation provided statistically grounded accuracy reports, reducing variance across datasets and making model assessments more dependable.\n\nRobust Item Recognition: The system demonstrated strong recognition performance across thousands of different item types, achieving stable accuracy in varied lighting and shelf configurations.\n\nImproved Operational Effectiveness: The more accurate and reliable detection framework directly contributed to reduced shrinkage, more efficient checkout monitoring, and improved overall loss prevention outcomes.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 2,
+            "sourceChunkId": "51783a48-9107-4a8a-a42f-5d3a3e9ad9ea"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/d869c90d-603f-4b0c-9b3f-d0bfb60ec880/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "A European retail technology company specializing in intelligent checkout and loss prevention systems faced major challenges in accurately detecting shopping carts and items during checkout. Partnering with HumbleBeeAI, they improved a custom Computer Vision system reaching from ~55% to ~75% accuracy on mAP@50-95, one of the most demanding and comprehensive performance metrics. Through focused R&D, the team overcame the low accuracy of detecting the 'items' - a category encompassing all purchasable goods of varied shapes, sizes, and colors - resulting in a highly robust and reliable detection framework that improved operational efficiency and loss prevention accuracy.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 1,
+            "sourceChunkId": "d869c90d-603f-4b0c-9b3f-d0bfb60ec880"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Detection accuracy increased from ~55% to ~75% mAP@50-95.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/51783a48-9107-4a8a-a42f-5d3a3e9ad9ea/asset",
+                    "fileName": "case-study--ai-powered-retail-cart.pdf",
+                    "chunkText": "The R&D team delivered breakthrough results for detection ensuring reliability in retail environments:\n\nSubstantial Accuracy Gains: Detection accuracy improved from ~55% to ~75% mAP@50-95 - an considerable achievement given the difficulty of the target metric and the variability of real-world data.\n\nReliable Evaluation and Validation: Confidence interval-based evaluation provided statistically grounded accuracy reports, reducing variance across datasets and making model assessments more dependable.\n\nRobust Item Recognition: The system demonstrated strong recognition performance across thousands of different item types, achieving stable accuracy in varied lighting and shelf configurations.\n\nImproved Operational Effectiveness: The more accurate and reliable detection framework directly contributed to reduced shrinkage, more efficient checkout monitoring, and improved overall loss prevention outcomes.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 9,
+                    "pageNumber": 2,
+                    "sourceChunkId": "51783a48-9107-4a8a-a42f-5d3a3e9ad9ea"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Confidence interval-based evaluation produced statistically grounded reports and, according to the case study, reduced variance across datasets.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/51783a48-9107-4a8a-a42f-5d3a3e9ad9ea/asset",
+                    "fileName": "case-study--ai-powered-retail-cart.pdf",
+                    "chunkText": "The R&D team delivered breakthrough results for detection ensuring reliability in retail environments:\n\nSubstantial Accuracy Gains: Detection accuracy improved from ~55% to ~75% mAP@50-95 - an considerable achievement given the difficulty of the target metric and the variability of real-world data.\n\nReliable Evaluation and Validation: Confidence interval-based evaluation provided statistically grounded accuracy reports, reducing variance across datasets and making model assessments more dependable.\n\nRobust Item Recognition: The system demonstrated strong recognition performance across thousands of different item types, achieving stable accuracy in varied lighting and shelf configurations.\n\nImproved Operational Effectiveness: The more accurate and reliable detection framework directly contributed to reduced shrinkage, more efficient checkout monitoring, and improved overall loss prevention outcomes.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 9,
+                    "pageNumber": 2,
+                    "sourceChunkId": "51783a48-9107-4a8a-a42f-5d3a3e9ad9ea"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The system reportedly demonstrated stable recognition across thousands of item types and varied lighting and shelf configurations.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/51783a48-9107-4a8a-a42f-5d3a3e9ad9ea/asset",
+                    "fileName": "case-study--ai-powered-retail-cart.pdf",
+                    "chunkText": "The R&D team delivered breakthrough results for detection ensuring reliability in retail environments:\n\nSubstantial Accuracy Gains: Detection accuracy improved from ~55% to ~75% mAP@50-95 - an considerable achievement given the difficulty of the target metric and the variability of real-world data.\n\nReliable Evaluation and Validation: Confidence interval-based evaluation provided statistically grounded accuracy reports, reducing variance across datasets and making model assessments more dependable.\n\nRobust Item Recognition: The system demonstrated strong recognition performance across thousands of different item types, achieving stable accuracy in varied lighting and shelf configurations.\n\nImproved Operational Effectiveness: The more accurate and reliable detection framework directly contributed to reduced shrinkage, more efficient checkout monitoring, and improved overall loss prevention outcomes.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 9,
+                    "pageNumber": 2,
+                    "sourceChunkId": "51783a48-9107-4a8a-a42f-5d3a3e9ad9ea"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "The source says the more accurate detection framework contributed to reduced shrinkage, more efficient checkout monitoring and improved loss-prevention outcomes, but provides no measured business-impact figures.",
+                  "type": "text"
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/51783a48-9107-4a8a-a42f-5d3a3e9ad9ea/asset",
+                    "fileName": "case-study--ai-powered-retail-cart.pdf",
+                    "chunkText": "The R&D team delivered breakthrough results for detection ensuring reliability in retail environments:\n\nSubstantial Accuracy Gains: Detection accuracy improved from ~55% to ~75% mAP@50-95 - an considerable achievement given the difficulty of the target metric and the variability of real-world data.\n\nReliable Evaluation and Validation: Confidence interval-based evaluation provided statistically grounded accuracy reports, reducing variance across datasets and making model assessments more dependable.\n\nRobust Item Recognition: The system demonstrated strong recognition performance across thousands of different item types, achieving stable accuracy in varied lighting and shelf configurations.\n\nImproved Operational Effectiveness: The more accurate and reliable detection framework directly contributed to reduced shrinkage, more efficient checkout monitoring, and improved overall loss prevention outcomes.",
+                    "mediaType": "application/pdf",
+                    "chunkIndex": 9,
+                    "pageNumber": 2,
+                    "sourceChunkId": "51783a48-9107-4a8a-a42f-5d3a3e9ad9ea"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied case study does not provide deployment details, a production rollout status, independent validation data, or quantified shrinkage, revenue or checkout-efficiency results. It describes real-time performance on edge devices, but does not identify the hardware, operating conditions or deployment coverage. No specific next steps are documented.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/1bb16db3-252e-4d87-8d22-774b50e96860/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAI-powered shopping cart monitoring system that boosted detection accuracy from 55% to 75% with real-time performance on edge devices for enhanced loss prevention",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "1bb16db3-252e-4d87-8d22-774b50e96860"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/d869c90d-603f-4b0c-9b3f-d0bfb60ec880/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "A European retail technology company specializing in intelligent checkout and loss prevention systems faced major challenges in accurately detecting shopping carts and items during checkout. Partnering with HumbleBeeAI, they improved a custom Computer Vision system reaching from ~55% to ~75% accuracy on mAP@50-95, one of the most demanding and comprehensive performance metrics. Through focused R&D, the team overcame the low accuracy of detecting the 'items' - a category encompassing all purchasable goods of varied shapes, sizes, and colors - resulting in a highly robust and reliable detection framework that improved operational efficiency and loss prevention accuracy.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 1,
+            "sourceChunkId": "d869c90d-603f-4b0c-9b3f-d0bfb60ec880"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/51783a48-9107-4a8a-a42f-5d3a3e9ad9ea/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "The R&D team delivered breakthrough results for detection ensuring reliability in retail environments:\n\nSubstantial Accuracy Gains: Detection accuracy improved from ~55% to ~75% mAP@50-95 - an considerable achievement given the difficulty of the target metric and the variability of real-world data.\n\nReliable Evaluation and Validation: Confidence interval-based evaluation provided statistically grounded accuracy reports, reducing variance across datasets and making model assessments more dependable.\n\nRobust Item Recognition: The system demonstrated strong recognition performance across thousands of different item types, achieving stable accuracy in varied lighting and shelf configurations.\n\nImproved Operational Effectiveness: The more accurate and reliable detection framework directly contributed to reduced shrinkage, more efficient checkout monitoring, and improved overall loss prevention outcomes.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 2,
+            "sourceChunkId": "51783a48-9107-4a8a-a42f-5d3a3e9ad9ea"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supplied source identifies an “Open original HumbleBeeAI page” link but does not include its URL, so a working original-page link cannot be provided here.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/1bb16db3-252e-4d87-8d22-774b50e96860/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAI-powered shopping cart monitoring system that boosted detection accuracy from 55% to 75% with real-time performance on edge devices for enhanced loss prevention",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "1bb16db3-252e-4d87-8d22-774b50e96860"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "This R&D engagement addressed the retail client’s hardest detection challenge with targeted model training, richer retail data and more rigorous evaluation. The case study reports that mAP@50-95 accuracy rose from ~55% to ~75%, providing a stronger technical basis for cart and item monitoring; business outcomes beyond the reported qualitative effects were not measured in the supplied material.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/de36d3af-5101-4712-83c0-d6d65f4d3879/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "HumbleBeeAI's team provided a specialized R&D that directly addressed these core challenges through:\n\nFocused Detection Model: A single-stage detection network was custom-trained with an emphasis on the complex 'item' class, allowing the system to learn nuanced visual features across diverse retail scenarios.\n\nEnhanced Dataset Design: The training dataset was significantly expanded and diversified using real-world retail footage. Advanced augmentation methods - including scaling, random cropping, color and brightness variation, and geometric transformations - were applied to strengthen generalization.\n\nConfidence Interval-Based Evaluation: A confidence interval evaluation methodology was introduced to provide statistically sound performance reporting. This approach offered a more reliable and stable understanding of model accuracy, even under dataset noise and domain variability.\n\nContinuous Research-Driven Refinement: By analyzing error distributions and confidence variance across object categories, the team iteratively refined data sampling strategies and model architectures to achieve consistent, reproducible improvements.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 2,
+            "sourceChunkId": "de36d3af-5101-4712-83c0-d6d65f4d3879"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/a21954ea-d02e-46e9-baf2-0afe71f92127/evidence/51783a48-9107-4a8a-a42f-5d3a3e9ad9ea/asset",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "chunkText": "The R&D team delivered breakthrough results for detection ensuring reliability in retail environments:\n\nSubstantial Accuracy Gains: Detection accuracy improved from ~55% to ~75% mAP@50-95 - an considerable achievement given the difficulty of the target metric and the variability of real-world data.\n\nReliable Evaluation and Validation: Confidence interval-based evaluation provided statistically grounded accuracy reports, reducing variance across datasets and making model assessments more dependable.\n\nRobust Item Recognition: The system demonstrated strong recognition performance across thousands of different item types, achieving stable accuracy in varied lighting and shelf configurations.\n\nImproved Operational Effectiveness: The more accurate and reliable detection framework directly contributed to reduced shrinkage, more efficient checkout monitoring, and improved overall loss prevention outcomes.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 2,
+            "sourceChunkId": "51783a48-9107-4a8a-a42f-5d3a3e9ad9ea"
+          }
+        }
+      ]
+    }
+  ]
+}

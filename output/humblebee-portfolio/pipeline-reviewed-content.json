@@ -1,0 +1,5284 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "HumbleBeeAI | Applied AI, built around real workflows"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Review draft • Week 8 • 5 November 2026"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Company overview"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "HumbleBeeAI builds document intelligence, computer vision, analytics and AI platforms for operational teams. Its public work spans customs and logistics, retail, healthcare, workforce systems and interactive AI products. This portfolio brings together 25 client-work case studies, eight product profiles and seven research papers, with two company updates providing context."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Results below are attributed to HumbleBeeAI’s published source material. They have not been independently audited. Product statuses reflect the supplied snapshots, not a current availability check."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Selected flagship work"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Shelf Analysis AI platform for Retail Compliance"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Retail technology SaaS provider (unnamed)",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Manual shelf compliance audits are slow across distributed stores."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Product detection and shelf-position analysis integrated into the distribution platform."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Reported 90%+ detection accuracy and 80% less manual audit time within the first month across 500+ locations; provider serves 600+ customers."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/shelf-analysis",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/shelf-analysis.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–5."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "e9f03557-99b9-407c-b96c-049b44ad533c",
+            "chunkText": "A leading retail technology company, provider of a comprehensive cloud SaaS platform for distribution, partnered with HumbleBeeAI to revolutionize retail compliance monitoring for their 600+ customers across FMCG, beverage, pharmaceutical, and automotive industries. Through our comprehensive Shelf Analysis AI platform integrated into their distribution platform, we delivered automated product detection and intelligent shelf positioning analysis across 500+ locations. The solution achieved 90%+ detection accuracy, reduced manual audit time by 80% within the first month, resulting in enhanced brand visibility and increased sales performance for their end clients.",
+            "fileName": "case-study--shelf-analysis.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/e9f03557-99b9-407c-b96c-049b44ad533c/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "How Retail AI solutions provider boosted accuracy by 20% with R&D"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "European checkout/loss-prevention technology company (unnamed)",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Cart and generic item detection have low accuracy."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Focused computer vision R&D improves detection for varied checkout objects with edge deployment."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Reported mAP@50–95 improves from approximately 55% to approximately 75%: about 20 percentage points."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/ai-powered-retail-cart",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/ai-powered-retail-cart.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–3."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "d869c90d-603f-4b0c-9b3f-d0bfb60ec880",
+            "chunkText": "A European retail technology company specializing in intelligent checkout and loss prevention systems faced major challenges in accurately detecting shopping carts and items during checkout. Partnering with HumbleBeeAI, they improved a custom Computer Vision system reaching from ~55% to ~75% accuracy on mAP@50-95, one of the most demanding and comprehensive performance metrics. Through focused R&D, the team overcame the low accuracy of detecting the 'items' - a category encompassing all purchasable goods of varied shapes, sizes, and colors - resulting in a highly robust and reliable detection framework that improved operational efficiency and loss prevention accuracy.",
+            "fileName": "case-study--ai-powered-retail-cart.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/d869c90d-603f-4b0c-9b3f-d0bfb60ec880/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Automated Training Pipeline Reduces Model Development Time"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Retail technology provider and nontechnical model teams",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Custom model delivery and training management require substantial specialist effort."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Google Cloud Vertex AI automates training and deployment workflows."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Reported development time falls from two months to two weeks (source labels 75%); 90% less training management overhead for a client with over 20 brands."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/automated-training-pipeline",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/automated-training-pipeline.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–3."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "4c5ea7eb-5b69-4dc9-b953-10dc1dd77802",
+            "chunkText": "HumbleBeeAI's Automated Training Pipeline helped a retail technology client reduce model development time from two months to two weeks. This solution allowed non-technical teams to create custom models independently, improving delivery speed and client satisfaction through better detection accuracy.",
+            "fileName": "case-study--automated-training-pipeline.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/4c5ea7eb-5b69-4dc9-b953-10dc1dd77802/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Document AI and automation"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Automating Customs Documentation with Local AI and Computer Vision"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Logistics and customs brokerage firm (unnamed)",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Manual transcription of invoices, packing lists and IDs under local-data constraints."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Locally hosted OCR, computer vision and LLM extraction populate editable declaration templates."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Estimated up to 90% processing-time reduction and reported 97% fewer human errors relative to manual entry. MVP classification remains user-selected; automated classification is planned."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/customs-document-automation",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/customs-document-automation.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–3."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "ba9f4d0e-9a2c-4049-a8ec-ec0caca7c393",
+            "chunkText": "This project developed an intelligent system for the automated recognition and digitization of critical customs documents — including invoices, packing lists, and identity documents. By combining Computer Vision and locally hosted Large Language Models, we transformed a manual, error-prone workflow into a secure, automated pipeline for generating customs declarations. The solution delivers an estimated 90% reduction in processing time and 97% reduction in human error, while meeting the highest standards of data privacy through fully local AI deployment.",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/ba9f4d0e-9a2c-4049-a8ec-ec0caca7c393/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "AI-powered Customs Intelligence System"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Customs and international trade",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " HS-code definitions and historical declarations are fragmented."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " LangChain/GPT chatbot combines official definitions, semantic search and historical trade descriptions."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Reported 76.5% Top-1 and 94.1% Top-3 HS-code accuracy, MRR 0.8515; source corpus contains 65.5 million descriptions."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/ai-customs-intelligence",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/ai-customs-intelligence.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–4."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "4f55f8ce-aa59-497e-b2e8-4346301c2750",
+            "chunkText": "The Customs Optimization Project delivered an AI-powered system that bridges theoretical HS code definitions and real-world trade data. The solution integrates two separate projects: the Custom Clarification Project (official HS code definitions and frameworks) and the Custom Optimization Project (65.5 million product descriptions from customs declarations). The system features a chatbot built on LangChain and GPT models, semantic search through optimized embeddings, and a data pipeline that transforms fragmented information into a cohesive knowledge base. Users access both theoretical definitions and practical product matches in a single interface, reducing classification time from minutes to seconds.\n\nAccuracy: The chatbot achieves 76.5% Top-1 accuracy and 94.1% Top-3 accuracy (MRR 0.8515), with all predictions formatted as valid 10-digit HS codes.",
+            "fileName": "case-study--ai-customs-intelligence.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/4f55f8ce-aa59-497e-b2e8-4346301c2750/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Data Cleaning & Ingestion for HS Code Systems"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Customs and international trade",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Scattered HS-code PDFs and duplicated trade descriptions impede retrieval."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Normalize official structures into Excel/MongoDB and deduplicate descriptions for Pinecone semantic search."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " About 65.5 million descriptions reduced to about 2 million unique records, reported as 97% reduction, while retaining frequency information."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/data-cleaning-hs-codes",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/data-cleaning-hs-codes.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–3."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "a1350216-64f3-4741-abe7-482f2afb8d13",
+            "chunkText": "This report covers two related projects that turned messy Harmonized System (HS) code data into a practical, searchable database for international trade classification. The Custom Clarification Project organized HS code structures from scattered PDF files into clean databases. The Custom Optimization Project reduced a dataset of 65.5 million product descriptions down to 2 million unique records by removing duplicates. These projects built a working foundation for AI-powered trade classification. We use Pinecone vector databases for semantic search and MongoDB for structured navigation. The result: much faster queries, better search accuracy, and 97% less redundant data while keeping track of product frequency. This clean data now supports faster customs processing, more accurate tariff calculations, and automated trade compliance systems.",
+            "fileName": "case-study--data-cleaning-hs-codes.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/a1350216-64f3-4741-abe7-482f2afb8d13/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Excel-based Automated Testing: Reducing Manual Validation Time"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Customs classification QA teams",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Manual validation cannot cover large sets of product descriptions efficiently."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Excel-based FastAPI testing framework compares predicted and expected HS codes."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " First run processed 11,000 descriptions in approximately 4 hours against an estimated manual effort of more than a month."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/excel-automated-testing",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/excel-automated-testing.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–4."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "b70c24f0-a2aa-4acf-898a-4acee140e651",
+            "chunkText": "Open original HumbleBeeAI page\n\nAutomated Excel framework with FastAPI cut HS code validation from over a month to just 4 hours for 11,000 product descriptions.",
+            "fileName": "case-study--excel-automated-testing.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/b70c24f0-a2aa-4acf-898a-4acee140e651/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "LLM Results Analyzer: Unified Analysis Framework"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Customs classification users",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Separate theoretical and historical classification systems leave users to reconcile answers."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Parallel calls to Custom Clarification and Custom Optimization feed an analyzer LLM, preserving original outputs."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Source reports unified, explained recommendations and less manual comparison; no quantified quality improvement."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/llm-results-analyzer",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/llm-results-analyzer.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–4."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "7fbea8e1-e1b4-4a02-a749-ca15584da4c6",
+            "chunkText": "The LLM Results Analyzer integrates outputs from the Custom Clarification Project (theoretical HS code data) and Custom Optimization Project (real-world product descriptions) into unified classification recommendations. This solution tackles the challenge of leveraging both theoretical compliance knowledge and practical trade data to provide accurate and well-justified HS code classifications. The system features a unified endpoint that simultaneously sends requests to both LLM systems, with a third specialized LLM analyzing and synthesizing the results from both sources, providing users with recommendations that consider both legal compliance requirements and practical trade precedent.",
+            "fileName": "case-study--llm-results-analyzer.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/7fbea8e1-e1b4-4a02-a749-ca15584da4c6/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Computer vision"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Shelf Analysis AI platform for Retail Compliance"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Featured above; see the flagship entry and its source."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "A Global Beverage Leader Prevents Retail Fraud with AI"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Retail distribution technology provider (unnamed)",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Field agents can submit false or reused compliance evidence."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " AI fraud detection integrated with retail field-report and planogram workflows."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Source reports over 90% fraudulent-submission detection accuracy within the first week and more than 90% improvement in audit reliability."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/fraud-detection",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/fraud-detection.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–4."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "781ffd75-4b6e-41d1-bc10-df125bbf6480",
+            "chunkText": "A leading retail technology company, provider of a comprehensive cloud SaaS platform for distribution, transformed retail compliance monitoring for their 600+ customers by partnering with HumbleBeeAI. By implementing an AI-powered fraud detection system into their platform, the company now enables their clients - including distributors and manufacturers across FMCG, beverage, pharmaceutical, and automotive industries - to eliminate fraudulent reporting from field agents, ensure planogram adherence across thousands of locations, and achieve high accuracy in retail audits.",
+            "fileName": "case-study--fraud-detection.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/781ffd75-4b6e-41d1-bc10-df125bbf6480/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Flexible Campaigns with Poster Recognition AI"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Retail technology/distribution provider (unnamed)",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " New poster campaigns previously required repeated model training."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Poster recognition uses instant reference-database updates for new campaigns."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Reported 94% recognition accuracy, 90% less verification time and 85% lower deployment costs; previous retraining cycle was three months."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/poster-recognition",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/poster-recognition.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–3."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "360e1314-6e01-4b1b-953b-0973cefb2fbf",
+            "chunkText": "A leading retail technology company, provider of a comprehensive distribution platform, transformed poster recognition capabilities for their retail clients by integrating HumbleBeeAI's advanced Computer Vision solution. The integration eliminated traditional model limitations and achieved campaign flexibility, replacing costly 3-month retraining cycles with instant poster database updates, reducing deployment costs by 85%, and enabling real-time promotional campaign adaptability across 500+ retail locations.",
+            "fileName": "case-study--poster-recognition.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/360e1314-6e01-4b1b-953b-0973cefb2fbf/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Boosting Recognition Accuracy with AI-Powered Data Refinement"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Workplace attendance/security organization (unnamed)",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Unusable face images and identity fragmentation undermine attendance records."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Image filtering, track-level identity aggregation, virtual entry line and automatic face alignment."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Source reports cleaner data and reduced misrecognition. Approximately 5,000 unusable images daily describes the earlier problem, not a measured post-deployment reduction."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/improving-recognition-accuracy",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/improving-recognition-accuracy.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–3."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "f6fa6965-8842-4808-833c-f932c4296550",
+            "chunkText": "An organization struggled with inaccurate facial recognition due to poor data quality, misidentification, and system vulnerabilities. By implementing HumbleBee AI's advanced solution, the client significantly enhanced data integrity and recognition accuracy. The new system leverages intelligent image filtering, facial tracking, and alignment to deliver precise, reliable, and secure attendance monitoring.",
+            "fileName": "case-study--improving-recognition-accuracy.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/f6fa6965-8842-4808-833c-f932c4296550/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "How Retail AI solutions provider boosted accuracy by 20% with R&D"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Featured above; see the flagship entry and its source."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "IV Drip Flow Rate Estimator"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Medical technology provider (unnamed); nursing teams",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Manual IV-drop counting takes attention and can vary by observer."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Offline iOS/Android camera-based flow-rate estimation."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Reported over 95% accuracy and results within 15 seconds versus up to three minutes manually; source describes over 10x faster."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/iv-drip-flow-rate-estimator",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/iv-drip-flow-rate-estimator.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–3."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "dbb05e8a-05c0-4610-be0e-08c5d9f82060",
+            "chunkText": "A leading provider of medical technology solutions partnered with HumbleBeeAI to develop an AI-powered mobile application that automatically estimates IV drip flow rates in real time. This innovative solution replaced manual counting methods with a fast, accurate, and reliable system that delivers results within 15 seconds and achieves over 95% accuracy - all while running securely on mobile devices without internet dependence. By automating a critical but time-consuming clinical task, the solution has significantly improved patient safety, nursing efficiency, and operational consistency across healthcare settings.",
+            "fileName": "case-study--iv-drip-flow-rate-estimator.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/dbb05e8a-05c0-4610-be0e-08c5d9f82060/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Field Center Detection for Augmented Reality in Sports"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Augmented reality company (unnamed)",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Manual field alignment limits sports AR experiences."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Offline mobile lightweight segmentation and keypoint estimation locate field center and alignment points."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Source reports real-time localization on iOS/Android; no numerical accuracy, latency or cost-saving measurement."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/field-center-detection",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/field-center-detection.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–3."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "bea4afff-bd56-4e26-95d5-6057b5e68e8e",
+            "chunkText": "An Augmented Reality (AR) based company partnered with HumbleBeeAI to solve challenges they faced in accurately detecting the center of sports fields using mobile devices. The goal was to create a solution that could provide real-time, precise field center detection and alignment, enhancing the user experience for AR applications. The solution developed by HumbleBeeAI involved a combination of deep learning models, optimized for real-time performance on mobile devices. The app delivers accurate field center localization with minimal computational overhead.",
+            "fileName": "case-study--field-center-detection.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/bea4afff-bd56-4e26-95d5-6057b5e68e8e/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Predicting Carcass Quality Before Slaughter with On-Device Computer Vision"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Cattle producers and feedlot managers",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Post-slaughter grading arrives too late for timing and lot decisions."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Unified mobile detector/classifier predicts premium, medium and poor quality bands from live cattle images."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Source reports 95% “precision accuracy” and offline inference on mobile devices."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/beef-carcass-detection",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/beef-carcass-detection.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–3."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "3a640fc8-ebc4-4c5b-8fa3-f63556ea9767",
+            "chunkText": "Producers have long relied on subjective, post-slaughter grading to understand carcass quality—too late to influence timing or lot selection. Beef Carcass Grading changes that. Using a streamlined on-device vision model refined on domain data, the system predicts carcass-quality bands (premium / medium / poor) from images of live cattle. Confidence-scored results run in real time on common mobile devices, giving managers objective guidance on slaughter timing and lot composition—without depending on connectivity or costly hardware.",
+            "fileName": "case-study--beef-carcass-detection.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/3a640fc8-ebc4-4c5b-8fa3-f63556ea9767/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "LiveScore AI Revolutionizes Real-Time Basketball Scoring"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Basketball event organizers and venues",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Manual scoring delays feedback and complicates live event operation."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " On-premise video inference, player/trick recognition, animated scores, persistent leaderboards and admin controls."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Source reports faster scoring and more consistent administration without quantified accuracy, latency or engagement lift."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/livescore-ai",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/livescore-ai.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–4."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "356651fb-27ec-4901-a225-0a52e8f9cc9b",
+            "chunkText": "LiveScore AI is a low-latency, real-time scoring platform designed to enhance basketball trick-shot and dunk events with animated scores, live leaderboards, and streamlined administrative controls. LiveScore AI provides instant feedback to players and spectators, combining player movement tracking, trick recognition, and automated scoring in a unified system. By reducing human error and increasing audience engagement, the platform offers tournament operators, event producers, and venues the tools they need for seamless event execution, while ensuring that results are accurate, shareable, and reliable for post-event analysis.",
+            "fileName": "case-study--livescore-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/356651fb-27ec-4901-a225-0a52e8f9cc9b/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Breast Cancer Biomarker Classification Revolutionizes Pathology Workflows"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Pathology laboratories",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Biomarker testing involves costly, labor-intensive IHC workflows."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " H&E-image models trained on IHC4BC predict ER, PR, Ki-67 and HER2 in a web triage tool."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Source describes a tool ready for clinical validation; no numerical diagnostic-performance result is supplied."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/breast-cancer",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/breast-cancer.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–3."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "2cd6a8b5-1800-49f9-a9c3-0527c63e4d03",
+            "chunkText": "The Breast Cancer Biomarker Classification project leverages artificial intelligence to predict four critical biomarkers—ER, PR, Ki-67, and HER2—from routine H&E histology images. This AI-driven solution accelerates triage workflows and reduces reliance on expensive and time-consuming IHC panels. By automating the biomarker prediction process, the platform helps pathologists quickly prioritize cases for further testing, improving diagnostic efficiency, and reducing costs. With strong validation results and a scalable web app, this solution is primed for clinical validation and integration into existing workflows.",
+            "fileName": "case-study--breast-cancer.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/2cd6a8b5-1800-49f9-a9c3-0527c63e4d03/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Analytics"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Johnson & Johnson Achieves 96.8% Accuracy in Customer Targeting"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Johnson & Johnson marketing",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Purchase propensity is difficult to predict across varied markets and datasets."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " XGBoost with preprocessing, feature engineering, SHAP explanations and a Flask prediction API."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Reported 96.8% accuracy for purchase-probability prediction."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/ai-based-predictive",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/ai-based-predictive.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–3."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "a68143ba-8a4e-4fd6-8815-bf63b1a9cf63",
+            "chunkText": "Johnson and Johnson's marketing team faced a tough challenge. Predicting customer purchase behavior across diverse markets proved complex, time-consuming, and often inaccurate. With HumbleBeeAI's predictive modeling solution, that story changed. By combining advanced machine learning with explainable AI, the system achieved 96.8 percent accuracy in predicting purchase probability while providing clear, actionable insights. The result was sharper targeting, higher conversions, and smarter marketing decisions.",
+            "fileName": "case-study--ai-based-predictive.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/a68143ba-8a4e-4fd6-8815-bf63b1a9cf63/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "How Johnson and Johnson Found Patterns Hidden in Ablation Data?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Johnson & Johnson; cardiac ablation analysis",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Patient-specific coordinate systems and fragmented procedure files obstruct comparison."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " CARTONET framework normalizes XLSX/CSV data and supports statistical analysis and interactive 3D views."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Source reports improved consistency and analysis efficiency without a numerical performance measure."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/avnrt-ablation-analytics",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/avnrt-ablation-analytics.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–3."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "40e623d3-efd9-4134-b349-99c0a0c04499",
+            "chunkText": "For Johnson and Johnson, analyzing cardiac ablation data had always been a puzzle. Each procedure generated mountains of raw files that were hard to align, normalize, and interpret. With HumbleBeeAI's custom analytical framework, J&J turned this challenge into an opportunity. The solution automated data normalization, statistical analysis, and interactive 3D visualization, transforming complex procedural data into actionable insights that drove both efficiency and smarter decision making.",
+            "fileName": "case-study--avnrt-ablation-analytics.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/40e623d3-efd9-4134-b349-99c0a0c04499/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "How Johnson & Johnson Turned Endless Data Work into Instant Strategy?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Johnson & Johnson marketing",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Manual data cleaning and fragmented product analysis consume analyst time."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Cartonet Analysis Dashboard automates processing, statistical analysis and real-time visual reporting."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Reported 80% reduction in manual effort."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/cartoned-analysis-dashboard",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/cartoned-analysis-dashboard.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–4."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "e9fee05c-0c79-4e00-a9a8-c6318b92849b",
+            "chunkText": "Johnson and Johnson's marketing team was trapped in slow, manual workflows. Every dataset demanded hours of cleaning, reviewing before it revealed any useful insights. With HumbleBeeAI's Cartonet Analysis Dashboard, everything changed. The solution automated data processing, highlighted key patterns instantly, and provided real-time visualizations. The result was an 80 percent reduction in manual effort and a marketing team free to focus on strategy rather than spreadsheets.",
+            "fileName": "case-study--cartoned-analysis-dashboard.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/e9fee05c-0c79-4e00-a9a8-c6318b92849b/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "How Johnson & Johnson Turned a Mountain of Event Data into a Clear Story of ROI?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Johnson & Johnson event and commercial teams",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Event records are disconnected from procedure-volume data."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Power BI integrates data with account/event comparisons and interactive filters."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Source reports improved event-effectiveness analysis and ROI visibility; it does not quantify a return or establish causal clinical impact."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/impact-event-analysis",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/impact-event-analysis.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–3."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "e29717b2-8eac-4ac1-bbbd-dd990ebda74e",
+            "chunkText": "Johnson and Johnson partnered with HumbleBeeAI to answer a critical question: Do their events actually increase medical procedure volumes?. The answer came through a powerful Power BI solution. HumbleBeeAI gave J&J the ability to measure event effectiveness, compare regional performance, and prove return on investment with confidence by turning fragmented and inconsistent data into a unified analytics platform.",
+            "fileName": "case-study--impact-event-analysis.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/e29717b2-8eac-4ac1-bbbd-dd990ebda74e/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "How Johnson & Johnson reduced patient data analytics time by 80%?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Johnson & Johnson analytics",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Inconsistent Excel structures create parsing and preprocessing bottlenecks."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Patient Report Analyzer adapts parsing, cleans data and uses batch processing and caching."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Reported 80% preprocessing/manual-work reduction and a separate 50% processing improvement; source describes gigabyte-scale data."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/patient-data-analytics",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/patient-data-analytics.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–3."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "78bb7334-7237-4866-8a7c-2168cf401e13",
+            "chunkText": "For years, Johnson & Johnson fought with an invisible bottleneck: patient data locked inside messy Excel files. Each dataset looked different, slowing analysis and drowning teams in manual cleanup. Then came a breakthrough. With HumbleBeeAI's Patient Report Analyzer, J&J automated the chaos. Overnight, preprocessing time dropped by 80%, processing time halved, and healthcare professionals could finally focus on patients instead of spreadsheets.",
+            "fileName": "case-study--patient-data-analytics.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/78bb7334-7237-4866-8a7c-2168cf401e13/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Driving Brand Visibility on Generative AI"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Enterprise marketing, SEO and product teams (client unnamed)",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Brand visibility across generative engines is hard to measure consistently."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Amazon QuickSight Generative Engine Visibility Dashboard centralizes automated analytics."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Source reports automated visibility reporting and clearer analysis; cover labels automation 100% without a defined denominator."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/amplifyr",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/amplifyr.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–3."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "a39bd092-c7a9-44a5-8776-f8e3ce7c728f",
+            "chunkText": "A leading enterprise client struggled to measure its brand visibility on generative AI platforms like ChatGPT and Gemini, hindering strategic decision-making. HumbleBee AI developed the 'Generative Engine Visibility Dashboard' using Amazon QuickSight, creating a centralized, automated analytics platform. This solution transformed the client's manual guesswork into a streamlined, data-driven workflow, providing clear, accurate, and convenient insights for marketing, SEO, and product teams.",
+            "fileName": "case-study--amplifyr.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/a39bd092-c7a9-44a5-8776-f8e3ce7c728f/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "AI platforms"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Automated Training Pipeline Reduces Model Development Time"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Featured above; see the flagship entry and its source."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Enterprise Data Labeling Platform Deployment & Customization"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Computer vision service provider",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Enterprise annotation needs isolation, backup and scalable model-assisted workflows."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Customized labeling platform with ML backend, isolated environments and GCS-backed recovery."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Source reports 15+ isolated deployments, 75% less annotation time and 90%+ labeling accuracy; also claims 99.9% data-protection reliability."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/data-labeling-tool",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/data-labeling-tool.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–4."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "dbe9ed7c-06d9-4c00-bd5c-3d516850ece4",
+            "chunkText": "A Computer Vision service provider faced scalability and security challenges when deploying annotation platforms for over 15 enterprise clients. By implementing customized labeling platform with an ML backend, the client deployed 15+ isolated annotation environments, achieving a 75% reduction in annotation time and establishing a secure, scalable architecture for further expansion.",
+            "fileName": "case-study--data-labeling-tool.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/dbe9ed7c-06d9-4c00-bd5c-3d516850ece4/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "ROI Processing with Track-Timing Cuts LumioHub AI Costs"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "LumioHub AI platform provider",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Whole-frame processing and long-lived tracks overload compute and memory."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Region-of-interest processing and a 30-second track-duration management mechanism."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Source reports lower computation, stable memory and faster response without quantified savings."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/optimizing-recognition-processing",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/optimizing-recognition-processing.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–3."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "5f4fdfed-c2e3-4106-b9c5-4fb451db84e7",
+            "chunkText": "A leading LumioHub AI platform provider faced significant computational and memory challenges that hindered system performance and scalability. By partnering with HumbleBee AI, the client implemented a Region of Interest (ROI) processing model and a track-timing mechanism. This custom AI solution resulted in substantially lower computational costs, controlled memory usage, and more efficient, real-time data processing.",
+            "fileName": "case-study--optimizing-recognition-processing.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/5f4fdfed-c2e3-4106-b9c5-4fb451db84e7/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Securing a Scalable Platform"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Enterprise LumioHub AI client (unnamed)",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Problem.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " A workplace platform needs secure tenancy, permissions and scalable inference."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Multi-tenant architecture with hybrid RBAC/ABAC and dynamic AI recognition clusters."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reported outcome.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Source reports secure isolation and scalable operation without a measured throughput or security benchmark."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original case study",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/lumiohub-platform",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "case-studies/lumiohub-platform.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–3."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "65db0def-cab7-4bf8-b20f-259054b4bfad",
+            "chunkText": "HumbleBee AI partnered with an enterprise client to architect a secure, scalable LumioHub AI platform from the ground up. By implementing a sophisticated architecture with a hybrid RBAC + ABAC permission model and a dynamic AI recognition cluster, HumbleBee AI successfully delivered a resilient, multi-tenant solution. The platform now offers data isolation, scalability, and real-time operational efficiency, positioning the client for growth.",
+            "fileName": "case-study--lumiohub-platform.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/65db0def-cab7-4bf8-b20f-259054b4bfad/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Products"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Status labels below reproduce the published cover labels. “prod ready” is the source’s label; it is not an independent deployment certification."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "HStaff"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Combines Hubstaff activity, Discord progress reports and team analytics. For distributed-team leaders."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Published status:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " prod ready."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Product profile",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/projects/hstaff",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · Demo link not supplied in the PDF. · PDF "
+        },
+        {
+          "type": "text",
+          "text": "projects/hstaff.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–7."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "1a14a763-06bd-4751-939f-16dcbae22e1d",
+            "chunkText": "HStaff is a comprehensive workforce analytics platform that transforms how organizations manage distributed teams through automated data synchronization and intelligent analytics. The platform automatically collects activity metrics from Hubstaff and progress reports from Discord, unifying them into a powerful dashboard. With real-time deepwork analysis, progress planning scoring, mentorship tracking, and fully responsive design across all devices, HStaff provides managers with instant visibility into team productivity and progress compliance.",
+            "fileName": "project--hstaff.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/1a14a763-06bd-4751-939f-16dcbae22e1d/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "LumioHub AI"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Workplace attendance, access visibility, presence analytics and reporting. For multi-site organizations, HR and service providers."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Published status:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " prod ready."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Product profile",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/projects/lumiohub",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · "
+        },
+        {
+          "type": "text",
+          "text": "Published demo link",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://lumiohub.ai/",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "projects/lumiohub.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–4."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "37324f42-5f07-4210-b82a-b6e0572d3874",
+            "chunkText": "LumioHub AI is a modern workplace management platform that combines real-time sensing, intelligent automation, and enterprise-grade analytics to improve attendance accuracy, strengthen on-premise security, and reduce administrative workload. Built for multi-site organizations and service providers, it supports secure multi-tenant deployments with strict data separation and configurable governance controls.\n\nBeyond basic check-in and check-out, LumioHub AI provides continuous workplace insights, including desk presence tracking, live indoor location awareness, break and wellbeing reminders, fatigue and rest detection, interaction and conversation signals, focus or distraction indicators (such as phone usage during defined work windows), and role-based performance reporting. All insights are delivered through dashboards, summaries, spatial views, and exportable reports, enabling operational visibility without the need for manual supervision or continuous video monitoring.",
+            "fileName": "project--lumiohub.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/37324f42-5f07-4210-b82a-b6e0572d3874/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "AI Avatar-Photorealistic Real-Time Conversational Avatar"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Real-time voice/text conversational avatars. For customer service, education and communication teams."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Published status:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " prod demo."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Product profile",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/projects/ai-avatar",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · "
+        },
+        {
+          "type": "text",
+          "text": "Published demo link",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://avatar.humblebee.ai/",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "projects/ai-avatar.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–5."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "c7c448e7-a21a-4f46-be35-8c9fc571b7e5",
+            "chunkText": "AI Avatar is a real-time conversational avatar platform that delivers lifelike, talking-head digital humans capable of speaking, listening, and responding naturally. Designed for interactive experiences, the platform enables organizations to deploy always-on virtual presenters, tutors, and customer-facing agents that feel human, responsive, and engaging.\n\nBy replacing traditional video production and static chatbot interfaces, AI Avatar allows teams to create high-quality, interactive avatar experiences in minutes instead of days. The platform removes the need for studios, actors, and complex production workflows while maintaining a professional, human-like presence suitable for enterprise use. AI Avatar transforms how organizations engage audiences across customer service, education, marketing, and internal communications.",
+            "fileName": "project--ai-avatar.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/c7c448e7-a21a-4f46-be35-8c9fc571b7e5/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Kumush AI"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Voice agent for calls, reservations and business workflows. For organizations serving Uzbek-speaking customers."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Published status:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " prod demo."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Product profile",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/projects/kumush-ai",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · "
+        },
+        {
+          "type": "text",
+          "text": "Published demo link",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://kumush.ai/",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "projects/kumush-ai.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–5."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "c8f65be7-5ace-4d44-87c0-858f8096df0d",
+            "chunkText": "Global voice automation platforms often struggle in linguistically complex markets, where effective interaction requires more than basic speech recognition. For Uzbek-speaking audiences, successful automation depends on deep language understanding, accurate handling of regional dialects, culturally appropriate phrasing, and workflows aligned with local business processes.\n\nKumush AI was created to address these challenges by moving beyond translated scripts and conversational demos. It is engineered to speak and reason in native-level Uzbek, manage multi-turn conversations, and execute outcome-driven tasks through direct integration with business systems. The platform supports real-time intent understanding, data retrieval and validation, and task completion across diverse operational scenarios.\n\nDesigned for organizations that require reliable, scalable voice automation, Kumush AI delivers consistent, native-language support across industries including education, healthcare, banking, hospitality, and retail.",
+            "fileName": "project--kumush-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/c8f65be7-5ace-4d44-87c0-858f8096df0d/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Wakil AI"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Evidence-based multilingual legal assistant and lawyer marketplace. For individuals, businesses and legal professionals in Uzbekistan."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Published status:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " prod ready. Wakil AI Associate is described as upcoming."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Product profile",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/projects/wakil-ai",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · "
+        },
+        {
+          "type": "text",
+          "text": "Published demo link",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://wakil.ai/",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "projects/wakil-ai.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–6."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "f670158d-0e5c-47d1-ab21-1285e09c430a",
+            "chunkText": "Accessing legal information and services remains a major challenge for many citizens and enterprises in Uzbekistan. Legal texts are complex, official databases lack user-friendly explanation tools, and professional legal help can be expensive or hard to find. Wakil AI aims to bridge this gap by leveraging AI to provide clear legal answers, evidence-backed citation, and direct access to qualified lawyers, all while respecting local language nuances and data privacy.\n\nBy combining generative AI, legal retrieval techniques, and a human professional network, Wakil AI serves as a trusted legal companion that enhances access to justice and supports better outcomes for users at every level.",
+            "fileName": "project--wakil-ai.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/f670158d-0e5c-47d1-ab21-1285e09c430a/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Bojhona: AI-Powered Customs Intelligence: HS Code Definitions"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Unifies HS definitions with historical product descriptions for classification. For customs officers, managers and trade businesses."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Published status:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " in dev."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Product profile",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/projects/bojhona",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · Demo link not supplied in the PDF. · PDF "
+        },
+        {
+          "type": "text",
+          "text": "projects/bojhona.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–3."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "72c6bda1-055c-4787-b912-5b390a549d4d",
+            "chunkText": "The AI-Powered Customs Intelligence project delivers an advanced AI-powered system that unifies theoretical HS-code definitions with real-world trade data. By integrating two phases of projects - Phase A (official and structural HS-code definitions) and Phase B (historical large-scale product descriptions from customs declarations) - the solution provides a single platform for accurate and efficient classification. Built on a foundation of large-scale data optimization, semantic embeddings, and a LangChain-based chatbot, the system enables customs officers, managers, and business users to access both legal definitions and practical product HS code matches in one place. This unified approach improves compliance accuracy, reduces reliance on manual processes, and establishes a scalable framework for modern customs operations.",
+            "fileName": "project--bojhona.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/72c6bda1-055c-4787-b912-5b390a549d4d/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Enlighten Qalb: AI Spiritual Guide"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Memory-enabled AI companion grounded in curated spiritual sources. For people seeking faith-aligned spiritual reflection."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Published status:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " prod ready."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Product profile",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/projects/enlighten-qalb",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · Demo link not supplied in the PDF. · PDF "
+        },
+        {
+          "type": "text",
+          "text": "projects/enlighten-qalb.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–8."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "37336d44-f180-4ad9-aa1c-062172198b57",
+            "chunkText": "Open original HumbleBeeAI page\n\nAI chatbot trained on The Alchemy of Happiness (Kimyai Saadat) by Al-Ghazali, offering personalized spiritual guidance and wisdom for inner growth.",
+            "fileName": "project--enlighten-qalb.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/37336d44-f180-4ad9-aa1c-062172198b57/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "bRide: Empowering Human Potential through AI Execution"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Human-guided AI execution and longitudinal professional growth support. For knowledge workers and organizations."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Published status:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " in dev."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Product profile",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/projects/bride",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · Demo link not supplied in the PDF. · PDF "
+        },
+        {
+          "type": "text",
+          "text": "projects/bride.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–4."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "5ed9ab58-bfc1-4ff2-a130-04f5fb48e157",
+            "chunkText": "is an AI-powered productivity platform designed to scale human capabilities, optimize execution, and amplify professional growth. It is not just a tool, but a high-performance AI assistant that works under the guidance of elite human talent. bRide is built for organizations that seek to empower knowledge workers with a new layer of AI-driven execution, focusing on real work, real progress, and measurable human growth.\n\nWith bRide, AI is not autonomous but designed to be ridden by humans. By capturing longitudinal human growth data, bRide learns from how professionals evolve, tracking their journey from beginner to elite levels. This unique approach helps users accelerate workflows, reduce cognitive load, and achieve scalable, high-quality execution across all tasks. bRide is not a mere productivity tool; it is a long-term partner in the journey of human mastery.",
+            "fileName": "project--bride.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/5ed9ab58-bfc1-4ff2-a130-04f5fb48e157/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Research"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The following work appears in HumbleBeeAI’s research collection. Authors and findings remain attached to their individual papers. The supplied sources do not establish that these papers underpin any named product or client case. LITE and PRIME explicitly acknowledge HUMBLEBEE R&D support, and PRIME discusses LITE."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "LITE: A Paradigm Shift in Multi-Object Tracking with Efficient ReID Feature Integration"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Authors:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Jumabek Alikhanov, Dilshod Obidov, Hakil Kim."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Status:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " arXiv preprint v2, 1 October 2024."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Question.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Can ReID features be integrated into detection/tracking without separate model overhead?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Finding.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " DeepSORT+LITE reports HOTA 43.03 at 28.3 FPS on MOT17, about twice DeepSORT speed on MOT17 and four times on MOT20 with similar accuracy. MOT17/MOT20 comparisons; framework, detector and configuration determine results."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Publication / research record",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://arxiv.org/abs/2409.04187",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "papers/2409.04187-lite-the-lightweight-integrated-tracking-feature-extraction-paradi.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", p. 1."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "fc17153e-4ae6-480a-ae3c-17678f617f10",
+            "chunkText": "Multiple Object Tracking (MOT) is crucial in computer vision for maintaining consistent object identities across video frames, with applications in surveillance, autonomous driving, and sports analytics [6,16]. Real-time performance is essential in these scenarios to ensure timely and accurate responses to dynamic events [8,24]. Furthermore, strong MOT systems and can advances the field of Assisted Living technologies and deep learning enhanced elderly care. MOT enables reliablly monitoring for fall detection and vital signs [7,19].\n\nRe-Identification (ReID) aims to associate objects, particularly humans, across different camera views. It is vital in scenarios where the same object may leave the field of view of one camera and reappear in another, such as in multi-camera\n\nsurveillance systems, tracking athletes in sports, and analyzing customer behavior in retail environments. The challenge lies in matching identities accurately despite variations in lighting, pose, occlusions, and camera angles. Current ReIDbased trackers face issues like unclear improvement contributions, dependency on advanced detectors, and lack of exhaustive evaluation under varied conditions [26,10]. Although recent methods [26,17] show superior performance, they often require specific detector training and sophisticated loss functions.",
+            "fileName": "paper--2409.04187.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/fc17153e-4ae6-480a-ae3c-17678f617f10/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Practical Evaluation Framework for Real-Time Multi-Object Tracking: Achieving Optimal and Realistic Performance"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Authors:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Jumabek Alikhanov, Dilshod Obidov, Mirsaid Abdurasulov, Hakil Kim."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Status:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Published, IEEE Access, volume 13, 2025; DOI 10.1109/ACCESS.2025.3541177."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Question.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " How should tracking be evaluated under practical detector, ReID and runtime constraints?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Finding.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Framework reports that resolution/threshold choices can yield HOTA up to 30 versus 10 without optimization; LITE reduces appearance-feature overhead. Configuration-dependent experimental finding, not a universal 20-point improvement."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Publication / research record",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://ieeexplore.ieee.org/abstract/document/10883969",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "papers/10883969-prime-practical-evaluation-framework-for-real-time-multi-object-tr.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", p. 1."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "77577a47-3abf-43fb-8025-b7aa3244ccfb",
+            "chunkText": "ABSTRACT This paper introduces an enhanced evaluation framework to assess the real-world efficacy of multi-object tracking (MOT) systems, focusing on holistic assessment encompassing detection, ReID (ReIdentification), and tracking components. The Lightweight Integrated Tracking-Feature Extraction (LITE) paradigm is proposed as a novel method that seamlessly integrates ReID features within the tracking pipeline, minimizing computational overhead. Unlike conventional frameworks, which often overlook realworld constraints, our approach benchmarks tracker performance in practical scenarios using off-theshelf detectors. A significant insight derived from our framework indicates that practitioners can attain a HOTA (Higher Order Tracking Accuracy) score of up to 30% by customizing input resolutions and confidence thresholds. In contrast, those who are unaware of these optimizations may only achieve a HOTA score of 10%. This finding underscores the critical advantage offered by our evaluation method. Comprehensive experiments reveal that LITE enables ReID-based trackers to operate with similar speeds to motion-only systems (uses only motion cues, such as object trajectory and velocity, to detect and track objects over time without incorporating appearance features), without compromising accuracy. Our findings underscore the LITE paradigm’s potential to shift the dynamics of MOT, offering a balanced solution between computational efficiency and high-performance tracking. The evaluation framework not only standardizes tracker assessment but also highlights the versatility of LITE across diverse datasets and edge devices. The source code for this research is publicly available at https://github.com/Jumabek/LITE.",
+            "fileName": "paper--10883969.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/77577a47-3abf-43fb-8025-b7aa3244ccfb/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Design of Contextual Filtered Features for Better Smartphone-User Receptivity Prediction"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Authors:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Jumabek Alikhanov, Panyu Zhang, Youngtae Noh; Hakil Kim."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Status:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Published, IEEE Internet of Things Journal 11(7), 1 April 2024; listing says 2023."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Question.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Do contextually filtered phone/watch features better predict receptivity to just-in-time interventions?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Finding.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Average ROC-AUC 56.5% versus 54.7% for conventional features on KEmoPhone: 3,334 responses from 73 participants over one week. Across multiple classifiers; baseline conventional time-series statistics uses an 80-minute window."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Publication / research record",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://ieeexplore.ieee.org/abstract/document/10316180",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "papers/10316180-design-of-contextual-filtered-features-for-better-smartphone-user-.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", p. 1."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "10714c6e-8015-484d-8315-715ac151a1c7",
+            "chunkText": "Abstract—For the successful engagement of users with incoming interventions, the delivery of just-in-time (JIT) (or opportune moment–OM) interventions is of the utmost importance. This can be accomplished with a machine learning (ML) model that utilizes user context data. Smartwatch and smartphone interactions further open the space for further improvement by considering the user’s state and environmental information. In this work, a novel feature engineering approach for predicting smartphone user receptivity to JIT interventions is proposed. Proposed approach utilizes rich information from user–smartphone interactions and smartwatch sensor data to extract contextually filtered features (CFFs). The superiority of the proposed feature engineering method is demonstrated by developing an ML model that predicts a participant’s receptivity prior to administering an experience sampling method (ESM) questionnaire. The proposed approach is evaluated using the KEmoPhone data set, which contains 3334 ESM answers collected over the course of one week from 73 participants. To reduce the bias that may result in selecting specific classifier, multiple classifiers are tested and their average ROC-AUC metrics are compared. The results show that the proposed feature engineering method—CFFs improves the prediction performance, achieving an ROC-AUC of 56.5% as opposed to 54.7% obtained using conventional features (statistical moments of time series over an 80 min window). Such superior performance is consistent across multiple ML classification algorithms. Full research code will be released in Jupyter Notebooks for facilitating the research in the domain at https://github.com/Jumabek/receptivity upon the publication of this research work.",
+            "fileName": "paper--10316180.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/10714c6e-8015-484d-8315-715ac151a1c7/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Performance Evaluation of Deep Learning Based Network Intrusion Detection System across Multiple Balanced and Imbalanced Datasets"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Authors:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Azizjon Meliboev; Jumabek Alikhanov; Wooseong Kim."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Status:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Published, Electronics 11(4), 515, 9 February 2022; DOI 10.3390/electronics11040515."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Question.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " How do CNN, recurrent and hybrid intrusion detectors compare across balanced/imbalanced benchmark data?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Finding.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Single CNN and CNN/LSTM combinations outperform other evaluated architectures in the reported experiments. UNSW-NB15, KDDCup 99 and NSL-KDD; up to 100 epochs, learning rate 0.0001. Results vary by dataset and balance."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Publication / research record",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://www.mdpi.com/2079-9292/11/4/515",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "papers/515-performance-evaluation-of-deep-learning-based-network-intrusion-de.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", p. 1."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "856170f9-0414-4dea-af59-ebbdfbbb9090",
+            "chunkText": "Abstract: In the modern era of active network throughput and communication, the study of Intrusion Detection Systems (IDS) is a crucial role to ensure safe network resources and information from outside invasion. Recently, IDS has become a needful tool for improving flexibility and efficiency for unexpected and unpredictable invasions of the network. Deep learning (DL) is an essential and well-known tool to solve complex system problems and can learn rich features of enormous data. In this work, we aimed at a DL method for applying the effective and adaptive IDS by applying the architectures such as Convolutional Neural Network (CNN) and Long-Short Term Memory (LSTM), Recurrent Neural Network (RNN), Gated Recurrent Unit (GRU). CNN models have already proved an incredible performance in computer vision tasks. Moreover, the CNN can be applied to timesequence data. We implement the DL models such as CNN, LSTM, RNN, GRU by using sequential data in a prearranged time range as a malicious traffic record for developing the IDS. The benign and attack records of network activities are classified, and a label is given for the supervised-learning method. We applied our approaches to three different benchmark data sets which are UNSW NB15, KDDCup ’99, NSL-KDD to show the efficiency of DL approaches. For contrast in performance, we applied CNN and LSTM combination models with varied parameters and architectures. In each implementation, we trained the models until 100 epochs accompanied by a learning rate of 0.0001 for both balanced and imbalanced train data scenarios. The single CNN and combination of LSTM models have overcome compared to others. This is essentially because the CNN model can learn high-level features that characterize the abstract patterns from network traffic records data.",
+            "fileName": "paper--515.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/856170f9-0414-4dea-af59-ebbdfbbb9090/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Investigating the Effect of Traffic Sampling on Machine Learning-Based Network Intrusion Detection Approaches"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Authors:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Jumabek Alikhanov, Rhongho Jang, Mohammed Abuhamad, David Mohaisen, Daehun Nyang, Youngtae Noh."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Status:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Published online 23 December 2021; IEEE Access volume 10, 2022; DOI 10.1109/ACCESS.2021.3137318."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Question.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " How do packet sampling choices affect intrusion-detection rate and false alarms?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Finding.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Short malicious flows can disappear even at sampling rates 1/10 and 1/100; random forest with SketchFlow gives a favorable detection/false-alarm combination in the evaluated settings. Four samplers, three classifiers and rates 1/10, 1/100 and 1/1000; do not generalize to all networks."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Publication / research record",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://ieeexplore.ieee.org/abstract/document/9661375",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "papers/9661375-investigating-the-effect-of-traffic-sampling-on-machine-learning-b.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", p. 1."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "487d5639-2d3d-439a-8504-9a892ab21a03",
+            "chunkText": "ABSTRACT Machine Learning (ML) based Network Intrusion Systems (NIDSs) operate on flow features which are obtained from flow exporting protocols (i.e., NetFlow). Recent success of ML and Deep Learning (DL) based NIDS solutions assume such flow information (e.g., avg. packet size) is obtained from all packets of the flow. However, often in practice flow exporter is deployed on commodity devices where packet sampling is inevitable. As a result, applicability of such ML based NIDS solutions in the presence of sampling (i.e., when flow information is obtained from sampled set of packets instead of full traffic) is an open question. In this study, we explore the impact of packet sampling on the performance and efficiency of ML-based NIDSs. Unlike previous work, our proposed evaluation procedure is immune to different settings of flow export stage. Hence, it can provide a robust evaluation of NIDS even in the presence of sampling. Through sampling experiments we established that malicious flows with shorter size (i.e., number of packets) are likely to go unnoticed even with mild sampling rates such as 1/10 and 1/100. Next, using the proposed evaluation procedure we investigated the impact of various sampling techniques on NIDS detection rate and false alarm rate. Detection rate and false alarm rate is computed for three sampling rates (i.e., 1/10, 1/100, 1/1000), for four different sampling techniques and for three (two tree-based, one deep learning based) classifiers. Experimental results show that systematic linear sampler - SketFlow performs better compared to non-linear samplers such as Sketch Guided and Fast Filtered sampling. We also found that random forest classifier with SketchFlow sampling was a better combination. The combination showed higher detection rate and lower false alarm rate across multiple sampling rates compared to other sampler-classifier combinations. Our results are consistent in multiple sampling rates, exceptional case is observed for Sketch Guided Sampling (SGS) as it caused a drastic performance drop when sampling rate was changed from 1/100 to 1/1000. Our results provide valuable insights for network practitioners and researchers regarding on how packet sampling effects ML-based NIDS performance. In this regard full source code for sampling and ML experiments has been released: github.com/Jumabek/sampledFlowMeter and github.com/Jumabek/nids-with-sampling",
+            "fileName": "paper--9661375.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/487d5639-2d3d-439a-8504-9a892ab21a03/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 2,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "1D CNN based network intrusion detection with normalization on imbalanced data"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Authors:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Azizjon Meliboev; Jumabek Alikhanov; Wooseong Kim."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Status:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Downloaded evidence: arXiv:2003.00476v1, 1 March 2020; listing links an IEEE conference record."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Question.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Can normalized 1D-CNN traffic models improve intrusion detection on imbalanced data?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Finding.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " 1D-CNN variants outperform RF/SVM comparators in the reported UNSW-NB15 experiments. Balanced and imbalanced training; up to 200 epochs, learning rate 0.0001; no single cross-setting accuracy claimed."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Publication / research record",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://ieeexplore.ieee.org/abstract/document/9064976",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "papers/9064976-1d-cnn-based-network-intrusion-detection-with-normalization-on-imb.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", p. 1."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "6ea83cd5-bfe9-47fb-b5a5-cbed05d1de56",
+            "chunkText": "outside attack in advance rather than the HBIDS. IDS inspects the network traffic and raises alarms if a breach is observed when the traffic passes through the network devices of an organization. According to methodologies, IDSs are categorized into two classes: a) signature detection, and b) anomaly detection. Signature based detection uses predefined signatures and filters. This method effectively detects the known intrusions while unknown malicious behavior is not caught well. Consequently, these unknown threats can be detected only after they are recognized by some other techniques and tagged with a signature for them. In contrast, an anomaly based detection depends on heuristic approaches to detect the unknown intrusion. It categories network breaches as attack when observing a deviation from normal traffic pattern. Recent researches showed that a self-learning system can be applied as a reliable solution for IDS. The self-learning system is one of powerful and proactive method that use deep learning concepts such as supervised and unsupervised algorithms. Deep learning-based method is able to extract the features from big amount of traffic data and learn the abstract representation of complex features with sequence information of TCP/IP. In short, the deep learning-based method can help to overcome the challenges of developing an efficient and flexible IDS. The training data have been considered important for machine learning, also in the deep learning. In our work, traffic data are collected and labeled by normal and anomalous traffic records from different network sources. A good feature representation from these data is obtained using deep learning techniques, which finally enables a supervised classification to come up with remarkable results. In detail, we use a deep learningbased 1D-CNN supervised classification, batch normalization and soft-max regression, for our IDS. Our architecture is depicted in Figure 1. We demonstrate the usability of 1DCNN based IDS by applying on UNSW NB15, a recent new intrusion dataset. We provide a comparison of our work with RF and SVM machine learning classifiers as well. The rest of the paper is organized as follows. Section II introduces existing works on IDS. Section III gives our proposed method of CNN and combination of LSTM (Long short term memory) and their network architecture. Data description, as well as random sampling techniques for imbalanced data that we use, are explained in Section IV. The experimental results of our",
+            "fileName": "paper--9064976.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/6ea83cd5-bfe9-47fb-b5a5-cbed05d1de56/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "W-Net: A CNN-based Architecture for White Blood Cells Image Classification"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Authors:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Changhun Jung, Mohammed Abuhamad, Jumabek Alikhanov, Aziz Mohaisen, Kyungja Han, DaeHun Nyang."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Status:",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Downloaded evidence: arXiv:1910.01091v1, 2 October 2019."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Question.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Can a compact CNN classify five white-blood-cell types?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Finding.",
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " Reports average 97% classification accuracy on a private 6,562-image dataset; also evaluates LISC transfer learning. Five WBC types; private Catholic University of Korea dataset. This is not a breast-cancer biomarker result."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Publication / research record",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://arxiv.org/abs/1910.01091",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "papers/1910.01091-w-net-a-cnn-based-architecture-for-white-blood-cells-image-classif.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", p. 1."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "f2765b26-100c-49d3-bc38-0cf9d621da33",
+            "chunkText": "common cause of cancer-caused death in the US (LLS 2019). There are various types of leukemia, including ALL (Acute lymphocytic leukemia), AML (Acute myelogenous leukemia), CLL (Chronic lymphocytic leukemia), CML (Chronic myelogenous leukemia). Chronic leukemia progresses more slowly than acute leukemia which requires immediate medical care. Acute leukemia is characterized by proliferation of blasts, CLL is characterized by increased lymphocytes while CML shows markedly increased neutrophils and some basophils in the blood (LRF 2019). It is therefore important to analyze the count of the five types of WBC, which will help accurately diagnose leukemia.\n\nIn this paper, we propose a CNN-based WBC classification model, W-Net, to accurately recognize WBC types. Our model consists of three convolutional layers for extracting features from WBC images, and two fully-connected layers for classifying them into five classes using a softmax classifier. W-Net outperforms state-of-the-art schemes in terms of accuracy. We compare W-Net to ResNet (He et al. 2016) to show its effectiveness in WBC image classification. We further show experiment the LISC public data (Rezatofighi and Soltanian-Zadeh 2011) to show how other researchers can benefit from our trained W-Net model.\n\nContribution. The contribution of this work is as follows. 1) We propose a CNN architecture, W-Net, with a small number of layers fostering efficiency for WBC classification. 2) We examine the performance of W-Net using a large-scale dataset consisting of 6,562 real images. 3) We address an unbalanced dataset for five classes with deep learning and obtain a WBC classification accuracy of 97%.",
+            "fileName": "paper--1910.01091.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/f2765b26-100c-49d3-bc38-0cf9d621da33/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Company reach and partnerships"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "HumbleBeeAI Expands to Qatar with the Launch of Venture Studio LLC"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Announces HumbleBeeAI Venture Studio LLC in the Qatar Financial Centre as a Middle East venture-building hub; operational setup and future partnerships remain planned."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original company update",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/vc-studio-qatar",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "company-updates/vc-studio-qatar.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–2."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "4d6a402b-0052-44e2-a463-ff7ffba45798",
+            "chunkText": "The Qatar entity has been established not only as a local company, but as a venture studio designed to:\n\nLaunch and support new AI startups and ventures in Qatar\n\nExplore partnerships with local organizations, investors, universities, and government programs\n\nBring HumbleBeeAI’s engineering, product development, and AI talent ecosystem into the Middle East\n\nSupport the future growth of HumbleBeeAI’s existing and upcoming products\n\nCreate a foundation for future regional offices, projects, and collaborations\n\nThe venture studio is expected to play a key role in supporting several initiatives under the HumbleBeeAI ecosystem, including AI productivity tools, venture-building projects, talent development programs, and future technology ventures.",
+            "fileName": "company-update--vc-studio-qatar.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/4d6a402b-0052-44e2-a463-ff7ffba45798/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "From Collaboration to Innovation: Inside the Innerworks and HumblebeeAI Partnership"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Describes an R&D/product partnership with Innerworks beginning January 2024, covering device intelligence, VPN/bot detection and adversarial defense. Source reports Innerworks raised a $4M seed round led by AlbionVC in August 2025."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Original company update",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://humblebee.ai/case-studies/innerworks-partnership",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " · PDF "
+        },
+        {
+          "type": "text",
+          "text": "company-updates/innerworks-partnership.pdf",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ", pp. 1–3."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "f5476103-0580-4b18-98c7-ed2fb9e856ae",
+            "chunkText": "Innerworks is a cybersecurity / behavioral intelligence company focused on helping exchanges, finance platforms, and digital ecosystems identify and block bad actors. Their solution stack includes Account Takeover Protection, Geo Compliance, Bot detection, and deeper behavioral analysis, leveraging 200+ data points across device, network, and behavioral signals. They also employ a RedTeam ethical hacking platform (built on BitTensor) to stay ahead of AI-driven fraud techniques. Starting in January 2024, HumbleBeeAI partnered with Innerworks as their R&D and product arm, building the core infrastructure and capabilities that enabled them to secure a $4M seed round in August 2025 led by AlbionVC.",
+            "fileName": "company-update--innerworks-partnership.pdf",
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/269a7714-ae3c-45e6-9f65-df406a015a18/evidence/f5476103-0580-4b18-98c7-ed2fb9e856ae/asset",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Review status"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Prepared for HumbleBeeAI editorial review. Flagship selection, client attribution, figures, product availability and permission to publish claims remain subject to the company’s feedback. Detailed evidence gaps and decisions are recorded in the accompanying review tracker.\n"
+        }
+      ]
+    }
+  ]
+}

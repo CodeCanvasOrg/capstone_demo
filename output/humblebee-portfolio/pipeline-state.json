@@ -1,0 +1,517 @@
+{
+  "files": [
+    {
+      "key": "company-update:vc-studio-qatar",
+      "path": "upload-pdfs/company-updates/vc-studio-qatar.pdf",
+      "filename": "company-update--vc-studio-qatar.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/vc-studio-qatar",
+      "id": "aa978e8c-e59e-4142-bf14-d21a207b466e",
+      "sha256": "bda3104b6f95c6ac12d6f093aa943f235a120cc2363d5526530639bade1aecaa"
+    },
+    {
+      "key": "case-study:customs-document-automation",
+      "path": "upload-pdfs/case-studies/customs-document-automation.pdf",
+      "filename": "case-study--customs-document-automation.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/customs-document-automation",
+      "id": "a148ec5e-40dc-4ac4-9c64-1812afd15948",
+      "sha256": "a71dc6534aa343acec20e13eb297eed299546ace18023cafae9a589df25d79bb"
+    },
+    {
+      "key": "case-study:ai-based-predictive",
+      "path": "upload-pdfs/case-studies/ai-based-predictive.pdf",
+      "filename": "case-study--ai-based-predictive.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/ai-based-predictive",
+      "id": "0721e36c-53bb-470b-a182-f772521eb0b9",
+      "sha256": "01fa7ab9c73d5e8c37d427e1a11b13b34bef8314aac304a5e2ac9aa39cd37201"
+    },
+    {
+      "key": "case-study:avnrt-ablation-analytics",
+      "path": "upload-pdfs/case-studies/avnrt-ablation-analytics.pdf",
+      "filename": "case-study--avnrt-ablation-analytics.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/avnrt-ablation-analytics",
+      "id": "f6ec1f99-6a7f-4845-ab35-96f911de184e",
+      "sha256": "5cc2915b0d48ee77faa8b31bffd86941a2010dc8df129d5fde0851cc35af18a8"
+    },
+    {
+      "key": "case-study:cartoned-analysis-dashboard",
+      "path": "upload-pdfs/case-studies/cartoned-analysis-dashboard.pdf",
+      "filename": "case-study--cartoned-analysis-dashboard.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/cartoned-analysis-dashboard",
+      "id": "01dfcbb6-a882-4b36-99ba-799789c43cdb",
+      "sha256": "ebec9a59a5325dfe48963048ab2e7cdd5b7c4bfbd66ca110def7faab20e9c1a4"
+    },
+    {
+      "key": "case-study:impact-event-analysis",
+      "path": "upload-pdfs/case-studies/impact-event-analysis.pdf",
+      "filename": "case-study--impact-event-analysis.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/impact-event-analysis",
+      "id": "41a8ff36-01f3-4645-bab6-8ddde670689a",
+      "sha256": "584fea51e6c0d5fe858ebf0dcdde3133caa14d33722416a61f4e5de1bd7dfdd9"
+    },
+    {
+      "key": "case-study:patient-data-analytics",
+      "path": "upload-pdfs/case-studies/patient-data-analytics.pdf",
+      "filename": "case-study--patient-data-analytics.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/patient-data-analytics",
+      "id": "2054d332-046e-4eb2-88a1-321d7c70d220",
+      "sha256": "99f60f55f24c293db3c692408f7ec5463900015205e566a8998803c7be2ac837"
+    },
+    {
+      "key": "case-study:shelf-analysis",
+      "path": "upload-pdfs/case-studies/shelf-analysis.pdf",
+      "filename": "case-study--shelf-analysis.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/shelf-analysis",
+      "id": "d5de21ac-c68b-4aa1-af22-804bd01a7e01",
+      "sha256": "f944811b82c97b97cfaaad65f116c3340f0bafd015eaee2ac42fb912640dcd05"
+    },
+    {
+      "key": "case-study:fraud-detection",
+      "path": "upload-pdfs/case-studies/fraud-detection.pdf",
+      "filename": "case-study--fraud-detection.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/fraud-detection",
+      "id": "25850f33-b8b1-45bb-bbc1-035d134ca59c",
+      "sha256": "492d44bc4a77eef0c275fe6cc451fcad2a2192b5d94bb293edb80beff6e17915"
+    },
+    {
+      "key": "case-study:poster-recognition",
+      "path": "upload-pdfs/case-studies/poster-recognition.pdf",
+      "filename": "case-study--poster-recognition.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/poster-recognition",
+      "id": "7772c0b7-eee2-4c64-a5d2-31786585a987",
+      "sha256": "d287d4158b75369abcd4cd50fe537e62484f98cc14422441ebb25e54f05849fc"
+    },
+    {
+      "key": "case-study:automated-training-pipeline",
+      "path": "upload-pdfs/case-studies/automated-training-pipeline.pdf",
+      "filename": "case-study--automated-training-pipeline.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/automated-training-pipeline",
+      "id": "4cd2b277-c47b-42f8-868b-e006246f6758",
+      "sha256": "ba321c96dc0e18897ba49fa415298bd8ac2ed32198b6237e22f66964bf99d82c"
+    },
+    {
+      "key": "case-study:data-labeling-tool",
+      "path": "upload-pdfs/case-studies/data-labeling-tool.pdf",
+      "filename": "case-study--data-labeling-tool.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/data-labeling-tool",
+      "id": "5c4f482b-74c0-4fe2-94bc-17209a9d9a0c",
+      "sha256": "cb5091b13033d581b65c41584ea2ce61aaf10db5215b3a3e7e8553b2d07b6967"
+    },
+    {
+      "key": "case-study:improving-recognition-accuracy",
+      "path": "upload-pdfs/case-studies/improving-recognition-accuracy.pdf",
+      "filename": "case-study--improving-recognition-accuracy.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/improving-recognition-accuracy",
+      "id": "5708d2c4-fca8-4b5c-a368-f756f98cb962",
+      "sha256": "1b0ec711a53f0ab40b9339d1042fa24f21df7b122d6807cd3de555ff2f718f11"
+    },
+    {
+      "key": "case-study:optimizing-recognition-processing",
+      "path": "upload-pdfs/case-studies/optimizing-recognition-processing.pdf",
+      "filename": "case-study--optimizing-recognition-processing.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/optimizing-recognition-processing",
+      "id": "eec08e8c-2a60-40b0-a121-92ced527fa8b",
+      "sha256": "1be843a80e3ad0e2699302f01bcfb95c3c94b863dd03527561b54f145c3e4d75"
+    },
+    {
+      "key": "case-study:lumiohub-platform",
+      "path": "upload-pdfs/case-studies/lumiohub-platform.pdf",
+      "filename": "case-study--lumiohub-platform.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/lumiohub-platform",
+      "id": "6c4406ef-5433-4c1b-ad88-2247f0c69951",
+      "sha256": "94881c0b95ae2f9f2fc4156790c340d24396a90997875af967665a946a993916"
+    },
+    {
+      "key": "case-study:amplifyr",
+      "path": "upload-pdfs/case-studies/amplifyr.pdf",
+      "filename": "case-study--amplifyr.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/amplifyr",
+      "id": "4abb8770-d969-405d-949a-8de9dd0b78ed",
+      "sha256": "7f2929bfc386bed4c265930ac71825fa67d9d8cfee8f8d2648e2329c8961ab2b"
+    },
+    {
+      "key": "case-study:ai-powered-retail-cart",
+      "path": "upload-pdfs/case-studies/ai-powered-retail-cart.pdf",
+      "filename": "case-study--ai-powered-retail-cart.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/ai-powered-retail-cart",
+      "id": "535c2eb8-e486-4b2a-b140-8d508f4fa26c",
+      "sha256": "928140db93da79dcbcb0ed7cca1f42caf7875e7c005c6b0ff9ae83bc554aff3b"
+    },
+    {
+      "key": "case-study:ai-customs-intelligence",
+      "path": "upload-pdfs/case-studies/ai-customs-intelligence.pdf",
+      "filename": "case-study--ai-customs-intelligence.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/ai-customs-intelligence",
+      "id": "1b8c2850-15df-4e03-a738-9514a08afdb3",
+      "sha256": "214bc22d7fa4273df7b35661a304f8490a36595f65bb27098d7c2628f7c0bc8e"
+    },
+    {
+      "key": "case-study:data-cleaning-hs-codes",
+      "path": "upload-pdfs/case-studies/data-cleaning-hs-codes.pdf",
+      "filename": "case-study--data-cleaning-hs-codes.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/data-cleaning-hs-codes",
+      "id": "968bf9c9-c400-4776-9146-68167edbd303",
+      "sha256": "70101be4cc2ba7050426555e853d82efd7b8ba46778ebf53985b7d8eab26befe"
+    },
+    {
+      "key": "case-study:excel-automated-testing",
+      "path": "upload-pdfs/case-studies/excel-automated-testing.pdf",
+      "filename": "case-study--excel-automated-testing.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/excel-automated-testing",
+      "id": "4d896651-db70-4f0f-9989-c00e0201c53a",
+      "sha256": "566a142adf9a385432bd8558bb92027747026f4b8dee5a558a13ea87381dce85"
+    },
+    {
+      "key": "case-study:llm-results-analyzer",
+      "path": "upload-pdfs/case-studies/llm-results-analyzer.pdf",
+      "filename": "case-study--llm-results-analyzer.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/llm-results-analyzer",
+      "id": "e15c8c90-3375-4cee-bd1e-db0c6f92cf3d",
+      "sha256": "a58a7f80edc7cab4a7d99c372a1917ebd4629ccb881bc5c3e7931c7d7e10d6b7"
+    },
+    {
+      "key": "case-study:iv-drip-flow-rate-estimator",
+      "path": "upload-pdfs/case-studies/iv-drip-flow-rate-estimator.pdf",
+      "filename": "case-study--iv-drip-flow-rate-estimator.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/iv-drip-flow-rate-estimator",
+      "id": "23055018-1ee8-4135-885c-3faf0e243c9b",
+      "sha256": "8e74502d998a4b89fc08f5fb59599e890e994bdee3ead719a21e939980f2ab96"
+    },
+    {
+      "key": "company-update:innerworks-partnership",
+      "path": "upload-pdfs/company-updates/innerworks-partnership.pdf",
+      "filename": "company-update--innerworks-partnership.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/innerworks-partnership",
+      "id": "49012b80-2aa2-4811-a6a0-886706680984",
+      "sha256": "6facea321ab68444966157d1f00d8782fcf017767231b5df16581e54613d2918"
+    },
+    {
+      "key": "case-study:field-center-detection",
+      "path": "upload-pdfs/case-studies/field-center-detection.pdf",
+      "filename": "case-study--field-center-detection.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/field-center-detection",
+      "id": "0574d121-5672-4be8-be0f-11f263cf24a6",
+      "sha256": "0372daaf77dab59b274cd2c58c977833d1f6be5802c554e17f2a6dd7b14d9207"
+    },
+    {
+      "key": "case-study:beef-carcass-detection",
+      "path": "upload-pdfs/case-studies/beef-carcass-detection.pdf",
+      "filename": "case-study--beef-carcass-detection.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/beef-carcass-detection",
+      "id": "0e9915a0-f763-4043-a234-c81ad73495a1",
+      "sha256": "75d282b2a07ad1a3e617feb5d5154e8a9c42f22c96a47aad12002fc8c37435d1"
+    },
+    {
+      "key": "case-study:livescore-ai",
+      "path": "upload-pdfs/case-studies/livescore-ai.pdf",
+      "filename": "case-study--livescore-ai.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/livescore-ai",
+      "id": "344f24e4-5ffb-4c14-a226-3da2560be29f",
+      "sha256": "e511e96d37984b19f3ec9dde2f6c67c5d1f49ca1e4dda0b1b8bc021f3fd4abc4"
+    },
+    {
+      "key": "case-study:breast-cancer",
+      "path": "upload-pdfs/case-studies/breast-cancer.pdf",
+      "filename": "case-study--breast-cancer.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/case-studies/breast-cancer",
+      "id": "7aa7a0f0-4650-454e-8547-8264fd09f343",
+      "sha256": "00ba0ce34e804f5b92afad9be722f4385c3d9b4d7a6e9127be0092f3df86611c"
+    },
+    {
+      "key": "project:hstaff",
+      "path": "upload-pdfs/projects/hstaff.pdf",
+      "filename": "project--hstaff.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/projects/hstaff",
+      "id": "61d131ed-c4ef-4138-9e81-478131401afd",
+      "sha256": "c1ddf6356ce349bcb01cff81965a6910c212723a085d8be7d2e58fbc5aefa428"
+    },
+    {
+      "key": "project:lumiohub",
+      "path": "upload-pdfs/projects/lumiohub.pdf",
+      "filename": "project--lumiohub.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/projects/lumiohub",
+      "id": "3596a22e-0d56-4a65-bf59-d856c2563fb9",
+      "sha256": "d1be62344656eb90093956677b7c97cf9ba4a3ee06018ada0a5446fea6d865a4"
+    },
+    {
+      "key": "project:ai-avatar",
+      "path": "upload-pdfs/projects/ai-avatar.pdf",
+      "filename": "project--ai-avatar.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/projects/ai-avatar",
+      "id": "9d7dd8b9-5066-47a4-b5c1-cf60d307a7d5",
+      "sha256": "0bcad7113f5ea894558c69365d312a929eeef1a79820f7baf9a815a0495235c7"
+    },
+    {
+      "key": "project:kumush-ai",
+      "path": "upload-pdfs/projects/kumush-ai.pdf",
+      "filename": "project--kumush-ai.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/projects/kumush-ai",
+      "id": "f7aca299-e7a5-4e3a-9e11-2a4328e387d0",
+      "sha256": "e01957f2fce8eaddcc131756adb47d8fe4b8a54096ab0fb5158b4a90022217ed"
+    },
+    {
+      "key": "project:wakil-ai",
+      "path": "upload-pdfs/projects/wakil-ai.pdf",
+      "filename": "project--wakil-ai.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/projects/wakil-ai",
+      "id": "7be39a54-5866-4b4e-aaef-0a15ba230356",
+      "sha256": "3b29eef197c1d14ffe0611124cbf7aa9f4bc0bbde2b5007396bac25cf29be3f7"
+    },
+    {
+      "key": "project:bojhona",
+      "path": "upload-pdfs/projects/bojhona.pdf",
+      "filename": "project--bojhona.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/projects/bojhona",
+      "id": "997d8cc7-6d12-4a51-81b3-262d98a39034",
+      "sha256": "8286a36b0e9ec48eb6fcc41c856f1cc60c3b8f3c485259c3c94966d1b08d5276"
+    },
+    {
+      "key": "project:enlighten-qalb",
+      "path": "upload-pdfs/projects/enlighten-qalb.pdf",
+      "filename": "project--enlighten-qalb.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/projects/enlighten-qalb",
+      "id": "9dbfe0a8-ef19-49cc-b4ac-65b0c0b1d668",
+      "sha256": "a82e2b84a6bc7d71de2a2fd8ad34eb91f1c939b198657225fc56ea41e2774fe5"
+    },
+    {
+      "key": "project:bride",
+      "path": "upload-pdfs/projects/bride.pdf",
+      "filename": "project--bride.pdf",
+      "role": "primary",
+      "sourceUrl": "https://humblebee.ai/projects/bride",
+      "id": "74d50290-f7a3-44ea-9815-cbbb542431c6",
+      "sha256": "6d50cf07c932523e311f62755313c0f9ed3118eb34483df0b03c96315a37a2b5"
+    },
+    {
+      "key": "paper:2409.04187",
+      "path": "upload-pdfs/papers/2409.04187-lite-the-lightweight-integrated-tracking-feature-extraction-paradi.pdf",
+      "filename": "paper--2409.04187.pdf",
+      "role": "primary",
+      "sourceUrl": "https://arxiv.org/abs/2409.04187",
+      "id": "fdb205f0-a786-4507-a2d1-f4f84b15c84e",
+      "sha256": "a693e175431d32d9cddc0d5fbeaf552019c5dbbfa2f2fc655142759d863535b3"
+    },
+    {
+      "key": "paper:10883969",
+      "path": "upload-pdfs/papers/10883969-prime-practical-evaluation-framework-for-real-time-multi-object-tr.pdf",
+      "filename": "paper--10883969.pdf",
+      "role": "primary",
+      "sourceUrl": "https://ieeexplore.ieee.org/abstract/document/10883969",
+      "id": "eefbb941-b740-4ea8-b1e1-dc2841badd1c",
+      "sha256": "26c2d9e8ba8872119765531ecbaa939076b8662e3e2f8bc2396f03d338697692"
+    },
+    {
+      "key": "paper:10316180",
+      "path": "upload-pdfs/papers/10316180-design-of-contextual-filtered-features-for-better-smartphone-user-.pdf",
+      "filename": "paper--10316180.pdf",
+      "role": "primary",
+      "sourceUrl": "https://ieeexplore.ieee.org/abstract/document/10316180",
+      "id": "969f82af-3efe-4095-8dc4-d56b6aaaf485",
+      "sha256": "189b9377ab023fb07d933f702fee84b85b97f9cf391195a5cf4220081d5ffa20"
+    },
+    {
+      "key": "paper:515",
+      "path": "upload-pdfs/papers/515-performance-evaluation-of-deep-learning-based-network-intrusion-de.pdf",
+      "filename": "paper--515.pdf",
+      "role": "primary",
+      "sourceUrl": "https://www.mdpi.com/2079-9292/11/4/515",
+      "id": "9b44e633-07a9-4514-a82c-d2691be115e5",
+      "sha256": "4cd8b9c7e99185f171d8fe667ae0bf59eb11b3bf07beaaaafb51205b7aa13336"
+    },
+    {
+      "key": "paper:9661375",
+      "path": "upload-pdfs/papers/9661375-investigating-the-effect-of-traffic-sampling-on-machine-learning-b.pdf",
+      "filename": "paper--9661375.pdf",
+      "role": "primary",
+      "sourceUrl": "https://ieeexplore.ieee.org/abstract/document/9661375",
+      "id": "b3539ad4-44e8-431e-8271-b5b6eee34dd2",
+      "sha256": "f289f5f708eaa6d73c9d6a4fe9c6b9366d4a8392d3a75ace31247c6ba72ebaff"
+    },
+    {
+      "key": "paper:9064976",
+      "path": "upload-pdfs/papers/9064976-1d-cnn-based-network-intrusion-detection-with-normalization-on-imb.pdf",
+      "filename": "paper--9064976.pdf",
+      "role": "primary",
+      "sourceUrl": "https://ieeexplore.ieee.org/abstract/document/9064976",
+      "id": "2b457a0c-c83a-4251-aef0-12bfcbc32596",
+      "sha256": "de76a97bc54fa392a648a3d9d4f12fcd871c7dc5f5c0155783d01eea8af69f56"
+    },
+    {
+      "key": "paper:1910.01091",
+      "path": "upload-pdfs/papers/1910.01091-w-net-a-cnn-based-architecture-for-white-blood-cells-image-classif.pdf",
+      "filename": "paper--1910.01091.pdf",
+      "role": "primary",
+      "sourceUrl": "https://arxiv.org/abs/1910.01091",
+      "id": "6fa166d3-17ed-4b81-a9ce-a5721a1616eb",
+      "sha256": "901c04f29ef84268aed0372c4f48c921a6d4f6124708d7f94197e11a978a775f"
+    },
+    {
+      "key": "supplement:HumbleBeeAI Expands to Qatar with the Launch of Venture Studio LLC _ Case Study.pdf",
+      "path": "supplementary-pdfs/HumbleBeeAI Expands to Qatar with the Launch of Venture Studio LLC _ Case Study.pdf",
+      "filename": "HumbleBeeAI Expands to Qatar with the Launch of Venture Studio LLC _ Case Study.pdf",
+      "role": "supplement",
+      "id": "224b8cc9-8604-4a55-b6d1-d0624baf9f47",
+      "sha256": "db199b9fbbd8742c6f8860e1cca5c572255fc192fcb335f0e114eb823b2f4f66"
+    },
+    {
+      "key": "supplement:IV Drip Flow Rate Estimator _ Case Study.pdf",
+      "path": "supplementary-pdfs/IV Drip Flow Rate Estimator _ Case Study.pdf",
+      "filename": "IV Drip Flow Rate Estimator _ Case Study.pdf",
+      "role": "supplement",
+      "id": "c4458951-7d2a-4592-8df2-a92d984a9ebc",
+      "sha256": "97fde1eca2d79b5c7aea245649ea978869dfa42ae384f81deac5197d74e25331"
+    },
+    {
+      "key": "supplement:Johnson & Johnson Achieves 96.8% Accuracy in Customer Targeting _ Case Study.pdf",
+      "path": "supplementary-pdfs/Johnson & Johnson Achieves 96.8% Accuracy in Customer Targeting _ Case Study.pdf",
+      "filename": "Johnson & Johnson Achieves 96.8% Accuracy in Customer Targeting _ Case Study.pdf",
+      "role": "supplement",
+      "id": "8281c2ee-6a4b-4ea3-8328-d3dcba3ab6e3",
+      "sha256": "ef5f66baa5916ba560cd996cf35c9d3a7d4273549b54ad4a724b5af4ac073bd5"
+    },
+    {
+      "key": "supplement:Johnson & Johnson Predictive Customer Targeting Achieves 96.8% Accuracy.pdf",
+      "path": "supplementary-pdfs/Johnson & Johnson Predictive Customer Targeting Achieves 96.8% Accuracy.pdf",
+      "filename": "Johnson & Johnson Predictive Customer Targeting Achieves 96.8% Accuracy.pdf",
+      "role": "supplement",
+      "id": "d46bf15c-9504-4a1d-8a81-d98701c22fcc",
+      "sha256": "72c4a6c548fb08e85dfc1fe7a63e605222834c7863f041f3bded89ed9588f07e"
+    },
+    {
+      "key": "supplement:LITE Multi-Object Tracking and IV Drip Flow Rate Estimation.pdf",
+      "path": "supplementary-pdfs/LITE Multi-Object Tracking and IV Drip Flow Rate Estimation.pdf",
+      "filename": "LITE Multi-Object Tracking and IV Drip Flow Rate Estimation.pdf",
+      "role": "supplement",
+      "id": "e5058257-4d85-4aa5-a5c3-6f758b4d5305",
+      "sha256": "5f488bafeed37e5321cdfda622c117439f00d07c28db6397a29bd4367c77f526"
+    },
+    {
+      "key": "editorial:source-review-tracker.md",
+      "path": "source-review-tracker.md",
+      "filename": "HumbleBeeAI--source-review-tracker.md",
+      "role": "editorial",
+      "id": "88727eaf-a58b-4a92-81f1-bf702da91bcf",
+      "sha256": "1a1dc2ad7549a5efe0cc599b78722d815f752096336f99697b2cfdacbefc4f90"
+    },
+    {
+      "key": "editorial:metric-review-tracker.md",
+      "path": "metric-review-tracker.md",
+      "filename": "HumbleBeeAI--metric-review-tracker.md",
+      "role": "editorial",
+      "id": "12cf9bc7-0112-438f-b0d3-5d13222e151f",
+      "sha256": "fe825ce9669d634a3b8e281da7ca18b06195dbbd4626bbf920030492a77a581c"
+    },
+    {
+      "key": "editorial:figure-review-tracker.md",
+      "path": "figure-review-tracker.md",
+      "filename": "HumbleBeeAI--figure-review-tracker.md",
+      "role": "editorial",
+      "id": "069946b1-702e-4250-a079-205ff5c4ea01",
+      "sha256": "e9508afd7532394109aadb9bf4665a0899fa320ccfbb118fb1561d58e1ec37f4"
+    },
+    {
+      "key": "editorial:review-decisions.md",
+      "path": "review-decisions.md",
+      "filename": "HumbleBeeAI--review-decisions.md",
+      "role": "editorial",
+      "id": "71a01bb5-a623-45dd-9b45-2235a10ed993",
+      "sha256": "71628d5dbe0c2070f07a759fc03b9a749f83ef17131d754ca36cdcd90659abaf"
+    },
+    {
+      "key": "editorial:portfolio-draft.md",
+      "path": "portfolio-draft.md",
+      "filename": "HumbleBeeAI--portfolio-draft.md",
+      "role": "editorial",
+      "id": "36b2f293-fac1-48ee-9ba8-4183d020f0fd",
+      "sha256": "b5eb4d0741a9ebee4271523326b2a42052834b2284b216cd1046a5ec5ee44ade"
+    }
+  ],
+  "documents": {
+    "sourceTracker": "d19e9db8-534c-4ba5-b1a7-db56c6022b7c",
+    "metricTracker": "22260e1c-bd26-4cb2-9338-981e1fe5cd21",
+    "figureTracker": "b6504ba3-9b91-4723-b7c5-d3e1be0851c9",
+    "reviewDecisions": "00b0ddf6-711e-487b-8b28-81ca01e8cb9c",
+    "appNotes": "9266f2e1-cdba-443a-921e-dbe8cc48712d",
+    "supplementary": "6557415c-4355-4d18-86fc-dd1687352ac6",
+    "portfolio": "269a7714-ae3c-45e6-9f65-df406a015a18",
+    "entryIndex": "760a5360-f1f7-4ca3-8f10-6bbdcc693e9d"
+  },
+  "context": {
+    "actorId": 1,
+    "workspaceId": "ab6b13a5-514c-4849-96d2-cd4008c5c310",
+    "membershipId": "421bc7f3-5317-43dc-916f-586b83d8d0e7",
+    "membershipEpoch": 0
+  },
+  "projectId": "4b65e54f-0f01-4648-aa31-ffcb4c394e19",
+  "ownerEmail": "johnpar2004@gmail.com",
+  "generationTaskId": "b24cf7b3-542c-4acf-ab4d-5a74e36fd89a",
+  "sections": {
+    "Document AI and automation": {
+      "documentId": "6a43eb8c-72a0-4827-9d87-212e6b4cdf84",
+      "versionId": "add073c6-06ae-4f1e-9e2e-0ab225c58110"
+    },
+    "Computer vision": {
+      "documentId": "37e9a0ad-0fa5-46ec-9f9f-f96275b91979",
+      "versionId": "a6a4e574-a8a0-4e2a-8138-2abda6cf8862"
+    },
+    "Analytics": {
+      "documentId": "c48ce6ff-d956-4ea1-9493-3c90ad9537e4",
+      "versionId": "5e50d031-94a2-4aab-8402-e7bc2e3ab3b0"
+    },
+    "AI platforms": {
+      "documentId": "83654bf1-0a15-4059-97af-11d8b51e5534",
+      "versionId": "a0bc61d1-9a1e-41bc-bc61-ad21ea719aba"
+    },
+    "Products": {
+      "documentId": "1d617b66-d762-4228-9c34-23cdf56cd688",
+      "versionId": "55a4375e-f7e4-47be-9809-c2b305e96a78"
+    },
+    "Research": {
+      "documentId": "3b2d0428-6520-4dc3-8759-93bfa4b23f54",
+      "versionId": "81b4c889-e256-4c7c-a0b1-77e291e283c1"
+    },
+    "Company context": {
+      "documentId": "1cd9f1c4-fe02-48a1-b0cd-91d1173e5487",
+      "versionId": "2c4dd22c-18cc-4c6a-90e8-021357f4607f"
+    }
+  },
+  "generatedVersionId": "ec42f4ff-eeff-4ec2-982b-a195a94d757f",
+  "reviewedVersionId": "2301e0d7-d90a-48f6-84b4-5c450ef3ecfc",
+  "directSourceCitationCount": 42,
+  "referenceProjectId": "770fda30-1943-46f5-ad68-36bd59cf44f7",
+  "entryCount": 41,
+  "entryGeneration": "website-template-bullets-source-images"
+}

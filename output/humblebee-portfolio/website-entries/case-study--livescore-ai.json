@@ -1,0 +1,664 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "LiveScore AI Real-Time Basketball Scoring Platform",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "LiveScore AI brings real-time, automated scoring and event controls to basketball trick-shot and dunk competitions.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/628716cd-fad6-4cd3-88e3-bcd0a5411c12/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nLiveScore AI is a low-latency, real-time scoring platform that tracks player movement and recognizes tricks/dunks to deliver animated scores, live leaderboards, and admin tools that boost accuracy and audience engagement at basketball trick-shot and dunk events.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "628716cd-fad6-4cd3-88e3-bcd0a5411c12"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI’s LiveScore AI is a scoring and event-management platform for tournament operators, event producers, venues, players, and spectators at basketball trick-shot and dunk events. It combines player-movement tracking and trick recognition with automated scoring, animated score displays, live leaderboards, and administrative controls, aiming to reduce manual scoring friction while making results visible as the event unfolds.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/356651fb-27ec-4901-a225-0a52e8f9cc9b/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "LiveScore AI is a low-latency, real-time scoring platform designed to enhance basketball trick-shot and dunk events with animated scores, live leaderboards, and streamlined administrative controls. LiveScore AI provides instant feedback to players and spectators, combining player movement tracking, trick recognition, and automated scoring in a unified system. By reducing human error and increasing audience engagement, the platform offers tournament operators, event producers, and venues the tools they need for seamless event execution, while ensuring that results are accurate, shareable, and reliable for post-event analysis.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "356651fb-27ec-4901-a225-0a52e8f9cc9b"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/628716cd-fad6-4cd3-88e3-bcd0a5411c12/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nLiveScore AI is a low-latency, real-time scoring platform that tracks player movement and recognizes tricks/dunks to deliver animated scores, live leaderboards, and admin tools that boost accuracy and audience engagement at basketball trick-shot and dunk events.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "628716cd-fad6-4cd3-88e3-bcd0a5411c12"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study describes real-time scoring and edge-based video processing, but does not provide a quantified latency figure, measured business outcomes, or a clear statement of the platform’s current deployment status.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/59f8cb82-95fa-4a10-a7cf-e0ebb6b7d208/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "LiveScore AI leverages NVIDIA Jetson Orin Nano edge devices to process live video feeds directly on-site. The platform supports both RTSP streams from networked CCTV cameras and directly connected cameras attached to the device, giving clients the flexibility to choose the input source that best fits their venue setup. The system performs real-time video ingestion and inference at the edge, eliminating the need to send raw footage to remote servers. The processed video stream is then relayed back to the client, providing spectators and administrators with low-latency, live camera feeds alongside scoring data. This edge-first architecture minimizes network bandwidth requirements and ensures the system remains responsive even in venue environments with limited connectivity.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 12,
+            "pageNumber": 3,
+            "sourceChunkId": "59f8cb82-95fa-4a10-a7cf-e0ebb6b7d208"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study identifies a set of issues with traditional event scoring: manual methods can delay feedback and introduce human error; spectators and players may be disconnected from scoring; and organizers must manage score updates, leaderboards, and adjustments without disrupting play. It also describes scalability as a constraint when events expand to multiple concurrent games that need responsive scoring.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/afd00c3c-b4d9-44e2-b072-cd31a92027cc/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "Inefficient scoring systems: Traditional scoring methods are manual and prone to human error, causing delays in providing feedback to players and audiences. Lack of engagement: In many events, players and spectators are disconnected from the scoring process, leading to less excitement and engagement. Operational challenges: Event organizers often struggle with managing real-time game updates, leaderboard maintenance, and score adjustments without interrupting the event. Limited scalability: As events grow in popularity, the need to manage multiple concurrent games with minimal latency becomes crucial. Traditional systems cannot support large-scale, real-time event scoring without sacrificing accuracy or speed.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "afd00c3c-b4d9-44e2-b072-cd31a92027cc"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "These challenges affect both the competition floor and event operations. Players and audiences need timely, understandable results, while organizers need a way to control scoring and event updates during live play.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/f9ceda9d-018c-467b-9af4-4265ee68c935/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "Basketball events, particularly trick-shot and dunk competitions, rely on real-time feedback and clear, transparent outcomes. Traditional methods of scoring often suffer from delays, subjectivity, and errors, diminishing the excitement for both players and spectators. LiveScore AI was created to automate and streamline the scoring process, integrating scoring, visual animations, and administrative control into a unified platform. Designed with scalability in mind, LiveScore AI supports multiple concurrent games and real-time event management, offering a seamless solution for interactive sports events.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 2,
+            "sourceChunkId": "f9ceda9d-018c-467b-9af4-4265ee68c935"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "LiveScore AI brings scoring, video processing, spectator-facing displays, and organizer controls into a real-time event workflow. The capabilities described in the case study include:",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/28782cda-2fd4-47a0-b9f6-aff81d3d2066/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "LiveScore AI tackles these challenges with a comprehensive, real-time solution for scoring and event management.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "28782cda-2fd4-47a0-b9f6-aff81d3d2066"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Automated scoring and live event updates",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The platform processes scoring data as play unfolds and updates player-facing displays and spectator screens. Its scoring engine is described as recognizing player movements, tricks, and dunk events to generate scores, reducing reliance on manual scoring and supporting consistent adjudication.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/f4d5a343-7228-4f85-8923-32ff11972f13/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "LiveScore AI utilizes real-time data streaming to process scores instantly as the game unfolds, updating both player-facing displays and spectator screens without delay. This real-time scoring eliminates bottlenecks and enhances audience engagement.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "f4d5a343-7228-4f85-8923-32ff11972f13"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/6a1ec4ec-b0f7-4f0d-8df4-979d508a308e/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "The platform’s deterministic scoring engine automates the process of recognizing player movements, tricks, and dunk events, providing immediate and accurate scores. This reduces the need for manual scoring and minimizes errors, ensuring a transparent and fair competition.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 2,
+            "sourceChunkId": "6a1ec4ec-b0f7-4f0d-8df4-979d508a308e"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Spectator displays and persistent leaderboards",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Animated screens present trick queues and motion choreography to help audiences follow the competition. Leaderboards update during events and can be used for analysis and reporting, including player rankings and export of results.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/e9dac307-6de1-4ce5-924b-154a37f0dbc6/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "LiveScore AI features a dynamic and animated user interface that displays live trick queues and motion choreography, creating an engaging experience for spectators. These animations keep audiences invested in the event, helping maintain excitement throughout the competition.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 2,
+            "sourceChunkId": "e9dac307-6de1-4ce5-924b-154a37f0dbc6"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/beb22282-086f-492f-9593-eb587379b3a1/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "LiveScore AI offers persistent leaderboards that are automatically updated during the event. These leaderboards are accessible for analysis and reporting, allowing organizers to track player performance, create rankings, and export results for future use.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 13,
+            "pageNumber": 3,
+            "sourceChunkId": "beb22282-086f-492f-9593-eb587379b3a1"
+          }
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "alt": "LiveScore AI scoring screen beside a live video-processing view, showing a score display and player tracking overlay.",
+        "src": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/9115f308-d4b4-4172-88c5-1609ef3febe0/asset",
+        "align": "center",
+        "title": "Scoring interface and video-processing view",
+        "width": "100%",
+        "height": null,
+        "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/9115f308-d4b4-4172-88c5-1609ef3febe0/asset",
+        "fileName": "case-study--livescore-ai.pdf",
+        "chunkText": "T Video Processing | Fulcroen\n@ SLAM DUNK ZONE @ - y\nAl SCORING SYSTEM | — Bin Ta\nERE <\nLive Score [2] I 1\n|= ws = Ey\n0 ENTE\nPOINTS TEL\nI IE I ARTIMEACTIVE eee\nFouled oe\npn oo RD\npoms\n® Live Scoring (1 Player) L",
+        "mediaType": "image/png",
+        "chunkIndex": 10,
+        "pageNumber": 3,
+        "sourceChunkId": "9115f308-d4b4-4172-88c5-1609ef3febe0"
+      }
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "On-site video processing",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "LiveScore AI is described as using NVIDIA Jetson Orin Nano edge devices to process video on-site. It supports RTSP streams from networked CCTV cameras as well as cameras connected directly to the device. Processing at the venue avoids sending raw footage to remote servers; the processed stream is relayed back to clients so spectators and administrators can view camera feeds alongside scoring data. The case study says this approach is intended to reduce bandwidth requirements and support responsiveness in venues with limited connectivity.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/59f8cb82-95fa-4a10-a7cf-e0ebb6b7d208/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "LiveScore AI leverages NVIDIA Jetson Orin Nano edge devices to process live video feeds directly on-site. The platform supports both RTSP streams from networked CCTV cameras and directly connected cameras attached to the device, giving clients the flexibility to choose the input source that best fits their venue setup. The system performs real-time video ingestion and inference at the edge, eliminating the need to send raw footage to remote servers. The processed video stream is then relayed back to the client, providing spectators and administrators with low-latency, live camera feeds alongside scoring data. This edge-first architecture minimizes network bandwidth requirements and ensures the system remains responsive even in venue environments with limited connectivity.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 12,
+            "pageNumber": 3,
+            "sourceChunkId": "59f8cb82-95fa-4a10-a7cf-e0ebb6b7d208"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Organizer controls",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "An administrative interface supports score edits, leaderboard adjustments, and real-time event control. The case study also describes secure authentication and role-based access, allowing authorized administrators to make changes without interrupting gameplay.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/be76072d-022b-42a7-bc8f-6f72f83cf936/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "Event organizers benefit from a robust administrative interface that allows for score edits, leaderboard adjustments, and real-time control of the event. With secure authentication and role-based access, administrators can make changes without interrupting gameplay, ensuring smooth event flow.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 14,
+            "pageNumber": 3,
+            "sourceChunkId": "be76072d-022b-42a7-bc8f-6f72f83cf936"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Real-time score and display updates during play.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Automated recognition and scoring of movements, tricks, and dunk events.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Animated spectator UI and persistent, exportable leaderboards.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "On-site video processing with RTSP or directly connected camera inputs, plus administrative event controls.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study reports qualitative benefits, including increased audience participation and player excitement, less manual intervention for organizers, and more consistent scoring intended to reduce human error and disputes. It also describes support for large-scale events and multiple concurrent games with minimal latency. These are reported outcomes and capabilities, not quantified performance results.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/c21f987a-fe8f-473c-b879-b47b0314e5f8/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "LiveScore AI has transformed how basketball trick-shot and dunk events are managed and scored. Key results include:\n\nIncreased Engagement: Real-time scoring with dynamic animations boosts audience participation and player excitement.\n\nOperational Efficiency: Automated scoring and leaderboard updates reduce the need for manual intervention, allowing event organizers to focus on other aspects of the event.\n\nImproved Accuracy: The platform’s automated scoring ensures consistent, fair, and transparent adjudication, reducing human error and disputes.\n\nScalability: LiveScore AI supports large-scale events with minimal latency, making it ideal for tournaments and venues with multiple concurrent games.\n\nEdge Processing: On-site deployment of NVIDIA Jetson Orin Nano enables low-latency video processing at the edge, reducing cloud dependency and bandwidth costs while delivering reliable, real time camera feeds in any venue environment.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 15,
+            "pageNumber": 3,
+            "sourceChunkId": "c21f987a-fe8f-473c-b879-b47b0314e5f8"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Engagement: dynamic, real-time scores and animations are reported to boost participation and excitement.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Operations: automated scoring and leaderboard updates are reported to reduce manual intervention.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Scoring: automated scoring is described as supporting consistent, fair, and transparent adjudication.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "Venue processing: on-site NVIDIA Jetson Orin Nano processing is reported to reduce cloud dependency and bandwidth costs while providing real-time camera feeds.",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "No numerical measurements, evaluation methodology, or independently measured business-impact figures are provided in the supplied case-study material.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/c21f987a-fe8f-473c-b879-b47b0314e5f8/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "LiveScore AI has transformed how basketball trick-shot and dunk events are managed and scored. Key results include:\n\nIncreased Engagement: Real-time scoring with dynamic animations boosts audience participation and player excitement.\n\nOperational Efficiency: Automated scoring and leaderboard updates reduce the need for manual intervention, allowing event organizers to focus on other aspects of the event.\n\nImproved Accuracy: The platform’s automated scoring ensures consistent, fair, and transparent adjudication, reducing human error and disputes.\n\nScalability: LiveScore AI supports large-scale events with minimal latency, making it ideal for tournaments and venues with multiple concurrent games.\n\nEdge Processing: On-site deployment of NVIDIA Jetson Orin Nano enables low-latency video processing at the edge, reducing cloud dependency and bandwidth costs while delivering reliable, real time camera feeds in any venue environment.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 15,
+            "pageNumber": 3,
+            "sourceChunkId": "c21f987a-fe8f-473c-b879-b47b0314e5f8"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The source describes the platform’s scoring, video, leaderboard, and administrative capabilities, but does not specify a release timeline, rollout scope, or whether every described capability is currently available in production. It also gives no measured latency, accuracy, bandwidth savings, or user-engagement figures.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/628716cd-fad6-4cd3-88e3-bcd0a5411c12/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nLiveScore AI is a low-latency, real-time scoring platform that tracks player movement and recognizes tricks/dunks to deliver animated scores, live leaderboards, and admin tools that boost accuracy and audience engagement at basketball trick-shot and dunk events.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "628716cd-fad6-4cd3-88e3-bcd0a5411c12"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/59f8cb82-95fa-4a10-a7cf-e0ebb6b7d208/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "LiveScore AI leverages NVIDIA Jetson Orin Nano edge devices to process live video feeds directly on-site. The platform supports both RTSP streams from networked CCTV cameras and directly connected cameras attached to the device, giving clients the flexibility to choose the input source that best fits their venue setup. The system performs real-time video ingestion and inference at the edge, eliminating the need to send raw footage to remote servers. The processed video stream is then relayed back to the client, providing spectators and administrators with low-latency, live camera feeds alongside scoring data. This edge-first architecture minimizes network bandwidth requirements and ensures the system remains responsive even in venue environments with limited connectivity.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 12,
+            "pageNumber": 3,
+            "sourceChunkId": "59f8cb82-95fa-4a10-a7cf-e0ebb6b7d208"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/c21f987a-fe8f-473c-b879-b47b0314e5f8/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "LiveScore AI has transformed how basketball trick-shot and dunk events are managed and scored. Key results include:\n\nIncreased Engagement: Real-time scoring with dynamic animations boosts audience participation and player excitement.\n\nOperational Efficiency: Automated scoring and leaderboard updates reduce the need for manual intervention, allowing event organizers to focus on other aspects of the event.\n\nImproved Accuracy: The platform’s automated scoring ensures consistent, fair, and transparent adjudication, reducing human error and disputes.\n\nScalability: LiveScore AI supports large-scale events with minimal latency, making it ideal for tournaments and venues with multiple concurrent games.\n\nEdge Processing: On-site deployment of NVIDIA Jetson Orin Nano enables low-latency video processing at the edge, reducing cloud dependency and bandwidth costs while delivering reliable, real time camera feeds in any venue environment.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 15,
+            "pageNumber": 3,
+            "sourceChunkId": "c21f987a-fe8f-473c-b879-b47b0314e5f8"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "No planned next steps are stated in the supplied material. The source text references an “Open original HumbleBeeAI page” link, but the link’s URL was not included in the supplied source, so it cannot be reproduced here.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/628716cd-fad6-4cd3-88e3-bcd0a5411c12/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nLiveScore AI is a low-latency, real-time scoring platform that tracks player movement and recognizes tricks/dunks to deliver animated scores, live leaderboards, and admin tools that boost accuracy and audience engagement at basketball trick-shot and dunk events.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "628716cd-fad6-4cd3-88e3-bcd0a5411c12"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "LiveScore AI addresses the operational and audience challenges of trick-shot and dunk competitions by bringing automated scoring, live visual feedback, video processing, leaderboards, and organizer controls into one platform. The case study supports its intended value for event delivery, while numerical results and the platform’s current deployment scope remain unspecified.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/356651fb-27ec-4901-a225-0a52e8f9cc9b/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "LiveScore AI is a low-latency, real-time scoring platform designed to enhance basketball trick-shot and dunk events with animated scores, live leaderboards, and streamlined administrative controls. LiveScore AI provides instant feedback to players and spectators, combining player movement tracking, trick recognition, and automated scoring in a unified system. By reducing human error and increasing audience engagement, the platform offers tournament operators, event producers, and venues the tools they need for seamless event execution, while ensuring that results are accurate, shareable, and reliable for post-event analysis.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 3,
+            "pageNumber": 1,
+            "sourceChunkId": "356651fb-27ec-4901-a225-0a52e8f9cc9b"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/d56b0818-e252-4909-a105-01c511b2f5df/evidence/c21f987a-fe8f-473c-b879-b47b0314e5f8/asset",
+            "fileName": "case-study--livescore-ai.pdf",
+            "chunkText": "LiveScore AI has transformed how basketball trick-shot and dunk events are managed and scored. Key results include:\n\nIncreased Engagement: Real-time scoring with dynamic animations boosts audience participation and player excitement.\n\nOperational Efficiency: Automated scoring and leaderboard updates reduce the need for manual intervention, allowing event organizers to focus on other aspects of the event.\n\nImproved Accuracy: The platform’s automated scoring ensures consistent, fair, and transparent adjudication, reducing human error and disputes.\n\nScalability: LiveScore AI supports large-scale events with minimal latency, making it ideal for tournaments and venues with multiple concurrent games.\n\nEdge Processing: On-site deployment of NVIDIA Jetson Orin Nano enables low-latency video processing at the edge, reducing cloud dependency and bandwidth costs while delivering reliable, real time camera feeds in any venue environment.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 15,
+            "pageNumber": 3,
+            "sourceChunkId": "c21f987a-fe8f-473c-b879-b47b0314e5f8"
+          }
+        }
+      ]
+    }
+  ]
+}

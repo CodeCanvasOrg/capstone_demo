@@ -1,0 +1,488 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Enlighten Qalb: AI Spiritual Guide",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Enlighten Qalb is a memory-enabled AI companion for people seeking faith-aligned spiritual reflection and guidance.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/7615dc48-baea-49b7-9955-d9553cf76261/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "Enlighten Qalb is in use product with privacy-first, memory-enabled AI companion that supports long-term emotional and spiritual development through personalized, faith-aligned guidance. The platform combines curated spiritual sources, secure personal memory, and grounded AI responses to provide users with consistent and contextual support over time. With two guidance modes (Ustath and Enthusiast), multilingual support, and a foundation for future emotional progress analytics, Enlighten Qalb transforms one-off conversations into a continuous, structured personal growth experience.\n\nIt combines:\n\nFaith-aligned wisdom inspired by classical scholars such as Imam Al-Ghazali\n\nEvidence-based therapeutic reflection techniques\n\nA secure memory system that understands each user over time\n\nA gentle, private, non-judgmental space for growth\n\nRather than being a chatbot that gives generic answers, Enlighten Qalb becomes a companion that walks with you — remembering, adapting, and guiding you with increasing depth and relevance.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "7615dc48-baea-49b7-9955-d9553cf76261"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Enlighten Qalb is described as an in-use product, and the reviewed project record labels it “prod ready.” It is intended to support ongoing emotional and spiritual reflection through a conversational companion grounded in curated spiritual material and personalized memory. The source does not provide a demo URL, deployment details, or measured user outcomes. See the ",
+          "type": "text"
+        },
+        {
+          "text": "HumbleBeeAI project page",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://humblebee.ai/projects/enlighten-qalb",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "text": ".",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/7615dc48-baea-49b7-9955-d9553cf76261/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "Enlighten Qalb is in use product with privacy-first, memory-enabled AI companion that supports long-term emotional and spiritual development through personalized, faith-aligned guidance. The platform combines curated spiritual sources, secure personal memory, and grounded AI responses to provide users with consistent and contextual support over time. With two guidance modes (Ustath and Enthusiast), multilingual support, and a foundation for future emotional progress analytics, Enlighten Qalb transforms one-off conversations into a continuous, structured personal growth experience.\n\nIt combines:\n\nFaith-aligned wisdom inspired by classical scholars such as Imam Al-Ghazali\n\nEvidence-based therapeutic reflection techniques\n\nA secure memory system that understands each user over time\n\nA gentle, private, non-judgmental space for growth\n\nRather than being a chatbot that gives generic answers, Enlighten Qalb becomes a companion that walks with you — remembering, adapting, and guiding you with increasing depth and relevance.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "7615dc48-baea-49b7-9955-d9553cf76261"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/7c9f3beb-7e58-41dc-b0cd-a38061d2eb99/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "Most digital assistants and wellness apps, chatbots provide isolated, generic advice and do not retain long-term context, making them unsuitable for meaningful personal development. Enlighten Qalb addresses this by introducing a memory-based companion that securely stores user reflections, preferences, and emotional themes, and uses curated spiritual sources to deliver consistent, personalized guidance. By combining continuity, privacy-first design, and faith-aligned content, Enlighten Qalb provides a structured platform for ongoing emotional and spiritual growth.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 3,
+            "sourceChunkId": "7c9f3beb-7e58-41dc-b0cd-a38061d2eb99"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/37336d44-f180-4ad9-aa1c-062172198b57/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAI chatbot trained on The Alchemy of Happiness (Kimyai Saadat) by Al-Ghazali, offering personalized spiritual guidance and wisdom for inner growth.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "37336d44-f180-4ad9-aa1c-062172198b57"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "User Need",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The product is for people seeking spiritual reflection in a faith-aligned context. Its brief identifies a common user difficulty: digital assistants can offer generic, isolated advice, and users may have to repeat their story, goals, and concerns in each conversation. The project also recognizes that emotional reflections are personal and that users may be uncomfortable storing them in opaque systems.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/7c9f3beb-7e58-41dc-b0cd-a38061d2eb99/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "Most digital assistants and wellness apps, chatbots provide isolated, generic advice and do not retain long-term context, making them unsuitable for meaningful personal development. Enlighten Qalb addresses this by introducing a memory-based companion that securely stores user reflections, preferences, and emotional themes, and uses curated spiritual sources to deliver consistent, personalized guidance. By combining continuity, privacy-first design, and faith-aligned content, Enlighten Qalb provides a structured platform for ongoing emotional and spiritual growth.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 3,
+            "sourceChunkId": "7c9f3beb-7e58-41dc-b0cd-a38061d2eb99"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/b6915366-1dbd-460b-aa1e-359892fc7f35/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "Every conversation starts from zero. Users must repeat their story, their struggles, and their goals, vision again and again. This breaks continuity and prevents deep, long-term growth.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 3,
+            "sourceChunkId": "b6915366-1dbd-460b-aa1e-359892fc7f35"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/f4dc8cdf-a27b-473f-92b2-33920b705adf/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "Emotional reflections are deeply personal. Many users are uncomfortable storing such data in systems that are opaque or not privacy-first.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 10,
+            "pageNumber": 3,
+            "sourceChunkId": "f4dc8cdf-a27b-473f-92b2-33920b705adf"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Product Vision",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The product direction is to make reflection more continuous and personally relevant, bringing curated spiritual wisdom together with memory of earlier conversations. Its stated longer-term vision includes supporting inner clarity, emotional balance, and connection with Allah. These are intended benefits, not independently measured results; the available source material does not report outcome testing.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/12c99c5d-6989-4553-b41b-81ddd57a2eff/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "For users who:\n\nAre newer to spiritual concepts\n\nPrefer simple, clear language\n\nWant practical and approachable guidance\n\nFeatures:\n\nSimple explanations\n\nMinimal terminology\n\nSame wisdom, easier form\n\nBoth modes deliver the same guidance, but in different styles.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 18,
+            "pageNumber": 5,
+            "sourceChunkId": "12c99c5d-6989-4553-b41b-81ddd57a2eff"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/7615dc48-baea-49b7-9955-d9553cf76261/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "Enlighten Qalb is in use product with privacy-first, memory-enabled AI companion that supports long-term emotional and spiritual development through personalized, faith-aligned guidance. The platform combines curated spiritual sources, secure personal memory, and grounded AI responses to provide users with consistent and contextual support over time. With two guidance modes (Ustath and Enthusiast), multilingual support, and a foundation for future emotional progress analytics, Enlighten Qalb transforms one-off conversations into a continuous, structured personal growth experience.\n\nIt combines:\n\nFaith-aligned wisdom inspired by classical scholars such as Imam Al-Ghazali\n\nEvidence-based therapeutic reflection techniques\n\nA secure memory system that understands each user over time\n\nA gentle, private, non-judgmental space for growth\n\nRather than being a chatbot that gives generic answers, Enlighten Qalb becomes a companion that walks with you — remembering, adapting, and guiding you with increasing depth and relevance.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "7615dc48-baea-49b7-9955-d9553cf76261"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Capabilities and Experience",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The documented experience centers on a conversational guide initially grounded in The Alchemy of Happiness (Kimyai Saadat) by Al-Ghazali. The product describes structured, searchable source material and relevant passage retrieval to ground responses. Its memory system is described as retaining preferences, reflections, emotional themes, goals, and communication style so that conversations can build on previous context.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/37336d44-f180-4ad9-aa1c-062172198b57/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAI chatbot trained on The Alchemy of Happiness (Kimyai Saadat) by Al-Ghazali, offering personalized spiritual guidance and wisdom for inner growth.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "37336d44-f180-4ad9-aa1c-062172198b57"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/7b6e126c-158b-40f2-9a20-86e97e4b0831/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "Enlighten Qalb does not rely on random internet data.\n\nInstead, it:\n\nUses curated classical sources (starting with The Alchemy of Happiness)\n\nBreaks them into structured, searchable knowledge\n\nRetrieves only relevant passages\n\nGrounds every answer in trusted material\n\nThis ensures:\n\nNo hallucinations\n\nNo fabricated advice\n\nNo spiritual or ethical drift",
+            "mediaType": "application/pdf",
+            "chunkIndex": 21,
+            "pageNumber": 6,
+            "sourceChunkId": "7b6e126c-158b-40f2-9a20-86e97e4b0831"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/df666180-0cb7-4826-9b37-fa8badd312df/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "Enlighten Qalb uses a secure personal memory system to store:\n\nUser preferences\n\nPast reflections\n\nEmotional themes\n\nGoals and struggles\n\nCommunication style\n\nThis allows the assistant to:\n\nStay consistent across weeks and months\n\nBuild on previous conversations\n\nAdapt explanations to what resonates with the user\n\nRespond in styles the user prefers (e.g., Ghazali-like, Ibn Taymiyya-like, simpler tone, etc.)",
+            "mediaType": "application/pdf",
+            "chunkIndex": 20,
+            "pageNumber": 6,
+            "sourceChunkId": "df666180-0cb7-4826-9b37-fa8badd312df"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The overview identifies two guidance modes, Ustath and Enthusiast; Enthusiast is described as using simpler language and less terminology for users newer to spiritual concepts. The product materials also describe privacy-oriented design, including secure conversation storage, a local-first approach where possible, and controlled cloud sync. These are descriptions in the project material, not independently verified security findings. Monthly emotional summaries, mood and stress trends, reflection tracking, and growth indicators are explicitly marked “Coming Soon.”",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/7615dc48-baea-49b7-9955-d9553cf76261/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "Enlighten Qalb is in use product with privacy-first, memory-enabled AI companion that supports long-term emotional and spiritual development through personalized, faith-aligned guidance. The platform combines curated spiritual sources, secure personal memory, and grounded AI responses to provide users with consistent and contextual support over time. With two guidance modes (Ustath and Enthusiast), multilingual support, and a foundation for future emotional progress analytics, Enlighten Qalb transforms one-off conversations into a continuous, structured personal growth experience.\n\nIt combines:\n\nFaith-aligned wisdom inspired by classical scholars such as Imam Al-Ghazali\n\nEvidence-based therapeutic reflection techniques\n\nA secure memory system that understands each user over time\n\nA gentle, private, non-judgmental space for growth\n\nRather than being a chatbot that gives generic answers, Enlighten Qalb becomes a companion that walks with you — remembering, adapting, and guiding you with increasing depth and relevance.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "7615dc48-baea-49b7-9955-d9553cf76261"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/12c99c5d-6989-4553-b41b-81ddd57a2eff/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "For users who:\n\nAre newer to spiritual concepts\n\nPrefer simple, clear language\n\nWant practical and approachable guidance\n\nFeatures:\n\nSimple explanations\n\nMinimal terminology\n\nSame wisdom, easier form\n\nBoth modes deliver the same guidance, but in different styles.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 18,
+            "pageNumber": 5,
+            "sourceChunkId": "12c99c5d-6989-4553-b41b-81ddd57a2eff"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/66fdefd3-2d47-4f3f-af8c-57b9ea44f452/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "Enlighten Qalb is built with privacy as a core principle:\n\nConversations are stored securely\n\nLocal-first approach where possible\n\nControlled cloud sync\n\nNo selling of data\n\nNo surveillance-based design\n\nYour inner world remains yours.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 23,
+            "pageNumber": 7,
+            "sourceChunkId": "66fdefd3-2d47-4f3f-af8c-57b9ea44f452"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/d54b015a-2218-4a56-9bc1-5b37a23b698a/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "A future feature of Enlighten Qalb will provide:\n\nMonthly emotional summaries\n\nMood and stress trends\n\nReflection consistency tracking\n\nGrowth indicators\n\nGentle suggestions for improvement\n\nThis turns inner work into something visible, measurable, and motivating.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 22,
+            "pageNumber": 7,
+            "sourceChunkId": "d54b015a-2218-4a56-9bc1-5b37a23b698a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Differentiators",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The supported distinction is its combination of faith-aligned source material, persistent personal context, and adjustable guidance style within one spiritual-reflection companion. The sources describe an initial focus on Al-Ghazali’s work and ongoing memory; they do not provide comparative testing against other products or evidence of superior outcomes.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/37336d44-f180-4ad9-aa1c-062172198b57/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "Open original HumbleBeeAI page\n\nAI chatbot trained on The Alchemy of Happiness (Kimyai Saadat) by Al-Ghazali, offering personalized spiritual guidance and wisdom for inner growth.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 1,
+            "pageNumber": 1,
+            "sourceChunkId": "37336d44-f180-4ad9-aa1c-062172198b57"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/df666180-0cb7-4826-9b37-fa8badd312df/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "Enlighten Qalb uses a secure personal memory system to store:\n\nUser preferences\n\nPast reflections\n\nEmotional themes\n\nGoals and struggles\n\nCommunication style\n\nThis allows the assistant to:\n\nStay consistent across weeks and months\n\nBuild on previous conversations\n\nAdapt explanations to what resonates with the user\n\nRespond in styles the user prefers (e.g., Ghazali-like, Ibn Taymiyya-like, simpler tone, etc.)",
+            "mediaType": "application/pdf",
+            "chunkIndex": 20,
+            "pageNumber": 6,
+            "sourceChunkId": "df666180-0cb7-4826-9b37-fa8badd312df"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Current Availability and Roadmap",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The reviewed record describes the product as in use and lists its status as “prod ready,” while noting that owner approval is pending. No demo URL is supplied, and the materials do not clarify deployment scope or the conditions under which current features were tested. Monthly growth and emotional-insight features are presented as coming soon. The vision also mentions future expansion beyond The Alchemy of Happiness, but no schedule or confirmed delivery is provided.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/7615dc48-baea-49b7-9955-d9553cf76261/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "Enlighten Qalb is in use product with privacy-first, memory-enabled AI companion that supports long-term emotional and spiritual development through personalized, faith-aligned guidance. The platform combines curated spiritual sources, secure personal memory, and grounded AI responses to provide users with consistent and contextual support over time. With two guidance modes (Ustath and Enthusiast), multilingual support, and a foundation for future emotional progress analytics, Enlighten Qalb transforms one-off conversations into a continuous, structured personal growth experience.\n\nIt combines:\n\nFaith-aligned wisdom inspired by classical scholars such as Imam Al-Ghazali\n\nEvidence-based therapeutic reflection techniques\n\nA secure memory system that understands each user over time\n\nA gentle, private, non-judgmental space for growth\n\nRather than being a chatbot that gives generic answers, Enlighten Qalb becomes a companion that walks with you — remembering, adapting, and guiding you with increasing depth and relevance.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "7615dc48-baea-49b7-9955-d9553cf76261"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/d54b015a-2218-4a56-9bc1-5b37a23b698a/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "A future feature of Enlighten Qalb will provide:\n\nMonthly emotional summaries\n\nMood and stress trends\n\nReflection consistency tracking\n\nGrowth indicators\n\nGentle suggestions for improvement\n\nThis turns inner work into something visible, measurable, and motivating.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 22,
+            "pageNumber": 7,
+            "sourceChunkId": "d54b015a-2218-4a56-9bc1-5b37a23b698a"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/12c99c5d-6989-4553-b41b-81ddd57a2eff/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "For users who:\n\nAre newer to spiritual concepts\n\nPrefer simple, clear language\n\nWant practical and approachable guidance\n\nFeatures:\n\nSimple explanations\n\nMinimal terminology\n\nSame wisdom, easier form\n\nBoth modes deliver the same guidance, but in different styles.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 18,
+            "pageNumber": 5,
+            "sourceChunkId": "12c99c5d-6989-4553-b41b-81ddd57a2eff"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Enlighten Qalb is presented as a faith-aligned, memory-enabled guide designed to give spiritual reflection more continuity and context. Its current status is reported as in use/prod ready, but no demo link, measured outcomes, or independent verification of privacy and security claims are provided. The documented next-stage elements remain clearly identified as coming soon or future vision rather than confirmed delivery.",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/7615dc48-baea-49b7-9955-d9553cf76261/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "Enlighten Qalb is in use product with privacy-first, memory-enabled AI companion that supports long-term emotional and spiritual development through personalized, faith-aligned guidance. The platform combines curated spiritual sources, secure personal memory, and grounded AI responses to provide users with consistent and contextual support over time. With two guidance modes (Ustath and Enthusiast), multilingual support, and a foundation for future emotional progress analytics, Enlighten Qalb transforms one-off conversations into a continuous, structured personal growth experience.\n\nIt combines:\n\nFaith-aligned wisdom inspired by classical scholars such as Imam Al-Ghazali\n\nEvidence-based therapeutic reflection techniques\n\nA secure memory system that understands each user over time\n\nA gentle, private, non-judgmental space for growth\n\nRather than being a chatbot that gives generic answers, Enlighten Qalb becomes a companion that walks with you — remembering, adapting, and guiding you with increasing depth and relevance.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 5,
+            "pageNumber": 2,
+            "sourceChunkId": "7615dc48-baea-49b7-9955-d9553cf76261"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/d54b015a-2218-4a56-9bc1-5b37a23b698a/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "A future feature of Enlighten Qalb will provide:\n\nMonthly emotional summaries\n\nMood and stress trends\n\nReflection consistency tracking\n\nGrowth indicators\n\nGentle suggestions for improvement\n\nThis turns inner work into something visible, measurable, and motivating.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 22,
+            "pageNumber": 7,
+            "sourceChunkId": "d54b015a-2218-4a56-9bc1-5b37a23b698a"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/8a94eff7-ed2c-45f0-a564-5d0ea5058d1c/evidence/12c99c5d-6989-4553-b41b-81ddd57a2eff/asset",
+            "fileName": "project--enlighten-qalb.pdf",
+            "chunkText": "For users who:\n\nAre newer to spiritual concepts\n\nPrefer simple, clear language\n\nWant practical and approachable guidance\n\nFeatures:\n\nSimple explanations\n\nMinimal terminology\n\nSame wisdom, easier form\n\nBoth modes deliver the same guidance, but in different styles.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 18,
+            "pageNumber": 5,
+            "sourceChunkId": "12c99c5d-6989-4553-b41b-81ddd57a2eff"
+          }
+        }
+      ]
+    }
+  ]
+}

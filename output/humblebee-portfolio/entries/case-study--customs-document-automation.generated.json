@@ -1,0 +1,451 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "text": "Automating Customs Documentation with Local AI and Computer Vision",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Automating Customs Documentation with Local AI and Computer Vision",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Executive Summary",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "HumbleBeeAI developed a locally hosted document-processing MVP for an unnamed logistics and customs brokerage firm. The project addresses manual transcription of invoices, packing lists and identity documents into customs declaration templates, while keeping sensitive data within the client’s infrastructure. The source describes a functional MVP and a separate roadmap toward fuller automation; this entry is a review draft, with owner approval pending. ",
+          "type": "text"
+        },
+        {
+          "text": "View the original case study",
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "rel": "noopener noreferrer",
+                "href": "https://humblebee.ai/case-studies/customs-document-automation",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/659d9730-981a-4c79-baed-5c9c61615bee/evidence/ba9f4d0e-9a2c-4049-a8ec-ec0caca7c393/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "This project developed an intelligent system for the automated recognition and digitization of critical customs documents — including invoices, packing lists, and identity documents. By combining Computer Vision and locally hosted Large Language Models, we transformed a manual, error-prone workflow into a secure, automated pipeline for generating customs declarations. The solution delivers an estimated 90% reduction in processing time and 97% reduction in human error, while meeting the highest standards of data privacy through fully local AI deployment.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "ba9f4d0e-9a2c-4049-a8ec-ec0caca7c393"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/659d9730-981a-4c79-baed-5c9c61615bee/evidence/9c4b5d96-6bea-4cfc-ab7e-58a92723bd65/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "We proposed and implemented a two-phased approach: a functional MVP delivering immediate utility to 100–1,000 users, followed by a roadmap toward full end-to-end automation.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 7,
+            "pageNumber": 2,
+            "sourceChunkId": "9c4b5d96-6bea-4cfc-ab7e-58a92723bd65"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Context and Challenge",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Staff previously transcribed shipment details from physical or scanned documents into declaration templates. The work required focused attention and was described as slow and difficult to scale as document volumes grew. Invoice and packing-list layouts also vary by supplier and country, making basic OCR insufficient for consistently identifying meaningful fields. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/659d9730-981a-4c79-baed-5c9c61615bee/evidence/27b95ed5-7f64-49ea-b79d-b8568a63fd2a/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "Time-Intensive Manual Entry: Staff were manually transcribing data from physical or scanned documents — invoices, packing lists, and government-issued IDs — directly into declaration templates. Each document required focused human attention, making the process slow and difficult to scale as shipment volumes grew.\n\nData Sovereignty and Security Risks: Customs documents contain sensitive personal data, including citizen PIN codes and identity numbers. Using cloud-based AI providers such as OpenAI would expose this data to third-party systems, creating unacceptable cybersecurity and regulatory risk. Any viable solution had to operate entirely within the client's internal infrastructure.\n\nStructural Complexity of Documents: Invoices and packing lists vary significantly in layout and format depending on the supplier or country of origin. Basic OCR alone was insufficient — the system needed to understand document structure, extract semantically meaningful fields, and handle inconsistencies gracefully.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "27b95ed5-7f64-49ea-b79d-b8568a63fd2a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The documents can contain sensitive personal information, including PIN codes and identity numbers. The client required processing on internal infrastructure rather than sending this information to cloud AI services. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/659d9730-981a-4c79-baed-5c9c61615bee/evidence/27b95ed5-7f64-49ea-b79d-b8568a63fd2a/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "Time-Intensive Manual Entry: Staff were manually transcribing data from physical or scanned documents — invoices, packing lists, and government-issued IDs — directly into declaration templates. Each document required focused human attention, making the process slow and difficult to scale as shipment volumes grew.\n\nData Sovereignty and Security Risks: Customs documents contain sensitive personal data, including citizen PIN codes and identity numbers. Using cloud-based AI providers such as OpenAI would expose this data to third-party systems, creating unacceptable cybersecurity and regulatory risk. Any viable solution had to operate entirely within the client's internal infrastructure.\n\nStructural Complexity of Documents: Invoices and packing lists vary significantly in layout and format depending on the supplier or country of origin. Basic OCR alone was insufficient — the system needed to understand document structure, extract semantically meaningful fields, and handle inconsistencies gracefully.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 6,
+            "pageNumber": 2,
+            "sourceChunkId": "27b95ed5-7f64-49ea-b79d-b8568a63fd2a"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/659d9730-981a-4c79-baed-5c9c61615bee/evidence/616300e2-48b6-4633-8f33-8458d5cd9766/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "The team selected lightweight yet high-performance models specifically chosen to run efficiently on on-premise hardware. This ensured fast processing speeds without the need for expensive GPU infrastructure or cloud compute, making the solution viable for the client's existing server environment.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 10,
+            "pageNumber": 3,
+            "sourceChunkId": "616300e2-48b6-4633-8f33-8458d5cd9766"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Solution and Capabilities",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Local processing for sensitive records",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "OCR engines and LLM services run on the client’s local infrastructure. The source says document data stays within the organization’s perimeter. Lightweight models were selected to run on on-premise hardware without cloud compute or expensive GPU infrastructure. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/659d9730-981a-4c79-baed-5c9c61615bee/evidence/e9e150f0-ee20-4e7b-87b6-3fb642a38041/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "To address security concerns at the foundation, the system was built entirely on local infrastructure. OCR engines and LLM services are hosted on the client's internal servers, ensuring that sensitive document data — including names, PIN codes, and identity numbers — never leaves the organization's perimeter. This architecture eliminated the risk of third-party data exposure entirely.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 2,
+            "sourceChunkId": "e9e150f0-ee20-4e7b-87b6-3fb642a38041"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/659d9730-981a-4c79-baed-5c9c61615bee/evidence/616300e2-48b6-4633-8f33-8458d5cd9766/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "The team selected lightweight yet high-performance models specifically chosen to run efficiently on on-premise hardware. This ensured fast processing speeds without the need for expensive GPU infrastructure or cloud compute, making the solution viable for the client's existing server environment.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 10,
+            "pageNumber": 3,
+            "sourceChunkId": "616300e2-48b6-4633-8f33-8458d5cd9766"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Document understanding and editable outputs",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Computer vision analyzes uploaded images and PDFs for features such as stamps, tables and field boundaries, preparing documents for extraction. In the MVP, users select whether a document is an invoice, packing list or ID; classification is therefore user-selected, not autonomous. Extracted information populates standardized Excel or PDF templates that users can review and edit before submission. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/659d9730-981a-4c79-baed-5c9c61615bee/evidence/0a59fa4f-80cd-45e0-8744-5f55f752b50a/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "Computer Vision: The system analyzes uploaded images and PDFs to detect document features such as customs stamps, table structures, and field boundaries. Documents are converted into structured, machine-readable formats before data extraction begins.\n\nHybrid Classification: In the MVP phase, users manually select the document type (invoice, packing list, or ID) to guarantee 100% classification accuracy. An automated document classification engine is planned for Phase 2.\n\nDynamic Templates: Extracted data is automatically populated into standardized output templates — such as Excel spreadsheets or PDF forms — which users can review and edit in a dedicated workspace before final submission.\n\n3. Advanced Security and Encryption\n\nBeyond local hosting, the system implements end-to-end encryption for all data stored in the database, including names and identity numbers. Access to the platform is strictly controlled through an admin panel with individual login credentials for each user, ensuring full auditability and access control.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 2,
+            "sourceChunkId": "0a59fa4f-80cd-45e0-8744-5f55f752b50a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Access controls and stored data",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The described implementation includes end-to-end encryption for database data, including names and identity numbers, plus individual user logins managed through an admin panel. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/659d9730-981a-4c79-baed-5c9c61615bee/evidence/0a59fa4f-80cd-45e0-8744-5f55f752b50a/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "Computer Vision: The system analyzes uploaded images and PDFs to detect document features such as customs stamps, table structures, and field boundaries. Documents are converted into structured, machine-readable formats before data extraction begins.\n\nHybrid Classification: In the MVP phase, users manually select the document type (invoice, packing list, or ID) to guarantee 100% classification accuracy. An automated document classification engine is planned for Phase 2.\n\nDynamic Templates: Extracted data is automatically populated into standardized output templates — such as Excel spreadsheets or PDF forms — which users can review and edit in a dedicated workspace before final submission.\n\n3. Advanced Security and Encryption\n\nBeyond local hosting, the system implements end-to-end encryption for all data stored in the database, including names and identity numbers. Access to the platform is strictly controlled through an admin panel with individual login credentials for each user, ensuring full auditability and access control.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 2,
+            "sourceChunkId": "0a59fa4f-80cd-45e0-8744-5f55f752b50a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Results and Business Impact",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The case study estimates up to 90% reduction in processing time compared with prior manual transcription, and reports 97% fewer human errors relative to manual entry. These are source-reported estimates and claims, not independently validated production results. Absolute processing times, error counts, evaluation sample and measurement protocol were not provided, so the business impact cannot be quantified beyond those reported figures. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/659d9730-981a-4c79-baed-5c9c61615bee/evidence/70818b9e-bfa4-4144-a8e2-9fbe598da6c7/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "90% Reduction in Processing Time: Transitioning from manual data entry to AI-assisted extraction is estimated to reduce up to 90% of the time declarants previously spent processing documents. What once required careful, focused manual work is now handled in seconds by the pipeline.\n\n97% Reduction in Human Error: Moving from manual transcription to AI-assisted extraction eliminates the systematic errors that commonly occur in high-volume data entry. The structured extraction pipeline ensures consistent, validated output for every document processed.\n\nEnterprise-Grade Security: By deploying the LLM locally and implementing end-to-end database encryption, the project meets the highest standards of data protection and cybersecurity — fully compliant with data sovereignty regulations governing citizen identity information.\n\nScalable Foundation: The MVP architecture is designed to support an initial user base of up to 1,000 declarants, with a clear technical roadmap for Phase 2: automated document classification, deeper ERP integrations, and full end-to-end declaration generation without manual review steps.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 11,
+            "pageNumber": 3,
+            "sourceChunkId": "70818b9e-bfa4-4144-a8e2-9fbe598da6c7"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/659d9730-981a-4c79-baed-5c9c61615bee/evidence/ba9f4d0e-9a2c-4049-a8ec-ec0caca7c393/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "This project developed an intelligent system for the automated recognition and digitization of critical customs documents — including invoices, packing lists, and identity documents. By combining Computer Vision and locally hosted Large Language Models, we transformed a manual, error-prone workflow into a secure, automated pipeline for generating customs declarations. The solution delivers an estimated 90% reduction in processing time and 97% reduction in human error, while meeting the highest standards of data privacy through fully local AI deployment.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 4,
+            "pageNumber": 1,
+            "sourceChunkId": "ba9f4d0e-9a2c-4049-a8ec-ec0caca7c393"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The MVP architecture is described as designed to support up to 1,000 declarants; this is a design target, not evidence of active users or observed adoption. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/659d9730-981a-4c79-baed-5c9c61615bee/evidence/70818b9e-bfa4-4144-a8e2-9fbe598da6c7/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "90% Reduction in Processing Time: Transitioning from manual data entry to AI-assisted extraction is estimated to reduce up to 90% of the time declarants previously spent processing documents. What once required careful, focused manual work is now handled in seconds by the pipeline.\n\n97% Reduction in Human Error: Moving from manual transcription to AI-assisted extraction eliminates the systematic errors that commonly occur in high-volume data entry. The structured extraction pipeline ensures consistent, validated output for every document processed.\n\nEnterprise-Grade Security: By deploying the LLM locally and implementing end-to-end database encryption, the project meets the highest standards of data protection and cybersecurity — fully compliant with data sovereignty regulations governing citizen identity information.\n\nScalable Foundation: The MVP architecture is designed to support an initial user base of up to 1,000 declarants, with a clear technical roadmap for Phase 2: automated document classification, deeper ERP integrations, and full end-to-end declaration generation without manual review steps.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 11,
+            "pageNumber": 3,
+            "sourceChunkId": "70818b9e-bfa4-4144-a8e2-9fbe598da6c7"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Limitations and Next Steps",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Classification remains a user action in the MVP. Automated document classification, deeper ERP integrations and declaration generation without manual review are identified as Phase 2 roadmap items, not delivered capabilities. The reported material does not provide evaluation conditions or independent validation for the time and error figures. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/659d9730-981a-4c79-baed-5c9c61615bee/evidence/0a59fa4f-80cd-45e0-8744-5f55f752b50a/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "Computer Vision: The system analyzes uploaded images and PDFs to detect document features such as customs stamps, table structures, and field boundaries. Documents are converted into structured, machine-readable formats before data extraction begins.\n\nHybrid Classification: In the MVP phase, users manually select the document type (invoice, packing list, or ID) to guarantee 100% classification accuracy. An automated document classification engine is planned for Phase 2.\n\nDynamic Templates: Extracted data is automatically populated into standardized output templates — such as Excel spreadsheets or PDF forms — which users can review and edit in a dedicated workspace before final submission.\n\n3. Advanced Security and Encryption\n\nBeyond local hosting, the system implements end-to-end encryption for all data stored in the database, including names and identity numbers. Access to the platform is strictly controlled through an admin panel with individual login credentials for each user, ensuring full auditability and access control.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 2,
+            "sourceChunkId": "0a59fa4f-80cd-45e0-8744-5f55f752b50a"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/659d9730-981a-4c79-baed-5c9c61615bee/evidence/70818b9e-bfa4-4144-a8e2-9fbe598da6c7/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "90% Reduction in Processing Time: Transitioning from manual data entry to AI-assisted extraction is estimated to reduce up to 90% of the time declarants previously spent processing documents. What once required careful, focused manual work is now handled in seconds by the pipeline.\n\n97% Reduction in Human Error: Moving from manual transcription to AI-assisted extraction eliminates the systematic errors that commonly occur in high-volume data entry. The structured extraction pipeline ensures consistent, validated output for every document processed.\n\nEnterprise-Grade Security: By deploying the LLM locally and implementing end-to-end database encryption, the project meets the highest standards of data protection and cybersecurity — fully compliant with data sovereignty regulations governing citizen identity information.\n\nScalable Foundation: The MVP architecture is designed to support an initial user base of up to 1,000 declarants, with a clear technical roadmap for Phase 2: automated document classification, deeper ERP integrations, and full end-to-end declaration generation without manual review steps.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 11,
+            "pageNumber": 3,
+            "sourceChunkId": "70818b9e-bfa4-4144-a8e2-9fbe598da6c7"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "No additional next steps or deployment/adoption measurements were provided. Publication and owner approval are pending; image permissions are also pending, so no source image is included.",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Conclusion",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "The MVP applies local OCR, computer vision and LLM extraction to customs documents, producing editable declaration templates while keeping processing within the client’s infrastructure. It is an assisted workflow with human-selected document types and review before submission; further automation remains roadmap work. The reported efficiency and error figures should be read as unvalidated source-reported estimates, not established business results. ",
+          "type": "text"
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/659d9730-981a-4c79-baed-5c9c61615bee/evidence/e9e150f0-ee20-4e7b-87b6-3fb642a38041/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "To address security concerns at the foundation, the system was built entirely on local infrastructure. OCR engines and LLM services are hosted on the client's internal servers, ensuring that sensitive document data — including names, PIN codes, and identity numbers — never leaves the organization's perimeter. This architecture eliminated the risk of third-party data exposure entirely.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 8,
+            "pageNumber": 2,
+            "sourceChunkId": "e9e150f0-ee20-4e7b-87b6-3fb642a38041"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/659d9730-981a-4c79-baed-5c9c61615bee/evidence/0a59fa4f-80cd-45e0-8744-5f55f752b50a/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "Computer Vision: The system analyzes uploaded images and PDFs to detect document features such as customs stamps, table structures, and field boundaries. Documents are converted into structured, machine-readable formats before data extraction begins.\n\nHybrid Classification: In the MVP phase, users manually select the document type (invoice, packing list, or ID) to guarantee 100% classification accuracy. An automated document classification engine is planned for Phase 2.\n\nDynamic Templates: Extracted data is automatically populated into standardized output templates — such as Excel spreadsheets or PDF forms — which users can review and edit in a dedicated workspace before final submission.\n\n3. Advanced Security and Encryption\n\nBeyond local hosting, the system implements end-to-end encryption for all data stored in the database, including names and identity numbers. Access to the platform is strictly controlled through an admin panel with individual login credentials for each user, ensuring full auditability and access control.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 9,
+            "pageNumber": 2,
+            "sourceChunkId": "0a59fa4f-80cd-45e0-8744-5f55f752b50a"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "fileUrl": "/workspaces/ab6b13a5-514c-4849-96d2-cd4008c5c310/documents/659d9730-981a-4c79-baed-5c9c61615bee/evidence/70818b9e-bfa4-4144-a8e2-9fbe598da6c7/asset",
+            "fileName": "case-study--customs-document-automation.pdf",
+            "chunkText": "90% Reduction in Processing Time: Transitioning from manual data entry to AI-assisted extraction is estimated to reduce up to 90% of the time declarants previously spent processing documents. What once required careful, focused manual work is now handled in seconds by the pipeline.\n\n97% Reduction in Human Error: Moving from manual transcription to AI-assisted extraction eliminates the systematic errors that commonly occur in high-volume data entry. The structured extraction pipeline ensures consistent, validated output for every document processed.\n\nEnterprise-Grade Security: By deploying the LLM locally and implementing end-to-end database encryption, the project meets the highest standards of data protection and cybersecurity — fully compliant with data sovereignty regulations governing citizen identity information.\n\nScalable Foundation: The MVP architecture is designed to support an initial user base of up to 1,000 declarants, with a clear technical roadmap for Phase 2: automated document classification, deeper ERP integrations, and full end-to-end declaration generation without manual review steps.",
+            "mediaType": "application/pdf",
+            "chunkIndex": 11,
+            "pageNumber": 3,
+            "sourceChunkId": "70818b9e-bfa4-4144-a8e2-9fbe598da6c7"
+          }
+        }
+      ]
+    }
+  ]
+}
