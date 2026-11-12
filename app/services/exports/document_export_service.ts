@@ -1,3 +1,4 @@
+import env from '#start/env'
 import db from '@adonisjs/lucid/services/db'
 import drive from '@adonisjs/drive/services/main'
 import Document from '#models/document'
@@ -17,6 +18,9 @@ import AccessService, {
 } from '#services/workspaces/access_service'
 import TaskService, { fingerprint, type TaskLease } from '#services/workspaces/task_service'
 import TaskDispatchService from '#services/workspaces/task_dispatch_service'
+/** OUT-01 pilot: branded publication layout, off unless enabled. */
+const publicationLayout = () => env.get('PUBLICATION_LAYOUT') === 'pilot'
+
 export default class DocumentExportService {
   async request(
     context: WorkspaceAccessContext,
@@ -81,7 +85,9 @@ export default class DocumentExportService {
       tasks.check(lease)
     )
     await tasks.check(lease)
-    const buffer = await ExportPdfService.generate({ content } as DocumentVersion)
+    const buffer = await ExportPdfService.generate({ content } as DocumentVersion, {
+      publication: publicationLayout(),
+    })
     const key = `workspaces/${lease.context.workspaceId}/exports/${lease.task.id}.pdf`
     try {
       await tasks.finish(
@@ -169,7 +175,7 @@ export default class DocumentExportService {
     await check()
     const buffer = await ExportPdfService[format === 'html' ? 'html' : 'generate'](
       { content } as DocumentVersion,
-      { preview: true }
+      { preview: true, publication: publicationLayout() }
     )
     await check()
     const current = await access.document(context, documentId)

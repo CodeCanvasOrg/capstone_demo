@@ -17,6 +17,7 @@ import {
   Save,
   RotateCcw,
   PencilLine,
+  LoaderCircle,
 } from 'lucide-react'
 import { urlFor } from '@/client'
 import { useWorkspaceId, useUnsavedChanges } from '@/providers/workspace_provider'
@@ -237,11 +238,13 @@ export function MetadataForm({
 }
 export function IssuesPanel({
   issues,
+  loading = false,
   action,
   documentId,
   disabled,
 }: {
   issues: Data.DocumentIssue[]
+  loading?: boolean
   action: Action
   documentId: string
   disabled: boolean
@@ -296,8 +299,12 @@ export function IssuesPanel({
     <Disclosure
       title="Issues"
       icon={MessageSquare}
-      summary={`${issues.filter((issue) => issue.state === 'open').length} open`}
-      defaultOpen={issues.some((issue) => issue.state === 'open' && issue.blocking)}
+      summary={
+        loading
+          ? 'Loading issues…'
+          : `${issues.filter((issue) => issue.state === 'open').length} open`
+      }
+      defaultOpen={loading || issues.some((issue) => issue.state === 'open' && issue.blocking)}
     >
       <ActionFeedback error={panelError} />
       <div className="flex items-center justify-between">
@@ -312,6 +319,12 @@ export function IssuesPanel({
           <Plus />
         </Button>
       </div>
+      {loading && (
+        <p role="status" className="flex items-center gap-2 text-xs text-muted-foreground">
+          <LoaderCircle aria-hidden="true" className="size-3 animate-spin" />
+          Loading issues. We’re checking the draft’s claims against your sources.
+        </p>
+      )}
       {issues.length ? (
         <ul className="space-y-3">
           {issues.map((issue) => (
@@ -360,7 +373,7 @@ export function IssuesPanel({
           ))}
         </ul>
       ) : (
-        <p className="text-xs leading-relaxed text-muted-foreground">No issues.</p>
+        !loading && <p className="text-xs leading-relaxed text-muted-foreground">No issues.</p>
       )}
       <Dialog
         open={open}
@@ -449,6 +462,7 @@ export function DocumentInspector({
   workflow,
   availableFiles,
   issues,
+  loadingIssues = false,
   action,
   disabled,
 }: {
@@ -456,6 +470,7 @@ export function DocumentInspector({
   workflow: Data.DocumentWorkflow
   availableFiles: Data.File[]
   issues: Data.DocumentIssue[]
+  loadingIssues?: boolean
   action: Action
   disabled: boolean
 }) {
@@ -612,7 +627,13 @@ export function DocumentInspector({
           ))}
         </div>
       )}
-      <IssuesPanel issues={issues} action={action} documentId={document.id} disabled={disabled} />
+      <IssuesPanel
+        issues={issues}
+        loading={loadingIssues}
+        action={action}
+        documentId={document.id}
+        disabled={disabled}
+      />
       <Disclosure title="Details" icon={Info}>
         <div className="space-y-4">
           <dl className="space-y-4 text-xs">

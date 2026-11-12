@@ -277,6 +277,10 @@ export default class TaskService {
     )
   }
   async reconcile() {
+    // A worker that died mid claim-check must not leave the document stuck on "checking issues".
+    await db.rawQuery(
+      `UPDATE documents SET generation_status='ready',generation_lease_at=NULL WHERE generation_status='checking_issues' AND (generation_lease_at IS NULL OR generation_lease_at < CURRENT_TIMESTAMP - INTERVAL '10 minutes')`
+    )
     await db.rawQuery(
       `WITH pending AS(SELECT d.id,t.safe_error FROM documents d JOIN workspace_tasks t ON t.id=d.generation_task_id AND t.workspace_id=d.workspace_id WHERE d.generation_status='processing' AND t.status IN('failed','conflict','cancelled') LIMIT 100) UPDATE documents d SET generation_status='failed',generation_error=COALESCE(p.safe_error,'Generation could not finish'),generation_lease_at=NULL FROM pending p WHERE p.id=d.id`
     )
