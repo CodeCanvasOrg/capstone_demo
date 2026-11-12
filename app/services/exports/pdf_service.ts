@@ -10,6 +10,7 @@ import {
   type ClientBlock,
   type ClientInline,
   type ClientRenderData,
+  type ClientResult,
 } from '../../../shared/publication/client.ts'
 
 type RenderOptions = { preview?: boolean; publication?: boolean }
@@ -39,10 +40,33 @@ sup.ref { font-size: 7pt; line-height: 0; color: #6b7280; margin-left: 1px; }
 h2 { border-bottom: 1px solid #e5e7eb; padding-bottom: 4px; break-after: avoid; }
 h3 { break-after: avoid; }
 img { break-inside: avoid; }
+.results { margin-top: 24px; padding: 10px 14px; border-left: 4px solid #f6d900; background: #f9fafb; break-inside: avoid; }
+.results h2 { font-size: 11pt; border: 0; margin: 0 0 6px; }
+.results ul { margin: 0; padding-left: 18px; }
+.results .qualifier { font-size: 8pt; color: #4b5563; text-transform: uppercase; letter-spacing: .04em; }
 .sources { margin-top: 28px; padding-top: 10px; border-top: 1px solid #e5e7eb; font-size: 9pt; color: #4b5563; break-inside: avoid; }
 .sources h2 { font-size: 11pt; border: 0; margin: 0 0 6px; }
 .sources ol { margin: 0; padding-left: 20px; }
 `
+
+const QUALIFIER_LABELS = {
+  measured: 'Measured',
+  estimated: 'Estimated',
+  client_reported: 'Client reported',
+  design_target: 'Design target',
+} as const
+
+/** Context the author supplied, in a fixed order; absent fields print nothing. */
+function resultContext(result: ClientResult) {
+  const parts = [
+    result.units,
+    result.scope,
+    result.baseline && `baseline: ${result.baseline}`,
+    result.period,
+    result.methodology,
+  ].filter((part): part is string => Boolean(part))
+  return parts.length ? ` — ${parts.map(esc).join('; ')}` : ''
+}
 
 /** Client DTO to TipTap JSON. Its input is exclusively the closed client union. */
 const inline = (node: ClientInline): JSONContent => {
@@ -124,6 +148,15 @@ export default class ExportPdfService {
           )
           .join('')}</ol></section>`
       : ''
+    // The qualifier is visible text beside its value, not only a style or tooltip.
+    const results = client.results?.length
+      ? `<section class="results"><h2>Key results</h2><ul>${client.results
+          .map(
+            (result) =>
+              `<li><strong>${esc(result.value)}</strong> <span class="qualifier">${QUALIFIER_LABELS[result.qualifier]}</span>${resultContext(result)}</li>`
+          )
+          .join('')}</ul></section>`
+      : ''
     const summary = client.summary ? render([client.summary]) : ''
     const contentHtml = publication
       ? `
@@ -132,11 +165,13 @@ export default class ExportPdfService {
       ${summary ? `<div class="summary">${summary}</div>` : ''}
       </header>
       ${render(client.body)}
+      ${results}
       ${sources}`
       : `
       ${client.title ? `<h1>${esc(client.title)}</h1>` : ''}
       ${summary}
       ${render(client.body)}
+      ${results}
       ${sources}`
 
     const font = await readFile(

@@ -5,6 +5,11 @@ import DocumentVersion from '#models/document_version'
 import VersionAcceptance from '#models/version_acceptance'
 import EvidenceService from '#services/documents/evidence_service'
 import ContentService from '#services/documents/content_service'
+import PublicationReviewService from '#services/documents/publication_review_service'
+import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
+import logger from '@adonisjs/core/services/logger'
+import PublicationContentService from '#services/documents/publication_content_service'
+import type { PublicationDocument } from '../../../shared/publication/content.ts'
 import WorkflowService from '#services/documents/workflow_service'
 import AccessService, {
   conflict,
@@ -16,12 +21,20 @@ export default class VersionService {
     id: string,
     input: { content: unknown; baseVersionId: string | null; mutationId: string }
   ) {
-    const normalized = new ContentService().normalize(input.content, { repair: true })
+    const normalized = new ContentService().normalize(input.content, {
+      repair: true,
+      seed: input.mutationId,
+    })
     const requestHash = createHash('sha256')
       .update(JSON.stringify({ content: normalized, baseVersionId: input.baseVersionId }))
       .digest('hex')
-    const content = await new EvidenceService().hydrate(context, id, normalized)
-    return db.transaction(async (trx) => {
+    const hydrated = await new EvidenceService().hydrate(context, id, normalized)
+    // Hydration drops evidence the actor cannot use; annotations must still resolve.
+    const publication = new PublicationContentService()
+    const content = publication.accept(hydrated as PublicationDocument, {
+      resolvers: publication.resolversFor(hydrated as PublicationDocument),
+    }) as typeof hydrated
+    const saved = await db.transaction(async (trx) => {
       await new AccessService().lock(context, trx)
       const document = await Document.query({ client: trx })
         .where({ id, workspaceId: context.workspaceId })
@@ -91,5 +104,17 @@ export default class VersionService {
       )
       return version!
     })
+    // Best effort after commit: a failed hygiene check never fails or hides a saved version.
+    try {
+      await new PublicationReviewService().record(
+        context,
+        id,
+        saved.id,
+        saved.content as TipTapDocument
+      )
+    } catch (error) {
+      logger.warn({ err: error, documentId: id, versionId: saved.id }, 'Publication check failed')
+    }
+    return saved
   }
 }

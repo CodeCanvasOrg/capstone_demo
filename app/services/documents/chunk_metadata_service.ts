@@ -33,11 +33,6 @@ export type DocumentImageReference = {
   mime: string
 }
 
-/** Hydration replaces display fields only; stable block identity must survive it. */
-function keepNodeId(node: TipTapNode) {
-  return typeof node.attrs?.nodeId === 'string' ? { nodeId: node.attrs.nodeId } : {}
-}
-
 function isWebUrl(value: string | null): value is string {
   if (!value) return false
   if (/^\/workspaces\/[0-9a-f-]+\/(files|documents)\//i.test(value)) return true
@@ -49,6 +44,10 @@ function isWebUrl(value: string | null): value is string {
     return false
   }
 }
+
+/** Stable block identity is not hydrated data; rebuilt nodes must keep it. */
+const identity = (node: TipTapNode) =>
+  typeof node.attrs?.nodeId === 'string' ? { nodeId: node.attrs.nodeId } : {}
 
 /**
  * Resolve model-created chunk references to metadata from the retrieved chunks.
@@ -68,7 +67,7 @@ export function attachChunkMetadata(
       return {
         type: 'image',
         attrs: {
-          ...keepNodeId(node),
+          ...identity(node),
           documentImageId: image.id,
           src: image.src,
           alt: typeof node.attrs.alt === 'string' ? node.attrs.alt : image.filename,
@@ -91,7 +90,7 @@ export function attachChunkMetadata(
         return {
           type: 'image',
           attrs: {
-            ...keepNodeId(node),
+            ...identity(node),
             sourceChunkId: source.id,
             src: source.fileUrl,
             alt:

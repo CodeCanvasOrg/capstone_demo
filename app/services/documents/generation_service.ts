@@ -9,6 +9,10 @@ import config from '#config/open_router'
 import OpenRouterService from '#services/open_router_service'
 import RetrievalService from '#services/documents/retrieval_service'
 import ContentService from '#services/documents/content_service'
+import type { PublicationDocument } from '../../../shared/publication/content.ts'
+import PublicationContentService from '#services/documents/publication_content_service'
+import PublicationReviewService from '#services/documents/publication_review_service'
+import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
 import ClaimReviewService from '#services/documents/claim_review_service'
 import logger from '@adonisjs/core/services/logger'
 import { DateTime } from 'luxon'
@@ -199,7 +203,10 @@ export default class GenerationService {
     )
     const normalized = new ContentService().normalize(generated, { repair: true })
     const { attachChunkMetadata } = await import('#services/documents/chunk_metadata_service')
-    const content = attachChunkMetadata(normalized, chunks)
+    const content = this.annotate(
+      attachChunkMetadata(normalized, chunks),
+      `${document.id}:${lease.task.mutationId}`
+    )
     const accepted = await tasks.finish(lease, async (trx) => {
       const current = await Document.query({ client: trx })
         .where({ id: document.id, workspaceId: lease.context.workspaceId })
@@ -254,6 +261,36 @@ export default class GenerationService {
     })
     await this.reviewClaims(lease, document.id, String(accepted.versionId), content)
   }
+  /**
+   * Deterministic publication mapping of accepted model output. Model-proposed
+   * IDs, URLs and authorship are never read; identity comes from the task's
+   * mutation, so a replayed task yields the same IDs. A draft that cannot be
+   * mapped (e.g. no title) stays an ordinary editable document.
+   */
+  private annotate<T extends Parameters<PublicationContentService['mapLegacy']>[0]>(
+    content: T,
+    namespace: string
+  ): T {
+    try {
+      const service = new PublicationContentService()
+      // Model-proposed identity and root metadata are untrusted: discard, then allocate.
+      const untrusted = structuredClone(content) as PublicationDocument
+      delete untrusted.attrs
+      const strip = (nodes?: PublicationDocument['content']) =>
+        nodes?.forEach((node) => {
+          if (node.attrs) delete node.attrs.nodeId
+          strip(node.content)
+        })
+      strip(untrusted.content)
+      const { document, report } = service.mapLegacy(untrusted, namespace)
+      if (!report.mapped) return content
+      const resolvers = service.resolversFor(document)
+      return service.accept(document, { resolvers }) as T
+    } catch (error) {
+      logger.warn({ err: error, namespace }, 'Generated content kept without publication metadata')
+      return content
+    }
+  }
   /** Best effort: a failed check must never fail or hide an accepted draft. */
   private async reviewClaims(
     lease: TaskLease,
@@ -265,6 +302,16 @@ export default class GenerationService {
       await new ClaimReviewService().review(lease.context, documentId, versionId, content)
     } catch (error) {
       logger.error({ err: error, documentId, versionId }, 'Generated claim review failed')
+    }
+    try {
+      await new PublicationReviewService().record(
+        lease.context,
+        documentId,
+        versionId,
+        content as TipTapDocument
+      )
+    } catch (error) {
+      logger.error({ err: error, documentId, versionId }, 'Publication check failed')
     } finally {
       await db
         .from('documents')

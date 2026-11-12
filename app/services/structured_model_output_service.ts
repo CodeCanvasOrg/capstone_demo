@@ -46,8 +46,7 @@ function getStructuredOutput({ editor = false }: { editor?: boolean } = {}) {
           title: z.string().optional().describe('Optional image caption'),
           ...(editor
             ? {
-                // Server-owned block identity; the editor only carries it.
-                nodeId: z.string().uuid().nullish(),
+                nodeId: z.guid().nullish(),
                 documentImageId: z.string().uuid().nullish(),
                 sourceChunkId: z.string().nullish(),
                 alt: z.string().max(2000).nullish(),
@@ -69,8 +68,8 @@ function getStructuredOutput({ editor = false }: { editor?: boolean } = {}) {
   // The top-level document wrap required by Tiptap
   const TiptapDocSchema = z.object({
     type: z.literal('doc'),
-    // Publication annotations are validated by PublicationContentService, not stripped here.
-    ...(editor ? { attrs: z.object({ publication: z.unknown().optional() }).optional() } : {}),
+    // Editor documents carry `attrs.publication`; ContentService validates it strictly.
+    ...(editor ? { attrs: z.record(z.string(), z.unknown()).nullish() } : {}),
     content: z.array(TiptapNodeSchema),
   })
 

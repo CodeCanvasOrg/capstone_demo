@@ -344,6 +344,12 @@ export function IssuesPanel({
               <p className="mt-2 text-xs text-muted-foreground">
                 {issue.blocking ? 'Blocks review' : 'Informational'} · {issue.state}
               </p>
+              {issue.code?.startsWith('publication_') && (
+                <p className="mt-1 break-words text-xs text-muted-foreground">
+                  Publication check (internal, not a factual review)
+                  {issue.blockId ? ` · field ${issue.blockId}` : ''}
+                </p>
+              )}
               <Button
                 variant="ghost"
                 size="sm"

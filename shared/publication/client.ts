@@ -34,12 +34,32 @@ export type ClientBlock =
 
 export type ClientSource = { number: number; label: string; page?: number }
 
+export const CLIENT_QUALIFIERS = [
+  'measured',
+  'estimated',
+  'client_reported',
+  'design_target',
+] as const
+
+/** A result keeps its qualifier and author-supplied context with the value, never apart. */
+export type ClientResult = {
+  value: string
+  qualifier: (typeof CLIENT_QUALIFIERS)[number]
+  comparison?: 'exact' | 'up_to' | 'at_least' | 'range'
+  units?: string
+  scope?: string
+  baseline?: string
+  period?: string
+  methodology?: string
+}
+
 export type ClientRenderData = {
   schemaVersion: typeof CLIENT_SCHEMA_VERSION
   docType: 'case_study'
   title?: string
   summary?: Extract<ClientBlock, { type: 'paragraph' }>
   body: ClientBlock[]
+  results?: ClientResult[]
   sources: ClientSource[]
 }
 
@@ -223,7 +243,7 @@ export function parseClientRenderData(value: unknown): ClientRenderData {
       .filter((n): n is ClientBlock => !!n)
 
   if (!isObj(value)) throw new ClientContentError([{ field: '$', code: 'expected_object' }])
-  only(value, '$', ['schemaVersion', 'docType', 'title', 'summary', 'body', 'sources'])
+  only(value, '$', ['schemaVersion', 'docType', 'title', 'summary', 'body', 'results', 'sources'])
   if (value.schemaVersion !== CLIENT_SCHEMA_VERSION) fail('schemaVersion', 'unsupported_version')
   if (value.docType !== 'case_study') fail('docType', 'unsupported_type')
 
@@ -240,6 +260,38 @@ export function parseClientRenderData(value: unknown): ClientRenderData {
     else if (summary) fail('summary', 'expected_paragraph')
   }
   out.body = blocks(value.body, 'body', 0)
+  if (value.results !== undefined) {
+    const results = list(value.results, 'results').flatMap((raw, i) => {
+      const field = `results[${i}]`
+      if (!isObj(raw)) return (fail(field, 'expected_object'), [])
+      only(raw, field, [
+        'value',
+        'qualifier',
+        'comparison',
+        'units',
+        'scope',
+        'baseline',
+        'period',
+        'methodology',
+      ])
+      const entry: ClientResult = {
+        value: text(raw.value, `${field}.value`),
+        qualifier: 'measured',
+      }
+      if ((CLIENT_QUALIFIERS as readonly string[]).includes(raw.qualifier as string))
+        entry.qualifier = raw.qualifier as ClientResult['qualifier']
+      else fail(`${field}.qualifier`, 'unknown_qualifier')
+      if (raw.comparison !== undefined) {
+        if (['exact', 'up_to', 'at_least', 'range'].includes(raw.comparison as string))
+          entry.comparison = raw.comparison as ClientResult['comparison']
+        else fail(`${field}.comparison`, 'invalid_comparison')
+      }
+      for (const key of ['units', 'scope', 'baseline', 'period', 'methodology'] as const)
+        if (raw[key] !== undefined) entry[key] = text(raw[key], `${field}.${key}`)
+      return [entry]
+    })
+    if (results.length) out.results = results
+  }
   out.sources = list(value.sources, 'sources').flatMap((raw, i) => {
     const field = `sources[${i}]`
     if (!isObj(raw)) return (fail(field, 'expected_object'), [])

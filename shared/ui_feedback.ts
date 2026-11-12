@@ -119,7 +119,13 @@ export function responseError(status: number, body: unknown): ApiError {
       const item = record(value)
       if (typeof item.field === 'string' && /^[\w.[\]-]+$/.test(item.field))
         Object.defineProperty(details, item.field, {
-          value: fieldMessage(item.message),
+          // Publication messages are fixed server strings that never echo content.
+          value:
+            error.code === 'E_PUBLICATION_CONTENT' &&
+            typeof item.message === 'string' &&
+            item.message.length <= 200
+              ? item.message
+              : fieldMessage(item.message),
           enumerable: true,
           configurable: true,
         })

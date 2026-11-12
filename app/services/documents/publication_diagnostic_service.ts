@@ -106,6 +106,10 @@ export default class PublicationDiagnosticService {
     scan(client.title, 'title')
     if (client.summary) block(client.summary, 'summary')
     client.body.forEach((node, i) => block(node, `body[${i}]`))
+    client.results?.forEach((result, i) => {
+      for (const key of ['value', 'units', 'scope', 'baseline', 'period', 'methodology'] as const)
+        scan(result[key], `results[${i}].${key}`)
+    })
     client.sources.forEach((source, i) => scan(source.label, `sources[${i}].label`))
     return found
   }

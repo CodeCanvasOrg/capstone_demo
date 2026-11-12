@@ -1,13 +1,15 @@
-import { createHash } from 'node:crypto'
 import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
+import PublicationContentService from '#services/documents/publication_content_service'
 import PublicationDiagnosticService, {
   PUBLICATION_LINT_VERSION,
   type Diagnostic,
 } from '#services/documents/publication_diagnostic_service'
+import type { PublicationDocument } from '../../../shared/publication/content.ts'
 import {
   CLIENT_SCHEMA_VERSION,
   parseClientRenderData,
   type ClientRenderData,
+  type ClientResult,
   type ClientSource,
 } from '../../../shared/publication/client.ts'
 
@@ -42,6 +44,16 @@ const SAFE_SOURCE_NAME = /^[\p{L}\p{N} .,()&'_-]{1,120}$/u
  * with exact field paths rather than being dropped.
  */
 export default class PublicationProjectionService {
+  /** Validated semantic view, or null so documents without usable metadata stay positional. */
+  private semantic(document: TipTapDocument) {
+    if ((document as PublicationDocument).attrs?.publication === undefined) return null
+    try {
+      return new PublicationContentService().derive(document as PublicationDocument, 'projection')
+    } catch {
+      return null
+    }
+  }
+
   project(document: TipTapDocument): PublicationProjection {
     const numbers = new Map<string, number>()
     const sources: ClientSource[] = []
@@ -69,14 +81,31 @@ export default class PublicationProjectionService {
     const inner = (node: Node): Partial<Node> =>
       node.content ? { content: collapseReferences(walk(node.content)) } : {}
 
-    const blocks = walk(document.content)
+    // Keep each top-level node's output so hero blocks can be found by stable ID.
+    const top = document.content.map((node) => ({ id: node.attrs?.nodeId, out: walk([node]) }))
+    let blocks = top.flatMap((entry) => entry.out)
 
     let title: string | undefined
-    if (blocks[0]?.type === 'heading' && blocks[0].attrs?.level === 1) {
-      title = plainText(blocks[0]) || undefined
-      blocks.shift()
+    let summary: Node | undefined
+    let results: ClientResult[] = []
+    const semantic = this.semantic(document)
+    if (semantic) {
+      // Validated metadata decides the hero and results; the saved body is untouched.
+      const hero = new Set([semantic.hero.title.nodeId, semantic.hero.summary?.nodeId])
+      title = semantic.hero.title.text || undefined
+      summary = top.find((entry) => entry.id === semantic.hero.summary?.nodeId)?.out[0]
+      blocks = top.filter((entry) => !hero.has(entry.id as string)).flatMap((entry) => entry.out)
+      // Internal result and claim IDs stay server-side; only the value, qualifier and context go out.
+      results = semantic.results.map(
+        ({ id, claimId, ...result }) => (void id, void claimId, result)
+      ) as ClientResult[]
+    } else {
+      if (blocks[0]?.type === 'heading' && blocks[0].attrs?.level === 1) {
+        title = plainText(blocks[0]) || undefined
+        blocks.shift()
+      }
+      summary = blocks[0]?.type === 'paragraph' ? blocks.shift() : undefined
     }
-    const summary = blocks[0]?.type === 'paragraph' ? blocks.shift() : undefined
 
     const client = parseClientRenderData({
       schemaVersion: CLIENT_SCHEMA_VERSION,
@@ -84,12 +113,14 @@ export default class PublicationProjectionService {
       ...(title ? { title } : {}),
       ...(summary ? { summary: toClient(summary) } : {}),
       body: blocks.map(toClient),
+      ...(results.length ? { results } : {}),
       sources,
     })
 
     return {
       identity: {
-        contentHash: createHash('sha256').update(JSON.stringify(document)).digest('hex'),
+        // Key-order independent, so the same saved content always has the same identity.
+        contentHash: new PublicationContentService().contentHash(document as PublicationDocument),
         projectorVersion: PUBLICATION_PROJECTION_VERSION,
         linterVersion: PUBLICATION_LINT_VERSION,
       },

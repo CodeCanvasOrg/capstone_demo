@@ -2,6 +2,7 @@ import { Exception } from '@adonisjs/core/exceptions'
 import { getStructuredOutput } from '#services/structured_model_output_service'
 import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
 import PublicationContentService from '#services/documents/publication_content_service'
+import type { PublicationDocument } from '../../../shared/publication/content.ts'
 
 export default class ContentService {
   /** Generated drafts must contain prose the editor can actually render. */
@@ -24,7 +25,10 @@ export default class ContentService {
    * Case-study drafts pass `repair` so malformed model output stays editable;
    * user-typed rich text is left strict so malformed input is still rejected.
    */
-  normalize(value: unknown, { repair = false }: { repair?: boolean } = {}): TipTapDocument {
+  normalize(
+    value: unknown,
+    { repair = false, seed }: { repair?: boolean; seed?: string } = {}
+  ): TipTapDocument {
     const stack: { value: unknown; depth: number }[] = [{ value, depth: 0 }]
     let count = 0
     while (stack.length) {
@@ -40,10 +44,18 @@ export default class ContentService {
     const result = getStructuredOutput({ editor: true }).safeParse(value)
     if (!result.success)
       throw new Exception('Invalid document content', { status: 422, code: 'E_INVALID_CONTENT' })
-    const parsed = result.data as TipTapDocument
+    const { attrs, ...rest } = result.data as TipTapDocument & {
+      attrs?: Record<string, unknown> | null
+    }
+    const parsed = rest as TipTapDocument
     const document = repair ? repairStructure(parsed) : parsed
     const visit = (node: TipTapDocument['content'][number], depth = 0) => {
       if (depth > 50) throw new Exception('Document is too deeply nested', { status: 422 })
+      if (node.attrs) {
+        // Editors send `nodeId: null` for blocks that have no identity yet.
+        if (node.attrs.nodeId === null || node.attrs.nodeId === undefined) delete node.attrs.nodeId
+        if (!Object.keys(node.attrs).length) delete node.attrs
+      }
       for (const mark of node.marks ?? []) {
         const item = mark as { type: string; attrs?: Record<string, unknown> }
         if (item.type === 'link') {
@@ -56,12 +68,13 @@ export default class ContentService {
       node.content?.forEach((child) => visit(child, depth + 1))
     }
     document.content.forEach((node) => visit(node))
-    if (document.attrs?.publication === undefined) return document
-    // Ordinary edits reconcile stale anchors; structurally invalid metadata is a 422.
-    const publication = new PublicationContentService()
-    const reconciled = publication.reconcile(document)
-    publication.assertValid(reconciled)
-    return reconciled
+    // Only the publication namespace survives on the root; it is validated strictly.
+    if (attrs?.publication !== null && attrs?.publication !== undefined)
+      return new PublicationContentService().accept(
+        { ...document, attrs: { publication: attrs.publication } } as PublicationDocument,
+        { seed }
+      ) as TipTapDocument
+    return document
   }
 }
 

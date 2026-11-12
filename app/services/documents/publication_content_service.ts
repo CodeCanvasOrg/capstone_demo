@@ -1,165 +1,278 @@
 import { createHash } from 'node:crypto'
 import { Exception } from '@adonisjs/core/exceptions'
-import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
 import {
   ENABLED_DOC_TYPES,
+  IDENTIFIED_BLOCKS,
+  PUBLICATION_FIELD_PREFIX,
   PUBLICATION_SCHEMA_VERSION,
-  QUALIFIERS,
+  TEXT_BLOCKS,
   flattenText,
-  publicationMetadataSchema,
-  zodFieldErrors,
+  publicationSchema,
+  toFieldErrors,
   type FieldError,
-  type PublicationMetadata,
+  type PublicationDocument,
+  type PublicationMetadataV1,
+  type PublicationNode,
   type TextRef,
-  type ReviewReason,
-  type Qualifier,
 } from '../../../shared/publication/content.ts'
 
-type Node = TipTapDocument['content'][number]
-type Doc = TipTapDocument & { attrs?: Record<string, unknown> }
-type Claim = NonNullable<PublicationMetadata['claims']>[number]
-type Result = NonNullable<PublicationMetadata['results']>[number]
+type Claim = NonNullable<PublicationMetadataV1['claims']>[number]
+type Result = NonNullable<PublicationMetadataV1['results']>[number]
+type ResultActive = Extract<Result, { state: 'active' }>
+type UnresolvedReason = Extract<Claim, { state: 'needs_review' }>['reason']
 
-const MAX_ERRORS = 50
-const BLOCKS = new Set([
-  'paragraph',
-  'heading',
-  'bulletList',
-  'orderedList',
-  'listItem',
-  'blockquote',
-  'codeBlock',
-  'image',
-  'horizontalRule',
-])
-const TEXTBLOCKS = new Set(['paragraph', 'heading', 'codeBlock'])
-
-export class PublicationContentError extends Exception {
-  readonly messages: FieldError[]
-  constructor(errors: FieldError[]) {
-    super('Check the highlighted content fields.', { status: 422, code: 'E_PUBLICATION_CONTENT' })
-    this.messages = errors.slice(0, MAX_ERRORS)
-  }
+/**
+ * Server-resolved resources. Callers pass only what the actor may use; an
+ * absent resolver skips that check (structure-only validation).
+ */
+export type PublicationResolvers = {
+  chunks?: ReadonlySet<string>
+  assets?: ReadonlySet<string>
 }
 
-export type PublicationIdentity = { versionId: string; contentHash: string }
-export type PublicationDiagnostic = {
-  code: string
-  field: string
-  severity: 'warning' | 'error'
-  message: string
-}
+export type PublicationDiagnostic = { code: string; id?: string; nodeId?: string }
+
 export type PublicationPatch =
-  | { op: 'replace_text'; target: 'hero.title' | 'hero.summary'; text: string }
+  | { type: 'replaceText'; target: 'hero.title' | 'hero.summary'; text: string }
   | {
-      op: 'set_result'
+      type: 'setResultContext'
       resultId: string
-      qualifier?: string
-      comparison?: 'exact' | 'up_to' | 'at_least' | 'range'
-      units?: string
-      scope?: string
-      baseline?: string
-      period?: string
-      methodology?: string
+      qualifier?: ResultActive['qualifier']
+      comparison?: ResultActive['comparison'] | null
+      units?: string | null
+      scope?: string | null
+      baseline?: string | null
+      period?: string | null
+      methodology?: string | null
     }
-  | { op: 'put_note'; id?: string; message: string; nodeId?: string }
-  | { op: 'remove_note'; id: string }
+  | { type: 'upsertNote'; id?: string; nodeId?: string; message: string }
+  | { type: 'removeNote'; id: string }
 
-export const sha256 = (value: string) => createHash('sha256').update(value).digest('hex')
+export type PublicationIdentity = { sourceVersionId: string; contentHash: string }
 
-/** Stable key order so a hash does not depend on how a client serialized the tree. */
-export function canonicalJson(value: unknown): string {
-  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(',')}]`
-  if (value && typeof value === 'object')
-    return `{${Object.entries(value as Record<string, unknown>)
-      .filter(([, v]) => v !== undefined)
-      .sort(([a], [b]) => (a < b ? -1 : 1))
-      .map(([k, v]) => `${JSON.stringify(k)}:${canonicalJson(v)}`)
-      .join(',')}}`
-  return JSON.stringify(value)
+export type LegacyMappingReport = {
+  mapped: boolean
+  identitiesAssigned: number
+  preservedNodes: number
+  unresolved: PublicationDiagnostic[]
 }
 
-/** Deterministic UUID (v5 layout) so a replay allocates the same identities. */
-export function stableId(namespace: string, key: string) {
-  const bytes = createHash('sha256').update(`${namespace}\0${key}`).digest().subarray(0, 16)
+export function publicationError(errors: FieldError[]) {
+  const error = new Exception('Check the highlighted content fields.', {
+    status: 422,
+    code: 'E_PUBLICATION_CONTENT',
+  })
+  Object.assign(error, { messages: errors })
+  return error
+}
+
+const sha256 = (value: string) => createHash('sha256').update(value).digest('hex')
+
+/** RFC 4122 v5-style ID: same seed, same ID; no randomness. */
+export function deterministicId(seed: string) {
+  const bytes = createHash('sha1').update(seed).digest().subarray(0, 16)
   bytes[6] = (bytes[6] & 0x0f) | 0x50
   bytes[8] = (bytes[8] & 0x3f) | 0x80
   const hex = bytes.toString('hex')
   return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`
 }
 
+export function textHash(text: string) {
+  return sha256(text)
+}
+
+function stable(value: unknown): string {
+  if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`
+  if (value && typeof value === 'object')
+    return `{${Object.entries(value)
+      .filter(([, item]) => item !== undefined)
+      .sort(([a], [b]) => (a < b ? -1 : 1))
+      .map(([key, item]) => `${JSON.stringify(key)}:${stable(item)}`)
+      .join(',')}}`
+  return JSON.stringify(value)
+}
+
 const clone = <T>(value: T): T => structuredClone(value)
 
-type Located = { node: Node; path: string }
+function walk(
+  nodes: PublicationNode[] | undefined,
+  visit: (node: PublicationNode, path: string) => void,
+  prefix = ''
+) {
+  nodes?.forEach((node, index) => {
+    const path = prefix ? `${prefix}.${index}` : String(index)
+    visit(node, path)
+    walk(node.content, visit, path)
+  })
+}
 
-function index(document: Doc) {
-  const byId = new Map<string, Located>()
+function indexNodes(document: PublicationDocument) {
+  const nodes = new Map<string, PublicationNode>()
   const duplicates: string[] = []
-  const walk = (nodes: Node[] = [], path: string) =>
-    nodes.forEach((node, i) => {
-      const here = `${path}.${i}`
-      const nodeId = node.attrs?.nodeId
-      if (typeof nodeId === 'string') {
-        if (byId.has(nodeId)) duplicates.push(`${here}.attrs.nodeId`)
-        else byId.set(nodeId, { node, path: here })
-      }
-      walk(node.content, `${here}.content`)
-    })
-  walk(document.content, 'content.content')
-  return { byId, duplicates }
+  walk(document.content, (node) => {
+    const id = node.attrs?.nodeId
+    if (typeof id !== 'string') return
+    if (nodes.has(id)) duplicates.push(id)
+    else nodes.set(id, node)
+  })
+  return { nodes, duplicates }
 }
 
-const rangeText = (node: Node, ref: TextRef) => {
+function anchorState(nodes: Map<string, PublicationNode>, ref: TextRef): 'ok' | UnresolvedReason {
+  const node = nodes.get(ref.nodeId)
+  if (!node || !TEXT_BLOCKS.has(node.type)) return 'node_removed'
   const text = flattenText(node)
-  return ref.to <= text.length ? text.slice(ref.from, ref.to) : null
+  if (ref.from >= ref.to || ref.to > text.length) return 'range_out_of_bounds'
+  return textHash(text.slice(ref.from, ref.to)) === ref.textHash ? 'ok' : 'text_changed'
 }
 
-export function textRef(node: Node, from: number, to: number): TextRef {
-  return {
-    nodeId: node.attrs!.nodeId as string,
-    from,
-    to,
-    textHash: sha256(flattenText(node).slice(from, to)),
-  }
-}
-
-/**
- * Authoritative structural validation of an annotated document. Returns field
- * errors; `reconcile` is the separate, explicit path for ordinary edits.
- */
 export default class PublicationContentService {
-  validate(document: Doc): FieldError[] {
-    const raw = document.attrs?.publication
-    if (raw === undefined) return []
-    const parsed = publicationMetadataSchema.safeParse(raw)
-    if (!parsed.success) return zodFieldErrors(parsed.error).slice(0, MAX_ERRORS)
+  contentHash(document: PublicationDocument) {
+    return sha256(stable(document))
+  }
+
+  /** Count of annotations waiting for human repair (stale anchors). */
+  needsReview(document: PublicationDocument) {
+    const meta = document.attrs?.publication as PublicationMetadataV1 | undefined
+    const items = [...(meta?.claims ?? []), ...(meta?.results ?? [])]
+    return items.filter((item) => item.state === 'needs_review').length
+  }
+
+  /** Chunks and assets that survived server hydration, i.e. the actor may use. */
+  resolversFor(document: PublicationDocument): PublicationResolvers {
+    const chunks = new Set<string>()
+    const assets = new Set<string>()
+    walk(document.content, (node) => {
+      const chunk = node.attrs?.sourceChunkId
+      const image = node.attrs?.documentImageId
+      if (typeof chunk === 'string') {
+        chunks.add(chunk)
+        if (node.type === 'image') assets.add(chunk)
+      }
+      if (typeof image === 'string') assets.add(image)
+    })
+    return { chunks, assets }
+  }
+
+  /** Builds a TextRef for a substring of an existing block. */
+  anchor(document: PublicationDocument, nodeId: string, from: number, to: number): TextRef {
+    const node = indexNodes(document).nodes.get(nodeId)
+    if (!node)
+      throw publicationError([{ field: 'nodeId', message: 'This block no longer exists.' }])
+    return { nodeId, from, to, textHash: textHash(flattenText(node).slice(from, to)) }
+  }
+
+  /**
+   * Allocates missing block IDs from the seed and structural path, so replaying
+   * the same save yields the same IDs. Existing IDs are never touched.
+   */
+  assignIds(document: PublicationDocument, seed: string): PublicationDocument {
+    const next = clone(document)
+    walk(next.content, (node, path) => {
+      if (!IDENTIFIED_BLOCKS.has(node.type) || typeof node.attrs?.nodeId === 'string') return
+      node.attrs = { ...node.attrs, nodeId: deterministicId(`${seed}:${path}`) }
+    })
+    return next
+  }
+
+  /**
+   * Safe reconciliation of an ordinary editor transaction: stale anchors become
+   * `needs_review` and dangling section refs are pruned. Nothing is rebound to
+   * different words and no prose is removed.
+   */
+  reconcile(document: PublicationDocument) {
+    const diagnostics: PublicationDiagnostic[] = []
+    const publication = document.attrs?.publication as PublicationMetadataV1 | undefined
+    if (!publication || typeof publication !== 'object') return { document, diagnostics }
+    const next = clone(document)
+    const meta = next.attrs!.publication as PublicationMetadataV1
+    const { nodes } = indexNodes(next)
+
+    if (Array.isArray(meta.sections))
+      for (const section of meta.sections) {
+        if (section.heading && !nodes.has(section.heading.nodeId)) delete section.heading
+        if (Array.isArray(section.nodeIds))
+          section.nodeIds = section.nodeIds.filter((id) => typeof id !== 'string' || nodes.has(id))
+      }
+
+    // A reference no body node cites and no claim relies on is dropped, so
+    // deleting the last citation does not block an ordinary save.
+    if (Array.isArray(meta.references)) {
+      const cited = new Set<string>()
+      walk(next.content, (node) => {
+        if (typeof node.attrs?.sourceChunkId === 'string') cited.add(node.attrs.sourceChunkId)
+      })
+      const relied = new Set(
+        (meta.claims ?? []).flatMap((claim) =>
+          claim?.state === 'active' ? claim.evidenceRefIds : []
+        )
+      )
+      meta.references = meta.references.filter(
+        (ref) => cited.has(ref.chunkId) || relied.has(ref.id)
+      )
+      if (!meta.references.length) delete meta.references
+    }
+
+    const stale = new Set<string>()
+    if (Array.isArray(meta.claims))
+      meta.claims = meta.claims.map((claim) => {
+        if (claim?.state !== 'active') return claim
+        const state = anchorState(nodes, claim.text)
+        if (state === 'ok') return claim
+        stale.add(claim.id)
+        diagnostics.push({ code: state, id: claim.id })
+        return { id: claim.id, state: 'needs_review', reason: state, nodeId: claim.text.nodeId }
+      })
+    if (Array.isArray(meta.results))
+      meta.results = meta.results.map((result) => {
+        if (result?.state !== 'active') return result
+        const state = stale.has(result.claimId) ? 'text_changed' : anchorState(nodes, result.value)
+        if (state === 'ok') return result
+        diagnostics.push({ code: state, id: result.id })
+        return {
+          id: result.id,
+          state: 'needs_review',
+          reason: state,
+          claimId: result.claimId,
+          nodeId: result.value.nodeId,
+        }
+      })
+    return { document: next, diagnostics }
+  }
+
+  /** Domain validation of structure, reference integrity and resources. */
+  validate(document: PublicationDocument, resolvers: PublicationResolvers = {}): FieldError[] {
+    if (document.attrs?.publication === undefined) return []
+    const parsed = publicationSchema.safeParse(document.attrs.publication)
+    if (!parsed.success) return toFieldErrors(parsed.error)
+
     const meta = parsed.data
     const errors: FieldError[] = []
-    const at = (path: string, message: string) =>
-      void errors.push({ field: `content.attrs.publication.${path}`, message })
+    const fail = (path: string, message: string) =>
+      errors.push({ field: `${PUBLICATION_FIELD_PREFIX}.${path}`, message })
+    if (!(ENABLED_DOC_TYPES as readonly string[]).includes(meta.docType))
+      fail('docType', 'This document type is not available yet.')
 
-    if (!ENABLED_DOC_TYPES.includes(meta.docType))
-      at('docType', `Document type ${meta.docType} is not available yet.`)
+    const { nodes, duplicates } = indexNodes(document)
+    if (duplicates.length)
+      errors.push({ field: 'content.attrs.nodeId', message: 'Two blocks share one identity.' })
 
-    const { byId, duplicates } = index(document)
-    for (const field of duplicates)
-      errors.push({ field, message: 'Block identity must be unique.' })
-
-    const node = (nodeId: string, path: string, types?: string[]) => {
-      const found = byId.get(nodeId)
-      if (!found) return (at(path, 'This block no longer exists.'), null)
-      if (types && !types.includes(found.node.type))
-        return (at(path, `Expected ${types.join(' or ')}.`), null)
-      return found.node
+    const textblock = (path: string, nodeId: string) => {
+      const node = nodes.get(nodeId)
+      if (!node || !TEXT_BLOCKS.has(node.type) || node.type === 'codeBlock')
+        fail(`${path}.nodeId`, 'Link this to an existing paragraph or heading.')
     }
-    const unique = (items: { id: string }[] | undefined, name: string) => {
+    textblock('hero.title', meta.hero.title.nodeId)
+    if (meta.hero.summary) textblock('hero.summary', meta.hero.summary.nodeId)
+
+    const unique = (path: string, list: { id: string }[] | undefined) => {
       const seen = new Set<string>()
-      items?.forEach((item, i) => {
-        if (seen.has(item.id)) at(`${name}.${i}.id`, 'Identifier must be unique.')
+      list?.forEach((item, index) => {
+        if (seen.has(item.id)) fail(`${path}.${index}.id`, 'This ID is used more than once.')
         seen.add(item.id)
       })
     }
-    for (const name of [
+    for (const key of [
       'sections',
       'claims',
       'results',
@@ -167,381 +280,355 @@ export default class PublicationContentService {
       'reviewerNotes',
       'references',
     ] as const)
-      unique(meta[name], name)
+      unique(key, meta[key])
 
-    node(meta.hero.title.nodeId, 'hero.title.nodeId', ['heading'])
-    if (meta.hero.summary) node(meta.hero.summary.nodeId, 'hero.summary.nodeId', ['paragraph'])
     meta.sections.forEach((section, i) => {
-      if (section.heading) node(section.heading.nodeId, `sections.${i}.heading.nodeId`, ['heading'])
-      section.nodeIds.forEach((nodeId, n) => node(nodeId, `sections.${i}.nodeIds.${n}`))
-    })
-
-    const refIds = new Set((meta.references ?? []).map((r) => r.id))
-    const anchor = (ref: TextRef, path: string, state: string) => {
-      // Unresolved records keep their last-known anchor for repair, even if its block is gone.
-      if (state !== 'active') return
-      const target = node(ref.nodeId, `${path}.nodeId`, [...TEXTBLOCKS])
-      if (!target) return
-      const text = rangeText(target, ref)
-      if (text === null) return at(`${path}.to`, 'Range is outside the block text.')
-      if (sha256(text) !== ref.textHash)
-        at(`${path}.textHash`, 'The text changed since this was annotated.')
-    }
-    const claimIds = new Set((meta.claims ?? []).map((c) => c.id))
-    meta.claims?.forEach((c, i) => {
-      anchor(c.text, `claims.${i}.text`, c.state)
-      c.evidenceRefIds.forEach((r, n) => {
-        if (!refIds.has(r)) at(`claims.${i}.evidenceRefIds.${n}`, 'Unknown evidence reference.')
+      if (section.heading && !nodes.has(section.heading.nodeId))
+        fail(`sections.${i}.heading.nodeId`, 'This block no longer exists.')
+      section.nodeIds.forEach((id, j) => {
+        if (!nodes.has(id)) fail(`sections.${i}.nodeIds.${j}`, 'This block no longer exists.')
       })
     })
-    meta.results?.forEach((r, i) => {
-      anchor(r.value, `results.${i}.value`, r.state)
-      if (!claimIds.has(r.claimId)) at(`results.${i}.claimId`, 'Unknown claim.')
-    })
-    meta.figures?.forEach((f, i) => {
-      const image = node(f.image.nodeId, `figures.${i}.image.nodeId`, ['image'])
-      if (f.caption) node(f.caption.nodeId, `figures.${i}.caption.nodeId`, ['paragraph'])
-      const key = f.asset.kind === 'document_image' ? 'documentImageId' : 'sourceChunkId'
-      if (image && image.attrs?.[key] !== f.asset.id)
-        at(`figures.${i}.asset.id`, 'Asset does not match the image block.')
-    })
-    meta.reviewerNotes?.forEach((n, i) => {
-      if (n.nodeId) node(n.nodeId, `reviewerNotes.${i}.nodeId`)
-    })
-    return errors.slice(0, MAX_ERRORS)
-  }
 
-  assertValid(document: Doc) {
-    const errors = this.validate(document)
-    if (errors.length) throw new PublicationContentError(errors)
-  }
-
-  /**
-   * Ordinary-edit reconciliation. Annotations whose words changed or vanished
-   * become `needs_review` (never rebound to other words and never deleted);
-   * pointers to removed blocks are pruned from sections and notes. Prose is
-   * untouched.
-   */
-  reconcile(document: Doc): Doc {
-    const raw = document.attrs?.publication
-    const parsed = publicationMetadataSchema.safeParse(raw)
-    if (!parsed.success) return document
-    const meta = clone(parsed.data)
-    const { byId } = index(document)
-
-    const reason = (ref: TextRef): ReviewReason | null => {
-      const target = byId.get(ref.nodeId)?.node
-      if (!target || !TEXTBLOCKS.has(target.type)) return 'node_removed'
-      const text = rangeText(target, ref)
-      if (text === null) return 'range_out_of_bounds'
-      return sha256(text) === ref.textHash ? null : 'text_changed'
-    }
-    if (meta.claims)
-      meta.claims = meta.claims.map((c): Claim => {
-        const why = c.state === 'active' ? reason(c.text) : null
-        return why ? { ...c, state: 'needs_review', reason: why } : c
+    const references = new Set(meta.references?.map((item) => item.id))
+    const activeClaims = new Set<string>()
+    meta.claims?.forEach((claim, i) => {
+      if (claim.state !== 'active') return
+      activeClaims.add(claim.id)
+      if (anchorState(nodes, claim.text) !== 'ok')
+        fail(`claims.${i}.text`, 'This text no longer matches the saved wording.')
+      claim.evidenceRefIds.forEach((ref, j) => {
+        if (!references.has(ref))
+          fail(`claims.${i}.evidenceRefIds.${j}`, 'Unknown evidence reference.')
       })
-    const stale = new Set((meta.claims ?? []).filter((c) => c.state !== 'active').map((c) => c.id))
-    if (meta.results)
-      meta.results = meta.results.map((r): Result => {
-        if (r.state !== 'active') return r
-        const why = reason(r.value) ?? (stale.has(r.claimId) ? 'claim_needs_review' : null)
-        return why ? { ...r, state: 'needs_review', reason: why } : r
-      })
-    for (const section of meta.sections) {
-      section.nodeIds = section.nodeIds.filter((id) => byId.has(id))
-      if (section.heading && !byId.has(section.heading.nodeId)) delete section.heading
-    }
-    if (meta.reviewerNotes)
-      meta.reviewerNotes = meta.reviewerNotes.map((n) =>
-        n.nodeId && !byId.has(n.nodeId) ? { id: n.id, message: n.message } : n
-      )
-    return { ...document, attrs: { ...document.attrs, publication: meta } }
+    })
+    meta.results?.forEach((result, i) => {
+      if (result.state !== 'active') return
+      if (!activeClaims.has(result.claimId))
+        fail(`results.${i}.claimId`, 'Link this result to an existing claim.')
+      if (anchorState(nodes, result.value) !== 'ok')
+        fail(`results.${i}.value`, 'This text no longer matches the saved wording.')
+    })
+    meta.figures?.forEach((figure, i) => {
+      const image = nodes.get(figure.image.nodeId)
+      const attr = figure.asset.kind === 'source_chunk' ? 'sourceChunkId' : 'documentImageId'
+      if (image?.type !== 'image' || image.attrs?.[attr] !== figure.asset.id)
+        fail(`figures.${i}.asset`, 'This figure does not match a registered image.')
+      else if (resolvers.assets && !resolvers.assets.has(figure.asset.id))
+        fail(`figures.${i}.asset`, 'This image is not available.')
+      if (figure.caption && !nodes.has(figure.caption.nodeId))
+        fail(`figures.${i}.caption.nodeId`, 'This block no longer exists.')
+    })
+    meta.reviewerNotes?.forEach((note, i) => {
+      if (note.nodeId && !nodes.has(note.nodeId))
+        fail(`reviewerNotes.${i}.nodeId`, 'This block no longer exists.')
+    })
+    meta.references?.forEach((ref, i) => {
+      if (resolvers.chunks && !resolvers.chunks.has(ref.chunkId))
+        fail(`references.${i}.chunkId`, 'This source is not available.')
+    })
+    return errors.slice(0, 20)
   }
 
   /**
-   * Internal semantic projection of a validated, accepted document. The tree is
-   * not modified. Unresolved annotations are excluded from structured rows and
-   * reported instead; absent optional context stays absent.
+   * Save-boundary entry: assign IDs, reconcile editor edits, then validate the
+   * whole candidate. Documents without publication metadata pass unchanged.
    */
-  derive(document: Doc, versionId: string) {
-    this.assertValid(document)
-    const meta = publicationMetadataSchema.parse(document.attrs?.publication)
-    const { byId } = index(document)
-    const text = (nodeId: string) => flattenText(byId.get(nodeId)!.node)
-    const diagnostics: PublicationDiagnostic[] = []
-    const claims = new Map((meta.claims ?? []).map((c) => [c.id, c]))
+  accept(
+    document: PublicationDocument,
+    options: { seed?: string; resolvers?: PublicationResolvers } = {}
+  ): PublicationDocument {
+    if (document.attrs?.publication === undefined) return document
+    const identified = options.seed ? this.assignIds(document, options.seed) : document
+    const { document: reconciled } = this.reconcile(identified)
+    const errors = this.validate(reconciled, options.resolvers)
+    if (errors.length) throw publicationError(errors)
+    return reconciled
+  }
 
-    const results = (meta.results ?? []).flatMap((r, i) => {
-      if (r.state !== 'active') {
-        diagnostics.push({
-          code: 'needs_review',
-          field: `results.${i}`,
-          severity: 'warning',
-          message: `Result needs review (${r.reason}).`,
-        })
-        return []
-      }
-      const claim = claims.get(r.claimId)
-      const missing = (['units', 'baseline', 'period'] as const).filter((k) => !r[k])
-      if (missing.length)
-        diagnostics.push({
-          code: 'result_context_missing',
-          field: `results.${i}`,
-          severity: 'warning',
-          message: `Missing context: ${missing.join(', ')}.`,
-        })
-      if (r.qualifier === 'measured' && !claim?.evidenceRefIds.length)
-        diagnostics.push({
-          code: 'result_missing_evidence',
-          field: `results.${i}`,
-          severity: 'warning',
-          message: 'A measured result has no evidence reference.',
-        })
-      const { id, claimId, value, qualifier, ...rest } = r
-      delete (rest as { state?: string }).state
+  /**
+   * Internal semantic projection of an accepted document. The TipTap tree is
+   * never changed; layout consumers read resolved text and assets from here.
+   */
+  derive(
+    document: PublicationDocument,
+    sourceVersionId: string,
+    resolvers: PublicationResolvers = {}
+  ) {
+    const meta = document.attrs?.publication as PublicationMetadataV1 | undefined
+    if (!meta)
+      throw publicationError([
+        { field: PUBLICATION_FIELD_PREFIX, message: 'This document has no publication metadata.' },
+      ])
+    const { document: current, diagnostics } = this.reconcile(document)
+    const errors = this.validate(current, resolvers)
+    if (errors.length) throw publicationError(errors)
+    const accepted = current.attrs!.publication as PublicationMetadataV1
+    const { nodes } = indexNodes(current)
+    const text = (nodeId: string) => flattenText(nodes.get(nodeId)!)
+    const slice = (ref: TextRef) => text(ref.nodeId).slice(ref.from, ref.to)
+
+    const references = accepted.references ?? []
+    const refTuple = new Map(references.map((ref) => [ref.id, ref.chunkId]))
+    const claims = (accepted.claims ?? []).flatMap((claim) => {
+      if (claim.state !== 'active') return []
+      const evidence = claim.evidenceRefIds.map((id) => refTuple.get(id)!).sort()
       return [
         {
-          id,
-          claimId,
-          qualifier,
-          // The original phrase, never a re-parsed number.
-          value: byId.get(value.nodeId) ? text(value.nodeId).slice(value.from, value.to) : '',
-          ...rest,
+          id: claim.id,
+          text: slice(claim.text),
+          authorship: claim.authorship,
+          evidenceRefIds: claim.evidenceRefIds,
+          claimHash: sha256(stable({ text: claim.text.textHash, evidence })),
         },
       ]
     })
-    meta.claims?.forEach((c, i) => {
-      if (c.state !== 'active')
-        diagnostics.push({
-          code: 'needs_review',
-          field: `claims.${i}`,
-          severity: 'warning',
-          message: `Claim needs review (${c.reason}).`,
-        })
+    const results = (accepted.results ?? []).flatMap((result) => {
+      if (result.state !== 'active') return []
+      const claim = claims.find((item) => item.id === result.claimId)
+      if (result.qualifier === 'measured') {
+        if (!claim?.evidenceRefIds.length)
+          diagnostics.push({ code: 'measured_without_evidence', id: result.id })
+        if (!result.baseline && !result.period && !result.scope)
+          diagnostics.push({ code: 'measured_without_context', id: result.id })
+      }
+      const { state, value, ...rest } = result
+      return state === 'active' ? [{ ...rest, value: slice(value) }] : []
     })
+    for (const item of [...(accepted.claims ?? []), ...(accepted.results ?? [])])
+      if (item.state === 'needs_review')
+        diagnostics.push({ code: item.reason, id: item.id, nodeId: item.nodeId })
 
     return {
       identity: {
-        versionId,
-        contentHash: sha256(canonicalJson(document)),
+        sourceVersionId,
+        contentHash: this.contentHash(current),
       } satisfies PublicationIdentity,
-      docType: meta.docType,
+      docType: accepted.docType,
       hero: {
-        title: text(meta.hero.title.nodeId),
-        ...(meta.hero.summary ? { summary: text(meta.hero.summary.nodeId) } : {}),
+        title: { nodeId: accepted.hero.title.nodeId, text: text(accepted.hero.title.nodeId) },
+        ...(accepted.hero.summary
+          ? {
+              summary: {
+                nodeId: accepted.hero.summary.nodeId,
+                text: text(accepted.hero.summary.nodeId),
+              },
+            }
+          : {}),
       },
-      sections: meta.sections.map((s) => ({
-        id: s.id,
-        type: s.type,
-        ...(s.heading ? { heading: text(s.heading.nodeId) } : {}),
-        blocks: s.nodeIds.map((nodeId) => byId.get(nodeId)!.node),
+      sections: accepted.sections.map((section) => ({
+        id: section.id,
+        type: section.type,
+        ...(section.heading
+          ? { heading: { nodeId: section.heading.nodeId, text: text(section.heading.nodeId) } }
+          : {}),
+        blocks: section.nodeIds.map((id) => nodes.get(id)!),
       })),
+      claims,
       results,
-      figures: (meta.figures ?? []).map((f) => ({
-        id: f.id,
-        asset: f.asset,
-        image: byId.get(f.image.nodeId)!.node,
-        ...(f.caption ? { caption: text(f.caption.nodeId) } : {}),
+      figures: (accepted.figures ?? []).map((figure) => ({
+        id: figure.id,
+        asset: figure.asset,
+        image: nodes.get(figure.image.nodeId)!,
+        ...(figure.caption ? { caption: text(figure.caption.nodeId) } : {}),
       })),
-      // Private: never reaches the client projection.
-      reviewerNotes: meta.reviewerNotes ?? [],
-      references: meta.references ?? [],
+      references,
+      reviewerNotes: accepted.reviewerNotes ?? [],
       diagnostics,
     }
   }
 
   /**
-   * Maps a legacy, unannotated document to publication v1 without a second
-   * authority: the TipTap tree gains identities and metadata but its text,
-   * order, marks, images and citations are unchanged. Nothing is inferred
-   * about measurement, authorship or support.
+   * Typed reverse edits against the exact accepted base. Returns TipTap JSON
+   * for the ordinary save boundary; never accepts a render DTO as content.
    */
-  mapLegacy(document: Doc, namespace: string) {
-    const report = { unresolved: [] as { code: string; nodeId?: string }[], assigned: 0 }
-    const next = clone(document)
-    const assign = (nodes: Node[] = [], path: string) =>
-      nodes.forEach((node, i) => {
-        const here = `${path}.${i}`
-        if (BLOCKS.has(node.type) && typeof node.attrs?.nodeId !== 'string') {
-          node.attrs = { ...node.attrs, nodeId: stableId(namespace, `node:${here}`) }
-          report.assigned++
-        }
-        assign(node.content, `${here}.c`)
+  applyEdits(
+    base: PublicationDocument,
+    identity: PublicationIdentity,
+    patches: PublicationPatch[]
+  ): PublicationDocument {
+    if (!identity?.sourceVersionId || identity.contentHash !== this.contentHash(base))
+      throw new Exception('The saved document changed. Reload before editing again.', {
+        status: 409,
+        code: 'E_STALE_PUBLICATION',
       })
-    assign(next.content, 'doc')
+    if (!patches.length) return base
+    const next = clone(base)
+    const meta = next.attrs?.publication as PublicationMetadataV1 | undefined
+    if (!meta)
+      throw publicationError([
+        { field: PUBLICATION_FIELD_PREFIX, message: 'This document has no publication metadata.' },
+      ])
+    const { nodes } = indexNodes(next)
+    const problems: FieldError[] = []
 
-    const top = next.content
-    const idOf = (node: Node) => node.attrs!.nodeId as string
-    if (top[0]?.type !== 'heading' || top[0].attrs?.level !== 1) {
-      // Stays editable on the legacy path; no title is fabricated.
-      report.unresolved.push({ code: 'missing_hero_title' })
-      return { document: document, report, mapped: false as const }
-    }
-
-    const hasSummary = top[1]?.type === 'paragraph'
-    const sections: PublicationMetadata['sections'] = []
-    let current: PublicationMetadata['sections'][number] | null = null
-    top.slice(hasSummary ? 2 : 1).forEach((node) => {
-      if (node.type === 'heading' && node.attrs?.level === 2) {
-        current = {
-          id: stableId(namespace, `section:${idOf(node)}`),
-          type: 'narrative',
-          heading: { nodeId: idOf(node) },
-          nodeIds: [],
+    patches.forEach((patch, index) => {
+      const field = `patches.${index}`
+      if (patch.type === 'replaceText') {
+        const ref = patch.target === 'hero.title' ? meta.hero.title : meta.hero.summary
+        const node = ref && nodes.get(ref.nodeId)
+        if (!node || !patch.text.trim()) {
+          problems.push({ field: `${field}.text`, message: 'Enter text for a block that exists.' })
+          return
         }
-        sections.push(current)
+        // Citations stay; only text runs and hard breaks are replaced.
+        node.content = [
+          { type: 'text', text: patch.text },
+          ...(node.content ?? []).filter((child) => child.type === 'sourceCitation'),
+        ]
+      } else if (patch.type === 'setResultContext') {
+        const result = meta.results?.find((item) => item.id === patch.resultId)
+        if (result?.state !== 'active') {
+          problems.push({ field: `${field}.resultId`, message: 'Choose an existing result.' })
+          return
+        }
+        const target = result as Record<string, unknown>
+        for (const [key, value] of Object.entries(patch)) {
+          if (key === 'type' || key === 'resultId') continue
+          if (value === null) delete target[key]
+          else if (value !== undefined) target[key] = value
+        }
+      } else if (patch.type === 'upsertNote') {
+        const notes = (meta.reviewerNotes ??= [])
+        const id =
+          patch.id ?? deterministicId(`${identity.contentHash}:note:${index}:${patch.message}`)
+        const note = {
+          id,
+          ...(patch.nodeId ? { nodeId: patch.nodeId } : {}),
+          message: patch.message,
+        }
+        const at = notes.findIndex((item) => item.id === id)
+        if (at >= 0) notes[at] = note
+        else notes.push(note)
       } else {
-        if (!current) {
-          current = { id: stableId(namespace, 'section:preamble'), type: 'narrative', nodeIds: [] }
-          sections.push(current)
-        }
-        current.nodeIds.push(idOf(node))
+        meta.reviewerNotes = meta.reviewerNotes?.filter((item) => item.id !== patch.id)
+        if (!meta.reviewerNotes?.length) delete meta.reviewerNotes
       }
     })
+    if (problems.length) throw publicationError(problems)
+    return this.accept(next)
+  }
 
-    const references = new Map<string, { id: string; chunkId: string }>()
-    const figures: NonNullable<PublicationMetadata['figures']> = []
-    const visit = (node: Node) => {
-      const chunk = node.attrs?.sourceChunkId
-      if (node.type === 'sourceCitation' && typeof chunk === 'string' && !references.has(chunk))
-        references.set(chunk, { id: stableId(namespace, `ref:${chunk}`), chunkId: chunk })
+  /**
+   * Deterministic legacy → v1 mapping. Only adds block IDs and root metadata;
+   * text, order, marks, images and citations are untouched. Meaning that prose
+   * does not establish (authorship, qualifiers, public rights) is reported,
+   * never invented.
+   */
+  mapLegacy(document: PublicationDocument, namespace: string) {
+    const unresolved: PublicationDiagnostic[] = []
+    if (document.attrs?.publication !== undefined)
+      return {
+        document,
+        report: {
+          mapped: false,
+          identitiesAssigned: 0,
+          preservedNodes: 0,
+          unresolved: [{ code: 'already_mapped' }],
+        } as LegacyMappingReport,
+      }
+    let count = 0
+    walk(document.content, () => count++)
+    const identified = this.assignIds(document, namespace)
+    let assigned = 0
+    walk(identified.content, (node) => {
+      if (IDENTIFIED_BLOCKS.has(node.type)) assigned++
+    })
+    const top = identified.content
+    const idOf = (node: PublicationNode) => node.attrs!.nodeId as string
+    const titleAt = top.findIndex((node) => node.type === 'heading' && node.attrs?.level === 1)
+    if (titleAt < 0) {
+      unresolved.push({ code: 'missing_title' })
+      return {
+        document,
+        report: {
+          mapped: false,
+          identitiesAssigned: 0,
+          preservedNodes: count,
+          unresolved,
+        } as LegacyMappingReport,
+      }
+    }
+    const summaryNode = top[titleAt + 1]?.type === 'paragraph' ? top[titleAt + 1] : undefined
+    const bodyStart = titleAt + (summaryNode ? 2 : 1)
+
+    const sections: PublicationMetadataV1['sections'] = []
+    const pre = top.slice(0, titleAt)
+    let current: PublicationMetadataV1['sections'][number] | null = null
+    const open = (heading?: PublicationNode) => {
+      current = {
+        id: deterministicId(`${namespace}:section:${heading ? idOf(heading) : sections.length}`),
+        type: 'narrative',
+        ...(heading ? { heading: { nodeId: idOf(heading) } } : {}),
+        nodeIds: [],
+      }
+      sections.push(current)
+    }
+    for (const node of [...pre, ...top.slice(bodyStart)]) {
+      if (node.type === 'heading') open(node)
+      else {
+        if (!current) open()
+        current!.nodeIds.push(idOf(node))
+      }
+    }
+    // Drop an empty preamble section created only by a leading heading boundary.
+    const mappedSections = sections.filter((section) => section.heading || section.nodeIds.length)
+
+    const figures: NonNullable<PublicationMetadataV1['figures']> = []
+    const references = new Map<string, string>()
+    walk(identified.content, (node) => {
       if (node.type === 'image') {
-        const documentImageId = node.attrs?.documentImageId
+        const chunk = node.attrs?.sourceChunkId
+        const image = node.attrs?.documentImageId
         const asset =
-          typeof documentImageId === 'string'
-            ? { kind: 'document_image' as const, id: documentImageId }
+          typeof image === 'string'
+            ? { kind: 'document_image' as const, id: image }
             : typeof chunk === 'string'
               ? { kind: 'source_chunk' as const, id: chunk }
               : null
         if (asset)
           figures.push({
-            id: stableId(namespace, `figure:${idOf(node)}`),
+            id: deterministicId(`${namespace}:figure:${idOf(node)}`),
             image: { nodeId: idOf(node) },
             asset,
           })
-        else report.unresolved.push({ code: 'image_without_registered_asset', nodeId: idOf(node) })
-      }
-      node.content?.forEach(visit)
-    }
-    top.forEach(visit)
+        else unresolved.push({ code: 'image_without_registered_asset', nodeId: idOf(node) })
+      } else if (node.type === 'sourceCitation' && typeof node.attrs?.sourceChunkId === 'string') {
+        const chunkId = node.attrs.sourceChunkId
+        if (!references.has(chunkId))
+          references.set(chunkId, deterministicId(`${namespace}:ref:${chunkId}`))
+      } else if (
+        TEXT_BLOCKS.has(node.type) &&
+        /\b(TODO|FIXME|INTERNAL|REVIEWER)\b/.test(flattenText(node))
+      )
+        unresolved.push({ code: 'possible_internal_comment', nodeId: idOf(node) })
+    })
+    unresolved.push({ code: 'authorship_unknown' }, { code: 'results_not_annotated' })
 
-    // Reported for a person; the prose itself is never edited or converted.
-    const flagged = (node: Node) => {
-      if (TEXTBLOCKS.has(node.type) && node.attrs?.nodeId) {
-        const text = flattenText(node)
-        if (/\b(?:up to|estimated|target|projected)\b/i.test(text))
-          report.unresolved.push({ code: 'unstructured_qualifier', nodeId: idOf(node) })
-        if (/\[\s*(?:reviewer|internal|todo|tbd|fixme)\b|\b(?:TODO|FIXME)\b/i.test(text))
-          report.unresolved.push({ code: 'internal_comment', nodeId: idOf(node) })
-      }
-      node.content?.forEach(flagged)
-    }
-    top.forEach(flagged)
-
-    const metadata: PublicationMetadata = {
+    const publication: PublicationMetadataV1 = {
       schemaVersion: PUBLICATION_SCHEMA_VERSION,
       docType: 'case_study',
       hero: {
-        title: { nodeId: idOf(top[0]) },
-        ...(hasSummary ? { summary: { nodeId: idOf(top[1]) } } : {}),
+        title: { nodeId: idOf(top[titleAt]) },
+        ...(summaryNode ? { summary: { nodeId: idOf(summaryNode) } } : {}),
       },
-      sections,
+      sections: mappedSections,
       ...(figures.length ? { figures } : {}),
-      ...(references.size ? { references: [...references.values()] } : {}),
+      ...(references.size
+        ? { references: [...references].map(([chunkId, id]) => ({ id, chunkId })) }
+        : {}),
     }
-    next.attrs = { ...next.attrs, publication: metadata }
-    this.assertValid(next)
-    return { document: next, report, mapped: true as const }
-  }
-
-  /**
-   * Typed reverse edits against an accepted base. Returns TipTap JSON for the
-   * normal save boundary; a render DTO is never accepted as the new document.
-   */
-  applyEdits(
-    base: { document: Doc; versionId: string },
-    identity: PublicationIdentity,
-    patches: PublicationPatch[]
-  ): Doc {
-    if (
-      identity?.versionId !== base.versionId ||
-      identity.contentHash !== sha256(canonicalJson(base.document))
-    )
-      throw new Exception('The document changed. Reload it and try again.', {
-        status: 409,
-        code: 'E_STALE_PUBLICATION',
-      })
-    this.assertValid(base.document)
-    let doc = clone(base.document)
-    const meta = () => doc.attrs!.publication as PublicationMetadata
-    const errors: FieldError[] = []
-
-    patches.forEach((patch, i) => {
-      const field = `patches.${i}`
-      if (patch.op === 'replace_text') {
-        const nodeId =
-          patch.target === 'hero.title' ? meta().hero.title.nodeId : meta().hero.summary?.nodeId
-        const target = nodeId ? index(doc).byId.get(nodeId)?.node : undefined
-        if (!target)
-          return void errors.push({ field: `${field}.target`, message: 'No such field.' })
-        if (typeof patch.text !== 'string' || !patch.text.trim() || patch.text.length > 2000)
-          return void errors.push({
-            field: `${field}.text`,
-            message: 'Enter text up to 2000 characters.',
-          })
-        // Keep the first run's marks; the replaced words are the only change.
-        const first = target.content?.find((n) => n.type === 'text')
-        target.content = [
-          { type: 'text', text: patch.text, ...(first?.marks ? { marks: first.marks } : {}) },
-        ]
-      } else if (patch.op === 'set_result') {
-        const found = meta().results?.find((r) => r.id === patch.resultId)
-        if (!found)
-          return void errors.push({ field: `${field}.resultId`, message: 'Unknown result.' })
-        if (found.state !== 'active')
-          return void errors.push({
-            field: `${field}.resultId`,
-            message: 'Resolve this result first.',
-          })
-        const { qualifier, ...context } = patch
-        delete (context as { op?: string }).op
-        delete (context as { resultId?: string }).resultId
-        if (qualifier !== undefined) {
-          if (!(QUALIFIERS as readonly string[]).includes(qualifier))
-            return void errors.push({
-              field: `${field}.qualifier`,
-              message: `Choose ${QUALIFIERS.join(', ')}.`,
-            })
-          found.qualifier = qualifier as Qualifier
-        }
-        Object.assign(found, context)
-      } else if (patch.op === 'put_note') {
-        const notes = (meta().reviewerNotes ??= [])
-        const existing = patch.id ? notes.find((n) => n.id === patch.id) : undefined
-        if (patch.id && !existing)
-          return void errors.push({ field: `${field}.id`, message: 'Unknown note.' })
-        const id = existing?.id ?? stableId(base.versionId, `note:${i}:${sha256(patch.message)}`)
-        const entry = {
-          id,
-          ...(patch.nodeId ? { nodeId: patch.nodeId } : {}),
-          message: patch.message,
-        }
-        if (existing) Object.assign(existing, entry)
-        else notes.push(entry)
-      } else if (patch.op === 'remove_note') {
-        const before = meta().reviewerNotes?.length ?? 0
-        meta().reviewerNotes = meta().reviewerNotes?.filter((n) => n.id !== patch.id)
-        if ((meta().reviewerNotes?.length ?? 0) === before)
-          errors.push({ field: `${field}.id`, message: 'Unknown note.' })
-        if (!meta().reviewerNotes?.length) delete meta().reviewerNotes
-      } else errors.push({ field, message: 'Unsupported edit.' })
-    })
-    if (errors.length) throw new PublicationContentError(errors)
-
-    // Only the target and explicitly affected hashes change.
-    doc = this.reconcile(doc)
-    this.assertValid(doc)
-    return doc
+    const mapped = { ...identified, attrs: { ...identified.attrs, publication } }
+    const errors = this.validate(mapped)
+    if (errors.length) throw publicationError(errors)
+    return {
+      document: mapped,
+      report: {
+        mapped: true,
+        identitiesAssigned: assigned,
+        preservedNodes: count,
+        unresolved,
+      } as LegacyMappingReport,
+    }
   }
 }

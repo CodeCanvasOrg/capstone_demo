@@ -2,7 +2,7 @@
 
 12 November 2026 · P0 · 3 points · Leads: Abu + John · Dependency: OUT-01 **implemented**.
 
-**Proposed implementation; no application/schema changes applied in this planning turn.** [Research](out-02-publication-content-research.md) documents the existing path and defects D1–D6. Build on the current pilot, existing save/evidence services and TipTap. Keep company guides read-only; this work defines content meaning, not a template designer.
+**Implementation started 12 November 2026 in worktree `../capstone-out02` (see [Implementation status](#implementation-status)).** [Research](out-02-publication-content-research.md) documents the existing path and defects D1–D6. Build on the current pilot, existing save/evidence services and TipTap. Keep company guides read-only; this work defines content meaning, not a template designer.
 
 ## Decisions and delivery boundary
 
@@ -213,7 +213,7 @@ The dependency OUT-01 is not reopened. QA-01 fixtures may be reused when availab
 These are **planned commands**; only installed generator `--help` and baseline tests were executed in this turn. After agreement, use a writable isolated worktree and existing framework generators. Do not run migrations on the working database.
 
 ```sh
-git worktree add -b feature/out-02-publication-content /private/tmp/capstone-out02
+git worktree add -b feature/out-02-publication-content ../capstone-out02   # per docs/working-rules.md
 # Run subsequent commands from that worktree.
 bun install --frozen-lockfile
 node ace make:service documents/publication_content
@@ -264,3 +264,23 @@ Recommendations for agreement: use TipTap JSON metadata as the authority; start 
 Confirm the initial semantic section vocabulary and who may apply/review a real-record mapping. No decision about brand assets, collection approval, solo-download policy or claim-support overrides is required to validate this contract; keep those existing decisions separate. Do not turn the proposed metadata schema into implicit agreement on final-export eligibility.
 
 OUT-02 completes when valid/invalid fixtures, real TipTap metadata survival, evidence/asset authorization and one non-destructive migration round trip pass, with unchanged legacy support and no second editable content store. The documents do not claim those outcomes have already been implemented.
+
+## Implementation status
+
+Plan changes made while implementing:
+
+- The TipTap extension lives in `shared/publication/tiptap_extension.ts` (not `inertia/components/extensions/`) so server tests can build the real schema; it is allow-listed in `eslint.config.js` like the other shared helpers.
+- The extension uses global attributes (`doc.publication`, block `nodeId`) rather than replacing StarterKit's Document, so no second Document is registered and no undeclared `@tiptap/extension-document` import is needed. Split/paste duplicates are cleared client-side; the server allocates the replacement ID.
+- A reference no body node cites and no claim relies on is pruned during reconciliation, so deleting the last citation does not block an autosave.
+- Resource authorization reuses `EvidenceService.hydrate`: after hydration, figures and references must resolve to chunks/images that survived it, with generic errors.
+
+Done:
+- Shared strict schema, `PublicationContentService` (assign IDs, reconcile, validate, derive, typed `applyEdits`, `mapLegacy`), save-path wiring (`ContentService`, `VersionService`, hydration identity) and the `publication:map-document` command.
+- Editor: `content_validation.tsx` error summary (focus on failure, per-field "Go to text" using `data-node-id`, stale-annotation count from the save response), wired in `editor.tsx`; publication field messages pass through `responseError`.
+- Generation: `GenerationService.annotate` discards model-proposed IDs/root attrs, maps deterministically from document + task mutation, and keeps an unmappable draft as an ordinary document.
+- Projection/export: `PublicationProjectionService` finds the hero by stable ID and emits typed results through `derive`, falling back to the positional pilot when metadata is absent or invalid (`contract: null`); the HTML/PDF adapter renders a "Key results" block. Reviewer notes, IDs and annotation records never reach it.
+- Tests: unit, functional and a Playwright browser spec (metadata survival through the editor, 422 summary, focus, retained draft).
+
+Not done: running the mapping command against a real record; native PDF smoke (HTML path only was exercised); authoring UI for results/notes; broader pre-existing issue below.
+
+Found, not changed: the Adonis JSON bodyparser defaults to `trimWhitespaces: true`, so every saved text run loses leading/trailing spaces (e.g. `"took "` + bold `"weeks"` saves as `"tookweeks"`). Anchors stay self-consistent because they are built from stored text, but this is a content-corruption bug independent of OUT-02. Fixing it means `json.trimWhitespaces: false` in `config/bodyparser.ts` plus explicit `.trim()` on validators that rely on it.
