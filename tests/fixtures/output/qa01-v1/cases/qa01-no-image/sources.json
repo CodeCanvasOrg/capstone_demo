@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "fixtureSourceId": "qa01-no-image-src-1",
+      "revision": 1,
+      "chunkId": "4adf77da-6519-429c-8839-cce22ab4d26a",
+      "sha256": "1993d3d37a7f4998bc6ff90221dc1fe35401d46b2945823349262c4b77e3edb7",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "clinic-reminders-notes.pdf",
+      "pageNumber": 1,
+      "chunkIndex": 0,
+      "mediaType": "application/pdf",
+      "content": "The Alder Street Clinic sends appointment reminders by text message and email. Front-desk staff review the list each morning before sending."
+    },
+    {
+      "fixtureSourceId": "qa01-no-image-src-2",
+      "revision": 1,
+      "chunkId": "bd70b693-17b2-4834-8d16-fa016428a244",
+      "sha256": "bf82527065a6387e2481fe38f98fc0e9f1398865b754b8487236673d3ace794d",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "clinic-reminders-notes.pdf",
+      "pageNumber": 2,
+      "chunkIndex": 1,
+      "mediaType": "application/pdf",
+      "content": "Patients can reply to a reminder to confirm or cancel. Cancelled slots are returned to the booking calendar for reuse."
+    }
+  ]
+}

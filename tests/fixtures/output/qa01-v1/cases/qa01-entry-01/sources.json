@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "fixtureSourceId": "qa01-entry-01-src-1",
+      "revision": 1,
+      "chunkId": "74eabb74-0db7-4431-8748-7043ccf45511",
+      "sha256": "1a90f3cfabc8285509a50ff72f65d70192060ad7e6cef6d3c979177cdf2bf3a0",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "harbourline-pilot-brief.pdf",
+      "pageNumber": 1,
+      "chunkIndex": 0,
+      "mediaType": "application/pdf",
+      "content": "Harbourline Logistics clerks retyped data from paper and scanned invoices into the brokerage system. The pilot reads uploaded invoices and packing lists on servers inside the client network, so documents never leave the building."
+    },
+    {
+      "fixtureSourceId": "qa01-entry-01-src-2",
+      "revision": 1,
+      "chunkId": "41406010-3046-46b8-8929-8879a2015ce0",
+      "sha256": "343b5777d1209c522f059f797ed00ffbd93b1ea866d69323ca9b5a8a412ea10f",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "harbourline-pilot-brief.pdf",
+      "pageNumber": 2,
+      "chunkIndex": 1,
+      "mediaType": "application/pdf",
+      "content": "Estimated reduction of up to 60% in document processing time, based on the delivery team estimate; no controlled measurement was made. The pilot architecture targets an initial volume of 500 documents per day."
+    },
+    {
+      "fixtureSourceId": "qa01-entry-01-src-3",
+      "revision": 1,
+      "chunkId": "41ce325d-e512-4fc6-8c67-2593077b357e",
+      "sha256": "ceb6bfa0a5aa3a98c3ac914621cc2fe80e8dacfdd4fbb7a1c135a746090a52e5",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "harbourline-pilot-brief.pdf",
+      "pageNumber": 3,
+      "chunkIndex": 2,
+      "mediaType": "application/pdf",
+      "content": "Operators still choose the document type manually. Planned next steps are automatic classification and integration with the client ERP."
+    },
+    {
+      "fixtureSourceId": "qa01-entry-01-src-4",
+      "revision": 1,
+      "chunkId": "dbf7a0e8-2c01-4156-8810-a2a48d6c7968",
+      "sha256": "2d29e1d1350bd1ada1d8ef64dbdb3bdbbb4cded526535058a0b0900664c19c36",
+      "hashBasis": "original_bytes",
+      "fileName": "harbourline-pilot-brief.pdf",
+      "pageNumber": 1,
+      "chunkIndex": 3,
+      "mediaType": "image/png",
+      "content": "Source image: synthetic diagram of the scan, extract, review and export steps.",
+      "asset": "assets/diagram.png"
+    }
+  ]
+}

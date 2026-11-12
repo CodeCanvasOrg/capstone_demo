@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "description": "Full 180-character title with a 40-character unbroken token survives and wraps.",
+  "requiredText": [
+    "Rebuilding a Regional Maintenance Planning Programme Around InteroperabilityXXXXXXXXXXXXXXXXXXXXXXXX and a Single Shared Scheduling Platform for Seven Depots Serving Three Counties"
+  ],
+  "forbiddenPatterns": [],
+  "imageCount": 0,
+  "referenceCount": 1,
+  "titleLength": 180
+}

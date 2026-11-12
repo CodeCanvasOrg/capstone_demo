@@ -1,0 +1,215 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Resilience Assessment Across Six Programmes"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "A fictional assessment draws on six long-named reports, two pages each."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "4bbd7293-284b-4d91-8495-760034339a57"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "5a87249d-5a4f-408c-8beb-8941f184ca54"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Findings"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Risks in the first three programmes recur in later reports."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "4bbd7293-284b-4d91-8495-760034339a57"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "6298fd36-157a-4583-8df2-987e8b0ab53c"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "b0501b5d-7851-4fe2-80f8-3a56cf329cec"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Mitigations for the middle programmes were agreed late."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "0f6437db-2944-40ba-8ede-70b7cb053c4a"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "84c36e38-58b1-4fce-8135-427798cf868a"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "5a87249d-5a4f-408c-8beb-8941f184ca54"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Later programmes inherited earlier mitigations."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "2695ef33-f5de-48ad-807d-bb452d738c17"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "bf0df6c3-e0f9-4330-8288-8559c9e92a33"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "c81f8f76-67e2-4abf-8585-b29f50350a9b"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "4bbd7293-284b-4d91-8495-760034339a57"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The final programmes report the same pattern."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "8c91cb6c-86ca-40b4-86fa-bb0ce89eda62"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "7bd1a178-3aaf-4cad-8476-a456726da75a"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "dab3828f-07b2-40df-8399-19b9898d4c37"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "6298fd36-157a-4583-8df2-987e8b0ab53c"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Conclusion"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Every programme cites at least one repeated risk."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "4bbd7293-284b-4d91-8495-760034339a57"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "dab3828f-07b2-40df-8399-19b9898d4c37"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "0f6437db-2944-40ba-8ede-70b7cb053c4a"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "2695ef33-f5de-48ad-807d-bb452d738c17"
+          }
+        }
+      ]
+    }
+  ]
+}

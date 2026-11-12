@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "fixtureSourceId": "qa01-long-title-src-1",
+      "revision": 1,
+      "chunkId": "46196ce0-05ac-43b6-8292-b933b54ed659",
+      "sha256": "cdb9f428edaaa6727b72b37f1f6e7b0e6901a46600620d190da0f8ad1892c6cc",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "depot-scheduling-notes.pdf",
+      "pageNumber": 1,
+      "chunkIndex": 0,
+      "mediaType": "application/pdf",
+      "content": "Seven depots now share one scheduling platform. Planners previously kept separate spreadsheets for each depot."
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "description": "Twelve chunk/page descriptions, stable first-appearance numbering, no raw IDs or excerpts.",
+  "requiredText": [
+    "Resilience Assessment Across Six Programmes"
+  ],
+  "forbiddenPatterns": [],
+  "imageCount": 0,
+  "referenceCount": 12
+}

@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "fixtureSourceId": "qa01-long-citations-src-1",
+      "revision": 1,
+      "chunkId": "4bbd7293-284b-4d91-8495-760034339a57",
+      "sha256": "a9349d31a36252081d9adef6061734f57d4aafc6f671c2e137f822fc0246691d",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "Acoustic-regional-infrastructure-resilience-programme-quarterly-assessment-of-delivery-risks-and-mitigations-final-review-copy-for-the-steering-committee-meeting-pack.pdf",
+      "pageNumber": 1,
+      "chunkIndex": 0,
+      "mediaType": "application/pdf",
+      "content": "Assessment 1, page 1: the programme reports risk item 1.1 and its agreed mitigation."
+    },
+    {
+      "fixtureSourceId": "qa01-long-citations-src-2",
+      "revision": 1,
+      "chunkId": "5a87249d-5a4f-408c-8beb-8941f184ca54",
+      "sha256": "1e360499971040bfa13861b478f81d8171bef9dd952eaf266fcf5a88110f5a0e",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "Acoustic-regional-infrastructure-resilience-programme-quarterly-assessment-of-delivery-risks-and-mitigations-final-review-copy-for-the-steering-committee-meeting-pack.pdf",
+      "pageNumber": 2,
+      "chunkIndex": 1,
+      "mediaType": "application/pdf",
+      "content": "Assessment 1, page 2: the programme reports risk item 1.2 and its agreed mitigation."
+    },
+    {
+      "fixtureSourceId": "qa01-long-citations-src-3",
+      "revision": 1,
+      "chunkId": "6298fd36-157a-4583-8df2-987e8b0ab53c",
+      "sha256": "4c2c8a4639e9d26b44cb495381db6e6bd4874acf905db0e86b7e4cd0f522c799",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "Bridge-regional-infrastructure-resilience-programme-quarterly-assessment-of-delivery-risks-and-mitigations-final-review-copy-for-the-steering-committee-meeting-pack.pdf",
+      "pageNumber": 1,
+      "chunkIndex": 2,
+      "mediaType": "application/pdf",
+      "content": "Assessment 2, page 1: the programme reports risk item 2.1 and its agreed mitigation."
+    },
+    {
+      "fixtureSourceId": "qa01-long-citations-src-4",
+      "revision": 1,
+      "chunkId": "84c36e38-58b1-4fce-8135-427798cf868a",
+      "sha256": "1597aee0509d1dfe64c845f2369cd24b7f3b376defcf33e3cf77a1994a14a695",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "Bridge-regional-infrastructure-resilience-programme-quarterly-assessment-of-delivery-risks-and-mitigations-final-review-copy-for-the-steering-committee-meeting-pack.pdf",
+      "pageNumber": 2,
+      "chunkIndex": 3,
+      "mediaType": "application/pdf",
+      "content": "Assessment 2, page 2: the programme reports risk item 2.2 and its agreed mitigation."
+    },
+    {
+      "fixtureSourceId": "qa01-long-citations-src-5",
+      "revision": 1,
+      "chunkId": "b0501b5d-7851-4fe2-80f8-3a56cf329cec",
+      "sha256": "6360bd3837b2cf0bbb5b307a04427a8c4e1f7e67032b5f55f3ec788a87f544b1",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "Cartographic-regional-infrastructure-resilience-programme-quarterly-assessment-of-delivery-risks-and-mitigations-final-review-copy-for-the-steering-committee-meeting-pack.pdf",
+      "pageNumber": 1,
+      "chunkIndex": 4,
+      "mediaType": "application/pdf",
+      "content": "Assessment 3, page 1: the programme reports risk item 3.1 and its agreed mitigation."
+    },
+    {
+      "fixtureSourceId": "qa01-long-citations-src-6",
+      "revision": 1,
+      "chunkId": "0f6437db-2944-40ba-8ede-70b7cb053c4a",
+      "sha256": "ace73dc52eccc55f625a2f5e3cf67b39c9b18248c0e11b62325a8e9cee6930d6",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "Cartographic-regional-infrastructure-resilience-programme-quarterly-assessment-of-delivery-risks-and-mitigations-final-review-copy-for-the-steering-committee-meeting-pack.pdf",
+      "pageNumber": 2,
+      "chunkIndex": 5,
+      "mediaType": "application/pdf",
+      "content": "Assessment 3, page 2: the programme reports risk item 3.2 and its agreed mitigation."
+    },
+    {
+      "fixtureSourceId": "qa01-long-citations-src-7",
+      "revision": 1,
+      "chunkId": "2695ef33-f5de-48ad-807d-bb452d738c17",
+      "sha256": "ef3e26e770aac3065c57d88537a3ec7ba90e65440c6dad08d7c1cb8da2af059f",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "Dockside-regional-infrastructure-resilience-programme-quarterly-assessment-of-delivery-risks-and-mitigations-final-review-copy-for-the-steering-committee-meeting-pack.pdf",
+      "pageNumber": 1,
+      "chunkIndex": 6,
+      "mediaType": "application/pdf",
+      "content": "Assessment 4, page 1: the programme reports risk item 4.1 and its agreed mitigation."
+    },
+    {
+      "fixtureSourceId": "qa01-long-citations-src-8",
+      "revision": 1,
+      "chunkId": "8c91cb6c-86ca-40b4-86fa-bb0ce89eda62",
+      "sha256": "2e673ef3d49e5305a85526d4a3911b9a4b0b13dd19b5a2819af9dcacbbe560a7",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "Dockside-regional-infrastructure-resilience-programme-quarterly-assessment-of-delivery-risks-and-mitigations-final-review-copy-for-the-steering-committee-meeting-pack.pdf",
+      "pageNumber": 2,
+      "chunkIndex": 7,
+      "mediaType": "application/pdf",
+      "content": "Assessment 4, page 2: the programme reports risk item 4.2 and its agreed mitigation."
+    },
+    {
+      "fixtureSourceId": "qa01-long-citations-src-9",
+      "revision": 1,
+      "chunkId": "bf0df6c3-e0f9-4330-8288-8559c9e92a33",
+      "sha256": "8cd0f9deb7b4b82840f8c9447635d6ae0e191e34a8e1c1d705ee9ef63d28c484",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "Estuary-regional-infrastructure-resilience-programme-quarterly-assessment-of-delivery-risks-and-mitigations-final-review-copy-for-the-steering-committee-meeting-pack.pdf",
+      "pageNumber": 1,
+      "chunkIndex": 8,
+      "mediaType": "application/pdf",
+      "content": "Assessment 5, page 1: the programme reports risk item 5.1 and its agreed mitigation."
+    },
+    {
+      "fixtureSourceId": "qa01-long-citations-src-10",
+      "revision": 1,
+      "chunkId": "7bd1a178-3aaf-4cad-8476-a456726da75a",
+      "sha256": "aba7fcea509e17aabff2d7843f817af8504abb567776cf2cf1716c03730dc7f6",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "Estuary-regional-infrastructure-resilience-programme-quarterly-assessment-of-delivery-risks-and-mitigations-final-review-copy-for-the-steering-committee-meeting-pack.pdf",
+      "pageNumber": 2,
+      "chunkIndex": 9,
+      "mediaType": "application/pdf",
+      "content": "Assessment 5, page 2: the programme reports risk item 5.2 and its agreed mitigation."
+    },
+    {
+      "fixtureSourceId": "qa01-long-citations-src-11",
+      "revision": 1,
+      "chunkId": "c81f8f76-67e2-4abf-8585-b29f50350a9b",
+      "sha256": "d8441cd2cda30e6df7af6b414b5d4ed68b9a89fb80273fd1291ec666905f9ea2",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "Foundry-regional-infrastructure-resilience-programme-quarterly-assessment-of-delivery-risks-and-mitigations-final-review-copy-for-the-steering-committee-meeting-pack.pdf",
+      "pageNumber": 1,
+      "chunkIndex": 10,
+      "mediaType": "application/pdf",
+      "content": "Assessment 6, page 1: the programme reports risk item 6.1 and its agreed mitigation."
+    },
+    {
+      "fixtureSourceId": "qa01-long-citations-src-12",
+      "revision": 1,
+      "chunkId": "dab3828f-07b2-40df-8399-19b9898d4c37",
+      "sha256": "53252e62908bb2753e08a7fb60954383dc3e98ce99a835656d07d520b042aac8",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "Foundry-regional-infrastructure-resilience-programme-quarterly-assessment-of-delivery-risks-and-mitigations-final-review-copy-for-the-steering-committee-meeting-pack.pdf",
+      "pageNumber": 2,
+      "chunkIndex": 11,
+      "mediaType": "application/pdf",
+      "content": "Assessment 6, page 2: the programme reports risk item 6.2 and its agreed mitigation."
+    }
+  ]
+}

@@ -32,3 +32,6 @@ yarn-error.log
 python/pdf_worker/.venv
 __pycache__/
 .pytest_cache/
+
+# QA-01 generated run output
+output/qa01/
