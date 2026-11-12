@@ -10,6 +10,9 @@ import ContentService from '#services/documents/content_service'
 import EvidenceService from '#services/documents/evidence_service'
 import DocumentImageService from '#services/documents/document_image_service'
 import ExportPdfService from '#services/exports/pdf_service'
+import PublicationProjectionService from '#services/documents/publication_projection_service'
+import { ClientContentError } from '../../../shared/publication/client.ts'
+import { Exception } from '@adonisjs/core/exceptions'
 import AccessService, {
   conflict,
   uuid,
@@ -85,7 +88,7 @@ export default class DocumentExportService {
       tasks.check(lease)
     )
     await tasks.check(lease)
-    const buffer = await ExportPdfService.generate({ content } as DocumentVersion, {
+    const buffer = await ExportPdfService.generate(this.client(content), {
       publication: publicationLayout(),
     })
     const key = `workspaces/${lease.context.workspaceId}/exports/${lease.task.id}.pdf`
@@ -174,7 +177,7 @@ export default class DocumentExportService {
     const content = await this.content(context, documentId, version.content, check)
     await check()
     const buffer = await ExportPdfService[format === 'html' ? 'html' : 'generate'](
-      { content } as DocumentVersion,
+      this.client(content),
       { preview: true, publication: publicationLayout() }
     )
     await check()
@@ -182,6 +185,26 @@ export default class DocumentExportService {
     if (current.currentVersionId !== version.id)
       throw conflict('The saved version changed during preview')
     return buffer
+  }
+  /**
+   * Single projection point for preview and export, both layouts. A hard
+   * failure stops rendering with field paths only, never content snippets;
+   * the saved version is left untouched for the author to repair.
+   */
+  private client(content: Parameters<PublicationProjectionService['project']>[0]) {
+    try {
+      const { client, diagnostics } = new PublicationProjectionService().project(content)
+      const errors = diagnostics.filter((d) => d.severity === 'error')
+      if (errors.length)
+        throw new ClientContentError(errors.map((d) => ({ field: d.field, code: d.code })))
+      return client
+    } catch (error) {
+      if (!(error instanceof ClientContentError)) throw error
+      throw new Exception(
+        `Repair publication fields before exporting: ${error.issues.map((i) => `${i.field} (${i.code})`).join(', ')}`,
+        { status: 422, code: 'E_PUBLICATION_UNSAFE' }
+      )
+    }
   }
   private assertSnapshot(
     doc: Document,

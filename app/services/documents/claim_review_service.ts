@@ -100,18 +100,13 @@ export default class ClaimReviewService {
       if (result.status === 'unable_to_evaluate') unchecked++
       else if (
         result.status === 'missing_evidence' ||
-        (result.status === 'evaluated' && result.verdict !== 'supported')
+        (result.status === 'evaluated' && !result.compliant)
       ) {
-        const contradicted = result.status === 'evaluated' && result.verdict === 'contradicted'
         issues.push({
-          code: contradicted ? 'contradicted_claim' : 'unsupported_claim',
-          title: `${contradicted ? 'Contradicted' : 'Unsupported'} claim: ${excerpt(claim.text)}`,
-          description: `${contradicted ? 'The cited evidence conflicts with this claim.' : 'The cited evidence does not support this claim.'}${sources} Automated check; review the claim against the source.`,
-          fingerprint: fingerprint(
-            contradicted ? 'contradicted' : 'unsupported',
-            result.claimHash,
-            result.evidenceHash
-          ),
+          code: 'unsupported_claim',
+          title: `Not supported by sources: ${excerpt(claim.text)}`,
+          description: `The cited sources do not support this claim.${sources} Automated check; review the claim against the source.`,
+          fingerprint: fingerprint('unsupported', result.claimHash, result.evidenceHash),
           blockId: claim.blockId,
           claimHash: result.claimHash,
         })

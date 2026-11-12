@@ -21,6 +21,8 @@ type TipTapNode = {
 
 export type TipTapDocument = {
   type: 'doc'
+  /** Root attributes, e.g. `publication` annotations; carried through hydration untouched. */
+  attrs?: Record<string, unknown>
   content: TipTapNode[]
 }
 
@@ -43,6 +45,10 @@ function isWebUrl(value: string | null): value is string {
   }
 }
 
+/** Stable block identity is not hydrated data; rebuilt nodes must keep it. */
+const identity = (node: TipTapNode) =>
+  typeof node.attrs?.nodeId === 'string' ? { nodeId: node.attrs.nodeId } : {}
+
 /**
  * Resolve model-created chunk references to metadata from the retrieved chunks.
  * The model may select IDs, but it cannot supply URLs or source text.
@@ -61,6 +67,7 @@ export function attachChunkMetadata(
       return {
         type: 'image',
         attrs: {
+          ...identity(node),
           documentImageId: image.id,
           src: image.src,
           alt: typeof node.attrs.alt === 'string' ? node.attrs.alt : image.filename,
@@ -83,6 +90,7 @@ export function attachChunkMetadata(
         return {
           type: 'image',
           attrs: {
+            ...identity(node),
             sourceChunkId: source.id,
             src: source.fileUrl,
             alt:

@@ -4,13 +4,14 @@ import { chromium } from 'playwright'
 
 test.group('ExportPdfService', () => {
   test('generate returns a buffer', async ({ assert }) => {
-    // Mock DocumentVersion
     const mockVersion = {
-      content: {
-        type: 'doc',
-        content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Hello PDF' }] }],
-      },
-    } as any
+      schemaVersion: 1 as const,
+      docType: 'case_study' as const,
+      body: [
+        { type: 'paragraph' as const, content: [{ type: 'text' as const, text: 'Hello PDF' }] },
+      ],
+      sources: [],
+    }
 
     // Mock Playwright to avoid launching a real browser in unit tests
     const mockBrowser = {

@@ -164,8 +164,9 @@ test.group('Document images', (group) => {
       ExportPdfService.generate = originalPdf
     })
     ExportPdfService.generate = async (value) => {
+      const first = value.body[0]
       assert.equal(
-        value.content.content[0].attrs?.src,
+        first.type === 'image' && first.src,
         `data:image/png;base64,${PNG.toString('base64')}`
       )
       return Buffer.from('PDF bytes')

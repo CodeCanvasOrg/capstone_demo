@@ -1,9 +1,6 @@
 import { createHash } from 'node:crypto'
 import claimEvaluationConfig from '#config/claim_evaluation'
 
-export const CLAIM_VERDICTS = ['supported', 'contradicted', 'insufficient_evidence'] as const
-export type ClaimVerdict = (typeof CLAIM_VERDICTS)[number]
-
 export type ClaimEvidence = { id: string; text: string }
 export type ClaimInput = { claimId: string; text: string; evidence: ClaimEvidence[] }
 
@@ -11,9 +8,9 @@ type Hashes = { claimHash: string; evidenceHash: string }
 export type ClaimEvaluation =
   | ({
       status: 'evaluated'
-      verdict: ClaimVerdict
-      probabilities: Record<string, number>
-      confidence: number | null
+      // True when the evidence supports the whole claim; `probability` is the model's P(true).
+      compliant: boolean
+      probability: number
       model: string
     } & Hashes & { claimId: string })
   // Deterministic application check: nothing to evaluate against, so the model is not asked.
@@ -73,14 +70,13 @@ export default class ClaimEvaluationService {
           model: this.config.model,
           state: { claim: input.text, evidence: input.evidence },
           questions: {
-            verdict: {
-              type: 'choice',
+            compliant: {
+              type: 'noul',
               instructions:
-                'Judge the claim using only the supplied evidence. Preserve units, dates, scope and qualifiers such as "up to".',
+                'Is the claim compliant with the supplied evidence? Judge using only the evidence. Preserve units, dates, scope and qualifiers such as "up to".',
               criteria: {
-                supported: 'The evidence directly states or entails the whole claim.',
-                contradicted: 'The evidence conflicts with the claim.',
-                insufficient_evidence: 'The evidence neither supports nor contradicts the claim.',
+                true: 'The evidence directly states or entails the whole claim.',
+                false: 'The evidence conflicts with the claim, or does not support all of it.',
               },
             },
           },
@@ -99,21 +95,19 @@ export default class ClaimEvaluationService {
     } catch {
       return fail('malformed_result')
     }
-    const answer = body?.answers?.verdict
+    const answer = body?.answers?.compliant
     if (
-      answer?.type !== 'choice' ||
-      !CLAIM_VERDICTS.includes(answer.choice) ||
+      answer?.type !== 'noul' ||
+      typeof answer.noul !== 'number' ||
+      answer.noul < 0 ||
+      answer.noul > 1 ||
       typeof body?.model !== 'string'
     )
       return fail('malformed_result')
-    const probabilities: Record<string, number> = {}
-    for (const [label, value] of Object.entries(answer.probabilities ?? {}))
-      if (typeof value === 'number') probabilities[label] = value
     return {
       status: 'evaluated',
-      verdict: answer.choice,
-      probabilities,
-      confidence: typeof answer.confidence === 'number' ? answer.confidence : null,
+      compliant: answer.noul >= 0.5,
+      probability: answer.noul,
       // Record the resolved snapshot the provider actually used.
       model: body.model,
       ...hashes,

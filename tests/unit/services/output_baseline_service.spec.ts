@@ -35,11 +35,15 @@ async function options(overrides: Partial<RenderOptions> = {}): Promise<RenderOp
     renderer: {
       html: async (content, opts) => {
         const { default: Pdf } = await import('#services/exports/pdf_service')
-        return Pdf.html({ content } as any, opts)
+        const { default: Projection } =
+          await import('#services/documents/publication_projection_service')
+        return Pdf.html(new Projection().project(content as any).client, opts)
       },
       pdf: async (content, opts) => {
         const { default: Pdf } = await import('#services/exports/pdf_service')
-        const html = await Pdf.html({ content } as any, opts)
+        const { default: Projection } =
+          await import('#services/documents/publication_projection_service')
+        const html = await Pdf.html(new Projection().project(content as any).client, opts)
         return Buffer.from(html.replace(/<style[\s\S]*?<\/style>/g, ' ').replace(/<[^>]+>/g, ' '))
       },
     },
@@ -104,7 +108,7 @@ test.group('OutputBaselineService render', () => {
       JSON.stringify(report.results.flatMap((r) => r.checks.filter((c) => !c.ok)))
     )
     const pilot = report.results.find((r) => r.layout === 'pilot')!
-    assert.equal(pilot.projectionVersion, 'out-01-pilot-1')
+    assert.equal(pilot.projectionVersion, 'out-03-1')
     assert.equal(pilot.html.status === 'measured' && pilot.html.value.ms, 5)
     assert.include(await readdir(opts.outputDir), 'report.json')
     assert.equal(

@@ -1,5 +1,9 @@
 import { test } from '@japa/runner'
 import { RunnableLambda } from '@langchain/core/runnables'
+import { OutputParserException } from '@langchain/core/output_parsers'
+import { getSchema } from '@tiptap/core'
+import StarterKit from '@tiptap/starter-kit'
+import { Node as ProseMirrorNode } from '@tiptap/pm/model'
 
 import openRouterApiConfig from '#config/open_router'
 import OpenRouterService from '#services/open_router_service'
@@ -17,7 +21,7 @@ type TestableOpenRouterService = {
 }
 
 const EXPECTED_DOCUMENT = {
-  type: 'doc',
+  type: 'doc' as const,
   content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Generated content' }] }],
 }
 
@@ -188,5 +192,237 @@ test.group('OpenRouterService | deadlines and retries', () => {
     })
     await service.runGeneration(bad, {}).catch(() => {})
     assert.equal(rejected, 1)
+  })
+})
+
+test.group('OpenRouterService | malformed output recovery', () => {
+  test('retries parser errors but stops after three calls', async ({ assert }) => {
+    let calls = 0
+    const chain = RunnableLambda.from(() => {
+      calls++
+      throw new OutputParserException('Malformed outline', '{"sections":[{"type":"paragraph"}]}')
+    })
+    let guards = 0
+    const service = new OpenRouterService() as unknown as Retrying
+    await assert.rejects(
+      () =>
+        service.runGeneration(chain, {}, async () => {
+          guards++
+        }),
+      /Malformed outline/
+    )
+    assert.equal(calls, 3)
+    assert.equal(guards, 3)
+  })
+
+  test('does not call the model again after a guard rejects a parser retry', async ({ assert }) => {
+    let calls = 0
+    let guards = 0
+    const chain = RunnableLambda.from(() => {
+      calls++
+      throw new OutputParserException('Malformed outline', '{}')
+    })
+    const service = new OpenRouterService() as unknown as Retrying
+    await assert.rejects(
+      () =>
+        service.runGeneration(chain, {}, async () => {
+          if (++guards === 2) throw new Error('Task no longer current')
+        }),
+      /Task no longer current/
+    )
+    assert.equal(calls, 1)
+  })
+
+  test('retries empty freeform output and preserves misplaced prose on recovery', async ({
+    assert,
+  }) => {
+    const service = new OpenRouterService() as unknown as TestableOpenRouterService
+    let calls = 0
+    service.structuredModel = RunnableLambda.from(() =>
+      ++calls === 1
+        ? {
+            type: 'doc',
+            content: [{ type: 'heading', content: [{ type: 'text', text: 'Only template' }] }],
+          }
+        : { type: 'doc', content: [{ type: 'paragraph', text: 'Recovered body prose.' }] }
+    )
+    const result = await service.generateDocumentInit('Title', 'Brief')
+    const rendered = ProseMirrorNode.fromJSON(getSchema([StarterKit]), result)
+    rendered.check()
+    assert.include(rendered.textContent, 'Recovered body prose.')
+    assert.equal(calls, 2)
+  })
+
+  test('rejects missing, duplicate and empty outline sections before accepting complete prose', async ({
+    assert,
+  }) => {
+    const service = new OpenRouterService()
+    let calls = 0
+    const body = [{ type: 'paragraph', text: 'Generated body prose.' }]
+    const attempts = [
+      { sections: [{ key: 'section_0', content: body }] },
+      {
+        sections: [
+          { key: 'section_0', content: body },
+          { key: 'section_0', content: body },
+        ],
+      },
+      {
+        sections: [
+          { key: 'section_0', content: body },
+          { key: 'section_1', content: body },
+        ],
+      },
+    ]
+    ;(service as any).model = {
+      withStructuredOutput: () => RunnableLambda.from(() => attempts[calls++]),
+    }
+    const result = await service.generateOutlineWithEvidence(
+      'Title',
+      'Brief',
+      [],
+      {
+        schemaVersion: 2,
+        name: 'Test',
+        description: '',
+        instructions: '',
+        outline: '# Title\n## Summary',
+      },
+      async () => {}
+    )
+    const rendered = ProseMirrorNode.fromJSON(getSchema([StarterKit]), result)
+    rendered.check()
+    assert.include(rendered.textContent, 'Generated body prose.')
+    assert.equal(calls, 3)
+  })
+
+  test('never accepts an outline containing only empty sections', async ({ assert }) => {
+    const service = new OpenRouterService()
+    let calls = 0
+    ;(service as any).model = {
+      withStructuredOutput: () =>
+        RunnableLambda.from(() => {
+          calls++
+          return {
+            sections: [
+              { key: 'section_0', content: [] },
+              { key: 'section_1', content: [] },
+            ],
+          }
+        }),
+    }
+    await assert.rejects(
+      () =>
+        service.generateOutlineWithEvidence(
+          'Title',
+          'Brief',
+          [],
+          {
+            schemaVersion: 2,
+            name: 'Test',
+            description: '',
+            instructions: '',
+            outline: '# Title\n## Summary',
+          },
+          async () => {}
+        ),
+      /no readable body text/
+    )
+    assert.equal(calls, 3)
+  })
+})
+
+test.group('OpenRouterService | wire parser and revision budget', () => {
+  test('recovers the reported malformed tool call through the installed parser', async ({
+    assert,
+  }) => {
+    const originalFetch = globalThis.fetch
+    const requests: any[] = []
+    globalThis.fetch = async (_url, options) => {
+      requests.push(JSON.parse(String(options?.body)))
+      const sections =
+        requests.length === 1
+          ? [
+              { key: 'section_0', content: [{ type: 'paragraph', text: 'Generated prose.' }] },
+              { type: 'paragraph' },
+            ]
+          : ['section_0', 'section_1'].map((key) => ({
+              key,
+              content: [{ type: 'paragraph', text: 'Generated prose.' }],
+            }))
+      return new Response(
+        JSON.stringify({
+          id: 'offline',
+          model: openRouterApiConfig.model,
+          choices: [
+            {
+              index: 0,
+              finish_reason: 'tool_calls',
+              message: {
+                role: 'assistant',
+                content: null,
+                tool_calls: [
+                  {
+                    id: 'fill',
+                    type: 'function',
+                    function: {
+                      name: 'fill_document_outline',
+                      arguments: JSON.stringify({ sections }),
+                    },
+                  },
+                ],
+              },
+            },
+          ],
+          usage: { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 },
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      )
+    }
+    try {
+      const result = await new OpenRouterService().generateOutlineWithEvidence(
+        'Title',
+        'Brief',
+        [],
+        {
+          schemaVersion: 2,
+          name: 'Test',
+          description: '',
+          instructions: '',
+          outline: '# Title\n## Summary',
+        },
+        async () => {}
+      )
+      const rendered = ProseMirrorNode.fromJSON(getSchema([StarterKit]), result)
+      rendered.check()
+      assert.include(rendered.textContent, 'Generated prose.')
+      assert.equal(requests.length, 2)
+      assert.include(
+        JSON.stringify(requests[1].messages.at(-1)),
+        'previous response could not be used'
+      )
+    } finally {
+      globalThis.fetch = originalFetch
+    }
+  })
+
+  test('invalid revision edits share one three-call budget', async ({ assert }) => {
+    const service = new OpenRouterService()
+    let calls = 0
+    ;(service as any).model = {
+      withStructuredOutput: () =>
+        RunnableLambda.from(() => {
+          calls++
+          return {
+            edits: [{ action: 'replace', index: 999, content: EXPECTED_DOCUMENT.content }],
+            summary: 'Invalid edit',
+          }
+        }),
+    }
+    await assert.rejects(
+      () => service.reviseDocument(EXPECTED_DOCUMENT, 'Revise'),
+      /conflicting edits/
+    )
+    assert.equal(calls, 3)
   })
 })

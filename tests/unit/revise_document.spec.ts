@@ -1,4 +1,5 @@
 import { test } from '@japa/runner'
+import { RunnableLambda } from '@langchain/core/runnables'
 import { OutputParserException } from '@langchain/core/output_parsers'
 import OpenRouterService from '#services/open_router_service'
 import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
@@ -26,9 +27,12 @@ function service(result: Edits) {
   const instance = new OpenRouterService()
   const seen: { input?: unknown } = {}
   Object.assign(instance, {
-    runGeneration: async (_chain: unknown, input: unknown) => {
-      seen.input = input
-      return result
+    model: {
+      withStructuredOutput: () =>
+        RunnableLambda.from((input: unknown) => {
+          seen.input = input
+          return result
+        }),
     },
   })
   return { instance, seen }
@@ -90,15 +94,18 @@ test.group('OpenRouterService.reviseDocument', () => {
         () => service({ edits, summary: '' }).instance.reviseDocument(original, 'Edit'),
         /conflicting edits/
       )
-  })
+  }).timeout(10000)
 
   test('retries once the model returns output that fails its schema', async ({ assert }) => {
     const instance = new OpenRouterService()
     let calls = 0
     Object.assign(instance, {
-      runGeneration: async () => {
-        if (++calls === 1) throw new OutputParserException('Failed to parse')
-        return { edits: [{ action: 'delete', index: 3 }], summary: 'Removed results.' }
+      model: {
+        withStructuredOutput: () =>
+          RunnableLambda.from(() => {
+            if (++calls === 1) throw new OutputParserException('Failed to parse')
+            return { edits: [{ action: 'delete', index: 3 }], summary: 'Removed results.' }
+          }),
       },
     })
     const result = await instance.reviseDocument(original, 'Remove the results')

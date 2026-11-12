@@ -4,6 +4,7 @@ import { randomUUID } from 'node:crypto'
 import { DateTime } from 'luxon'
 import { account, reset, source } from '../helpers/workspaces.ts'
 import GenerationService from '#services/documents/generation_service'
+import VersionService from '#services/documents/version_service'
 import TaskService from '#services/workspaces/task_service'
 import WorkspaceTask from '#models/workspace_task'
 import TaskDispatch from '#models/task_dispatch'
@@ -313,5 +314,48 @@ test.group('Generation conflicts', (group) => {
     await task.refresh()
     assert.equal(task.status, 'conflict')
     assert.equal(task.safeError, 'Inputs changed. Start a new request.')
+  })
+
+  test('unreadable output fails safely without replacing the existing draft', async ({
+    assert,
+  }) => {
+    const a = await account()
+    const existing = await new VersionService().save(a.context, a.document.id, {
+      content: {
+        type: 'doc',
+        content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Keep this draft.' }] }],
+      },
+      baseVersionId: null,
+      mutationId: randomUUID(),
+    })
+    const task = await new GenerationService().request(
+      a.context,
+      a.document.id,
+      randomUUID(),
+      existing.id
+    )
+    const original = OpenRouterService.prototype.generateDocumentWithEvidence
+    OpenRouterService.prototype.generateDocumentWithEvidence = async () => ({
+      type: 'doc',
+      content: [
+        {
+          type: 'heading',
+          attrs: { level: 1 },
+          content: [{ type: 'text', text: 'Only template' }],
+        },
+      ],
+    })
+    try {
+      await new TaskDispatchService().dispatch()
+    } finally {
+      OpenRouterService.prototype.generateDocumentWithEvidence = original
+    }
+    await task.refresh()
+    await a.document.refresh()
+    assert.equal(task.status, 'failed')
+    assert.include(task.safeError!, 'previous draft is unchanged')
+    assert.equal(a.document.currentVersionId, existing.id)
+    assert.lengthOf(await a.document.related('documentVersions').query(), 1)
+    assert.equal(a.document.generationStatus, 'failed')
   })
 })

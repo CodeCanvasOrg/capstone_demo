@@ -4,7 +4,7 @@ import embeddingsConfig from '#config/embeddings'
 const openRouterApiConfig = {
   apiKey: env.get('OPENROUTER_API_KEY'),
   baseUrl: env.get('OPENROUTER_BASE_URL') ?? 'https://openrouter.ai/api/v1',
-  model: env.get('OPENROUTER_MODEL') ?? 'openai/gpt-6-luna',
+  model: env.get('OPENROUTER_MODEL') ?? 'anthropic/claude-haiku-5.5',
   // Kept for existing callers; config/embeddings.ts is the source of truth.
   embeddingModel: embeddingsConfig.model,
   embeddingDimensions: embeddingsConfig.dimensions,

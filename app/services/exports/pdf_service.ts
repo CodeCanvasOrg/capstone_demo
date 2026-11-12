@@ -1,13 +1,17 @@
 import PdfUnavailableException from '#exceptions/pdf_unavailable_exception'
 import { readFile } from 'node:fs/promises'
-import type DocumentVersion from '#models/document_version'
-import { Node, mergeAttributes, type JSONContent } from '@tiptap/core'
+import { Node, type JSONContent } from '@tiptap/core'
 import Image from '@tiptap/extension-image'
 import { generateHTML } from '@tiptap/html'
 import StarterKit from '@tiptap/starter-kit'
 import { chromium } from 'playwright'
-import PublicationProjectionService from '#services/documents/publication_projection_service'
-import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
+import {
+  parseClientRenderData,
+  type ClientBlock,
+  type ClientInline,
+  type ClientRenderData,
+  type ClientResult,
+} from '../../../shared/publication/client.ts'
 
 type RenderOptions = { preview?: boolean; publication?: boolean }
 
@@ -36,80 +40,139 @@ sup.ref { font-size: 7pt; line-height: 0; color: #6b7280; margin-left: 1px; }
 h2 { border-bottom: 1px solid #e5e7eb; padding-bottom: 4px; break-after: avoid; }
 h3 { break-after: avoid; }
 img { break-inside: avoid; }
+.results { margin-top: 24px; padding: 10px 14px; border-left: 4px solid #f6d900; background: #f9fafb; break-inside: avoid; }
+.results h2 { font-size: 11pt; border: 0; margin: 0 0 6px; }
+.results ul { margin: 0; padding-left: 18px; }
+.results .qualifier { font-size: 8pt; color: #4b5563; text-transform: uppercase; letter-spacing: .04em; }
 .sources { margin-top: 28px; padding-top: 10px; border-top: 1px solid #e5e7eb; font-size: 9pt; color: #4b5563; break-inside: avoid; }
 .sources h2 { font-size: 11pt; border: 0; margin: 0 0 6px; }
 .sources ol { margin: 0; padding-left: 20px; }
 `
 
-const SourceCitationExtension = Node.create({
-  name: 'sourceCitation',
-  group: 'inline',
-  inline: true,
-  atom: true,
-  selectable: false,
-  addAttributes() {
-    return {
-      sourceChunkId: {
-        default: null,
-        renderHTML: (attributes) => ({ 'data-source-chunk-id': attributes.sourceChunkId }),
-      },
-      chunkText: { default: null, renderHTML: () => ({}) },
-      fileName: { default: null, renderHTML: () => ({}) },
-      fileUrl: { default: null, renderHTML: () => ({}) },
-      mediaType: { default: null, renderHTML: () => ({}) },
-      chunkIndex: { default: null, renderHTML: () => ({}) },
-      pageNumber: { default: null, renderHTML: () => ({}) },
-    }
-  },
-  renderHTML({ node, HTMLAttributes }) {
-    const chunkNumber =
-      typeof node.attrs.chunkIndex === 'number' ? ` · chunk ${node.attrs.chunkIndex + 1}` : ''
-    const page = typeof node.attrs.pageNumber === 'number' ? ` · page ${node.attrs.pageNumber}` : ''
-    const attributes = mergeAttributes(HTMLAttributes, {
-      'data-source-citation': 'true',
-      'class': 'tiptap-source-citation',
-    })
-    const label = `${node.attrs.fileName || 'Source'}${chunkNumber}${page}`
+const QUALIFIER_LABELS = {
+  measured: 'Measured',
+  estimated: 'Estimated',
+  client_reported: 'Client reported',
+  design_target: 'Design target',
+} as const
 
-    if (typeof node.attrs.fileUrl === 'string') {
-      return [
-        'a',
-        { ...attributes, href: node.attrs.fileUrl, target: '_blank', rel: 'noreferrer' },
-        label,
-      ]
-    }
+/** Context the author supplied, in a fixed order; absent fields print nothing. */
+function resultContext(result: ClientResult) {
+  const parts = [
+    result.units,
+    result.scope,
+    result.baseline && `baseline: ${result.baseline}`,
+    result.period,
+    result.methodology,
+  ].filter((part): part is string => Boolean(part))
+  return parts.length ? ` — ${parts.map(esc).join('; ')}` : ''
+}
 
-    return ['span', attributes, label]
-  },
-})
+/** Client DTO to TipTap JSON. Its input is exclusively the closed client union. */
+const inline = (node: ClientInline): JSONContent => {
+  if (node.type === 'reference') return { type: 'reference', attrs: { number: node.number } }
+  if (node.type === 'hardBreak') return { type: 'hardBreak' }
+  return {
+    type: 'text',
+    text: node.text,
+    ...(node.marks?.length
+      ? {
+          marks: node.marks.map((mark) =>
+            mark.type === 'link'
+              ? {
+                  type: 'link',
+                  attrs: { href: mark.href, target: '_blank', rel: 'noopener noreferrer' },
+                }
+              : { type: mark.type }
+          ),
+        }
+      : {}),
+  }
+}
+
+const block = (node: ClientBlock): JSONContent => {
+  switch (node.type) {
+    case 'paragraph':
+    case 'codeBlock':
+      return { type: node.type, ...(node.content ? { content: node.content.map(inline) } : {}) }
+    case 'heading':
+      return {
+        type: 'heading',
+        attrs: { level: node.level },
+        ...(node.content ? { content: node.content.map(inline) } : {}),
+      }
+    case 'horizontalRule':
+      return { type: 'horizontalRule' }
+    case 'blockquote':
+      return { type: 'blockquote', content: node.content.map(block) }
+    case 'bulletList':
+    case 'orderedList':
+      return {
+        type: node.type,
+        ...(node.type === 'orderedList' && node.start !== undefined
+          ? { attrs: { start: node.start } }
+          : {}),
+        content: node.content.map((item) => ({
+          type: 'listItem',
+          content: item.content.map(block),
+        })),
+      }
+    case 'image': {
+      const { type, ...attrs } = node
+      return { type, attrs }
+    }
+  }
+}
 
 export default class ExportPdfService {
+  /**
+   * Both layouts render the strict client DTO only. The value is re-parsed here,
+   * so a saved document or any record carrying internal fields cannot be passed in.
+   * `publication` selects the layout, never the privacy checks.
+   */
   static async html(
-    version: DocumentVersion,
+    data: ClientRenderData,
     { preview = false, publication = false }: RenderOptions = {}
   ) {
-    const extensions = [StarterKit, Image, SourceCitationExtension, ReferenceExtension]
-    let contentHtml: string
-    if (publication) {
-      const projected = new PublicationProjectionService().project(
-        version.content as TipTapDocument
-      )
-      const render = (content: TipTapDocument['content']) =>
-        content.length ? generateHTML({ type: 'doc', content } as JSONContent, extensions) : ''
-      contentHtml = `
+    const client = parseClientRenderData(data)
+    const extensions = [StarterKit, Image, ReferenceExtension]
+    const render = (blocks: ClientBlock[]) =>
+      blocks.length
+        ? generateHTML({ type: 'doc', content: blocks.map(block) } as JSONContent, extensions)
+        : ''
+    const sources = client.sources.length
+      ? `<section class="sources"><h2>Sources</h2><ol>${client.sources
+          .map(
+            (source) =>
+              `<li value="${source.number}">${esc(source.label)}${source.page ? `, p. ${source.page}` : ''}</li>`
+          )
+          .join('')}</ol></section>`
+      : ''
+    // The qualifier is visible text beside its value, not only a style or tooltip.
+    const results = client.results?.length
+      ? `<section class="results"><h2>Key results</h2><ul>${client.results
+          .map(
+            (result) =>
+              `<li><strong>${esc(result.value)}</strong> <span class="qualifier">${QUALIFIER_LABELS[result.qualifier]}</span>${resultContext(result)}</li>`
+          )
+          .join('')}</ul></section>`
+      : ''
+    const summary = client.summary ? render([client.summary]) : ''
+    const contentHtml = publication
+      ? `
       <header class="hero">
-      ${projected.title ? `<h1>${esc(projected.title)}</h1>` : ''}
-      ${projected.summary ? `<div class="summary">${render([projected.summary])}</div>` : ''}
+      ${client.title ? `<h1>${esc(client.title)}</h1>` : ''}
+      ${summary ? `<div class="summary">${summary}</div>` : ''}
       </header>
-      ${render(projected.body)}
-      ${
-        projected.sources.length
-          ? `<section class="sources"><h2>Sources</h2><ol>${projected.sources
-              .map((source) => `<li value="${source.number}">${esc(source.label)}</li>`)
-              .join('')}</ol></section>`
-          : ''
-      }`
-    } else contentHtml = generateHTML(version.content, extensions)
+      ${render(client.body)}
+      ${results}
+      ${sources}`
+      : `
+      ${client.title ? `<h1>${esc(client.title)}</h1>` : ''}
+      ${summary}
+      ${render(client.body)}
+      ${results}
+      ${sources}`
 
     const font = await readFile(
       new URL(
@@ -189,9 +252,9 @@ export default class ExportPdfService {
 
     return html
   }
-  static async generate(version: DocumentVersion, options: RenderOptions = {}) {
+  static async generate(data: ClientRenderData, options: RenderOptions = {}) {
     const { preview = false } = options
-    const html = await this.html(version, options)
+    const html = await this.html(data, options)
     const browser = await chromium.launch().catch(() => {
       throw new PdfUnavailableException()
     })

@@ -1,13 +1,34 @@
 import { Exception } from '@adonisjs/core/exceptions'
 import { getStructuredOutput } from '#services/structured_model_output_service'
 import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
+import PublicationContentService from '#services/documents/publication_content_service'
+import type { PublicationDocument } from '../../../shared/publication/content.ts'
 
 export default class ContentService {
+  /** Generated drafts must contain prose the editor can actually render. */
+  normalizeGenerated(value: unknown): TipTapDocument {
+    const document = this.normalize(value, { repair: true })
+    const hasProse = (node: TipTapDocument['content'][number]): boolean => {
+      if (node.type === 'heading' || node.type === 'sourceCitation' || node.type === 'image')
+        return false
+      return node.type === 'text' ? !!node.text?.trim() : (node.content ?? []).some(hasProse)
+    }
+    if (!document.content.some(hasProse))
+      throw Object.assign(new Error('The model returned no readable body text. Try again.'), {
+        status: 422,
+        unusableOutput: true,
+      })
+    return document
+  }
+
   /**
    * Case-study drafts pass `repair` so malformed model output stays editable;
    * user-typed rich text is left strict so malformed input is still rejected.
    */
-  normalize(value: unknown, { repair = false }: { repair?: boolean } = {}): TipTapDocument {
+  normalize(
+    value: unknown,
+    { repair = false, seed }: { repair?: boolean; seed?: string } = {}
+  ): TipTapDocument {
     const stack: { value: unknown; depth: number }[] = [{ value, depth: 0 }]
     let count = 0
     while (stack.length) {
@@ -23,10 +44,18 @@ export default class ContentService {
     const result = getStructuredOutput({ editor: true }).safeParse(value)
     if (!result.success)
       throw new Exception('Invalid document content', { status: 422, code: 'E_INVALID_CONTENT' })
-    const parsed = result.data as TipTapDocument
+    const { attrs, ...rest } = result.data as TipTapDocument & {
+      attrs?: Record<string, unknown> | null
+    }
+    const parsed = rest as TipTapDocument
     const document = repair ? repairStructure(parsed) : parsed
     const visit = (node: TipTapDocument['content'][number], depth = 0) => {
       if (depth > 50) throw new Exception('Document is too deeply nested', { status: 422 })
+      if (node.attrs) {
+        // Editors send `nodeId: null` for blocks that have no identity yet.
+        if (node.attrs.nodeId === null || node.attrs.nodeId === undefined) delete node.attrs.nodeId
+        if (!Object.keys(node.attrs).length) delete node.attrs
+      }
       for (const mark of node.marks ?? []) {
         const item = mark as { type: string; attrs?: Record<string, unknown> }
         if (item.type === 'link') {
@@ -39,6 +68,12 @@ export default class ContentService {
       node.content?.forEach((child) => visit(child, depth + 1))
     }
     document.content.forEach((node) => visit(node))
+    // Only the publication namespace survives on the root; it is validated strictly.
+    if (attrs?.publication !== null && attrs?.publication !== undefined)
+      return new PublicationContentService().accept(
+        { ...document, attrs: { publication: attrs.publication } } as PublicationDocument,
+        { seed }
+      ) as TipTapDocument
     return document
   }
 }
@@ -75,6 +110,15 @@ function blocks(nodes: Node[] = []): Node[] {
 
 function block(node: Node): Node[] {
   if (TEXTBLOCKS.has(node.type)) {
+    // Some models put prose on the block itself, alongside inline citations.
+    // TipTap only renders text nodes; move it before the existing children.
+    if (node.text !== undefined) {
+      const { text, ...rest } = node
+      node = {
+        ...rest,
+        content: [...(text ? [{ type: 'text', text }] : []), ...(node.content ?? [])],
+      }
+    }
     if (!node.content) return [{ ...node }]
     // Nested blocks are lifted out after the text they interrupted.
     let open: Node | null = { ...node, content: [] }
@@ -102,9 +146,9 @@ function block(node: Node): Node[] {
   }
   if (node.type === 'blockquote') return [{ ...node, content: blocks(node.content) }]
   if (node.type === 'codeBlock') {
-    if (!node.content) return [node]
-    const text = node.content.map(textOf).join('')
-    return [{ ...node, content: text ? [{ type: 'text', text }] : [] }]
+    const { text: misplaced, ...rest } = node
+    const text = (misplaced ?? '') + (node.content ?? []).map(textOf).join('')
+    return [{ ...rest, content: text ? [{ type: 'text', text }] : [] }]
   }
   // Images and rules are leaves.
   const leaf = { ...node }

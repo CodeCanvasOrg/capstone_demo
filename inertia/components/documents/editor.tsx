@@ -28,7 +28,9 @@ import { UndoToolbar } from '@/components/toolbars/undo'
 import { RedoToolbar } from '@/components/toolbars/redo'
 import { SourceCitation } from '@/components/extensions/source_citation'
 import { ImageExtension } from '@/components/extensions/image'
+import { PublicationMetadata } from '../../../shared/publication/tiptap_extension.ts'
 import { DocumentImageUpload } from '@/components/documents/image_upload'
+import { ContentValidation } from '@/components/documents/content_validation'
 import { ChangeRequest } from '@/components/documents/change_request'
 import { writingReveal } from '../../../shared/writing_reveal.ts'
 const EMPTY = { type: 'doc', content: [{ type: 'paragraph' }] }
@@ -36,6 +38,7 @@ const extensions = [
   StarterKit.configure({ heading: { levels: [1, 2, 3, 4] } }),
   SourceCitation,
   ImageExtension,
+  PublicationMetadata,
   Placeholder.configure({ placeholder: 'Tell the story of the work…' }),
 ]
 type Pending = { content: JSONContent; baseVersionId: string | null; mutationId: string }
@@ -69,6 +72,7 @@ export default function DocumentEditor({
   const [error, setError] = useState('')
   const [failure, setFailure] = useState<ApiError | null>(null)
   const [conflict, setConflict] = useState(false)
+  const [needsReview, setNeedsReview] = useState(0)
   const [writing, setWriting] = useState(false)
   const [imagePending, setImagePending] = useState(false)
   const [asking, setAsking] = useState(false)
@@ -119,15 +123,14 @@ export default function DocumentEditor({
       }
       pending.current = intent
       try {
-        const result = await api<{ data: { version: { id: string } } }>(
-          urlFor('documentVersions.store', { workspaceId, documentId }),
-          'POST',
-          intent
-        )
+        const result = await api<{
+          data: { version: { id: string }; publication?: { needsReview: number } }
+        }>(urlFor('documentVersions.store', { workspaceId, documentId }), 'POST', intent)
         if (!mounted.current) return
         base.current = result.data.version.id
         accepted.current.add(result.data.version.id)
         pending.current = null
+        setNeedsReview(result.data.publication?.needsReview ?? 0)
         changed.current = JSON.stringify(editor.getJSON()) !== JSON.stringify(intent.content)
         setDirty(changed.current)
         router.reload({ only: ['document', 'workflow', 'recentDocuments'] })
@@ -327,6 +330,11 @@ export default function DocumentEditor({
           />
         </div>
       </div>
+      <ContentValidation
+        editor={editor}
+        errors={failure?.status === 422 ? failure.details : {}}
+        needsReview={needsReview}
+      />
       {error && (
         <div className="space-y-3 border-b border-destructive/30 bg-sidebar p-4">
           <ActionFeedback error={failure ?? new ApiError(error, conflict ? 409 : 500)} />
