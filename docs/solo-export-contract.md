@@ -13,3 +13,5 @@ The existing route `POST /workspaces/:workspaceId/documents/:documentId/exports/
 Editor workflow readiness adds `reviewRequired` and `canExport`. Checklist rows keep their names/statuses but omit visible reasons and progress text. Team checklists stay expanded and visible even at mobile widths; solo checklists are optional disclosures.
 
 Verification lives in the Japa functional export/workflow tests. Those tests exercise local HTTP authorization and controlled rendering/storage; they do not establish production provider or browser behavior.
+
+Policy status: this solo draft-export behavior conflicts with the Approved-only wording of FR-EXP-08 and is tracked as proposed decision D-SOLO in the [decision register](decision-register.md). The behavior above stays current until a decision is accepted.

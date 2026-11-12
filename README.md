@@ -26,7 +26,7 @@ cp .env.example .env
 
 - Basic auth behaviour
 - AI/RAG Pipeline
-- Export document to PDF
+- Export document to PDF (final export is PDF only; see [release scope](docs/release-scope.md) and [decision register](docs/decision-register.md))
 
 ## Dependencies
 

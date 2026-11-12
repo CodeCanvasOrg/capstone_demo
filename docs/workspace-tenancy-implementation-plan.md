@@ -60,7 +60,7 @@ Current typechecking and `git diff --check` passed during planning. No database 
 | Replacing Redis with the older draft LLD polling design   | Rejected                  | Active HLD and installed implementation use Redis.                    |
 | Existing-data reset                                       | Rejected                  | User selected preservation and conflict review.                       |
 | Deadlines, issues, progress, review safeguards            | Adopted                   | Explicit user additions to the redesign.                              |
-| PPTX/HTML/summary/CMS expansion                           | Deferred from this change | Record FR gaps; do not expose unsupported actions.                    |
+| PPTX/HTML/summary/CMS expansion                           | Deferred from this change | Record FR gaps; do not expose unsupported actions. Release baseline since 12 Nov 2026: PDF-only final export, see [release scope](release-scope.md) (D-PDF-EXPORT). |
 
 ## 3. Defects to fix first
 
