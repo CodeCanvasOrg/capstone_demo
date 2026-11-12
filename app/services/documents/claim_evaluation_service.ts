@@ -67,7 +67,7 @@ export default class ClaimEvaluationService {
     try {
       response = await this.http(this.config.endpoint, {
         method: 'POST',
-        headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+        headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
         signal: AbortSignal.timeout(this.config.timeoutMs),
         body: JSON.stringify({
           model: this.config.model,

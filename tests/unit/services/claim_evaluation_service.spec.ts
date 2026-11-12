@@ -44,7 +44,8 @@ test.group('ClaimEvaluationService', () => {
     const service = new ClaimEvaluationService(claimEvaluationConfig, async () => {
       throw new Error('must not be called')
     })
-    assert.equal((await service.evaluate({ ...input, evidence: [] })).status, 'missing_evidence')
+    const result = await service.evaluate({ ...input, evidence: [] })
+    assert.equal(result.status, 'missing_evidence')
   })
 
   test('provider failures are unable_to_evaluate, never supported', async ({ assert }) => {
