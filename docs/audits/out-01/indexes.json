@@ -1,0 +1,106 @@
+[
+  {
+    "indexname": "chunk_embeddings_chunk_id_model_version_dimensions_unique",
+    "indexdef": "CREATE UNIQUE INDEX chunk_embeddings_chunk_id_model_version_dimensions_unique ON public.chunk_embeddings USING btree (chunk_id, model, version, dimensions)"
+  },
+  {
+    "indexname": "chunk_embeddings_hnsw_1024",
+    "indexdef": "CREATE INDEX chunk_embeddings_hnsw_1024 ON public.chunk_embeddings USING hnsw (((embedding)::vector(1024)) vector_cosine_ops) WHERE (dimensions = 1024)"
+  },
+  {
+    "indexname": "chunk_embeddings_hnsw_768",
+    "indexdef": "CREATE INDEX chunk_embeddings_hnsw_768 ON public.chunk_embeddings USING hnsw (((embedding)::vector(768)) vector_cosine_ops) WHERE (dimensions = 768)"
+  },
+  {
+    "indexname": "chunk_embeddings_model_version_dimensions_input_hash_index",
+    "indexdef": "CREATE INDEX chunk_embeddings_model_version_dimensions_input_hash_index ON public.chunk_embeddings USING btree (model, version, dimensions, input_hash)"
+  },
+  {
+    "indexname": "chunk_embeddings_pkey",
+    "indexdef": "CREATE UNIQUE INDEX chunk_embeddings_pkey ON public.chunk_embeddings USING btree (id)"
+  },
+  {
+    "indexname": "chunk_embeddings_workspace_id_id_unique",
+    "indexdef": "CREATE UNIQUE INDEX chunk_embeddings_workspace_id_id_unique ON public.chunk_embeddings USING btree (workspace_id, id)"
+  },
+  {
+    "indexname": "chunk_embeddings_workspace_id_index",
+    "indexdef": "CREATE INDEX chunk_embeddings_workspace_id_index ON public.chunk_embeddings USING btree (workspace_id)"
+  },
+  {
+    "indexname": "chunks_content_tsv_gin",
+    "indexdef": "CREATE INDEX chunks_content_tsv_gin ON public.chunks USING gin (content_tsv)"
+  },
+  {
+    "indexname": "chunks_pkey",
+    "indexdef": "CREATE UNIQUE INDEX chunks_pkey ON public.chunks USING btree (id)"
+  },
+  {
+    "indexname": "chunks_run_index",
+    "indexdef": "CREATE INDEX chunks_run_index ON public.chunks USING btree (run_id, chunk_index) WHERE (run_id IS NOT NULL)"
+  },
+  {
+    "indexname": "chunks_workspace_id_id_unique",
+    "indexdef": "CREATE UNIQUE INDEX chunks_workspace_id_id_unique ON public.chunks USING btree (workspace_id, id)"
+  },
+  {
+    "indexname": "chunks_workspace_id_index",
+    "indexdef": "CREATE INDEX chunks_workspace_id_index ON public.chunks USING btree (workspace_id)"
+  },
+  {
+    "indexname": "chunks_workspace_id_run_id_id_key",
+    "indexdef": "CREATE UNIQUE INDEX chunks_workspace_id_run_id_id_key ON public.chunks USING btree (workspace_id, run_id, id)"
+  },
+  {
+    "indexname": "document_versions_document_id_user_id_mutation_id_unique",
+    "indexdef": "CREATE UNIQUE INDEX document_versions_document_id_user_id_mutation_id_unique ON public.document_versions USING btree (document_id, user_id, mutation_id)"
+  },
+  {
+    "indexname": "document_versions_pkey",
+    "indexdef": "CREATE UNIQUE INDEX document_versions_pkey ON public.document_versions USING btree (id)"
+  },
+  {
+    "indexname": "document_versions_version_document_id_unique",
+    "indexdef": "CREATE UNIQUE INDEX document_versions_version_document_id_unique ON public.document_versions USING btree (version, document_id)"
+  },
+  {
+    "indexname": "document_versions_workspace_id_document_id_id_unique",
+    "indexdef": "CREATE UNIQUE INDEX document_versions_workspace_id_document_id_id_unique ON public.document_versions USING btree (workspace_id, document_id, id)"
+  },
+  {
+    "indexname": "document_versions_workspace_id_id_unique",
+    "indexdef": "CREATE UNIQUE INDEX document_versions_workspace_id_id_unique ON public.document_versions USING btree (workspace_id, id)"
+  },
+  {
+    "indexname": "document_versions_workspace_id_index",
+    "indexdef": "CREATE INDEX document_versions_workspace_id_index ON public.document_versions USING btree (workspace_id)"
+  },
+  {
+    "indexname": "template_generation_publication",
+    "indexdef": "CREATE UNIQUE INDEX template_generation_publication ON public.document_versions USING btree (generation_task_id) WHERE (generation_task_id IS NOT NULL)"
+  },
+  {
+    "indexname": "task_dispatches_pkey",
+    "indexdef": "CREATE UNIQUE INDEX task_dispatches_pkey ON public.task_dispatches USING btree (id)"
+  },
+  {
+    "indexname": "task_dispatches_task_id_unique",
+    "indexdef": "CREATE UNIQUE INDEX task_dispatches_task_id_unique ON public.task_dispatches USING btree (task_id)"
+  },
+  {
+    "indexname": "workspace_tasks_pkey",
+    "indexdef": "CREATE UNIQUE INDEX workspace_tasks_pkey ON public.workspace_tasks USING btree (id)"
+  },
+  {
+    "indexname": "workspace_tasks_status_lease_expires_at_index",
+    "indexdef": "CREATE INDEX workspace_tasks_status_lease_expires_at_index ON public.workspace_tasks USING btree (status, lease_expires_at)"
+  },
+  {
+    "indexname": "workspace_tasks_workspace_id_actor_id_kind_mutation_id_unique",
+    "indexdef": "CREATE UNIQUE INDEX workspace_tasks_workspace_id_actor_id_kind_mutation_id_unique ON public.workspace_tasks USING btree (workspace_id, actor_id, kind, mutation_id)"
+  },
+  {
+    "indexname": "workspace_tasks_workspace_id_id_unique",
+    "indexdef": "CREATE UNIQUE INDEX workspace_tasks_workspace_id_id_unique ON public.workspace_tasks USING btree (workspace_id, id)"
+  }
+]

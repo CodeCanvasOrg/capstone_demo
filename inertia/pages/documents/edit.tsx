@@ -226,13 +226,14 @@ export default function Edit({
     }
   }, [taskId, taskStatus, workspaceId, refresh])
   const processing = ['queued', 'processing', 'running'].includes(document.generationStatus ?? '')
+  const checkingIssues = document.generationStatus === 'checking_issues'
   useEffect(() => {
-    if (!processing) return
+    if (!processing && !checkingIssues) return
     const interval = setInterval(() => {
       if (window.document.visibilityState === 'visible') reload()
     }, 2500)
     return () => clearInterval(interval)
-  }, [processing])
+  }, [processing, checkingIssues])
   useEffect(() => {
     const refreshWorkflow = () => {
       if (window.document.visibilityState === 'visible')
@@ -606,6 +607,7 @@ export default function Edit({
             workflow={workflow}
             availableFiles={availableFiles}
             issues={issues}
+            loadingIssues={checkingIssues}
             action={action}
             disabled={disabled}
           />

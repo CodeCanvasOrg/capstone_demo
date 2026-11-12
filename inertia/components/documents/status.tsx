@@ -35,7 +35,9 @@ export function ProcessingStatusBadge({ status }: { status: string | null | unde
           ? 'Needs attention'
           : status === 'processing'
             ? 'Preparing'
-            : 'Queued'}
+            : status === 'checking_issues'
+              ? 'Checking issues'
+              : 'Queued'}
     </Badge>
   )
 }

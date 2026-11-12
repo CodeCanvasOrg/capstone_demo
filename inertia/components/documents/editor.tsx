@@ -361,7 +361,13 @@ export default function DocumentEditor({
         >
           <div className="mb-10 flex items-center justify-between gap-4 text-[.625rem] font-semibold tracking-widest text-muted-foreground uppercase">
             <span>Case study</span>
-            <span>{baseVersionId ? 'Working draft' : 'First draft'}</span>
+            <span role="status">
+              {generationStatus === 'checking_issues'
+                ? 'Loading issues…'
+                : baseVersionId
+                  ? 'Working draft'
+                  : 'First draft'}
+            </span>
           </div>
           {!baseVersionId && (
             <div className="mb-8">

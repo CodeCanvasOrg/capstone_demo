@@ -9,6 +9,9 @@ import config from '#config/open_router'
 import OpenRouterService from '#services/open_router_service'
 import RetrievalService from '#services/documents/retrieval_service'
 import ContentService from '#services/documents/content_service'
+import ClaimReviewService from '#services/documents/claim_review_service'
+import logger from '@adonisjs/core/services/logger'
+import { DateTime } from 'luxon'
 import AccessService, {
   conflict,
   type WorkspaceAccessContext,
@@ -197,7 +200,7 @@ export default class GenerationService {
     const normalized = new ContentService().normalize(generated, { repair: true })
     const { attachChunkMetadata } = await import('#services/documents/chunk_metadata_service')
     const content = attachChunkMetadata(normalized, chunks)
-    await tasks.finish(lease, async (trx) => {
+    const accepted = await tasks.finish(lease, async (trx) => {
       const current = await Document.query({ client: trx })
         .where({ id: document.id, workspaceId: lease.context.workspaceId })
         .forUpdate()
@@ -237,15 +240,40 @@ export default class GenerationService {
       }
       current.merge({
         currentVersionId: version.id,
-        generationStatus: 'ready',
+        // The draft is shown right away; issue checks run next while the editor stays usable.
+        generationStatus: 'checking_issues',
         generationError: null,
-        generationLeaseAt: null,
+        generationLeaseAt: DateTime.utc(),
         status: 'edited',
         legacyApprovalUnverified: false,
       })
       await current.save()
       return { versionId: version.id }
     })
+    await this.reviewClaims(lease, document.id, String(accepted.versionId), content)
+  }
+  /** Best effort: a failed check must never fail or hide an accepted draft. */
+  private async reviewClaims(
+    lease: TaskLease,
+    documentId: string,
+    versionId: string,
+    content: Parameters<ClaimReviewService['review']>[3]
+  ) {
+    try {
+      await new ClaimReviewService().review(lease.context, documentId, versionId, content)
+    } catch (error) {
+      logger.error({ err: error, documentId, versionId }, 'Generated claim review failed')
+    } finally {
+      await db
+        .from('documents')
+        .where({
+          id: documentId,
+          workspace_id: lease.context.workspaceId,
+          generation_task_id: lease.task.id,
+          generation_status: 'checking_issues',
+        })
+        .update({ generation_status: 'ready', generation_lease_at: null })
+    }
   }
   async failed(lease: TaskLease, error: unknown) {
     const localConflict = error instanceof TaskConflictException
