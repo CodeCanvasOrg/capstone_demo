@@ -1,0 +1,141 @@
+[ info ] Upgrading migrations version from "1" to "2"
+❯ migrating database/migrations/1790080600549_create_users_table
+[2K[1A[2K[G❯ migrated database/migrations/1790080600549_create_users_table
+❯ migrating database/migrations/1790081933615_create_documents_table
+[2K[1A[2K[G❯ migrated database/migrations/1790081933615_create_documents_table
+❯ migrating database/migrations/1790161113502_create_document_versions_table
+[2K[1A[2K[G❯ migrated database/migrations/1790161113502_create_document_versions_table
+❯ migrating database/migrations/1790162238745_create_document_shares_table
+[2K[1A[2K[G❯ migrated database/migrations/1790162238745_create_document_shares_table
+❯ migrating database/migrations/1790343133400_create_files_table
+[2K[1A[2K[G❯ migrated database/migrations/1790343133400_create_files_table
+❯ migrating database/migrations/1790487764910_create_chunks_table
+[2K[1A[2K[G❯ migrated database/migrations/1790487764910_create_chunks_table
+❯ migrating database/migrations/1790767485282_create_document_files_table
+[2K[1A[2K[G❯ migrated database/migrations/1790767485282_create_document_files_table
+❯ migrating database/migrations/1790936535377_create_file_revisions_table
+[2K[1A[2K[G❯ migrated database/migrations/1790936535377_create_file_revisions_table
+❯ migrating database/migrations/1790936537825_create_processing_runs_table
+[2K[1A[2K[G❯ migrated database/migrations/1790936537825_create_processing_runs_table
+❯ migrating database/migrations/1790936540308_create_document_blocks_table
+[2K[1A[2K[G❯ migrated database/migrations/1790936540308_create_document_blocks_table
+❯ migrating database/migrations/1790936542767_create_chunk_blocks_table
+[2K[1A[2K[G❯ migrated database/migrations/1790936542767_create_chunk_blocks_table
+❯ migrating database/migrations/1790936545229_create_chunk_embeddings_table
+[2K[1A[2K[G❯ migrated database/migrations/1790936545229_create_chunk_embeddings_table
+❯ migrating database/migrations/1790936547677_alter_chunks_table
+[2K[1A[2K[G❯ migrated database/migrations/1790936547677_alter_chunks_table
+❯ migrating database/migrations/1790936550120_alter_documents_table
+[2K[1A[2K[G❯ migrated database/migrations/1790936550120_alter_documents_table
+❯ migrating database/migrations/1792076754631_create_workspaces_table
+[2K[1A[2K[G❯ migrated database/migrations/1792076754631_create_workspaces_table
+❯ migrating database/migrations/1792076755022_create_workspace_memberships_table
+[2K[1A[2K[G❯ migrated database/migrations/1792076755022_create_workspace_memberships_table
+❯ migrating database/migrations/1792076755419_create_workspace_invitations_table
+[2K[1A[2K[G❯ migrated database/migrations/1792076755419_create_workspace_invitations_table
+❯ migrating database/migrations/1792076755822_create_projects_table
+[2K[1A[2K[G❯ migrated database/migrations/1792076755822_create_projects_table
+❯ migrating database/migrations/1792076756212_alter_add_workspace_references_tab
+le
+[2K[1A[2K[1A[2K[G❯ migrated database/migrations/1792076756212_alter_add_workspace_references_tabl
+e
+❯ migrating database/migrations/1792076756604_alter_add_document_workspace_metad
+ata_table
+[2K[1A[2K[1A[2K[G❯ migrated database/migrations/1792076756604_alter_add_document_workspace_metada
+ta_table
+❯ migrating database/migrations/1792077012690_alter_support_workspace_document_w
+orkflows_table
+[2K[1A[2K[1A[2K[G❯ migrated database/migrations/1792077012690_alter_support_workspace_document_wo
+rkflows_table
+❯ migrating database/migrations/1792078336145_create_workspace_tasks_table
+[2K[1A[2K[G❯ migrated database/migrations/1792078336145_create_workspace_tasks_table
+❯ migrating database/migrations/1792078336567_create_task_dispatches_table
+[2K[1A[2K[G❯ migrated database/migrations/1792078336567_create_task_dispatches_table
+❯ migrating database/migrations/1792078547873_alter_add_active_workspace_tasks_t
+able
+[2K[1A[2K[1A[2K[G❯ migrated database/migrations/1792078547873_alter_add_active_workspace_tasks_ta
+ble
+❯ migrating database/migrations/1792078917635_create_document_issues_table
+[2K[1A[2K[G❯ migrated database/migrations/1792078917635_create_document_issues_table
+❯ migrating database/migrations/1792078919181_alter_add_invitation_delivery_stat
+es_table
+[2K[1A[2K[1A[2K[G❯ migrated database/migrations/1792078919181_alter_add_invitation_delivery_state
+s_table
+❯ migrating database/migrations/1792079170573_create_document_reviews_table
+[2K[1A[2K[G❯ migrated database/migrations/1792079170573_create_document_reviews_table
+❯ migrating database/migrations/1792079171510_create_document_approvals_table
+[2K[1A[2K[G❯ migrated database/migrations/1792079171510_create_document_approvals_table
+❯ migrating database/migrations/1792079172172_create_workflow_events_table
+[2K[1A[2K[G❯ migrated database/migrations/1792079172172_create_workflow_events_table
+❯ migrating database/migrations/1792079172916_create_version_acceptances_table
+[2K[1A[2K[G❯ migrated database/migrations/1792079172916_create_version_acceptances_table
+❯ migrating database/migrations/1792079175385_alter_add_document_review_pointers
+_table
+[2K[1A[2K[1A[2K[G❯ migrated database/migrations/1792079175385_alter_add_document_review_pointers_
+table
+❯ migrating database/migrations/1792121334072_alter_legacy_tenancy_migrated_at
+[2K[1A[2K[G❯ migrated database/migrations/1792121334072_alter_legacy_tenancy_migrated_at
+❯ migrating database/migrations/1792122973153_alter_add_rich_descriptions_table
+[2K[1A[2K[G❯ migrated database/migrations/1792122973153_alter_add_rich_descriptions_table
+❯ migrating database/migrations/1792145700827_alter_documents_table
+[2K[1A[2K[G❯ migrated database/migrations/1792145700827_alter_documents_table
+❯ migrating database/migrations/1792146500702_alter_document_issues_description
+[2K[1A[2K[G❯ migrated database/migrations/1792146500702_alter_document_issues_description
+❯ migrating database/migrations/1792816162809_create_document_images_table
+[2K[1A[2K[G❯ migrated database/migrations/1792816162809_create_document_images_table
+❯ migrating database/migrations/1792984351178_create_template_generations_table
+[2K[1A[2K[G❯ migrated database/migrations/1792984351178_create_template_generations_table
+❯ migrating database/migrations/1793006927296_create_template_snapshot_integriti
+es_table
+[2K[1A[2K[1A[2K[G❯ migrated database/migrations/1793006927296_create_template_snapshot_integritie
+s_table
+❯ migrating database/migrations/1793189536422_alter_chunk_embeddings_dimensions
+[2K[1A[2K[G❯ migrated database/migrations/1793189536422_alter_chunk_embeddings_dimensions
+❯ migrating database/migrations/1793196331105_alter_chunks_table
+[2K[1A[2K[G❯ migrated database/migrations/1793196331105_alter_chunks_table
+❯ migrating database/migrations/1793196332550_alter_processing_runs_table
+[2K[1A[2K[G❯ migrated database/migrations/1793196332550_alter_processing_runs_table
+❯ migrating database/migrations/1793866501407_create_project_files_table
+[2K[1A[2K[G❯ migrated database/migrations/1793866501407_create_project_files_table
+❯ migrating database/migrations/1793866501827_create_project_source_scope_trigge
+r
+[2K[1A[2K[1A[2K[G❯ migrated database/migrations/1793866501827_create_project_source_scope_trigger
+
+Migrated in 496 ms
+❯ Scanned "pg" database and found 34 tables
+[2K[1A[2K[G❯ Scanned table chunk_blocks
+[2K[1A[2K[G❯ Scanned table chunk_embeddings
+[2K[1A[2K[G❯ Scanned table document_approvals
+[2K[1A[2K[G❯ Scanned table chunks
+[2K[1A[2K[G❯ Scanned table document_claim_reviews
+[2K[1A[2K[G❯ Scanned table document_exports
+[2K[1A[2K[G❯ Scanned table document_files
+[2K[1A[2K[G❯ Scanned table document_evidence_references
+[2K[1A[2K[G❯ Scanned table document_images
+[2K[1A[2K[G❯ Scanned table document_blocks
+[2K[1A[2K[G❯ Scanned table document_generation_candidates
+[2K[1A[2K[G❯ Scanned table document_media_bindings
+[2K[1A[2K[G❯ Scanned table document_issues
+[2K[1A[2K[G❯ Scanned table document_reviews
+[2K[1A[2K[G❯ Scanned table document_shares
+[2K[1A[2K[G❯ Scanned table document_template_versions
+[2K[1A[2K[G❯ Scanned table document_templates
+[2K[1A[2K[G❯ Scanned table document_validation_reports
+[2K[1A[2K[G❯ Scanned table document_versions
+[2K[1A[2K[G❯ Scanned table documents
+[2K[1A[2K[G❯ Scanned table file_revisions
+[2K[1A[2K[G❯ Scanned table processing_runs
+[2K[1A[2K[G❯ Scanned table files
+[2K[1A[2K[G❯ Scanned table projects
+[2K[1A[2K[G❯ Scanned table task_dispatches
+[2K[1A[2K[G❯ Scanned table project_files
+[2K[1A[2K[G❯ Scanned table version_acceptances
+[2K[1A[2K[G❯ Scanned table users
+[2K[1A[2K[G❯ Scanned table workspace_memberships
+[2K[1A[2K[G❯ Scanned table workflow_events
+[2K[1A[2K[G❯ Scanned table workspace_brand_versions
+[2K[1A[2K[G❯ Scanned table workspace_invitations
+[2K[1A[2K[G❯ Scanned table workspaces
+[2K[1A[2K[G❯ Scanned table workspace_tasks
+[2K[1A[2K[G❯ Creating schema classes for scanned tables
+[ success ] Schema classes generated (86 ms)

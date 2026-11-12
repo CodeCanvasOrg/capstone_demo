@@ -1,0 +1,91 @@
+c[ info ] loading hooks...
+[ info ] generating indexes...
+[ info ] codegen: created 7 file(s)
+[ info ] booting application to run tests...
+6:10:38 AM [vite] (client) Re-optimizing dependencies because vite config has changed
+6:10:39 AM [vite] (client) [optimizer] scanning dependencies...
+
+functional / Document creation generation (tests/functional/document_creation_generation.spec.ts)
+[generation 2ca4daa6-af90-412f-bc7c-9c2ce61b903c] retrieval finished in 0ms with 0 chunks
+[generation 2ca4daa6-af90-412f-bc7c-9c2ce61b903c] generation started (outline)
+[generation 2ca4daa6-af90-412f-bc7c-9c2ce61b903c] generation finished in 2ms
+  ✔ one brief redirects before provider execution, then publishes one accepted generated version (450.85ms)
+[generation 4452b0c9-979e-4f41-a0e6-b8179f70531c] retrieval finished in 0ms with 0 chunks
+[generation 4452b0c9-979e-4f41-a0e6-b8179f70531c] generation started (outline)
+[generation 4452b0c9-979e-4f41-a0e6-b8179f70531c] generation finished in 1ms
+  ✔ a brief-only case study gets a model-written title and keeps the brief as its description (196.1ms)
+  ✔ renaming before the first generation keeps the user title (181.9ms)
+  ✖ a new project atomically creates and opens its first case study using its rich brief (184.39ms)
+{"level":40,"time":1794463840887,"pid":89958,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","request_id":"916d8980-c28f-4b14-a2fc-1b0064e13a20","x-request-id":"916d8980-c28f-4b14-a2fc-1b0064e13a20","msg":"Prepare the selected sources or explicitly select input-only writing"}
+{"level":40,"time":1794463840893,"pid":89958,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","request_id":"aae509b4-f7d8-4b80-a892-1a90533a403a","x-request-id":"aae509b4-f7d8-4b80-a892-1a90533a403a","msg":"Resource unavailable"}
+  ✔ creation and generation intent roll back together when evidence is missing or foreign (207.39ms)
+[generation 13ea6b05-320a-42db-814e-b6c823ff1989] retrieval finished in 0ms with 0 chunks
+[generation 13ea6b05-320a-42db-814e-b6c823ff1989] generation started (outline)
+{"level":50,"time":1794463841089,"pid":89958,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","err":{"type":"Error","message":"Synthetic upstream outage","stack":"Error: Synthetic upstream outage\n    at OpenRouterService.OpenRouterService.generateOutlineWithEvidence (/Users/johnpaul/projects/capstone_demo/tests/functional/document_creation_generation.spec.ts:216:29)\n    at GenerationService.execute (/Users/johnpaul/projects/capstone_demo/app/services/documents/generation_service.ts:184:24)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async GenerateDocument.execute (/Users/johnpaul/projects/capstone_demo/app/jobs/generate_document.ts:20:7)\n    at async _JobExecutionRuntime.execute (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/job_runtime.ts:93:7)\n    at async <anonymous> (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/drivers/sync_adapter.ts:204:13)\n    at async SyncAdapter.#execute (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/drivers/sync_adapter.ts:223:7)\n    at async <anonymous> (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/job_dispatcher.ts:309:13)\n    at async JobDispatcher.run (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/job_dispatcher.ts:305:5)\n    at async TaskDispatchService.dispatch (/Users/johnpaul/projects/capstone_demo/app/services/workspaces/task_dispatch_service.ts:36:11)","statusCode":503},"taskId":"6e686e2a-2614-411b-a183-ab26e6f31aa6","documentId":"13ea6b05-320a-42db-814e-b6c823ff1989","sourceRunIds":[],"errorStatus":503,"msg":"Document generation failed"}
+[generation 13ea6b05-320a-42db-814e-b6c823ff1989] retrieval finished in 0ms with 0 chunks
+[generation 13ea6b05-320a-42db-814e-b6c823ff1989] generation started (outline)
+[generation 13ea6b05-320a-42db-814e-b6c823ff1989] generation finished in 0ms
+  ✔ a transient synchronous provider failure retains its delivery intent for a successful retry (211.61ms)
+[generation 7dfb63dc-83a8-4ed4-b05b-cf99d29823a2] retrieval finished in 0ms with 0 chunks
+[generation 7dfb63dc-83a8-4ed4-b05b-cf99d29823a2] generation started (outline)
+{"level":40,"time":1794463841277,"pid":89958,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","taskId":"2ad944e2-92a8-41cb-9728-d55581507a2c","documentId":"7dfb63dc-83a8-4ed4-b05b-cf99d29823a2","msg":"Document generation timed out (attempt 1/3); the task will retry"}
+[generation 7dfb63dc-83a8-4ed4-b05b-cf99d29823a2] retrieval finished in 0ms with 0 chunks
+[generation 7dfb63dc-83a8-4ed4-b05b-cf99d29823a2] generation started (outline)
+{"level":40,"time":1794463841286,"pid":89958,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","taskId":"2ad944e2-92a8-41cb-9728-d55581507a2c","documentId":"7dfb63dc-83a8-4ed4-b05b-cf99d29823a2","msg":"Document generation timed out (attempt 2/3); the task will retry"}
+[generation 7dfb63dc-83a8-4ed4-b05b-cf99d29823a2] retrieval finished in 0ms with 0 chunks
+[generation 7dfb63dc-83a8-4ed4-b05b-cf99d29823a2] generation started (outline)
+{"level":50,"time":1794463841295,"pid":89958,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","err":{"type":"DOMException","message":"The operation was aborted due to timeout","stack":"TimeoutError: The operation was aborted due to timeout\n    at new DOMException (node:internal/per_context/domexception:76:18)\n    at OpenRouterService.OpenRouterService.generateOutlineWithEvidence (/Users/johnpaul/projects/capstone_demo/tests/functional/document_creation_generation.spec.ts:249:13)\n    at GenerationService.execute (/Users/johnpaul/projects/capstone_demo/app/services/documents/generation_service.ts:184:24)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async GenerateDocument.execute (/Users/johnpaul/projects/capstone_demo/app/jobs/generate_document.ts:20:7)\n    at async _JobExecutionRuntime.execute (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/job_runtime.ts:93:7)\n    at async <anonymous> (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/drivers/sync_adapter.ts:204:13)\n    at async SyncAdapter.#execute (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/drivers/sync_adapter.ts:223:7)\n    at async <anonymous> (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/job_dispatcher.ts:309:13)\n    at async JobDispatcher.run (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/job_dispatcher.ts:305:5)","name":"TimeoutError","code":23,"INDEX_SIZE_ERR":1,"DOMSTRING_SIZE_ERR":2,"HIERARCHY_REQUEST_ERR":3,"WRONG_DOCUMENT_ERR":4,"INVALID_CHARACTER_ERR":5,"NO_DATA_ALLOWED_ERR":6,"NO_MODIFICATION_ALLOWED_ERR":7,"NOT_FOUND_ERR":8,"NOT_SUPPORTED_ERR":9,"INUSE_ATTRIBUTE_ERR":10,"INVALID_STATE_ERR":11,"SYNTAX_ERR":12,"INVALID_MODIFICATION_ERR":13,"NAMESPACE_ERR":14,"INVALID_ACCESS_ERR":15,"VALIDATION_ERR":16,"TYPE_MISMATCH_ERR":17,"SECURITY_ERR":18,"NETWORK_ERR":19,"ABORT_ERR":20,"URL_MISMATCH_ERR":21,"QUOTA_EXCEEDED_ERR":22,"TIMEOUT_ERR":23,"INVALID_NODE_TYPE_ERR":24,"DATA_CLONE_ERR":25},"taskId":"2ad944e2-92a8-41cb-9728-d55581507a2c","documentId":"7dfb63dc-83a8-4ed4-b05b-cf99d29823a2","sourceRunIds":[],"msg":"Document generation failed"}
+  ✔ model timeouts re-queue the task and the last one explains itself (191.2ms)
+[generation 3b207734-2ba5-415a-be4e-6fd826e0aa8b] retrieval finished in 0ms with 0 chunks
+[generation 3b207734-2ba5-415a-be4e-6fd826e0aa8b] generation started (outline)
+{"level":50,"time":1794463841498,"pid":89958,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","err":{"type":"Error","message":"Sensitive upstream details","stack":"Error: Sensitive upstream details\n    at OpenRouterService.OpenRouterService.generateOutlineWithEvidence (/Users/johnpaul/projects/capstone_demo/tests/functional/document_creation_generation.spec.ts:282:27)\n    at GenerationService.execute (/Users/johnpaul/projects/capstone_demo/app/services/documents/generation_service.ts:184:24)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async GenerateDocument.execute (/Users/johnpaul/projects/capstone_demo/app/jobs/generate_document.ts:20:7)\n    at async _JobExecutionRuntime.execute (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/job_runtime.ts:93:7)\n    at async <anonymous> (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/drivers/sync_adapter.ts:204:13)\n    at async SyncAdapter.#execute (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/drivers/sync_adapter.ts:223:7)\n    at async <anonymous> (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/job_dispatcher.ts:309:13)\n    at async JobDispatcher.run (/Users/johnpaul/projects/capstone_demo/node_modules/@boringnode/queue/src/job_dispatcher.ts:305:5)\n    at async TaskDispatchService.dispatch (/Users/johnpaul/projects/capstone_demo/app/services/workspaces/task_dispatch_service.ts:36:11)","statusCode":401},"taskId":"6600bb17-a097-47cf-bcd9-c05be5024b21","documentId":"3b207734-2ba5-415a-be4e-6fd826e0aa8b","sourceRunIds":[],"errorStatus":401,"msg":"Document generation failed"}
+  ✔ provider authentication failures become terminal and expose only a safe actionable error (221.62ms)
+
+functional / Approved PDF export (tests/functional/document_exports.spec.ts)
+  ✔ unapproved export is blocked and invalidation prevents stale render publication and downloads (206.19ms)
+
+functional / Membership-aware PDF export (tests/functional/solo_pdf_export.spec.ts)
+  ✔ solo HTTP export ignores incomplete checklist without creating an approval (243.15ms)
+  ✔ solo review is optional and may be submitted without completing the checklist (145.21ms)
+{"level":40,"time":1794463842395,"pid":89958,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","request_id":"bd9e2e5b-8441-4ca8-b791-bf880e33032d","x-request-id":"bd9e2e5b-8441-4ca8-b791-bf880e33032d","msg":"Approve the exact current version before final export"}
+  ✔ team requests cannot bypass checklist or approval and approved team export still works (326.75ms)
+  ✔ pending invitations and revoked memberships do not turn a solo workspace into a team (157.47ms)
+  ✔ solo export requires the saved nonempty current version and preserves replay identity (152.43ms)
+  ✔ a second member blocks an already queued solo render and a completed solo download (181.72ms)
+  ✔ membership changes during PDF rendering prevent artifact publication (157ms)
+  ✔ source or version changes invalidate a solo export snapshot (146.03ms)
+ ERRORS 
+
+❯ Document creation generation / a new project atomically creates and opens its first case study using its rich brief
+
+[31mℹ E_ROW_NOT_FOUND: Row not found[39m
+
+ ⁃ at ModelQueryBuilder.firstOrFail [33m(node_modules/@adonisjs/lucid/build/src/orm/query_builder/index.js:376:19)[39m
+[2m ⁃ at [3mprocess.processTicksAndRejections[23m ([3mnode:internal/process/task_queues:104:5[23m)[22m
+ ⁃ at async Object.executor [33m(tests/functional/document_creation_generation.spec.ts:162:17)[39m
+
+   [2m157[22m [2m┃[22m            ][34m,[0m
+   [2m158[22m [2m┃[22m          }[34m,[0m
+   [2m159[22m [2m┃[22m        })
+   [2m160[22m [2m┃[22m      response[34m.[0m[35massertStatus[0m([33m302[0m)
+   [2m161[22m [2m┃[22m      [31mconst[0m project [34m=[0m [31mawait[0m [33mProject[0m[34m.[0m[35mfindByOrFail[0m([32m'name'[0m[34m,[0m [32m'Project and story'[0m)
+ [41m❯ 162 ┃      const doc = await Document.findByOrFail('projectId', project.id)[49m
+   [2m163[22m [2m┃[22m      response[34m.[0m[35massertHeader[0m([32m'location'[0m[34m,[0m [32m`/workspaces/[0m[31m${[0ma[34m.[0mworkspace[34m.[0mid[31m}[0m[32m/documents/[0m[31m${[0mdoc[34m.[0mid[31m}[0m[32m/edit`[0m)
+   [2m164[22m [2m┃[22m      assert[34m.[0m[35mequal[0m(doc[34m.[0mdescription[34m,[0m [32m'A supplied project brief'[0m)
+   [2m165[22m [2m┃[22m      assert[34m.[0m[35mdeepEqual[0m(doc[34m.[0mdescriptionContent[34m,[0m project[34m.[0mdescriptionContent)
+   [2m166[22m [2m┃[22m      assert[34m.[0m[35mequal[0m(doc[34m.[0msourceMode[34m,[0m [32m'input_only'[0m)
+   [2m167[22m [2m┃[22m      assert[34m.[0m[35mequal[0m(doc[34m.[0mprojectInformation[34m.[0moverview[34m,[0m project[34m.[0mdescription)
+
+ ⁃ at async #wrapTestInTimeout [33m(node_modules/@japa/core/build/index.js:680:4)[39m
+ ⁃ at async TestRunner.run [33m(node_modules/@japa/core/build/index.js:710:4)[39m
+ ⁃ at async Test$1.exec [33m(node_modules/@japa/core/build/index.js:918:3)[39m
+ ⁃ at async GroupRunner.run [33m(node_modules/@japa/core/build/index.js:259:4)[39m
+ ⁃ at async Group$1.exec [33m(node_modules/@japa/core/build/index.js:354:3)[39m
+ ⁃ at async SuiteRunner.run [33m(node_modules/@japa/core/build/index.js:1100:4)[39m
+ ⁃ at async Suite$1.exec [33m(node_modules/@japa/core/build/index.js:1175:3)[39m
+[1/1]─
+
+ FAILED 
+
+Tests  16 passed, 1 failed (17)
+ Time  4s

@@ -1,0 +1,34 @@
+c[ info ] loading hooks...
+[ info ] generating indexes...
+[ info ] codegen: created 7 file(s)
+[ info ] booting application to run tests...
+
+functional / Workspace isolation (tests/functional/workspace_isolation.spec.ts)
+{"level":40,"time":1794463899074,"pid":90209,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","request_id":"162d2a21-acd2-48aa-9ac6-6f4f04365d7a","x-request-id":"162d2a21-acd2-48aa-9ac6-6f4f04365d7a","msg":"Resource unavailable"}
+{"level":40,"time":1794463899100,"pid":90209,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","request_id":"3a8e3ed8-dc8d-4e25-aba6-d9a093074414","x-request-id":"3a8e3ed8-dc8d-4e25-aba6-d9a093074414","msg":"Row not found"}
+  ✔ conceals direct and mismatched nested resource reads (222.65ms)
+  ✔ all members collaborate but old shares never bypass membership (114.77ms)
+{"level":40,"time":1794463899340,"pid":90209,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","request_id":"ba0ffa93-51c5-4724-a35c-4fc3a6b57b2d","x-request-id":"ba0ffa93-51c5-4724-a35c-4fc3a6b57b2d","msg":"Access denied"}
+{"level":40,"time":1794463899343,"pid":90209,"hostname":"Johns-MacBook-Air.local","name":"CodeCanvas","request_id":"aeeda361-954e-4370-bb9a-5375f8a513b9","x-request-id":"aeeda361-954e-4370-bb9a-5375f8a513b9","msg":"Row not found"}
+  ✔ rejects cross-workspace sources and keeps uploader-only file mutation (115.82ms)
+  ✔ scopes search results and never serializes storage locators (106.66ms)
+  ✔ concurrent saves compare exact base versions and mutation replay is duplicate-safe (104.46ms)
+
+functional / Workspace source preparation (tests/functional/workspace_preparation.spec.ts)
+  ✔ outdated sources get an attributed duplicate-safe run while old evidence is retained (124.25ms)
+
+functional / Workspace retrieval (tests/functional/workspace_retrieval.spec.ts)
+  ✔ dense, lexical, supplemental images and source expansion exclude other and unselected files (244.1ms)
+
+functional / Workspace durable tasks (tests/functional/workspace_tasks.spec.ts)
+  ✔ duplicate intents have one accepted execution and preserve the initiating actor (86.05ms)
+  ✔ expired execution is fenced even after another worker claims the task (112.06ms)
+  ✔ revocation cancels tasks and rejoining cannot revive an old authorization epoch (109.11ms)
+
+functional / Workspace terminal task reconciliation (tests/functional/workspace_tasks.spec.ts)
+  ✔ an exhausted generation cannot leave the editor polling forever (106.6ms)
+
+ PASSED 
+
+Tests  11 passed (11)
+ Time  1s

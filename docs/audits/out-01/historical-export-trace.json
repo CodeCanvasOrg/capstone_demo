@@ -1,0 +1,43 @@
+{
+  "renders": [
+    {
+      "id": "dd4ffe49-1dde-41eb-98db-d6878c595524",
+      "kind": "render",
+      "status": "succeeded",
+      "payload": {
+        "pins": [
+          {
+            "runId": "b623a2e0-7186-4faa-b4cf-93230d9ac522",
+            "fileId": "1eaf5b80-6c4d-42c9-9df6-252ca177b531",
+            "revisionId": "16a7a2e2-d208-48f7-a114-e7e3ca86ed02",
+            "embeddingModel": "perplexity/pplx-embed-v1-4b",
+            "pipelineVersion": "1"
+          }
+        ],
+        "inputHash": "b0b586055af22c8143daab0fe97bcaa3f40ae61b05a275d478ef3ee0ff8af20c",
+        "versionId": "7d250e60-d5a4-4063-920e-6ae493d901e0",
+        "exportMode": "solo",
+        "brandVersion": "humblebee-1"
+      },
+      "result": {
+        "versionId": "7d250e60-d5a4-4063-920e-6ae493d901e0",
+        "approvalId": null,
+        "exportMode": "solo",
+        "artifactKey": "workspaces/42af4aab-ca80-4838-94c3-83171cba056a/exports/dd4ffe49-1dde-41eb-98db-d6878c595524.pdf"
+      }
+    }
+  ],
+  "versions": [
+    {
+      "id": "a316e0c5-7bb1-443b-a21d-32fc736661df",
+      "version": 1,
+      "created_at": "2026-11-07T05:41:57.195Z"
+    },
+    {
+      "id": "7d250e60-d5a4-4063-920e-6ae493d901e0",
+      "version": 2,
+      "created_at": "2026-11-07T05:51:55.374Z"
+    }
+  ],
+  "saves": []
+}

@@ -1,0 +1,696 @@
+{
+  "constraints": [
+    {
+      "table_name": "chunk_blocks",
+      "conname": "chunk_blocks_chunk_id_document_block_id_unique",
+      "definition": "UNIQUE (chunk_id, document_block_id)"
+    },
+    {
+      "table_name": "chunk_blocks",
+      "conname": "chunk_blocks_chunk_id_foreign",
+      "definition": "FOREIGN KEY (chunk_id) REFERENCES chunks(id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "chunk_blocks",
+      "conname": "chunk_blocks_document_block_id_foreign",
+      "definition": "FOREIGN KEY (document_block_id) REFERENCES document_blocks(id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "chunk_blocks",
+      "conname": "chunk_blocks_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "chunk_blocks",
+      "conname": "chunk_blocks_workspace_id_foreign",
+      "definition": "FOREIGN KEY (workspace_id) REFERENCES workspaces(id)"
+    },
+    {
+      "table_name": "chunk_blocks",
+      "conname": "chunk_blocks_workspace_id_id_unique",
+      "definition": "UNIQUE (workspace_id, id)"
+    },
+    {
+      "table_name": "chunk_blocks",
+      "conname": "chunk_blocks_workspace_id_run_id_chunk_id_fkey",
+      "definition": "FOREIGN KEY (workspace_id, run_id, chunk_id) REFERENCES chunks(workspace_id, run_id, id)"
+    },
+    {
+      "table_name": "chunk_blocks",
+      "conname": "chunk_blocks_workspace_id_run_id_document_block_id_fkey",
+      "definition": "FOREIGN KEY (workspace_id, run_id, document_block_id) REFERENCES document_blocks(workspace_id, processing_run_id, id)"
+    },
+    {
+      "table_name": "chunks",
+      "conname": "chunks_file_id_foreign",
+      "definition": "FOREIGN KEY (file_id) REFERENCES files(id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "chunks",
+      "conname": "chunks_file_revision_id_foreign",
+      "definition": "FOREIGN KEY (file_revision_id) REFERENCES file_revisions(id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "chunks",
+      "conname": "chunks_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "chunks",
+      "conname": "chunks_run_id_foreign",
+      "definition": "FOREIGN KEY (run_id) REFERENCES processing_runs(id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "chunks",
+      "conname": "chunks_workspace_id_file_revision_id_file_id_fkey",
+      "definition": "FOREIGN KEY (workspace_id, file_revision_id, file_id) REFERENCES file_revisions(workspace_id, id, file_id)"
+    },
+    {
+      "table_name": "chunks",
+      "conname": "chunks_workspace_id_foreign",
+      "definition": "FOREIGN KEY (workspace_id) REFERENCES workspaces(id)"
+    },
+    {
+      "table_name": "chunks",
+      "conname": "chunks_workspace_id_id_unique",
+      "definition": "UNIQUE (workspace_id, id)"
+    },
+    {
+      "table_name": "chunks",
+      "conname": "chunks_workspace_id_run_id_file_revision_id_fkey",
+      "definition": "FOREIGN KEY (workspace_id, run_id, file_revision_id) REFERENCES processing_runs(workspace_id, id, file_revision_id)"
+    },
+    {
+      "table_name": "chunks",
+      "conname": "chunks_workspace_id_run_id_id_key",
+      "definition": "UNIQUE (workspace_id, run_id, id)"
+    },
+    {
+      "table_name": "document_approvals",
+      "conname": "document_approvals_approved_by_id_foreign",
+      "definition": "FOREIGN KEY (approved_by_id) REFERENCES users(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "document_approvals",
+      "conname": "document_approvals_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "document_approvals",
+      "conname": "document_approvals_revoked_by_id_fkey",
+      "definition": "FOREIGN KEY (revoked_by_id) REFERENCES users(id)"
+    },
+    {
+      "table_name": "document_approvals",
+      "conname": "document_approvals_workspace_id_document_id_id_unique",
+      "definition": "UNIQUE (workspace_id, document_id, id)"
+    },
+    {
+      "table_name": "document_approvals",
+      "conname": "document_approvals_workspace_id_document_id_review_id_version_i",
+      "definition": "FOREIGN KEY (workspace_id, document_id, review_id, version_id) REFERENCES document_reviews(workspace_id, document_id, id, version_id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "document_exports",
+      "conname": "document_exports_audience_check",
+      "definition": "CHECK (((audience)::text = ANY ((ARRAY['internal'::character varying, 'public'::character varying])::text[])))"
+    },
+    {
+      "table_name": "document_exports",
+      "conname": "document_exports_format_check",
+      "definition": "CHECK (((format)::text = ANY ((ARRAY['html'::character varying, 'pdf'::character varying])::text[])))"
+    },
+    {
+      "table_name": "document_exports",
+      "conname": "document_exports_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "document_exports",
+      "conname": "document_exports_requested_by_id_fkey",
+      "definition": "FOREIGN KEY (requested_by_id) REFERENCES users(id)"
+    },
+    {
+      "table_name": "document_exports",
+      "conname": "document_exports_task_id_fkey",
+      "definition": "FOREIGN KEY (task_id) REFERENCES workspace_tasks(id)"
+    },
+    {
+      "table_name": "document_exports",
+      "conname": "document_exports_task_id_key",
+      "definition": "UNIQUE (task_id)"
+    },
+    {
+      "table_name": "document_exports",
+      "conname": "document_exports_workspace_id_document_id_approval_id_fkey",
+      "definition": "FOREIGN KEY (workspace_id, document_id, approval_id) REFERENCES document_approvals(workspace_id, document_id, id)"
+    },
+    {
+      "table_name": "document_exports",
+      "conname": "document_exports_workspace_id_document_id_version_id_fkey",
+      "definition": "FOREIGN KEY (workspace_id, document_id, version_id) REFERENCES document_versions(workspace_id, document_id, id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "document_files",
+      "conname": "document_files_document_id_foreign",
+      "definition": "FOREIGN KEY (document_id) REFERENCES documents(id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "document_files",
+      "conname": "document_files_files_id_foreign",
+      "definition": "FOREIGN KEY (files_id) REFERENCES files(id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "document_files",
+      "conname": "document_files_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "document_files",
+      "conname": "document_files_project_scope",
+      "definition": "TRIGGER DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "document_files",
+      "conname": "document_files_workspace_id_document_id_files_id_key",
+      "definition": "UNIQUE (workspace_id, document_id, files_id)"
+    },
+    {
+      "table_name": "document_files",
+      "conname": "document_files_workspace_id_document_id_fkey",
+      "definition": "FOREIGN KEY (workspace_id, document_id) REFERENCES documents(workspace_id, id)"
+    },
+    {
+      "table_name": "document_files",
+      "conname": "document_files_workspace_id_files_id_fkey",
+      "definition": "FOREIGN KEY (workspace_id, files_id) REFERENCES files(workspace_id, id)"
+    },
+    {
+      "table_name": "document_files",
+      "conname": "document_files_workspace_id_foreign",
+      "definition": "FOREIGN KEY (workspace_id) REFERENCES workspaces(id)"
+    },
+    {
+      "table_name": "document_reviews",
+      "conname": "document_reviews_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "document_reviews",
+      "conname": "document_reviews_submitted_by_id_foreign",
+      "definition": "FOREIGN KEY (submitted_by_id) REFERENCES users(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "document_reviews",
+      "conname": "document_reviews_workspace_id_document_id_foreign",
+      "definition": "FOREIGN KEY (workspace_id, document_id) REFERENCES documents(workspace_id, id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "document_reviews",
+      "conname": "document_reviews_workspace_id_document_id_id_unique",
+      "definition": "UNIQUE (workspace_id, document_id, id)"
+    },
+    {
+      "table_name": "document_reviews",
+      "conname": "document_reviews_workspace_id_document_id_id_version_id_unique",
+      "definition": "UNIQUE (workspace_id, document_id, id, version_id)"
+    },
+    {
+      "table_name": "document_reviews",
+      "conname": "document_reviews_workspace_id_document_id_version_id_foreign",
+      "definition": "FOREIGN KEY (workspace_id, document_id, version_id) REFERENCES document_versions(workspace_id, document_id, id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "documents",
+      "conname": "documents_content_mode_check",
+      "definition": "CHECK (((content_mode)::text = ANY ((ARRAY['legacy'::character varying, 'template'::character varying])::text[])))"
+    },
+    {
+      "table_name": "documents",
+      "conname": "documents_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "documents",
+      "conname": "documents_project_scope",
+      "definition": "TRIGGER DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "documents",
+      "conname": "documents_selected_template_version_id_fkey",
+      "definition": "FOREIGN KEY (selected_template_version_id) REFERENCES document_template_versions(id)"
+    },
+    {
+      "table_name": "documents",
+      "conname": "documents_source_mode_check",
+      "definition": "CHECK ((source_mode = ANY (ARRAY['files'::text, 'input_only'::text])))"
+    },
+    {
+      "table_name": "documents",
+      "conname": "documents_status_check",
+      "definition": "CHECK ((status = ANY (ARRAY['pending'::text, 'draft'::text, 'editing'::text, 'edited'::text, 'in_review'::text, 'approved'::text])))"
+    },
+    {
+      "table_name": "documents",
+      "conname": "documents_user_id_foreign",
+      "definition": "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "documents",
+      "conname": "documents_workspace_id_foreign",
+      "definition": "FOREIGN KEY (workspace_id) REFERENCES workspaces(id)"
+    },
+    {
+      "table_name": "documents",
+      "conname": "documents_workspace_id_generation_task_id_foreign",
+      "definition": "FOREIGN KEY (workspace_id, generation_task_id) REFERENCES workspace_tasks(workspace_id, id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "documents",
+      "conname": "documents_workspace_id_id_active_approval_id_foreign",
+      "definition": "FOREIGN KEY (workspace_id, id, active_approval_id) REFERENCES document_approvals(workspace_id, document_id, id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "documents",
+      "conname": "documents_workspace_id_id_active_review_id_foreign",
+      "definition": "FOREIGN KEY (workspace_id, id, active_review_id) REFERENCES document_reviews(workspace_id, document_id, id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "documents",
+      "conname": "documents_workspace_id_id_current_version_id_fkey",
+      "definition": "FOREIGN KEY (workspace_id, id, current_version_id) REFERENCES document_versions(workspace_id, document_id, id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "documents",
+      "conname": "documents_workspace_id_id_current_version_id_unique",
+      "definition": "UNIQUE (workspace_id, id, current_version_id)"
+    },
+    {
+      "table_name": "documents",
+      "conname": "documents_workspace_id_id_unique",
+      "definition": "UNIQUE (workspace_id, id)"
+    },
+    {
+      "table_name": "documents",
+      "conname": "documents_workspace_id_project_id_foreign",
+      "definition": "FOREIGN KEY (workspace_id, project_id) REFERENCES projects(workspace_id, id)"
+    },
+    {
+      "table_name": "document_versions",
+      "conname": "canonical_envelope",
+      "definition": "CHECK (((content_schema_version IS NULL) OR ((content_schema_version = 1) AND (canonical_content IS NOT NULL) AND (content_hash IS NOT NULL) AND (template_version_id IS NOT NULL) AND (source_manifest IS NOT NULL) AND (generation_snapshot IS NOT NULL) AND (render_configuration IS NOT NULL) AND (snapshot_hash IS NOT NULL))))"
+    },
+    {
+      "table_name": "document_versions",
+      "conname": "document_versions_document_id_foreign",
+      "definition": "FOREIGN KEY (document_id) REFERENCES documents(id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "document_versions",
+      "conname": "document_versions_document_id_user_id_mutation_id_unique",
+      "definition": "UNIQUE (document_id, user_id, mutation_id)"
+    },
+    {
+      "table_name": "document_versions",
+      "conname": "document_versions_generation_task_id_fkey",
+      "definition": "FOREIGN KEY (generation_task_id) REFERENCES workspace_tasks(id)"
+    },
+    {
+      "table_name": "document_versions",
+      "conname": "document_versions_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "document_versions",
+      "conname": "document_versions_template_version_id_fkey",
+      "definition": "FOREIGN KEY (template_version_id) REFERENCES document_template_versions(id)"
+    },
+    {
+      "table_name": "document_versions",
+      "conname": "document_versions_user_id_foreign",
+      "definition": "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL"
+    },
+    {
+      "table_name": "document_versions",
+      "conname": "document_versions_version_document_id_unique",
+      "definition": "UNIQUE (version, document_id)"
+    },
+    {
+      "table_name": "document_versions",
+      "conname": "document_versions_workspace_id_brand_version_id_fkey",
+      "definition": "FOREIGN KEY (workspace_id, brand_version_id) REFERENCES workspace_brand_versions(workspace_id, id)"
+    },
+    {
+      "table_name": "document_versions",
+      "conname": "document_versions_workspace_id_document_id_fkey",
+      "definition": "FOREIGN KEY (workspace_id, document_id) REFERENCES documents(workspace_id, id)"
+    },
+    {
+      "table_name": "document_versions",
+      "conname": "document_versions_workspace_id_document_id_id_unique",
+      "definition": "UNIQUE (workspace_id, document_id, id)"
+    },
+    {
+      "table_name": "document_versions",
+      "conname": "document_versions_workspace_id_document_id_parent_version__fkey",
+      "definition": "FOREIGN KEY (workspace_id, document_id, parent_version_id) REFERENCES document_versions(workspace_id, document_id, id)"
+    },
+    {
+      "table_name": "document_versions",
+      "conname": "document_versions_workspace_id_foreign",
+      "definition": "FOREIGN KEY (workspace_id) REFERENCES workspaces(id)"
+    },
+    {
+      "table_name": "document_versions",
+      "conname": "document_versions_workspace_id_id_unique",
+      "definition": "UNIQUE (workspace_id, id)"
+    },
+    {
+      "table_name": "document_versions",
+      "conname": "legacy_envelope",
+      "definition": "CHECK (((content_schema_version IS NOT NULL) OR ((canonical_content IS NULL) AND (snapshot_hash IS NULL) AND (template_version_id IS NULL) AND (source_manifest IS NULL))))"
+    },
+    {
+      "table_name": "workspace_brand_versions",
+      "conname": "workspace_brand_versions_author_id_fkey",
+      "definition": "FOREIGN KEY (author_id) REFERENCES users(id)"
+    },
+    {
+      "table_name": "workspace_brand_versions",
+      "conname": "workspace_brand_versions_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "workspace_brand_versions",
+      "conname": "workspace_brand_versions_publisher_id_fkey",
+      "definition": "FOREIGN KEY (publisher_id) REFERENCES users(id)"
+    },
+    {
+      "table_name": "workspace_brand_versions",
+      "conname": "workspace_brand_versions_state_check",
+      "definition": "CHECK (((state)::text = ANY ((ARRAY['draft'::character varying, 'published'::character varying])::text[])))"
+    },
+    {
+      "table_name": "workspace_brand_versions",
+      "conname": "workspace_brand_versions_workspace_id_fkey",
+      "definition": "FOREIGN KEY (workspace_id) REFERENCES workspaces(id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "workspace_brand_versions",
+      "conname": "workspace_brand_versions_workspace_id_id_key",
+      "definition": "UNIQUE (workspace_id, id)"
+    },
+    {
+      "table_name": "workspace_brand_versions",
+      "conname": "workspace_brand_versions_workspace_id_version_key",
+      "definition": "UNIQUE (workspace_id, version)"
+    },
+    {
+      "table_name": "workspace_tasks",
+      "conname": "workspace_tasks_actor_id_foreign",
+      "definition": "FOREIGN KEY (actor_id) REFERENCES users(id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "workspace_tasks",
+      "conname": "workspace_tasks_check",
+      "definition": "CHECK (((((kind)::text = 'ingest'::text) AND (file_id IS NOT NULL) AND (run_id IS NOT NULL) AND (document_id IS NULL)) OR (((kind)::text = ANY ((ARRAY['generate'::character varying, 'render'::character varying])::text[])) AND (document_id IS NOT NULL) AND (file_id IS NULL) AND (run_id IS NULL))))"
+    },
+    {
+      "table_name": "workspace_tasks",
+      "conname": "workspace_tasks_kind_check",
+      "definition": "CHECK (((kind)::text = ANY ((ARRAY['ingest'::character varying, 'generate'::character varying, 'render'::character varying])::text[])))"
+    },
+    {
+      "table_name": "workspace_tasks",
+      "conname": "workspace_tasks_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "workspace_tasks",
+      "conname": "workspace_tasks_provider_attempts_check",
+      "definition": "CHECK (((provider_attempts >= 0) AND (provider_attempts <= 6)))"
+    },
+    {
+      "table_name": "workspace_tasks",
+      "conname": "workspace_tasks_repair_count_check",
+      "definition": "CHECK (((repair_count >= 0) AND (repair_count <= 1)))"
+    },
+    {
+      "table_name": "workspace_tasks",
+      "conname": "workspace_tasks_status_check",
+      "definition": "CHECK (((status)::text = ANY ((ARRAY['queued'::character varying, 'running'::character varying, 'succeeded'::character varying, 'failed'::character varying, 'cancelled'::character varying, 'conflict'::character varying])::text[])))"
+    },
+    {
+      "table_name": "workspace_tasks",
+      "conname": "workspace_tasks_workspace_id_actor_id_kind_mutation_id_unique",
+      "definition": "UNIQUE (workspace_id, actor_id, kind, mutation_id)"
+    },
+    {
+      "table_name": "workspace_tasks",
+      "conname": "workspace_tasks_workspace_id_document_id_foreign",
+      "definition": "FOREIGN KEY (workspace_id, document_id) REFERENCES documents(workspace_id, id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "workspace_tasks",
+      "conname": "workspace_tasks_workspace_id_file_id_foreign",
+      "definition": "FOREIGN KEY (workspace_id, file_id) REFERENCES files(workspace_id, id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "workspace_tasks",
+      "conname": "workspace_tasks_workspace_id_foreign",
+      "definition": "FOREIGN KEY (workspace_id) REFERENCES workspaces(id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "workspace_tasks",
+      "conname": "workspace_tasks_workspace_id_id_unique",
+      "definition": "UNIQUE (workspace_id, id)"
+    },
+    {
+      "table_name": "workspace_tasks",
+      "conname": "workspace_tasks_workspace_id_membership_id_foreign",
+      "definition": "FOREIGN KEY (workspace_id, membership_id) REFERENCES workspace_memberships(workspace_id, id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "workspace_tasks",
+      "conname": "workspace_tasks_workspace_id_run_id_foreign",
+      "definition": "FOREIGN KEY (workspace_id, run_id) REFERENCES processing_runs(workspace_id, id) ON DELETE CASCADE"
+    }
+  ],
+  "types": [
+    {
+      "table_name": "users",
+      "column_name": "id",
+      "udt_name": "int4"
+    },
+    {
+      "table_name": "document_files",
+      "column_name": "id",
+      "udt_name": "int4"
+    },
+    {
+      "table_name": "chunk_embeddings",
+      "column_name": "id",
+      "udt_name": "uuid"
+    },
+    {
+      "table_name": "chunk_embeddings",
+      "column_name": "chunk_id",
+      "udt_name": "uuid"
+    },
+    {
+      "table_name": "chunk_embeddings",
+      "column_name": "model",
+      "udt_name": "varchar"
+    },
+    {
+      "table_name": "chunk_embeddings",
+      "column_name": "version",
+      "udt_name": "varchar"
+    },
+    {
+      "table_name": "chunk_embeddings",
+      "column_name": "dimensions",
+      "udt_name": "int4"
+    },
+    {
+      "table_name": "chunk_embeddings",
+      "column_name": "embedding",
+      "udt_name": "vector"
+    },
+    {
+      "table_name": "chunk_embeddings",
+      "column_name": "input_hash",
+      "udt_name": "varchar"
+    },
+    {
+      "table_name": "chunk_embeddings",
+      "column_name": "created_at",
+      "udt_name": "timestamptz"
+    },
+    {
+      "table_name": "chunk_embeddings",
+      "column_name": "updated_at",
+      "udt_name": "timestamptz"
+    },
+    {
+      "table_name": "chunk_embeddings",
+      "column_name": "workspace_id",
+      "udt_name": "uuid"
+    },
+    {
+      "table_name": "chunk_blocks",
+      "column_name": "id",
+      "udt_name": "int8"
+    }
+  ],
+  "extensions": [
+    {
+      "extname": "plpgsql",
+      "extversion": "1.0"
+    },
+    {
+      "extname": "vector",
+      "extversion": "0.8.7"
+    }
+  ],
+  "counts": [
+    {
+      "approvals": "0",
+      "reviews": "0",
+      "brands": "0",
+      "export_rows": "0",
+      "canonical_versions": "0"
+    }
+  ],
+  "migrations": [
+    {
+      "name": "database/migrations/1790080600549_create_users_table"
+    },
+    {
+      "name": "database/migrations/1790081933615_create_documents_table"
+    },
+    {
+      "name": "database/migrations/1790161113502_create_document_versions_table"
+    },
+    {
+      "name": "database/migrations/1790162238745_create_document_shares_table"
+    },
+    {
+      "name": "database/migrations/1790343133400_create_files_table"
+    },
+    {
+      "name": "database/migrations/1790487764910_create_chunks_table"
+    },
+    {
+      "name": "database/migrations/1790767485282_create_document_files_table"
+    },
+    {
+      "name": "database/migrations/1790936535377_create_file_revisions_table"
+    },
+    {
+      "name": "database/migrations/1790936537825_create_processing_runs_table"
+    },
+    {
+      "name": "database/migrations/1790936540308_create_document_blocks_table"
+    },
+    {
+      "name": "database/migrations/1790936542767_create_chunk_blocks_table"
+    },
+    {
+      "name": "database/migrations/1790936545229_create_chunk_embeddings_table"
+    },
+    {
+      "name": "database/migrations/1790936547677_alter_chunks_table"
+    },
+    {
+      "name": "database/migrations/1790936550120_alter_documents_table"
+    },
+    {
+      "name": "database/migrations/1792076754631_create_workspaces_table"
+    },
+    {
+      "name": "database/migrations/1792076755022_create_workspace_memberships_table"
+    },
+    {
+      "name": "database/migrations/1792076755419_create_workspace_invitations_table"
+    },
+    {
+      "name": "database/migrations/1792076755822_create_projects_table"
+    },
+    {
+      "name": "database/migrations/1792076756212_alter_add_workspace_references_table"
+    },
+    {
+      "name": "database/migrations/1792076756604_alter_add_document_workspace_metadata_table"
+    },
+    {
+      "name": "database/migrations/1792077012690_alter_support_workspace_document_workflows_table"
+    },
+    {
+      "name": "database/migrations/1792078336145_create_workspace_tasks_table"
+    },
+    {
+      "name": "database/migrations/1792078336567_create_task_dispatches_table"
+    },
+    {
+      "name": "database/migrations/1792078547873_alter_add_active_workspace_tasks_table"
+    },
+    {
+      "name": "database/migrations/1792078917635_create_document_issues_table"
+    },
+    {
+      "name": "database/migrations/1792078919181_alter_add_invitation_delivery_states_table"
+    },
+    {
+      "name": "database/migrations/1792079170573_create_document_reviews_table"
+    },
+    {
+      "name": "database/migrations/1792079171510_create_document_approvals_table"
+    },
+    {
+      "name": "database/migrations/1792079172172_create_workflow_events_table"
+    },
+    {
+      "name": "database/migrations/1792079172916_create_version_acceptances_table"
+    },
+    {
+      "name": "database/migrations/1792079175385_alter_add_document_review_pointers_table"
+    },
+    {
+      "name": "database/migrations/1792121334072_alter_legacy_tenancy_migrated_at"
+    },
+    {
+      "name": "database/migrations/1792122973153_alter_add_rich_descriptions_table"
+    },
+    {
+      "name": "database/migrations/1792145700827_alter_documents_table"
+    },
+    {
+      "name": "database/migrations/1792146500702_alter_document_issues_description"
+    },
+    {
+      "name": "database/migrations/1792816162809_create_document_images_table"
+    },
+    {
+      "name": "database/migrations/1792984351178_create_template_generations_table"
+    },
+    {
+      "name": "database/migrations/1793006927296_create_template_snapshot_integrities_table"
+    },
+    {
+      "name": "database/migrations/1793189536422_alter_chunk_embeddings_dimensions"
+    },
+    {
+      "name": "database/migrations/1793196331105_alter_chunks_table"
+    },
+    {
+      "name": "database/migrations/1793196332550_alter_processing_runs_table"
+    },
+    {
+      "name": "database/migrations/1793866501407_create_project_files_table"
+    },
+    {
+      "name": "database/migrations/1793866501827_create_project_source_scope_trigger"
+    }
+  ]
+}
