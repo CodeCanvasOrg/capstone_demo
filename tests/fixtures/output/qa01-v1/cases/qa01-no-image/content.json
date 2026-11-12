@@ -1,0 +1,140 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Appointment Reminders for a Neighbourhood Clinic"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "A fictional clinic automated appointment reminders while keeping a staff review step."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "4adf77da-6519-429c-8839-cce22ab4d26a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Context and Challenge"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reminders were sent by hand, and staff reviewed the list each morning."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "4adf77da-6519-429c-8839-cce22ab4d26a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Reminders go out by text message and email; patients reply to confirm or cancel."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "4adf77da-6519-429c-8839-cce22ab4d26a"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "bd70b693-17b2-4834-8d16-fa016428a244"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Cancelled slots return to the booking calendar for reuse."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "bd70b693-17b2-4834-8d16-fa016428a244"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Conclusion"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The workflow keeps a human in the loop while removing manual messaging."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "4adf77da-6519-429c-8839-cce22ab4d26a"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "bd70b693-17b2-4834-8d16-fa016428a244"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,342 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Automating Shipping Paperwork with On-Site AI and Computer Vision"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "A fictional logistics brokerage replaced manual invoice retyping with a locally hosted extraction workflow."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "74eabb74-0db7-4431-8748-7043ccf45511"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Executive Summary"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The delivery team built a pilot that reads invoices and packing lists and fills the brokerage system for human review."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "74eabb74-0db7-4431-8748-7043ccf45511"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "41406010-3046-46b8-8929-8879a2015ce0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Context and Challenge"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Clerks previously retyped values from paper and scanned documents, which was slow and error prone."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "74eabb74-0db7-4431-8748-7043ccf45511"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Solution and Capabilities"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The pilot pairs local processing with a reviewable extraction step."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "41406010-3046-46b8-8929-8879a2015ce0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Local AI deployment"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "OCR and language models run on servers inside the client network."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "74eabb74-0db7-4431-8748-7043ccf45511"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Assisted extraction"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Uploaded images and PDFs are analysed and the detected fields are proposed to an operator."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "41406010-3046-46b8-8929-8879a2015ce0"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "74eabb74-0db7-4431-8748-7043ccf45511"
+          }
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "attrs": {
+        "sourceChunkId": "dbf7a0e8-2c01-4156-8810-a2a48d6c7968",
+        "alt": "Synthetic diagram of the scan, extract, review and export steps",
+        "title": "Synthetic diagram of the scan, extract, review and export steps",
+        "width": "100%",
+        "align": "center"
+      }
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Results and Business Impact"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The only reported figure is an estimate, not a measurement."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "41406010-3046-46b8-8929-8879a2015ce0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Processing time: estimated reduction of up to 60%, with no controlled measurement."
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "41406010-3046-46b8-8929-8879a2015ce0"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Scale target: an initial volume of 500 documents per day."
+                },
+                {
+                  "type": "sourceCitation",
+                  "attrs": {
+                    "sourceChunkId": "41406010-3046-46b8-8929-8879a2015ce0"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Limitations and Next Steps"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Operators still choose the document type manually."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "41ce325d-e512-4fc6-8c67-2593077b357e"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Planned work covers automatic classification and ERP integration."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "41ce325d-e512-4fc6-8c67-2593077b357e"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "41406010-3046-46b8-8929-8879a2015ce0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Conclusion"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The pilot shows that local extraction with human review is feasible; the time saving remains an estimate."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "41406010-3046-46b8-8929-8879a2015ce0"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "41ce325d-e512-4fc6-8c67-2593077b357e"
+          }
+        }
+      ]
+    }
+  ]
+}

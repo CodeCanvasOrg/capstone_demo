@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "corpusVersion": "qa01-v1",
+  "variant": "sanitized",
+  "cases": [
+    {
+      "fixtureId": "qa01-entry-01",
+      "revision": 1,
+      "variant": "sanitized",
+      "origin": "synthetic",
+      "contentHash": "f5f1a93bfc9f37675b86d6c3976bd952bb5a153927f99c37f83092356605d36a",
+      "expectationsHash": "d717de011a30b3072017c37ed72f0694df999002e6fc71a6d1ac4696137164a5",
+      "sourceManifestHash": "7d45c9f9fddd428e9f922d2ba58463e47294ef25a324af077d2a723f2837231f",
+      "assets": [
+        {
+          "path": "assets/diagram.png",
+          "sha256": "2d29e1d1350bd1ada1d8ef64dbdb3bdbbb4cded526535058a0b0900664c19c36",
+          "mime": "image/png"
+        }
+      ]
+    },
+    {
+      "fixtureId": "qa01-no-image",
+      "revision": 1,
+      "variant": "sanitized",
+      "origin": "synthetic",
+      "contentHash": "27b107fb2d9392dd55972e2c9ccd5cc7a8fcd4d469ec026b95d708aff977d4eb",
+      "expectationsHash": "48a8cb91679b4acf5b8aa095db49633003b8dc5b81b762a3adeec934fa04548e",
+      "sourceManifestHash": "a9b550935722d3fc9944ff992f39ca4e826d676bbdae30c60ddd5cf0904176fd",
+      "assets": []
+    },
+    {
+      "fixtureId": "qa01-no-metric",
+      "revision": 1,
+      "variant": "sanitized",
+      "origin": "synthetic",
+      "contentHash": "c66d7edd58e1f8d914999a20f202e738844815312a8b23d11a15f2f6da8d14b8",
+      "expectationsHash": "de6f231d0de3f8b29c1bc94ed690435ea9da67b756ad977ac2ceef338014b900",
+      "sourceManifestHash": "786d9430df38b1cdecd957204bce24eb3ba2b4aaea256cd81f13e6e7b8d1749b",
+      "assets": []
+    },
+    {
+      "fixtureId": "qa01-long-title",
+      "revision": 1,
+      "variant": "sanitized",
+      "origin": "synthetic",
+      "contentHash": "05702155b2c4134e2a67e4e6bc1fad372eac29b170722e39eabbb4f584689882",
+      "expectationsHash": "94e56cd898e8dc1d90ad484bd0ae83e69ba4d052d74ae07033ad7f5e56f16b60",
+      "sourceManifestHash": "6148324bda1e0e71debfd2ba2c58c8bef0800a2f4e59564d04bdedadfbdc6c69",
+      "assets": []
+    },
+    {
+      "fixtureId": "qa01-estimated-result",
+      "revision": 1,
+      "variant": "sanitized",
+      "origin": "synthetic",
+      "contentHash": "8e1dd81fbab0cf562d96901a7fafad5a6b9eb2542a8f24666a117d023885f79a",
+      "expectationsHash": "e68a532862cfb860acdb13399ae52cfbe16aca6de55e4e2639206abcf26f3f67",
+      "sourceManifestHash": "ace5d51b2038fb3e2cc816cd8be2f12c0447f198b4df2b51923185167d9b152e",
+      "assets": []
+    },
+    {
+      "fixtureId": "qa01-long-citations",
+      "revision": 1,
+      "variant": "sanitized",
+      "origin": "synthetic",
+      "contentHash": "147b89706026a436856fb4e1afaa8e928c7d5aa4c280445ff3a3e36a8395c0ff",
+      "expectationsHash": "3c89b7d2b95da05709dba8c4b86628d6f41fea1ca7585b31be7c50d2fe5492e1",
+      "sourceManifestHash": "71786de8372ca8f88e76a5d1a97103ea133c3c3606258904f736e5cf74395a72",
+      "assets": []
+    }
+  ]
+}

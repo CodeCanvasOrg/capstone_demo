@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "description": "Estimated up-to qualifier and capacity target survive; one image; reused citations.",
+  "requiredText": [
+    "estimated reduction of up to 60%",
+    "no controlled measurement",
+    "500 documents per day"
+  ],
+  "forbiddenPatterns": [],
+  "imageCount": 1,
+  "referenceCount": 3
+}

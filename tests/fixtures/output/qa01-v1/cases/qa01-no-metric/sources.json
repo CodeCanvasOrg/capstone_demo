@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "fixtureSourceId": "qa01-no-metric-src-1",
+      "revision": 1,
+      "chunkId": "2996d674-05b3-4b7d-841a-a697dc13cf53",
+      "sha256": "df4161098fe9f4d90e6ecef4af1757a3fc6b36ad0e47f9bd13907d597c543bb7",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "library-catalog-review.pdf",
+      "pageNumber": 1,
+      "chunkIndex": 0,
+      "mediaType": "application/pdf",
+      "content": "The Marlow Public Library moved its catalogue search to a hosted service. Staff describe search as easier to use and say patrons ask for help less often."
+    },
+    {
+      "fixtureSourceId": "qa01-no-metric-src-2",
+      "revision": 1,
+      "chunkId": "e86b43a0-7743-4ca8-8160-c0787f0d0a26",
+      "sha256": "98eb67e81717f4f2347722cc0e67aaf6294bd007988b46bdf9152ba8d1abf998",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "library-catalog-review.pdf",
+      "pageNumber": 2,
+      "chunkIndex": 1,
+      "mediaType": "application/pdf",
+      "content": "The library has not recorded search volume, cost or time figures for the change."
+    }
+  ]
+}

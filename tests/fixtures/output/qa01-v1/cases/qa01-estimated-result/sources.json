@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "fixtureSourceId": "qa01-estimated-result-src-1",
+      "revision": 1,
+      "chunkId": "615fbf74-be8d-4b4f-86d9-ff00df5ad49c",
+      "sha256": "9e8564a3fdb4f9c70d654708fefab5b2c230d18217b189f8dcc7d623a80c02ba",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "invoice-routing-estimate.pdf",
+      "pageNumber": 1,
+      "chunkIndex": 0,
+      "mediaType": "application/pdf",
+      "content": "Estimated reduction of up to 30% in processing time; no deployment measurement."
+    },
+    {
+      "fixtureSourceId": "qa01-estimated-result-src-2",
+      "revision": 1,
+      "chunkId": "9a06fa22-728c-412a-8fe8-86e88341a46d",
+      "sha256": "ff2b9ca28de7d51b59fadda1b436cfe1e6d54dd5b97f1202f7007fc19cceeb0f",
+      "hashBasis": "frozen_excerpt",
+      "fileName": "invoice-routing-estimate.pdf",
+      "pageNumber": 2,
+      "chunkIndex": 1,
+      "mediaType": "application/pdf",
+      "content": "The estimate comes from a desk review of five sample invoices. No production data was collected."
+    }
+  ]
+}

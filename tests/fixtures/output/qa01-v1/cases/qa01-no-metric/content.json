@@ -1,0 +1,107 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Modernising Catalogue Search for a Public Library"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "A fictional library moved catalogue search to a hosted service and reports qualitative benefits."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "2996d674-05b3-4b7d-841a-a697dc13cf53"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Results and Impact"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Staff describe search as easier to use, and patrons ask for help less often."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "2996d674-05b3-4b7d-841a-a697dc13cf53"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "No volume, cost or time figures were recorded for the change."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "e86b43a0-7743-4ca8-8160-c0787f0d0a26"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Conclusion"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The benefits are qualitative; any quantified result would need new measurement."
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "2996d674-05b3-4b7d-841a-a697dc13cf53"
+          }
+        },
+        {
+          "type": "sourceCitation",
+          "attrs": {
+            "sourceChunkId": "e86b43a0-7743-4ca8-8160-c0787f0d0a26"
+          }
+        }
+      ]
+    }
+  ]
+}

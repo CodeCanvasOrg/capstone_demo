@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "description": "Estimated / up to wording, unit, scope and missing-method caveat stay together.",
+  "requiredText": [
+    "Estimated reduction of up to 30% in processing time",
+    "no deployment measurement",
+    "desk review of five sample invoices"
+  ],
+  "forbiddenPatterns": [
+    "[Mm]easured 30%"
+  ],
+  "imageCount": 0,
+  "referenceCount": 2
+}
