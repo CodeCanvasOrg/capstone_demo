@@ -138,7 +138,7 @@ test.group('Document creation generation', (group) => {
     assert.equal(doc.title, 'My own title')
     assert.notProperty(doc.templateSetup, 'generateTitle')
   })
-  test('a new project atomically creates and opens its first case study using its rich brief', async ({
+  test('project creation preserves its rich brief without starting case-study generation', async ({
     client,
     assert,
   }) => {
@@ -159,16 +159,17 @@ test.group('Document creation generation', (group) => {
       })
     response.assertStatus(302)
     const project = await Project.findByOrFail('name', 'Project and story')
-    const doc = await Document.findByOrFail('projectId', project.id)
-    response.assertHeader('location', `/workspaces/${a.workspace.id}/documents/${doc.id}/edit`)
-    assert.equal(doc.description, 'A supplied project brief')
-    assert.deepEqual(doc.descriptionContent, project.descriptionContent)
-    assert.equal(doc.sourceMode, 'input_only')
-    assert.equal(doc.projectInformation.overview, project.description)
-    assert.equal(doc.generationStatus, 'processing')
-    const tasks = await WorkspaceTask.query().where('documentId', doc.id)
-    assert.lengthOf(tasks, 1)
-    assert.equal(tasks[0].workspaceId, project.workspaceId)
+    const projectUrl = `/workspaces/${a.workspace.id}/projects/${project.id}`
+    response.assertHeader('location', projectUrl)
+    assert.equal(project.description, 'A supplied project brief')
+    assert.deepEqual(project.descriptionContent, {
+      type: 'doc',
+      content: [
+        { type: 'paragraph', content: [{ type: 'text', text: 'A supplied project brief' }] },
+      ],
+    })
+    assert.lengthOf(await Document.query().where('projectId', project.id), 0)
+    assert.lengthOf(await WorkspaceTask.query().where('workspaceId', a.workspace.id), 0)
     const update = await client
       .patch(`/workspaces/${a.workspace.id}/projects/${project.id}`)
       .loginAs(a.user)
@@ -176,7 +177,11 @@ test.group('Document creation generation', (group) => {
       .redirects(0)
       .json({ name: 'Renamed project' })
     update.assertStatus(302)
-    assert.lengthOf(await Document.query().where('projectId', project.id), 1)
+    update.assertHeader('location', projectUrl)
+    await project.refresh()
+    assert.equal(project.name, 'Renamed project')
+    assert.lengthOf(await Document.query().where('projectId', project.id), 0)
+    assert.lengthOf(await WorkspaceTask.query().where('workspaceId', a.workspace.id), 0)
   })
   test('creation and generation intent roll back together when evidence is missing or foreign', async ({
     client,
