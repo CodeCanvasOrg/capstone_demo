@@ -9,35 +9,36 @@ const input = {
 }
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } })
-const answer = (choice: string) => ({
+const answer = (noul: unknown) => ({
   id: 'gen-dec-1',
   model: 'typesafe/jev-1.13-20260917',
-  answers: {
-    verdict: {
-      type: 'choice',
-      choice,
-      confidence: 0.8,
-      probabilities: { supported: 0.9, contradicted: 0.05, insufficient_evidence: 0.05 },
-    },
-  },
+  answers: { compliant: { type: 'noul', noul } },
 })
 
 test.group('ClaimEvaluationService', () => {
-  test('returns a typed verdict, probabilities and the resolved model', async ({ assert }) => {
+  test('returns a boolean compliance result and the resolved model', async ({ assert }) => {
     let sent: any
     const service = new ClaimEvaluationService(claimEvaluationConfig, async (_url, init) => {
       sent = JSON.parse(String(init?.body))
-      return json(answer('supported'))
+      return json(answer(0.9))
     })
     const result = await service.evaluate(input)
     assert.equal(sent.model, 'typesafe/jev-1.13')
-    assert.equal(sent.questions.verdict.type, 'choice')
+    assert.equal(sent.questions.compliant.type, 'noul')
     assert.equal(result.status, 'evaluated')
     if (result.status === 'evaluated') {
-      assert.equal(result.verdict, 'supported')
+      assert.isTrue(result.compliant)
       assert.equal(result.model, 'typesafe/jev-1.13-20260917')
-      assert.equal(result.probabilities.supported, 0.9)
+      assert.equal(result.probability, 0.9)
     }
+  })
+
+  test('a low probability is not compliant', async ({ assert }) => {
+    const service = new ClaimEvaluationService(claimEvaluationConfig, async () =>
+      json(answer(0.1))
+    )
+    const result = await service.evaluate(input)
+    assert.equal(result.status === 'evaluated' && result.compliant, false)
   })
 
   test('missing evidence is decided without calling the model', async ({ assert }) => {
@@ -70,7 +71,7 @@ test.group('ClaimEvaluationService', () => {
 
   test('stale claim, evidence or evaluator cannot be treated as current', async ({ assert }) => {
     const service = new ClaimEvaluationService(claimEvaluationConfig, async () =>
-      json(answer('supported'))
+      json(answer(0.9))
     )
     const result = await service.evaluate(input)
     assert.isTrue(service.isCurrent(result, input))

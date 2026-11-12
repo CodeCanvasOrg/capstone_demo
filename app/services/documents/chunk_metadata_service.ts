@@ -21,6 +21,8 @@ type TipTapNode = {
 
 export type TipTapDocument = {
   type: 'doc'
+  /** Root attributes, e.g. `publication` annotations; carried through hydration untouched. */
+  attrs?: Record<string, unknown>
   content: TipTapNode[]
 }
 
@@ -29,6 +31,11 @@ export type DocumentImageReference = {
   src: string
   filename: string
   mime: string
+}
+
+/** Hydration replaces display fields only; stable block identity must survive it. */
+function keepNodeId(node: TipTapNode) {
+  return typeof node.attrs?.nodeId === 'string' ? { nodeId: node.attrs.nodeId } : {}
 }
 
 function isWebUrl(value: string | null): value is string {
@@ -61,6 +68,7 @@ export function attachChunkMetadata(
       return {
         type: 'image',
         attrs: {
+          ...keepNodeId(node),
           documentImageId: image.id,
           src: image.src,
           alt: typeof node.attrs.alt === 'string' ? node.attrs.alt : image.filename,
@@ -83,6 +91,7 @@ export function attachChunkMetadata(
         return {
           type: 'image',
           attrs: {
+            ...keepNodeId(node),
             sourceChunkId: source.id,
             src: source.fileUrl,
             alt:

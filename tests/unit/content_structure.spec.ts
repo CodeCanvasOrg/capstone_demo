@@ -88,3 +88,59 @@ test.group('Content structure repair', () => {
     assert.deepEqual(new ContentService().normalize(structuredClone(nested)), nested)
   })
 })
+
+test.group('Generated prose preservation', () => {
+  test('moves block text before citations without dropping existing text or mutating input', ({
+    assert,
+  }) => {
+    const input = {
+      type: 'doc',
+      content: [
+        { type: 'heading', attrs: { level: 2 }, text: 'Summary' },
+        { type: 'paragraph', text: 'Generated prose.', content: [citation] },
+        {
+          type: 'bulletList',
+          content: [
+            {
+              type: 'listItem',
+              content: [
+                {
+                  type: 'paragraph',
+                  text: 'First sentence. ',
+                  content: [text('Second sentence.')],
+                },
+              ],
+            },
+          ],
+        },
+        { type: 'codeBlock', text: 'const answer = 42' },
+      ],
+    }
+    const before = structuredClone(input)
+    const repaired = new ContentService().normalizeGenerated(input)
+    const rendered = ProseMirrorNode.fromJSON(schema, repaired)
+    rendered.check()
+    assert.include(rendered.textContent, 'Generated prose.')
+    assert.include(rendered.textContent, 'First sentence. Second sentence.')
+    assert.include(rendered.textContent, 'const answer = 42')
+    assert.deepEqual(repaired.content[1], paragraph(text('Generated prose.'), citation))
+    assert.notProperty(repaired.content[0], 'text')
+    assert.deepEqual(input, before)
+    assert.deepEqual(repair(repaired), repaired)
+  })
+
+  test('rejects generated headings and citation-only paragraphs as empty output', ({ assert }) => {
+    for (const content of [
+      [],
+      [{ type: 'heading', attrs: { level: 1 }, content: [text('Template title')] }],
+      [paragraph(citation), { type: 'image', attrs: { sourceChunkId: 'chunk-2' } }],
+      [paragraph(text('   '))],
+    ]) {
+      assert.throws(
+        () => new ContentService().normalizeGenerated({ type: 'doc', content }),
+        /no readable body text/
+      )
+    }
+    assert.doesNotThrow(() => new ContentService().normalize({ type: 'doc', content: [] }))
+  })
+})

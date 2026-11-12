@@ -4,7 +4,7 @@ const provider = env.get('CONTEXTUALIZER') ?? 'off'
 const VERSION = 'v1'
 const model =
   env.get('CONTEXTUALIZER_MODEL') ??
-  (provider === 'openrouter' ? (env.get('OPENROUTER_MODEL') ?? 'openai/gpt-6-luna') : '')
+  (provider === 'openrouter' ? (env.get('OPENROUTER_MODEL') ?? 'anthropic/claude-haiku-5.5') : '')
 
 /**
  * Contextual chunking. Every chunk gets a structural context (document › section › page). When a

@@ -44,16 +44,14 @@ test.group('Generated claim review', (group) => {
         text.startsWith('Sales')
           ? {
               status: 'evaluated',
-              verdict: 'contradicted',
-              probabilities: {},
-              confidence: 1,
+              compliant: false,
+              probability: 0.02,
               model: 'm',
             }
           : {
               status: 'evaluated',
-              verdict: 'supported',
-              probabilities: {},
-              confidence: 1,
+              compliant: true,
+              probability: 0.97,
               model: 'm',
             }
       )
@@ -63,7 +61,7 @@ test.group('Generated claim review', (group) => {
     const issues = await DocumentIssue.query().where('documentId', a.document.id)
     assert.lengthOf(issues, 1)
     assert.equal(issues[0].origin, 'ai')
-    assert.equal(issues[0].code, 'contradicted_claim')
+    assert.equal(issues[0].code, 'unsupported_claim')
     assert.isFalse(issues[0].blocking)
     assert.equal(issues[0].versionId, version.id)
   })

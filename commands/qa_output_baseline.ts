@@ -21,6 +21,9 @@ export default class QaOutputBaseline extends BaseCommand {
     } = await import('#services/qa/output_baseline_service')
     const { default: pdfWorkerConfig } = await import('#config/pdf_worker')
     const { default: ExportPdfService } = await import('#services/exports/pdf_service')
+    const { default: Projection } =
+      await import('#services/documents/publication_projection_service')
+    const client = (content: any) => new Projection().project(content).client
     const { readFile } = await import('node:fs/promises')
     const root = this.app.makePath()
     const service = new Service()
@@ -47,8 +50,8 @@ export default class QaOutputBaseline extends BaseCommand {
         layouts: [...layouts],
         outputDir: this.output,
         renderer: {
-          html: (content, options) => ExportPdfService.html({ content } as any, options),
-          pdf: (content, options) => ExportPdfService.generate({ content } as any, options),
+          html: (content, options) => ExportPdfService.html(client(content), options),
+          pdf: (content, options) => ExportPdfService.generate(client(content), options),
         },
         inspector: pymupdfInspector(pdfWorkerConfig.python),
         environment: () => captureEnvironment(root, pdfWorkerConfig.python),

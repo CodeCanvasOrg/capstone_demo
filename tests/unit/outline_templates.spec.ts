@@ -3,7 +3,7 @@ import { RunnableLambda } from '@langchain/core/runnables'
 import OutlineTemplateService from '#services/documents/outline_template_service'
 import OpenRouterService from '#services/open_router_service'
 import ExportPdfService from '#services/exports/pdf_service'
-import type DocumentVersion from '#models/document_version'
+import type { ClientRenderData } from '../../shared/publication/client.ts'
 import { chromium } from 'playwright'
 import { COMPANY_TEMPLATE_IDS, outlineSections } from '../../shared/templates/outlines.ts'
 
@@ -28,14 +28,23 @@ test.group('Company output guides', () => {
     const chain = RunnableLambda.from(async (messages: unknown) => {
       captured = messages
       return {
-        sections: [
-          {
-            key: 'section_2',
-            content: [
-              { type: 'paragraph', content: [{ type: 'text', text: 'Source-backed challenge' }] },
-            ],
-          },
-        ],
+        sections: outlineSections(template.definition.outline).map((section) => ({
+          key: section.key,
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text:
+                    section.key === 'section_2'
+                      ? 'Source-backed challenge'
+                      : 'Information for this section has not been provided.',
+                },
+              ],
+            },
+          ],
+        })),
       }
     })
     ;(service as any).model = { withStructuredOutput: () => chain }
@@ -76,12 +85,12 @@ test.group('Company output guides', () => {
       launches++
       throw new Error('Sensitive OS trace')
     }
-    const version = {
-      content: {
-        type: 'doc',
-        content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Preview content' }] }],
-      },
-    } as DocumentVersion
+    const version: ClientRenderData = {
+      schemaVersion: 1,
+      docType: 'case_study',
+      body: [{ type: 'paragraph', content: [{ type: 'text', text: 'Preview content' }] }],
+      sources: [],
+    }
     try {
       assert.include(await ExportPdfService.html(version, { preview: true }), 'Preview content')
       assert.equal(launches, 0)

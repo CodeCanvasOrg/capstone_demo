@@ -211,6 +211,8 @@ export default class GenerationService {
         fingerprint(generationInput(current)) !== input.inputHash
       )
         throw new TaskConflictException('inputs_changed')
+      // Recheck renderable prose after live input/lease checks and before publishing.
+      new ContentService().normalizeGenerated(content)
       const latest = await DocumentVersion.query({ client: trx })
         .where({ documentId: current.id, workspaceId: lease.context.workspaceId })
         .orderBy('version', 'desc')
@@ -278,6 +280,7 @@ export default class GenerationService {
   async failed(lease: TaskLease, error: unknown) {
     const localConflict = error instanceof TaskConflictException
     const imageFailure = error instanceof ModelImageException
+    const unusableOutput = OpenRouterService.isUnusableOutput(error)
     const status = localConflict ? undefined : OpenRouterService.status(error)
     await new TaskService().fail(
       lease,
@@ -286,12 +289,14 @@ export default class GenerationService {
         ? error.safeMessage
         : imageFailure
           ? error.message
-          : status
-            ? config.failureMessages[status]
-            : OpenRouterService.isTimeout(error)
-              ? 'The model took too long to respond. Try again in a moment.'
-              : undefined,
-      [400, 401, 402, 403, 404, 413, 422].includes(status ?? 0) || imageFailure
+          : unusableOutput
+            ? 'The model returned incomplete or unreadable content. Your previous draft is unchanged. Try generating again.'
+            : status
+              ? config.failureMessages[status]
+              : OpenRouterService.isTimeout(error)
+                ? 'The model took too long to respond. Try again in a moment.'
+                : undefined,
+      [400, 401, 402, 403, 404, 413, 422].includes(status ?? 0) || imageFailure || unusableOutput
     )
   }
 }

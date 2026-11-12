@@ -1,8 +1,25 @@
 import { Exception } from '@adonisjs/core/exceptions'
 import { getStructuredOutput } from '#services/structured_model_output_service'
 import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
+import PublicationContentService from '#services/documents/publication_content_service'
 
 export default class ContentService {
+  /** Generated drafts must contain prose the editor can actually render. */
+  normalizeGenerated(value: unknown): TipTapDocument {
+    const document = this.normalize(value, { repair: true })
+    const hasProse = (node: TipTapDocument['content'][number]): boolean => {
+      if (node.type === 'heading' || node.type === 'sourceCitation' || node.type === 'image')
+        return false
+      return node.type === 'text' ? !!node.text?.trim() : (node.content ?? []).some(hasProse)
+    }
+    if (!document.content.some(hasProse))
+      throw Object.assign(new Error('The model returned no readable body text. Try again.'), {
+        status: 422,
+        unusableOutput: true,
+      })
+    return document
+  }
+
   /**
    * Case-study drafts pass `repair` so malformed model output stays editable;
    * user-typed rich text is left strict so malformed input is still rejected.
@@ -39,7 +56,12 @@ export default class ContentService {
       node.content?.forEach((child) => visit(child, depth + 1))
     }
     document.content.forEach((node) => visit(node))
-    return document
+    if (document.attrs?.publication === undefined) return document
+    // Ordinary edits reconcile stale anchors; structurally invalid metadata is a 422.
+    const publication = new PublicationContentService()
+    const reconciled = publication.reconcile(document)
+    publication.assertValid(reconciled)
+    return reconciled
   }
 }
 
@@ -75,6 +97,15 @@ function blocks(nodes: Node[] = []): Node[] {
 
 function block(node: Node): Node[] {
   if (TEXTBLOCKS.has(node.type)) {
+    // Some models put prose on the block itself, alongside inline citations.
+    // TipTap only renders text nodes; move it before the existing children.
+    if (node.text !== undefined) {
+      const { text, ...rest } = node
+      node = {
+        ...rest,
+        content: [...(text ? [{ type: 'text', text }] : []), ...(node.content ?? [])],
+      }
+    }
     if (!node.content) return [{ ...node }]
     // Nested blocks are lifted out after the text they interrupted.
     let open: Node | null = { ...node, content: [] }
@@ -102,9 +133,9 @@ function block(node: Node): Node[] {
   }
   if (node.type === 'blockquote') return [{ ...node, content: blocks(node.content) }]
   if (node.type === 'codeBlock') {
-    if (!node.content) return [node]
-    const text = node.content.map(textOf).join('')
-    return [{ ...node, content: text ? [{ type: 'text', text }] : [] }]
+    const { text: misplaced, ...rest } = node
+    const text = (misplaced ?? '') + (node.content ?? []).map(textOf).join('')
+    return [{ ...rest, content: text ? [{ type: 'text', text }] : [] }]
   }
   // Images and rules are leaves.
   const leaf = { ...node }
