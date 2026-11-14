@@ -15,6 +15,16 @@ const chunks = ['chunk-a', 'chunk-b'].map((id, chunkIndex) => ({
   mediaType: 'application/pdf',
   pageNumber: chunkIndex + 2,
 }))
+const imageChunk = {
+  id: 'image-a',
+  chunkIndex: 2,
+  content: 'Illustration of a scanner',
+  fileName: 'customs-case-study.pdf',
+  fileUrl: 'https://files.example.test/image-a.jpg',
+  modelFileUrl: 'data:image/jpeg;base64,/9j/AAAA',
+  mediaType: 'image/jpeg',
+  pageNumber: 3,
+}
 const guard = async () => {}
 
 async function branded() {
@@ -101,6 +111,8 @@ test.group('Branded entry generation', () => {
       'figure only',
       'must contain a number',
       'omit results',
+      'hero_image',
+      'top-right',
       'footnote_ids',
       'Never invent',
     ])
@@ -167,5 +179,32 @@ test.group('Branded entry generation', () => {
     assert.lengthOf(out.document.content, 2)
     assert.notInclude(JSON.stringify(out.document), 'has not been provided')
     assert.equal(calls(), 1)
+  })
+
+  test('image chunks the model can see are offered, and its choice becomes the hero image', async ({
+    assert,
+  }) => {
+    const { service, seen } = stub([brandedEntry])
+    const out = await service.generateBrandedEntry(
+      'T',
+      'B',
+      [...chunks, imageChunk],
+      await branded(),
+      guard
+    )
+    const human = JSON.stringify(seen[1][1].content)
+    assert.include(human, 'imageChunkIds')
+    assert.include(human, 'image-a')
+    const image: any = out.document.content[2]
+    assert.equal(image.type, 'image')
+    assert.equal(image.attrs.sourceChunkId, 'image-a')
+  })
+
+  test('without a usable image the hero image is dropped, not invented', async ({ assert }) => {
+    const { service, seen } = stub([brandedEntry])
+    const out = await service.generateBrandedEntry('T', 'B', chunks, await branded(), guard)
+    assert.include(JSON.stringify(seen[1][1].content), 'imageChunkIds')
+    assert.isFalse(out.document.content.some((n: any) => n.type === 'image'))
+    assert.isTrue(out.sidecar.notes.some((n) => /image/i.test(n)))
   })
 })

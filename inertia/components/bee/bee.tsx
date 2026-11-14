@@ -1,7 +1,7 @@
 import { useId } from 'react'
 import { cn } from 'cn'
 
-export type BeeMood = 'idle' | 'wave' | 'think' | 'cheer'
+export type BeeMood = 'idle' | 'wave' | 'think' | 'cheer' | 'work'
 
 /**
  * Bo, the CodeCanvas bee. Pure SVG; every motion lives in the `.bee-*` rules in app.css

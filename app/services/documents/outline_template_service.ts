@@ -6,6 +6,7 @@ import AccessService, {
 } from '#services/workspaces/access_service'
 import { fingerprint } from '#services/workspaces/task_service'
 import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
+import type { EntryFormat } from '../../../shared/layout/formats.ts'
 import {
   BRANDED_TEMPLATE_ID,
   TEMPLATE_IDS,
@@ -22,15 +23,15 @@ const catalog = {
   },
   portfolio: {
     name: 'Website portfolio entry',
-    description: 'The challenge, solution, capabilities and supported impact.',
+    description: 'A public-facing page: the challenge, the solution, what was built and impact.',
   },
   technical: {
     name: 'Technical portfolio entry',
-    description: 'Architecture, implementation, evaluation and impact.',
+    description: 'The approach, an architecture pipeline, implementation and an evaluation table.',
   },
   vision: {
     name: 'Product vision',
-    description: 'The user need, product experience, availability and roadmap.',
+    description: 'The user need, the experience, capabilities by availability and a roadmap.',
   },
 } as const
 
@@ -39,10 +40,21 @@ export default class OutlineTemplateService {
     await new AccessService().resolve(context.actorId, context.workspaceId)
     return Promise.all(TEMPLATE_IDS.map((id) => this.resolve(id)))
   }
-  async resolve(id: string): Promise<OutlineTemplate> {
+  /**
+   * `legacy` returns the older free-section outline for the portfolio, technical
+   * and vision templates, for documents converted from the previous template
+   * system and for deployments that opt back with GENERATION_FORMAT=legacy.
+   */
+  async resolve(
+    id: string,
+    { legacy = false }: { legacy?: boolean } = {}
+  ): Promise<OutlineTemplate> {
     if (!TEMPLATE_IDS.includes(id as (typeof TEMPLATE_IDS)[number])) throw missingResource()
+    const structured = id === BRANDED_TEMPLATE_ID || !legacy
     const instructions = await readFile(
-      app.makePath(`resources/document_templates/${id}.md`),
+      app.makePath(
+        `resources/document_templates/${structured && id !== BRANDED_TEMPLATE_ID ? `${id}_entry` : id}.md`
+      ),
       'utf8'
     )
     const outline = /```markdown\n([\s\S]*?)\n```/.exec(instructions)?.[1]
@@ -53,7 +65,7 @@ export default class OutlineTemplateService {
       ...catalog[id as keyof typeof catalog],
       instructions,
       outline,
-      ...(id === BRANDED_TEMPLATE_ID ? { format: 'branded_entry' as const } : {}),
+      ...(structured ? { format: 'branded_entry' as const, entryFormat: id as EntryFormat } : {}),
     }
     return { id, revision: fingerprint(definition), definition }
   }

@@ -7,6 +7,13 @@ import type {
 import type { BrandKit } from './brand.ts'
 import { isFigure } from './figure.ts'
 import {
+  FORMAT_KICKER,
+  ROLE_PATTERNS,
+  STATUS_PREFIX,
+  type CapabilityStatus,
+  type EntryFormat,
+} from './formats.ts'
+import {
   resolveOptions,
   type BlockType,
   type LayoutOptions,
@@ -56,9 +63,15 @@ export type PlanBlock =
   | (Base & {
       type: 'capabilities'
       heading?: string
-      items: { title: string; text: string }[]
+      items: { title: string; text: string; status?: CapabilityStatus }[]
     })
-  | (Base & { type: 'roadmap'; text: string })
+  | (Base & {
+      type: 'roadmap'
+      heading?: string
+      text: string
+      /** A list under the heading (vision): one entry per horizon. */
+      items?: { title: string; text: string }[]
+    })
   | (Base & { type: 'figure'; image: Extract<ClientBlock, { type: 'image' }>; caption?: string })
   | (Base & { type: 'cta'; label: string; href: string; headline?: string })
   | (Base & {
@@ -76,6 +89,8 @@ export type PlanFinding = {
 }
 
 export type LayoutPlan = {
+  /** Which design renders the blocks; defaults to the case study. */
+  format: EntryFormat
   template: { id: string; version: number; pageBudget: number }
   brand: { id: string; version: number }
   variant: 'image' | 'no-image'
@@ -85,7 +100,7 @@ export type LayoutPlan = {
   findings: PlanFinding[]
 }
 
-export const KICKER = 'CASE STUDY'
+export const KICKER = FORMAT_KICKER.case_study
 
 const QUALIFIER_LABELS = {
   measured: 'Measured',
@@ -138,14 +153,7 @@ export function splitSections(body: ClientBlock[]) {
   return sections
 }
 
-const ROLE = {
-  results: /^(?:key )?results\b/i,
-  challenge: /^(?:the )?challenge\b/i,
-  solution: /^(?:the )?solution\b/i,
-  steps: /^(?:how it works|steps|process)\b/i,
-  capabilities: /^(?:key )?capabilities\b/i,
-  roadmap: /^(?:roadmap|next steps)\b/i,
-} as const
+const ROLE = ROLE_PATTERNS
 
 /** Items of a plain-text list, or null when any item has a citation or other inline structure. */
 function plainItems(block: ClientBlock | undefined): string[] | null {
@@ -184,6 +192,7 @@ export function planLayout(
   input: unknown
 ): LayoutPlan {
   const { options } = resolveOptions(template, input)
+  const format: EntryFormat = data.format ?? 'case_study'
   const findings: PlanFinding[] = []
   const allowed = (type: BlockType) => !!rule(template, type)
 
@@ -205,7 +214,7 @@ export function planLayout(
       id: 'hero',
       type: 'hero',
       fontPt: fontOf(template, 'hero'),
-      kicker: KICKER,
+      kicker: FORMAT_KICKER[format],
       ...(data.title ? { title: data.title } : {}),
       ...(data.summary ? { summary: data.summary } : {}),
       ...(heroImage
@@ -224,6 +233,9 @@ export function planLayout(
       severity: 'warning',
       message: 'A result has no figure, so it is not shown as a stat. Move it into the text.',
     })
+  // The technical format reads top to bottom, so its metrics sit where the Evaluation section is.
+  const resultsInline = format === 'technical'
+  let resultsBlock: PlanBlock | undefined
   if (stats.length && allowed('results')) {
     const items = stats.map((result) => {
       const marker =
@@ -231,7 +243,11 @@ export function planLayout(
       if (marker) notes.push({ marker, text: result.methodology! })
       return statItem(result, marker)
     })
-    blocks.push({ id: 'results', type: 'results', fontPt: fontOf(template, 'results'), items })
+    resultsBlock = { id: 'results', type: 'results', fontPt: fontOf(template, 'results'), items }
+    if (!resultsInline) {
+      blocks.push(resultsBlock)
+      resultsBlock = undefined
+    }
   }
 
   const headingText = (section: (typeof sections)[number]) =>
@@ -245,7 +261,13 @@ export function planLayout(
     const section = sections[index]
     const name = headingText(section)
     // Structured results already render as the stat band; repeating them would duplicate them.
-    if (data.results?.length && ROLE.results.test(name)) continue
+    if (data.results?.length && ROLE.results.test(name)) {
+      if (resultsInline && resultsBlock) {
+        blocks.push(resultsBlock)
+        resultsBlock = undefined
+      }
+      continue
+    }
     const next = sections[index + 1]
     const pair =
       next &&
@@ -283,6 +305,21 @@ export function planLayout(
         type: 'capabilities',
         fontPt: fontOf(template, 'capabilities'),
         heading: name,
+        items: items.map((value) => {
+          const status = STATUS_PREFIX.exec(value)?.[1]?.toLowerCase() as
+            CapabilityStatus | undefined
+          return { ...splitItem(value.replace(STATUS_PREFIX, '')), ...(status ? { status } : {}) }
+        }),
+      })
+      continue
+    }
+    if (ROLE.roadmap.test(name) && items && allowed('roadmap')) {
+      blocks.push({
+        id: 'roadmap',
+        type: 'roadmap',
+        fontPt: fontOf(template, 'roadmap'),
+        heading: name,
+        text: items.join(' '),
         items: items.map(splitItem),
       })
       continue
@@ -299,6 +336,7 @@ export function planLayout(
         id: 'roadmap',
         type: 'roadmap',
         fontPt: fontOf(template, 'roadmap'),
+        heading: name,
         text: section.blocks.map(plain).join(' ').trim(),
       })
       continue
@@ -312,6 +350,8 @@ export function planLayout(
       blocks: section.blocks,
     })
   }
+
+  if (resultsBlock) blocks.splice(Math.min(1, blocks.length), 0, resultsBlock)
 
   moreImages.forEach((image, i) =>
     blocks.push({
@@ -342,6 +382,7 @@ export function planLayout(
     })
 
   return {
+    format,
     template: { id: template.id, version: template.version, pageBudget: template.pageBudget },
     brand: { id: brand.id, version: brand.version },
     variant: images.length ? 'image' : 'no-image',

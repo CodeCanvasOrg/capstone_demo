@@ -40,6 +40,7 @@ import {
 import { ActionFeedback } from '@/components/action_feedback'
 import { ConfirmAction } from '@/components/confirm_action'
 import { VersionHistory } from '@/components/documents/version_history'
+import { BeeWorking } from '@/components/bee/bee_working'
 import DocumentEditor from '@/components/documents/editor'
 import { DocumentInspector, MetadataForm, type Action } from '@/components/documents/inspector'
 import { StatusBadge } from '@/components/documents/status'
@@ -561,15 +562,7 @@ export default function Edit({
           library before review.
         </p>
       )}
-      {processing && (
-        <div
-          role="status"
-          className="flex items-center gap-2 border-b bg-sidebar px-5 py-3 text-xs"
-        >
-          <LoaderCircle aria-hidden="true" className="size-4 animate-spin" />
-          Generating… Saved content is safe.
-        </div>
-      )}
+      {processing && <BeeWorking />}
       {document.generationStatus === 'failed' && (
         <div className="space-y-2 border-b p-4">
           <p role="alert" className="text-xs text-destructive">

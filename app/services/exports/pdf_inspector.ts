@@ -15,6 +15,13 @@ export type PdfReport = {
   internalLinks: number
   fonts: PdfFont[]
   pageStats: PageStat[]
+  pageWidth: number
+  /** Text blocks on page 1 with their vertical extent. */
+  textBlocks: { x0: number; y0: number; x1: number; y1: number; text: string }[]
+  /** Bottom of the lowest text on the first dark band (the hero), in points. */
+  heroTextBottom: number
+  /** Large filled rectangles on page 1, with their colour. */
+  bleeds: { x0: number; y0: number; x1: number; y1: number; fill: string }[]
   metadata: Record<string, string>
 }
 

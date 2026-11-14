@@ -6,12 +6,13 @@ import {
   type PublicationMetadataV1,
 } from '../../../shared/publication/content.ts'
 import type { EntrySidecar } from '../../../shared/layout/entry.ts'
+import { ROLE_PATTERNS } from '../../../shared/layout/formats.ts'
 
 const SECTION_TYPES: [RegExp, PublicationMetadataV1['sections'][number]['type']][] = [
-  [/^key results$/i, 'results'],
-  [/^the challenge$/i, 'challenge'],
-  [/^the solution$/i, 'solution'],
-  [/^key capabilities$/i, 'capabilities'],
+  [ROLE_PATTERNS.results, 'results'],
+  [ROLE_PATTERNS.challenge, 'challenge'],
+  [ROLE_PATTERNS.solution, 'solution'],
+  [ROLE_PATTERNS.capabilities, 'capabilities'],
 ]
 
 /**
@@ -30,6 +31,7 @@ export default class BrandedEntryService {
     namespace: string
   ): PublicationDocument {
     const meta = document.attrs?.publication as PublicationMetadataV1
+    if (sidecar.format && sidecar.format !== 'case_study') meta.format = sidecar.format
     const refByChunk = new Map((meta.references ?? []).map((ref) => [ref.chunkId, ref.id]))
     const notes = [...sidecar.notes]
     const claims: NonNullable<PublicationMetadataV1['claims']> = []

@@ -13,6 +13,8 @@ import type { PublicationDocument } from '../../../shared/publication/content.ts
 import PublicationContentService from '#services/documents/publication_content_service'
 import BrandedEntryService from '#services/documents/branded_entry_service'
 import type { EntrySidecar } from '../../../shared/layout/entry.ts'
+import { getTemplate } from '../../../shared/layout/templates.ts'
+import LayoutSelectionService from '#services/layout/layout_selection_service'
 import PublicationReviewService from '#services/documents/publication_review_service'
 import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
 import ClaimReviewService from '#services/documents/claim_review_service'
@@ -32,6 +34,7 @@ export const generationInput = (doc: Document) => ({
   ...(doc.templateSetup?.outline ? { outline: doc.templateSetup.outline } : {}),
   title: doc.title,
   description: doc.description,
+  ...(doc.templateSetup?.instructions ? { instructions: doc.templateSetup.instructions } : {}),
   information: doc.projectInformation,
   ...(doc.projectInformationContent ? { informationContent: doc.projectInformationContent } : {}),
   sourceMode: doc.sourceMode,
@@ -101,6 +104,8 @@ export default class GenerationService {
         pipelineVersion: row.pipeline_version,
         embeddingModel: row.embedding_model,
       }))
+      // Pinned now so a regeneration follows the template chosen at request time.
+      const layout = await new LayoutSelectionService().peek(context.workspaceId, documentId, trx)
       const created = await new TaskService().create(
         context,
         {
@@ -112,6 +117,7 @@ export default class GenerationService {
             inputHash: fingerprint(generationInput(document)),
             baseVersionId,
             selectionRevision: document.selectionRevision,
+            layoutTemplate: { id: layout.templateId, version: layout.templateVersion },
           },
         },
         trx
@@ -168,6 +174,11 @@ export default class GenerationService {
     ]
       .filter(Boolean)
       .join('\n\n')
+    // Author instructions steer the writing only; they stay out of retrieval and titles.
+    const instructions: string | undefined = document.templateSetup?.instructions
+    const brief = instructions
+      ? `${prompt}\n\nAuthor's writing instructions (follow them unless they conflict with the output rules or the evidence):\n${instructions}`
+      : prompt
     const retrievalStart = performance.now()
     const chunks = await new RetrievalService().search({
       context: lease.context,
@@ -197,23 +208,20 @@ export default class GenerationService {
       // reviewer notes travel in the sidecar and land in publication metadata.
       const entry = await provider.generateBrandedEntry(
         title ?? 'Untitled',
-        prompt,
+        brief,
         chunks,
         outline.definition,
-        () => tasks.check(lease)
+        () => tasks.check(lease),
+        input.layoutTemplate && getTemplate(input.layoutTemplate.id, input.layoutTemplate.version)
       )
       generated = entry.document
       sidecar = entry.sidecar
     } else {
       generated = outline
-        ? await provider.generateOutlineWithEvidence(
-            title,
-            prompt,
-            chunks,
-            outline.definition,
-            () => tasks.check(lease)
+        ? await provider.generateOutlineWithEvidence(title, brief, chunks, outline.definition, () =>
+            tasks.check(lease)
           )
-        : await provider.generateDocumentWithEvidence(title ?? 'Untitled', prompt, chunks, () =>
+        : await provider.generateDocumentWithEvidence(title ?? 'Untitled', brief, chunks, () =>
             tasks.check(lease)
           )
     }

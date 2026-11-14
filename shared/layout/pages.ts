@@ -4,18 +4,11 @@
  * heights flow onto fixed-height pages. The editor measures the DOM and feeds
  * numbers in; nothing here touches the document content.
  */
+import { roleOfHeading } from './formats.ts'
+
 export type BlockInfo = { type: string; level?: number; text: string }
 export type SectionRole =
   'hero' | 'results' | 'challenge' | 'solution' | 'steps' | 'capabilities' | 'roadmap'
-
-const HEADING_ROLES: [RegExp, SectionRole][] = [
-  [/^(?:key )?results\b/i, 'results'],
-  [/^(?:the )?challenge\b/i, 'challenge'],
-  [/^(?:the )?solution\b/i, 'solution'],
-  [/^(?:how it works|steps|process)\b/i, 'steps'],
-  [/^(?:key )?capabilities\b/i, 'capabilities'],
-  [/^(?:roadmap|next steps)\b/i, 'roadmap'],
-]
 
 /**
  * Role per top-level block. The first level-1 heading and a paragraph directly
@@ -30,8 +23,16 @@ export function sectionRoles(blocks: BlockInfo[]): (SectionRole | null)[] {
     if (index === titleAt) return void roles.push('hero')
     if (titleAt >= 0 && index === titleAt + 1 && block.type === 'paragraph')
       return void roles.push('hero')
+    // An image right after the subhead is the hero illustration.
+    if (
+      titleAt >= 0 &&
+      index === titleAt + 2 &&
+      block.type === 'image' &&
+      blocks[titleAt + 1]?.type === 'paragraph'
+    )
+      return void roles.push('hero')
     if (block.type === 'heading') {
-      current = HEADING_ROLES.find(([pattern]) => pattern.test(block.text.trim()))?.[1] ?? null
+      current = roleOfHeading(block.text)
     }
     roles.push(current)
   })

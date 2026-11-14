@@ -25,6 +25,31 @@ test.group('Layout renderer (RND-01)', () => {
     assert.include(html, `background:${brand.palette.primary}`)
   })
 
+  test('the bands run edge to edge; only the text blocks keep a side margin', async ({
+    assert,
+  }) => {
+    const html = await render(fx.brandedClient)
+    assert.match(html, /@page\{size:A4;margin:16mm 0\}/)
+    assert.include(html, '@page:first{margin-top:0}')
+    assert.match(html, /article>:not\(\.hero\):not\(\.stat-band\)\{margin-inline:16mm\}/)
+    assert.notMatch(html, /\.hero\{[^}]*border-radius/)
+    assert.notMatch(html, /\.stat-band\{[^}]*border-radius/)
+  })
+
+  test('there is white space only below the blue hero, before the yellow band', async ({
+    assert,
+  }) => {
+    const html = await render(fx.brandedClient)
+    assert.match(html, /\.hero\{[^}]*margin:0 0 7mm/)
+    assert.match(html, /\.stat-band\{[^}]*margin:0 0 10mm/)
+  })
+
+  test('challenge and solution have a wide gutter and room above and below', async ({ assert }) => {
+    const html = await render(fx.brandedClient)
+    assert.match(html, /\.columns\{[^}]*gap:0 16mm/)
+    assert.match(html, /\.columns\{[^}]*margin:0 0 10mm/)
+  })
+
   test('stat band shows value, evidence tag and lettered note markers', async ({ assert }) => {
     const html = await render(fx.brandedClient)
     assert.include(html, 'class="stat-band"')

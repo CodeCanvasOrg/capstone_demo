@@ -58,6 +58,7 @@ export const brandedEntry: z.input<typeof entrySchema> = {
       text: 'Lightweight models avoid the need for GPU clusters.',
     },
   ],
+  hero_image: { chunk_id: 'image-a', alt: 'A customs officer beside a document scanner' },
   roadmap:
     'Automatic document classification, deeper ERP integration, and end-to-end declaration generation.',
   footnotes: [

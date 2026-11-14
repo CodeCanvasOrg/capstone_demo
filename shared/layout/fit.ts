@@ -58,7 +58,12 @@ function blockLines(block: ClientBlock, cpl: number): number {
 }
 
 /** Estimated lines for one plan block, scaled by its type size relative to 11 pt. */
-function planBlockLines(block: PlanBlock, template: TemplateDefinition, fontPt: number): number {
+function planBlockLines(
+  block: PlanBlock,
+  template: TemplateDefinition,
+  fontPt: number,
+  plan: LayoutPlan
+): number {
   const scale = fontPt / 11
   const cpl = template.capacity.charsPerLine / scale
   const sectionLines = (section: { heading?: string; blocks: ClientBlock[] }, width: number) =>
@@ -72,6 +77,8 @@ function planBlockLines(block: PlanBlock, template: TemplateDefinition, fontPt: 
       return Math.max(title + summary + 6, block.figure ? 13 : 0)
     }
     case 'results':
+      // A technical evaluation is a table with one row per metric.
+      if (plan.format === 'technical') return 2 + block.items.length * 3.4
       // One band row of up to four stats; more wrap to another row.
       return 8 + Math.max(0, Math.ceil(block.items.length / 4) - 1) * 6
     case 'columns':
@@ -96,6 +103,8 @@ function planBlockLines(block: PlanBlock, template: TemplateDefinition, fontPt: 
         Math.max(...block.items.map((item) => Math.ceil(item.text.length / (cpl / 3.2)))) * scale
       )
     case 'roadmap':
+      if (block.items?.length && plan.format === 'vision')
+        return 5 + Math.max(...block.items.map((entry) => Math.ceil(entry.text.length / (cpl / 3))))
       return 2 + Math.ceil(block.text.length / cpl)
     case 'figure':
       return 14 + (block.caption ? 1.5 : 0)
@@ -109,7 +118,7 @@ function planBlockLines(block: PlanBlock, template: TemplateDefinition, fontPt: 
 /** Page units used (1.0 = one full page) at the plan's current density. */
 export function estimateUnits(plan: LayoutPlan, template: TemplateDefinition): number {
   const lines = plan.blocks.reduce(
-    (sum, block) => sum + planBlockLines(block, template, block.fontPt),
+    (sum, block) => sum + planBlockLines(block, template, block.fontPt, plan),
     0
   )
   return lines / template.capacity.linesPerPage

@@ -39,6 +39,12 @@ export function PageStatus({
   const over = stats.budget !== undefined && stats.pages > stats.budget
   const lines = Math.max(1, Math.round(stats.excess / (stats.lineHeight || 20)))
   const current = layouts.find((layout) => layout.id === selected)
+  // How full the budgeted pages are: whole pages used plus the fill of the last one.
+  const ratio = over
+    ? 1
+    : stats.budget
+      ? Math.min(1, (stats.pages - 1 + Math.min(1, stats.lastFill)) / stats.budget)
+      : 0
   const larger = layouts.find((layout) => layout.pageBudget > (stats.budget ?? 0))
   return (
     <div className="page-status mb-3 space-y-2" data-state={over ? 'over' : 'ok'}>
@@ -77,6 +83,9 @@ export function PageStatus({
             </select>
           </label>
         )}
+        <div className="page-meter" aria-hidden="true">
+          <span style={{ transform: `scaleX(${ratio})` }} />
+        </div>
       </div>
       {over && (
         <div

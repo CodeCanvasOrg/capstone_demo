@@ -1,6 +1,14 @@
 import { z } from 'zod'
 import { COMMENTARY } from './checks.ts'
 import { isFigure } from './figure.ts'
+import {
+  CAPABILITY_STATUSES,
+  FORMAT_HEADINGS,
+  FORMAT_ORDER,
+  STATUS_LABEL,
+  type EntryFormat,
+  type SectionRoleName,
+} from './formats.ts'
 
 /**
  * Structured output contract for a branded one-to-two page entry (feedback §07).
@@ -22,12 +30,47 @@ export const ENTRY_LIMITS = {
   capabilityTitle: 50,
   capabilityText: 200,
   roadmap: 240,
+  limitations: 320,
+  roadmapItems: 4,
+  roadmapWhen: 24,
+  roadmapItemText: 140,
   footnoteText: 240,
   footnotes: 12,
   notes: 20,
   note: 300,
   paragraph: 700,
+  imageAlt: 120,
 } as const
+
+export type EntryLimits = { -readonly [K in keyof typeof ENTRY_LIMITS]: number }
+
+/**
+ * Per-template caps. A one-page template gets tighter counts so regenerated
+ * copy fits its page budget instead of relying on the fitting step to shrink it.
+ */
+export function entryLimitsFor(
+  template?: { pageBudget: number },
+  format: EntryFormat = 'case_study'
+): EntryLimits {
+  const base: EntryLimits =
+    !template || template.pageBudget > 1
+      ? { ...ENTRY_LIMITS }
+      : { ...ENTRY_LIMITS, results: 3, steps: 3, capabilities: 2, roadmap: 120, paragraph: 450 }
+  // Each format has a different natural shape; the one-page cap still wins.
+  const wider = !template || template.pageBudget > 1
+  if (format === 'technical')
+    return { ...base, results: wider ? 4 : 3, steps: wider ? 5 : 4, capabilities: wider ? 4 : 3 }
+  if (format === 'portfolio') return { ...base, capabilities: wider ? 4 : 3 }
+  if (format === 'vision')
+    return {
+      ...base,
+      results: 0,
+      steps: 3,
+      capabilities: wider ? 4 : 3,
+      roadmapItems: wider ? 4 : 3,
+    }
+  return base
+}
 
 export const EVIDENCE_KINDS = ['measured', 'estimated', 'client_reported', 'design_target'] as const
 export const ENTRY_DOC_TYPES = ['client_case_study', 'product', 'research', 'news'] as const
@@ -38,53 +81,84 @@ const paragraph = z.object({
   footnote_ids: ids,
 })
 
-export const entrySchema = z.object({
-  doc_type: z.enum(ENTRY_DOC_TYPES),
-  hero: z.object({
-    headline: z.string().trim().min(1).max(ENTRY_LIMITS.headline),
-    subhead: z.string().trim().min(1).max(ENTRY_LIMITS.subhead),
-  }),
-  results: z
-    .array(
-      z.object({
-        value: z.string().trim().min(1).max(ENTRY_LIMITS.resultValue),
-        comparison: z.enum(['exact', 'up_to', 'at_least', 'range']).optional(),
-        label: z.string().trim().min(1).max(ENTRY_LIMITS.resultLabel),
-        evidence: z.enum(EVIDENCE_KINDS),
-        footnote_ids: ids,
+const buildEntrySchema = (maxCapabilities: number) =>
+  z.object({
+    doc_type: z.enum(ENTRY_DOC_TYPES),
+    hero: z.object({
+      headline: z.string().trim().min(1).max(ENTRY_LIMITS.headline),
+      subhead: z.string().trim().min(1).max(ENTRY_LIMITS.subhead),
+    }),
+    results: z
+      .array(
+        z.object({
+          value: z.string().trim().min(1).max(ENTRY_LIMITS.resultValue),
+          comparison: z.enum(['exact', 'up_to', 'at_least', 'range']).optional(),
+          label: z.string().trim().min(1).max(ENTRY_LIMITS.resultLabel),
+          evidence: z.enum(EVIDENCE_KINDS),
+          footnote_ids: ids,
+        })
+      )
+      .max(ENTRY_LIMITS.results),
+    challenge: paragraph,
+    solution: paragraph,
+    steps: z
+      .array(
+        z.object({
+          title: z.string().trim().min(1).max(ENTRY_LIMITS.stepTitle),
+          text: z.string().trim().min(1).max(ENTRY_LIMITS.stepText),
+        })
+      )
+      .max(ENTRY_LIMITS.steps),
+    capabilities: z
+      .array(
+        z.object({
+          title: z.string().trim().min(1).max(ENTRY_LIMITS.capabilityTitle),
+          text: z.string().trim().min(1).max(ENTRY_LIMITS.capabilityText),
+          /** Availability, written for the vision format only. */
+          status: z.enum(CAPABILITY_STATUSES).optional(),
+        })
+      )
+      .max(maxCapabilities),
+    /** One supplied image chunk for the top-right of the hero; omitted when none suits. */
+    hero_image: z
+      .object({
+        chunk_id: z.string().min(1).max(200),
+        alt: z.string().trim().min(1).max(ENTRY_LIMITS.imageAlt),
       })
-    )
-    .max(ENTRY_LIMITS.results),
-  challenge: paragraph,
-  solution: paragraph,
-  steps: z
-    .array(
-      z.object({
-        title: z.string().trim().min(1).max(ENTRY_LIMITS.stepTitle),
-        text: z.string().trim().min(1).max(ENTRY_LIMITS.stepText),
-      })
-    )
-    .max(ENTRY_LIMITS.steps),
-  capabilities: z
-    .array(
-      z.object({
-        title: z.string().trim().min(1).max(ENTRY_LIMITS.capabilityTitle),
-        text: z.string().trim().min(1).max(ENTRY_LIMITS.capabilityText),
-      })
-    )
-    .max(ENTRY_LIMITS.capabilities),
-  roadmap: z.string().trim().max(ENTRY_LIMITS.roadmap).optional(),
-  footnotes: z
-    .array(
-      z.object({
-        id: z.number().int().min(1),
-        text: z.string().trim().min(1).max(ENTRY_LIMITS.footnoteText),
-        chunks: z.array(z.string().min(1).max(200)).max(6),
-      })
-    )
-    .max(ENTRY_LIMITS.footnotes),
-  reviewer_notes: z.array(z.string().trim().min(1).max(ENTRY_LIMITS.note)).max(ENTRY_LIMITS.notes),
-})
+      .nullable()
+      .optional(),
+    roadmap: z.string().trim().max(ENTRY_LIMITS.roadmap).optional(),
+    /** Technical format: what the evaluation did not cover and what is still open. */
+    limitations: z.string().trim().max(ENTRY_LIMITS.limitations).optional(),
+    /** Vision format: planned work by horizon ("Now", "Next", "Later"). */
+    roadmap_items: z
+      .array(
+        z.object({
+          when: z.string().trim().min(1).max(ENTRY_LIMITS.roadmapWhen),
+          text: z.string().trim().min(1).max(ENTRY_LIMITS.roadmapItemText),
+        })
+      )
+      .max(ENTRY_LIMITS.roadmapItems)
+      .optional(),
+    footnotes: z
+      .array(
+        z.object({
+          id: z.number().int().min(1),
+          text: z.string().trim().min(1).max(ENTRY_LIMITS.footnoteText),
+          chunks: z.array(z.string().min(1).max(200)).max(6),
+        })
+      )
+      .max(ENTRY_LIMITS.footnotes),
+    reviewer_notes: z
+      .array(z.string().trim().min(1).max(ENTRY_LIMITS.note))
+      .max(ENTRY_LIMITS.notes),
+  })
+
+export const entrySchema = buildEntrySchema(ENTRY_LIMITS.capabilities)
+/** The other formats show up to four capability cards. */
+const wideEntrySchema = buildEntrySchema(ENTRY_LIMITS.capabilities + 1)
+export const entrySchemaFor = (format: EntryFormat = 'case_study') =>
+  format === 'case_study' ? entrySchema : wideEntrySchema
 export type BrandedEntry = z.infer<typeof entrySchema>
 
 export type EntryProblem = { code: string; field: string }
@@ -101,6 +175,11 @@ function copyFields(entry: BrandedEntry): [string, string][] {
     ['challenge.text', entry.challenge.text],
     ['solution.text', entry.solution.text],
     ['roadmap', entry.roadmap ?? ''],
+    ['limitations', entry.limitations ?? ''],
+    ...(entry.roadmap_items ?? []).flatMap((r, i): [string, string][] => [
+      [`roadmap_items[${i}].when`, r.when],
+      [`roadmap_items[${i}].text`, r.text],
+    ]),
     ...entry.results.map((r, i): [string, string] => [`results[${i}].label`, r.label]),
     ...entry.steps.flatMap((s, i): [string, string][] => [
       [`steps[${i}].title`, s.title],
@@ -120,8 +199,22 @@ const sentences = (value: string) =>
  * Hygiene the schema cannot express. Failing fields are reported by path so a
  * retry can target them; nothing here claims that a citation proves support.
  */
-export function validateEntry(entry: BrandedEntry): EntryProblem[] {
+export function validateEntry(
+  entry: BrandedEntry,
+  limits: EntryLimits = ENTRY_LIMITS
+): EntryProblem[] {
   const found: EntryProblem[] = []
+  const over = (field: string, size: number, max: number) => {
+    if (size > max) found.push({ code: 'over_template_limit', field })
+  }
+  over('results', entry.results.length, limits.results)
+  over('steps', entry.steps.length, limits.steps)
+  over('capabilities', entry.capabilities.length, limits.capabilities)
+  over('roadmap', (entry.roadmap ?? '').length, limits.roadmap)
+  over('limitations', (entry.limitations ?? '').length, limits.limitations)
+  over('roadmap_items', (entry.roadmap_items ?? []).length, limits.roadmapItems)
+  over('challenge.text', entry.challenge.text.length, limits.paragraph)
+  over('solution.text', entry.solution.text.length, limits.paragraph)
   for (const [field, value] of copyFields(entry)) {
     if (COMMENTARY.test(value)) found.push({ code: 'copy_commentary', field })
     if (IDENTIFIER.test(value)) found.push({ code: 'copy_identifier', field })
@@ -177,6 +270,8 @@ export type ResultSidecar = {
   chunkIds: string[]
 }
 export type EntrySidecar = {
+  /** The format the entry was written in; stored in the publication metadata. */
+  format?: EntryFormat
   results: ResultSidecar[]
   /** Private reviewer notes: never part of the document body. */
   notes: string[]
@@ -204,7 +299,15 @@ const item = (value: string): Node => ({ type: 'listItem', content: [para(value)
  */
 export function entryToDocument(
   entry: BrandedEntry,
-  { allowedChunkIds }: { allowedChunkIds: ReadonlySet<string> }
+  {
+    allowedChunkIds,
+    imageChunkIds = new Set<string>(),
+    format = 'case_study',
+  }: {
+    allowedChunkIds: ReadonlySet<string>
+    imageChunkIds?: ReadonlySet<string>
+    format?: EntryFormat
+  }
 ): { document: { type: 'doc'; content: Node[] }; sidecar: EntrySidecar } {
   const notes = [...entry.reviewer_notes]
   const byId = new Map(entry.footnotes.map((note) => [note.id, note]))
@@ -220,62 +323,99 @@ export function entryToDocument(
   }
 
   const content: Node[] = [heading(1, entry.hero.headline), para(entry.hero.subhead)]
-  const results: ResultSidecar[] = []
-  if (entry.results.length) {
-    content.push(heading(2, SECTION_HEADINGS.results))
-    for (const result of entry.results) {
-      const chunkIds = chunksFor(result.footnote_ids)
-      results.push({
-        index: content.length,
-        text: `${result.value} — ${result.label}`,
-        valueLength: result.value.length,
-        qualifier: result.evidence,
-        ...(result.comparison ? { comparison: result.comparison } : {}),
-        units: result.label,
-        ...(result.footnote_ids.length
-          ? {
-              methodology: result.footnote_ids
-                .map((id) => byId.get(id)?.text)
-                .filter(Boolean)
-                .join(' '),
-            }
-          : {}),
-        chunkIds,
+  // The hero illustration must be an image the application supplied; never an invented one.
+  let droppedImage = false
+  if (entry.hero_image) {
+    if (imageChunkIds.has(entry.hero_image.chunk_id))
+      content.push({
+        type: 'image',
+        attrs: { sourceChunkId: entry.hero_image.chunk_id, alt: entry.hero_image.alt },
       })
-      content.push(para(`${result.value} — ${result.label}`, chunkIds))
-    }
+    else droppedImage = true
   }
-  if (entry.challenge.text) {
-    content.push(heading(2, SECTION_HEADINGS.challenge))
-    content.push(para(entry.challenge.text, chunksFor(entry.challenge.footnote_ids)))
+  const results: ResultSidecar[] = []
+  const heads = FORMAT_HEADINGS[format]
+  const sections: Record<SectionRoleName, () => void> = {
+    results: () => {
+      if (!entry.results.length) return
+      content.push(heading(2, heads.results))
+      for (const result of entry.results) {
+        const chunkIds = chunksFor(result.footnote_ids)
+        results.push({
+          index: content.length,
+          text: `${result.value} — ${result.label}`,
+          valueLength: result.value.length,
+          qualifier: result.evidence,
+          ...(result.comparison ? { comparison: result.comparison } : {}),
+          units: result.label,
+          ...(result.footnote_ids.length
+            ? {
+                methodology: result.footnote_ids
+                  .map((id) => byId.get(id)?.text)
+                  .filter(Boolean)
+                  .join(' '),
+              }
+            : {}),
+          chunkIds,
+        })
+        content.push(para(`${result.value} — ${result.label}`, chunkIds))
+      }
+    },
+    challenge: () => {
+      if (!entry.challenge.text) return
+      content.push(heading(2, heads.challenge))
+      content.push(para(entry.challenge.text, chunksFor(entry.challenge.footnote_ids)))
+    },
+    solution: () => {
+      if (!entry.solution.text) return
+      content.push(heading(2, heads.solution))
+      content.push(para(entry.solution.text, chunksFor(entry.solution.footnote_ids)))
+    },
+    steps: () => {
+      if (!entry.steps.length) return
+      content.push(heading(2, heads.steps))
+      content.push({
+        type: 'orderedList',
+        content: entry.steps.map((step) => item(`${step.title} — ${step.text}`)),
+      })
+    },
+    capabilities: () => {
+      if (!entry.capabilities.length) return
+      content.push(heading(2, heads.capabilities))
+      content.push({
+        type: 'bulletList',
+        content: entry.capabilities.map((cap) =>
+          item(
+            `${format === 'vision' && cap.status ? `[${STATUS_LABEL[cap.status]}] ` : ''}${cap.title} — ${cap.text}`
+          )
+        ),
+      })
+    },
+    roadmap: () => {
+      // Technical: what is still open. Vision: planned work by horizon. Others: one line.
+      if (format === 'technical') {
+        const limits = entry.limitations || entry.roadmap
+        if (!limits) return
+        content.push(heading(2, heads.roadmap), para(limits))
+      } else if (format === 'vision' && entry.roadmap_items?.length) {
+        content.push(heading(2, heads.roadmap))
+        content.push({
+          type: 'orderedList',
+          content: entry.roadmap_items.map((r) => item(`${r.when} — ${r.text}`)),
+        })
+      } else if (entry.roadmap) {
+        content.push(heading(2, heads.roadmap), para(entry.roadmap))
+      }
+    },
   }
-  if (entry.solution.text) {
-    content.push(heading(2, SECTION_HEADINGS.solution))
-    content.push(para(entry.solution.text, chunksFor(entry.solution.footnote_ids)))
-  }
-  if (entry.steps.length) {
-    content.push(heading(2, SECTION_HEADINGS.steps))
-    content.push({
-      type: 'orderedList',
-      content: entry.steps.map((step) => item(`${step.title} — ${step.text}`)),
-    })
-  }
-  if (entry.capabilities.length) {
-    content.push(heading(2, SECTION_HEADINGS.capabilities))
-    content.push({
-      type: 'bulletList',
-      content: entry.capabilities.map((cap) => item(`${cap.title} — ${cap.text}`)),
-    })
-  }
-  if (entry.roadmap) {
-    content.push(heading(2, SECTION_HEADINGS.roadmap))
-    content.push(para(entry.roadmap))
-  }
+  for (const role of FORMAT_ORDER[format]) sections[role]()
 
   if (dropped) notes.push('A citation referenced an unavailable source and was removed.')
+  if (droppedImage)
+    notes.push('The chosen hero image referenced an unavailable image and was removed.')
   if (entry.doc_type !== 'client_case_study')
     notes.push(
       `The material looks like ${entry.doc_type.replace('_', ' ')} content; no template exists for it yet, so it was written as a case study.`
     )
-  return { document: { type: 'doc', content }, sidecar: { results, notes } }
+  return { document: { type: 'doc', content }, sidecar: { format, results, notes } }
 }

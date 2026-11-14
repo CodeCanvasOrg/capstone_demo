@@ -76,6 +76,42 @@ test.group('Native PDF layout (RND-02/03)', () => {
     .timeout(90_000)
     .skip(!enabled, 'Set LAYOUT_NATIVE_PDF=1 to run Chromium + PyMuPDF checks')
 
+  test('the hero and stat band run edge to edge, with no white slivers', async ({ assert }) => {
+    const out = await pdf(fx.brandedClient, 'case_study_concise')
+    const navy = out.report.bleeds.find((rect) => rect.fill === '#0b1f3a')!
+    const yellow = out.report.bleeds.find((rect) => rect.fill === '#f6d900')!
+    for (const rect of [navy, yellow]) {
+      assert.isAtMost(rect.x0, 0.5)
+      assert.isAtLeast(rect.x1, out.report.pageWidth - 0.5)
+    }
+    assert.isAtMost(navy.y0, 0.5)
+  })
+    .timeout(90_000)
+    .skip(!enabled, 'Set LAYOUT_NATIVE_PDF=1 to run Chromium + PyMuPDF checks')
+
+  test('there is clear space between hero, stat band and the challenge/solution row', async ({
+    assert,
+  }) => {
+    const out = await pdf(fx.brandedClient, 'case_study_concise')
+    const navy = out.report.bleeds.find((rect) => rect.fill === '#0b1f3a')!
+    const yellow = out.report.bleeds.find((rect) => rect.fill === '#f6d900')!
+    // 7mm of white space below the blue hero.
+    assert.isAtLeast(yellow.y0 - navy.y1, 18)
+    const challenge = out.report.textBlocks.find((b) => /THE CHALLENGE/i.test(b.text))!
+    assert.isAtLeast(challenge.y0 - yellow.y1, 22)
+  })
+    .timeout(90_000)
+    .skip(!enabled, 'Set LAYOUT_NATIVE_PDF=1 to run Chromium + PyMuPDF checks')
+
+  test('the blue hero keeps clear space below its last line', async ({ assert }) => {
+    const out = await pdf(fx.brandedClient, 'case_study_concise')
+    const navy = out.report.bleeds.find((rect) => rect.fill === '#0b1f3a')!
+    // The subhead is the last text in the hero; its bottom must sit well above the band edge.
+    assert.isAtLeast(navy.y1 - out.report.heroTextBottom, 24)
+  })
+    .timeout(90_000)
+    .skip(!enabled, 'Set LAYOUT_NATIVE_PDF=1 to run Chromium + PyMuPDF checks')
+
   test('no clipped text, no unintended near-empty pages, fonts embedded and not Type 3', async ({
     assert,
   }) => {

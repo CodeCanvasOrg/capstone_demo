@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { ENTRY_FORMATS } from '../layout/formats.ts'
 
 /**
  * Publication content contract v1. Lives under `content.attrs.publication` of
@@ -82,6 +83,8 @@ const unresolved = z.strictObject({
 export const publicationSchema = z.strictObject({
   schemaVersion: z.literal(PUBLICATION_SCHEMA_VERSION),
   docType: z.enum(RESERVED_DOC_TYPES),
+  /** Entry design (portfolio, technical, vision); absent means the case study. */
+  format: z.enum(ENTRY_FORMATS).optional(),
   hero: z.strictObject({ title: nodeRef, summary: nodeRef.optional() }),
   sections: z
     .array(

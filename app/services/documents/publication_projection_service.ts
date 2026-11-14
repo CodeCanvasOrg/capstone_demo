@@ -110,6 +110,7 @@ export default class PublicationProjectionService {
     const client = parseClientRenderData({
       schemaVersion: CLIENT_SCHEMA_VERSION,
       docType: 'case_study',
+      ...(semantic?.format ? { format: semantic.format } : {}),
       ...(title ? { title } : {}),
       ...(summary ? { summary: toClient(summary) } : {}),
       body: blocks.map(toClient),

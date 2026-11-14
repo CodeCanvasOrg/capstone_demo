@@ -17,7 +17,7 @@ test.group('Change requests', (group) => {
     const fixture = await account('ui-send@example.test')
     await browserContext.loginAs(fixture.user)
     const page = await visit(`/workspaces/${fixture.workspace.id}/documents/create`)
-    const send = page.getByRole('button', { name: 'Send', exact: true })
+    const send = page.getByRole('button', { name: 'Generate', exact: true })
     assert.isTrue(await send.isDisabled())
     let body: Record<string, unknown> = {}
     await page.route(`**/workspaces/${fixture.workspace.id}/documents`, (route) => {

@@ -1,6 +1,7 @@
 import { Extension } from '@tiptap/core'
 import { Plugin, PluginKey } from '@tiptap/pm/state'
 import { Decoration, DecorationSet, type EditorView } from '@tiptap/pm/view'
+import { isFormat, STATUS_PREFIX } from '../../../shared/layout/formats.ts'
 import {
   columnLayout,
   paginate,
@@ -57,6 +58,11 @@ export const LayoutView = Extension.create<{ getBudget: () => number | undefined
           },
         },
         props: {
+          // The format picks the design: CSS keys off this attribute on the editor.
+          attributes(state) {
+            const format = (state.doc.attrs.publication as { format?: unknown } | null)?.format
+            return { 'data-format': isFormat(format) ? format : 'case_study' }
+          },
           decorations(state) {
             const { pagination } = key.getState(state)!
             const blocks: { type: string; level?: number; text: string }[] = []
@@ -87,14 +93,25 @@ export const LayoutView = Extension.create<{ getBudget: () => number | undefined
                 for (let j = i; j < end; j++) paired.add(j)
               i = end
             }
+            const heroImage = roles.some((r, i) => r === 'hero' && blocks[i].type === 'image')
             const decorations: Decoration[] = []
             state.doc.forEach((node, offset, index) => {
               const role = roles[index]
               const classes: string[] = []
               if (role) classes.push(`pm-${role}`)
+              // The hero illustration sits top-right; the hero text leaves room for it.
+              if (role === 'hero' && heroImage)
+                classes.push(node.type.name === 'image' ? 'pm-hero-image' : 'pm-hero-has-image')
               if (index === 0 && role === 'hero') classes.push('pm-first')
-              // The last block of a run closes its band with padding.
-              if (role && roles[index + 1] !== role) classes.push('pm-last')
+              // Panels open and close on their first and last in-flow block; the hero image floats.
+              const isImage = node.type.name === 'image'
+              const nextIsFloating =
+                role === 'hero' &&
+                roles[index + 1] === 'hero' &&
+                blocks[index + 1]?.type === 'image'
+              if (role && !isImage && roles[index - 1] !== role) classes.push('pm-start')
+              if (role && !isImage && (roles[index + 1] !== role || nextIsFloating))
+                classes.push('pm-last')
               if (paired.has(index)) classes.push('pm-col')
               if (classes.length)
                 decorations.push(
@@ -102,20 +119,56 @@ export const LayoutView = Extension.create<{ getBudget: () => number | undefined
                 )
             })
 
+            // Availability chips on capabilities and the horizon on roadmap items.
+            state.doc.forEach((node, offset, index) => {
+              const role = roles[index]
+              const lists =
+                (role === 'capabilities' && node.type.name === 'bulletList') ||
+                (role === 'roadmap' && node.type.name === 'orderedList')
+              if (!lists) return
+              node.forEach((item, itemOffset) => {
+                const paragraph = item.firstChild
+                if (!paragraph) return
+                const start = offset + 1 + itemOffset + 2
+                const text = paragraph.textContent
+                const status = STATUS_PREFIX.exec(text)
+                if (role === 'capabilities' && status) {
+                  const label = `[${status[1]}]`
+                  decorations.push(
+                    Decoration.inline(start, start + label.length, {
+                      class: `cap-status cap-status-${status[1].toLowerCase()}`,
+                    })
+                  )
+                }
+                const dash = text.indexOf(' — ')
+                if (role === 'roadmap' && dash > 0) {
+                  decorations.push(
+                    Decoration.inline(start, start + dash, { class: 'tl-when' }),
+                    Decoration.inline(start + dash, start + dash + 3, { class: 'stat-dash' })
+                  )
+                }
+              })
+            })
+
             // Stat figures and evidence badges come from the validated metadata.
             const results = (state.doc.attrs.publication?.results ?? []) as ResultMeta[]
             for (const result of results) {
               if (result.state !== 'active' || !result.value?.nodeId) continue
-              let found: { offset: number; size: number } | undefined
+              let found: { offset: number; size: number; text: string } | undefined
               state.doc.forEach((node, offset) => {
                 if (node.attrs.nodeId === result.value!.nodeId)
-                  found = { offset, size: node.nodeSize }
+                  found = { offset, size: node.nodeSize, text: node.textContent }
               })
               if (!found) continue
               const from = found.offset + 1 + (result.value.from ?? 0)
               const to = found.offset + 1 + (result.value.to ?? 0)
-              if (to > from && to < found.offset + found.size)
+              if (to > from && to < found.offset + found.size) {
                 decorations.push(Decoration.inline(from, to, { class: 'stat-figure' }))
+                // "90% — less time": the dash only separates figure from label in the text.
+                const after = found.text.slice(result.value.to ?? 0, (result.value.to ?? 0) + 3)
+                if (after === ' — ')
+                  decorations.push(Decoration.inline(to, to + 3, { class: 'stat-dash' }))
+              }
               const label = EVIDENCE[result.qualifier ?? '']
               if (label)
                 decorations.push(
@@ -196,6 +249,8 @@ export const LayoutView = Extension.create<{ getBudget: () => number | undefined
               Number.parseFloat(style.paddingTop) + Number.parseFloat(style.paddingBottom)
             const pageHeight = dom.clientWidth * A4_RATIO - padY
             const heights = blocks.map((block) => {
+              // The hero image floats beside the title and takes no height of its own.
+              if (block.classList.contains('pm-hero-image')) return 0
               const s = getComputedStyle(block)
               return (
                 block.getBoundingClientRect().height +

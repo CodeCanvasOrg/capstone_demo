@@ -44,6 +44,19 @@ test.group('Editor section roles', () => {
     assert.deepEqual(roles.slice(2), [null, null])
   })
 
+  test('an image right after the subhead belongs to the hero', ({ assert }) => {
+    const roles = sectionRoles([
+      h(1, 'Title'),
+      p('Sub'),
+      { type: 'image', text: '' },
+      h(2, 'Key results'),
+    ])
+    assert.deepEqual(roles, ['hero', 'hero', 'hero', 'results'])
+    // An image further down is just an image.
+    const later = sectionRoles([h(1, 'T'), p(), h(2, 'The challenge'), { type: 'image', text: '' }])
+    assert.equal(later[3], 'challenge')
+  })
+
   test('a document without a leading title has no hero', ({ assert }) => {
     assert.deepEqual(sectionRoles([p(), h(2, 'The challenge'), p()]), [
       null,

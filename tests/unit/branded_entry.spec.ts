@@ -9,6 +9,7 @@ import { brandedEntry } from '../fixtures/layout/branded_entry.ts'
 
 const clone = () => structuredClone(brandedEntry)
 const allowed = new Set(['chunk-a', 'chunk-b'])
+const images = new Set(['image-a'])
 const codes = (entry: ReturnType<typeof clone>) =>
   validateEntry(entrySchema.parse(entry)).map((problem) => problem.code)
 const text = (node: any): string => node.text ?? (node.content ?? []).map(text).join('')
@@ -115,7 +116,10 @@ test.group('Branded entry schema (feedback §07)', () => {
 
 test.group('Entry to editable document', () => {
   const build = (entry = clone()) =>
-    entryToDocument(entrySchema.parse(entry), { allowedChunkIds: allowed })
+    entryToDocument(entrySchema.parse(entry), {
+      allowedChunkIds: allowed,
+      imageChunkIds: images,
+    })
 
   test('creates ordinary TipTap blocks in the fixed section order', ({ assert }) => {
     const { document } = build()
@@ -125,6 +129,7 @@ test.group('Entry to editable document', () => {
     assert.deepEqual(shape, [
       'h1:Automating customs documentation with local AI',
       'paragraph',
+      'image',
       'h2:Key results',
       'paragraph',
       'paragraph',
@@ -201,5 +206,42 @@ test.group('Entry to editable document', () => {
     const list: any = document.content.find((n: any) => n.type === 'orderedList')
     assert.equal(list.content.length, 4)
     assert.equal(text(list.content[0]), 'Upload — Invoice, packing list or ID as image or PDF.')
+  })
+
+  test('a chosen hero image becomes an image block right after the subhead', ({ assert }) => {
+    const { document, sidecar } = build()
+    const image: any = document.content[2]
+    assert.equal(image.type, 'image')
+    assert.equal(image.attrs.sourceChunkId, 'image-a')
+    assert.equal(image.attrs.alt, 'A customs officer beside a document scanner')
+    // Result anchors still point at their own paragraphs after the insertion.
+    const first: any = document.content[sidecar.results[0].index]
+    assert.equal(text(first), '90% — less time spent processing documents')
+  })
+
+  test('no hero image means no image block: nothing is invented', ({ assert }) => {
+    const entry = clone()
+    delete entry.hero_image
+    const { document } = build(entry)
+    assert.isFalse(document.content.some((n: any) => n.type === 'image'))
+    const nulled = clone()
+    ;(nulled as any).hero_image = null
+    assert.isFalse(build(nulled).document.content.some((n: any) => n.type === 'image'))
+  })
+
+  test('an image chunk that was not supplied is dropped with a private note', ({ assert }) => {
+    const entry = clone()
+    entry.hero_image = { chunk_id: 'chunk-a', alt: 'A text chunk, not an image' }
+    const { document, sidecar } = build(entry)
+    assert.isFalse(document.content.some((n: any) => n.type === 'image'))
+    assert.isTrue(sidecar.notes.some((note) => /image/i.test(note) && /unavailable/i.test(note)))
+  })
+
+  test('the alt text is required and short', ({ assert }) => {
+    const entry = clone()
+    entry.hero_image = { chunk_id: 'image-a', alt: 'x'.repeat(200) }
+    assert.isFalse(entrySchema.safeParse(entry).success)
+    entry.hero_image = { chunk_id: 'image-a', alt: '' }
+    assert.isFalse(entrySchema.safeParse(entry).success)
   })
 })

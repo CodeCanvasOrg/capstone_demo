@@ -31,6 +31,8 @@ export type TaskPayload = {
   inputHash?: string
   baseVersionId?: string | null
   selectionRevision?: number
+  /** Layout template pinned when generation was requested. */
+  layoutTemplate?: { id: string; version: number }
 }
 export type TaskLease = { task: WorkspaceTask; context: WorkspaceAccessContext; token: string }
 const canonical = (value: unknown): unknown =>

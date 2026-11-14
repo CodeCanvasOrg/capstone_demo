@@ -12,8 +12,19 @@ import {
   type TipTapDocument,
 } from './documents/chunk_metadata_service.ts'
 import EmbeddFileService from './documents/embedd_file_service.ts'
-import { BRANDED_ENTRY_PROTOCOL } from './documents/branded_entry_prompt.ts'
-import { entrySchema, entryToDocument, validateEntry } from '../../shared/layout/entry.ts'
+import {
+  BRANDED_ENTRY_PROTOCOL,
+  FORMAT_PROTOCOL,
+  templateGuidance,
+} from './documents/branded_entry_prompt.ts'
+import {
+  entryLimitsFor,
+  entrySchemaFor,
+  type BrandedEntry,
+  entryToDocument,
+  validateEntry,
+} from '../../shared/layout/entry.ts'
+import type { TemplateDefinition } from '../../shared/layout/templates.ts'
 import ContentService from './documents/content_service.ts'
 import { getInitPrompt, getStructuredOutput } from './structured_model_output_service.ts'
 
@@ -269,21 +280,32 @@ export default class OpenRouterService {
     description: string,
     chunks: SourceChunk[],
     outline: OutlineDefinition,
-    guard: () => Promise<void>
+    guard: () => Promise<void>,
+    template?: TemplateDefinition
   ) {
-    const chain = this.model.withStructuredOutput(entrySchema, {
+    const format = outline.entryFormat ?? 'case_study'
+    const limits = entryLimitsFor(template, format)
+    const schema = entrySchemaFor(format)
+    const chain = this.model.withStructuredOutput(schema, {
       method: 'functionCalling',
       name: 'write_branded_entry',
     })
+    // Only images the model is actually shown can be chosen for the hero.
+    const visibleImages = chunks
+      .filter((item) => item.modelFileUrl?.startsWith('data:image/jpeg;base64,'))
+      .slice(0, MAX_SOURCE_IMAGES)
     const content: Array<TextContent | ImageUrlContent> = [
       {
         type: 'text',
-        text: JSON.stringify({ title, brief: description, sources: this.createContext(chunks) }),
+        text: JSON.stringify({
+          title,
+          brief: description,
+          imageChunkIds: visibleImages.map((item) => item.id),
+          sources: this.createContext(chunks),
+        }),
       },
     ]
-    for (const chunk of chunks
-      .filter((item) => item.modelFileUrl?.startsWith('data:image/jpeg;base64,'))
-      .slice(0, MAX_SOURCE_IMAGES)) {
+    for (const chunk of visibleImages) {
       content.push(
         { type: 'text', text: `Source image for chunk ${chunk.id}.` },
         { type: 'image_url', image_url: { url: chunk.modelFileUrl!, detail: 'auto' } }
@@ -294,13 +316,22 @@ export default class OpenRouterService {
     const entry = (await this.runGeneration(
       chain,
       [
-        new SystemMessage(`${outline.instructions}\n\n${BRANDED_ENTRY_PROTOCOL}`),
+        new SystemMessage(
+          [
+            outline.instructions,
+            BRANDED_ENTRY_PROTOCOL,
+            FORMAT_PROTOCOL[format],
+            template && templateGuidance(template, limits),
+          ]
+            .filter(Boolean)
+            .join('\n\n')
+        ),
         new HumanMessage({ content: content as never }),
       ],
       guard,
       {
         validate: (value) => {
-          const parsed = entrySchema.safeParse(value)
+          const parsed = schema.safeParse(value)
           if (!parsed.success)
             throw unusable(
               'The model returned incomplete or invalid entry fields.',
@@ -311,7 +342,7 @@ export default class OpenRouterService {
                   ', '
                 )}. Return every field, within its character limits, using only the allowed values.`
             )
-          const problems = validateEntry(parsed.data)
+          const problems = validateEntry(parsed.data, limits)
           if (problems.length)
             throw unusable(
               'The model returned incomplete or invalid entry fields.',
@@ -324,8 +355,12 @@ export default class OpenRouterService {
           return parsed.data
         },
       }
-    )) as ReturnType<typeof entrySchema.parse>
-    const built = entryToDocument(entry, { allowedChunkIds: new Set(chunks.map((c) => c.id)) })
+    )) as BrandedEntry
+    const built = entryToDocument(entry, {
+      allowedChunkIds: new Set(chunks.map((c) => c.id)),
+      imageChunkIds: new Set(visibleImages.map((c) => c.id)),
+      format,
+    })
     return {
       document: attachChunkMetadata(built.document as TipTapDocument, chunks),
       sidecar: built.sidecar,
