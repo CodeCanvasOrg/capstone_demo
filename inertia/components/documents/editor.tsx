@@ -1,7 +1,6 @@
 import { useWorkspaceId, useUnsavedChanges } from '@/providers/workspace_provider'
 import { router } from '@inertiajs/react'
 import { EditorContent, type JSONContent, useEditor } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder'
 import { useEffect, useRef, useState } from 'react'
 import {
@@ -28,17 +27,32 @@ import { UndoToolbar } from '@/components/toolbars/undo'
 import { RedoToolbar } from '@/components/toolbars/redo'
 import { SourceCitation } from '@/components/extensions/source_citation'
 import { ImageExtension } from '@/components/extensions/image'
-import { PublicationMetadata } from '../../../shared/publication/tiptap_extension.ts'
+import { documentExtensions } from '../../../shared/editor/schema.ts'
+import { LayoutView } from '@/components/extensions/layout_view'
+import {
+  PageStatus,
+  shortenRequest,
+  type LayoutChoice,
+  type PageStats,
+} from '@/components/documents/page_status'
+import { getBrandKit } from '../../../shared/layout/brand.ts'
 import { DocumentImageUpload } from '@/components/documents/image_upload'
 import { ContentValidation } from '@/components/documents/content_validation'
 import { ChangeRequest } from '@/components/documents/change_request'
 import { writingReveal } from '../../../shared/writing_reveal.ts'
 const EMPTY = { type: 'doc', content: [{ type: 'paragraph' }] }
+const palette = getBrandKit('humblebee')!.palette
+/** Brand tokens for the page view come from the same kit the PDF uses. */
+const brandVars = {
+  '--b-primary': palette.primary,
+  '--b-accent': palette.accent,
+  '--b-accent-text': palette.accentText,
+  '--b-text': palette.text,
+  '--b-muted': palette.muted,
+  '--b-surface': palette.surface,
+} as React.CSSProperties
 const extensions = [
-  StarterKit.configure({ heading: { levels: [1, 2, 3, 4] } }),
-  SourceCitation,
-  ImageExtension,
-  PublicationMetadata,
+  ...documentExtensions({ sourceCitation: SourceCitation, image: ImageExtension }),
   Placeholder.configure({ placeholder: 'Tell the story of the work…' }),
 ]
 type Pending = { content: JSONContent; baseVersionId: string | null; mutationId: string }
@@ -67,6 +81,7 @@ export default function DocumentEditor({
   const changed = useRef(false)
   const mounted = useRef(true)
   const blocked = useRef(false)
+  const unreadable = useRef(false)
   const [dirty, setDirty] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
@@ -86,10 +101,77 @@ export default function DocumentEditor({
     onDirtyChange?.(dirty || saving || writing || imagePending || revising)
   }, [dirty, saving, writing, imagePending, revising, onDirtyChange])
   const saveRef = useRef<() => Promise<void>>(async () => {})
+  // Page budget of the pinned layout; the view marks pages beyond it.
+  const [pages] = useState<{ budget?: number }>(() => ({}))
+  const [stats, setStats] = useState<PageStats | null>(null)
+  const [layouts, setLayouts] = useState<LayoutChoice[]>([])
+  const [layout, setLayout] = useState<{
+    templateId: string
+    revision: number
+    options: unknown
+  } | null>(null)
+  const [prefill, setPrefill] = useState('')
+  const [pageExtensions] = useState(() => [
+    ...extensions,
+    LayoutView.configure({ getBudget: () => pages.budget }),
+  ])
+  useEffect(() => {
+    const load = () =>
+      api<{
+        data: {
+          selection: { templateId: string; revision: number; options: unknown }
+          catalog: { templates: { id: string; title: string; pageBudget: number }[] }
+        }
+      }>(`${urlFor('documentLayouts.show', { workspaceId, documentId })}?report=0`)
+        .then(({ data }) => {
+          pages.budget = data.catalog.templates.find(
+            (template) => template.id === data.selection.templateId
+          )?.pageBudget
+          setLayouts(data.catalog.templates)
+          setLayout(data.selection)
+          window.dispatchEvent(new Event('layout-budget'))
+        })
+        .catch(() => {})
+    const onStats = (event: Event) => setStats((event as CustomEvent<PageStats>).detail)
+    void load()
+    window.addEventListener('layout-changed', load)
+    window.addEventListener('layout-stats', onStats)
+    return () => {
+      window.removeEventListener('layout-changed', load)
+      window.removeEventListener('layout-stats', onStats)
+    }
+  }, [workspaceId, documentId, pages])
+  async function switchLayout(templateId: string) {
+    if (!layout || templateId === layout.templateId) return
+    try {
+      await api(urlFor('documentLayouts.update', { workspaceId, documentId }), 'PUT', {
+        templateId,
+        options: layout.options,
+        baseRevision: layout.revision,
+      })
+      // A different layout withdraws review and approval of this version.
+      router.reload({ only: ['document', 'workflow'] })
+      window.dispatchEvent(new Event('layout-changed'))
+    } catch (reason) {
+      setFailure(feedbackError(reason))
+    }
+  }
   const editor = useEditor({
-    extensions,
+    extensions: pageExtensions,
     content: initialContent ?? EMPTY,
     immediatelyRender: false,
+    // Without this Tiptap silently drops what the schema rejects, and the next
+    // autosave would persist the lossy copy over the stored document.
+    enableContentCheck: true,
+    onContentError: ({ editor: failed }) => {
+      blocked.current = true
+      unreadable.current = true
+      if (timer.current) clearTimeout(timer.current)
+      failed.setEditable(false, false)
+      setError(
+        'Part of this document could not be loaded, so editing and saving are paused to protect the saved version. Reload the page or restore an earlier version.'
+      )
+    },
     editorProps: {
       attributes: {
         'aria-label': 'Case-study content',
@@ -105,7 +187,10 @@ export default function DocumentEditor({
     },
   })
   useEffect(() => {
-    editor?.setEditable(generationStatus !== 'processing' && !writing && !revising, false)
+    editor?.setEditable(
+      generationStatus !== 'processing' && !writing && !revising && !unreadable.current,
+      false
+    )
     if (generationStatus === 'processing') waitingForGeneration.current = true
     if (generationStatus === 'failed') waitingForGeneration.current = false
   }, [editor, generationStatus, writing, revising])
@@ -364,7 +449,8 @@ export default function DocumentEditor({
       )}
       <div className="min-h-[85vh] bg-background px-3 py-6 sm:px-7 sm:py-10">
         <div
-          className="document-canvas tiptap-editor mx-auto"
+          className="document-canvas page-view tiptap-editor mx-auto"
+          style={brandVars}
           aria-busy={writing || generationStatus === 'processing'}
         >
           <div className="mb-10 flex items-center justify-between gap-4 text-[.625rem] font-semibold tracking-widest text-muted-foreground uppercase">
@@ -377,6 +463,17 @@ export default function DocumentEditor({
                   : 'First draft'}
             </span>
           </div>
+          <PageStatus
+            stats={stats}
+            layouts={layouts}
+            selected={layout?.templateId ?? ''}
+            disabled={writing || generationStatus === 'processing' || revising}
+            onSwitch={(id) => void switchLayout(id)}
+            onShorten={(lines) => {
+              setPrefill(shortenRequest(pages.budget ?? 1, lines))
+              setAsking(true)
+            }}
+          />
           {!baseVersionId && (
             <div className="mb-8">
               <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h1>
@@ -395,6 +492,7 @@ export default function DocumentEditor({
           editor={editor}
           workspaceId={workspaceId}
           documentId={documentId}
+          initialInstruction={prefill}
           disabled={writing || generationStatus === 'processing' || conflict || imagePending}
           onPendingChange={setRevising}
           onClose={() => {

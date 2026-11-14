@@ -1,10 +1,15 @@
 export const COMPANY_TEMPLATE_IDS = ['portfolio', 'technical', 'vision'] as const
+/** The branded one-to-two page entry: structured output, rendered by the layout templates. */
+export const BRANDED_TEMPLATE_ID = 'case_study'
+export const TEMPLATE_IDS = [BRANDED_TEMPLATE_ID, ...COMPANY_TEMPLATE_IDS] as const
 export type OutlineDefinition = {
   schemaVersion: 2
   name: string
   description: string
   instructions: string
   outline: string
+  /** `branded_entry` is generated as structured fields instead of free sections. */
+  format?: 'branded_entry'
 }
 export type OutlineTemplate = {
   id: string

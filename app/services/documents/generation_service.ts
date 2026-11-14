@@ -11,6 +11,8 @@ import RetrievalService from '#services/documents/retrieval_service'
 import ContentService from '#services/documents/content_service'
 import type { PublicationDocument } from '../../../shared/publication/content.ts'
 import PublicationContentService from '#services/documents/publication_content_service'
+import BrandedEntryService from '#services/documents/branded_entry_service'
+import type { EntrySidecar } from '../../../shared/layout/entry.ts'
 import PublicationReviewService from '#services/documents/publication_review_service'
 import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
 import ClaimReviewService from '#services/documents/claim_review_service'
@@ -187,17 +189,34 @@ export default class GenerationService {
     console.log(
       `[generation ${document.id}] generation started (${document.templateSetup?.outline ? 'outline' : 'freeform'})`
     )
-    const generated = document.templateSetup?.outline
-      ? await provider.generateOutlineWithEvidence(
-          title,
-          prompt,
-          chunks,
-          document.templateSetup.outline.definition,
-          () => tasks.check(lease)
-        )
-      : await provider.generateDocumentWithEvidence(title ?? 'Untitled', prompt, chunks, () =>
-          tasks.check(lease)
-        )
+    const outline = document.templateSetup?.outline
+    let sidecar: EntrySidecar | undefined
+    let generated: Awaited<ReturnType<OpenRouterService['generateDocumentWithEvidence']>>
+    if (outline?.definition.format === 'branded_entry') {
+      // Structured fields become ordinary editable blocks; evidence labels and
+      // reviewer notes travel in the sidecar and land in publication metadata.
+      const entry = await provider.generateBrandedEntry(
+        title ?? 'Untitled',
+        prompt,
+        chunks,
+        outline.definition,
+        () => tasks.check(lease)
+      )
+      generated = entry.document
+      sidecar = entry.sidecar
+    } else {
+      generated = outline
+        ? await provider.generateOutlineWithEvidence(
+            title,
+            prompt,
+            chunks,
+            outline.definition,
+            () => tasks.check(lease)
+          )
+        : await provider.generateDocumentWithEvidence(title ?? 'Untitled', prompt, chunks, () =>
+            tasks.check(lease)
+          )
+    }
     console.log(
       `[generation ${document.id}] generation finished in ${Math.round(performance.now() - generationStart)}ms`
     )
@@ -205,7 +224,8 @@ export default class GenerationService {
     const { attachChunkMetadata } = await import('#services/documents/chunk_metadata_service')
     const content = this.annotate(
       attachChunkMetadata(normalized, chunks),
-      `${document.id}:${lease.task.mutationId}`
+      `${document.id}:${lease.task.mutationId}`,
+      sidecar
     )
     const accepted = await tasks.finish(lease, async (trx) => {
       const current = await Document.query({ client: trx })
@@ -269,7 +289,8 @@ export default class GenerationService {
    */
   private annotate<T extends Parameters<PublicationContentService['mapLegacy']>[0]>(
     content: T,
-    namespace: string
+    namespace: string,
+    sidecar?: EntrySidecar
   ): T {
     try {
       const service = new PublicationContentService()
@@ -284,6 +305,7 @@ export default class GenerationService {
       strip(untrusted.content)
       const { document, report } = service.mapLegacy(untrusted, namespace)
       if (!report.mapped) return content
+      if (sidecar) new BrandedEntryService().apply(service, document, sidecar, namespace)
       const resolvers = service.resolversFor(document)
       return service.accept(document, { resolvers }) as T
     } catch (error) {

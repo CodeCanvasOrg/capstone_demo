@@ -24,7 +24,7 @@ test.group('Company template integration', (group) => {
     catalog.assertStatus(200)
     assert.deepEqual(
       catalog.body().data.map((item: { id: string }) => item.id),
-      ['portfolio', 'technical', 'vision']
+      ['case_study', 'portfolio', 'technical', 'vision']
     )
     const foreign = await client.get(url).loginAs(b.user).header('accept', 'application/json')
     foreign.assertStatus(404)

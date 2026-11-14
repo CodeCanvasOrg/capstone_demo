@@ -1,6 +1,6 @@
 'use client'
 
-import Image from '@tiptap/extension-image'
+import { DocumentImageNode } from '../../../shared/editor/schema.ts'
 import {
   NodeViewContent,
   type NodeViewProps,
@@ -29,62 +29,7 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { cn, duplicateContent } from '@/lib/utils'
 
-export const ImageExtension = Image.extend({
-  addAttributes() {
-    return {
-      src: {
-        default: null,
-      },
-      alt: {
-        default: null,
-      },
-      title: {
-        default: null,
-      },
-      width: {
-        default: '100%',
-      },
-      height: {
-        default: null,
-      },
-      align: {
-        default: 'center',
-      },
-      sourceChunkId: {
-        default: null,
-        renderHTML: () => ({}),
-      },
-      documentImageId: {
-        default: null,
-        renderHTML: () => ({}),
-      },
-      chunkText: {
-        default: null,
-        renderHTML: () => ({}),
-      },
-      fileName: {
-        default: null,
-        renderHTML: () => ({}),
-      },
-      fileUrl: {
-        default: null,
-        renderHTML: () => ({}),
-      },
-      mediaType: {
-        default: null,
-        renderHTML: () => ({}),
-      },
-      chunkIndex: {
-        default: null,
-        renderHTML: () => ({}),
-      },
-      pageNumber: {
-        default: null,
-        renderHTML: () => ({}),
-      },
-    }
-  },
-
+export const ImageExtension = DocumentImageNode.extend({
   addNodeView: () => {
     return ReactNodeViewRenderer(TiptapImage)
   },

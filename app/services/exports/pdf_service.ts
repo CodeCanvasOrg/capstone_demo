@@ -207,7 +207,10 @@ export default class ExportPdfService {
         headerTemplate: '<span></span>',
         footerTemplate:
           '<div style="font-family:Arial;font-size:8px;width:100%;text-align:center">PREVIEW · NOT APPROVED</div>',
-        margin: { top: margin, right: margin, bottom: margin, left: margin },
+        // Template layouts own their page margins (a full-bleed first page) in CSS.
+        ...(layout
+          ? { preferCSSPageSize: true }
+          : { margin: { top: margin, right: margin, bottom: margin, left: margin } }),
       })
     } finally {
       await browser.close()

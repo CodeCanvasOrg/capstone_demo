@@ -75,7 +75,17 @@ export function renumberFootnotes(data: ClientRenderData): ClientRenderData {
     const node = { ...(value as Node) }
     if (node.type === 'reference' && typeof node.number === 'number')
       node.number = remap.get(node.number) ?? node.number
-    if (Array.isArray(node.content)) node.content = node.content.map(rewrite)
+    if (Array.isArray(node.content))
+      // Citations that merged into one source must not print twice in a row ("1,1").
+      node.content = node.content.map(rewrite).filter((child, i, list) => {
+        const prev = list[i - 1] as Node | undefined
+        const self = child as Node
+        return !(
+          self.type === 'reference' &&
+          prev?.type === 'reference' &&
+          prev.number === self.number
+        )
+      })
     return node
   }
   return {

@@ -4,15 +4,18 @@ import LayoutSelectionService from '#services/layout/layout_selection_service'
 import { applyPresetValidator, layoutSelectionValidator } from '#validators/layout'
 
 export default class DocumentLayoutsController {
-  async show({ workspaceAccess, params, response }: HttpContext) {
+  async show({ workspaceAccess, params, request, response }: HttpContext) {
     const service = new LayoutSelectionService()
     const selection = await service.resolve(workspaceAccess!, params.documentId)
     return response.ok({
       data: {
         selection,
         catalog: await service.catalog(workspaceAccess!),
-        // Null until there is a saved version; never blocks reading the selection.
-        report: await new DocumentExportService().layoutReport(workspaceAccess!, params.documentId),
+        // Null until there is a saved version; `?report=0` skips the (rendering) fit check.
+        report:
+          request.qs().report === '0'
+            ? null
+            : await new DocumentExportService().layoutReport(workspaceAccess!, params.documentId),
       },
     })
   }

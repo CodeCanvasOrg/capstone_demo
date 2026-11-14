@@ -61,26 +61,48 @@ function blockLines(block: ClientBlock, cpl: number): number {
 function planBlockLines(block: PlanBlock, template: TemplateDefinition, fontPt: number): number {
   const scale = fontPt / 11
   const cpl = template.capacity.charsPerLine / scale
+  const sectionLines = (section: { heading?: string; blocks: ClientBlock[] }, width: number) =>
+    (section.heading ? 2 : 0) +
+    section.blocks.reduce((sum, child) => sum + blockLines(child, width), 0)
   switch (block.type) {
     case 'hero': {
+      // The navy band: wordmark and kicker, headline, subhead; a figure needs a taller band.
       const title = block.title ? Math.ceil(block.title.length / (cpl * 0.55)) * 1.9 * scale : 0
-      const summary = block.summary ? blockLines(block.summary, cpl) : 0
-      return title + summary + 2
+      const summary = block.summary ? blockLines(block.summary, cpl * (block.figure ? 0.6 : 1)) : 0
+      return Math.max(title + summary + 6, block.figure ? 13 : 0)
     }
     case 'results':
-      return 6 + Math.max(0, Math.ceil(block.items.length / 4) - 1) * 6
-    case 'text':
+      // One band row of up to four stats; more wrap to another row.
+      return 8 + Math.max(0, Math.ceil(block.items.length / 4) - 1) * 6
+    case 'columns':
       return (
-        ((block.heading ? 2 : 0) +
-          block.blocks.reduce((sum, child) => sum + blockLines(child, cpl), 0)) *
+        Math.max(sectionLines(block.left, cpl * 0.48), sectionLines(block.right, cpl * 0.48)) *
         scale
       )
+    case 'text':
+      return sectionLines(block, cpl) * scale
+    case 'steps':
+      return (
+        5 +
+        Math.max(
+          ...block.items.map((item) =>
+            Math.ceil((item.title.length + item.text.length) / (cpl / 4))
+          )
+        )
+      )
+    case 'capabilities':
+      return (
+        5 +
+        Math.max(...block.items.map((item) => Math.ceil(item.text.length / (cpl / 3.2)))) * scale
+      )
+    case 'roadmap':
+      return 2 + Math.ceil(block.text.length / cpl)
     case 'figure':
       return 14 + (block.caption ? 1.5 : 0)
     case 'cta':
       return 4
     case 'sources':
-      return (2 + block.items.length * 1.1) * scale
+      return (2 + block.items.length * 0.5 + block.notes.length * 1.2) * scale
   }
 }
 

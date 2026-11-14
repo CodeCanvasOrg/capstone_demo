@@ -7,7 +7,17 @@ import { ENABLED_DOC_TYPES, type DocType } from '../publication/content.ts'
  * publication contract and styling from a brand kit, so the three change
  * independently. Published versions are frozen.
  */
-export type BlockType = 'hero' | 'results' | 'text' | 'figure' | 'cta' | 'sources'
+export type BlockType =
+  | 'hero'
+  | 'results'
+  | 'columns'
+  | 'text'
+  | 'steps'
+  | 'capabilities'
+  | 'roadmap'
+  | 'figure'
+  | 'cta'
+  | 'sources'
 
 export type BlockRule = {
   type: BlockType
@@ -79,8 +89,12 @@ export const TEMPLATES: readonly TemplateDefinition[] = deepFreeze([
     fallbackTemplateId: 'case_study_standard',
     blocks: [
       block('hero', 'required', 20, 18),
-      block('results', 'collapse', 14, 13, ['text']),
+      block('results', 'collapse', 20, 18, ['columns']),
+      block('columns', 'collapse', 9.5, 9),
       block('text', 'required', 10, 9),
+      block('steps', 'collapse', 9, 8.5),
+      block('capabilities', 'collapse', 9, 8.5),
+      block('roadmap', 'collapse', 9, 8.5),
       block('figure', 'collapse', 9, 9),
       block('cta', 'collapse', 10, 9),
       block('sources', 'collapse', 8.5, 8),
@@ -96,8 +110,12 @@ export const TEMPLATES: readonly TemplateDefinition[] = deepFreeze([
     capacity: { linesPerPage: 54, charsPerLine: 90 },
     blocks: [
       block('hero', 'required', 24, 20),
-      block('results', 'collapse', 16, 14, ['text']),
+      block('results', 'collapse', 24, 20, ['columns']),
+      block('columns', 'collapse', 10.5, 10),
       block('text', 'required', 11, 10),
+      block('steps', 'collapse', 10, 9),
+      block('capabilities', 'collapse', 10, 9),
+      block('roadmap', 'collapse', 10, 9),
       block('figure', 'collapse', 9, 9),
       block('cta', 'collapse', 11, 10),
       block('sources', 'collapse', 9, 8.5),
@@ -131,7 +149,7 @@ export function listTemplates({
 
 export type LayoutOptions = {
   imageMode: 'auto' | 'with' | 'without'
-  cta?: { label: string; href: string }
+  cta?: { label: string; href: string; headline?: string }
 }
 export type OptionError = { code: string; field: string; message: string }
 
@@ -157,7 +175,8 @@ export function resolveOptions(template: TemplateDefinition, input: unknown) {
       })
   }
   if (raw.cta !== undefined) {
-    const cta = raw.cta as { label?: unknown; href?: unknown }
+    const cta = raw.cta as { label?: unknown; href?: unknown; headline?: unknown }
+    const headline = typeof cta?.headline === 'string' ? cta.headline.trim() : ''
     if (
       template.options.cta &&
       cta &&
@@ -165,9 +184,14 @@ export function resolveOptions(template: TemplateDefinition, input: unknown) {
       cta.label.trim() &&
       cta.label.length <= 80 &&
       typeof cta.href === 'string' &&
-      isSafeLink(cta.href)
+      isSafeLink(cta.href) &&
+      (cta.headline === undefined || (typeof cta.headline === 'string' && headline.length <= 120))
     )
-      options.cta = { label: cta.label.trim(), href: cta.href }
+      options.cta = {
+        label: cta.label.trim(),
+        href: cta.href,
+        ...(headline ? { headline } : {}),
+      }
     else
       errors.push({
         code: 'invalid_option_value',

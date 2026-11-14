@@ -10,10 +10,13 @@ export default configApp(...react, {
         allowed: [
           '../../../shared/writing_reveal.ts',
           '../../../shared/publication/tiptap_extension.ts',
+          '../../../shared/editor/schema.ts',
           '../../../shared/publication/content.ts',
           '../../../shared/project_information.ts',
           '../../shared/ui_feedback.ts',
           '../../../shared/templates/outlines',
+          '../../../shared/layout/brand.ts',
+          '../../../shared/layout/pages.ts',
         ],
       },
     ],

@@ -107,6 +107,7 @@ export function LayoutPicker({ documentId, disabled }: { documentId: string; dis
       adopt({ ...data!, ...body.data })
       // Review and approval may have been withdrawn by a layout change.
       router.reload({ only: ['document', 'workflow'] })
+      window.dispatchEvent(new Event('layout-changed'))
     } catch (reason) {
       setError(feedbackError(reason))
     } finally {
@@ -126,6 +127,7 @@ export function LayoutPicker({ documentId, disabled }: { documentId: string; dis
       const body = await api<{ data: Payload }>(url)
       adopt(body.data)
       router.reload({ only: ['document', 'workflow'] })
+      window.dispatchEvent(new Event('layout-changed'))
     } catch (reason) {
       setError(feedbackError(reason))
     } finally {

@@ -85,8 +85,8 @@ const plainText = (nodes: unknown): string =>
   ((nodes as Inline[] | undefined) ?? []).map((n) => n.text ?? plainText(n.content)).join('')
 
 // Narrow phrases that read like retrieval commentary. The word "source" alone is fine.
-const COMMENTARY =
-  /\b(?:the\s+(?:source|sources|documents?|provided\s+materials?)\s+(?:does|do|did)\s+not\b|the\s+source\s+(?:states|says|mentions|notes|indicates|describes|reports|provides)\b|(?:not|n't)\s+(?:specified|mentioned|stated|provided)\s+in\s+the\s+(?:source|sources|documents?)\b|according\s+to\s+the\s+(?:source|provided)\b)/i
+export const COMMENTARY =
+  /\b(?:the\s+(?:source|sources|documents?|provided\s+materials?|supplied\s+materials?|case\s+study|input|brief)\s+(?:does|do|did)\s+not\b|the\s+source\s+(?:states|says|mentions|notes|indicates|describes|reports|provides)\b|(?:not|n't)\s+(?:specified|mentioned|stated|provided)\s+in\s+the\s+(?:source|sources|documents?|case\s+study|input)\b|according\s+to\s+the\s+(?:source|provided)\b)/i
 const NUMBER_CLAIM = /\d+(?:[.,]\d+)?\s*(?:%|percent\b|×)|[$€£]\s?\d/i
 
 export function checkContent(

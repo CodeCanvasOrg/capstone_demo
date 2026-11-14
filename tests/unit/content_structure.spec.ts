@@ -83,9 +83,13 @@ test.group('Content structure repair', () => {
     assert.deepEqual(repair(structuredClone(document)), document)
   })
 
-  test('leaves user-typed rich text strict unless repair is requested', ({ assert }) => {
+  test('rejects invalid user-typed structure unless repair is requested', ({ assert }) => {
     const nested = { type: 'doc', content: [paragraph(paragraph(text('Nested')))] }
-    assert.deepEqual(new ContentService().normalize(structuredClone(nested)), nested)
+    assert.throws(
+      () => new ContentService().normalize(structuredClone(nested)),
+      'Invalid document content'
+    )
+    assert.doesNotThrow(() => valid(repair(nested)))
   })
 })
 

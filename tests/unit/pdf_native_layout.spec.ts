@@ -54,6 +54,28 @@ test.group('Native PDF layout (RND-02/03)', () => {
     .timeout(90_000)
     .skip(!enabled, 'Set LAYOUT_NATIVE_PDF=1 to run Chromium + PyMuPDF checks')
 
+  test('the mockup entry (stat band, steps, cards, roadmap, CTA) fits one concise page', async ({
+    assert,
+  }) => {
+    const out = await pdf(fx.brandedClient, 'case_study_concise', {
+      cta: {
+        label: 'Talk to our team',
+        href: 'https://example.com/contact',
+        headline: 'Building document automation that has to stay in-house?',
+      },
+    })
+    assert.equal(out.report.pages, 1)
+    assert.deepEqual(
+      inspectPages(out.report.pageStats, { budget: 1 }).filter((f) => f.severity === 'error'),
+      []
+    )
+    for (const needle of ['Automating customs', 'UP TO'.toLowerCase(), 'roadmap', 'Upload']) {
+      assert.include(out.report.text.toLowerCase(), needle.toLowerCase())
+    }
+  })
+    .timeout(90_000)
+    .skip(!enabled, 'Set LAYOUT_NATIVE_PDF=1 to run Chromium + PyMuPDF checks')
+
   test('no clipped text, no unintended near-empty pages, fonts embedded and not Type 3', async ({
     assert,
   }) => {

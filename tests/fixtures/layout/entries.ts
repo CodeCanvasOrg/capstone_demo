@@ -130,3 +130,64 @@ export const misspelled: ClientRenderData = {
   ...entry01,
   summary: { type: 'paragraph', content: t('Humblebee AI and Humble Bee AI delivered this.') },
 }
+
+const li = (...items: string[]) =>
+  items.map((item) => ({ type: 'listItem' as const, content: [p(item)] }))
+
+/** The mockup entry as the client DTO: steps, capability cards, roadmap, noted results. */
+export const brandedClient: ClientRenderData = {
+  schemaVersion: 1,
+  docType: 'case_study',
+  title: 'Automating customs documentation with local AI',
+  summary: {
+    type: 'paragraph',
+    content: t('Computer vision and on-premise OCR that digitize invoices, packing lists and IDs.'),
+  },
+  body: [
+    h2('The challenge'),
+    p('Customs staff retyped data from scanned invoices into declaration templates.', 1),
+    h2('The solution'),
+    p('An MVP that runs OCR and LLM services on the client’s own servers.', 2),
+    h2('How it works'),
+    {
+      type: 'orderedList',
+      content: li(
+        'Upload — Invoice, packing list or ID as image or PDF.',
+        'Detect — Computer vision finds stamps, tables and field boundaries.',
+        'Extract — Local OCR and LLM pull structured fields on-premise.',
+        'Review and export — Staff check and edit, then export.'
+      ),
+    },
+    h2('Key capabilities'),
+    {
+      type: 'bulletList',
+      content: li(
+        'Data stays on-premise — No cloud APIs. Names never leave the perimeter.',
+        'Secure by design — Encrypted storage and individual credentials.',
+        'Runs on existing servers — Lightweight models avoid GPU clusters.'
+      ),
+    },
+    h2('Roadmap'),
+    p('Automatic document classification and deeper ERP integration.'),
+  ],
+  results: [
+    {
+      value: '90%',
+      qualifier: 'estimated',
+      comparison: 'up_to',
+      units: 'less time spent processing documents',
+      methodology: 'Estimates reported in the case study; no baseline was published.',
+    },
+    { value: '97%', qualifier: 'client_reported', units: 'reduction in transcription errors' },
+    {
+      value: '1,000',
+      qualifier: 'design_target',
+      units: 'declarants supported by the MVP architecture',
+      methodology: 'Architecture capacity target, not a measured outcome.',
+    },
+  ],
+  sources: [
+    { number: 1, label: 'Customs case study', page: 2 },
+    { number: 2, label: 'Customs case study', page: 3 },
+  ],
+}

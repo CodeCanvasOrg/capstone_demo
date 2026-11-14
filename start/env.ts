@@ -80,6 +80,7 @@ export default await Env.create(new URL('../', import.meta.url), {
   RAG_PIPELINE_VERSION: Env.schema.string(),
   RAG_EMBEDDING_DIMENSIONS: Env.schema.number(),
 
+  GENERATION_FORMAT: Env.schema.enum.optional(['branded', 'legacy'] as const),
   PUBLICATION_LAYOUT: Env.schema.enum.optional(['pilot', 'templates'] as const),
 
   // PDF extraction worker (see config/pdf_worker.ts)

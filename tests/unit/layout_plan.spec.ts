@@ -14,7 +14,11 @@ test.group('Layout plan (TPL-03/04)', () => {
     assert,
   }) => {
     const plan = planLayout(fx.entry01, standard, brand, {})
-    assert.deepEqual(types(plan), ['hero', 'results', 'text', 'text', 'text', 'figure', 'sources'])
+    // Challenge and Solution pair into columns; the first image sits in the hero.
+    assert.deepEqual(types(plan), ['hero', 'results', 'columns', 'text', 'sources'])
+    const hero = plan.blocks[0] as any
+    assert.equal(hero.kicker, 'CASE STUDY')
+    assert.equal(hero.figure.alt, 'Customs dashboard')
     assert.equal(plan.template.id, 'case_study_standard')
     assert.equal(plan.brand.version, brand.version)
   })
@@ -23,15 +27,15 @@ test.group('Layout plan (TPL-03/04)', () => {
     const plan = planLayout(fx.sparse, standard, brand, {})
     assert.deepEqual(types(plan), ['hero', 'text'])
     assert.notInclude(types(plan), 'results')
-    assert.notInclude(types(plan), 'figure')
+    assert.isUndefined((plan.blocks[0] as any).figure)
     assert.notInclude(types(plan), 'cta')
     assert.notInclude(types(plan), 'sources')
   })
 
   test('no-image and no-metric variants keep every text section', ({ assert }) => {
     const noImage = planLayout(fx.noImage, standard, brand, {})
-    assert.notInclude(types(noImage), 'figure')
-    assert.equal(noImage.blocks.filter((b) => b.type === 'text').length, 3)
+    assert.isUndefined((noImage.blocks[0] as any).figure)
+    assert.deepEqual(types(noImage), ['hero', 'results', 'columns', 'text', 'sources'])
     assert.equal(noImage.variant, 'no-image')
 
     const noMetric = planLayout(fx.noMetric, standard, brand, {})
@@ -41,7 +45,7 @@ test.group('Layout plan (TPL-03/04)', () => {
 
   test('imageMode "without" drops figures even when the content has them', ({ assert }) => {
     const plan = planLayout(fx.entry01, standard, brand, { imageMode: 'without' })
-    assert.notInclude(types(plan), 'figure')
+    assert.isUndefined((plan.blocks[0] as any).figure)
     assert.equal(plan.variant, 'no-image')
   })
 
@@ -79,12 +83,120 @@ test.group('Layout plan (TPL-03/04)', () => {
     assert.equal(types(withCta).at(-1), 'sources')
   })
 
-  test('the concise preset keeps selected capabilities but omits the standard-only roadmap', ({
+  test('the concise preset keeps sources and drops nothing the content has', ({ assert }) => {
+    const plan = planLayout(fx.entry01, concise, brand, {})
+    assert.include(types(plan), 'sources')
+    assert.include(types(plan), 'columns')
+  })
+
+  test('the branded entry becomes hero, results, columns, steps, capability cards and roadmap', ({
     assert,
   }) => {
-    const plan = planLayout(fx.entry01, concise, brand, {})
-    assert.notInclude(types(plan), 'roadmap')
-    assert.include(types(plan), 'sources')
+    const plan = planLayout(fx.brandedClient, concise, brand, {})
+    assert.deepEqual(types(plan), [
+      'hero',
+      'results',
+      'columns',
+      'steps',
+      'capabilities',
+      'roadmap',
+      'sources',
+    ])
+    const steps = plan.blocks.find((b) => b.type === 'steps') as any
+    assert.deepEqual(
+      steps.items.map((i: any) => [i.n, i.title]),
+      [
+        ['01', 'Upload'],
+        ['02', 'Detect'],
+        ['03', 'Extract'],
+        ['04', 'Review and export'],
+      ]
+    )
+    assert.equal(steps.items[0].text, 'Invoice, packing list or ID as image or PDF.')
+    const caps = plan.blocks.find((b) => b.type === 'capabilities') as any
+    assert.equal(caps.items.length, 3)
+    assert.equal(caps.items[2].title, 'Runs on existing servers')
+    const roadmap = plan.blocks.find((b) => b.type === 'roadmap') as any
+    assert.include(roadmap.text, 'document classification')
+  })
+
+  test('the Key results section is not repeated as text when results are structured', ({
+    assert,
+  }) => {
+    const data = {
+      ...fx.brandedClient,
+      body: [fx.h2('Key results'), fx.p('90% — less time'), ...fx.brandedClient.body],
+    }
+    const plan = planLayout(data, standard, brand, {})
+    assert.notInclude(JSON.stringify(plan.blocks), 'Key results')
+    // Without structured results the section is ordinary content and stays.
+    const bare = planLayout({ ...data, results: undefined }, standard, brand, {})
+    assert.include(JSON.stringify(bare.blocks), 'Key results')
+  })
+
+  test('results without a figure are not shown as stats and are flagged for review', ({
+    assert,
+  }) => {
+    const data = {
+      ...fx.brandedClient,
+      results: [
+        {
+          value: 'Fewer pixels',
+          qualifier: 'design_target' as const,
+          units: 'frame area analyzed',
+        },
+        fx.measured,
+      ],
+    }
+    const plan = planLayout(data, standard, brand, {})
+    const items = (plan.blocks.find((b) => b.type === 'results') as any).items
+    assert.deepEqual(
+      items.map((i: any) => i.value),
+      ['42%']
+    )
+    assert.include(
+      plan.findings.map((f) => f.code),
+      'non_numeric_result'
+    )
+    // With no usable figure at all, the band collapses.
+    const none = planLayout({ ...data, results: [data.results[0]] }, standard, brand, {})
+    assert.notInclude(types(none), 'results')
+  })
+
+  test('result notes become lettered footnote markers, not extra paragraphs', ({ assert }) => {
+    const plan = planLayout(fx.brandedClient, standard, brand, {})
+    const items = (plan.blocks.find((b) => b.type === 'results') as any).items
+    assert.deepEqual(
+      items.map((i: any) => i.marker),
+      ['a', undefined, 'b']
+    )
+    const sources = plan.blocks.find((b) => b.type === 'sources') as any
+    assert.deepEqual(
+      sources.notes.map((n: any) => n.marker),
+      ['a', 'b']
+    )
+    assert.include(sources.notes[0].text, 'no baseline')
+  })
+
+  test('list items with citations or formatting stay ordinary text rather than losing them', ({
+    assert,
+  }) => {
+    const data = structuredClone(fx.brandedClient)
+    ;(data.body[7] as any).content[0].content[0].content.push({ type: 'reference', number: 1 })
+    const plan = planLayout(data, standard, brand, {})
+    assert.notInclude(types(plan), 'capabilities')
+    assert.include(JSON.stringify(plan.blocks), 'Data stays on-premise')
+  })
+
+  test('a CTA headline is optional and only shown when supplied', ({ assert }) => {
+    const cta = planLayout(fx.entry01, standard, brand, {
+      cta: {
+        label: 'Talk to us',
+        href: 'https://example.com/c',
+        headline: 'Building this in-house?',
+      },
+    }).blocks.find((b) => b.type === 'cta') as any
+    assert.equal(cta.headline, 'Building this in-house?')
   })
 
   test('sections are bound to stable ids so measurements can refer to them', ({ assert }) => {

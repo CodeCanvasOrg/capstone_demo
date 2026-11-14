@@ -17,6 +17,7 @@ export function ChangeRequest({
   disabled,
   onClose,
   onPendingChange,
+  initialInstruction = '',
 }: {
   editor: Editor
   workspaceId: string
@@ -24,8 +25,10 @@ export function ChangeRequest({
   disabled: boolean
   onClose: () => void
   onPendingChange: (pending: boolean) => void
+  /** Optional starting text, e.g. a request to shorten to the page budget. */
+  initialInstruction?: string
 }) {
-  const [instruction, setInstruction] = useState('')
+  const [instruction, setInstruction] = useState(initialInstruction)
   const [pending, setPending] = useState(false)
   const [error, setError] = useState<ApiError | null>(null)
   const [summary, setSummary] = useState('')

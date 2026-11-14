@@ -20,6 +20,8 @@ export type BrandKit = {
   palette: {
     primary: string
     accent: string
+    /** Accent readable as text on white (the bright accent is for fills). */
+    accentText: string
     text: string
     muted: string
     background: string
@@ -64,6 +66,7 @@ export const BRAND_KITS: readonly BrandKit[] = deepFreeze([
     palette: {
       primary: '#0b1f3a',
       accent: '#f6d900',
+      accentText: '#b58900',
       text: '#111827',
       muted: '#4b5563',
       background: '#ffffff',

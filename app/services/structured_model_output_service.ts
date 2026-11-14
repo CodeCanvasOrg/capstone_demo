@@ -55,6 +55,8 @@ function getStructuredOutput({ editor = false }: { editor?: boolean } = {}) {
                   .union([z.number().finite().min(1).max(10000), z.enum(['100%', 'fit-content'])])
                   .nullish(),
                 height: z.number().finite().min(1).max(10000).nullish(),
+                start: z.number().int().min(1).max(100000).nullish(),
+                language: z.string().max(50).nullish(),
                 align: z.enum(['left', 'center', 'right']).nullish(),
               }
             : {}),

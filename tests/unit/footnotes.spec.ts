@@ -59,6 +59,22 @@ test.group('Footnotes (OUT-04)', () => {
     assert.isEmpty(validateFootnotes(out))
   })
 
+  test('two citations that merge into one source print once, not "1,1"', ({ assert }) => {
+    const data = {
+      ...fx.entry01,
+      sources: [
+        { number: 1, label: 'Customs brief', page: 2 },
+        { number: 2, label: 'Customs brief', page: 2 },
+      ],
+      body: [fx.p('Both claims come from the same page.', 1, 2)],
+      summary: undefined,
+    }
+    const out = renumberFootnotes(data as never)
+    const refs = (out.body[0] as any).content.filter((n: any) => n.type === 'reference')
+    assert.lengthOf(refs, 1)
+    assert.lengthOf(out.sources, 1)
+  })
+
   test('different pages of one file stay separate footnotes', ({ assert }) => {
     const out = renumberFootnotes({
       ...fx.entry01,

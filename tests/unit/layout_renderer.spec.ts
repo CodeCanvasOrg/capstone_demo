@@ -14,6 +14,56 @@ const render = (data = fx.entry01, template = standard, options = {}, html = {})
   renderLayoutHtml(planLayout(data, template, brand, options), brand, html)
 
 test.group('Layout renderer (RND-01)', () => {
+  test('the hero is a navy band with wordmark, kicker, headline and subhead', async ({
+    assert,
+  }) => {
+    const html = await render(fx.brandedClient)
+    assert.match(
+      html,
+      /<header class="hero"[^>]*>[\s\S]*HumbleBee AI[\s\S]*CASE STUDY[\s\S]*<h1>Automating/
+    )
+    assert.include(html, `background:${brand.palette.primary}`)
+  })
+
+  test('stat band shows value, evidence tag and lettered note markers', async ({ assert }) => {
+    const html = await render(fx.brandedClient)
+    assert.include(html, 'class="stat-band"')
+    assert.match(html, /class="stat-value">Up to 90%<sup class="mark">a<\/sup>/)
+    assert.match(html, /class="tag">Estimated</)
+    assert.match(html, /class="tag">Client reported</)
+    assert.match(html, /class="tag">Design target</)
+    assert.include(html, 'a. Estimates reported in the case study')
+  })
+
+  test('steps are numbered, capabilities are cards and the roadmap is a strip', async ({
+    assert,
+  }) => {
+    const html = await render(fx.brandedClient)
+    assert.match(html, /class="step-n">01</)
+    assert.match(html, /class="step-n">04</)
+    assert.equal((html.match(/class="card"/g) ?? []).length, 3)
+    assert.match(html, /class="roadmap"[^>]*><span class="roadmap-label">Roadmap<\/span>/)
+  })
+
+  test('challenge and solution sit in two columns', async ({ assert }) => {
+    const html = await render(fx.brandedClient)
+    assert.match(html, /<section class="columns"[^>]*>[\s\S]*The challenge[\s\S]*The solution/)
+  })
+
+  test('the CTA bar carries an optional headline and a link button', async ({ assert }) => {
+    const html = await render(fx.brandedClient, standard, {
+      cta: {
+        label: 'Talk to our team',
+        href: 'https://example.com/c',
+        headline: 'Building this in-house?',
+      },
+    })
+    assert.match(
+      html,
+      /class="cta"[^>]*><span class="cta-headline">Building this in-house\?<\/span><a href="https:\/\/example.com\/c">Talk to our team<\/a>/
+    )
+  })
+
   test('uses brand tokens and embeds the font as data, never a remote URL', async ({ assert }) => {
     const html = await render()
     assert.include(html, brand.palette.primary)
@@ -40,7 +90,7 @@ test.group('Layout renderer (RND-01)', () => {
 
   test('empty optional blocks leave no markup or reserved whitespace', async ({ assert }) => {
     const html = await render(fx.sparse)
-    for (const cls of ['stat-row', 'figure', 'cta', 'sources']) {
+    for (const cls of ['stat-band', 'hero-figure', 'cta', 'sources', 'steps', 'cards', 'roadmap']) {
       assert.notInclude(html, `class="${cls}"`)
     }
     assert.notInclude(html, 'class="results"')
@@ -51,8 +101,8 @@ test.group('Layout renderer (RND-01)', () => {
   }) => {
     assert.notInclude(await render(fx.noImage), '<img')
     const withImage = await render(fx.entry01)
-    assert.include(withImage, '<figure')
-    assert.include(withImage, '<figcaption')
+    assert.include(withImage, '<figure class="hero-figure"')
+    assert.include(withImage, '<img')
   })
 
   test('draft watermark is the only difference between preview and final output', async ({

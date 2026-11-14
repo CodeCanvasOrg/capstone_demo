@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { Link } from '@adonisjs/inertia/react'
 import { Brand } from '@/components/brand'
+import { Bee } from '@/components/bee/bee'
 import { ThemeToggle } from '@/components/theme_toggle'
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
@@ -11,7 +12,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       >
         Skip to content
       </a>
-      <aside className="relative hidden min-h-svh flex-col justify-between overflow-hidden bg-foreground p-12 text-background lg:flex">
+      <aside className="auth-aside relative hidden min-h-svh flex-col justify-between overflow-hidden p-12 text-background lg:flex">
         <Link route="home">
           <Brand />
         </Link>
@@ -33,10 +34,9 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         <p className="relative z-10 text-xs text-background/60">
           Human direction. Intelligent systems.
         </p>
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-24 bottom-8 size-80 rotate-30 border border-primary/40 bg-primary/10"
-        />
+        <div aria-hidden="true" className="auth-glow" />
+        <div aria-hidden="true" className="auth-comb" />
+        <Bee className="auth-bee" />
       </aside>
       <div className="flex min-h-svh flex-col bg-sidebar">
         <header className="flex items-center justify-between p-6 lg:justify-end">
