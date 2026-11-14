@@ -1,64 +1,26 @@
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Node, mergeAttributes } from '@tiptap/core'
+import { SourceCitationNode } from '../../../shared/editor/schema.ts'
 import { ExternalLink, FileText } from 'lucide-react'
 import { type NodeViewProps, NodeViewWrapper, ReactNodeViewRenderer } from '@tiptap/react'
 
-export const SourceCitation = Node.create({
-  name: 'sourceCitation',
-
-  group: 'inline',
-
-  inline: true,
-
-  atom: true,
-
-  selectable: false,
-
-  addAttributes() {
-    return {
-      sourceChunkId: {
-        default: null,
-        parseHTML: (element: { getAttribute(name: string): string | null }) =>
-          element.getAttribute('data-source-chunk-id'),
-        renderHTML: (attributes) => ({ 'data-source-chunk-id': attributes.sourceChunkId }),
-      },
-      chunkText: { default: null, renderHTML: () => ({}) },
-      fileName: { default: null, renderHTML: () => ({}) },
-      fileUrl: { default: null, renderHTML: () => ({}) },
-      mediaType: { default: null, renderHTML: () => ({}) },
-      chunkIndex: { default: null, renderHTML: () => ({}) },
-      pageNumber: { default: null, renderHTML: () => ({}) },
-    }
-  },
-
-  parseHTML() {
-    return [{ tag: 'span[data-source-citation]' }]
-  },
-
+export const SourceCitation = SourceCitationNode.extend({
   renderHTML({ node, HTMLAttributes }) {
     const chunkNumber =
       typeof node.attrs.chunkIndex === 'number' ? ` · chunk ${node.attrs.chunkIndex + 1}` : ''
     const page = typeof node.attrs.pageNumber === 'number' ? ` · page ${node.attrs.pageNumber}` : ''
-    const attributes = mergeAttributes(HTMLAttributes, {
+    const attributes = {
+      ...HTMLAttributes,
       'data-source-citation': 'true',
       'class': 'tiptap-source-citation',
-    })
+    }
     const label = `${node.attrs.fileName || 'Source'}${chunkNumber}${page}`
-
-    if (typeof node.attrs.fileUrl === 'string') {
+    if (typeof node.attrs.fileUrl === 'string')
       return [
         'a',
-        {
-          ...attributes,
-          href: node.attrs.fileUrl,
-          target: '_blank',
-          rel: 'noreferrer',
-        },
+        { ...attributes, href: node.attrs.fileUrl, target: '_blank', rel: 'noreferrer' },
         label,
       ]
-    }
-
     return ['span', attributes, label]
   },
 

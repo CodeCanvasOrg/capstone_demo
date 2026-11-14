@@ -3,12 +3,13 @@ import { usePage, router } from '@inertiajs/react'
 import { Form, Link } from '@adonisjs/inertia/react'
 import { toast } from 'sonner'
 import { safeMessage } from '@/lib/api'
-import { Home, FolderOpen, Files, Users, Plus, LogOut, FileText } from 'lucide-react'
+import { Home, FolderOpen, Files, Users, Plus, LogOut, FileText, BookOpen } from 'lucide-react'
 import type { Data } from '@generated/data'
 import { WorkspacePicker } from '@/components/workspace_picker'
 import { WorkspaceProvider, useWorkspace } from '@/providers/workspace_provider'
 import { Brand } from '@/components/brand'
 import { ThemeToggle } from '@/components/theme_toggle'
+import { BeeGuide, BeeTourButton } from '@/components/bee/bee_guide'
 import { Button } from '@/components/ui/button'
 import {
   SidebarProvider,
@@ -77,6 +78,12 @@ function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps>
           active: page.url.startsWith(`${base}/projects`),
         },
         {
+          route: 'collections.index' as const,
+          label: 'Collections',
+          icon: BookOpen,
+          active: page.url.startsWith(`${base}/collections`),
+        },
+        {
           route: 'files.index' as const,
           label: 'Files',
           icon: Files,
@@ -111,10 +118,12 @@ function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps>
             </Link>
             <SidebarTrigger aria-label="Toggle workspace navigation" className="shrink-0" />
           </div>
-          <WorkspacePicker />
+          <div data-tour="workspace">
+            <WorkspacePicker />
+          </div>
         </SidebarHeader>
         <SidebarContent>
-          <SidebarGroup>
+          <SidebarGroup data-tour="nav">
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.route}>
@@ -145,6 +154,7 @@ function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps>
                 Recent
                 <Button variant="ghost" size="icon-xs" asChild>
                   <Link
+                    data-tour="new-small"
                     route="documents.create"
                     routeParams={{ workspaceId: workspace.id }}
                     aria-label="New case study"
@@ -196,7 +206,7 @@ function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps>
           )}
         </SidebarContent>
         <SidebarFooter className="p-3 group-data-[collapsible=icon]:p-2">
-          <div className="flex items-center gap-2">
+          <div data-tour="account" className="flex items-center gap-2">
             <span className="grid size-8 shrink-0 place-items-center rounded-full border text-xs">
               {user?.initials}
             </span>
@@ -206,7 +216,8 @@ function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps>
                 {page.props.membership?.role ?? 'Account'}
               </p>
             </div>
-            <div className="flex items-center group-data-[collapsible=icon]:hidden">
+            <div className="flex items-center gap-0.5 group-data-[collapsible=icon]:hidden">
+              <BeeTourButton />
               <ThemeToggle />
               <Form route="session.destroy">
                 <Button variant="ghost" size="icon-sm" type="submit" aria-label="Sign out">
@@ -227,6 +238,7 @@ function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps>
           <div key={workspace?.id ?? 'account'}>{children}</div>
         </main>
       </SidebarInset>
+      <BeeGuide />
     </SidebarProvider>
   )
 }

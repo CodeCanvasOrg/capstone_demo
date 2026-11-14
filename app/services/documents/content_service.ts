@@ -3,6 +3,8 @@ import { getStructuredOutput } from '#services/structured_model_output_service'
 import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
 import PublicationContentService from '#services/documents/publication_content_service'
 import type { PublicationDocument } from '../../../shared/publication/content.ts'
+import { Node as ProseMirrorNode } from '@tiptap/pm/model'
+import { documentSchema, isAllowedLinkHref } from '../../../shared/editor/schema.ts'
 
 export default class ContentService {
   /** Generated drafts must contain prose the editor can actually render. */
@@ -41,7 +43,9 @@ export default class ContentService {
     }
     if (JSON.stringify(value).length > 2000000)
       throw new Exception('Document is too large', { status: 422 })
-    const result = getStructuredOutput({ editor: true }).safeParse(value)
+    const result = getStructuredOutput({ editor: true }).safeParse(
+      repair ? sanitizeModelOutput(value) : value
+    )
     if (!result.success)
       throw new Exception('Invalid document content', { status: 422, code: 'E_INVALID_CONTENT' })
     const { attrs, ...rest } = result.data as TipTapDocument & {
@@ -54,13 +58,16 @@ export default class ContentService {
       if (node.attrs) {
         // Editors send `nodeId: null` for blocks that have no identity yet.
         if (node.attrs.nodeId === null || node.attrs.nodeId === undefined) delete node.attrs.nodeId
+        // Defaults the editor re-adds; keeping nulls would make every save look changed.
+        for (const key of ['start', 'language'])
+          if (node.attrs[key] === null) delete node.attrs[key]
         if (!Object.keys(node.attrs).length) delete node.attrs
       }
       for (const mark of node.marks ?? []) {
         const item = mark as { type: string; attrs?: Record<string, unknown> }
         if (item.type === 'link') {
           const href = String(item.attrs?.href ?? '')
-          if (!/^(https?:\/\/|mailto:)/i.test(href))
+          if (!isAllowedLinkHref(href))
             throw new Exception('Unsupported link protocol', { status: 422 })
           item.attrs = { href, target: '_blank', rel: 'noopener noreferrer' }
         } else delete item.attrs
@@ -68,6 +75,14 @@ export default class ContentService {
       node.content?.forEach((child) => visit(child, depth + 1))
     }
     document.content.forEach((node) => visit(node))
+    // The editor's own schema is the final authority: anything it would drop or
+    // reject on load is refused here instead of being silently lost on the next save.
+    try {
+      // A blank document is stored empty; the editor supplies its first paragraph.
+      if (document.content.length) ProseMirrorNode.fromJSON(documentSchema(), document).check()
+    } catch {
+      throw new Exception('Invalid document content', { status: 422, code: 'E_INVALID_CONTENT' })
+    }
     // Only the publication namespace survives on the root; it is validated strictly.
     if (attrs?.publication !== null && attrs?.publication !== undefined)
       return new PublicationContentService().accept(
@@ -166,4 +181,74 @@ function listItem(node: Node): Node {
 
 function textOf(node: Node): string {
   return node.text ?? (node.content ?? []).map(textOf).join('')
+}
+
+const NODE_TYPES = new Set([
+  'paragraph',
+  'heading',
+  'text',
+  'bulletList',
+  'orderedList',
+  'listItem',
+  'blockquote',
+  'codeBlock',
+  'horizontalRule',
+  'hardBreak',
+  'image',
+  'sourceCitation',
+])
+const MARK_TYPES = new Set(['bold', 'italic', 'strike', 'underline', 'code', 'link'])
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  !!value && typeof value === 'object' && !Array.isArray(value)
+
+/**
+ * Model output is untrusted and often almost right. Fixes what has one obvious
+ * reading (string or out-of-range heading levels, `attrs: null`, unknown marks,
+ * unsafe links, unknown wrapper nodes) so one slip does not discard a whole
+ * draft. Anything it cannot interpret is left for schema validation to reject.
+ */
+export function sanitizeModelOutput(value: unknown): unknown {
+  if (!isRecord(value)) return value
+  return { ...value, content: cleanNodes(value.content) }
+}
+
+function cleanNodes(value: unknown): unknown {
+  if (!Array.isArray(value)) return value
+  return value.flatMap((node) => cleanNode(node))
+}
+
+function cleanNode(node: unknown): unknown[] {
+  if (!isRecord(node)) return [node]
+  const content = cleanNodes(node.content)
+  // Unknown containers (tables, callouts) keep their children instead of failing.
+  if (typeof node.type !== 'string' || !NODE_TYPES.has(node.type))
+    return typeof node.type === 'string' && Array.isArray(content) ? content : [node]
+  const out: Record<string, unknown> = { ...node, ...(content !== undefined ? { content } : {}) }
+  if (isRecord(node.attrs)) {
+    const attrs = { ...node.attrs }
+    if (node.type === 'heading') {
+      const level = Math.round(Number(attrs.level))
+      attrs.level = Number.isFinite(level) ? Math.min(4, Math.max(1, level)) : 2
+    }
+    if (node.type === 'orderedList' && attrs.start !== undefined) {
+      const start = Math.round(Number(attrs.start))
+      if (Number.isFinite(start) && start >= 1) attrs.start = start
+      else delete attrs.start
+    }
+    out.attrs = attrs
+  } else {
+    delete out.attrs
+    if (node.type === 'heading') out.attrs = { level: 2 }
+  }
+  if (Array.isArray(node.marks)) {
+    const marks = node.marks.filter((mark) => {
+      if (!isRecord(mark) || typeof mark.type !== 'string' || !MARK_TYPES.has(mark.type))
+        return false
+      // An unsafe link keeps its text; it just stops being a link.
+      return mark.type !== 'link' || (isRecord(mark.attrs) && isAllowedLinkHref(mark.attrs.href))
+    })
+    if (marks.length > 0) out.marks = marks
+    else delete out.marks
+  }
+  return [out]
 }

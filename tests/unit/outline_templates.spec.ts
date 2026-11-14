@@ -11,7 +11,7 @@ test.group('Company output guides', () => {
   test('loads versioned company Markdown and rejects arbitrary paths', async ({ assert }) => {
     const service = new OutlineTemplateService()
     for (const id of COMPANY_TEMPLATE_IDS) {
-      const template = await service.resolve(id)
+      const template = await service.resolve(id, { legacy: true })
       assert.match(template.revision, /^[a-f0-9]{64}$/)
       assert.include(template.definition.instructions, 'Never invent percentages')
       assert.equal(outlineSections(template.definition.outline)[1].heading, 'Executive Summary')

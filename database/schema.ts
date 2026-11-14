@@ -101,12 +101,14 @@ export class ChunkSchema extends BaseModel {
 }
 
 export class DocumentApprovalSchema extends BaseModel {
-  static $columns = ['approvedById', 'authority', 'createdAt', 'documentId', 'id', 'invalidatedAt', 'invalidationReason', 'renderConfigurationHash', 'reviewId', 'revocationReason', 'revokedAt', 'revokedById', 'snapshotHash', 'updatedAt', 'validationReportId', 'versionId', 'warningAcknowledgments', 'workspaceId'] as const
+  static $columns = ['approvedById', 'authority', 'bundleHash', 'createdAt', 'documentId', 'id', 'invalidatedAt', 'invalidationReason', 'renderConfigurationHash', 'reviewId', 'revocationReason', 'revokedAt', 'revokedById', 'snapshotHash', 'updatedAt', 'validationReportId', 'versionId', 'warningAcknowledgments', 'workspaceId'] as const
   $columns = DocumentApprovalSchema.$columns
   @column()
   declare approvedById: number
   @column()
   declare authority: string | null
+  @column()
+  declare bundleHash: string | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
   @column()
@@ -383,6 +385,35 @@ export class DocumentIssueSchema extends BaseModel {
   declare validationReportId: string | null
   @column()
   declare versionId: string | null
+  @column()
+  declare workspaceId: string
+}
+
+export class DocumentLayoutSchema extends BaseModel {
+  static $columns = ['brandId', 'brandVersion', 'createdAt', 'documentId', 'options', 'presetId', 'revision', 'templateId', 'templateVersion', 'updatedAt', 'updatedBy', 'workspaceId'] as const
+  $columns = DocumentLayoutSchema.$columns
+  @column()
+  declare brandId: string
+  @column()
+  declare brandVersion: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare documentId: string
+  @column()
+  declare options: any
+  @column()
+  declare presetId: string | null
+  @column()
+  declare revision: number
+  @column()
+  declare templateId: string
+  @column()
+  declare templateVersion: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare updatedBy: number | null
   @column()
   declare workspaceId: string
 }
@@ -705,6 +736,62 @@ export class FileSchema extends BaseModel {
   declare userId: number
   @column()
   declare workspaceId: string | null
+}
+
+export class LayoutPresetSchema extends BaseModel {
+  static $columns = ['brandId', 'brandVersion', 'createdAt', 'createdBy', 'id', 'name', 'options', 'templateId', 'templateVersion', 'updatedAt', 'workspaceId'] as const
+  $columns = LayoutPresetSchema.$columns
+  @column()
+  declare brandId: string
+  @column()
+  declare brandVersion: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare createdBy: number | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare name: string
+  @column()
+  declare options: any
+  @column()
+  declare templateId: string
+  @column()
+  declare templateVersion: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare workspaceId: string
+}
+
+export class PortfolioCollectionSchema extends BaseModel {
+  static $columns = ['approvedAt', 'approvedBy', 'approvedHash', 'createdAt', 'createdBy', 'id', 'manifest', 'manifestHash', 'name', 'status', 'updatedAt', 'workspaceId'] as const
+  $columns = PortfolioCollectionSchema.$columns
+  @column.dateTime()
+  declare approvedAt: DateTime | null
+  @column()
+  declare approvedBy: number | null
+  @column()
+  declare approvedHash: string | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare createdBy: number | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare manifest: any
+  @column()
+  declare manifestHash: string
+  @column()
+  declare name: string
+  @column()
+  declare status: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare workspaceId: string
 }
 
 export class ProcessingRunSchema extends BaseModel {

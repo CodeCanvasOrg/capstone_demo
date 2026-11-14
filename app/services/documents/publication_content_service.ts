@@ -405,6 +405,7 @@ export default class PublicationContentService {
         contentHash: this.contentHash(current),
       } satisfies PublicationIdentity,
       docType: accepted.docType,
+      ...(accepted.format ? { format: accepted.format } : {}),
       hero: {
         title: { nodeId: accepted.hero.title.nodeId, text: text(accepted.hero.title.nodeId) },
         ...(accepted.hero.summary

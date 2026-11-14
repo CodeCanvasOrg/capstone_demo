@@ -3,6 +3,8 @@
  * It is a closed union rebuilt field by field: unknown nodes, marks and
  * attributes are rejected, never passed through.
  */
+import { isFormat, type EntryFormat } from '../layout/formats.ts'
+
 export const CLIENT_SCHEMA_VERSION = 1
 
 export type ClientMark =
@@ -56,6 +58,8 @@ export type ClientResult = {
 export type ClientRenderData = {
   schemaVersion: typeof CLIENT_SCHEMA_VERSION
   docType: 'case_study'
+  /** Which entry design renders this document; absent means the case study. */
+  format?: EntryFormat
   title?: string
   summary?: Extract<ClientBlock, { type: 'paragraph' }>
   body: ClientBlock[]
@@ -243,7 +247,16 @@ export function parseClientRenderData(value: unknown): ClientRenderData {
       .filter((n): n is ClientBlock => !!n)
 
   if (!isObj(value)) throw new ClientContentError([{ field: '$', code: 'expected_object' }])
-  only(value, '$', ['schemaVersion', 'docType', 'title', 'summary', 'body', 'results', 'sources'])
+  only(value, '$', [
+    'schemaVersion',
+    'docType',
+    'format',
+    'title',
+    'summary',
+    'body',
+    'results',
+    'sources',
+  ])
   if (value.schemaVersion !== CLIENT_SCHEMA_VERSION) fail('schemaVersion', 'unsupported_version')
   if (value.docType !== 'case_study') fail('docType', 'unsupported_type')
 
@@ -252,6 +265,10 @@ export function parseClientRenderData(value: unknown): ClientRenderData {
     docType: 'case_study',
     body: [],
     sources: [],
+  }
+  if (value.format !== undefined) {
+    if (isFormat(value.format)) out.format = value.format
+    else fail('format', 'unsupported_format')
   }
   if (value.title !== undefined) out.title = text(value.title, 'title')
   if (value.summary !== undefined) {

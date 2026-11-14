@@ -12,6 +12,19 @@ import {
   type TipTapDocument,
 } from './documents/chunk_metadata_service.ts'
 import EmbeddFileService from './documents/embedd_file_service.ts'
+import {
+  BRANDED_ENTRY_PROTOCOL,
+  FORMAT_PROTOCOL,
+  templateGuidance,
+} from './documents/branded_entry_prompt.ts'
+import {
+  entryLimitsFor,
+  entrySchemaFor,
+  type BrandedEntry,
+  entryToDocument,
+  validateEntry,
+} from '../../shared/layout/entry.ts'
+import type { TemplateDefinition } from '../../shared/layout/templates.ts'
 import ContentService from './documents/content_service.ts'
 import { getInitPrompt, getStructuredOutput } from './structured_model_output_service.ts'
 
@@ -258,6 +271,103 @@ export default class OpenRouterService {
   }
 
   /**
+   * Structured branded entry: the model fills the fields of one schema and the
+   * application turns them into ordinary editable blocks. Output that breaks the
+   * schema or the copy rules is retried with the failing field paths named.
+   */
+  async generateBrandedEntry(
+    title: string,
+    description: string,
+    chunks: SourceChunk[],
+    outline: OutlineDefinition,
+    guard: () => Promise<void>,
+    template?: TemplateDefinition
+  ) {
+    const format = outline.entryFormat ?? 'case_study'
+    const limits = entryLimitsFor(template, format)
+    const schema = entrySchemaFor(format)
+    const chain = this.model.withStructuredOutput(schema, {
+      method: 'functionCalling',
+      name: 'write_branded_entry',
+    })
+    // Only images the model is actually shown can be chosen for the hero.
+    const visibleImages = chunks
+      .filter((item) => item.modelFileUrl?.startsWith('data:image/jpeg;base64,'))
+      .slice(0, MAX_SOURCE_IMAGES)
+    const content: Array<TextContent | ImageUrlContent> = [
+      {
+        type: 'text',
+        text: JSON.stringify({
+          title,
+          brief: description,
+          imageChunkIds: visibleImages.map((item) => item.id),
+          sources: this.createContext(chunks),
+        }),
+      },
+    ]
+    for (const chunk of visibleImages) {
+      content.push(
+        { type: 'text', text: `Source image for chunk ${chunk.id}.` },
+        { type: 'image_url', image_url: { url: chunk.modelFileUrl!, detail: 'auto' } }
+      )
+    }
+    const unusable = (message: string, corrective: string) =>
+      Object.assign(new Error(message), { status: 422, unusableOutput: true, corrective })
+    const entry = (await this.runGeneration(
+      chain,
+      [
+        new SystemMessage(
+          [
+            outline.instructions,
+            BRANDED_ENTRY_PROTOCOL,
+            FORMAT_PROTOCOL[format],
+            template && templateGuidance(template, limits),
+          ]
+            .filter(Boolean)
+            .join('\n\n')
+        ),
+        new HumanMessage({ content: content as never }),
+      ],
+      guard,
+      {
+        validate: (value) => {
+          const parsed = schema.safeParse(value)
+          if (!parsed.success)
+            throw unusable(
+              'The model returned incomplete or invalid entry fields.',
+              `The previous response broke the schema at: ${parsed.error.issues
+                .slice(0, 8)
+                .map((issue) => issue.path.join('.') || 'root')
+                .join(
+                  ', '
+                )}. Return every field, within its character limits, using only the allowed values.`
+            )
+          const problems = validateEntry(parsed.data, limits)
+          if (problems.length)
+            throw unusable(
+              'The model returned incomplete or invalid entry fields.',
+              `The previous response broke these copy rules: ${problems
+                .map((problem) => `${problem.code} at ${problem.field}`)
+                .join(
+                  '; '
+                )}. Fix only those fields. Never write about the source; leave missing information empty and add a reviewer note.`
+            )
+          return parsed.data
+        },
+      }
+    )) as BrandedEntry
+    const built = entryToDocument(entry, {
+      allowedChunkIds: new Set(chunks.map((c) => c.id)),
+      imageChunkIds: new Set(visibleImages.map((c) => c.id)),
+      format,
+    })
+    return {
+      document: attachChunkMetadata(built.document as TipTapDocument, chunks),
+      sidecar: built.sidecar,
+    }
+  }
+
+  /**
    * Returns block-level edits for a requested change instead of a rewrite, so
    * every block the model does not name stays exactly as the author left it.
    */
@@ -408,7 +518,8 @@ export default class OpenRouterService {
             invocationInput = [
               ...input,
               new HumanMessage(
-                'The previous response could not be used. Return a complete response matching the requested schema. Include every requested section exactly once, with readable body prose. Paragraph and heading text must be nested text nodes in content, never a text property on the block. Preserve the original evidence and instructions.'
+                (error as { corrective?: string }).corrective ??
+                  'The previous response could not be used. Return a complete response matching the requested schema. Include every requested section exactly once, with readable body prose. Paragraph and heading text must be nested text nodes in content, never a text property on the block. Preserve the original evidence and instructions.'
               ),
             ]
           logger.warn(

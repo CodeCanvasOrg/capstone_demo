@@ -129,7 +129,7 @@ export default class LegacyTemplateService {
           : definition?.definition.key === 'CS-VISION'
             ? 'vision'
             : 'portfolio'
-      const outline = await new OutlineTemplateService().resolve(key)
+      const outline = await new OutlineTemplateService().resolve(key, { legacy: true })
       const latest = await DocumentVersion.query({ client: trx })
         .where('documentId', doc.id)
         .orderBy('version', 'desc')

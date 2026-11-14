@@ -20,6 +20,21 @@ export class ApiError extends Error {
 }
 
 const knownMessages: Record<string, string> = {
+  'The layout selection changed. Reload it and try again.':
+    'The layout was changed elsewhere. Reload it before saving.',
+  'The content, layout or brand changed after approval. Review and approve again.':
+    'The content or layout changed after approval. Review and approve again.',
+  'A preset with this name already exists in the workspace.':
+    'A preset with this name already exists. Choose another name.',
+  'Select at least one entry.': 'Select at least one case study.',
+  'This collection changed. Reload it and try again.':
+    'This collection changed. Reload it before saving.',
+  'This collection changed. Review the current version before approving.':
+    'This collection changed. Review the current version before approving.',
+  'An entry changed after it was added. Update the collection first.':
+    'A case study changed after it was added. Update the collection, then approve again.',
+  'The collection approval is missing, stale or an entry changed.':
+    'Approve the current collection before publishing.',
   'This invitation is no longer pending':
     'This invitation is no longer pending. Check its current status.',
   'This invitation was already used': 'This invitation has already been accepted.',

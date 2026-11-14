@@ -6,6 +6,7 @@ import db from '@adonisjs/lucid/services/db'
 import type { TransactionClientContract } from '@adonisjs/lucid/types/database'
 import WorkspaceTask from '#models/workspace_task'
 import Workspace from '#models/workspace'
+import { StageTracker, type PipelineStage } from '../../../shared/ops/stages.ts'
 import TaskDispatch from '#models/task_dispatch'
 import AccessService, {
   conflict,
@@ -30,6 +31,8 @@ export type TaskPayload = {
   inputHash?: string
   baseVersionId?: string | null
   selectionRevision?: number
+  /** Layout template pinned when generation was requested. */
+  layoutTemplate?: { id: string; version: number }
 }
 export type TaskLease = { task: WorkspaceTask; context: WorkspaceAccessContext; token: string }
 const canonical = (value: unknown): unknown =>
@@ -191,6 +194,22 @@ export default class TaskService {
   async check(lease: TaskLease) {
     await db.transaction((trx) => this.lock(lease, trx))
   }
+  /**
+   * Records the current named stage and per-stage durations. Fenced by the
+   * lease, so an expired worker cannot overwrite a newer one's progress. Only
+   * stage names and millisecond timings are stored: no content, keys or excerpts.
+   */
+  async recordStage(lease: TaskLease, stage: PipelineStage) {
+    await db.transaction(async (trx) => {
+      const task = await this.lock(lease, trx)
+      const tracker = task.telemetry?.stages
+        ? StageTracker.restore(task.telemetry.stages)
+        : new StageTracker()
+      tracker.start(stage)
+      task.merge({ stage, telemetry: { ...task.telemetry, stages: tracker.snapshot() } })
+      await task.save()
+    })
+  }
   async renew(lease: TaskLease) {
     await db.transaction(async (trx) => {
       const task = await this.lock(lease, trx)
@@ -212,7 +231,18 @@ export default class TaskService {
           .firstOrFail()
       const task = await this.lock(lease, trx)
       const result = callback ? await callback(trx) : {}
-      task.merge({ status: 'succeeded', result, leaseToken: null, leaseExpiresAt: null })
+      const stages = task.telemetry?.stages
+        ? StageTracker.restore(task.telemetry.stages)
+        : undefined
+      if (stages) stages.complete()
+      task.merge({
+        status: 'succeeded',
+        result,
+        leaseToken: null,
+        leaseExpiresAt: null,
+        stage: 'ready_for_review',
+        ...(stages ? { telemetry: { ...task.telemetry, stages: stages.snapshot() } } : {}),
+      })
       await task.save()
       return result
     })
@@ -301,6 +331,9 @@ export default class TaskService {
       kind: task.kind,
       status: task.status,
       error: task.safeError,
+      stage: task.stage,
+      // Named stages and durations only; never a percentage the system cannot know.
+      timings: (task.telemetry?.stages?.timings ?? {}) as Record<string, number>,
       result:
         task.kind === 'render' && task.status === 'succeeded'
           ? {

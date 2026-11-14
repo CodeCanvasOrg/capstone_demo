@@ -43,6 +43,28 @@ export interface ApiDefinition {
   templates: {
     index: typeof routes['templates.index']
   }
+  layoutCatalog: {
+    show: typeof routes['layoutCatalog.show']
+  }
+  documentLayouts: {
+    show: typeof routes['documentLayouts.show']
+    update: typeof routes['documentLayouts.update']
+    applyPreset: typeof routes['documentLayouts.applyPreset']
+  }
+  layoutPresets: {
+    index: typeof routes['layoutPresets.index']
+    store: typeof routes['layoutPresets.store']
+    update: typeof routes['layoutPresets.update']
+    duplicate: typeof routes['layoutPresets.duplicate']
+    destroy: typeof routes['layoutPresets.destroy']
+  }
+  collections: {
+    index: typeof routes['collections.index']
+    store: typeof routes['collections.store']
+    show: typeof routes['collections.show']
+    update: typeof routes['collections.update']
+    approve: typeof routes['collections.approve']
+  }
   projects: {
     index: typeof routes['projects.index']
     store: typeof routes['projects.store']

@@ -1,5 +1,6 @@
 import vine from '@vinejs/vine'
-import { COMPANY_TEMPLATE_IDS } from '../../shared/templates/outlines.ts'
+import { TEMPLATE_IDS } from '../../shared/templates/outlines.ts'
+import { MAX_INSTRUCTIONS } from '../../shared/templates/instructions.ts'
 const projectInformation = vine.object({
   overview: vine.string().maxLength(20000).optional(),
   problemStatement: vine.string().maxLength(20000).optional(),
@@ -25,8 +26,10 @@ const fields = {
 }
 export const documentValidator = vine.create({
   // null writes a freeform case study; omitted keeps the portfolio outline.
-  templateId: vine.enum(COMPANY_TEMPLATE_IDS).nullable().optional(),
+  templateId: vine.enum(TEMPLATE_IDS).nullable().optional(),
   ...fields,
+  // Optional steering for the model; an empty value falls back to the default instructions.
+  instructions: vine.string().trim().maxLength(MAX_INSTRUCTIONS).nullable().optional(),
   // Omitted titles are written by the model on the first successful generation.
   title: vine.string().trim().minLength(1).maxLength(255).optional(),
   files: vine

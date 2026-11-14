@@ -2,6 +2,7 @@ import { Head } from '@inertiajs/react'
 import { Form, Link } from '@adonisjs/inertia/react'
 import type { Data } from '@generated/data'
 import { Plus, Folder, Settings2, ArrowRight, Save, FilePlus2 } from 'lucide-react'
+import { Bee } from '@/components/bee/bee'
 import { useWorkspace } from '@/providers/workspace_provider'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -27,10 +28,13 @@ export default function Home({
   if (!workspace) return null
   const workspaceId = workspace.id
   return (
-    <div className="minimal-page max-w-5xl space-y-12">
+    <div className="minimal-page max-w-5xl space-y-10">
       <Head title={workspace.name} />
       <header className="flex items-center justify-between gap-4">
-        <h1 className="truncate text-lg font-semibold">{workspace.name}</h1>
+        <div className="min-w-0">
+          <p className="eyebrow mb-1.5">Workspace</p>
+          <h1 className="truncate text-2xl font-semibold">{workspace.name}</h1>
+        </div>
         {workspaceCapabilities?.manageMembers && (
           <Dialog>
             <DialogTrigger asChild>
@@ -78,21 +82,30 @@ export default function Home({
         )}
       </header>
       <Link
+        data-tour="new"
         route="documents.create"
         routeParams={{ workspaceId }}
-        className="group flex items-center justify-between rounded-xl border bg-muted/20 px-5 py-6 transition-colors hover:bg-muted/50"
+        className="cta-card group"
       >
-        <span className="flex items-center gap-3 text-base font-medium tracking-tight">
-          <FilePlus2 aria-hidden="true" className="size-5" />
-          New case study
+        <span className="relative z-10">
+          <span className="flex items-center gap-2.5 text-lg font-semibold tracking-tight">
+            <FilePlus2 aria-hidden="true" className="size-5" />
+            New case study
+          </span>
+          <span className="mt-1 block max-w-sm text-sm leading-6 opacity-70">
+            Start from a template or a few rough notes. We’ll shape the story together.
+          </span>
         </span>
-        <span className="grid size-8 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
-          <ArrowRight className="size-4" />
+        <span className="relative z-10 flex items-center gap-4">
+          <Bee className="cta-bee hidden size-16 sm:block" />
+          <span className="grid size-10 shrink-0 place-items-center rounded-full bg-foreground text-background transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-0.5">
+            <ArrowRight className="size-4" />
+          </span>
         </span>
       </Link>
       <section>
         <div className="mb-4 flex items-center justify-between gap-3">
-          <h2 className="text-sm font-medium">Recent case studies</h2>
+          <h2 className="text-sm font-semibold">Recent case studies</h2>
           <Button asChild variant="ghost" size="sm">
             <Link route="documents.index" routeParams={{ workspaceId }}>
               <ArrowRight aria-hidden="true" className="size-3" />
@@ -103,7 +116,7 @@ export default function Home({
         {documents.length ? (
           <CaseStudyList documents={documents} />
         ) : (
-          <div className="border-y py-12 text-center">
+          <div className="rounded-2xl border border-dashed bg-card/60 py-12 text-center">
             <p className="text-sm text-muted-foreground">No case studies yet.</p>
             <Button asChild variant="ghost" size="sm" className="mt-3">
               <Link route="documents.create" routeParams={{ workspaceId }}>
@@ -116,16 +129,16 @@ export default function Home({
       </section>
       <section>
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-sm font-medium">Projects</h2>
+          <h2 className="text-sm font-semibold">Projects</h2>
           <ProjectDialog />
         </div>
-        <div className="divide-y border-y">
+        <div className="divide-y overflow-hidden rounded-2xl border bg-card">
           {projects.map((project) => (
             <Link
               key={project.id}
               route="projects.show"
               routeParams={{ workspaceId, projectId: project.id }}
-              className="flex items-center gap-3 px-2 py-4 text-sm hover:bg-muted/40"
+              className="flex items-center gap-3 px-5 py-4 text-sm transition-colors hover:bg-accent"
             >
               <Folder className="size-4 text-muted-foreground" />
               <span className="truncate">{project.name}</span>

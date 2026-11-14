@@ -34,9 +34,7 @@ test.group('ClaimEvaluationService', () => {
   })
 
   test('a low probability is not compliant', async ({ assert }) => {
-    const service = new ClaimEvaluationService(claimEvaluationConfig, async () =>
-      json(answer(0.1))
-    )
+    const service = new ClaimEvaluationService(claimEvaluationConfig, async () => json(answer(0.1)))
     const result = await service.evaluate(input)
     assert.equal(result.status === 'evaluated' && result.compliant, false)
   })
@@ -70,9 +68,7 @@ test.group('ClaimEvaluationService', () => {
   })
 
   test('stale claim, evidence or evaluator cannot be treated as current', async ({ assert }) => {
-    const service = new ClaimEvaluationService(claimEvaluationConfig, async () =>
-      json(answer(0.9))
-    )
+    const service = new ClaimEvaluationService(claimEvaluationConfig, async () => json(answer(0.9)))
     const result = await service.evaluate(input)
     assert.isTrue(service.isCurrent(result, input))
     assert.isFalse(service.isCurrent(result, { ...input, text: 'Latency fell by up to 50%' }))

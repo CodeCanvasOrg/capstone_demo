@@ -53,6 +53,45 @@ router
           .get('/documents/:documentId/preview', [controllers.ExportPdfs, 'htmlPreview'])
           .as('documentPreview.show')
         router.get('/templates', [controllers.Templates, 'index']).as('templates.index')
+        router.get('/layout/catalog', [controllers.LayoutCatalog, 'show']).as('layoutCatalog.show')
+        router
+          .get('/documents/:documentId/layout', [controllers.DocumentLayouts, 'show'])
+          .as('documentLayouts.show')
+        router
+          .put('/documents/:documentId/layout', [controllers.DocumentLayouts, 'update'])
+          .as('documentLayouts.update')
+        router
+          .post('/documents/:documentId/layout/preset', [
+            controllers.DocumentLayouts,
+            'applyPreset',
+          ])
+          .as('documentLayouts.applyPreset')
+        router
+          .get('/layout-presets', [controllers.LayoutPresets, 'index'])
+          .as('layoutPresets.index')
+        router
+          .post('/layout-presets', [controllers.LayoutPresets, 'store'])
+          .as('layoutPresets.store')
+        router
+          .patch('/layout-presets/:presetId', [controllers.LayoutPresets, 'update'])
+          .as('layoutPresets.update')
+        router
+          .post('/layout-presets/:presetId/duplicate', [controllers.LayoutPresets, 'duplicate'])
+          .as('layoutPresets.duplicate')
+        router
+          .delete('/layout-presets/:presetId', [controllers.LayoutPresets, 'destroy'])
+          .as('layoutPresets.destroy')
+        router.get('/collections', [controllers.Collections, 'index']).as('collections.index')
+        router.post('/collections', [controllers.Collections, 'store']).as('collections.store')
+        router
+          .get('/collections/:collectionId', [controllers.Collections, 'show'])
+          .as('collections.show')
+        router
+          .patch('/collections/:collectionId', [controllers.Collections, 'update'])
+          .as('collections.update')
+        router
+          .post('/collections/:collectionId/approval', [controllers.Collections, 'approve'])
+          .as('collections.approve')
         router.get('/projects', [controllers.Projects, 'index']).as('projects.index')
         router.post('/projects', [controllers.Projects, 'store']).as('projects.store')
         router.get('/projects/:projectId', [controllers.Projects, 'show']).as('projects.show')
