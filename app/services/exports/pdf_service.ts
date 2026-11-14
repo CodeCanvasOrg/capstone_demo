@@ -216,4 +216,18 @@ export default class ExportPdfService {
       await browser.close()
     }
   }
+  /** Prints a finished, self-contained HTML page; the page's own @page rule sets size and margins. */
+  static async fromHtml(html: string) {
+    const browser = await chromium.launch().catch(() => {
+      throw new PdfUnavailableException()
+    })
+    try {
+      const page = await browser.newPage()
+      await page.route('**/*', (route) => route.abort())
+      await page.setContent(html, { waitUntil: 'networkidle' })
+      return await page.pdf({ format: 'A4', printBackground: true, preferCSSPageSize: true })
+    } finally {
+      await browser.close()
+    }
+  }
 }

@@ -1,6 +1,15 @@
 import { useCallback, useState } from 'react'
 import { Head } from '@inertiajs/react'
-import { ArrowDown, ArrowUp, BookOpen, CheckCircle2, TriangleAlert, X } from 'lucide-react'
+import {
+  ArrowDown,
+  ArrowUp,
+  BookOpen,
+  CheckCircle2,
+  Download,
+  Eye,
+  TriangleAlert,
+  X,
+} from 'lucide-react'
 import { urlFor } from '@/client'
 import { api, feedbackError, type ApiError } from '@/lib/api'
 import { useWorkspaceId } from '@/providers/workspace_provider'
@@ -392,6 +401,37 @@ export default function Index({
                   Approval covers the order, introduction and pinned versions. Any change withdraws
                   it. Each case study keeps its own approval.
                 </p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3">
+                <Button size="sm" variant="outline" asChild>
+                  <a
+                    href={urlFor('collections.preview', {
+                      workspaceId,
+                      collectionId: detail.id,
+                    })}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Eye /> Preview PDF
+                  </a>
+                </Button>
+                {detail.state.approval === 'current' ? (
+                  <Button size="sm" asChild>
+                    <a
+                      href={urlFor('collections.download', {
+                        workspaceId,
+                        collectionId: detail.id,
+                      })}
+                    >
+                      <Download /> Download PDF
+                    </a>
+                  </Button>
+                ) : (
+                  <p className="text-xs text-muted-foreground">
+                    The preview is watermarked. Approve the collection to download the final PDF.
+                  </p>
+                )}
               </div>
             </div>
           )}

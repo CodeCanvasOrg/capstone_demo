@@ -40,6 +40,8 @@ export type ScannedRoutes = {
     'collections.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'collectionId': ParamValue} }
     'collections.update': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'collectionId': ParamValue} }
     'collections.approve': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'collectionId': ParamValue} }
+    'collections.preview': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'collectionId': ParamValue} }
+    'collections.download': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'collectionId': ParamValue} }
     'projects.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'projects.store': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'projects.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'projectId': ParamValue} }
@@ -109,6 +111,8 @@ export type ScannedRoutes = {
     'layoutPresets.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'collections.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'collections.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'collectionId': ParamValue} }
+    'collections.preview': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'collectionId': ParamValue} }
+    'collections.download': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'collectionId': ParamValue} }
     'projects.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'projects.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'projectId': ParamValue} }
     'documentIssues.index': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
@@ -151,6 +155,8 @@ export type ScannedRoutes = {
     'layoutPresets.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'collections.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'collections.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'collectionId': ParamValue} }
+    'collections.preview': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'collectionId': ParamValue} }
+    'collections.download': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'collectionId': ParamValue} }
     'projects.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'projects.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'projectId': ParamValue} }
     'documentIssues.index': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }

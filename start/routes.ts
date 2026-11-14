@@ -92,6 +92,12 @@ router
         router
           .post('/collections/:collectionId/approval', [controllers.Collections, 'approve'])
           .as('collections.approve')
+        router
+          .get('/collections/:collectionId/preview', [controllers.Collections, 'preview'])
+          .as('collections.preview')
+        router
+          .get('/collections/:collectionId/download', [controllers.Collections, 'download'])
+          .as('collections.download')
         router.get('/projects', [controllers.Projects, 'index']).as('projects.index')
         router.post('/projects', [controllers.Projects, 'store']).as('projects.store')
         router.get('/projects/:projectId', [controllers.Projects, 'show']).as('projects.show')

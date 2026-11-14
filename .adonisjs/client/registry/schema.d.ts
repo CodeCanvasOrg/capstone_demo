@@ -439,6 +439,30 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['approve']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'collections.preview': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/collections/:collectionId/preview'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; collectionId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['preview']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['preview']>>>
+    }
+  }
+  'collections.download': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/collections/:collectionId/download'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; collectionId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['download']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['download']>>>
+    }
+  }
   'projects.index': {
     methods: ["GET","HEAD"]
     pattern: '/workspaces/:workspaceId/projects'

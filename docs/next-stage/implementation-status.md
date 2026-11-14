@@ -23,7 +23,7 @@
 
 ## Not done (still open in the plans)
 
-- No collection **composed PDF** (cover/about/contents/back-cover rendering, link audit); only manifest, budget and approval exist. Entry pages use each layout's maximum, not a rendered count.
+- Collection PDF is composed synchronously (`collection_export_service.ts`: cover, intro, contents with measured page counts, entries, back cover; preview watermarked, download needs a current approval). Not yet a queued task, and contents entries are bookmarks plus printed page numbers, not clickable links. The budget panel still uses each layout's maximum, not a rendered count.
 - PRT-04 does not require per-entry owner approval: D-COLLECTION is unresolved.
 - Steps/capability/proof/roadmap blocks, image derivatives/compression (RND-03 size work), asset byte checksums in the bundle.
 - EDT-01 migration UI, EDT-03 AI proposals, OUT-05 repair is not connected to a provider call.

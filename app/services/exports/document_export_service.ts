@@ -183,28 +183,37 @@ export default class DocumentExportService {
   async preview(
     context: WorkspaceAccessContext,
     documentId: string,
-    format: 'html' | 'pdf' = 'pdf'
+    format: 'html' | 'pdf' = 'pdf',
+    /**
+     * Collections render the revision they pinned. `final` drops the draft
+     * banner and applies the final-export fit rules; callers must have checked
+     * the collection approval first.
+     */
+    { versionId, final = false }: { versionId?: string; final?: boolean } = {}
   ) {
     const access = new AccessService()
     const doc = await access.document(context, documentId)
-    if (!doc.currentVersionId) throw conflict('Save a version before previewing')
+    const pinned = versionId ?? doc.currentVersionId
+    if (!pinned) throw conflict('Save a version before previewing')
     const version = await DocumentVersion.query()
-      .where({ id: doc.currentVersionId, documentId, workspaceId: context.workspaceId })
+      .where({ id: pinned, documentId, workspaceId: context.workspaceId })
       .firstOrFail()
     const check = () => new EvidenceService().check(context)
     const content = await this.content(context, documentId, version.content, check)
     await check()
     const client = this.client(content)
-    const layout = await this.layoutPlan(doc, client, { final: false })
+    const layout = await this.layoutPlan(doc, client, { final })
     const buffer = await ExportPdfService[format === 'html' ? 'html' : 'generate'](client, {
-      preview: true,
+      preview: !final,
       publication: publicationLayout(),
       ...(layout ? { layout } : {}),
     })
     await check()
     const current = await access.document(context, documentId)
-    if (current.currentVersionId !== version.id)
+    if (!versionId && current.currentVersionId !== version.id)
       throw conflict('The saved version changed during preview')
+    if (final && current.currentVersionId !== version.id)
+      throw conflict('The saved version changed during export')
     return buffer
   }
   /**

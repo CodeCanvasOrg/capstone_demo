@@ -222,6 +222,18 @@ const routes = {
     tokens: [{"old":"/workspaces/:workspaceId/collections/:collectionId/approval","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/approval","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/approval","type":0,"val":"collections","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/approval","type":1,"val":"collectionId","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/approval","type":0,"val":"approval","end":""}],
     types: placeholder as Registry['collections.approve']['types'],
   },
+  'collections.preview': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/collections/:collectionId/preview',
+    tokens: [{"old":"/workspaces/:workspaceId/collections/:collectionId/preview","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/preview","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/preview","type":0,"val":"collections","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/preview","type":1,"val":"collectionId","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/preview","type":0,"val":"preview","end":""}],
+    types: placeholder as Registry['collections.preview']['types'],
+  },
+  'collections.download': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/collections/:collectionId/download',
+    tokens: [{"old":"/workspaces/:workspaceId/collections/:collectionId/download","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/download","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/download","type":0,"val":"collections","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/download","type":1,"val":"collectionId","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/download","type":0,"val":"download","end":""}],
+    types: placeholder as Registry['collections.download']['types'],
+  },
   'projects.index': {
     methods: ["GET","HEAD"],
     pattern: '/workspaces/:workspaceId/projects',
