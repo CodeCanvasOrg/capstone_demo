@@ -64,6 +64,8 @@ export interface ApiDefinition {
     show: typeof routes['collections.show']
     update: typeof routes['collections.update']
     approve: typeof routes['collections.approve']
+    preview: typeof routes['collections.preview']
+    download: typeof routes['collections.download']
   }
   projects: {
     index: typeof routes['projects.index']

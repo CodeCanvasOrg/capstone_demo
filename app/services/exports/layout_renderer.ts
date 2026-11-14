@@ -17,7 +17,7 @@ export const RENDERER_VERSION = 'layout-1'
 const fontCache = new Map<string, string>()
 
 /** Static woff2 files, embedded as data so no render ever fetches a font. */
-async function fontFaces(brand: BrandKit) {
+export async function fontFaces(brand: BrandKit) {
   const faces = await Promise.all(
     brand.fonts.map(async (font) => {
       let data = fontCache.get(font.file)

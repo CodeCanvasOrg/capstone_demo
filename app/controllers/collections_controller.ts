@@ -1,6 +1,7 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import Document from '#models/document'
 import CollectionService from '#services/layout/collection_service'
+import CollectionExportService from '#services/exports/collection_export_service'
 import {
   collectionApprovalValidator,
   collectionBudgetValidator,
@@ -75,5 +76,32 @@ export default class CollectionsController {
       baseHash
     )
     return response.ok({ data: view(row) })
+  }
+
+  /** Watermarked draft of the whole collection; needs no approval. */
+  async preview({ workspaceAccess, params, response }: HttpContext) {
+    return this.pdf(workspaceAccess!, params.collectionId, false, response)
+  }
+
+  /** Final PDF: refused unless the approval is current for every pinned entry. */
+  async download({ workspaceAccess, params, response }: HttpContext) {
+    return this.pdf(workspaceAccess!, params.collectionId, true, response)
+  }
+
+  private async pdf(
+    access: NonNullable<HttpContext['workspaceAccess']>,
+    id: string,
+    final: boolean,
+    response: HttpContext['response']
+  ) {
+    const buffer = await new CollectionExportService().render(access, id, { final })
+    return response
+      .header('Content-Type', 'application/pdf')
+      .header('Cache-Control', 'private, no-store')
+      .header(
+        'Content-Disposition',
+        `${final ? 'attachment' : 'inline'}; filename="collection${final ? '' : '-preview'}.pdf"`
+      )
+      .send(buffer)
   }
 }
