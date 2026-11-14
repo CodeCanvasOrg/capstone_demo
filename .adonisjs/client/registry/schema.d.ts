@@ -271,6 +271,174 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/templates_controller').default['index']>>>
     }
   }
+  'layoutCatalog.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/layout/catalog'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/layout').catalogValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/layout_catalog_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/layout_catalog_controller').default['show']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'documentLayouts.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/layout'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_layouts_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_layouts_controller').default['show']>>>
+    }
+  }
+  'documentLayouts.update': {
+    methods: ["PUT"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/layout'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/layout').layoutSelectionValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/layout').layoutSelectionValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_layouts_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_layouts_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'documentLayouts.applyPreset': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/layout/preset'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/layout').applyPresetValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/layout').applyPresetValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_layouts_controller').default['applyPreset']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_layouts_controller').default['applyPreset']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'layoutPresets.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/layout-presets'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/layout_presets_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/layout_presets_controller').default['index']>>>
+    }
+  }
+  'layoutPresets.store': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/layout-presets'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/layout').presetCreateValidator)>>
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/layout').presetCreateValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/layout_presets_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/layout_presets_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'layoutPresets.update': {
+    methods: ["PATCH"]
+    pattern: '/workspaces/:workspaceId/layout-presets/:presetId'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/layout').presetUpdateValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; presetId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/layout').presetUpdateValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/layout_presets_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/layout_presets_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'layoutPresets.duplicate': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/layout-presets/:presetId/duplicate'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/layout').presetDuplicateValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; presetId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/layout').presetDuplicateValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/layout_presets_controller').default['duplicate']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/layout_presets_controller').default['duplicate']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'layoutPresets.destroy': {
+    methods: ["DELETE"]
+    pattern: '/workspaces/:workspaceId/layout-presets/:presetId'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; presetId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/layout_presets_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/layout_presets_controller').default['destroy']>>>
+    }
+  }
+  'collections.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/collections'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['index']>>>
+    }
+  }
+  'collections.store': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/collections'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/layout').collectionCreateValidator)>>
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/layout').collectionCreateValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'collections.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/collections/:collectionId'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; collectionId: ParamValue }
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/layout').collectionBudgetValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['show']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'collections.update': {
+    methods: ["PATCH"]
+    pattern: '/workspaces/:workspaceId/collections/:collectionId'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/layout').collectionUpdateValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; collectionId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/layout').collectionUpdateValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'collections.approve': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/collections/:collectionId/approval'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/layout').collectionApprovalValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; collectionId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/layout').collectionApprovalValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['approve']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['approve']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'projects.index': {
     methods: ["GET","HEAD"]
     pattern: '/workspaces/:workspaceId/projects'

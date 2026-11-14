@@ -21,6 +21,16 @@ import AccessService, {
 } from '#services/workspaces/access_service'
 import TaskService, { fingerprint, type TaskLease } from '#services/workspaces/task_service'
 import TaskDispatchService from '#services/workspaces/task_dispatch_service'
+import DocumentApproval from '#models/document_approval'
+import BundleService from '#services/layout/bundle_service'
+import LayoutSelectionService from '#services/layout/layout_selection_service'
+import { checkContent } from '../../../shared/layout/checks.ts'
+import { fitPlan } from '../../../shared/layout/fit.ts'
+import { renumberFootnotes } from '../../../shared/layout/footnotes.ts'
+import { getBrandKit } from '../../../shared/layout/brand.ts'
+import { planLayout } from '../../../shared/layout/plan.ts'
+import { getTemplate } from '../../../shared/layout/templates.ts'
+import type { ClientRenderData } from '../../../shared/publication/client.ts'
 /** OUT-01 pilot: branded publication layout, off unless enabled. */
 const publicationLayout = () => env.get('PUBLICATION_LAYOUT') === 'pilot'
 
@@ -51,6 +61,7 @@ export default class DocumentExportService {
           throw conflict('Save the current draft before exporting')
       } else if (!state.approved || doc.activeApprovalId !== input.approvalId)
         throw conflict('Approve the exact current version before final export')
+      else await this.assertBundle(doc, { approvalId: input.approvalId }, trx)
       return new TaskService().create(
         context,
         {
@@ -73,10 +84,11 @@ export default class DocumentExportService {
   }
   async render(lease: TaskLease) {
     const tasks = new TaskService()
-    await tasks.check(lease)
+    await tasks.recordStage(lease, 'preparing')
     const doc = await new AccessService().document(lease.context, lease.task.documentId!)
     const state = await new ReadinessService().inspect(doc)
     this.assertSnapshot(doc, state, lease.task.payload, 'Approval changed before rendering')
+    await this.assertBundle(doc, lease.task.payload)
     const version = await DocumentVersion.query()
       .where({
         id: doc.currentVersionId!,
@@ -87,9 +99,13 @@ export default class DocumentExportService {
     const content = await this.content(lease.context, doc.id, version.content, () =>
       tasks.check(lease)
     )
-    await tasks.check(lease)
-    const buffer = await ExportPdfService.generate(this.client(content), {
+    await tasks.recordStage(lease, 'validating')
+    const client = this.client(content)
+    const layout = await this.layoutPlan(doc, client, { final: true })
+    await tasks.recordStage(lease, 'rendering')
+    const buffer = await ExportPdfService.generate(client, {
       publication: publicationLayout(),
+      ...(layout ? { layout } : {}),
     })
     const key = `workspaces/${lease.context.workspaceId}/exports/${lease.task.id}.pdf`
     try {
@@ -107,6 +123,7 @@ export default class DocumentExportService {
             lease.task.payload,
             'Approval changed during rendering'
           )
+          await this.assertBundle(current, lease.task.payload, trx)
           await drive
             .use()
             .put(key, buffer, { contentType: 'application/pdf', visibility: 'private' })
@@ -155,6 +172,7 @@ export default class DocumentExportService {
         { ...task.payload, ...task.result },
         'This final export is no longer approved'
       )
+      await this.assertBundle(doc, { ...task.payload, ...task.result }, trx)
       if (typeof task.result.artifactKey !== 'string') throw missingResource()
       return {
         stream: await drive.use().getStream(task.result.artifactKey),
@@ -176,10 +194,13 @@ export default class DocumentExportService {
     const check = () => new EvidenceService().check(context)
     const content = await this.content(context, documentId, version.content, check)
     await check()
-    const buffer = await ExportPdfService[format === 'html' ? 'html' : 'generate'](
-      this.client(content),
-      { preview: true, publication: publicationLayout() }
-    )
+    const client = this.client(content)
+    const layout = await this.layoutPlan(doc, client, { final: false })
+    const buffer = await ExportPdfService[format === 'html' ? 'html' : 'generate'](client, {
+      preview: true,
+      publication: publicationLayout(),
+      ...(layout ? { layout } : {}),
+    })
     await check()
     const current = await access.document(context, documentId)
     if (current.currentVersionId !== version.id)
@@ -206,6 +227,101 @@ export default class DocumentExportService {
       )
     }
   }
+  /**
+   * Fit and content findings for the pinned layout, for the picker and review
+   * panel. Null when there is nothing renderable yet or the content cannot be
+   * projected safely (that case is reported by the preview itself).
+   */
+  async layoutReport(context: WorkspaceAccessContext, documentId: string) {
+    const access = new AccessService()
+    const doc = await access.document(context, documentId)
+    if (!doc.currentVersionId) return null
+    const version = await DocumentVersion.query()
+      .where({ id: doc.currentVersionId, documentId, workspaceId: context.workspaceId })
+      .firstOrFail()
+    try {
+      const content = await this.content(context, documentId, version.content, () =>
+        new EvidenceService().check(context)
+      )
+      const client = this.client(content)
+      const selection = await new LayoutSelectionService().peek(context.workspaceId, documentId)
+      const template = getTemplate(selection.templateId, selection.templateVersion)!
+      const brand = getBrandKit(selection.brandId, selection.brandVersion)!
+      const data = renumberFootnotes(client)
+      const fit = fitPlan(planLayout(data, template, brand, selection.options), template)
+      return {
+        pages: fit.pages,
+        pageBudget: template.pageBudget,
+        fits: fit.fits,
+        density: fit.plan.density,
+        steps: fit.steps,
+        findings: [...fit.findings, ...checkContent(data, { brand })],
+      }
+    } catch {
+      return null
+    }
+  }
+
+  /**
+   * Template layout for a document: used when it has a saved selection, or for
+   * every document when PUBLICATION_LAYOUT=templates. Preview always renders
+   * (watermarked) so findings can be acted on; final export refuses error-severity
+   * layout or content findings, and approval cannot bypass them.
+   */
+  private async layoutPlan(doc: Document, client: ClientRenderData, { final }: { final: boolean }) {
+    const selection = await new LayoutSelectionService().peek(doc.workspaceId!, doc.id)
+    if (!selection.saved && env.get('PUBLICATION_LAYOUT') !== 'templates') return null
+    const template = getTemplate(selection.templateId, selection.templateVersion)
+    const brand = getBrandKit(selection.brandId, selection.brandVersion)
+    if (!template || !brand)
+      throw new Exception('The pinned template or brand version is not available', {
+        status: 422,
+        code: 'E_LAYOUT_INVALID',
+      })
+    let data: ClientRenderData
+    try {
+      data = renumberFootnotes(client)
+    } catch {
+      throw new Exception('Repair citations before exporting: a reference has no source', {
+        status: 422,
+        code: 'E_LAYOUT_FIT',
+      })
+    }
+    const fit = fitPlan(planLayout(data, template, brand, selection.options), template)
+    if (final) {
+      const errors = [...fit.findings, ...checkContent(data, { brand })].filter(
+        (finding) => finding.severity === 'error'
+      )
+      if (errors.length)
+        throw new Exception(
+          `Resolve these issues before final export: ${[...new Set(errors.map((e) => e.code))].join(', ')}`,
+          { status: 422, code: 'E_LAYOUT_FIT' }
+        )
+    }
+    return fit.plan
+  }
+
+  /**
+   * An approval covers a content/template/brand/options/assets bundle. Approvals
+   * made before bundles existed carry no hash and are not given one retroactively.
+   */
+  private async assertBundle(
+    doc: Document,
+    snapshot: Record<string, unknown>,
+    trx?: Parameters<BundleService['current']>[1]
+  ) {
+    if (snapshot.exportMode === 'solo' || typeof snapshot.approvalId !== 'string') return
+    const approval = await DocumentApproval.query({ client: trx })
+      .where({ id: snapshot.approvalId, documentId: doc.id, workspaceId: doc.workspaceId })
+      .first()
+    if (!approval?.bundleHash) return
+    const current = await new BundleService().current(doc, trx)
+    if (!current || current.hash !== approval.bundleHash)
+      throw conflict(
+        'The content, layout or brand changed after approval. Review and approve again.'
+      )
+  }
+
   private assertSnapshot(
     doc: Document,
     state: Awaited<ReturnType<ReadinessService['inspect']>>,

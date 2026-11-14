@@ -3,7 +3,7 @@ import { usePage, router } from '@inertiajs/react'
 import { Form, Link } from '@adonisjs/inertia/react'
 import { toast } from 'sonner'
 import { safeMessage } from '@/lib/api'
-import { Home, FolderOpen, Files, Users, Plus, LogOut, FileText } from 'lucide-react'
+import { Home, FolderOpen, Files, Users, Plus, LogOut, FileText, BookOpen } from 'lucide-react'
 import type { Data } from '@generated/data'
 import { WorkspacePicker } from '@/components/workspace_picker'
 import { WorkspaceProvider, useWorkspace } from '@/providers/workspace_provider'
@@ -75,6 +75,12 @@ function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps>
           label: 'Projects',
           icon: FolderOpen,
           active: page.url.startsWith(`${base}/projects`),
+        },
+        {
+          route: 'collections.index' as const,
+          label: 'Collections',
+          icon: BookOpen,
+          active: page.url.startsWith(`${base}/collections`),
         },
         {
           route: 'files.index' as const,

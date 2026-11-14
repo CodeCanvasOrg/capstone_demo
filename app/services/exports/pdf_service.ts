@@ -1,35 +1,22 @@
 import PdfUnavailableException from '#exceptions/pdf_unavailable_exception'
 import { readFile } from 'node:fs/promises'
-import { Node, type JSONContent } from '@tiptap/core'
-import Image from '@tiptap/extension-image'
-import { generateHTML } from '@tiptap/html'
-import StarterKit from '@tiptap/starter-kit'
 import { chromium } from 'playwright'
 import {
   parseClientRenderData,
-  type ClientBlock,
-  type ClientInline,
   type ClientRenderData,
   type ClientResult,
 } from '../../../shared/publication/client.ts'
+import { getBrandKit } from '../../../shared/layout/brand.ts'
+import type { LayoutPlan } from '../../../shared/layout/plan.ts'
+import { esc, renderBlocks } from '#services/exports/client_blocks'
+import { PAGE_MARGIN_MM, renderLayoutHtml } from '#services/exports/layout_renderer'
 
-type RenderOptions = { preview?: boolean; publication?: boolean }
-
-const ReferenceExtension = Node.create({
-  name: 'reference',
-  group: 'inline',
-  inline: true,
-  atom: true,
-  addAttributes() {
-    return { number: { default: null } }
-  },
-  renderHTML({ node }) {
-    return ['sup', { class: 'ref' }, String(node.attrs.number)]
-  },
-})
-
-const esc = (value: string) =>
-  value.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!)
+type RenderOptions = {
+  preview?: boolean
+  publication?: boolean
+  /** Template layout; takes precedence over `publication`. */
+  layout?: LayoutPlan
+}
 
 const PUBLICATION_CSS = `
 .hero { border-top: 6px solid #f6d900; padding-top: 14px; margin-bottom: 20px; }
@@ -68,62 +55,6 @@ function resultContext(result: ClientResult) {
   return parts.length ? ` — ${parts.map(esc).join('; ')}` : ''
 }
 
-/** Client DTO to TipTap JSON. Its input is exclusively the closed client union. */
-const inline = (node: ClientInline): JSONContent => {
-  if (node.type === 'reference') return { type: 'reference', attrs: { number: node.number } }
-  if (node.type === 'hardBreak') return { type: 'hardBreak' }
-  return {
-    type: 'text',
-    text: node.text,
-    ...(node.marks?.length
-      ? {
-          marks: node.marks.map((mark) =>
-            mark.type === 'link'
-              ? {
-                  type: 'link',
-                  attrs: { href: mark.href, target: '_blank', rel: 'noopener noreferrer' },
-                }
-              : { type: mark.type }
-          ),
-        }
-      : {}),
-  }
-}
-
-const block = (node: ClientBlock): JSONContent => {
-  switch (node.type) {
-    case 'paragraph':
-    case 'codeBlock':
-      return { type: node.type, ...(node.content ? { content: node.content.map(inline) } : {}) }
-    case 'heading':
-      return {
-        type: 'heading',
-        attrs: { level: node.level },
-        ...(node.content ? { content: node.content.map(inline) } : {}),
-      }
-    case 'horizontalRule':
-      return { type: 'horizontalRule' }
-    case 'blockquote':
-      return { type: 'blockquote', content: node.content.map(block) }
-    case 'bulletList':
-    case 'orderedList':
-      return {
-        type: node.type,
-        ...(node.type === 'orderedList' && node.start !== undefined
-          ? { attrs: { start: node.start } }
-          : {}),
-        content: node.content.map((item) => ({
-          type: 'listItem',
-          content: item.content.map(block),
-        })),
-      }
-    case 'image': {
-      const { type, ...attrs } = node
-      return { type, attrs }
-    }
-  }
-}
-
 export default class ExportPdfService {
   /**
    * Both layouts render the strict client DTO only. The value is re-parsed here,
@@ -132,14 +63,15 @@ export default class ExportPdfService {
    */
   static async html(
     data: ClientRenderData,
-    { preview = false, publication = false }: RenderOptions = {}
+    { preview = false, publication = false, layout }: RenderOptions = {}
   ) {
     const client = parseClientRenderData(data)
-    const extensions = [StarterKit, Image, ReferenceExtension]
-    const render = (blocks: ClientBlock[]) =>
-      blocks.length
-        ? generateHTML({ type: 'doc', content: blocks.map(block) } as JSONContent, extensions)
-        : ''
+    if (layout) {
+      const brand = getBrandKit(layout.brand.id, layout.brand.version)
+      if (!brand) throw new Error('Unknown brand version')
+      return renderLayoutHtml(layout, brand, { preview })
+    }
+    const render = renderBlocks
     const sources = client.sources.length
       ? `<section class="sources"><h2>Sources</h2><ol>${client.sources
           .map(
@@ -253,8 +185,9 @@ export default class ExportPdfService {
     return html
   }
   static async generate(data: ClientRenderData, options: RenderOptions = {}) {
-    const { preview = false } = options
+    const { preview = false, layout } = options
     const html = await this.html(data, options)
+    const margin = layout ? `${PAGE_MARGIN_MM}mm` : '20mm'
     const browser = await chromium.launch().catch(() => {
       throw new PdfUnavailableException()
     })
@@ -274,12 +207,7 @@ export default class ExportPdfService {
         headerTemplate: '<span></span>',
         footerTemplate:
           '<div style="font-family:Arial;font-size:8px;width:100%;text-align:center">PREVIEW · NOT APPROVED</div>',
-        margin: {
-          top: '20mm',
-          right: '20mm',
-          bottom: '20mm',
-          left: '20mm',
-        },
+        margin: { top: margin, right: margin, bottom: margin, left: margin },
       })
     } finally {
       await browser.close()

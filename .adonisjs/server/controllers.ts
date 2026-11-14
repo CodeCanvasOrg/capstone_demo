@@ -5,8 +5,10 @@
 
 export const controllers = {
   Assets: () => import('#controllers/assets_controller'),
+  Collections: () => import('#controllers/collections_controller'),
   DocumentImages: () => import('#controllers/document_images_controller'),
   DocumentIssues: () => import('#controllers/document_issues_controller'),
+  DocumentLayouts: () => import('#controllers/document_layouts_controller'),
   DocumentReviews: () => import('#controllers/document_reviews_controller'),
   DocumentRevisions: () => import('#controllers/document_revisions_controller'),
   DocumentShares: () => import('#controllers/document_shares_controller'),
@@ -18,6 +20,8 @@ export const controllers = {
   FileProjects: () => import('#controllers/file_projects_controller'),
   Files: () => import('#controllers/files_controller'),
   InvitationAcceptances: () => import('#controllers/invitation_acceptances_controller'),
+  LayoutCatalog: () => import('#controllers/layout_catalog_controller'),
+  LayoutPresets: () => import('#controllers/layout_presets_controller'),
   LegacyResources: () => import('#controllers/legacy_resources_controller'),
   NewAccount: () => import('#controllers/new_account_controller'),
   Projects: () => import('#controllers/projects_controller'),

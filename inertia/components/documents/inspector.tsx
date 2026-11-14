@@ -40,6 +40,7 @@ import { ProjectFields, TitleField } from './project_fields'
 import { informationToContent } from '../../../shared/project_information.ts'
 import { ProcessingStatusBadge } from './status'
 import { TruncatedName } from '@/components/truncated_name'
+import { LayoutPicker } from './layout_picker'
 export type Action = (url: string, method: string, body: unknown) => Promise<ActionResult>
 export function MetadataForm({
   document,
@@ -533,6 +534,7 @@ export function DocumentInspector({
           {checklist}
         </Disclosure>
       )}
+      <LayoutPicker documentId={document.id} disabled={disabled} />
       <Disclosure
         title="Sources"
         icon={FileText}

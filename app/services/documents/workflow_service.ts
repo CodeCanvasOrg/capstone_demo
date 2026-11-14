@@ -14,6 +14,7 @@ import AccessService, {
   type WorkspaceAccessContext,
 } from '#services/workspaces/access_service'
 import { fingerprint } from '#services/workspaces/task_service'
+import BundleService from '#services/layout/bundle_service'
 export default class WorkflowService {
   async invalidate(
     document: Document,
@@ -107,6 +108,7 @@ export default class WorkflowService {
         if (readiness.warnings.some((warning) => !acknowledgments.includes(warning.id)))
           throw conflict('Acknowledge every current evidence warning before approval')
         if (document.activeApprovalId) throw conflict('This version is already approved')
+        const bundle = await new BundleService().current(document, trx)
         const approval = await DocumentApproval.create(
           {
             workspaceId: context.workspaceId,
@@ -115,6 +117,8 @@ export default class WorkflowService {
             versionId: input.baseVersionId,
             approvedById: context.actorId,
             warningAcknowledgments: acknowledgments,
+            // The exact content, template, brand, options and assets the owner reviewed.
+            bundleHash: bundle?.hash ?? null,
           },
           { client: trx }
         )
