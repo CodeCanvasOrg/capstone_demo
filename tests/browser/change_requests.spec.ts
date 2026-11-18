@@ -27,7 +27,7 @@ test.group('Change requests', (group) => {
     await page.getByRole('textbox', { name: 'Case-study brief' }).fill('A freeform brief')
     await send.click()
     await page.waitForTimeout(300)
-    assert.isNull(body.templateId)
+    assert.isString(body.templateId, 'the default template is preselected')
     assert.equal(body.description, 'A freeform brief')
     if (screenshots) await page.screenshot({ path: `${screenshots}/create-send.png` })
   })

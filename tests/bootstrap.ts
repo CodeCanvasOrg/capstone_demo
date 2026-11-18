@@ -58,6 +58,21 @@ export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
  * Learn more - https://japa.dev/docs/test-suites#lifecycle-hooks
  */
 export const configureSuite: Config['configureSuite'] = (suite) => {
+  if (suite.name === 'browser') {
+    // The first-run Bee tour is a non-modal role="dialog"; mark it seen so it
+    // never competes with the dialogs under test.
+    suite.onGroup((group) => {
+      group.each.setup(async (test) => {
+        await test.context.browserContext.addInitScript(() => {
+          try {
+            localStorage.setItem('codecanvas:bee-tour', 'done')
+          } catch {
+            // storage blocked: the tour simply shows
+          }
+        })
+      })
+    })
+  }
   if (['browser', 'functional', 'e2e'].includes(suite.name)) {
     return suite.setup(() => testUtils.httpServer().start())
   }
