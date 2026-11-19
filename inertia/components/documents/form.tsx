@@ -133,7 +133,7 @@ export function DocumentForm({
       <div className="mx-auto grid w-full max-w-6xl flex-1 gap-x-10 gap-y-10 px-5 py-10 lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] lg:py-14">
         <div className="min-w-0">
           <div className="step-in mb-8" style={{ '--i': 0 } as CSSProperties}>
-            <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">New case study</h1>
+            <h1 className="page-title text-2xl sm:text-3xl">New case study</h1>
             <p className="mt-2 max-w-sm text-sm leading-6 text-muted-foreground">
               Tell us what you worked on, pick a look, and we&rsquo;ll write the first draft.
             </p>

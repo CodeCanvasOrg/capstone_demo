@@ -5,7 +5,7 @@ export default function ErrorPage() {
   return (
     <section className="mx-auto max-w-lg px-6 py-24">
       <Head title="Something went wrong" />
-      <h1 className="text-2xl font-semibold">Something went wrong</h1>
+      <h1 className="page-title text-2xl">Something went wrong</h1>
       <p className="mt-3 text-sm text-muted-foreground">
         We could not open this page. Try again shortly.
       </p>

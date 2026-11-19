@@ -93,7 +93,7 @@ Reduced motion keeps opacity and drops movement. Hover effects are gated to fine
 
 - Changing an entry's block order page by page inside a case study.
 - Image assets on portfolio pages. The cover graphic is generated from the portfolio name.
-- Restyling the rest of the app shell.
+- Restyling the rest of the app shell. (Done in a second pass, below.)
 
 ## Status
 
@@ -114,3 +114,24 @@ Known limits:
 - A collection made before designs existed is read as Classic until a template or design is chosen.
 - A custom or AI design keeps its own case study order. The up and down arrows on the case study
   list are hidden for it; reordering happens in the page editor.
+
+## App restyle (second pass)
+
+The whole app now speaks the same language as the brochure output.
+
+| Change | Where |
+| --- | --- |
+| Cool navy and white palette in light and dark, yellow as the one accent, cool shadows | `inertia/css/app.css` tokens |
+| Navigation shell is dark navy with a yellow active marker. It uses a scoped palette on `[data-sidebar=sidebar]`, because `bg-sidebar` is used as the white panel surface in about 30 places | `app.css`, `layouts/default.tsx` |
+| Grey canvas so white panels stand out | `layouts/default.tsx` |
+| Heavier, tighter page titles (`.page-title`) and a short yellow bar above each (`.page-bar`) | `PageIntro`, every page header |
+| Small labels are sentence case, not tracked all caps | `.eyebrow`, auth aside |
+| Home: navy hero with generated ribbons, replacing the yellow gradient card | `pages/workspaces/home.tsx` |
+| Sign-in: navy aside with ribbons above the headline | `layouts/auth.tsx` |
+| One shared ribbons generator for the app, thumbnails and (as a port) the PDF cover | `components/ribbons.tsx` |
+
+Motion: the ribbons reveal once on load (opacity and a 2% scale, 700ms, ease-out) and fade only
+under reduced motion. Nothing else moves on its own.
+
+Not restyled: the editor's page-view canvas (it mirrors the PDF and has its own styles), the bee
+mascot, and the guided tour.

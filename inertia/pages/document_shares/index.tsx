@@ -14,7 +14,7 @@ export default function Index({ documents }: InertiaProps<{ documents: Data.Docu
     <div className="mx-auto w-full max-w-5xl px-4 py-14">
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div className="flex flex-col gap-2">
-          <h1 className="font-serif text-4xl">Documents Shared with Me</h1>
+          <h1 className="page-title text-4xl">Documents Shared with Me</h1>
           <p className="text-sm text-muted-foreground">
             {documents.length === 0
               ? 'No documents shared yet'

@@ -228,7 +228,7 @@ function WorkspaceShell({ children }: { children: ReactElement<Data.SharedProps>
           </div>
         </SidebarFooter>
       </Sidebar>
-      <SidebarInset className="min-w-0 bg-sidebar">
+      <SidebarInset className="min-w-0 bg-background">
         <div className="flex h-11 items-center justify-between border-b bg-sidebar px-4 md:hidden">
           <SidebarTrigger aria-label="Open workspace navigation" />
           <span className="truncate text-xs font-semibold">{workspace?.name ?? 'CodeCanvas'}</span>

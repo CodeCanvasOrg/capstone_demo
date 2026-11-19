@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { Link } from '@adonisjs/inertia/react'
 import { Brand } from '@/components/brand'
 import { Bee } from '@/components/bee/bee'
+import { Ribbons } from '@/components/ribbons'
 import { ThemeToggle } from '@/components/theme_toggle'
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
@@ -17,10 +18,8 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           <Brand />
         </Link>
         <div className="relative z-10 max-w-lg">
-          <p className="mb-8 text-xs font-semibold tracking-widest uppercase text-background/60">
-            HumbleBeeAI / CodeCanvas
-          </p>
-          <h1 className="text-6xl leading-[1.05] font-semibold tracking-[-.06em]">
+          <p className="mb-8 text-sm font-semibold text-background/70">HumbleBeeAI / CodeCanvas</p>
+          <h1 className="page-title text-6xl">
             Good work
             <br />
             deserves a<br />
@@ -34,8 +33,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         <p className="relative z-10 text-xs text-background/60">
           Human direction. Intelligent systems.
         </p>
-        <div aria-hidden="true" className="auth-glow" />
-        <div aria-hidden="true" className="auth-comb" />
+        <Ribbons seed="HumbleBee AI" width={210} height={297} lines={40} className="auth-ribbons" />
         <Bee className="auth-bee" />
       </aside>
       <div className="flex min-h-svh flex-col bg-sidebar">

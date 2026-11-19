@@ -198,7 +198,8 @@ export default function Index({
     <div className="minimal-page">
       <Head title="Collections" />
       <header>
-        <h1 className="text-lg font-semibold">Collections</h1>
+        <span aria-hidden="true" className="page-bar" />
+        <h1 className="page-title text-3xl">Collections</h1>
         <p className="mt-1 max-w-prose text-xs text-muted-foreground">
           Turn saved case studies into one portfolio. Start from a template, arrange the pages
           yourself, or let AI suggest an arrangement. Each case study stays pinned to the version

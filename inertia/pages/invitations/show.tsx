@@ -23,9 +23,7 @@ export default function Show({
         <Users />
       </span>
       <p className="eyebrow">You’re invited</p>
-      <h1 className="mt-3 break-words text-3xl font-semibold tracking-tight">
-        Join {invitation.workspaceName}
-      </h1>
+      <h1 className="page-title mt-3 break-words text-3xl">Join {invitation.workspaceName}</h1>
       <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
         Collaborate on case studies and share source files with the team. This invitation is for{' '}
         <strong className="break-all text-foreground">{invitation.email}</strong>.

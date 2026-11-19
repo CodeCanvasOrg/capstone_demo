@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react'
+import { Ribbons } from '../ribbons'
 import { getBrandKit } from '../../../shared/layout/brand.ts'
 import { STAT_QUALIFIER_LABEL, type PageSpec } from '../../../shared/layout/portfolio.ts'
 
@@ -30,37 +31,6 @@ export type ThumbContext = {
   order?: string[]
 }
 
-/** A light cousin of the exporter's ribbons: the same name always draws the same curves. */
-function ribbons(seed: string) {
-  let h = 0
-  for (const ch of seed) h = (h * 31 + ch.charCodeAt(0)) >>> 0
-  const phase = ((h % 628) / 100) as number
-  const swing = 0.8 + ((h >> 3) % 60) / 100
-  const lines = 14
-  return Array.from({ length: lines }, (_, i) => {
-    const t = i / (lines - 1)
-    const pts: string[] = []
-    for (let x = -5; x <= 215; x += 10) {
-      const u = x / 210
-      const env = Math.sin(Math.PI * Math.min(1, Math.max(0, u * 0.9 + 0.05)))
-      const y =
-        112 + (t - 0.5) * 60 * (0.35 + env) + Math.sin(u * 6.2 + phase + t * 2.6) * 26 * swing * env
-      pts.push(`${x},${y.toFixed(1)}`)
-    }
-    const o = (0.25 + 0.7 * Math.sin(Math.PI * t) ** 1.6).toFixed(2)
-    return (
-      <polyline
-        key={i}
-        points={pts.join(' ')}
-        fill="none"
-        stroke="var(--pf-yellow)"
-        strokeOpacity={o}
-        strokeWidth={0.7}
-      />
-    )
-  })
-}
-
 export function PageThumb({
   spec,
   context,
@@ -83,9 +53,14 @@ export function PageThumb({
       {kind === 'cover' && (
         <>
           {variant === 'ribbons' && (
-            <svg viewBox="0 0 210 297" preserveAspectRatio="xMidYMin slice" className="pf-fill">
-              {ribbons(context.name)}
-            </svg>
+            <Ribbons
+              seed={context.name}
+              lines={14}
+              step={10}
+              weight={0.7}
+              stroke="var(--pf-yellow)"
+              className="pf-fill"
+            />
           )}
           <span className="pf-mark" />
           <b className="pf-title">{context.name}</b>

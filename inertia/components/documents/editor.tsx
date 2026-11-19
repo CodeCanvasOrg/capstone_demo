@@ -476,7 +476,7 @@ export default function DocumentEditor({
           />
           {!baseVersionId && (
             <div className="mb-8">
-              <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h1>
+              <h1 className="page-title text-3xl sm:text-4xl">{title}</h1>
               <p className="mt-5 text-sm leading-6 text-muted-foreground">
                 {generationStatus === 'processing'
                   ? 'We’re preparing your story. Your draft will appear here.'
