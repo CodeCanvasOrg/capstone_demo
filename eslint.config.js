@@ -21,6 +21,8 @@ export default configApp(...react, {
           '../../../shared/layout/pages.ts',
           '../../../shared/layout/formats.ts',
           '../../../shared/layout/portfolio.ts',
+          '../../../shared/brochure/designs.ts',
+          '../../../shared/brochure/content.ts',
         ],
       },
     ],

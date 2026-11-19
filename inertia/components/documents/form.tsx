@@ -9,12 +9,33 @@ import { specFor } from '@/components/documents/template_specs'
 import { outlineSections, type OutlineTemplate } from '../../../shared/templates/outlines.ts'
 import { DEFAULT_INSTRUCTIONS, MAX_INSTRUCTIONS } from '../../../shared/templates/instructions.ts'
 import { Disclosure } from '@/components/disclosure'
+import { DesignThumb } from '@/components/brochure/design_thumb'
+import { PageDesigner } from '@/components/brochure/page_designer'
+import {
+  BROCHURE_TEMPLATES,
+  templateSelection,
+  type BrochureSelection,
+} from '../../../shared/brochure/designs.ts'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { SourcePicker, selectable, type SourceChoice } from '@/components/files/source_picker'
 import { RichTextEditor, emptyRichText, type RichText } from '@/components/rich_text_editor'
 
 const FREEFORM = 'freeform'
+const BROCHURE = 'brochure'
+
+/**
+ * How the case study is laid out. The first three build a brochure, where every page has its
+ * own design: a full template, a design chosen for each page, or the model's choice. The
+ * model writes the content of every page in each of them. `classic` is the older case study.
+ */
+type Mode = 'template' | 'pages' | 'ai' | 'classic'
+const MODES: readonly { id: Mode; label: string; hint: string }[] = [
+  { id: 'template', label: 'Use a template', hint: 'A ready-made set of page designs' },
+  { id: 'pages', label: 'Choose each page', hint: 'Pick a design for every page' },
+  { id: 'ai', label: 'Let AI choose', hint: 'It picks the designs that fit' },
+  { id: 'classic', label: 'Classic case study', hint: 'The older one to two page layouts' },
+]
 
 type Choice = { id: string; name: string; description: string; headings: string[] }
 
@@ -62,12 +83,14 @@ export function DocumentForm({
   const [droppedSources, setDroppedSources] = useState(0)
   const choices = useMemo<Choice[]>(
     () => [
-      ...templates.map((template) => ({
-        id: template.id,
-        name: template.definition.name,
-        description: template.definition.description,
-        headings: headingsOf(template),
-      })),
+      ...templates
+        .filter((template) => template.id !== BROCHURE)
+        .map((template) => ({
+          id: template.id,
+          name: template.definition.name,
+          description: template.definition.description,
+          headings: headingsOf(template),
+        })),
       {
         id: FREEFORM,
         name: 'Freeform',
@@ -78,6 +101,8 @@ export function DocumentForm({
     [templates]
   )
   const [templateId, setTemplateId] = useState(choices[0].id)
+  const [mode, setMode] = useState<Mode>('template')
+  const [selection, setSelection] = useState<BrochureSelection>(() => templateSelection(BROCHURE)!)
   const choice = choices.find((item) => item.id === templateId) ?? choices[0]
   const spec = specFor(choice.id)
   function changeProject(next: string) {
@@ -104,12 +129,18 @@ export function DocumentForm({
     'new-case-study',
     !form.processing && (!!text.trim() || !!instructions.trim() || selected.length > 0)
   )
-  const ready = !!text.trim() && text.length <= 20000 && instructions.length <= MAX_INSTRUCTIONS
+  const ready =
+    !!text.trim() &&
+    text.length <= 20000 &&
+    instructions.length <= MAX_INSTRUCTIONS &&
+    (mode !== 'pages' || selection.pages.length > 0)
   // The freeform choice sends a null template: the brief alone shapes the case study.
   function generate() {
     if (form.processing || !ready) return
     form.transform(() => ({
-      templateId: choice.id === FREEFORM ? null : choice.id,
+      templateId: mode === 'classic' ? (choice.id === FREEFORM ? null : choice.id) : BROCHURE,
+      // Absent means the model chooses every page.
+      ...(mode === 'template' || mode === 'pages' ? { brochure: selection } : {}),
       description: text,
       descriptionContent: composer,
       // Empty instructions are replaced with the defaults on the server.
@@ -279,94 +310,187 @@ export function DocumentForm({
           aria-busy={form.processing}
         >
           <div id="template-heading">
-            <StepLabel n={3} title="Template" hint="Pick one to preview it" />
+            <StepLabel
+              n={3}
+              title="Layout"
+              hint={mode === 'classic' ? 'Pick a template to preview it' : undefined}
+            />
           </div>
-          {!templates.length && (
-            <p role="status" className="mb-3 text-xs text-muted-foreground">
-              Company templates are unavailable. Reload this page to try again, or write freeform.
-            </p>
-          )}
           <div
             role="radiogroup"
-            aria-label="Template"
-            className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-5"
+            aria-label="How to lay out this case study"
+            className="mb-4 grid gap-2 sm:grid-cols-2 xl:grid-cols-4"
           >
-            {choices.map((item) => (
+            {MODES.map((item) => (
               <label
                 key={item.id}
-                className="template-card group relative flex cursor-pointer flex-col items-center gap-2 rounded-2xl border bg-card p-2.5 pb-2 text-center has-[:checked]:border-foreground/70 has-[:checked]:shadow-md has-[:focus-visible]:ring-3 has-[:focus-visible]:ring-ring/40"
+                className="flex cursor-pointer flex-col gap-0.5 rounded-xl border bg-card px-3 py-2.5 has-[:checked]:border-foreground/70 has-[:checked]:shadow-sm has-[:focus-visible]:ring-3 has-[:focus-visible]:ring-ring/40"
               >
                 <input
                   type="radio"
-                  name="template"
+                  name="layout-mode"
                   value={item.id}
-                  checked={templateId === item.id}
-                  onChange={() => setTemplateId(item.id)}
+                  checked={mode === item.id}
+                  onChange={() => setMode(item.id)}
                   disabled={form.processing}
                   className="sr-only"
                 />
-                <span className="template-thumb rounded-[4px]">
-                  <PreviewThumb id={item.id} width={78} />
-                </span>
-                <span className="line-clamp-2 text-[11px] leading-4 font-semibold">
-                  {item.name}
-                </span>
+                <span className="text-sm font-semibold">{item.label}</span>
+                <span className="text-xs text-muted-foreground">{item.hint}</span>
               </label>
             ))}
           </div>
-
-          <div
-            className="preview-stage relative mt-4 h-[26rem] overflow-hidden rounded-3xl border bg-muted/40 text-foreground shadow-xs sm:h-[30rem]"
-            role="img"
-            aria-label={`Preview of the ${choice.name} template, ${spec.length}`}
-          >
-            <TemplatePreview id={choice.id} />
-          </div>
-
-          <div key={choice.id} className="step-in mt-4" style={{ '--i': 0 } as CSSProperties}>
-            <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
-              <div className="min-w-0 max-w-md">
-                <h3 className="text-base font-semibold tracking-tight">{choice.name}</h3>
-                <p className="mt-1 text-sm leading-6 text-muted-foreground">{choice.description}</p>
-              </div>
-              <dl className="flex items-center gap-4 text-xs text-muted-foreground">
-                <div>
-                  <dt className="sr-only">Colors</dt>
-                  <dd className="flex -space-x-1.5">
-                    {[
-                      spec.palette.primary,
-                      spec.palette.accent,
-                      spec.palette.surface,
-                      spec.palette.bg,
-                    ].map((color, i) => (
-                      <span
-                        key={i}
-                        title={color}
-                        className="size-5 rounded-full ring-2 ring-background"
-                        style={{ background: color, boxShadow: 'inset 0 0 0 1px rgb(0 0 0 / .12)' }}
-                      />
+          {mode === 'template' && (
+            <div
+              role="radiogroup"
+              aria-label="Brochure template"
+              className="step-in grid gap-3 sm:grid-cols-2"
+              style={{ '--i': 0 } as CSSProperties}
+            >
+              {BROCHURE_TEMPLATES.map((template) => (
+                <label
+                  key={template.id}
+                  className="flex cursor-pointer flex-col gap-3 rounded-2xl border bg-card p-3 has-[:checked]:border-foreground/70 has-[:checked]:shadow-md has-[:focus-visible]:ring-3 has-[:focus-visible]:ring-ring/40"
+                >
+                  <input
+                    type="radio"
+                    name="brochure-template"
+                    value={template.id}
+                    checked={selection.template === template.id}
+                    onChange={() => setSelection(templateSelection(template.id)!)}
+                    disabled={form.processing}
+                    className="sr-only"
+                  />
+                  <span className="flex gap-1.5 overflow-hidden" aria-hidden="true">
+                    {template.pages.slice(0, 9).map((design, i) => (
+                      <DesignThumb key={i} design={design} className="w-[2.6rem] shrink-0" />
                     ))}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="font-medium text-foreground">{spec.fontName}</dt>
-                  <dd>{spec.length}</dd>
-                </div>
-              </dl>
+                  </span>
+                  <span>
+                    <span className="block text-sm font-semibold">{template.label}</span>
+                    <span className="block text-xs text-muted-foreground">
+                      {template.description}
+                    </span>
+                  </span>
+                </label>
+              ))}
             </div>
-            {choice.headings.length > 0 && (
-              <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Sections it writes">
-                {choice.headings.map((heading) => (
-                  <li
-                    key={heading}
-                    className="rounded-full border bg-card px-2.5 py-1 text-[11px] leading-none text-muted-foreground"
+          )}
+          {mode === 'pages' && (
+            <div className="step-in space-y-3" style={{ '--i': 0 } as CSSProperties}>
+              <p className="text-xs text-muted-foreground">
+                Pick a design for every page. The AI writes the content of each one, and can choose
+                the design of any page you leave to it.
+              </p>
+              <PageDesigner value={selection} onChange={setSelection} disabled={form.processing} />
+            </div>
+          )}
+          {mode === 'ai' && (
+            <p
+              className="step-in max-w-prose rounded-xl border bg-card p-4 text-sm leading-6"
+              style={{ '--i': 0 } as CSSProperties}
+            >
+              The AI reads your brief and sources, decides how many pages the brochure needs, picks
+              the page design that best fits each one, and writes the content. You can see and
+              change its choices in the editor afterwards.
+            </p>
+          )}
+          {mode === 'classic' && (
+            <>
+              {!templates.length && (
+                <p role="status" className="mb-3 text-xs text-muted-foreground">
+                  Company templates are unavailable. Reload this page to try again, or write
+                  freeform.
+                </p>
+              )}
+              <div
+                role="radiogroup"
+                aria-label="Template"
+                className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-5"
+              >
+                {choices.map((item) => (
+                  <label
+                    key={item.id}
+                    className="template-card group relative flex cursor-pointer flex-col items-center gap-2 rounded-2xl border bg-card p-2.5 pb-2 text-center has-[:checked]:border-foreground/70 has-[:checked]:shadow-md has-[:focus-visible]:ring-3 has-[:focus-visible]:ring-ring/40"
                   >
-                    {heading}
-                  </li>
+                    <input
+                      type="radio"
+                      name="template"
+                      value={item.id}
+                      checked={templateId === item.id}
+                      onChange={() => setTemplateId(item.id)}
+                      disabled={form.processing}
+                      className="sr-only"
+                    />
+                    <span className="template-thumb rounded-[4px]">
+                      <PreviewThumb id={item.id} width={78} />
+                    </span>
+                    <span className="line-clamp-2 text-[11px] leading-4 font-semibold">
+                      {item.name}
+                    </span>
+                  </label>
                 ))}
-              </ul>
-            )}
-          </div>
+              </div>
+
+              <div
+                className="preview-stage relative mt-4 h-[26rem] overflow-hidden rounded-3xl border bg-muted/40 text-foreground shadow-xs sm:h-[30rem]"
+                role="img"
+                aria-label={`Preview of the ${choice.name} template, ${spec.length}`}
+              >
+                <TemplatePreview id={choice.id} />
+              </div>
+
+              <div key={choice.id} className="step-in mt-4" style={{ '--i': 0 } as CSSProperties}>
+                <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
+                  <div className="min-w-0 max-w-md">
+                    <h3 className="text-base font-semibold tracking-tight">{choice.name}</h3>
+                    <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                      {choice.description}
+                    </p>
+                  </div>
+                  <dl className="flex items-center gap-4 text-xs text-muted-foreground">
+                    <div>
+                      <dt className="sr-only">Colors</dt>
+                      <dd className="flex -space-x-1.5">
+                        {[
+                          spec.palette.primary,
+                          spec.palette.accent,
+                          spec.palette.surface,
+                          spec.palette.bg,
+                        ].map((color, i) => (
+                          <span
+                            key={i}
+                            title={color}
+                            className="size-5 rounded-full ring-2 ring-background"
+                            style={{
+                              background: color,
+                              boxShadow: 'inset 0 0 0 1px rgb(0 0 0 / .12)',
+                            }}
+                          />
+                        ))}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="font-medium text-foreground">{spec.fontName}</dt>
+                      <dd>{spec.length}</dd>
+                    </div>
+                  </dl>
+                </div>
+                {choice.headings.length > 0 && (
+                  <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Sections it writes">
+                    {choice.headings.map((heading) => (
+                      <li
+                        key={heading}
+                        className="rounded-full border bg-card px-2.5 py-1 text-[11px] leading-none text-muted-foreground"
+                      >
+                        {heading}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </>
+          )}
         </section>
       </div>
 
@@ -389,7 +513,7 @@ export function DocumentForm({
               ? 'Creating your case study…'
               : !text.trim()
                 ? 'Add a brief to get started.'
-                : `${choice.name} · ${selected.length ? `${selected.length} sources` : 'brief only'} · ${instructions.trim() ? 'your instructions' : 'default instructions'}`}
+                : `${mode === 'classic' ? choice.name : mode === 'template' ? (BROCHURE_TEMPLATES.find((t) => t.id === selection.template)?.label ?? 'Brochure') : mode === 'pages' ? `${selection.pages.length} pages` : 'AI chooses'} · ${selected.length ? `${selected.length} sources` : 'brief only'} · ${instructions.trim() ? 'your instructions' : 'default instructions'}`}
           </p>
           <Button type="button" size="lg" disabled={form.processing || !ready} onClick={generate}>
             {form.processing ? (

@@ -10,6 +10,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { FitReport, type LayoutReport } from './fit_report'
+import { PageDesigner } from '@/components/brochure/page_designer'
+import type { BrochureSelection } from '../../../shared/brochure/designs.ts'
 
 type Template = {
   id: string
@@ -21,6 +23,7 @@ type Template = {
 type Preset = { id: string; name: string; templateId: string }
 type Look = 'classic' | 'brochure'
 type Options = {
+  brochure?: BrochureSelection
   imageMode: 'auto' | 'with' | 'without'
   cta?: { label: string; href: string }
   look?: Look
@@ -73,6 +76,8 @@ export function LayoutPicker({ documentId, disabled }: { documentId: string; dis
   const [templateId, setTemplateId] = useState('')
   const [imageMode, setImageMode] = useState<Options['imageMode']>('auto')
   const [look, setLook] = useState<Look>('classic')
+  // Set for a brochure: the design of every page. Such a document has no template, look or image choices.
+  const [brochure, setBrochure] = useState<BrochureSelection | null>(null)
   const [ctaLabel, setCtaLabel] = useState('')
   const [ctaHref, setCtaHref] = useState('')
 
@@ -81,6 +86,7 @@ export function LayoutPicker({ documentId, disabled }: { documentId: string; dis
     setTemplateId(next.selection.templateId)
     setImageMode(next.selection.options.imageMode)
     setLook(next.selection.options.look ?? 'classic')
+    setBrochure(next.selection.options.brochure ?? null)
     setCtaLabel(next.selection.options.cta?.label ?? '')
     setCtaHref(next.selection.options.cta?.href ?? '')
   }, [])
@@ -103,6 +109,7 @@ export function LayoutPicker({ documentId, disabled }: { documentId: string; dis
     (templateId !== selection.templateId ||
       imageMode !== selection.options.imageMode ||
       look !== (selection.options.look ?? 'classic') ||
+      JSON.stringify(brochure) !== JSON.stringify(selection.options.brochure ?? null) ||
       (cta?.label ?? '') !== (selection.options.cta?.label ?? '') ||
       (cta?.href ?? '') !== (selection.options.cta?.href ?? ''))
   useUnsavedChanges('layout-selection', dirty)
@@ -117,7 +124,9 @@ export function LayoutPicker({ documentId, disabled }: { documentId: string; dis
         'PUT',
         {
           templateId: overrideTemplate ?? templateId,
-          options: { imageMode, look, ...(cta ? { cta } : {}) },
+          options: brochure
+            ? { imageMode, brochure }
+            : { imageMode, look, ...(cta ? { cta } : {}) },
           baseRevision: selection.revision,
         }
       )
@@ -179,104 +188,117 @@ export function LayoutPicker({ documentId, disabled }: { documentId: string; dis
             void save()
           }}
         >
-          <fieldset className="space-y-2" disabled={disabled || busy}>
-            <legend className="eyebrow">Template</legend>
-            {templates.map((template) => (
-              <label
-                key={template.id}
-                className="flex cursor-pointer items-start gap-2 rounded-lg border p-3 text-xs has-[:checked]:border-primary has-[:focus-visible]:ring-2"
-              >
-                <input
-                  type="radio"
-                  name="template"
-                  value={template.id}
-                  checked={templateId === template.id}
-                  onChange={() => setTemplateId(template.id)}
-                  className="mt-0.5"
-                />
-                <span className="min-w-0">
-                  <span className="block font-semibold">{template.title}</span>
-                  <span className="block text-muted-foreground">{template.description}</span>
-                  <span className="mt-1 block">
-                    Up to {template.pageBudget} {template.pageBudget === 1 ? 'page' : 'pages'},
-                    sources included
-                  </span>
-                </span>
-              </label>
-            ))}
-            {!templates.length && (
+          {brochure && (
+            <fieldset className="min-w-0 space-y-3" disabled={disabled || busy}>
+              <legend className="eyebrow">Page designs</legend>
               <p className="text-xs text-muted-foreground">
-                No layout is available for this content type yet.
+                Each page takes one design. Changing it redraws the page with the same text. Pages
+                are separated by a line in the text.
               </p>
-            )}
-          </fieldset>
+              <PageDesigner value={brochure} onChange={setBrochure} disabled={disabled || busy} />
+            </fieldset>
+          )}
+          {!brochure && (
+            <>
+              <fieldset className="space-y-2" disabled={disabled || busy}>
+                <legend className="eyebrow">Template</legend>
+                {templates.map((template) => (
+                  <label
+                    key={template.id}
+                    className="flex cursor-pointer items-start gap-2 rounded-lg border p-3 text-xs has-[:checked]:border-primary has-[:focus-visible]:ring-2"
+                  >
+                    <input
+                      type="radio"
+                      name="template"
+                      value={template.id}
+                      checked={templateId === template.id}
+                      onChange={() => setTemplateId(template.id)}
+                      className="mt-0.5"
+                    />
+                    <span className="min-w-0">
+                      <span className="block font-semibold">{template.title}</span>
+                      <span className="block text-muted-foreground">{template.description}</span>
+                      <span className="mt-1 block">
+                        Up to {template.pageBudget} {template.pageBudget === 1 ? 'page' : 'pages'},
+                        sources included
+                      </span>
+                    </span>
+                  </label>
+                ))}
+                {!templates.length && (
+                  <p className="text-xs text-muted-foreground">
+                    No layout is available for this content type yet.
+                  </p>
+                )}
+              </fieldset>
 
-          <fieldset className="space-y-2" disabled={disabled || busy}>
-            <legend className="eyebrow">Look</legend>
-            {LOOKS.map(([value, label, hint]) => (
-              <label
-                key={value}
-                className="flex cursor-pointer items-start gap-2 rounded-lg border p-3 text-xs has-[:checked]:border-primary has-[:focus-visible]:ring-2"
-              >
-                <input
-                  type="radio"
-                  name="look"
-                  value={value}
-                  checked={look === value}
-                  onChange={() => setLook(value)}
-                  className="mt-0.5"
-                />
-                <span className="min-w-0">
-                  <span className="block font-semibold">{label}</span>
-                  <span className="block text-muted-foreground">{hint}</span>
-                </span>
-              </label>
-            ))}
-          </fieldset>
+              <fieldset className="space-y-2" disabled={disabled || busy}>
+                <legend className="eyebrow">Look</legend>
+                {LOOKS.map(([value, label, hint]) => (
+                  <label
+                    key={value}
+                    className="flex cursor-pointer items-start gap-2 rounded-lg border p-3 text-xs has-[:checked]:border-primary has-[:focus-visible]:ring-2"
+                  >
+                    <input
+                      type="radio"
+                      name="look"
+                      value={value}
+                      checked={look === value}
+                      onChange={() => setLook(value)}
+                      className="mt-0.5"
+                    />
+                    <span className="min-w-0">
+                      <span className="block font-semibold">{label}</span>
+                      <span className="block text-muted-foreground">{hint}</span>
+                    </span>
+                  </label>
+                ))}
+              </fieldset>
 
-          <fieldset className="space-y-2" disabled={disabled || busy}>
-            <legend className="eyebrow">Images</legend>
-            {IMAGE_MODES.map(([value, label]) => (
-              <label key={value} className="flex items-center gap-2 text-xs">
-                <input
-                  type="radio"
-                  name="imageMode"
-                  value={value}
-                  checked={imageMode === value}
-                  onChange={() => setImageMode(value)}
-                />
-                {label}
-              </label>
-            ))}
-          </fieldset>
+              <fieldset className="space-y-2" disabled={disabled || busy}>
+                <legend className="eyebrow">Images</legend>
+                {IMAGE_MODES.map(([value, label]) => (
+                  <label key={value} className="flex items-center gap-2 text-xs">
+                    <input
+                      type="radio"
+                      name="imageMode"
+                      value={value}
+                      checked={imageMode === value}
+                      onChange={() => setImageMode(value)}
+                    />
+                    {label}
+                  </label>
+                ))}
+              </fieldset>
 
-          <fieldset className="space-y-2" disabled={disabled || busy}>
-            <legend className="eyebrow">Call to action (optional)</legend>
-            <div className="space-y-1">
-              <Label htmlFor={`cta-label-${documentId}`}>Button text</Label>
-              <Input
-                id={`cta-label-${documentId}`}
-                value={ctaLabel}
-                maxLength={80}
-                onChange={(event) => setCtaLabel(event.target.value)}
-              />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor={`cta-href-${documentId}`}>Link</Label>
-              <Input
-                id={`cta-href-${documentId}`}
-                type="url"
-                inputMode="url"
-                placeholder="https://"
-                value={ctaHref}
-                onChange={(event) => setCtaHref(event.target.value)}
-              />
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Nothing is shown unless you add both. It is never written for you.
-            </p>
-          </fieldset>
-
+              <fieldset className="space-y-2" disabled={disabled || busy}>
+                <legend className="eyebrow">Call to action (optional)</legend>
+                <div className="space-y-1">
+                  <Label htmlFor={`cta-label-${documentId}`}>Button text</Label>
+                  <Input
+                    id={`cta-label-${documentId}`}
+                    value={ctaLabel}
+                    maxLength={80}
+                    onChange={(event) => setCtaLabel(event.target.value)}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor={`cta-href-${documentId}`}>Link</Label>
+                  <Input
+                    id={`cta-href-${documentId}`}
+                    type="url"
+                    inputMode="url"
+                    placeholder="https://"
+                    value={ctaHref}
+                    onChange={(event) => setCtaHref(event.target.value)}
+                  />
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Nothing is shown unless you add both. It is never written for you.
+                </p>
+              </fieldset>
+            </>
+          )}
           {brand && (
             <p className="text-xs text-muted-foreground">
               Brand: {brand.name}, version {brand.version}. New brand versions never change a

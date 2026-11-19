@@ -31,6 +31,9 @@ import { getBrandKit } from '../../../shared/layout/brand.ts'
 import { planLayout } from '../../../shared/layout/plan.ts'
 import { getTemplate } from '../../../shared/layout/templates.ts'
 import type { ClientRenderData } from '../../../shared/publication/client.ts'
+import { lengthWarnings, parsePages } from '../../../shared/brochure/content.ts'
+import { resolveDesigns } from '../../../shared/brochure/designs.ts'
+import { renderBrochureHtml } from '#services/exports/brochure_renderer'
 /** OUT-01 pilot: branded publication layout, off unless enabled. */
 const publicationLayout = () => env.get('PUBLICATION_LAYOUT') === 'pilot'
 
@@ -101,12 +104,16 @@ export default class DocumentExportService {
     )
     await tasks.recordStage(lease, 'validating')
     const client = this.client(content)
-    const layout = await this.layoutPlan(doc, client, { final: true })
+    // A brochure has its own renderer; the older layout rules do not apply to it.
+    const brochure = await this.brochureHtml(doc, client, { final: true })
+    const layout = brochure ? null : await this.layoutPlan(doc, client, { final: true })
     await tasks.recordStage(lease, 'rendering')
-    const buffer = await ExportPdfService.generate(client, {
-      publication: publicationLayout(),
-      ...(layout ? { layout } : {}),
-    })
+    const buffer = brochure
+      ? Buffer.from(await ExportPdfService.fromHtml(brochure))
+      : await ExportPdfService.generate(client, {
+          publication: publicationLayout(),
+          ...(layout ? { layout } : {}),
+        })
     const key = `workspaces/${lease.context.workspaceId}/exports/${lease.task.id}.pdf`
     try {
       await tasks.finish(
@@ -202,12 +209,17 @@ export default class DocumentExportService {
     const content = await this.content(context, documentId, version.content, check)
     await check()
     const client = this.client(content)
-    const layout = await this.layoutPlan(doc, client, { final })
-    const buffer = await ExportPdfService[format === 'html' ? 'html' : 'generate'](client, {
-      preview: !final,
-      publication: publicationLayout(),
-      ...(layout ? { layout } : {}),
-    })
+    const brochure = await this.brochureHtml(doc, client, { final })
+    const layout = brochure ? null : await this.layoutPlan(doc, client, { final })
+    const buffer = brochure
+      ? format === 'html'
+        ? brochure
+        : Buffer.from(await ExportPdfService.fromHtml(brochure))
+      : await ExportPdfService[format === 'html' ? 'html' : 'generate'](client, {
+          preview: !final,
+          publication: publicationLayout(),
+          ...(layout ? { layout } : {}),
+        })
     await check()
     const current = await access.document(context, documentId)
     if (!versionId && current.currentVersionId !== version.id)
@@ -237,6 +249,33 @@ export default class DocumentExportService {
     }
   }
   /**
+   * The brochure for a document that has page designs, or null for any other. Pages come
+   * from the page breaks in the text, each drawn in the design pinned for its position.
+   */
+  private async brochureHtml(
+    doc: Document,
+    client: ClientRenderData,
+    { final }: { final: boolean }
+  ) {
+    const selection = await new LayoutSelectionService().peek(doc.workspaceId!, doc.id)
+    const chosen = selection.options.brochure
+    if (!chosen) return null
+    const brand = getBrandKit(selection.brandId, selection.brandVersion)
+    if (!brand)
+      throw new Exception('The pinned brand version is not available', {
+        status: 422,
+        code: 'E_LAYOUT_INVALID',
+      })
+    const pages = parsePages(client)
+    const designs = resolveDesigns(chosen.pages, pages.length)
+    return renderBrochureHtml(
+      pages.map((sections, index) => ({ design: designs[index], sections })),
+      brand,
+      { sources: client.sources, preview: !final }
+    )
+  }
+
+  /**
    * Fit and content findings for the pinned layout, for the picker and review
    * panel. Null when there is nothing renderable yet or the content cannot be
    * projected safely (that case is reported by the preview itself).
@@ -256,6 +295,25 @@ export default class DocumentExportService {
       const selection = await new LayoutSelectionService().peek(context.workspaceId, documentId)
       const template = getTemplate(selection.templateId, selection.templateVersion)!
       const brand = getBrandKit(selection.brandId, selection.brandVersion)!
+      if (selection.options.brochure) {
+        // One sheet per page design; the only findings are text longer than a design holds.
+        const pages = parsePages(client)
+        const designs = resolveDesigns(selection.options.brochure.pages, pages.length)
+        return {
+          pages: pages.length,
+          pageBudget: pages.length,
+          fits: true,
+          density: 'normal' as const,
+          steps: [],
+          findings: pages.flatMap((sections, index) =>
+            lengthWarnings(designs[index], sections, index + 1).map((message) => ({
+              code: 'brochure_text_long',
+              severity: 'warning' as const,
+              message,
+            }))
+          ),
+        }
+      }
       const data = renumberFootnotes(client)
       const fit = fitPlan(planLayout(data, template, brand, selection.options), template)
       return {

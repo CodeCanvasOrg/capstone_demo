@@ -5,6 +5,7 @@ import PublicationContentService from '#services/documents/publication_content_s
 import type { PublicationDocument } from '../../../shared/publication/content.ts'
 import LayoutSelectionService from '#services/layout/layout_selection_service'
 import { RENDERER_VERSION } from '#services/exports/layout_renderer'
+import { BROCHURE_RENDERER_VERSION } from '#services/exports/brochure_renderer'
 import { bundleHash, type ReviewBundle } from '../../../shared/layout/bundle.ts'
 import { getBrandKit } from '../../../shared/layout/brand.ts'
 import { hashOf } from '../../../shared/layout/hash.ts'
@@ -52,7 +53,8 @@ export default class BundleService {
       brand: { id: selection.brandId, version: selection.brandVersion },
       options: selection.options,
       assetIds: assetIds(version.content as Node),
-      rendererVersion: RENDERER_VERSION,
+      // A brochure is drawn by its own renderer, so a change to it must withdraw approvals too.
+      rendererVersion: selection.options.brochure ? BROCHURE_RENDERER_VERSION : RENDERER_VERSION,
       definitions: {
         template: hashOf(getTemplate(selection.templateId, selection.templateVersion) ?? null),
         brand: hashOf(getBrandKit(selection.brandId, selection.brandVersion) ?? null),

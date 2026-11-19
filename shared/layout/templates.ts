@@ -1,4 +1,5 @@
 import { isSafeLink } from '../publication/client.ts'
+import { parseSelection, type BrochureSelection } from '../brochure/designs.ts'
 import { ENABLED_DOC_TYPES, type DocType } from '../publication/content.ts'
 
 /**
@@ -160,6 +161,12 @@ export type LayoutOptions = {
   imageMode: 'auto' | 'with' | 'without'
   cta?: { label: string; href: string; headline?: string }
   look?: Look
+  /**
+   * The page designs of a brochure entry, in order (`auto` pages are resolved by the
+   * model while it writes). Absent for entries that use the older layout templates,
+   * so documents saved before this option existed render and hash exactly as before.
+   */
+  brochure?: BrochureSelection
 }
 export type OptionError = { code: string; field: string; message: string }
 
@@ -172,7 +179,7 @@ export function resolveOptions(template: TemplateDefinition, input: unknown) {
       : {}
   const options: LayoutOptions = { imageMode: 'auto' }
   for (const key of Object.keys(raw))
-    if (!['imageMode', 'cta', 'look'].includes(key))
+    if (!['imageMode', 'cta', 'look', 'brochure'].includes(key))
       errors.push({ code: 'unknown_option', field: key, message: 'This option is not supported.' })
   if (raw.imageMode !== undefined) {
     if ((template.options.imageMode as readonly unknown[]).includes(raw.imageMode))
@@ -183,6 +190,11 @@ export function resolveOptions(template: TemplateDefinition, input: unknown) {
         field: 'imageMode',
         message: 'Choose auto, with or without images.',
       })
+  }
+  if (raw.brochure !== undefined) {
+    const parsed = parseSelection(raw.brochure)
+    if (parsed.ok) options.brochure = parsed.selection
+    else errors.push({ code: 'invalid_option_value', field: 'brochure', message: parsed.message })
   }
   if (raw.look !== undefined) {
     if ((LOOKS as readonly unknown[]).includes(raw.look)) {

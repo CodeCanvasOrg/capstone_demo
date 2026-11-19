@@ -562,7 +562,11 @@ export default function Edit({
           library before review.
         </p>
       )}
-      {processing && <BeeWorking />}
+      <BeeWorking
+        documentId={document.id}
+        active={processing}
+        failed={document.generationStatus === 'failed'}
+      />
       {document.generationStatus === 'failed' && (
         <div className="space-y-2 border-b p-4">
           <p role="alert" className="text-xs text-destructive">

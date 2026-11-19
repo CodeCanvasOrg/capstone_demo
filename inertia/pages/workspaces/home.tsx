@@ -2,6 +2,7 @@ import { Head } from '@inertiajs/react'
 import { Form, Link } from '@adonisjs/inertia/react'
 import type { Data } from '@generated/data'
 import { Plus, Folder, Settings2, ArrowRight, Save, FilePlus2 } from 'lucide-react'
+import { Bee } from '@/components/bee/bee'
 import { Ribbons } from '@/components/ribbons'
 import { useWorkspace } from '@/providers/workspace_provider'
 import { Button } from '@/components/ui/button'
@@ -95,12 +96,15 @@ export default function Home({
         <p className="mt-4 max-w-md text-sm leading-6">
           Start from a template or a few rough notes. We’ll shape the story together.
         </p>
-        <Button asChild size="lg" className="mt-6">
-          <Link data-tour="new" route="documents.create" routeParams={{ workspaceId }}>
-            <FilePlus2 aria-hidden="true" />
-            New case study
-          </Link>
-        </Button>
+        <div className="mt-6 flex items-center gap-5">
+          <Button asChild size="lg">
+            <Link data-tour="new" route="documents.create" routeParams={{ workspaceId }}>
+              <FilePlus2 aria-hidden="true" />
+              New case study
+            </Link>
+          </Button>
+          <Bee className="cta-bee hidden size-16 sm:block" />
+        </div>
       </section>
       <section>
         <div className="mb-4 flex items-center justify-between gap-3">

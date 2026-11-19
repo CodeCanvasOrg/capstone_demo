@@ -9,6 +9,7 @@ import type { TipTapDocument } from '#services/documents/chunk_metadata_service'
 import type { EntryFormat } from '../../../shared/layout/formats.ts'
 import {
   BRANDED_TEMPLATE_ID,
+  BROCHURE_TEMPLATE_ID,
   TEMPLATE_IDS,
   outlineSections,
   type OutlineDefinition,
@@ -33,6 +34,10 @@ const catalog = {
     name: 'Product vision',
     description: 'The user need, the experience, capabilities by availability and a roadmap.',
   },
+  brochure: {
+    name: 'Brochure',
+    description: 'A multi-page brochure where every page has its own design.',
+  },
 } as const
 
 export default class OutlineTemplateService {
@@ -50,10 +55,11 @@ export default class OutlineTemplateService {
     { legacy = false }: { legacy?: boolean } = {}
   ): Promise<OutlineTemplate> {
     if (!TEMPLATE_IDS.includes(id as (typeof TEMPLATE_IDS)[number])) throw missingResource()
+    const brochure = id === BROCHURE_TEMPLATE_ID
     const structured = id === BRANDED_TEMPLATE_ID || !legacy
     const instructions = await readFile(
       app.makePath(
-        `resources/document_templates/${structured && id !== BRANDED_TEMPLATE_ID ? `${id}_entry` : id}.md`
+        `resources/document_templates/${structured && id !== BRANDED_TEMPLATE_ID && !brochure ? `${id}_entry` : id}.md`
       ),
       'utf8'
     )
@@ -65,7 +71,11 @@ export default class OutlineTemplateService {
       ...catalog[id as keyof typeof catalog],
       instructions,
       outline,
-      ...(structured ? { format: 'branded_entry' as const, entryFormat: id as EntryFormat } : {}),
+      ...(brochure
+        ? { format: 'brochure_entry' as const }
+        : structured
+          ? { format: 'branded_entry' as const, entryFormat: id as EntryFormat }
+          : {}),
     }
     return { id, revision: fingerprint(definition), definition }
   }

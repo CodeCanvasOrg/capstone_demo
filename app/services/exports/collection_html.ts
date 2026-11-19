@@ -121,7 +121,7 @@ h1,h2,h3,p{margin:0}
  * has its own cover and the same name always draws the same one. Stroke
  * colour is the brand accent; opacity and weight vary along the bundle.
  */
-export function ribbonsSvg(seed: string, accent: string) {
+export function ribbonsSvg(seed: string, accent: string, cy = 118) {
   const bytes = createHash('sha256').update(seed).digest()
   const phase = (bytes[0] / 255) * Math.PI * 2
   const swing = 0.8 + (bytes[1] / 255) * 0.6
@@ -135,7 +135,7 @@ export function ribbonsSvg(seed: string, accent: string) {
       const u = x / 210
       const envelope = Math.sin(Math.PI * Math.min(1, Math.max(0, u * 0.9 + 0.05)))
       const y =
-        118 +
+        cy +
         tilt * (x - 105) +
         (t - 0.5) * 62 * (0.35 + envelope) +
         Math.sin(u * 6.2 + phase + t * 2.6) * 26 * swing * envelope +

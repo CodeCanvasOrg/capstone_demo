@@ -98,8 +98,9 @@ export default class CollectionService {
       category: project?.name ?? 'Case studies',
       templateId: template.id,
       templateVersion: template.version,
-      // The page budget is an upper bound until a measured count replaces it.
-      pages: template.pageBudget,
+      // The page budget is an upper bound until a measured count replaces it. A brochure
+      // has one sheet per page design.
+      pages: selection.options.brochure?.pages.length ?? template.pageBudget,
       evidenceKeys: evidenceKeys(version.content as Node),
       // Figures are pinned with the revision, so a highlights page cannot drift from it.
       ...(stats.length ? { stats } : {}),

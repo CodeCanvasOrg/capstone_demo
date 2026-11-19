@@ -91,7 +91,7 @@ Reduced motion keeps opacity and drops movement. Hover effects are gated to fine
 
 ## Out of scope for this pass
 
-- Changing an entry's block order page by page inside a case study.
+- Changing an entry's block order page by page inside a case study. (Done in the third pass, below.)
 - Image assets on portfolio pages. The cover graphic is generated from the portfolio name.
 - Restyling the rest of the app shell. (Done in a second pass, below.)
 
@@ -135,3 +135,62 @@ under reduced motion. Nothing else moves on its own.
 
 Not restyled: the editor's page-view canvas (it mirrors the PDF and has its own styles), the bee
 mascot, and the guided tour.
+
+## Brochure entries (third pass): one case study, page by page
+
+The portfolio builder works across a collection. This pass adds the same control for a single
+entry, modelled on the pages of the Accenture ALIP brochure rather than on the old case-study
+blocks. Nothing from the old layout templates is reused.
+
+### The nine page designs
+
+Each is its own composition on its own A4 sheet, drawn by `brochure_renderer.ts`:
+
+| Design | Modelled on | What it holds |
+| --- | --- | --- |
+| cover | p.1 | Dark full-page cover with ribbon art, a bold title and a subtitle |
+| proof | p.2 | A colour column of statements beside up to three large-number proof points |
+| article | p.3 | Title, prose, bullets, an accent lead-in and a large closing line |
+| offer | p.4 | A banner with an intro, one giant number, then three columns |
+| glance | p.5 | Cards joined by arrows, a platform band and a comparison grid |
+| columns | p.6 | A banner with intro text, then up to three accent-headed columns |
+| insight | p.7 | Up to three columns of text beside a dark art panel |
+| recognition | p.8 | Large display headings, intro text and a grid of up to six proof cards |
+| contact | p.9 | Contact details, an about section and small print |
+
+### Three ways to choose, and the model always writes
+
+| Mode | Designs come from | Content comes from |
+| --- | --- | --- |
+| Use a template | A full template: Product brochure (all nine), Overview, Capabilities or Brief | The model |
+| Choose each page | The author, per page, including "Let AI choose" for any page | The model |
+| Let AI choose | The model, from each design's "best for" | The model |
+
+### Decisions
+
+1. **A page is rich text, so the editor does not change.** A small convention gives it shape: `##` is a
+   section, `###` a card or column, `83% — of executives` a figure, `Source:` a source line and a
+   horizontal rule a page break. A design reads what it needs and ignores the rest, so changing a page's
+   design never means rewriting it. Round-tripping through the real projection is tested for every design.
+2. **The designs are pinned in the layout options** (`options.brochure`), so they are validated, hashed
+   into the approval bundle and editable in the layout panel. The brochure renderer has its own
+   version in the bundle. Entries without it plan, fit, render and hash exactly as before.
+3. **The model chooses from a closed set.** It returns pages with a design from the nine and the
+   content that design reads. Each page is checked against that design's limits and a retry names the
+   failing fields. The model decides the whole layout only while the plan is still open; once it has
+   chosen, the designs are fixed and a regeneration keeps them.
+4. **Detailed content still fits.** The limits are one table (`CAPS`), used for the prompt, for
+   validation and for the tests. A Chromium test fills every design to its limits and checks that no
+   text leaves the sheet or collides with other text.
+5. **Edits that outgrow a design are reported**, in plain words, as warnings. The layout report counts
+   one sheet per page design.
+6. **The choice is saved after the draft is accepted**, outside the generation transaction, because the
+   layout service takes its own locks on the document.
+
+### Known limits
+
+- Text edited past a design's limits is reported but not cut by the editor; the sheet clips it.
+- The brochure has no images yet. Art on the cover and panels is generated.
+- The palette is the HumbleBee navy and yellow, not the brochure's purple. It is a brand token, so
+  changing it changes every design.
+- The older case-study layouts remain, under "Classic case study", for existing entries.

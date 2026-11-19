@@ -111,6 +111,7 @@ export default function DocumentEditor({
     options: unknown
   } | null>(null)
   const [prefill, setPrefill] = useState('')
+  const brochure = !!(layout?.options as { brochure?: unknown } | null | undefined)?.brochure
   const [pageExtensions] = useState(() => [
     ...extensions,
     LayoutView.configure({ getBudget: () => pages.budget }),
@@ -449,12 +450,12 @@ export default function DocumentEditor({
       )}
       <div className="min-h-[85vh] bg-background px-3 py-6 sm:px-7 sm:py-10">
         <div
-          className="document-canvas page-view tiptap-editor mx-auto"
+          className={`document-canvas ${brochure ? '' : 'page-view'} tiptap-editor mx-auto`}
           style={brandVars}
           aria-busy={writing || generationStatus === 'processing'}
         >
           <div className="mb-10 flex items-center justify-between gap-4 text-[.625rem] font-semibold tracking-widest text-muted-foreground uppercase">
-            <span>Case study</span>
+            <span>{brochure ? 'Brochure' : 'Case study'}</span>
             <span role="status">
               {generationStatus === 'checking_issues'
                 ? 'Loading issues…'
@@ -463,17 +464,25 @@ export default function DocumentEditor({
                   : 'First draft'}
             </span>
           </div>
-          <PageStatus
-            stats={stats}
-            layouts={layouts}
-            selected={layout?.templateId ?? ''}
-            disabled={writing || generationStatus === 'processing' || revising}
-            onSwitch={(id) => void switchLayout(id)}
-            onShorten={(lines) => {
-              setPrefill(shortenRequest(pages.budget ?? 1, lines))
-              setAsking(true)
-            }}
-          />
+          {brochure && (
+            <p className="mb-8 max-w-prose text-xs leading-5 text-muted-foreground">
+              Each page is separated by a line. Change a page&apos;s design under Layout and
+              branding; the text stays the same.
+            </p>
+          )}
+          {!brochure && (
+            <PageStatus
+              stats={stats}
+              layouts={layouts}
+              selected={layout?.templateId ?? ''}
+              disabled={writing || generationStatus === 'processing' || revising}
+              onSwitch={(id) => void switchLayout(id)}
+              onShorten={(lines) => {
+                setPrefill(shortenRequest(pages.budget ?? 1, lines))
+                setAsking(true)
+              }}
+            />
+          )}
           {!baseVersionId && (
             <div className="mb-8">
               <h1 className="page-title text-3xl sm:text-4xl">{title}</h1>
