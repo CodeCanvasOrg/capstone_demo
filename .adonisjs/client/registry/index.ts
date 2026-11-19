@@ -216,6 +216,12 @@ const routes = {
     tokens: [{"old":"/workspaces/:workspaceId/collections/:collectionId","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId","type":0,"val":"collections","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId","type":1,"val":"collectionId","end":""}],
     types: placeholder as Registry['collections.update']['types'],
   },
+  'collections.arrange': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/collections/:collectionId/arrange',
+    tokens: [{"old":"/workspaces/:workspaceId/collections/:collectionId/arrange","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/arrange","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/arrange","type":0,"val":"collections","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/arrange","type":1,"val":"collectionId","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/arrange","type":0,"val":"arrange","end":""}],
+    types: placeholder as Registry['collections.arrange']['types'],
+  },
   'collections.approve': {
     methods: ["POST"],
     pattern: '/workspaces/:workspaceId/collections/:collectionId/approval',

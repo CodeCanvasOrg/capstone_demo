@@ -36,13 +36,17 @@ const M = PAGE_MARGIN_MM
 
 const css = (plan: LayoutPlan, brand: BrandKit) => {
   const palette = brand.palette
+  const brochure = plan.options.look === 'brochure'
+  // Brochure type is larger in the two places that carry the page: title and figures.
+  const heroScale = brochure ? 1.22 : 1
+  const statScale = brochure ? 1.55 : 1
   const sizes = plan.blocks
     .map((item) => {
       switch (item.type) {
         case 'hero':
-          return `#${item.id} h1{font-size:${item.fontPt}pt}#${item.id} .summary{font-size:${(item.fontPt * 0.52).toFixed(1)}pt}`
+          return `#${item.id} h1{font-size:${+(item.fontPt * heroScale).toFixed(1)}pt}#${item.id} .summary{font-size:${(item.fontPt * 0.52).toFixed(1)}pt}`
         case 'results':
-          return `#${item.id} .stat-value{font-size:${item.fontPt}pt}`
+          return `#${item.id} .stat-value{font-size:${+(item.fontPt * statScale).toFixed(1)}pt}`
         case 'figure':
           return `#${item.id} figcaption{font-size:${item.fontPt}pt}`
         default:
@@ -114,7 +118,7 @@ figcaption{margin-top:3pt;color:${palette.muted};text-align:center}
 .sources li{counter-increment:src}
 .sources li::before{content:attr(value) ". "}
 a{color:inherit}
-${formatCss(plan, brand, gap)}
+${formatCss(plan, brand, gap)}${brochure ? `\n${brochureCss(brand, gap)}` : ''}
 ${sizes}`
 }
 
@@ -241,6 +245,51 @@ function formatCss(plan: LayoutPlan, brand: BrandKit, gap: number) {
   }
 }
 
+/**
+ * The brochure look: a dark hero with a generated glow and ring graphic, very
+ * large figures on the accent band and heavier section headings. It restyles the
+ * same blocks as every other look, so it works with any entry format, and it
+ * uses only brand colours and mixes of them. It comes after the format rules so
+ * the look wins where both style the same part.
+ */
+function brochureCss(brand: BrandKit, gap: number) {
+  const { primary: p, accent: a, accentText: at, surface: s } = brand.palette
+  const mix = (pct: number) => `color-mix(in srgb,${a} ${pct}%,transparent)`
+  const f = (rule: string) => `article[data-look="brochure"] ${rule}`
+  return [
+    `.hero{position:relative;overflow:hidden;color:#fff;border-bottom:0;padding:${M + 2}mm ${M}mm ${M + 6}mm;background:radial-gradient(60% 90% at 100% 0%,${mix(36)},transparent 62%),radial-gradient(50% 70% at 0% 100%,${mix(12)},transparent 70%),${p}}`,
+    `.hero::before{content:"";position:absolute;right:-34mm;top:-38mm;width:130mm;height:130mm;border-radius:50%;background:repeating-radial-gradient(circle at center,transparent 0 5mm,${mix(24)} 5mm 5.3mm);pointer-events:none}`,
+    `.hero::after{display:none}`,
+    `.hero-text{position:relative;z-index:1}`,
+    `.hero .brandbar{color:#fff}`,
+    `.hero .kicker{display:inline-block;margin-bottom:8pt;padding:0 0 2pt;border-radius:0;background:none;border-bottom:2pt solid ${a};color:${a};font-size:10pt;font-weight:700;letter-spacing:.01em;text-transform:lowercase}`,
+    `.hero .kicker::first-letter{text-transform:uppercase}`,
+    `.hero .kicker::before{content:none}`,
+    `.hero h1{color:#fff;font-weight:800;letter-spacing:-.025em;line-height:1.04}`,
+    `.hero .summary{color:#dfe6f2}`,
+    `.hero-figure{position:relative;z-index:1;box-shadow:none;border-radius:4pt}`,
+    `.stat-band{background:${a};color:${p};padding:9mm ${M}mm}`,
+    `.stat{padding-left:0;border-left:0}`,
+    `.stat-value{letter-spacing:-.035em;line-height:1}`,
+    `.stat-units{font-size:10pt;font-weight:600}`,
+    `.tag{border-color:${p};color:${p}}`,
+    `h2{margin-top:${gap + 8}pt;padding-bottom:0;border-bottom:0;font-size:1.5em;letter-spacing:-.02em;font-weight:800}`,
+    `h2::before{content:"";display:block;width:10mm;height:3pt;margin-bottom:6pt;background:${a}}`,
+    `.columns h2{margin:0 0 5pt;font-size:1.3em;font-weight:800;letter-spacing:-.015em;text-transform:none;color:${p}}`,
+    `.columns>div{padding-left:0;border-left:0}`,
+    `.columns>div:first-child p{font-size:inherit;font-weight:inherit;color:inherit;line-height:inherit}`,
+    `.step-n{font-size:2.3em;font-weight:800;letter-spacing:-.03em;line-height:1;color:${at}}`,
+    `.steps{border-top:0;padding-top:0}`,
+    `.card{background:${s};border:0;border-top:3pt solid ${a};border-radius:0}`,
+    `.roadmap{border:0;border-radius:0;background:${s};border-left:4pt solid ${a}}`,
+    `.cta{background:${p}}`,
+    `.cta a{border-radius:99pt}`,
+    `.sources{border-top:0}`,
+  ]
+    .map(f)
+    .join('')
+}
+
 const stat = (item: Extract<PlanBlock, { type: 'results' }>['items'][number]) =>
   `<div class="stat"><span class="stat-value">${item.prefix ? `${esc(item.prefix)} ` : ''}${esc(item.value)}${item.marker ? `<sup class="mark">${esc(item.marker)}</sup>` : ''}</span>${item.units ? `<span class="stat-units">${esc(item.units)}</span>` : ''}<span class="tag">${esc(item.label)}</span>${item.context ? `<span class="stat-context">${esc(item.context)}</span>` : ''}</div>`
 
@@ -327,7 +376,7 @@ export async function renderLayoutHtml(
 <style>${await fontFaces(brand)}${css(plan, brand)}</style>
 </head>
 <body>
-<article data-format="${plan.format}" data-template="${esc(plan.template.id)}" data-template-version="${plan.template.version}" data-brand="${esc(brand.id)}@${brand.version}" data-variant="${plan.variant}" data-density="${plan.density}">
+<article data-format="${plan.format}" data-template="${esc(plan.template.id)}" data-template-version="${plan.template.version}" data-brand="${esc(brand.id)}@${brand.version}" data-variant="${plan.variant}" data-density="${plan.density}"${plan.options.look === 'brochure' ? ' data-look="brochure"' : ''}>
 ${preview ? '<p class="draft-banner">PREVIEW · NOT APPROVED FOR FINAL EXPORT</p>' : ''}
 ${plan.blocks.map((item) => block(item, brand, plan.format)).join('\n')}
 </article>

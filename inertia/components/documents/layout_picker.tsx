@@ -19,7 +19,12 @@ type Template = {
   pageBudget: number
 }
 type Preset = { id: string; name: string; templateId: string }
-type Options = { imageMode: 'auto' | 'with' | 'without'; cta?: { label: string; href: string } }
+type Look = 'classic' | 'brochure'
+type Options = {
+  imageMode: 'auto' | 'with' | 'without'
+  cta?: { label: string; href: string }
+  look?: Look
+}
 type Selection = {
   templateId: string
   templateVersion: number
@@ -38,6 +43,15 @@ type Payload = {
   }
   report: LayoutReport | null
 }
+
+const LOOKS: readonly (readonly [Look, string, string])[] = [
+  ['classic', 'Classic', 'The standard layout.'],
+  [
+    'brochure',
+    'Brochure',
+    'Dark title band with a graphic, very large figures and bolder headings.',
+  ],
+]
 
 const IMAGE_MODES = [
   ['auto', 'Use images when the case study has them'],
@@ -58,6 +72,7 @@ export function LayoutPicker({ documentId, disabled }: { documentId: string; dis
   const [busy, setBusy] = useState(false)
   const [templateId, setTemplateId] = useState('')
   const [imageMode, setImageMode] = useState<Options['imageMode']>('auto')
+  const [look, setLook] = useState<Look>('classic')
   const [ctaLabel, setCtaLabel] = useState('')
   const [ctaHref, setCtaHref] = useState('')
 
@@ -65,6 +80,7 @@ export function LayoutPicker({ documentId, disabled }: { documentId: string; dis
     setData(next)
     setTemplateId(next.selection.templateId)
     setImageMode(next.selection.options.imageMode)
+    setLook(next.selection.options.look ?? 'classic')
     setCtaLabel(next.selection.options.cta?.label ?? '')
     setCtaHref(next.selection.options.cta?.href ?? '')
   }, [])
@@ -86,6 +102,7 @@ export function LayoutPicker({ documentId, disabled }: { documentId: string; dis
     !!selection &&
     (templateId !== selection.templateId ||
       imageMode !== selection.options.imageMode ||
+      look !== (selection.options.look ?? 'classic') ||
       (cta?.label ?? '') !== (selection.options.cta?.label ?? '') ||
       (cta?.href ?? '') !== (selection.options.cta?.href ?? ''))
   useUnsavedChanges('layout-selection', dirty)
@@ -100,7 +117,7 @@ export function LayoutPicker({ documentId, disabled }: { documentId: string; dis
         'PUT',
         {
           templateId: overrideTemplate ?? templateId,
-          options: { imageMode, ...(cta ? { cta } : {}) },
+          options: { imageMode, look, ...(cta ? { cta } : {}) },
           baseRevision: selection.revision,
         }
       )
@@ -192,6 +209,29 @@ export function LayoutPicker({ documentId, disabled }: { documentId: string; dis
                 No layout is available for this content type yet.
               </p>
             )}
+          </fieldset>
+
+          <fieldset className="space-y-2" disabled={disabled || busy}>
+            <legend className="eyebrow">Look</legend>
+            {LOOKS.map(([value, label, hint]) => (
+              <label
+                key={value}
+                className="flex cursor-pointer items-start gap-2 rounded-lg border p-3 text-xs has-[:checked]:border-primary has-[:focus-visible]:ring-2"
+              >
+                <input
+                  type="radio"
+                  name="look"
+                  value={value}
+                  checked={look === value}
+                  onChange={() => setLook(value)}
+                  className="mt-0.5"
+                />
+                <span className="min-w-0">
+                  <span className="block font-semibold">{label}</span>
+                  <span className="block text-muted-foreground">{hint}</span>
+                </span>
+              </label>
+            ))}
           </fieldset>
 
           <fieldset className="space-y-2" disabled={disabled || busy}>

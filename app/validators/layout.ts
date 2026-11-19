@@ -1,4 +1,5 @@
 import vine from '@vinejs/vine'
+import { PRESET_IDS } from '../../shared/layout/portfolio.ts'
 
 const pin = {
   templateId: vine.string().trim().minLength(1).maxLength(64),
@@ -43,10 +44,17 @@ const wrapper = vine.object({
     .optional(),
 })
 
+// The design's exact shape is enforced by `parseDesign` on the server, which rejects unknown fields.
+const design = {
+  preset: vine.enum(PRESET_IDS).optional(),
+  design: vine.any().optional(),
+}
+
 export const collectionCreateValidator = vine.create({
   name: vine.string().maxLength(120),
   entryIds: vine.array(vine.string().uuid()).maxLength(100),
   wrapper,
+  ...design,
 })
 
 export const collectionUpdateValidator = vine.create({
@@ -54,6 +62,7 @@ export const collectionUpdateValidator = vine.create({
   entryIds: vine.array(vine.string().uuid()).maxLength(100).optional(),
   wrapper: wrapper.clone().optional(),
   baseHash: vine.string().fixedLength(64),
+  ...design,
 })
 
 export const collectionApprovalValidator = vine.create({ baseHash: vine.string().fixedLength(64) })

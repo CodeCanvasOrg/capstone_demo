@@ -9,14 +9,15 @@ const driveConfig = defineConfig({
    * services each using the same or a different driver.
    */
   services: {
-    supabase: services.s3({
+    s3: services.s3({
       credentials: {
-        accessKeyId: env.get('SUPABASE_STORAGE_KEY'),
-        secretAccessKey: env.get('SUPABASE_STORAGE_SECRET'),
+        accessKeyId: env.get('S3_ACCESS_KEY_ID'),
+        secretAccessKey: env.get('S3_SECRET_ACCESS_KEY'),
       },
-      region: env.get('SUPABASE_STORAGE_REGION'),
-      bucket: env.get('SUPABASE_STORAGE_BUCKET'),
-      endpoint: env.get('SUPABASE_ENDPOINT'),
+      region: env.get('S3_REGION'),
+      bucket: env.get('S3_BUCKET'),
+      endpoint: env.get('S3_ENDPOINT'),
+      forcePathStyle: true,
       visibility: 'private',
     }),
   },

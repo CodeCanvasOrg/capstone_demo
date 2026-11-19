@@ -39,6 +39,7 @@ export type ScannedRoutes = {
     'collections.store': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'collections.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'collectionId': ParamValue} }
     'collections.update': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'collectionId': ParamValue} }
+    'collections.arrange': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'collectionId': ParamValue} }
     'collections.approve': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'collectionId': ParamValue} }
     'collections.preview': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'collectionId': ParamValue} }
     'collections.download': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'collectionId': ParamValue} }
@@ -198,6 +199,7 @@ export type ScannedRoutes = {
     'layoutPresets.store': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'layoutPresets.duplicate': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'presetId': ParamValue} }
     'collections.store': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
+    'collections.arrange': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'collectionId': ParamValue} }
     'collections.approve': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'collectionId': ParamValue} }
     'projects.store': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'documentReviews.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }

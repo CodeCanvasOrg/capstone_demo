@@ -427,6 +427,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'collections.arrange': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/collections/:collectionId/arrange'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/layout').collectionBudgetValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; collectionId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/layout').collectionBudgetValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['arrange']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['arrange']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'collections.approve': {
     methods: ["POST"]
     pattern: '/workspaces/:workspaceId/collections/:collectionId/approval'

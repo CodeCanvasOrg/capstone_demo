@@ -90,6 +90,9 @@ router
           .patch('/collections/:collectionId', [controllers.Collections, 'update'])
           .as('collections.update')
         router
+          .post('/collections/:collectionId/arrange', [controllers.Collections, 'arrange'])
+          .as('collections.arrange')
+        router
           .post('/collections/:collectionId/approval', [controllers.Collections, 'approve'])
           .as('collections.approve')
         router

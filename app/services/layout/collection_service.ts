@@ -17,10 +17,22 @@ import {
   buildManifest,
   collectionBudget,
   composeContents,
+  effectiveDesign,
   manifestHash,
   type CollectionEntry,
   type Wrapper,
 } from '../../../shared/layout/collection.ts'
+import {
+  parseDesign,
+  planPages,
+  reconcileDesign,
+  rulesDesign,
+  validateDesign,
+  type PortfolioDesign,
+  type PresetId,
+} from '../../../shared/layout/portfolio.ts'
+import { entryStats } from '#services/layout/entry_stats'
+import PortfolioArrangerService, { type Ask } from '#services/layout/portfolio_arranger_service'
 import { getTemplate } from '../../../shared/layout/templates.ts'
 import { DEFAULT_BRAND_ID } from '#services/layout/layout_validation'
 import { getBrandKit } from '../../../shared/layout/brand.ts'
@@ -78,6 +90,7 @@ export default class CollectionService {
           .where({ id: document.projectId, workspaceId: context.workspaceId })
           .first()
       : null
+    const stats = entryStats(version.content)
     return {
       entryId: document.id,
       revisionId: version.id,
@@ -88,6 +101,8 @@ export default class CollectionService {
       // The page budget is an upper bound until a measured count replaces it.
       pages: template.pageBudget,
       evidenceKeys: evidenceKeys(version.content as Node),
+      // Figures are pinned with the revision, so a highlights page cannot drift from it.
+      ...(stats.length ? { stats } : {}),
     }
   }
 
@@ -108,9 +123,44 @@ export default class CollectionService {
     return out
   }
 
+  /**
+   * The design to store: the reviewer's own pages, a preset's rules, or nothing
+   * (the classic arrangement of a collection made before designs existed).
+   * Rules and preset designs are always rebuilt from the rules, so a request
+   * cannot store pages the rules would not produce. Every design is validated
+   * against the pinned entries before it reaches the manifest.
+   */
+  private resolveDesign(
+    entries: CollectionEntry[],
+    wrapper: Wrapper,
+    input: { design?: unknown; preset?: PresetId },
+    previous?: PortfolioDesign
+  ): PortfolioDesign | undefined {
+    let design: PortfolioDesign | undefined
+    if (input.design !== undefined) {
+      const parsed = parseDesign(input.design)
+      if (!parsed.ok) throw invalid(parsed.errors[0].message)
+      design = parsed.design
+      if (design.source === 'rules' || design.source === 'preset')
+        design = rulesDesign(entries, wrapper, design.preset ?? 'brochure', design.source)
+    } else if (input.preset) design = rulesDesign(entries, wrapper, input.preset, 'preset')
+    else if (previous) design = reconcileDesign(previous, entries, wrapper)
+    if (design) {
+      const problems = validateDesign(design, entries, wrapper)
+      if (problems.length) throw invalid(problems[0].message)
+    }
+    return design
+  }
+
   async create(
     context: WorkspaceAccessContext,
-    input: { name: string; entryIds: string[]; wrapper: Wrapper }
+    input: {
+      name: string
+      entryIds: string[]
+      wrapper: Wrapper
+      preset?: PresetId
+      design?: unknown
+    }
   ) {
     const name = input.name.trim()
     if (!name || name.length > 120) throw invalid('Collection names must be 1 to 120 characters.')
@@ -121,6 +171,7 @@ export default class CollectionService {
       entries,
       wrapper: input.wrapper,
       brand: { id: brand.id, version: brand.version },
+      design: this.resolveDesign(entries, input.wrapper, input),
     })
     return PortfolioCollection.create({
       workspaceId: context.workspaceId,
@@ -135,7 +186,14 @@ export default class CollectionService {
   async update(
     context: WorkspaceAccessContext,
     id: string,
-    input: { name?: string; entryIds?: string[]; wrapper?: Wrapper; baseHash: string }
+    input: {
+      name?: string
+      entryIds?: string[]
+      wrapper?: Wrapper
+      preset?: PresetId
+      design?: unknown
+      baseHash: string
+    }
   ) {
     // Pin lookups happen before the lock; only the compare-and-set is inside it.
     const before = await this.find(context, id)
@@ -156,11 +214,14 @@ export default class CollectionService {
         throw conflict('This collection changed. Reload it and try again.')
       const name = (input.name ?? row.manifest.name ?? row.name).trim()
       if (!name || name.length > 120) throw invalid('Collection names must be 1 to 120 characters.')
+      const wrapper = input.wrapper ?? row.manifest.wrapper
       const manifest = buildManifest({
         name,
         entries,
-        wrapper: input.wrapper ?? row.manifest.wrapper,
+        wrapper,
         brand: row.manifest.brand,
+        // A manifest without a design stays classic until the reviewer picks one.
+        design: this.resolveDesign(entries, wrapper, input, row.manifest.design),
       })
       const hash = manifestHash(manifest)
       if (hash === row.manifestHash) return row
@@ -185,7 +246,53 @@ export default class CollectionService {
 
   async contents(context: WorkspaceAccessContext, id: string) {
     const { manifest } = await this.find(context, id)
-    return composeContents(manifest.entries, { about: !!manifest.wrapper.about })
+    return composeContents(manifest.entries, {
+      about: !!manifest.wrapper.about,
+      design: effectiveDesign(manifest, manifest.entries),
+    })
+  }
+
+  /** Every page in order with its page number, and anything the rules object to. */
+  async pagePlan(context: WorkspaceAccessContext, id: string) {
+    const { manifest } = await this.find(context, id)
+    const design = effectiveDesign(manifest, manifest.entries)
+    const plan = planPages(design, manifest.entries)
+    return {
+      design,
+      total: plan.total,
+      pages: plan.pages.map(({ id: pageId, kind, start, count, spec }) => ({
+        id: pageId,
+        kind,
+        start,
+        count,
+        spec,
+      })),
+      findings: validateDesign(design, manifest.entries, manifest.wrapper),
+    }
+  }
+
+  /**
+   * A proposed arrangement by the model, or by the rules when the model is
+   * unavailable. It is a proposal only: nothing is saved, so the reviewer
+   * decides whether to apply, edit or discard it.
+   */
+  async arrange(
+    context: WorkspaceAccessContext,
+    id: string,
+    { target, ask }: { target?: number; ask?: Ask } = {}
+  ) {
+    const { manifest } = await this.find(context, id)
+    const arrangement = await new PortfolioArrangerService(ask).arrange(
+      manifest.entries,
+      manifest.wrapper,
+      { target }
+    )
+    return {
+      ...arrangement,
+      pages: planPages(arrangement.design, manifest.entries).pages.map(
+        ({ id: pageId, kind, start, count, spec }) => ({ id: pageId, kind, start, count, spec })
+      ),
+    }
   }
 
   /** Whether the stored approval still describes what would be published. */

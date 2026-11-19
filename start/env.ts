@@ -59,12 +59,12 @@ export default await Env.create(new URL('../', import.meta.url), {
   | Variables for configuring the drive package
   |----------------------------------------------------------
   */
-  DRIVE_DISK: Env.schema.enum(['supabase'] as const),
-  SUPABASE_STORAGE_KEY: Env.schema.string(),
-  SUPABASE_STORAGE_SECRET: Env.schema.string(),
-  SUPABASE_STORAGE_REGION: Env.schema.string(),
-  SUPABASE_STORAGE_BUCKET: Env.schema.string(),
-  SUPABASE_ENDPOINT: Env.schema.string(),
+  DRIVE_DISK: Env.schema.enum(['s3'] as const),
+  S3_ACCESS_KEY_ID: Env.schema.string(),
+  S3_SECRET_ACCESS_KEY: Env.schema.string(),
+  S3_REGION: Env.schema.string(),
+  S3_BUCKET: Env.schema.string(),
+  S3_ENDPOINT: Env.schema.string(),
 
   /*
   |----------------------------------------------------------

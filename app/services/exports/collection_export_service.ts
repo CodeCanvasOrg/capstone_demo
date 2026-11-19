@@ -8,15 +8,22 @@ import pdfWorkerConfig from '#config/pdf_worker'
 import CollectionService from '#services/layout/collection_service'
 import DocumentExportService from '#services/exports/document_export_service'
 import ExportPdfService from '#services/exports/pdf_service'
-import { renderWrapperHtml } from '#services/exports/collection_html'
+import { renderPageHtml } from '#services/exports/collection_html'
 import { type WorkspaceAccessContext } from '#services/workspaces/access_service'
-import { composeContents } from '../../../shared/layout/collection.ts'
+import { effectiveDesign } from '../../../shared/layout/collection.ts'
+import { planPages, validateDesign } from '../../../shared/layout/portfolio.ts'
 import { getBrandKit } from '../../../shared/layout/brand.ts'
 
 const run = promisify(execFile)
 const script = (name: string) => path.join(path.dirname(pdfWorkerConfig.script), name)
 const python = (args: string[]) =>
   run(pdfWorkerConfig.python, ['-I', ...args], { timeout: 120_000, maxBuffer: 16 * 1024 * 1024 })
+
+/** Sheet counts of PDF files, in the order given. */
+const sheets = async (files: string[]) => {
+  const { stdout } = await python([script('merge_pdfs.py'), 'count', ...files])
+  return JSON.parse(stdout) as number[]
+}
 
 const unsettled = (what: string) =>
   new Exception(`The collection could not be paginated: ${what}.`, {
@@ -25,9 +32,9 @@ const unsettled = (what: string) =>
   })
 
 /**
- * Composes one collection PDF: cover, optional introduction, contents, each
- * pinned entry, back cover. Entries are rendered first so the contents shows
- * their measured page counts. A preview is watermarked per entry; the final
+ * Composes one collection PDF from the portfolio design: its pages in order,
+ * with each pinned entry where the design puts it. Entries are rendered first
+ * so the contents shows their measured page counts. A preview is watermarked per entry; the final
  * download requires a current approval and renders without the watermark.
  */
 export default class CollectionExportService {
@@ -60,40 +67,49 @@ export default class CollectionExportService {
             })) as Buffer
           )
         )
-      const counts = JSON.parse(
-        (await python([script('merge_pdfs.py'), 'count', ...entryFiles])).stdout
-      ) as number[]
+      const counts = await sheets(entryFiles)
       const measured = manifest.entries.map((entry, index) => ({ ...entry, pages: counts[index] }))
 
-      const about = !!manifest.wrapper.about
-      const contents = composeContents(measured, { about })
-      if (!contents.converged) throw unsettled('contents page numbers did not settle')
-      // The contents lists entries grouped by category, so files follow that order.
-      const order = contents.rows.map((row) => measured.findIndex((e) => e.entryId === row.entryId))
+      // The design decides every page and its order; entries only supply their length.
+      const design = effectiveDesign(
+        { design: manifest.design, wrapper: manifest.wrapper },
+        measured
+      )
+      const problems = validateDesign(design, measured, manifest.wrapper)
+      if (problems.length) throw unsettled(problems[0].message.replace(/\.$/, ''))
+      const plan = planPages(design, measured)
 
-      const part = async (name: 'cover' | 'about' | 'contents' | 'back') =>
-        write(
-          `${name}.pdf`,
-          Buffer.from(
-            await ExportPdfService.fromHtml(
-              await renderWrapperHtml(name, manifest, brand, contents.rows)
-            )
+      const files = new Map<string, string>()
+      const ctx = { manifest, brand, rows: plan.rows }
+      for (const page of plan.pages) {
+        if (page.kind === 'entry') {
+          files.set(
+            page.id,
+            entryFiles[measured.findIndex((e) => e.entryId === page.entry!.entryId)]
+          )
+          continue
+        }
+        files.set(
+          page.id,
+          await write(
+            `${page.id.replace(/[^a-z0-9-]/gi, '_')}.pdf`,
+            Buffer.from(await ExportPdfService.fromHtml(await renderPageHtml(page, ctx)))
           )
         )
-      const front = [
-        await part('cover'),
-        ...(about ? [await part('about')] : []),
-        await part('contents'),
-      ]
-      const frontCounts = JSON.parse(
-        (await python([script('merge_pdfs.py'), 'count', ...front])).stdout
-      ) as number[]
-      if (frontCounts[0] !== 1 || (about && frontCounts[1] !== 1))
-        throw unsettled('the cover or introduction does not fit one page')
-      if (frontCounts.at(-1) !== contents.contentsPages)
-        throw unsettled('the contents length changed while rendering')
+      }
+      // Every portfolio page must take exactly the sheets the plan gave it, or the contents is wrong.
+      const own = plan.pages.filter((page) => page.kind !== 'entry')
+      const ownCounts = await sheets(own.map((page) => files.get(page.id)!))
+      own.forEach((page, index) => {
+        if (ownCounts[index] !== page.count)
+          throw unsettled(
+            page.kind === 'contents'
+              ? 'the contents length changed while rendering'
+              : `the ${page.kind} page does not fit one sheet`
+          )
+      })
 
-      const toc = contents.rows.map((row) => [row.title, row.page])
+      const toc = plan.rows.map((row) => [row.title, row.page])
       const tocFile = await write('toc.json', JSON.stringify(toc))
       const out = path.join(dir, 'collection.pdf')
       await python([
@@ -101,9 +117,7 @@ export default class CollectionExportService {
         'merge',
         out,
         tocFile,
-        ...front,
-        ...order.map((index) => entryFiles[index]),
-        await part('back'),
+        ...plan.pages.map((page) => files.get(page.id)!),
       ])
       return await readFile(out)
     } finally {

@@ -20,6 +20,7 @@ export default configApp(...react, {
           '../../../shared/templates/outlines.ts',
           '../../../shared/layout/pages.ts',
           '../../../shared/layout/formats.ts',
+          '../../../shared/layout/portfolio.ts',
         ],
       },
     ],

@@ -63,6 +63,7 @@ export interface ApiDefinition {
     store: typeof routes['collections.store']
     show: typeof routes['collections.show']
     update: typeof routes['collections.update']
+    arrange: typeof routes['collections.arrange']
     approve: typeof routes['collections.approve']
     preview: typeof routes['collections.preview']
     download: typeof routes['collections.download']

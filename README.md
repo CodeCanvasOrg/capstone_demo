@@ -75,7 +75,7 @@ cp .env.example .env
 
 ### File Storage
 
-- S3-compatible object storage
+- S3-compatible object storage (local Adobe S3Mock via `docker compose up -d`, port 9090)
 
 ### PDF Export
 
