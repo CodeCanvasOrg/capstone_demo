@@ -38,7 +38,7 @@ test.group('section queries', () => {
 
   test('fixed pages retrieve only for their own designs', ({ assert }) => {
     const queries = brochureQueries(
-      { source: 'pages', pages: ['cover', 'recognition', 'contact'] },
+      { source: 'custom', pages: ['cover', 'recognition', 'contact'] },
       'Acme',
       'brief'
     )
@@ -51,7 +51,7 @@ test.group('section queries', () => {
   test('where the model chooses, every design not fixed is a topic', ({ assert }) => {
     const queries = brochureQueries({ source: 'ai', pages: ['auto'] }, 'Acme', 'brief')
     assert.isAtLeast(queries.length, 9)
-    const mixed = brochureQueries({ source: 'pages', pages: ['cover', 'auto'] }, 'Acme', 'brief')
+    const mixed = brochureQueries({ source: 'custom', pages: ['cover', 'auto'] }, 'Acme', 'brief')
     assert.equal(new Set(mixed.map((q) => q.key)).size, mixed.length)
     assert.include(
       mixed.map((q) => q.key),

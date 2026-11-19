@@ -27,21 +27,23 @@ const paragraphSchema = z.object({
   /** Supplied source chunk ids that support this paragraph; copied, never invented. */
   chunks: z.array(z.string().min(1).max(200)).max(4).default([]),
 })
+// Models write "no value" as null or "" as often as they leave a field out; all three mean the same.
+const blank = (max: number) => z.string().trim().max(max).nullish()
 const groupSchema = z.object({
   heading: text(120),
   /** A leading figure for this card, such as "83%". Its paragraph says what it measures. */
-  stat: z.string().trim().min(1).max(12).optional(),
+  stat: blank(40),
   paragraphs: z.array(paragraphSchema).max(3),
   bullets: z.array(text(120)).max(8),
 })
 const sectionSchema = z.object({
-  title: text(120).optional(),
+  title: blank(300),
   paragraphs: z.array(paragraphSchema).max(6),
   /** One large figure for the section, such as ">30" and what it counts. */
-  stat: z.object({ value: z.string().trim().min(1).max(12), label: text(80) }).optional(),
-  bullets: z.array(text(120)).max(8),
+  stat: z.object({ value: z.string().trim().max(40), label: z.string().trim().max(200) }).nullish(),
+  bullets: z.array(text(300)).max(8),
   groups: z.array(groupSchema).max(6),
-  source: text(160).optional(),
+  source: blank(400),
 })
 export const pageSchema = z.object({
   design: z.enum(DESIGN_IDS),
@@ -158,6 +160,122 @@ export const CAPS: Record<DesignId, SectionCaps[]> = {
   ],
 }
 
+/** The longest `max` characters of a text, cut at a word and never mid-sentence-less. */
+const fit = (value: string, max: number) => {
+  if (value.length <= max) return value
+  const cut = value.slice(0, max)
+  const space = cut.lastIndexOf(' ')
+  return (space > max * 0.6 ? cut.slice(0, space) : cut).replace(/[\s,;:–—-]+$/, '')
+}
+
+/**
+ * Makes a written page fit its design where that is only a matter of length: text
+ * is cut at a word and lists are cut to what the design holds. Nothing is invented,
+ * so a page that is missing something it needs is still reported by validatePage.
+ */
+export function fitPage(design: DesignId, page: PageContent): PageContent {
+  const caps = CAPS[design]
+  const nul = <T>(value: T | null | undefined) => value ?? undefined
+  return {
+    ...page,
+    sections: page.sections.slice(0, caps.length).map((section, s) => {
+      const cap = caps[s]
+      const g = cap.groups
+      const [, maxParagraphs, paragraphLen] = cap.paragraphs ?? [0, 0, 0]
+      const title = nul(section.title)?.trim()
+      const source = nul(section.source)?.trim()
+      return {
+        ...section,
+        title: title ? fit(title, cap.title ?? 120) : undefined,
+        source: source && cap.source ? fit(source, cap.source) : undefined,
+        stat:
+          section.stat && section.stat.value && cap.stat
+            ? {
+                value: fit(section.stat.value, cap.stat.value),
+                label: fit(section.stat.label, cap.stat.label),
+              }
+            : undefined,
+        paragraphs: section.paragraphs
+          .slice(0, maxParagraphs)
+          .map((p) => ({ ...p, text: fit(p.text, paragraphLen) })),
+        bullets: cap.bullets
+          ? section.bullets.slice(0, cap.bullets[0]).map((b) => fit(b, cap.bullets![1]))
+          : [],
+        groups: g
+          ? section.groups.slice(0, g.max).map((item) => ({
+              ...item,
+              heading: fit(item.heading, g.heading),
+              stat: nul(item.stat)?.trim() || undefined,
+              paragraphs: item.paragraphs
+                .slice(0, g.paragraphs ?? (g.paragraph ? 1 : 0))
+                .map((p) => ({ ...p, text: fit(p.text, g.paragraph) })),
+              bullets: item.bullets.slice(0, g.bullets).map((b) => fit(b, g.bullet)),
+            }))
+          : [],
+      }
+    }),
+  }
+}
+
+/** What stands where a design needs something the sources do not give. */
+export const PLACEHOLDER = '[insert text here]'
+/** The same for a figure, which has to stay short. */
+export const FIGURE_PLACEHOLDER = '[#]'
+
+/**
+ * Fills whatever a design still needs with a placeholder the author can see and
+ * replace, so a page never fails or goes missing for want of a fact. Run after
+ * fitPage. Returns the page and whether anything was filled.
+ */
+export function fillPage(design: DesignId, page: PageContent) {
+  let filled = false
+  const mark = <T>(value: T) => {
+    filled = true
+    return value
+  }
+  const caps = CAPS[design]
+  const para = () => ({ text: PLACEHOLDER, chunks: [] as string[] })
+  const sections = caps.map((cap, s) => {
+    const section = page.sections[s]
+    const needed = !!(cap.title || cap.paragraphs?.[0] || cap.groups?.min)
+    if (!section && !needed) return undefined
+    const base = section ?? { paragraphs: [], bullets: [], groups: [] }
+    const g = cap.groups
+    const paragraphs = [...base.paragraphs]
+    while (paragraphs.length < (cap.paragraphs?.[0] ?? 0)) paragraphs.push(mark(para()))
+    const groups = base.groups.map((item) => ({
+      ...item,
+      heading: item.heading.trim() ? item.heading : mark(PLACEHOLDER),
+      stat: g?.stat && !(item.stat && isFigure(item.stat)) ? mark(FIGURE_PLACEHOLDER) : item.stat,
+    }))
+    while (g && groups.length < g.min)
+      groups.push(
+        mark({
+          heading: PLACEHOLDER,
+          stat: g.stat ? FIGURE_PLACEHOLDER : undefined,
+          paragraphs: g.paragraph ? [para()] : [],
+          bullets: [],
+        })
+      )
+    for (const item of groups)
+      if (g?.paragraph && !item.paragraphs.length) item.paragraphs.push(mark(para()))
+    return {
+      ...base,
+      title: cap.title && !base.title?.trim() ? mark(PLACEHOLDER) : base.title,
+      paragraphs,
+      stat:
+        cap.stat && !(base.stat && isFigure(base.stat.value))
+          ? mark({ value: FIGURE_PLACEHOLDER, label: base.stat?.label?.trim() || PLACEHOLDER })
+          : base.stat,
+      groups,
+    }
+  })
+  return {
+    page: { ...page, sections: sections.filter((s) => s !== undefined) } as PageContent,
+    filled,
+  }
+}
+
 export type PageProblem = { code: 'too_long' | 'too_many' | 'too_few' | 'missing'; field: string }
 
 /** Checks a written page against its design's limits. Fields are reported by path for a targeted retry. */
@@ -165,7 +283,7 @@ export function validatePage(design: DesignId, page: PageContent, index = 0): Pa
   const found: PageProblem[] = []
   const caps = CAPS[design]
   const at = (...parts: (string | number)[]) => [`pages[${index}]`, ...parts].join('.')
-  const long = (field: string, value: string | undefined, max: number) => {
+  const long = (field: string, value: string | null | undefined, max: number) => {
     if (value && value.length > max) found.push({ code: 'too_long', field })
   }
   const count = (field: string, n: number, min: number, max: number) => {

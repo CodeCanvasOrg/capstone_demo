@@ -68,6 +68,7 @@ export const BROCHURE_PROTOCOL = `Output protocol. Call write_brochure once with
 
 Rules
 - Never write about the source. Copy must never contain phrases such as "the source does not", "the document says", file names or chunk IDs.
+- When a design needs something the sources do not support, write exactly "[insert text here]" in that field ("[#]" for a figure) so the author can fill it in. Never guess to fill a gap.
 - Never invent percentages, figures, awards, client names, technologies or contact details. If something a design needs is not supported, say so in reviewer_notes and keep the page honest: use a true count or date from the sources, or use fewer, shorter items where the limits allow.
 - Be detailed. Use the room each design gives you, and make every paragraph carry a fact. Stay inside the limits: text over a limit is cut from the page.
 - retrievedFor lists, for each page design, the source chunks that matched it best. Start there, but any supplied chunk may support any page.

@@ -2,6 +2,10 @@ import { test } from '@japa/runner'
 import PublicationProjectionService from '#services/documents/publication_projection_service'
 import {
   CAPS,
+  FIGURE_PLACEHOLDER,
+  PLACEHOLDER,
+  fillPage,
+  fitPage,
   brochureSchema,
   documentFromPages,
   parsePages,
@@ -362,5 +366,51 @@ test.group('What the model is told', () => {
     const open = planText({ source: 'ai', pages: ['auto'] }, { min: 3, max: 9 })
     assert.include(open, '3 to 9 pages')
     for (const id of DESIGN_IDS) assert.include(open, DESIGNS[id].bestFor)
+  })
+})
+
+test.group('brochure fitting and placeholders', () => {
+  const bare = (design: DesignId): PageContent => ({
+    design,
+    sections: [{ title: null, paragraphs: [], bullets: [], groups: [], stat: null, source: null }],
+  })
+
+  test('every design can be filled from nothing and then passes its own checks', ({ assert }) => {
+    for (const id of DESIGN_IDS) {
+      const { page, filled } = fillPage(id, fitPage(id, bare(id)))
+      // A figure placeholder is deliberately not a figure, so only that check may remain.
+      assert.deepEqual(
+        validatePage(id, page).filter((problem) => !/\.stat(\.value)?$/.test(problem.field)),
+        [],
+        id
+      )
+      assert.isTrue(filled || validatePage(id, bare(id)).length === 0, id)
+    }
+  })
+
+  test('over-long text is cut at a word and a null figure is accepted', ({ assert }) => {
+    const long = 'word '.repeat(80).trim()
+    const page = fitPage('cover', {
+      design: 'cover',
+      sections: [
+        {
+          title: long,
+          paragraphs: [{ text: long, chunks: [] }],
+          bullets: [],
+          groups: [],
+          stat: null,
+        },
+      ],
+    })
+    assert.isAtMost(page.sections[0].title!.length, 70)
+    assert.isAtMost(page.sections[0].paragraphs[0].text.length, 120)
+    assert.notMatch(page.sections[0].title!, /\swor$/)
+  })
+
+  test('a missing proof point shows the placeholder, not a gap', ({ assert }) => {
+    const { page } = fillPage('proof', fitPage('proof', bare('proof')))
+    const group = page.sections[0].groups[0]
+    assert.equal(group.heading, PLACEHOLDER)
+    assert.equal(group.stat, FIGURE_PLACEHOLDER)
   })
 })

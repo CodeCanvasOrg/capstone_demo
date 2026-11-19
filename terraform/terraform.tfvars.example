@@ -1,0 +1,25 @@
+# Copy to terraform.tfvars (git-ignored) and fill in. Secrets can also be passed as
+# TF_VAR_<name> environment variables instead of being written to disk.
+
+aws_region   = "us-east-1"
+project_name = "capstone"
+environment  = "prod"
+
+# Edge (HTTPS is required for login: session cookies are Secure in production)
+domain_name     = "app.example.com"
+certificate_arn = "arn:aws:acm:us-east-1:123456789012:certificate/xxxxxxxx"
+
+# Image tag pushed to ECR
+image_tag = "latest"
+
+# Third-party credentials
+openrouter_api_key   = "sk-or-..."
+google_client_id     = "xxxx.apps.googleusercontent.com"
+google_client_secret = "..."
+
+# SMTP (e.g. Amazon SES SMTP credentials)
+smtp_host         = "email-smtp.us-east-1.amazonaws.com"
+smtp_port         = 587
+smtp_username     = "..."
+smtp_password     = "..."
+mail_from_address = "hello@example.com"

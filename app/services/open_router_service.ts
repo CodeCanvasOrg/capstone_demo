@@ -30,7 +30,9 @@ import { BROCHURE_PROTOCOL, planText } from './documents/brochure_prompt.ts'
 import {
   brochureSchema,
   documentFromPages,
-  validatePage,
+  fitPage,
+  fillPage,
+  PLACEHOLDER,
   type BrochureOutput,
 } from '../../shared/brochure/content.ts'
 import { isOpenPlan, type BrochureSelection, type DesignId } from '../../shared/brochure/designs.ts'
@@ -452,16 +454,23 @@ export default class OpenRouterService {
               'The brochure used the wrong designs.',
               `The previous response broke the page plan: ${wrong.join('; ')}.`
             )
-          const problems = pages.flatMap((page, index) => validatePage(page.design, page, index))
-          if (problems.length)
-            throw unusable(
-              'A page did not fit its design.',
-              `The previous response did not fit these fields: ${problems
-                .slice(0, 16)
-                .map((problem) => `${problem.code} at ${problem.field}`)
-                .join('; ')}. Fix only those fields, within the limits, and keep everything else.`
-            )
-          return parsed.data
+          // Length is the application's to fix: text is cut at a word and lists to what the page holds.
+          // What the sources do not give becomes a visible placeholder, never a failure or an invention.
+          const filled = pages.map((page) => fillPage(page.design, fitPage(page.design, page)))
+          return {
+            ...parsed.data,
+            pages: filled.map((item) => item.page),
+            reviewer_notes: [
+              ...parsed.data.reviewer_notes,
+              ...filled.flatMap((item, index) =>
+                item.filled
+                  ? [
+                      `Page ${index + 1} has "${PLACEHOLDER}" where the sources gave nothing to say.`,
+                    ]
+                  : []
+              ),
+            ].slice(0, 20),
+          }
         },
       }
     )) as BrochureOutput
