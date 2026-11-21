@@ -68,15 +68,29 @@ export const DocumentImageNode = Image.extend({
   },
 })
 
+/** Editor-only top node for a brochure: a stack of page sheets. */
+export const PagedDocument = Node.create({
+  name: 'doc',
+  topNode: true,
+  content: 'page+',
+})
+
 /**
  * The one definition of the document format. The editor extends these with
  * views and UI extensions; the server validates saved and generated content
  * against `getSchema(...)` of the same list, so the two cannot drift.
  */
 export const documentExtensions = (
-  nodes = { sourceCitation: SourceCitationNode, image: DocumentImageNode }
+  nodes: {
+    sourceCitation: typeof SourceCitationNode
+    image: typeof DocumentImageNode
+    page?: Node
+  } = { sourceCitation: SourceCitationNode, image: DocumentImageNode }
 ) => [
+  // With a page node the editor shows sheets; the stored format is unchanged.
+  ...(nodes.page ? [PagedDocument, nodes.page] : []),
   StarterKit.configure({
+    ...(nodes.page ? { document: false } : {}),
     heading: { levels: [...HEADING_LEVELS] },
     link: {
       autolink: true,

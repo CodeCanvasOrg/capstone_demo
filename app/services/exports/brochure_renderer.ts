@@ -54,6 +54,12 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 .glow{position:absolute;inset:0;background:radial-gradient(55% 45% at 78% 30%,color-mix(in srgb,${p.accent} 28%,transparent),transparent 70%)}
 .src{position:absolute;left:22mm;right:30mm;bottom:9mm;font-size:6.5pt;color:${p.muted}}
 
+/* sources */
+.sheet.refs{height:auto;min-height:${SHEET_H}mm;overflow:visible;padding:24mm 30mm 20mm 22mm}
+.refs h2{font-size:17pt;font-weight:800;letter-spacing:-.02em;color:${p.primary};margin-bottom:6mm}
+.refs ol{padding-left:1.4em;font-size:8.6pt;line-height:1.5;color:${p.text}}
+.refs li{margin:0 0 1.5mm;break-inside:avoid;overflow-wrap:anywhere}
+
 /* cover */
 .cover .in{position:absolute;inset:0;padding:20mm 22mm 24mm;display:flex;flex-direction:column}
 .cover h1{margin-top:auto;font-size:40pt;font-weight:800;line-height:1.02;letter-spacing:-.03em;max-width:150mm;overflow-wrap:anywhere}
@@ -272,12 +278,20 @@ const DESIGN: Record<DesignId, (s: ParsedSection[], c: Ctx) => string> = {
     const legal = /^(copyright|©)/i
     const about = b.paragraphs.filter((x) => !legal.test(plainText(x.content)))
     const small = b.paragraphs.filter((x) => legal.test(plainText(x.content)))
-    const refs = c.sources.length
-      ? `Sources: ${c.sources.map((s) => `${s.number}. ${esc(s.label)}${s.page ? `, p. ${s.page}` : ''}`).join('  ')}`
-      : ''
-    return `<section class="sheet contact"><div class="in"><h1>${esc(a.title ?? '')}</h1>${person ? `<p class="who">${esc(person.heading)}</p><div class="lines rt">${renderBlocks(person.paragraphs)}</div>` : ''}<div class="about"><h2>${esc(b.title ?? '')}</h2>${rich(about)}</div><div class="legal">${small.map((x) => `<p>${esc(plainText(x.content))}</p>`).join('')}${refs ? `<p>${refs}</p>` : ''}</div></div>${pageNumber(c)}</section>`
+    return `<section class="sheet contact"><div class="in"><h1>${esc(a.title ?? '')}</h1>${person ? `<p class="who">${esc(person.heading)}</p><div class="lines rt">${renderBlocks(person.paragraphs)}</div>` : ''}<div class="about"><h2>${esc(b.title ?? '')}</h2>${rich(about)}</div><div class="legal">${small.map((x) => `<p>${esc(plainText(x.content))}</p>`).join('')}</div></div>${pageNumber(c)}</section>`
   },
 }
+
+/**
+ * Every entry ends with its sources on a sheet of their own, whatever the last design is.
+ * The sheet grows past one page rather than clipping a long list.
+ */
+const sourcesSheet = (sources: ClientSource[]) =>
+  sources.length
+    ? `<section class="sheet refs"><h2>Sources</h2><ol>${sources
+        .map((s) => `<li value="${s.number}">${esc(s.label)}${s.page ? `, p. ${s.page}` : ''}</li>`)
+        .join('')}</ol></section>`
+    : ''
 
 /** The whole entry: one sheet per page, each in its own design. */
 export async function renderBrochureHtml(
@@ -290,8 +304,9 @@ export async function renderBrochureHtml(
       DESIGN[page.design](page.sections, { brand, n: index + 1, total: pages.length, sources })
     )
     .join('\n')
+  const refs = sourcesSheet(sources)
   const banner = preview
     ? '<p style="position:fixed;top:4mm;right:4mm;margin:0;padding:3pt 8pt;background:#b42318;color:#fff;font-size:7pt;font-weight:800;z-index:9">PREVIEW · NOT APPROVED FOR FINAL EXPORT</p>'
     : ''
-  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><style>${await fontFaces(brand)}${css(brand)}</style></head><body>${banner}${body}</body></html>`
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><style>${await fontFaces(brand)}${css(brand)}</style></head><body>${banner}${body}${refs ? `\n${refs}` : ''}</body></html>`
 }
