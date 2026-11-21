@@ -7,6 +7,35 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class CanvasTemplateSchema extends BaseModel {
+  static $columns = ['createdAt', 'createdBy', 'designId', 'id', 'kind', 'name', 'project', 'projectHash', 'schemaVersion', 'updatedAt', 'version', 'workspaceId'] as const
+  $columns = CanvasTemplateSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare createdBy: number | null
+  @column()
+  declare designId: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare kind: string
+  @column()
+  declare name: string
+  @column()
+  declare project: any
+  @column()
+  declare projectHash: string
+  @column()
+  declare schemaVersion: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare version: number
+  @column()
+  declare workspaceId: string | null
+}
+
 export class ChunkBlockSchema extends BaseModel {
   static $columns = ['charEnd', 'charStart', 'chunkId', 'createdAt', 'documentBlockId', 'id', 'rowEnd', 'rowStart', 'runId', 'updatedAt', 'workspaceId'] as const
   $columns = ChunkBlockSchema.$columns
@@ -172,6 +201,58 @@ export class DocumentBlockSchema extends BaseModel {
   declare updatedAt: DateTime
   @column()
   declare workspaceId: string | null
+}
+
+export class DocumentCanvasDraftSchema extends BaseModel {
+  static $columns = ['baseVersionId', 'createdAt', 'documentId', 'project', 'revision', 'schemaVersion', 'updatedAt', 'updatedBy', 'workspaceId'] as const
+  $columns = DocumentCanvasDraftSchema.$columns
+  @column()
+  declare baseVersionId: string | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare documentId: string
+  @column()
+  declare project: any
+  @column()
+  declare revision: number
+  @column()
+  declare schemaVersion: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare updatedBy: number | null
+  @column()
+  declare workspaceId: string
+}
+
+export class DocumentCanvasSchema extends BaseModel {
+  static $columns = ['createdAt', 'createdBy', 'documentId', 'id', 'project', 'projectHash', 'schemaVersion', 'sheetCount', 'source', 'templateId', 'versionId', 'workspaceId'] as const
+  $columns = DocumentCanvasSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare createdBy: number | null
+  @column()
+  declare documentId: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare project: any
+  @column()
+  declare projectHash: string
+  @column()
+  declare schemaVersion: number
+  @column()
+  declare sheetCount: number
+  @column()
+  declare source: string
+  @column()
+  declare templateId: string | null
+  @column()
+  declare versionId: string
+  @column()
+  declare workspaceId: string
 }
 
 export class DocumentClaimReviewSchema extends BaseModel {
@@ -390,7 +471,7 @@ export class DocumentIssueSchema extends BaseModel {
 }
 
 export class DocumentLayoutSchema extends BaseModel {
-  static $columns = ['brandId', 'brandVersion', 'createdAt', 'documentId', 'options', 'presetId', 'revision', 'templateId', 'templateVersion', 'updatedAt', 'updatedBy', 'workspaceId'] as const
+  static $columns = ['brandId', 'brandVersion', 'createdAt', 'documentId', 'editorMode', 'options', 'presetId', 'revision', 'templateId', 'templateVersion', 'updatedAt', 'updatedBy', 'workspaceId'] as const
   $columns = DocumentLayoutSchema.$columns
   @column()
   declare brandId: string
@@ -400,6 +481,8 @@ export class DocumentLayoutSchema extends BaseModel {
   declare createdAt: DateTime
   @column({ isPrimary: true })
   declare documentId: string
+  @column()
+  declare editorMode: string
   @column()
   declare options: any
   @column()
