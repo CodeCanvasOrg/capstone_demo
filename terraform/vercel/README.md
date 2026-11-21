@@ -14,50 +14,59 @@ The AWS/ECS stack in `../` is independent; use one or the other.
 ## Prerequisites
 
 - The Vercel GitHub app has access to `github_repo` (the project is linked to it; auto-deploys are off).
-- An HCP Terraform workspace with execution mode **Local** holds the state (`backend.tf`).
-- Provider credentials exported (see `terraform.tfvars.example`), plus `TF_CLOUD_ORGANIZATION`,
-  `TF_WORKSPACE` and `terraform login`.
+- Provider credentials exported; `.env.example` lists them together with every input as `TF_VAR_*`.
+
+## Terraform state (local)
+
+State is kept on your machine in `terraform/vercel/terraform.tfstate` (git-ignored); there is no
+remote backend. It holds secrets in plain text (`APP_KEY`, the Neon password, the storage key),
+so:
+
+- **Back it up** somewhere private and encrypted. Losing it means Terraform no longer knows about
+  the Vercel/Neon/Upstash/Railway resources, and they must be imported or recreated.
+- **Only one machine runs `terraform apply`.** Anyone else applying with their own state would try to
+  create a second copy of everything.
+- GitHub Actions does not run Terraform. Apply infrastructure and env var changes locally; the deploy
+  workflow only ships code.
 
 ## CI/CD (GitHub Actions)
 
 | Workflow | Trigger | What it does |
 | --- | --- | --- |
 | `.github/workflows/ci.yml` | every pull request | lint, typecheck, tests (unit / functional / browser, with Postgres+pgvector and Redis), Python worker tests, app build + worker Docker build, `terraform fmt`/`validate` |
-| `.github/workflows/deploy.yml` | push to `main` (or manual) | reruns `ci.yml`, then `terraform apply`, `railway up` for the worker (migrations run in its pre-deploy step), then `vercel build` + `vercel deploy --prebuilt --prod` |
+| `.github/workflows/deploy.yml` | push to `main` (or manual) | reruns `ci.yml`, then `railway up` for the worker (migrations run in its pre-deploy step), then `vercel build` + `vercel deploy --prebuilt --prod` |
 
 Git auto-deploys are off on both platforms (`vercel.json` → `git.deploymentEnabled: false`; the
 Railway service has no source repo), so production only changes after the checks pass.
 
 Configure these on the repo's **`production`** environment (Settings → Environments):
 
-| Secrets | Variables |
+| Secrets | Variables (copy from `terraform output` after the first apply) |
 | --- | --- |
-| `TF_API_TOKEN` (HCP Terraform) | `TF_CLOUD_ORGANIZATION`, `TF_WORKSPACE` |
-| `VERCEL_TOKEN` | `VERCEL_TEAM` (empty = personal account) |
-| `RAILWAY_API_TOKEN` (account/workspace token) | `RAILWAY_WORKSPACE_ID` (optional) |
-| `NEON_API_KEY` | `NEON_ORG_ID` (optional) |
-| `UPSTASH_API_KEY` | `UPSTASH_EMAIL` |
-| `OPENROUTER_API_KEY` | `GOOGLE_CLIENT_ID` |
-| `GOOGLE_CLIENT_SECRET` | `SMTP_HOST`, `SMTP_USERNAME`, `MAIL_FROM_ADDRESS` |
-| `SMTP_PASSWORD` | `DOMAIN_NAME` (empty = `<project>.vercel.app`) |
-| `APP_KEY` (optional; generated and kept in state if empty) | |
+| `VERCEL_TOKEN` | `VERCEL_ORG_ID` = `vercel_team_id` (personal account: your Vercel user ID) |
+| `RAILWAY_API_TOKEN` (account/workspace token) | `VERCEL_PROJECT_ID` = `vercel_project_id` |
+| | `RAILWAY_PROJECT_ID` = `railway_project_id` |
+| | `RAILWAY_ENVIRONMENT_ID` = `railway_environment_id` |
+| | `RAILWAY_SERVICE_ID` = `railway_worker_service_id` |
 
-Other variables keep their defaults from `variables.tf`; add a `TF_VAR_*` line to the apply step to
-override one. Protect `main` with the CI jobs as required status checks.
+The app's own env vars (database, Redis, OpenRouter, SMTP, ...) are not GitHub secrets: Terraform
+writes them straight into Vercel and Railway. Protect `main` with the CI jobs as required status checks.
 
 ## Manual deploy
 
 ```bash
 cd terraform/vercel
-cp terraform.tfvars.example terraform.tfvars   # fill in; git-ignored
+cp .env.example .env                           # fill in; git-ignored (or terraform.tfvars.example -> terraform.tfvars)
+set -a; . ./.env; set +a                       # load credentials and TF_VAR_* inputs
 terraform init
-terraform apply
-terraform output google_oauth_redirect_uri     # add to the Google OAuth client
+terraform apply                                # writes terraform.tfstate here; back it up
 terraform output domain_dns                    # create this DNS record if using a custom domain
+terraform output                               # IDs for the GitHub variables above
 ```
 
 A manual apply creates infrastructure and (with `deploy_on_apply = true`) a Vercel deployment, but
-the Railway worker has no code until `railway up` runs; normally let the deploy workflow do both.
+the Railway worker has no code until `railway up` runs: push to `main` (or run the Deploy workflow)
+to ship both. Re-run `terraform apply` locally whenever variables or `.tf` files change.
 
 ## Known limits on Vercel
 

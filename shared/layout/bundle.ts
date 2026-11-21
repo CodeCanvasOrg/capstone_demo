@@ -16,6 +16,12 @@ export type ReviewBundle = {
   rendererVersion: string
   /** Hashes of the pinned template and brand definitions, so an edit under the same version still shows. */
   definitions?: { template: string; brand: string }
+  /**
+   * The canvas the export draws, when it draws one. Present only in canvas mode, so
+   * switching between the canvas and the text layout withdraws an approval too.
+   * Absent keys hash as before, so approvals of text-only documents stay valid.
+   */
+  canvasHash?: string
 }
 
 export const bundleHash = (bundle: ReviewBundle) =>

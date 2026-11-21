@@ -1,5 +1,5 @@
 output "app_url" {
-  description = "APP_URL the app was configured with. Add <app_url>/... callback to the Google OAuth client's authorized redirect URIs."
+  description = "APP_URL the app was configured with."
   value       = local.app_url
 }
 

@@ -53,8 +53,6 @@ locals {
     # RDS enforces TLS; `no-verify` encrypts without bundling the RDS CA into the image.
     DB_URL               = "postgres://${var.db_username}:${random_password.db.result}@${aws_db_instance.main.address}:${aws_db_instance.main.port}/${var.db_name}?sslmode=no-verify"
     OPENROUTER_API_KEY   = var.openrouter_api_key
-    GOOGLE_CLIENT_ID     = var.google_client_id
-    GOOGLE_CLIENT_SECRET = var.google_client_secret
     S3_ACCESS_KEY_ID     = aws_iam_access_key.app_s3.id
     S3_SECRET_ACCESS_KEY = aws_iam_access_key.app_s3.secret
   }, var.smtp_password != "" ? { SMTP_PASSWORD = var.smtp_password } : {})

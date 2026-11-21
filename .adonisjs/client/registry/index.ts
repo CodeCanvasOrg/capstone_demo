@@ -414,6 +414,42 @@ const routes = {
     tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":0,"val":"images","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":1,"val":"imageId","end":""}],
     types: placeholder as Registry['documentImages.show']['types'],
   },
+  'documentCanvases.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas","type":0,"val":"canvas","end":""}],
+    types: placeholder as Registry['documentCanvases.show']['types'],
+  },
+  'documentCanvases.project': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/project',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/project","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/project","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/project","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/project","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/project","type":0,"val":"canvas","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/project","type":0,"val":"project","end":""}],
+    types: placeholder as Registry['documentCanvases.project']['types'],
+  },
+  'documentCanvases.enable': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/enable',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/enable","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/enable","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/enable","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/enable","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/enable","type":0,"val":"canvas","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/enable","type":0,"val":"enable","end":""}],
+    types: placeholder as Registry['documentCanvases.enable']['types'],
+  },
+  'documentCanvases.disable': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/disable',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/disable","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/disable","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/disable","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/disable","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/disable","type":0,"val":"canvas","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/disable","type":0,"val":"disable","end":""}],
+    types: placeholder as Registry['documentCanvases.disable']['types'],
+  },
+  'documentCanvases.draft': {
+    methods: ["PUT"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/draft',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/draft","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/draft","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/draft","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/draft","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/draft","type":0,"val":"canvas","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/draft","type":0,"val":"draft","end":""}],
+    types: placeholder as Registry['documentCanvases.draft']['types'],
+  },
+  'documentCanvases.save': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/versions',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/versions","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/versions","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/versions","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/versions","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/versions","type":0,"val":"canvas","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/versions","type":0,"val":"versions","end":""}],
+    types: placeholder as Registry['documentCanvases.save']['types'],
+  },
   'documentVersions.store': {
     methods: ["POST"],
     pattern: '/workspaces/:workspaceId/documents/:documentId/versions',

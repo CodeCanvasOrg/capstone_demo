@@ -39,14 +39,6 @@ export default await Env.create(new URL('../', import.meta.url), {
   DB_URL: Env.schema.string(),
   TEST_DB_URL: Env.schema.string.optional(),
 
-  /*
-  |----------------------------------------------------------
-  | Variables for configuring ally package
-  |----------------------------------------------------------
-  */
-  GOOGLE_CLIENT_ID: Env.schema.string(),
-  GOOGLE_CLIENT_SECRET: Env.schema.string(),
-
   // Open Router API key
   OPENROUTER_API_KEY: Env.schema.secret(),
   OPENROUTER_BASE_URL: Env.schema.string.optional({ format: 'url', tld: false }),
@@ -83,6 +75,8 @@ export default await Env.create(new URL('../', import.meta.url), {
 
   GENERATION_FORMAT: Env.schema.enum.optional(['branded', 'legacy'] as const),
   PUBLICATION_LAYOUT: Env.schema.enum.optional(['pilot', 'templates'] as const),
+  /** Canvas editor for brochure layouts; off unless `pilot`. */
+  CANVAS_EDITOR: Env.schema.enum.optional(['pilot'] as const),
 
   // PDF extraction worker (see config/pdf_worker.ts)
   PDF_EXTRACTOR: Env.schema.enum.optional(['pymupdf', 'pdf-parse'] as const),

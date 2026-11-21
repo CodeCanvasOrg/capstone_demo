@@ -289,7 +289,7 @@ test.group('Entry formats: rendered design', () => {
     assert,
   }) => {
     const allowed = new Set(
-      [...Object.values(brand.palette), '#fff', '#ffffff', '#d5dbe6', '#b42318'].map((c) =>
+      [...Object.values(brand.palette), '#fff', '#ffffff', '#e2e0d8', '#b42318'].map((c) =>
         c.toLowerCase()
       )
     )

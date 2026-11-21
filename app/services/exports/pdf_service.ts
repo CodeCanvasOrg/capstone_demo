@@ -19,7 +19,7 @@ type RenderOptions = {
 }
 
 const PUBLICATION_CSS = `
-.hero { border-top: 6px solid #f6d900; padding-top: 14px; margin-bottom: 20px; }
+.hero { border-top: 6px solid #ffb902; padding-top: 14px; margin-bottom: 20px; }
 .hero h1 { font-size: 24pt; line-height: 1.2; margin: 0 0 10px; }
 .hero .summary { font-size: 13pt; color: #374151; }
 .hero .summary p { margin: 0; }
@@ -27,7 +27,7 @@ sup.ref { font-size: 7pt; line-height: 0; color: #6b7280; margin-left: 1px; }
 h2 { border-bottom: 1px solid #e5e7eb; padding-bottom: 4px; break-after: avoid; }
 h3 { break-after: avoid; }
 img { break-inside: avoid; }
-.results { margin-top: 24px; padding: 10px 14px; border-left: 4px solid #f6d900; background: #f9fafb; break-inside: avoid; }
+.results { margin-top: 24px; padding: 10px 14px; border-left: 4px solid #ffb902; background: #f9fafb; break-inside: avoid; }
 .results h2 { font-size: 11pt; border: 0; margin: 0 0 6px; }
 .results ul { margin: 0; padding-left: 18px; }
 .results .qualifier { font-size: 8pt; color: #4b5563; text-transform: uppercase; letter-spacing: .04em; }
@@ -192,7 +192,7 @@ export default class ExportPdfService {
 
       <body>
       <article>
-      ${preview ? '<p style="font-size:10pt;font-weight:bold;border-bottom:2px solid #f6d900;padding-bottom:12px">PREVIEW · NOT APPROVED FOR FINAL EXPORT</p>' : ''}
+      ${preview ? '<p style="font-size:10pt;font-weight:bold;border-bottom:2px solid #ffb902;padding-bottom:12px">PREVIEW · NOT APPROVED FOR FINAL EXPORT</p>' : ''}
       ${contentHtml}
       </article>
       </body>

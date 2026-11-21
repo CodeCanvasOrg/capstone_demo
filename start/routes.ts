@@ -167,6 +167,25 @@ router
         router
           .get('/documents/:documentId/images/:imageId', [controllers.DocumentImages, 'show'])
           .as('documentImages.show')
+        // Canvas editor (CANVAS_EDITOR=pilot; 404 otherwise).
+        router
+          .get('/documents/:documentId/canvas', [controllers.DocumentCanvases, 'show'])
+          .as('documentCanvases.show')
+        router
+          .get('/documents/:documentId/canvas/project', [controllers.DocumentCanvases, 'project'])
+          .as('documentCanvases.project')
+        router
+          .post('/documents/:documentId/canvas/enable', [controllers.DocumentCanvases, 'enable'])
+          .as('documentCanvases.enable')
+        router
+          .post('/documents/:documentId/canvas/disable', [controllers.DocumentCanvases, 'disable'])
+          .as('documentCanvases.disable')
+        router
+          .put('/documents/:documentId/canvas/draft', [controllers.DocumentCanvases, 'draft'])
+          .as('documentCanvases.draft')
+        router
+          .post('/documents/:documentId/canvas/versions', [controllers.DocumentCanvases, 'save'])
+          .as('documentCanvases.save')
         router
           .post('/documents/:documentId/versions', [controllers.DocumentVersions, 'handle'])
           .as('documentVersions.store')

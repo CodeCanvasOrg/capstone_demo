@@ -38,13 +38,13 @@ export type PreviewSpec = {
 
 const kit = getBrandKit('humblebee')?.palette
 const brand = {
-  primary: kit?.primary ?? '#0b1f3a',
-  accent: kit?.accent ?? '#f6d900',
-  accentText: kit?.accentText ?? '#b58900',
-  ink: kit?.text ?? '#111827',
-  muted: kit?.muted ?? '#4b5563',
+  primary: kit?.primary ?? '#111111',
+  accent: kit?.accent ?? '#ffb902',
+  accentText: kit?.accentText ?? '#946500',
+  ink: kit?.text ?? '#111111',
+  muted: kit?.muted ?? '#57554f',
   bg: kit?.background ?? '#ffffff',
-  surface: kit?.surface ?? '#f3f5f9',
+  surface: kit?.surface ?? '#f2f0e9',
 }
 
 /**
@@ -104,10 +104,10 @@ export const PREVIEW_SPECS: Record<string, PreviewSpec> = {
   freeform: {
     design: 'freeform',
     palette: {
-      primary: '#111827',
+      primary: '#111111',
       accent: '#d4d4d8',
       accentText: '#52525b',
-      ink: '#111827',
+      ink: '#111111',
       muted: '#71717a',
       bg: '#ffffff',
       surface: '#f4f4f5',

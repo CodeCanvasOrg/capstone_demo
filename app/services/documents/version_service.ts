@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto'
 import db from '@adonisjs/lucid/services/db'
+import type { TransactionClientContract } from '@adonisjs/lucid/types/database'
 import Document from '#models/document'
 import DocumentVersion from '#models/document_version'
 import VersionAcceptance from '#models/version_acceptance'
@@ -15,18 +16,43 @@ import AccessService, {
   conflict,
   type WorkspaceAccessContext,
 } from '#services/workspaces/access_service'
+export type AttachedVersionData = {
+  /** Identity of the data, part of the save's request hash. */
+  hash: string
+  /** Whether the data differs from what the latest version has. */
+  changedSince: (latest: DocumentVersion, trx: TransactionClientContract) => Promise<boolean>
+  /** Stores the data for a version just created, inside the save transaction. */
+  persist: (version: DocumentVersion, trx: TransactionClientContract) => Promise<void>
+}
+
 export default class VersionService {
   async save(
     context: WorkspaceAccessContext,
     id: string,
-    input: { content: unknown; baseVersionId: string | null; mutationId: string }
+    input: {
+      content: unknown
+      baseVersionId: string | null
+      mutationId: string
+      /**
+       * Data saved with the version beside its content (the canvas layout). A change
+       * in it alone still makes a new version, and it is written in the same
+       * transaction as the version it belongs to.
+       */
+      attached?: AttachedVersionData
+    }
   ) {
     const normalized = new ContentService().normalize(input.content, {
       repair: true,
       seed: input.mutationId,
     })
     const requestHash = createHash('sha256')
-      .update(JSON.stringify({ content: normalized, baseVersionId: input.baseVersionId }))
+      .update(
+        JSON.stringify({
+          content: normalized,
+          baseVersionId: input.baseVersionId,
+          ...(input.attached ? { attached: input.attached.hash } : {}),
+        })
+      )
       .digest('hex')
     const hydrated = await new EvidenceService().hydrate(context, id, normalized)
     // Hydration drops evidence the actor cannot use; annotations must still resolve.
@@ -64,7 +90,8 @@ export default class VersionService {
       if (
         !latest ||
         JSON.stringify(new ContentService().normalize(latest.content, { repair: true })) !==
-          JSON.stringify(normalized)
+          JSON.stringify(normalized) ||
+        (input.attached && (await input.attached.changedSince(latest, trx)))
       ) {
         version = await DocumentVersion.create(
           {
@@ -78,6 +105,7 @@ export default class VersionService {
           },
           { client: trx }
         )
+        await input.attached?.persist(version, trx)
         await new WorkflowService().invalidate(
           document,
           context.actorId,

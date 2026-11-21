@@ -21,6 +21,7 @@ import CreationService from '#services/documents/creation_service'
 import AccessService from '#services/workspaces/access_service'
 import SourceScopeService from '#services/files/source_scope_service'
 import type { HttpContext } from '@adonisjs/core/http'
+import CanvasService, { canvasEnabled } from '#services/canvas/canvas_service'
 export default class DocumentsController {
   async index({ workspace, workspaceAccess, bouncer, request, inertia }: HttpContext) {
     await bouncer.with(DocumentPolicy).authorize('create', workspaceAccess!.workspaceId)
@@ -119,6 +120,12 @@ export default class DocumentsController {
     const availableFiles = await workspaceFiles(workspaceAccess!.workspaceId, document.projectId)
     return inertia.render('documents/edit', {
       unavailableEvidence,
+      canvas: {
+        enabled: canvasEnabled(),
+        mode: canvasEnabled()
+          ? await new CanvasService().mode(workspaceAccess!.workspaceId, document.id)
+          : 'flow',
+      },
       projects: ProjectTransformer.transform(
         await Project.query().where('workspaceId', workspaceAccess!.workspaceId).orderBy('name')
       ),

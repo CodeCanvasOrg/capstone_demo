@@ -1,5 +1,5 @@
 # Copy to terraform.tfvars (git-ignored) and fill in. Secrets can instead be passed as
-# TF_VAR_<name> environment variables so they never touch disk.
+# TF_VAR_<name> environment variables: .env.example has every input in that form.
 #
 # Provider credentials are read from the environment, not from this file:
 #   export VERCEL_API_TOKEN=...        # vercel.com/account/tokens
@@ -23,9 +23,7 @@ domain_name = "app.example.com"      # strongly recommended; "" uses <project_na
 # uploads_bucket_name = "uploads"
 
 # Third-party credentials
-openrouter_api_key   = "sk-or-..."
-google_client_id     = "xxxx.apps.googleusercontent.com"
-google_client_secret = "..."
+openrouter_api_key = "sk-or-..."
 
 # SMTP (e.g. Amazon SES, Resend, Postmark SMTP credentials)
 smtp_host         = "email-smtp.us-east-1.amazonaws.com"

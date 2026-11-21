@@ -18,6 +18,8 @@ import {
   ChevronDown,
   FileText,
   Globe,
+  LayoutTemplate,
+  ArrowRight,
 } from 'lucide-react'
 import { Form, Link } from '@adonisjs/inertia/react'
 import { urlFor } from '@/client'
@@ -47,6 +49,7 @@ import { BeeWorking } from '@/components/bee/bee_working'
 import DocumentEditor from '@/components/documents/editor'
 import { DocumentInspector, MetadataForm, type Action } from '@/components/documents/inspector'
 import { StatusBadge } from '@/components/documents/status'
+import { EditorModeSwitch } from '@/components/canvas/editor_mode_switch'
 
 type ExportFormat = 'pdf' | 'web'
 type Task = {
@@ -63,7 +66,10 @@ export default function Edit({
   issues = [],
   projects = [],
   unavailableEvidence = false,
+  canvas,
 }: {
+  /** The canvas editor pilot: shown only when it is on. */
+  canvas?: { enabled: boolean; mode: 'flow' | 'canvas' }
   document: Data.Document
   workflow: Data.DocumentWorkflow
   availableFiles: Data.File[]
@@ -297,6 +303,24 @@ export default function Edit({
             {document.title}
           </h1>
           <StatusBadge status={document.status} />
+          {canvas?.enabled && (
+            <EditorModeSwitch
+              workspaceId={workspaceId}
+              documentId={document.id}
+              mode={canvas.mode}
+              current="text"
+              disabledReason={
+                !document.capabilities.edit
+                  ? 'You can view this case study but not change it'
+                  : dirty
+                    ? 'Save your changes first'
+                    : processing
+                      ? 'Wait for the draft to finish'
+                      : null
+              }
+              onError={(message) => setError(new ApiError(message, 409))}
+            />
+          )}
           <IconButton
             icon={SlidersHorizontal}
             label="Details"
@@ -626,15 +650,19 @@ export default function Edit({
         </div>
       )}
       <div className="flex min-w-0 flex-col items-start xl:flex-row">
-        <DocumentEditor
-          key={document.id}
-          title={document.title}
-          generationStatus={document.generationStatus}
-          documentId={document.id}
-          baseVersionId={document.currentVersionId}
-          initialContent={version?.content ?? null}
-          onDirtyChange={onDirty}
-        />
+        {canvas?.enabled && canvas.mode === 'canvas' ? (
+          <CanvasModeNotice workspaceId={workspaceId} documentId={document.id} />
+        ) : (
+          <DocumentEditor
+            key={document.id}
+            title={document.title}
+            generationStatus={document.generationStatus}
+            documentId={document.id}
+            baseVersionId={document.currentVersionId}
+            initialContent={version?.content ?? null}
+            onDirtyChange={onDirty}
+          />
+        )}
         <aside
           ref={inspectorRef}
           id="document-details"
@@ -655,5 +683,30 @@ export default function Edit({
         </aside>
       </div>
     </div>
+  )
+}
+
+/** In canvas mode the pages are edited in the canvas; the text editor would lose the layout. */
+function CanvasModeNotice({
+  workspaceId,
+  documentId,
+}: {
+  workspaceId: string
+  documentId: string
+}) {
+  return (
+    <section className="flex w-full min-w-0 flex-1 flex-col items-center gap-3 px-6 py-20 text-center">
+      <LayoutTemplate aria-hidden="true" className="size-10 text-muted-foreground" />
+      <h2 className="text-base font-semibold">This case study is laid out in the canvas</h2>
+      <p className="max-w-md text-sm text-muted-foreground">
+        Its pages, text and images are edited on A4 sheets. Checks, review and export use what the
+        canvas saved. Switch to Text above to go back to the text editor.
+      </p>
+      <Button asChild>
+        <Link route="documentCanvases.show" routeParams={{ workspaceId, documentId }}>
+          Open the canvas <ArrowRight aria-hidden="true" />
+        </Link>
+      </Button>
+    </section>
   )
 }

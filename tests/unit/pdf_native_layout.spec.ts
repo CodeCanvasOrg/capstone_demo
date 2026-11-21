@@ -78,8 +78,8 @@ test.group('Native PDF layout (RND-02/03)', () => {
 
   test('the hero and stat band run edge to edge, with no white slivers', async ({ assert }) => {
     const out = await pdf(fx.brandedClient, 'case_study_concise')
-    const navy = out.report.bleeds.find((rect) => rect.fill === '#0b1f3a')!
-    const yellow = out.report.bleeds.find((rect) => rect.fill === '#f6d900')!
+    const navy = out.report.bleeds.find((rect) => rect.fill === '#111111')!
+    const yellow = out.report.bleeds.find((rect) => rect.fill === '#ffb902')!
     for (const rect of [navy, yellow]) {
       assert.isAtMost(rect.x0, 0.5)
       assert.isAtLeast(rect.x1, out.report.pageWidth - 0.5)
@@ -93,8 +93,8 @@ test.group('Native PDF layout (RND-02/03)', () => {
     assert,
   }) => {
     const out = await pdf(fx.brandedClient, 'case_study_concise')
-    const navy = out.report.bleeds.find((rect) => rect.fill === '#0b1f3a')!
-    const yellow = out.report.bleeds.find((rect) => rect.fill === '#f6d900')!
+    const navy = out.report.bleeds.find((rect) => rect.fill === '#111111')!
+    const yellow = out.report.bleeds.find((rect) => rect.fill === '#ffb902')!
     // 7mm of white space below the blue hero.
     assert.isAtLeast(yellow.y0 - navy.y1, 18)
     const challenge = out.report.textBlocks.find((b) => /THE CHALLENGE/i.test(b.text))!
@@ -105,7 +105,7 @@ test.group('Native PDF layout (RND-02/03)', () => {
 
   test('the blue hero keeps clear space below its last line', async ({ assert }) => {
     const out = await pdf(fx.brandedClient, 'case_study_concise')
-    const navy = out.report.bleeds.find((rect) => rect.fill === '#0b1f3a')!
+    const navy = out.report.bleeds.find((rect) => rect.fill === '#111111')!
     // The subhead is the last text in the hero; its bottom must sit well above the band edge.
     assert.isAtLeast(navy.y1 - out.report.heroTextBottom, 24)
   })

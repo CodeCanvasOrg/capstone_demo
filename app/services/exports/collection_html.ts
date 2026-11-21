@@ -65,7 +65,7 @@ h1,h2,h3,p{margin:0}
 .statement .lede{font-weight:700;letter-spacing:-.015em;line-height:1.22}
 .statement .more{margin-top:12mm;columns:2;column-gap:12mm;font-size:10.5pt;line-height:1.6}
 .statement .more p{margin:0 0 4mm;break-inside:avoid}
-.statement.panel .more{color:#d5dbe6}
+.statement.panel .more{color:#e2e0d8}
 .statement.plain .more{color:${p.muted}}
 .statement .body{margin-top:auto;margin-bottom:auto}
 

@@ -119,6 +119,14 @@ export interface ApiDefinition {
     store: typeof routes['documentImages.store']
     show: typeof routes['documentImages.show']
   }
+  documentCanvases: {
+    show: typeof routes['documentCanvases.show']
+    project: typeof routes['documentCanvases.project']
+    enable: typeof routes['documentCanvases.enable']
+    disable: typeof routes['documentCanvases.disable']
+    draft: typeof routes['documentCanvases.draft']
+    save: typeof routes['documentCanvases.save']
+  }
   documentVersions: {
     store: typeof routes['documentVersions.store']
   }

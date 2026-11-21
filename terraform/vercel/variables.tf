@@ -143,15 +143,6 @@ variable "openrouter_api_key" {
   sensitive = true
 }
 
-variable "google_client_id" {
-  type = string
-}
-
-variable "google_client_secret" {
-  type      = string
-  sensitive = true
-}
-
 # ------------------------------------------------------------------ mail (SMTP)
 variable "smtp_host" {
   type = string
