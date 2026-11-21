@@ -399,6 +399,10 @@ a:hover > .brand-mark .bee-body, .brand-mark:hover .bee-body { animation: bee-no
 .bee-working-line { font-size: .8125rem; font-weight: 500; line-height: 1.25rem; animation: bee-copy 240ms var(--ease-out) both; }
 .bee-working-note { font-size: .6875rem; line-height: 1rem; color: var(--muted-foreground); }
 @media (max-width: 640px) { .bee-guide { right: 1rem; bottom: 1rem; } }
+/* Keep the card clear of the spotlit element (set from the target's position in bee_guide.tsx). */
+.bee-guide[data-side=left] { right: auto; left: 1.5rem; }
+.bee-guide[data-edge=top] { bottom: auto; top: 5.75rem; }
+@media (max-width: 640px) { .bee-guide[data-side=left] { left: 1rem; } }
 @media (prefers-reduced-motion: reduce) {
   .bee-body, .bee-shadow, .bee-wing, .bee-antenna, .bee-eye, .bee-guide, .bee-guide-bee, .bee-guide-copy, .bee-working-bee, .bee-working-line, .auth-bee { animation: none !important; }
   .bee-spot { transition: opacity 150ms ease; }

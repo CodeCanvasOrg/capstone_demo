@@ -6,6 +6,8 @@ import { useWorkspaceId } from '@/providers/workspace_provider'
 import { Button } from '@/components/ui/button'
 import type { Data } from '@generated/data'
 import { DocumentForm } from '@/components/documents/form'
+import { BeeCreateTour } from '@/components/bee/bee_create_tour'
+
 export default function Create({
   templates,
   files,
@@ -38,6 +40,7 @@ export default function Create({
         projects={projects}
         initialProjectId={initialProjectId}
       />
+      <BeeCreateTour />
     </div>
   )
 }

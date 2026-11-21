@@ -170,7 +170,11 @@ export function DocumentForm({
             </p>
           </div>
 
-          <section className="step-in" style={{ '--i': 1 } as CSSProperties}>
+          <section
+            className="step-in"
+            style={{ '--i': 1 } as CSSProperties}
+            data-tour="create-brief"
+          >
             <StepLabel n={1} title="The brief" />
             <div className="rounded-2xl border bg-sidebar p-4 shadow-xs">
               <RichTextEditor
@@ -190,14 +194,16 @@ export function DocumentForm({
                 disabled={form.processing}
               />
               <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
-                <SourcePicker
-                  files={files}
-                  selected={selected}
-                  onChange={setSelected}
-                  onUploaded={(file) => setUploads((current) => [...current, file])}
-                  projectId={projectId || null}
-                  disabled={form.processing}
-                />
+                <div data-tour="create-sources">
+                  <SourcePicker
+                    files={files}
+                    selected={selected}
+                    onChange={setSelected}
+                    onUploaded={(file) => setUploads((current) => [...current, file])}
+                    projectId={projectId || null}
+                    disabled={form.processing}
+                  />
+                </div>
                 <span className="text-xs text-muted-foreground tabular-nums">
                   {selected.length
                     ? `${selected.length} ${selected.length === 1 ? 'source' : 'sources'}`
@@ -212,7 +218,11 @@ export function DocumentForm({
             )}
           </section>
 
-          <section className="step-in mt-8" style={{ '--i': 2 } as CSSProperties}>
+          <section
+            className="step-in mt-8"
+            style={{ '--i': 2 } as CSSProperties}
+            data-tour="create-instructions"
+          >
             <StepLabel n={2} title="Instructions" hint="Optional" />
             <Textarea
               aria-label="Generation instructions"
@@ -255,7 +265,11 @@ export function DocumentForm({
           </section>
 
           {projects.length > 0 && (
-            <div className="step-in mt-6 -mx-5" style={{ '--i': 3 } as CSSProperties}>
+            <div
+              className="step-in mt-6 -mx-5"
+              style={{ '--i': 3 } as CSSProperties}
+              data-tour="create-project"
+            >
               <Disclosure
                 title="Project"
                 icon={FolderOpen}
@@ -308,6 +322,7 @@ export function DocumentForm({
           style={{ '--i': 2 } as CSSProperties}
           aria-labelledby="template-heading"
           aria-busy={form.processing}
+          data-tour="create-layout"
         >
           <div id="template-heading">
             <StepLabel
@@ -515,7 +530,13 @@ export function DocumentForm({
                 ? 'Add a brief to get started.'
                 : `${mode === 'classic' ? choice.name : mode === 'template' ? (BROCHURE_TEMPLATES.find((t) => t.id === selection.template)?.label ?? 'Brochure') : mode === 'pages' ? `${selection.pages.length} pages` : 'AI chooses'} · ${selected.length ? `${selected.length} sources` : 'brief only'} · ${instructions.trim() ? 'your instructions' : 'default instructions'}`}
           </p>
-          <Button type="button" size="lg" disabled={form.processing || !ready} onClick={generate}>
+          <Button
+            type="button"
+            size="lg"
+            disabled={form.processing || !ready}
+            onClick={generate}
+            data-tour="create-generate"
+          >
             {form.processing ? (
               <LoaderCircle aria-hidden="true" className="animate-spin" />
             ) : (
