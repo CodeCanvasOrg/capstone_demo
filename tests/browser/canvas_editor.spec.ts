@@ -52,12 +52,16 @@ test.group('Canvas editor', (group) => {
     const a = await account('canvas-editor@example.test')
     await brochure(a)
     await browserContext.loginAs(a.user)
-    const page = await visit(canvasUrl(a))
+    const page = await visit(`/workspaces/${a.workspace.id}/documents/${a.document.id}/edit`)
     const errors: string[] = []
     page.on('pageerror', (error) => errors.push(error.message))
 
-    // First visit: the document opens in the canvas, laid out by its designs.
-    await page.getByRole('button', { name: 'Open in canvas' }).click()
+    // From the case study, switch the editor to Canvas: its pages are laid out by their designs.
+    await page
+      .getByRole('radiogroup', { name: 'Editor' })
+      .getByRole('radio', { name: 'Canvas' })
+      .click()
+    await page.waitForURL(/\/canvas$/)
     const frame = page.frameLocator('iframe.gjs-frame')
     await frame.locator('.cv-sheet').first().waitFor()
     assert.equal(await frame.locator('.cv-sheet').count(), DESIGNS.length)
@@ -138,6 +142,50 @@ test.group('Canvas editor', (group) => {
     assert.deepEqual(errors, [])
   })
 
+  test('a new case study switches to the canvas and back to text', async ({
+    browserContext,
+    visit,
+    assert,
+  }) => {
+    const a = await account('canvas-new@example.test')
+    await browserContext.loginAs(a.user)
+    const editUrl = `/workspaces/${a.workspace.id}/documents/${a.document.id}/edit`
+    const page = await visit(editUrl)
+    const errors: string[] = []
+    page.on('pageerror', (error) => errors.push(error.message))
+    const editor = page.getByRole('radiogroup', { name: 'Editor' })
+
+    await editor.getByRole('radio', { name: 'Canvas' }).click()
+    await page.waitForURL(/\/canvas$/)
+    const frame = page.frameLocator('iframe.gjs-frame')
+    await frame.locator('.cv-sheet').first().waitFor()
+    assert.equal(await frame.locator('.cv-sheet').count(), 2)
+    assert.include(await frame.locator('#s0').innerText(), 'Evidence example')
+    if (process.env.UI_SCREENSHOT_DIR) {
+      await page.waitForTimeout(500)
+      await page.screenshot({ path: `${process.env.UI_SCREENSHOT_DIR}/canvas-new.png` })
+    }
+
+    // The case study page now points to the canvas instead of the text editor.
+    await page.getByRole('link', { name: 'Case study', exact: true }).click()
+    await page.getByText('This case study is laid out in the canvas').waitFor()
+    assert.equal(
+      await editor.getByRole('radio', { name: 'Canvas' }).getAttribute('aria-checked'),
+      'false'
+    )
+    if (process.env.UI_SCREENSHOT_DIR)
+      await page.screenshot({ path: `${process.env.UI_SCREENSHOT_DIR}/case-study-canvas-mode.png` })
+
+    // Back to text: confirm, and the text editor returns.
+    await page.getByRole('link', { name: 'Open the canvas' }).click()
+    await page.waitForURL(/\/canvas$/)
+    await editor.getByRole('radio', { name: 'Text' }).click()
+    await page.getByRole('button', { name: 'Go back' }).click()
+    await page.waitForURL(/\/edit$/)
+    await page.getByText('This case study is laid out in the canvas').waitFor({ state: 'detached' })
+    assert.deepEqual(errors, [])
+  })
+
   test('the document page offers the canvas only when the pilot is on', async ({
     browserContext,
     visit,
@@ -147,12 +195,11 @@ test.group('Canvas editor', (group) => {
     await brochure(a)
     await browserContext.loginAs(a.user)
     const page = await visit(`/workspaces/${a.workspace.id}/documents/${a.document.id}/edit`)
-    await page.getByRole('button', { name: 'More' }).click()
-    await page.getByRole('menuitem', { name: 'Lay out in canvas' }).waitFor()
+    const editor = page.getByRole('radiogroup', { name: 'Editor' })
+    await editor.waitFor()
     env.set('CANVAS_EDITOR', undefined as never)
     await page.reload()
-    await page.getByRole('button', { name: 'More' }).click()
-    await page.getByRole('menuitem', { name: 'History' }).waitFor()
-    assert.equal(await page.getByRole('menuitem', { name: 'Lay out in canvas' }).count(), 0)
+    await page.getByRole('heading', { name: 'Evidence example' }).waitFor()
+    assert.equal(await editor.count(), 0)
   })
 })

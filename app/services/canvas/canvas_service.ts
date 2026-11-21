@@ -29,11 +29,25 @@ import type { TransactionClientContract } from '@adonisjs/lucid/types/database'
 
 export const canvasEnabled = () => env.get('CANVAS_EDITOR') === 'pilot'
 
+/** Text for a case study opened in the canvas before it has any: a cover and one page. */
+export function starterContent(title: string): { type: 'doc'; content: TipTapBlock[] } {
+  const text = (value: string) => [{ type: 'text', text: value }]
+  return {
+    type: 'doc',
+    content: [
+      { type: 'heading', attrs: { level: 1 }, content: text(title || 'Untitled case study') },
+      { type: 'horizontalRule' },
+      { type: 'heading', attrs: { level: 2 }, content: text('The challenge') },
+      { type: 'paragraph', content: text('Double-click to write.') },
+    ] as TipTapBlock[],
+  }
+}
+
 export type CanvasState = {
   mode: 'flow' | 'canvas'
   project: CanvasDocument | null
   /** Where `project` came from: the autosaved draft or the current version. */
-  source: 'draft' | 'version' | null
+  source: 'draft' | 'version' | 'composed' | null
   /** Draft compare-and-set counter; 0 when there is no draft yet. */
   revision: number
   baseVersionId: string | null
@@ -88,6 +102,18 @@ export default class CanvasService {
         baseVersionId: doc.currentVersionId,
       }
     const canvas = doc.currentVersionId ? await this.forVersion(doc.currentVersionId) : null
+    // A version saved outside the canvas (e.g. a new draft generated) has no layout yet:
+    // lay its text out again rather than losing the canvas. Saved on the first edit.
+    if (!canvas && mode === 'canvas' && doc.currentVersionId) {
+      const current = await DocumentVersion.findOrFail(doc.currentVersionId)
+      return {
+        mode,
+        project: await this.compose(context, documentId, current.content),
+        source: 'composed',
+        revision: draft?.revision ?? 0,
+        baseVersionId: doc.currentVersionId,
+      }
+    }
     return {
       mode,
       project: canvas?.project ?? null,
@@ -118,25 +144,37 @@ export default class CanvasService {
   async enable(context: WorkspaceAccessContext, documentId: string, mutationId: string) {
     this.assertEnabled()
     const doc = await new AccessService().document(context, documentId)
-    if (!doc.currentVersionId) throw conflict('Save a version before opening the canvas')
-    const current = await DocumentVersion.findOrFail(doc.currentVersionId)
-    const existing = await this.forVersion(current.id)
+    const current = doc.currentVersionId
+      ? await DocumentVersion.findOrFail(doc.currentVersionId)
+      : null
+    const existing = current ? await this.forVersion(current.id) : null
     if (!existing) {
-      const selection = await new LayoutSelectionService().peek(context.workspaceId, documentId)
-      const pages = splitSheets(current.content)
-      const designs: DesignId[] = selection.options.brochure
-        ? resolveDesigns(selection.options.brochure.pages, pages.length)
-        : pages.map((_, i) => (i === 0 ? 'cover' : 'article'))
-      const canvas = composeCanvas(current.content, designs)
+      // A new case study has no text yet: start from its title on a cover and a blank page.
+      const content = current?.content ?? starterContent(doc.title)
+      const canvas = await this.compose(context, documentId, content)
       await this.saveCanvas(context, documentId, {
         canvas: await this.validate(context, documentId, canvas),
-        baseVersionId: current.id,
+        baseVersionId: current?.id ?? null,
         mutationId,
         source: 'composed',
       })
     }
     await this.setMode(context, documentId, 'canvas')
     return this.state(context, documentId)
+  }
+
+  /** Lays the text out on sheets, one design per page (the brochure's, or cover then article). */
+  private async compose(
+    context: WorkspaceAccessContext,
+    documentId: string,
+    content: { content?: TipTapBlock[] } | null
+  ) {
+    const selection = await new LayoutSelectionService().peek(context.workspaceId, documentId)
+    const pages = splitSheets(content)
+    const designs: DesignId[] = selection.options.brochure
+      ? resolveDesigns(selection.options.brochure.pages, pages.length)
+      : pages.map((_, i) => (i === 0 ? 'cover' : 'article'))
+    return composeCanvas(content, designs)
   }
 
   /** Back to the text editor. The text of the canvas stays; history keeps every canvas. */

@@ -13,7 +13,7 @@ import { Link } from '@adonisjs/inertia/react'
 import { urlFor } from '@/client'
 import { api, feedbackError } from '@/lib/api'
 import { Button } from '@/components/ui/button'
-import { ConfirmAction } from '@/components/confirm_action'
+import { EditorModeSwitch } from '@/components/canvas/editor_mode_switch'
 import { CanvasToolbar } from '@/components/canvas/canvas_toolbar'
 import { Inspector } from '@/components/canvas/inspector'
 import { PageStrip } from '@/components/canvas/page_strip'
@@ -29,7 +29,7 @@ type Props = {
     mode: 'flow' | 'canvas'
     /** A canvas the server has already validated (typed loosely: page props are plain JSON). */
     project: Record<string, any> | null
-    source: 'draft' | 'version' | null
+    source: 'draft' | 'version' | 'composed' | null
     revision: number
     baseVersionId: string | null
   }
@@ -81,7 +81,8 @@ function OpenCanvas({ document, workspaceId }: Pick<Props, 'document' | 'workspa
       <h1 className="text-xl font-semibold">Lay out “{document.title}” freely</h1>
       <p className="text-sm text-muted-foreground">
         Each page opens as an A4 sheet laid out from its design. Move, resize and add boxes; the
-        text keeps its citations. Opening saves a new version, so the document needs review again.
+        text keeps its citations. Opening saves a new version, so an approved case study needs
+        review again.
       </p>
       {error && <p className="text-sm text-destructive">{error}</p>}
       <div className="flex gap-2">
@@ -114,7 +115,7 @@ function Editor({
     brand: { palette, fonts: brand?.fonts ?? [] },
   })
   const [saved, setSaved] = useState<number | null>(null)
-  const [leaving, setLeaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const busy = canvas.status === 'saving'
 
   const save = async () => {
@@ -122,28 +123,23 @@ function Editor({
     if (result) setSaved(result.version)
   }
 
-  const backToText = async () => {
-    setLeaving(true)
-    try {
-      await api(
-        urlFor('documentCanvases.disable', { workspaceId, documentId: document.id }),
-        'POST'
-      )
-      router.visit(urlFor('documents.edit', { workspaceId, id: document.id }))
-    } catch {
-      setLeaving(false)
-    }
-  }
-
   return (
     <div className="flex h-dvh flex-col">
       <header className="flex flex-wrap items-center gap-3 border-b px-4 py-2">
         <Button asChild variant="ghost" size="sm">
           <Link route="documents.edit" routeParams={{ workspaceId, id: document.id }}>
-            <ArrowLeft aria-hidden="true" /> Document
+            <ArrowLeft aria-hidden="true" /> Case study
           </Link>
         </Button>
         <h1 className="min-w-0 flex-1 truncate text-sm font-semibold">{document.title}</h1>
+        <EditorModeSwitch
+          workspaceId={workspaceId}
+          documentId={document.id}
+          mode="canvas"
+          current="canvas"
+          disabledReason={busy ? 'Wait for the save to finish' : null}
+          onError={setError}
+        />
         {canvas.overflow.length > 0 && (
           <span className="flex items-center gap-1 text-xs text-destructive" role="status">
             <AlertTriangle aria-hidden="true" className="size-3.5" />
@@ -174,15 +170,6 @@ function Editor({
             <Eye aria-hidden="true" /> Preview
           </a>
         </Button>
-        <ConfirmAction
-          title="Go back to the text editor?"
-          description="The text stays as it is in the canvas. The page designs are used again for the layout, and every saved canvas stays in the version history."
-          trigger="Text editor"
-        >
-          <Button onClick={backToText} disabled={leaving}>
-            Go back
-          </Button>
-        </ConfirmAction>
         <Button
           size="sm"
           onClick={save}
@@ -207,6 +194,18 @@ function Editor({
         )}
       </div>
 
+      {error && (
+        <div
+          role="alert"
+          className="flex items-center gap-3 border-b bg-destructive/10 px-4 py-2 text-sm text-destructive"
+        >
+          <AlertTriangle aria-hidden="true" className="size-4" />
+          <span className="flex-1">{error}</span>
+          <Button size="sm" variant="ghost" onClick={() => setError(null)}>
+            Dismiss
+          </Button>
+        </div>
+      )}
       {canvas.error && (
         <div
           role="alert"

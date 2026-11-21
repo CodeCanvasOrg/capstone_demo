@@ -240,6 +240,51 @@ test.group('Document canvases', (group) => {
     ;(await client.get(url(a, '/project')).loginAs(b.user)).assertStatus(404)
   })
 
+  test('a new case study opens in the canvas before it has any text', async ({
+    client,
+    assert,
+  }) => {
+    const a = await account()
+    assert.isNull((await Document.findOrFail(a.document.id)).currentVersionId)
+    const res = await client
+      .post(url(a, '/enable'))
+      .json({ mutationId: randomUUID() })
+      .withCsrfToken()
+      .loginAs(a.user)
+    res.assertStatus(200)
+    const state = res.body().data
+    assert.equal(state.mode, 'canvas')
+    assert.lengthOf(state.project.sheets, 2)
+    const doc = await Document.findOrFail(a.document.id)
+    assert.isNotNull(doc.currentVersionId)
+    const version = await DocumentVersion.findOrFail(doc.currentVersionId!)
+    assert.include(JSON.stringify(version.content), 'Evidence example')
+  })
+
+  test('a version saved outside the canvas is laid out again, not lost', async ({
+    client,
+    assert,
+  }) => {
+    const a = await account()
+    const state = await enabled(client, a)
+    // E.g. a new draft generated from the document page.
+    const next = structuredClone(
+      (await DocumentVersion.findOrFail(state.baseVersionId)).content
+    ) as { content: unknown[] }
+    next.content.push({ type: 'paragraph', content: [{ type: 'text', text: 'Added in text.' }] })
+    await new VersionService().save(a.context, a.document.id, {
+      content: next,
+      baseVersionId: state.baseVersionId,
+      mutationId: randomUUID(),
+    })
+    const res = await client.get(url(a, '/project')).loginAs(a.user)
+    res.assertStatus(200)
+    const after = res.body().data
+    assert.equal(after.source, 'composed')
+    assert.notEqual(after.baseVersionId, state.baseVersionId)
+    assert.include(JSON.stringify(after.project), 'Added in text.')
+  })
+
   test('going back to the text editor keeps the text and the canvas history', async ({
     client,
     assert,
