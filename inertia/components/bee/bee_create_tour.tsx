@@ -13,7 +13,7 @@ const STEPS: TourStep[] = [
   },
   {
     title: 'Start with the brief',
-    body: 'Tell me what you worked on: the client, the problem, what you did and how it turned out. Rough notes are fine.',
+    body: 'Tell me what you worked on: the client, the problem, what you did and how it turned out. Rough notes are fine, or press Generate with AI and I’ll draft it from your sources.',
     mood: 'think',
     target: ['[data-tour=create-brief]'],
   },

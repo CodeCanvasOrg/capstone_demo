@@ -1,8 +1,9 @@
-import { useMemo, useState, type CSSProperties } from 'react'
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { useForm } from '@inertiajs/react'
 import type { Data } from '@generated/data'
-import { FolderOpen, LoaderCircle, Sparkles, Wand2 } from 'lucide-react'
+import { FolderOpen, LoaderCircle, Sparkles, Undo2, Wand2 } from 'lucide-react'
 import { urlFor } from '@/client'
+import { api, feedbackError } from '@/lib/api'
 import { useWorkspaceId, useUnsavedChanges } from '@/providers/workspace_provider'
 import { TemplatePreview, PreviewThumb } from '@/components/documents/template_preview'
 import { specFor } from '@/components/documents/template_specs'
@@ -19,7 +20,12 @@ import {
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { SourcePicker, selectable, type SourceChoice } from '@/components/files/source_picker'
-import { RichTextEditor, emptyRichText, type RichText } from '@/components/rich_text_editor'
+import {
+  RichTextEditor,
+  emptyRichText,
+  textToRichText,
+  type RichText,
+} from '@/components/rich_text_editor'
 
 const FREEFORM = 'freeform'
 const BROCHURE = 'brochure'
@@ -38,6 +44,20 @@ const MODES: readonly { id: Mode; label: string; hint: string }[] = [
 ]
 
 type Choice = { id: string; name: string; description: string; headings: string[] }
+
+type BriefResult = {
+  data: {
+    brief: string
+    mode: 'all' | 'retrieved'
+    passages: number
+    sources: { fileName: string; passages: number }[]
+  }
+}
+type BriefState =
+  | { status: 'idle' }
+  | { status: 'pending' }
+  | { status: 'done'; note: string; previous: { composer: RichText; text: string } }
+  | { status: 'error'; message: string }
 
 function headingsOf(template: OutlineTemplate) {
   try {
@@ -81,6 +101,52 @@ export function DocumentForm({
   const [projectId, setProjectId] = useState(initialProjectId ?? '')
   const [uploads, setUploads] = useState<SourceChoice[]>([])
   const [droppedSources, setDroppedSources] = useState(0)
+  const [briefState, setBriefState] = useState<BriefState>({ status: 'idle' })
+  const briefRequest = useRef<AbortController | null>(null)
+  useEffect(() => () => briefRequest.current?.abort(), [])
+  const projectHasFiles =
+    !!projectId && files.some((file) => file.projects?.some((project) => project.id === projectId))
+  const canWriteBrief = selected.length > 0 || projectHasFiles
+  async function writeBrief() {
+    if (!canWriteBrief || briefState.status === 'pending') return
+    briefRequest.current?.abort()
+    const controller = new AbortController()
+    briefRequest.current = controller
+    const previous = { composer, text }
+    setBriefState({ status: 'pending' })
+    try {
+      const result = await api<BriefResult>(
+        urlFor('briefs.store', { workspaceId }),
+        'POST',
+        { projectId: projectId || null, fileIds: selected, draft: text.trim() || null },
+        controller.signal
+      )
+      const { brief, passages, sources, mode } = result.data
+      setComposer(textToRichText(brief))
+      setText(brief)
+      const fileCount = `${sources.length} ${sources.length === 1 ? 'file' : 'files'}`
+      setBriefState({
+        status: 'done',
+        previous,
+        note:
+          mode === 'all'
+            ? `Written from all ${passages} passages in ${fileCount}.`
+            : `Written from the ${passages} most relevant passages in ${fileCount}.`,
+      })
+    } catch (reason) {
+      if (controller.signal.aborted) return
+      setBriefState({
+        status: 'error',
+        message: feedbackError(reason, 'The brief could not be written. Try again.').message,
+      })
+    }
+  }
+  function undoBrief() {
+    if (briefState.status !== 'done') return
+    setComposer(briefState.previous.composer)
+    setText(briefState.previous.text)
+    setBriefState({ status: 'idle' })
+  }
   const choices = useMemo<Choice[]>(
     () => [
       ...templates
@@ -182,6 +248,8 @@ export function DocumentForm({
                 onChange={(value, plain) => {
                   setComposer(value)
                   setText(plain)
+                  // Typing over the generated brief makes it yours; undo would discard that.
+                  if (briefState.status !== 'pending') setBriefState({ status: 'idle' })
                 }}
                 error={
                   form.errors.description ||
@@ -193,7 +261,7 @@ export function DocumentForm({
                 compact
                 disabled={form.processing}
               />
-              <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
+              <div className="mt-4 flex flex-wrap items-center gap-2">
                 <div data-tour="create-sources">
                   <SourcePicker
                     files={files}
@@ -204,13 +272,55 @@ export function DocumentForm({
                     disabled={form.processing}
                   />
                 </div>
-                <span className="text-xs text-muted-foreground tabular-nums">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={writeBrief}
+                  disabled={form.processing || !canWriteBrief || briefState.status === 'pending'}
+                  title={
+                    canWriteBrief
+                      ? 'Write a short brief from your sources'
+                      : 'Add sources or choose a project with files first'
+                  }
+                  data-tour="create-brief-ai"
+                >
+                  {briefState.status === 'pending' ? (
+                    <LoaderCircle aria-hidden="true" className="animate-spin" />
+                  ) : (
+                    <Sparkles aria-hidden="true" />
+                  )}
+                  {briefState.status === 'pending' ? 'Reading sources…' : 'Generate with AI'}
+                </Button>
+                <span className="ml-auto text-xs text-muted-foreground tabular-nums">
                   {selected.length
                     ? `${selected.length} ${selected.length === 1 ? 'source' : 'sources'}`
                     : 'Brief only'}
                 </span>
               </div>
             </div>
+            {briefState.status === 'done' && (
+              <p
+                role="status"
+                className="mt-2 flex items-center gap-2 text-xs text-muted-foreground"
+              >
+                <Sparkles aria-hidden="true" className="size-3.5 shrink-0" />
+                <span className="min-w-0">{briefState.note}</span>
+                <button
+                  type="button"
+                  onClick={undoBrief}
+                  className="inline-flex items-center gap-1 rounded-md px-1.5 py-1 font-medium text-foreground underline-offset-4 hover:underline"
+                >
+                  <Undo2 aria-hidden="true" className="size-3.5" />
+                  Undo
+                </button>
+              </p>
+            )}
+            {briefState.status === 'error' && (
+              <p role="alert" className="mt-2 text-xs text-destructive">
+                {briefState.message}
+              </p>
+            )}
             {text.length > 20000 && (
               <p role="alert" className="mt-2 text-xs text-destructive">
                 Keep the brief under 20,000 characters.

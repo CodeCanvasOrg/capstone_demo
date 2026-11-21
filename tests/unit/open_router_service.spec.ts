@@ -425,4 +425,26 @@ test.group('OpenRouterService | wire parser and revision budget', () => {
     )
     assert.equal(calls, 3)
   })
+
+  test('a brief is retried until it is three or four sentences', async ({ assert }) => {
+    const service = new OpenRouterService()
+    let calls = 0
+    const seen: unknown[] = []
+    const attempts = [
+      { brief: 'Too short.' },
+      { brief: 'One. Two. Three. Four. Five.' },
+      { brief: '  Acme hired us.  They had a problem. We built a fix. Costs fell 20%. ' },
+    ]
+    ;(service as any).model = {
+      withStructuredOutput: () =>
+        RunnableLambda.from((input: unknown) => {
+          seen.push(input)
+          return attempts[calls++]
+        }),
+    }
+    const brief = await service.generateBrief({ project: 'Acme', draft: null }, [])
+    assert.equal(brief, 'Acme hired us. They had a problem. We built a fix. Costs fell 20%.')
+    assert.equal(calls, 3)
+    assert.match(JSON.stringify(seen[1]), /exactly three or four sentences/)
+  })
 })

@@ -136,6 +136,7 @@ router
           .get('/files/:id/revisions/:revisionId/assets/:assetId', [controllers.Assets, 'derived'])
           .as('assets.derived')
         router.resource('documents', controllers.Documents).except(['show'])
+        router.post('/briefs', [controllers.Briefs, 'store']).as('briefs.store')
         router
           .post('/documents/:documentId/images', [controllers.DocumentImages, 'store'])
           .as('documentImages.store')
