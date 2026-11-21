@@ -28,7 +28,8 @@ export default class Document extends DocumentSchema {
   declare status: string | null
 
   @column()
-  declare generationStatus: 'uploaded' | 'processing' | 'generating' | 'checking_issues' | 'ready' | 'failed'
+  declare generationStatus:
+    'uploaded' | 'processing' | 'generating' | 'checking_issues' | 'ready' | 'failed'
 
   @column()
   declare generationError: string | null
