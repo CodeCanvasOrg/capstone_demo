@@ -76,6 +76,7 @@ export default await Env.create(new URL('../', import.meta.url), {
   REDIS_HOST: Env.schema.string({ format: 'host' }),
   REDIS_PORT: Env.schema.number(),
   REDIS_PASSWORD: Env.schema.secret.optional(),
+  REDIS_TLS: Env.schema.boolean.optional(),
 
   RAG_PIPELINE_VERSION: Env.schema.string(),
   RAG_EMBEDDING_DIMENSIONS: Env.schema.number(),

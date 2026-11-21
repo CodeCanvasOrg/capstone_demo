@@ -18,6 +18,10 @@ const driveConfig = defineConfig({
       bucket: env.get('S3_BUCKET'),
       endpoint: env.get('S3_ENDPOINT'),
       forcePathStyle: true,
+      // Neon Object Storage (and other S3-compatible stores) reject the default CRC checksums
+      // newer AWS SDKs add to every request; only send them when an operation requires it.
+      requestChecksumCalculation: 'WHEN_REQUIRED',
+      responseChecksumValidation: 'WHEN_REQUIRED',
       visibility: 'private',
     }),
   },

@@ -36,6 +36,23 @@ img { break-inside: avoid; }
 .sources ol { margin: 0; padding-left: 20px; }
 `
 
+/**
+ * Vercel functions have no system Chromium, so they use the serverless build from
+ * @sparticuz/chromium (matched to Playwright's Chromium major). Everywhere else
+ * (local, Docker worker) uses Playwright's bundled browser.
+ */
+async function launchChromium() {
+  if (process.env.VERCEL) {
+    const { default: serverless } = await import('@sparticuz/chromium')
+    return chromium.launch({
+      executablePath: await serverless.executablePath(),
+      args: serverless.args,
+      headless: true,
+    })
+  }
+  return chromium.launch()
+}
+
 const QUALIFIER_LABELS = {
   measured: 'Measured',
   estimated: 'Estimated',
@@ -188,7 +205,7 @@ export default class ExportPdfService {
     const { preview = false, layout } = options
     const html = await this.html(data, options)
     const margin = layout ? `${PAGE_MARGIN_MM}mm` : '20mm'
-    const browser = await chromium.launch().catch(() => {
+    const browser = await launchChromium().catch(() => {
       throw new PdfUnavailableException()
     })
 
@@ -218,7 +235,7 @@ export default class ExportPdfService {
   }
   /** Prints a finished, self-contained HTML page; the page's own @page rule sets size and margins. */
   static async fromHtml(html: string) {
-    const browser = await chromium.launch().catch(() => {
+    const browser = await launchChromium().catch(() => {
       throw new PdfUnavailableException()
     })
     try {

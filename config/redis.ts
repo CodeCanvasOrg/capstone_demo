@@ -20,6 +20,8 @@ const redisConfig = defineConfig({
       host: env.get('REDIS_HOST'),
       port: env.get('REDIS_PORT'),
       password: env.get('REDIS_PASSWORD'),
+      // Managed Redis such as Upstash only accepts TLS connections.
+      tls: env.get('REDIS_TLS') ? {} : undefined,
       db: 0,
       keyPrefix: '',
       retryStrategy(times) {
