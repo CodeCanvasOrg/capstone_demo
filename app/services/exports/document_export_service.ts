@@ -35,6 +35,13 @@ import { lengthWarnings, parsePages } from '../../../shared/brochure/content.ts'
 import { resolveDesigns } from '../../../shared/brochure/designs.ts'
 import { renderBrochureHtml, type BrochurePage } from '#services/exports/brochure_renderer'
 import { renderWebHtml } from '#services/exports/web_renderer'
+import {
+  projectionDocument,
+  renderCanvasHtml,
+  splitProjected,
+} from '#services/exports/canvas_renderer'
+import CanvasService, { canvasEnabled } from '#services/canvas/canvas_service'
+import type { WorkspaceAccessContext as Ctx } from '#services/workspaces/access_service'
 import type { DesignId } from '../../../shared/brochure/designs.ts'
 
 export type ExportFormat = 'pdf' | 'web'
@@ -127,8 +134,10 @@ export default class DocumentExportService {
       await tasks.recordStage(lease, 'rendering')
       buffer = Buffer.from(await this.webHtml(doc, client, { final: true }), 'utf8')
     } else {
-      // A brochure has its own renderer; the older layout rules do not apply to it.
-      const brochure = await this.brochureHtml(doc, client, { final: true })
+      // A canvas is drawn as laid out; a brochure has its own renderer; the older
+      // layout rules apply to neither.
+      const canvas = await this.canvasHtml(lease.context, doc, version.id, { final: true })
+      const brochure = canvas ?? (await this.brochureHtml(doc, client, { final: true }))
       const layout = brochure ? null : await this.layoutPlan(doc, client, { final: true })
       await tasks.recordStage(lease, 'rendering')
       buffer = brochure
@@ -234,7 +243,11 @@ export default class DocumentExportService {
     const content = await this.content(context, documentId, version.content, check)
     await check()
     const client = this.client(content)
-    const brochure = format === 'web' ? null : await this.brochureHtml(doc, client, { final })
+    const brochure =
+      format === 'web'
+        ? null
+        : ((await this.canvasHtml(context, doc, version.id, { final })) ??
+          (await this.brochureHtml(doc, client, { final })))
     const layout =
       brochure || format === 'web' ? null : await this.layoutPlan(doc, client, { final })
     const buffer =
@@ -300,6 +313,41 @@ export default class DocumentExportService {
       sections,
     }))
     return { brochure: !!chosen, brand, pages }
+  }
+
+  /**
+   * The canvas layout of a version, or null when the document is not in the canvas
+   * editor or the version was saved as text. Frame text goes through the same
+   * evidence, image and projection pipeline as every export, in one pass, so
+   * citation numbers follow reading order across the canvas.
+   */
+  private async canvasHtml(
+    context: Ctx,
+    doc: Document,
+    versionId: string,
+    { final }: { final: boolean }
+  ) {
+    if (!canvasEnabled()) return null
+    const service = new CanvasService()
+    if ((await service.mode(context.workspaceId, doc.id)) !== 'canvas') return null
+    const row = await service.forVersion(versionId)
+    if (!row) return null
+    const selection = await new LayoutSelectionService().peek(doc.workspaceId!, doc.id)
+    const brand = getBrandKit(selection.brandId, selection.brandVersion)
+    if (!brand)
+      throw new Exception('The pinned brand version is not available', {
+        status: 422,
+        code: 'E_LAYOUT_INVALID',
+      })
+    const check = () => new EvidenceService().check(context)
+    const projected = this.client(
+      await this.content(context, doc.id, projectionDocument(row.project), check)
+    )
+    return renderCanvasHtml(row.project, brand, {
+      content: splitProjected(row.project, projected.body),
+      sources: projected.sources,
+      preview: !final,
+    })
   }
 
   /**

@@ -83,6 +83,8 @@ export default await Env.create(new URL('../', import.meta.url), {
 
   GENERATION_FORMAT: Env.schema.enum.optional(['branded', 'legacy'] as const),
   PUBLICATION_LAYOUT: Env.schema.enum.optional(['pilot', 'templates'] as const),
+  /** Canvas editor for brochure layouts; off unless `pilot`. */
+  CANVAS_EDITOR: Env.schema.enum.optional(['pilot'] as const),
 
   // PDF extraction worker (see config/pdf_worker.ts)
   PDF_EXTRACTOR: Env.schema.enum.optional(['pymupdf', 'pdf-parse'] as const),
