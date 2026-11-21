@@ -823,6 +823,78 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_images_controller').default['show']>>>
     }
   }
+  'documentCanvases.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['show']>>>
+    }
+  }
+  'documentCanvases.project': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/project'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['project']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['project']>>>
+    }
+  }
+  'documentCanvases.enable': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/enable'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/canvas').canvasEnableValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/canvas').canvasEnableValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['enable']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['enable']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'documentCanvases.disable': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/disable'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['disable']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['disable']>>>
+    }
+  }
+  'documentCanvases.draft': {
+    methods: ["PUT"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/draft'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/canvas').canvasDraftValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/canvas').canvasDraftValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['draft']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['draft']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'documentCanvases.save': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/versions'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/canvas').canvasSaveValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/canvas').canvasSaveValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['save']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['save']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'documentVersions.store': {
     methods: ["POST"]
     pattern: '/workspaces/:workspaceId/documents/:documentId/versions'

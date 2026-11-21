@@ -731,3 +731,13 @@ button.pf-pick:active { transform:scale(.98); }
 .brochure-view [data-design=contact] > p { max-width: calc(var(--mm) * 140); font-size: .9em; }
 .brochure-view [data-design=contact] > [data-s="1"] ~ p:last-child { font-size: .65em; color: var(--b-muted); }
 .brochure-view .brochure-page img { max-width: 100%; height: auto; border-radius: .4em; }
+
+/* Canvas editor: GrapesJS chrome around the iframe. No default panels, so the canvas fills its box. */
+[data-testid='canvas'] .gjs-editor { background: transparent; font-family: inherit; }
+[data-testid='canvas'] .gjs-cv-canvas { top: 0; left: 0; width: 100%; height: 100%; background: #e7e5e4; }
+[data-testid='canvas'] .gjs-pn-panels, [data-testid='canvas'] .gjs-pn-panel { display: none; }
+[data-testid='canvas'] .gjs-toolbar { background: var(--primary); border-radius: 6px; }
+[data-testid='canvas'] .gjs-badge { background: var(--primary); color: var(--primary-foreground); border-radius: 4px; font-size: 11px; }
+[data-testid='canvas'] .gjs-selected-parent { outline-color: color-mix(in srgb, var(--primary) 50%, transparent); }
+/* GrapesJS animates zoom; the canvas aligns the sheet by measuring it, so no transition. */
+[data-testid='canvas'] .gjs-frame-wrapper, [data-testid='canvas'] .gjs-cv-canvas__frames, [data-testid='canvas'] .gjs-frame { transition: none !important; }

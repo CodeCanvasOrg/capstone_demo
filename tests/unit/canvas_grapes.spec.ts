@@ -40,6 +40,12 @@ test.group('canvas ⇄ GrapesJS', () => {
     if (parsed.ok) assert.deepEqual(parsed.canvas, minimal())
   })
 
+  test('the live editor works in px and still reads back exact mm', ({ assert }) => {
+    const parsed = parseCanvas(fromGrapes(throughEditor(toGrapes(minimal(), 'px'))))
+    assert.isTrue(parsed.ok)
+    if (parsed.ok) assert.deepEqual(parsed.canvas, minimal())
+  })
+
   test('a drag in the editor is read back as the new position, in mm', ({ assert }) => {
     const data = throughEditor(toGrapes(minimal()), (editor) => {
       const frame = byId(editor, 's0-f0')

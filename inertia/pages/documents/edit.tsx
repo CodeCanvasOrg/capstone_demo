@@ -18,6 +18,7 @@ import {
   ChevronDown,
   FileText,
   Globe,
+  LayoutTemplate,
 } from 'lucide-react'
 import { Form, Link } from '@adonisjs/inertia/react'
 import { urlFor } from '@/client'
@@ -63,7 +64,10 @@ export default function Edit({
   issues = [],
   projects = [],
   unavailableEvidence = false,
+  canvas,
 }: {
+  /** The canvas editor pilot: shown only when it is on. */
+  canvas?: { enabled: boolean; mode: 'flow' | 'canvas' }
   document: Data.Document
   workflow: Data.DocumentWorkflow
   availableFiles: Data.File[]
@@ -389,6 +393,20 @@ export default function Edit({
                 <Sparkles />
                 {version ? 'Generate again' : 'Generate draft'}
               </DropdownMenuItem>
+              {canvas?.enabled && (
+                <DropdownMenuItem
+                  disabled={dirty || !version || !document.capabilities.edit}
+                  asChild
+                >
+                  <Link
+                    route="documentCanvases.show"
+                    routeParams={{ workspaceId, documentId: document.id }}
+                  >
+                    <LayoutTemplate />
+                    {canvas.mode === 'canvas' ? 'Open canvas layout' : 'Lay out in canvas'}
+                  </Link>
+                </DropdownMenuItem>
+              )}
               <DropdownMenuItem disabled={dirty || !version} asChild>
                 <a
                   href={urlFor('documentPreview.show', { workspaceId, documentId: document.id })}

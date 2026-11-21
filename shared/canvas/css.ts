@@ -1,5 +1,5 @@
 import type { BrandKit } from '../layout/brand.ts'
-import { mm } from './geometry.ts'
+import { mm, toPx } from './geometry.ts'
 import { FONT_SCALE, type CanvasColor, type Frame, type Sheet } from './model.ts'
 
 /**
@@ -74,7 +74,28 @@ export function lookCss(frame: Frame): Record<string, string> {
   return css
 }
 
-export const frameCss = (frame: Frame) => ({ ...geoCss(frame), ...lookCss(frame) })
+/**
+ * Position in CSS pixels, for the live editor: GrapesJS's absolute dragger reads
+ * `left`/`top` as plain numbers and would misread millimetres. Stored data and
+ * exports stay in millimetres.
+ */
+export function geoCssPx(frame: Pick<Frame, 'geo' | 'z'>): Record<string, string> {
+  const px = (tenths: number) => `${Number(toPx(tenths).toFixed(3))}px`
+  return {
+    ...geoCss(frame),
+    left: px(frame.geo.x),
+    top: px(frame.geo.y),
+    width: px(frame.geo.w),
+    height: px(frame.geo.h),
+  }
+}
+
+export type CssUnits = 'mm' | 'px'
+
+export const frameCss = (frame: Frame, units: CssUnits = 'mm') => ({
+  ...(units === 'px' ? geoCssPx(frame) : geoCss(frame)),
+  ...lookCss(frame),
+})
 
 export const declarations = (css: Record<string, string>) =>
   Object.entries(css)

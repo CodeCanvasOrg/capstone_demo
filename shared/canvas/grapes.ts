@@ -1,5 +1,5 @@
 import { clampGeo, parseLength } from './geometry.ts'
-import { frameCss, sheetCss } from './css.ts'
+import { frameCss, sheetCss, type CssUnits } from './css.ts'
 import {
   CANVAS_SCHEMA_VERSION,
   type CanvasDocument,
@@ -42,7 +42,25 @@ export type GrapesProject = {
   [key: string]: unknown
 }
 
-export function toGrapes(canvas: CanvasDocument): GrapesProject {
+/** `px` for the live editor (see geoCssPx); `mm` everywhere else. */
+export const frameComponent = (frame: Frame, units: CssUnits = 'mm'): GrapesComponent => ({
+  type: frameType(frame.kind),
+  attributes: { id: frame.id },
+  classes: ['cv-frame', `cv-${frame.kind}`],
+  style: frameCss(frame, units),
+  cv: structuredClone(frame) as unknown as Record<string, unknown>,
+})
+
+export const sheetComponent = (sheet: Sheet, units: CssUnits = 'mm'): GrapesComponent => ({
+  type: SHEET_TYPE,
+  attributes: { id: sheet.id },
+  classes: ['cv-sheet'],
+  style: sheetCss(sheet),
+  cv: { id: sheet.id, background: sheet.background },
+  components: sheet.frames.map((frame) => frameComponent(frame, units)),
+})
+
+export function toGrapes(canvas: CanvasDocument, units: CssUnits = 'mm'): GrapesProject {
   return {
     assets: [],
     styles: [],
@@ -51,20 +69,7 @@ export function toGrapes(canvas: CanvasDocument): GrapesProject {
         id: PAGE_ID,
         component: {
           type: 'wrapper',
-          components: canvas.sheets.map((sheet) => ({
-            type: SHEET_TYPE,
-            attributes: { id: sheet.id },
-            classes: ['cv-sheet'],
-            style: sheetCss(sheet),
-            cv: { id: sheet.id, background: sheet.background },
-            components: sheet.frames.map((frame) => ({
-              type: frameType(frame.kind),
-              attributes: { id: frame.id },
-              classes: ['cv-frame', `cv-${frame.kind}`],
-              style: frameCss(frame),
-              cv: structuredClone(frame) as unknown as Record<string, unknown>,
-            })),
-          })),
+          components: canvas.sheets.map((sheet) => sheetComponent(sheet, units)),
         },
       },
     ],

@@ -184,9 +184,9 @@ const LAYOUTS: Record<
     background: 'primary',
     place(b, [s]) {
       b.art(g(0, 0, SHEET.w, SHEET.h), 'ribbons')
-      b.text(g(M, 1500, 1500, 600), [s.title], {
+      b.text(g(M, 1300, 1600, 800), [s.title], {
         ...WHITE,
-        font: 'display',
+        font: 'xxl',
         weight: 800,
         valign: 'bottom',
       })

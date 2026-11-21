@@ -10,6 +10,15 @@ import type { FrameKind } from './model.ts'
  */
 export const FRAME_KINDS: FrameKind[] = ['text', 'figure', 'image', 'shape', 'art']
 
+/** What the editor's selection badge and layers call each type. */
+const NAMES: Record<FrameKind, string> = {
+  text: 'Text',
+  figure: 'Big number',
+  image: 'Image',
+  shape: 'Shape',
+  art: 'Artwork',
+}
+
 type Editor = {
   Components: { addType: (id: string, definition: Record<string, unknown>) => void }
 }
@@ -23,6 +32,7 @@ export function canvasTypes(editor: Editor) {
     model: {
       defaults: {
         cv: null,
+        name: 'Page',
         tagName: 'section',
         attributes: { 'data-cv-type': SHEET_TYPE },
         draggable: false,
@@ -46,6 +56,7 @@ export function canvasTypes(editor: Editor) {
       model: {
         defaults: {
           cv: null,
+          name: NAMES[kind],
           tagName: 'div',
           attributes: { 'data-cv-type': type },
           // Frames live on sheets and are placed like in a design tool.
