@@ -49,6 +49,7 @@ export interface ApiDefinition {
   }
   documentPreview: {
     show: typeof routes['documentPreview.show']
+    web: typeof routes['documentPreview.web']
   }
   templates: {
     index: typeof routes['templates.index']
@@ -94,6 +95,7 @@ export interface ApiDefinition {
   exportPdfs: {
     preview: typeof routes['exportPdfs.preview']
     store: typeof routes['exportPdfs.store']
+    web: typeof routes['exportPdfs.web']
     download: typeof routes['exportPdfs.download']
   }
   assets: {

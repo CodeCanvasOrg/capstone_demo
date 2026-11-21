@@ -331,6 +331,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['htmlPreview']>>>
     }
   }
+  'documentPreview.web': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/preview/web'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['webPreview']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['webPreview']>>>
+    }
+  }
   'templates.index': {
     methods: ["GET","HEAD"]
     pattern: '/workspaces/:workspaceId/templates'
@@ -659,12 +671,24 @@ export interface Registry {
     methods: ["POST"]
     pattern: '/workspaces/:workspaceId/documents/:documentId/exports/pdf'
     types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/document_review').exportValidator)>>
+      body: {}
       paramsTuple: [ParamValue, ParamValue]
       params: { workspaceId: ParamValue; documentId: ParamValue }
-      query: ExtractQuery<InferInput<(typeof import('#validators/document_review').exportValidator)>>
+      query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['handle']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['handle']>>>
+    }
+  }
+  'exportPdfs.web': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/exports/web'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['web']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['web']>>>
     }
   }
   'exportPdfs.download': {

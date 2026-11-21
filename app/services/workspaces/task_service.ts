@@ -24,6 +24,8 @@ export type SourcePin = {
 }
 export type TaskPayload = {
   exportMode?: 'solo' | 'approved'
+  /** Render tasks only; absent means PDF (every task queued before the web format). */
+  format?: 'web'
   approvalId?: string
   versionId?: string
   brandVersion?: string
@@ -340,6 +342,7 @@ export default class TaskService {
         task.kind === 'render' && task.status === 'succeeded'
           ? {
               downloadUrl: `/workspaces/${context.workspaceId}/documents/${task.documentId}/exports/${task.id}/download`,
+              format: task.result.format === 'web' ? 'web' : 'pdf',
             }
           : task.kind === 'generate' && task.result.versionId
             ? { versionId: task.result.versionId }

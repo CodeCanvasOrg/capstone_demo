@@ -31,6 +31,7 @@ export type ScannedRoutes = {
     'documentIssues.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentIssues.update': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'issueId': ParamValue} }
     'documentPreview.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
+    'documentPreview.web': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'templates.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'layoutCatalog.show': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'documentLayouts.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
@@ -59,6 +60,7 @@ export type ScannedRoutes = {
     'documentPreviews.legacy': { paramsTuple: [ParamValue,ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'versionId': ParamValue,'format': ParamValue} }
     'exportPdfs.preview': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'exportPdfs.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
+    'exportPdfs.web': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'exportPdfs.download': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'taskId': ParamValue} }
     'assets.derived': { paramsTuple: [ParamValue,ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue,'revisionId': ParamValue,'assetId': ParamValue} }
     'documents.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
@@ -114,6 +116,7 @@ export type ScannedRoutes = {
     'workspaces.show': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'workspace_members.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'documentPreview.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
+    'documentPreview.web': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'templates.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'layoutCatalog.show': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'documentLayouts.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
@@ -159,6 +162,7 @@ export type ScannedRoutes = {
     'workspaces.show': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'workspace_members.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'documentPreview.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
+    'documentPreview.web': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'templates.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'layoutCatalog.show': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'documentLayouts.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
@@ -214,6 +218,7 @@ export type ScannedRoutes = {
     'documentReviews.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentReviews.approve': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'exportPdfs.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
+    'exportPdfs.web': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documents.store': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'briefs.store': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'documentImages.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }

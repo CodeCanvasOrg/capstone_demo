@@ -70,6 +70,9 @@ router
         router
           .get('/documents/:documentId/preview', [controllers.ExportPdfs, 'htmlPreview'])
           .as('documentPreview.show')
+        router
+          .get('/documents/:documentId/preview/web', [controllers.ExportPdfs, 'webPreview'])
+          .as('documentPreview.web')
         router.get('/templates', [controllers.Templates, 'index']).as('templates.index')
         router.get('/layout/catalog', [controllers.LayoutCatalog, 'show']).as('layoutCatalog.show')
         router
@@ -144,6 +147,9 @@ router
         router
           .post('/documents/:documentId/exports/pdf', [controllers.ExportPdfs, 'handle'])
           .as('exportPdfs.store')
+        router
+          .post('/documents/:documentId/exports/web', [controllers.ExportPdfs, 'web'])
+          .as('exportPdfs.web')
         router
           .get('/documents/:documentId/exports/:taskId/download', [
             controllers.ExportPdfs,

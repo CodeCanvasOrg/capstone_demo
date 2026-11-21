@@ -168,6 +168,12 @@ const routes = {
     tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/preview","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview","type":0,"val":"preview","end":""}],
     types: placeholder as Registry['documentPreview.show']['types'],
   },
+  'documentPreview.web': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/preview/web',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/preview/web","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview/web","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview/web","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview/web","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview/web","type":0,"val":"preview","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview/web","type":0,"val":"web","end":""}],
+    types: placeholder as Registry['documentPreview.web']['types'],
+  },
   'templates.index': {
     methods: ["GET","HEAD"],
     pattern: '/workspaces/:workspaceId/templates',
@@ -335,6 +341,12 @@ const routes = {
     pattern: '/workspaces/:workspaceId/documents/:documentId/exports/pdf',
     tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/exports/pdf","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/pdf","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/pdf","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/pdf","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/pdf","type":0,"val":"exports","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/pdf","type":0,"val":"pdf","end":""}],
     types: placeholder as Registry['exportPdfs.store']['types'],
+  },
+  'exportPdfs.web': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/exports/web',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/exports/web","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/web","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/web","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/web","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/web","type":0,"val":"exports","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/web","type":0,"val":"web","end":""}],
+    types: placeholder as Registry['exportPdfs.web']['types'],
   },
   'exportPdfs.download': {
     methods: ["GET","HEAD"],
