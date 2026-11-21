@@ -9,12 +9,12 @@ import { DocumentForm } from '@/components/documents/form'
 import { BeeCreateTour } from '@/components/bee/bee_create_tour'
 
 export default function Create({
-  templates,
   files,
   projects,
   initialProjectId,
 }: {
-  templates: OutlineTemplate[]
+  /** Still sent by the server; the outline templates are no longer offered here. */
+  templates?: OutlineTemplate[]
   files: Data.File[]
   projects: Data.Project[]
   initialProjectId?: string | null
@@ -34,12 +34,7 @@ export default function Create({
           </Link>
         </Button>
       </header>
-      <DocumentForm
-        templates={templates}
-        files={files}
-        projects={projects}
-        initialProjectId={initialProjectId}
-      />
+      <DocumentForm files={files} projects={projects} initialProjectId={initialProjectId} />
       <BeeCreateTour />
     </div>
   )
