@@ -26,7 +26,7 @@ terraform output -raw run_migrations_command | sh   # 4. migrate (re-run on rele
 
 Step 2 builds with the repo's `Dockerfile`; run those commands from the repository root
 (`cd .. && terraform -chdir=terraform output -raw push_image_commands | sh`).
-Then point your domain at `alb_dns_name` and add the app's OAuth callback to the Google client.
+Then point your domain at `alb_dns_name`.
 
 ## Notes
 

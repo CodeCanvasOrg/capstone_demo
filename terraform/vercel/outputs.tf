@@ -3,11 +3,6 @@ output "app_url" {
   value       = local.app_url
 }
 
-output "google_oauth_redirect_uri" {
-  description = "Add this to the Google OAuth client's authorized redirect URIs."
-  value       = "${local.app_url}/oauth/google/callback"
-}
-
 output "vercel_project_id" {
   value = vercel_project.web.id
 }

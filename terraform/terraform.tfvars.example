@@ -13,9 +13,7 @@ certificate_arn = "arn:aws:acm:us-east-1:123456789012:certificate/xxxxxxxx"
 image_tag = "latest"
 
 # Third-party credentials
-openrouter_api_key   = "sk-or-..."
-google_client_id     = "xxxx.apps.googleusercontent.com"
-google_client_secret = "..."
+openrouter_api_key = "sk-or-..."
 
 # SMTP (e.g. Amazon SES SMTP credentials)
 smtp_host         = "email-smtp.us-east-1.amazonaws.com"

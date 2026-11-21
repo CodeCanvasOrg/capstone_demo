@@ -53,8 +53,6 @@ locals {
     DB_PASSWORD          = neon_project.main.database_password
     REDIS_PASSWORD       = upstash_redis_database.main.password
     OPENROUTER_API_KEY   = var.openrouter_api_key
-    GOOGLE_CLIENT_ID     = var.google_client_id
-    GOOGLE_CLIENT_SECRET = var.google_client_secret
     S3_ACCESS_KEY_ID     = restapi_object.storage_credential.id
     S3_SECRET_ACCESS_KEY = local.storage_credential.s3_secret_access_key
   }, var.smtp_password != "" ? { SMTP_PASSWORD = var.smtp_password } : {})
