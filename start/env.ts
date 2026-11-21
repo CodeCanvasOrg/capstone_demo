@@ -39,14 +39,6 @@ export default await Env.create(new URL('../', import.meta.url), {
   DB_URL: Env.schema.string(),
   TEST_DB_URL: Env.schema.string.optional(),
 
-  /*
-  |----------------------------------------------------------
-  | Variables for configuring ally package
-  |----------------------------------------------------------
-  */
-  GOOGLE_CLIENT_ID: Env.schema.string(),
-  GOOGLE_CLIENT_SECRET: Env.schema.string(),
-
   // Open Router API key
   OPENROUTER_API_KEY: Env.schema.secret(),
   OPENROUTER_BASE_URL: Env.schema.string.optional({ format: 'url', tld: false }),
