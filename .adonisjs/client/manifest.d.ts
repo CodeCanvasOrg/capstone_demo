@@ -4,7 +4,6 @@
  */
 
 /// <reference path="../../adonisrc.ts" />
-/// <reference path="../../config/ally.ts" />
 /// <reference path="../../config/auth.ts" />
 /// <reference path="../../config/claim_evaluation.ts" />
 /// <reference path="../../config/contextualization.ts" />
@@ -18,3 +17,4 @@
 /// <reference path="../../config/queue.ts" />
 /// <reference path="../../config/redis.ts" />
 /// <reference path="../../config/workspaces.ts" />
+/// <reference path="../../config/ally.ts" />
