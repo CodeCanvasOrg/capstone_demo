@@ -17,4 +17,3 @@
 /// <reference path="../../config/queue.ts" />
 /// <reference path="../../config/redis.ts" />
 /// <reference path="../../config/workspaces.ts" />
-/// <reference path="../../config/ally.ts" />
