@@ -9,6 +9,14 @@ keeps citations, footnotes, checks and approvals. The PDF matches the editor.
 
 ## Decisions
 
+> **Change during build (21 Nov 2026):** the stored format is our own canvas model
+> (`shared/canvas/model.ts`: sheets → frames with mm geometry and brand colour references), not
+> a GrapesJS project subset. The browser converts to and from GrapesJS at the edge
+> (`shared/canvas/grapes.ts`), like `toPaged`/`toFlat`. This makes validation a plain zod schema,
+> keeps the renderer and the derived text independent of GrapesJS, and stops an editor upgrade
+> from changing stored data. The `project` columns below hold this model. `shared/canvas/grapes_types.ts`
+> registers our component types (model only), so a headless GrapesJS can load the project in tests.
+
 1. **GrapesJS core 0.23.9, pinned exactly.** No Studio SDK, no `@grapesjs/react` (its peer range
    excludes 0.23). Mounted with our own hook.
 2. **Canvas JSON is the source of truth for layout** when a document is in canvas mode. The flat
