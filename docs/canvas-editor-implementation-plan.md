@@ -378,3 +378,32 @@ bun run typecheck && bun run lint
 - Responsive web output from the canvas layout.
 - Collections/portfolio pages in the canvas. Entries keep their own look (portfolio plan decision 5).
 - Real-time multi-user editing. The draft CAS handles conflicts.
+
+## Progress (21 Nov 2026, branch `feature/canvas-editor`)
+
+| Phase | State |
+| --- | --- |
+| 0 Spike | Folded into the build: the exit checks are covered by tests (frames stay in their sheet, mm round-trips through a real GrapesJS, Tiptap edits in the iframe, preview renders the canvas). |
+| 1 Shared module | Done: `model`, `geometry`, `css`, `compose`, `derive`, `grapes`, `grapes_types`, `ops`. |
+| 2 Database + backend | Done: 4 migrations, models, `CanvasService`, routes, validator, policy checks, flag. |
+| 3 Composer + templates | Composer done for all nine designs. **Templates not started:** `canvas_templates` table exists; service, routes, `canvas:seed-templates` and the gallery remain. |
+| 4 Editor UI | Done: toolbar, page strip, inspector, text toolbar, autosave/conflict, save version, entry from the document page. |
+| 5 Export + approvals | Preview/PDF draw the canvas, bundle covers it. **Remaining:** the overflow gate on final export (overflow is flagged in the editor only), `canvas:audit`/`canvas:render` commands. |
+| 6 Pilot | Not started. |
+
+Changes made during the build, beyond the stored-format change noted under Decisions:
+
+- **The live editor gives GrapesJS px, not mm.** Its absolute dragger reads `left`/`top` as plain
+  numbers, so `72mm` came back as `72px`. Stored data and exports stay in mm (`frameCss(frame, 'px')`
+  in the editor only).
+- **Press-and-drag starts the move** (`tlb-move` on mousedown). GrapesJS only starts absolute drags
+  from its toolbar handle. A second press on a text frame starts text editing, because the first
+  press's drag swallows `dblclick`.
+- **Text editing mounts Tiptap directly** instead of `setCustomRte`: that hook only runs on GrapesJS's
+  `text` type, whose save path writes HTML back into the component.
+- **Autosave is a debounced PUT** (1.5 s), not GrapesJS's storage manager, to keep the revision CAS
+  and conflict handling in our code.
+- **Zoom sizes the frame** to one sheet wide and to column height ÷ zoom, then aligns it by
+  measurement. GrapesJS's zoom transition is turned off in `app.css` so the measurement is stable.
+
+Tests: 53 canvas unit, 18 functional, 2 browser. Full suites pass (unit 510+, functional 219, browser 33).
