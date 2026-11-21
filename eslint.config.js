@@ -36,6 +36,7 @@ export default configApp(...react, {
           '../../../../shared/canvas/grapes.ts',
           '../../../../shared/canvas/grapes_types.ts',
           '../../../../shared/canvas/css.ts',
+          '../../../../shared/canvas/ops.ts',
           '../../../../shared/editor/schema.ts',
           '../../../../shared/layout/brand.ts',
         ],

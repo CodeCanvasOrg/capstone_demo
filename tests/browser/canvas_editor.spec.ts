@@ -31,8 +31,6 @@ async function brochure(a: Account) {
   })
 }
 
-const canvasUrl = (a: Account) => `/workspaces/${a.workspace.id}/documents/${a.document.id}/canvas`
-
 test.group('Canvas editor', (group) => {
   group.each.setup(async () => {
     await reset()
@@ -106,6 +104,16 @@ test.group('Canvas editor', (group) => {
     const expected = 30 + ((40 / zoom) * 25.4) / 96
     assert.closeTo(Number(await x.inputValue()), expected, 2)
 
+    // A press with a small wobble is a click, not a drag: nothing moves.
+    const before = await x.inputValue()
+    const still = (await body.boundingBox())!
+    await page.mouse.move(still.x + 30, still.y + still.height / 2)
+    await page.mouse.down()
+    await page.mouse.move(still.x + 31, still.y + still.height / 2 + 1, { steps: 2 })
+    await page.mouse.up()
+    await page.waitForTimeout(200)
+    assert.equal(await x.inputValue(), before)
+
     // Double-click to edit its text in place; Esc ends editing.
     await body.dblclick()
     await frame.locator('#s1-f2 .ProseMirror').waitFor()
@@ -115,6 +123,38 @@ test.group('Canvas editor', (group) => {
     await page.keyboard.press('Escape')
     await frame.locator('#s1-f2 .ProseMirror').waitFor({ state: 'detached' })
     assert.include(await body.innerText(), 'Laid out in the canvas.')
+
+    // Draw a new text box on page 2: it opens for typing with its placeholder selected.
+    await page.getByRole('button', { name: 'Text box' }).click()
+    const sheet = (await frame.locator('#s1').boundingBox())!
+    await page.mouse.move(sheet.x + sheet.width * 0.2, sheet.y + 40)
+    await page.mouse.down()
+    await page.mouse.move(sheet.x + sheet.width * 0.6, sheet.y + 90, { steps: 6 })
+    await page.mouse.up()
+    await frame.locator('.cv-editing .ProseMirror').waitFor()
+    await page.keyboard.type('A new heading')
+    await page.keyboard.press('Escape')
+    const added = frame.locator('.cv-text', { hasText: 'A new heading' })
+    await added.waitFor()
+    assert.isAbove(Number(await page.getByLabel('Width (mm)', { exact: true }).inputValue()), 50)
+
+    // Any colour, not only the brand's: a custom fill and a border.
+    await page.getByLabel('Fill colour hex').fill('#1a7f5a')
+    await page.getByLabel('Border width (mm)').fill('0.5')
+    assert.equal(
+      await added.evaluate((el) => getComputedStyle(el).backgroundColor),
+      'rgb(26, 127, 90)'
+    )
+    assert.equal(await added.evaluate((el) => getComputedStyle(el).borderTopStyle), 'solid')
+    await page.getByText('All changes saved').waitFor({ timeout: 10_000 })
+    const draftAfter = await DocumentCanvasDraft.findOrFail(a.document.id)
+    const styled = draftAfter.project.sheets[1].frames.find(
+      (f) => f.kind === 'text' && JSON.stringify(f.doc).includes('A new heading')
+    )!
+    assert.equal(styled.style.fill, '#1a7f5a')
+    assert.equal(styled.style.border?.width, 5)
+    if (process.env.UI_SCREENSHOT_DIR)
+      await page.screenshot({ path: `${process.env.UI_SCREENSHOT_DIR}/canvas-styles.png` })
 
     // Add a page after the selected one.
     await page.getByRole('button', { name: 'Add page' }).click()

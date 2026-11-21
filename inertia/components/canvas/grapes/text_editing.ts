@@ -20,7 +20,11 @@ export function startTextEditing(
   el: HTMLElement,
   component: Component,
   frame: Frame,
-  { onUpdate, onExit }: { onUpdate: () => void; onExit: () => void }
+  {
+    onUpdate,
+    onExit,
+    selectAll = false,
+  }: { onUpdate: () => void; onExit: () => void; selectAll?: boolean }
 ): TextEditing {
   const doc = frame.kind === 'text' ? frame.doc : []
   el.innerHTML = ''
@@ -29,7 +33,8 @@ export function startTextEditing(
     element: el,
     extensions: documentExtensions(),
     content: { type: 'doc', content: doc.length ? doc : [{ type: 'paragraph' }] },
-    autofocus: 'end',
+    // A new box opens with its placeholder selected, so typing replaces it.
+    autofocus: selectAll ? 'all' : 'end',
     onUpdate,
   })
   const keys = (event: KeyboardEvent) => {

@@ -407,3 +407,26 @@ Changes made during the build, beyond the stored-format change noted under Decis
   measurement. GrapesJS's zoom transition is turned off in `app.css` so the measurement is stable.
 
 Tests: 53 canvas unit, 18 functional, 2 browser. Full suites pass (unit 510+, functional 219, browser 33).
+
+### Editing feel and styles (22 Nov 2026)
+
+- **Drag threshold.** GrapesJS's `Dragger` starts on the press itself, with no dead
+  zone, so a click with any hand movement moved the frame (and saved a version of
+  that). A press now becomes a drag only after 4 screen px (`DRAG_THRESHOLD_PX`,
+  zoom-corrected); shorter presses select. The drag is handed to GrapesJS with the
+  original press, so the frame keeps its offset from the pointer.
+- **One snap, not two.** GrapesJS's live guides already align edges while dragging;
+  our post-drop edge snap moved the frame again after release. Drops now only round
+  to 0.5 mm. Arrow keys nudge 1 mm (Shift: 10 mm).
+- **Placing boxes.** Toolbar kinds are labelled buttons that arm placement: click on a
+  page to drop a box at its default size, or drag to draw it. A new text box opens for
+  typing with its placeholder selected. Enter or "Edit text" edits the selected text
+  box; a press outside ends editing.
+- **Styles.** `styleSchema` gains (all optional, so schema version 1 still holds):
+  `size` (pt, wins over `font`), `family` (brand/sans/serif/mono, mapped to fixed font
+  stacks), weight 700, `italic`, `caps`, `lineHeight`, `tracking`, `align: justify`,
+  `fillAlpha`, `border {width, color, style}`, `shadow`. Every value is an enum or a
+  bounded number, so none can carry CSS. Colours: brand swatches, any colour (picker or
+  hex), and recent colours.
+- **Fixed:** the inspector kept a stale copy of a text frame after editing, so the next
+  style change wrote the old text back.

@@ -58,9 +58,18 @@ export const geoSchema = z
   })
 export type Geo = z.infer<typeof geoSchema>
 
+/** Font families a frame may use: names only, mapped to safe font stacks in css.ts. */
+export const FONT_FAMILIES = ['brand', 'sans', 'serif', 'mono'] as const
+export type FontFamily = (typeof FONT_FAMILIES)[number]
+export const FONT_WEIGHTS = [400, 600, 700, 800] as const
+export const SHADOWS = ['sm', 'md', 'lg'] as const
+export const BORDER_STYLES = ['solid', 'dashed', 'dotted'] as const
+
 export const styleSchema = z
   .object({
     fill: colorSchema.optional(),
+    /** Fill transparency, 0 to 100 (the text stays opaque). */
+    fillAlpha: z.number().int().min(0).max(100).optional(),
     color: colorSchema.optional(),
     /** Corner radius, tenths of a mm. */
     radius: tenths(0, 500).optional(),
@@ -69,9 +78,29 @@ export const styleSchema = z
     /** 0 to 100. */
     opacity: z.number().int().min(0).max(100).optional(),
     font: z.enum(Object.keys(FONT_SCALE) as [FontScale, ...FontScale[]]).optional(),
-    weight: z.union([z.literal(400), z.literal(600), z.literal(800)]).optional(),
-    align: z.enum(['left', 'center', 'right']).optional(),
+    /** Exact size in points; wins over `font`. */
+    size: z.number().min(5).max(200).multipleOf(0.5).optional(),
+    family: z.enum(FONT_FAMILIES).optional(),
+    weight: z.union([z.literal(400), z.literal(600), z.literal(700), z.literal(800)]).optional(),
+    italic: z.boolean().optional(),
+    /** Capitals. */
+    caps: z.boolean().optional(),
+    /** Line height, percent of the type size. */
+    lineHeight: z.number().int().min(80).max(300).optional(),
+    /** Letter spacing, thousandths of an em. */
+    tracking: z.number().int().min(-100).max(500).optional(),
+    align: z.enum(['left', 'center', 'right', 'justify']).optional(),
     valign: z.enum(['top', 'middle', 'bottom']).optional(),
+    border: z
+      .object({
+        /** Tenths of a mm. */
+        width: tenths(1, 50),
+        color: colorSchema,
+        style: z.enum(BORDER_STYLES),
+      })
+      .strict()
+      .optional(),
+    shadow: z.enum(SHADOWS).optional(),
   })
   .strip()
 export type FrameStyle = z.infer<typeof styleSchema>

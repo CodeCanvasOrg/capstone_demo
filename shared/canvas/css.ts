@@ -1,6 +1,18 @@
 import type { BrandKit } from '../layout/brand.ts'
 import { mm, toPx } from './geometry.ts'
-import { FONT_SCALE, type CanvasColor, type Frame, type Sheet } from './model.ts'
+import { FONT_SCALE, type CanvasColor, type FontFamily, type Frame, type Sheet } from './model.ts'
+
+/** Safe font stacks; `brand` inherits the brand font set on the page. */
+export const FONT_STACKS: Record<Exclude<FontFamily, 'brand'>, string> = {
+  sans: 'Inter,"Helvetica Neue",Arial,sans-serif',
+  serif: 'Georgia,"Times New Roman",serif',
+  mono: '"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace',
+}
+const SHADOW_CSS = {
+  sm: '0 0.3mm 0.8mm rgba(0,0,0,.12)',
+  md: '0 1mm 3mm rgba(0,0,0,.14)',
+  lg: '0 2.5mm 7mm rgba(0,0,0,.18)',
+} as const
 
 /**
  * How a frame looks, as CSS declarations. The editor canvas and the export
@@ -22,7 +34,7 @@ export function brandVars(brand: Pick<BrandKit, 'palette'>): Record<string, stri
     '--cv-background': p.background,
     '--cv-surface': p.surface,
     '--cv-white': '#ffffff',
-    '--cv-gradient': `radial-gradient(70% 95% at 100% 100%,color-mix(in srgb,${p.accent} 70%,transparent),transparent 62%),linear-gradient(155deg,${p.primary} 0%,color-mix(in srgb,${p.primary} 58%,#2f5fb0) 100%)`,
+    '--cv-gradient': `radial-gradient(70% 95% at 100% 100%,color-mix(in srgb,${p.accent} 70%,transparent),transparent 62%),linear-gradient(155deg,${p.primary} 0%,color-mix(in srgb,${p.primary} 58%,#3d3d3d) 100%)`,
   }
 }
 
@@ -53,21 +65,31 @@ export function lookCss(frame: Frame): Record<string, string> {
     if (frame.shape === 'hex')
       css['clip-path'] = 'polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)'
   } else if (s.fill) css.background = color(s.fill)!
+  if (s.fill && s.fillAlpha !== undefined && s.fillAlpha < 100)
+    css.background = `color-mix(in srgb,${color(s.fill)} ${s.fillAlpha}%,transparent)`
   if (s.color) css.color = color(s.color)!
   if (s.radius !== undefined && (frame.kind !== 'shape' || frame.shape === 'rect'))
     css['border-radius'] = mm(s.radius)
   if (s.padding !== undefined) css.padding = mm(s.padding)
   if (s.opacity !== undefined) css.opacity = String(s.opacity / 100)
   if (s.font) css['font-size'] = `${FONT_SCALE[s.font]}pt`
+  if (s.size) css['font-size'] = `${s.size}pt`
+  if (s.family && s.family !== 'brand') css['font-family'] = FONT_STACKS[s.family]
   if (s.weight) css['font-weight'] = String(s.weight)
+  if (s.italic) css['font-style'] = 'italic'
+  if (s.caps) css['text-transform'] = 'uppercase'
+  if (s.lineHeight) css['line-height'] = String(s.lineHeight / 100)
+  if (s.tracking) css['letter-spacing'] = `${s.tracking / 1000}em`
   if (s.align) css['text-align'] = s.align
+  if (s.border) css.border = `${mm(s.border.width)} ${s.border.style} ${color(s.border.color)}`
+  if (s.shadow) css['box-shadow'] = SHADOW_CSS[s.shadow]
   if (s.valign && s.valign !== 'top') {
     css.display = 'flex'
     css['flex-direction'] = 'column'
     css['justify-content'] = s.valign === 'middle' ? 'center' : 'flex-end'
   }
   if (frame.kind === 'figure') {
-    css['line-height'] = '1'
+    css['line-height'] ??= '1'
     css['font-size'] ??= `${FONT_SCALE.display}pt`
     css['font-weight'] ??= '800'
   }

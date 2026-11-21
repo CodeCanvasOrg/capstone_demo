@@ -6,10 +6,17 @@ import {
   frameCss,
   sheetCss,
 } from '../../../../shared/canvas/css.ts'
-import { geoFrom, toGrapes, fromGrapes, SHEET_TYPE } from '../../../../shared/canvas/grapes.ts'
+import {
+  frameComponent,
+  geoFrom,
+  toGrapes,
+  fromGrapes,
+  SHEET_TYPE,
+} from '../../../../shared/canvas/grapes.ts'
 import { canvasTypes, FRAME_KINDS } from '../../../../shared/canvas/grapes_types.ts'
-import { snapGeo } from '../../../../shared/canvas/geometry.ts'
-import type { CanvasDocument, Frame, Sheet } from '../../../../shared/canvas/model.ts'
+import { clampGeo, fromPx, snapGeo, toPx } from '../../../../shared/canvas/geometry.ts'
+import { DEFAULT_SIZE, newFrame } from '../../../../shared/canvas/ops.ts'
+import type { CanvasDocument, Frame, FrameKind, Sheet } from '../../../../shared/canvas/model.ts'
 import type { BrandKit } from '../../../../shared/layout/brand.ts'
 import { frameHtml } from './frame_html'
 import { startTextEditing, type TextEditing } from './text_editing'
@@ -37,6 +44,8 @@ body{padding:24px 24px 64px;font-family:var(--cv-font),Arial,sans-serif;color:va
 .cv-frame.cv-overflow{outline:2px dashed #dc2626!important;outline-offset:-2px}
 .cv-frame.cv-editing{outline:2px solid #2563eb!important;cursor:text}
 .cv-frame .ProseMirror{outline:none;min-height:100%}
+body.cv-placing,body.cv-placing .cv-frame{cursor:crosshair!important}
+.cv-ghost{position:absolute;border:1.5px dashed #2563eb;background:rgba(37,99,235,.06);pointer-events:none;z-index:1000}
 .cv-image-empty{display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:repeating-linear-gradient(45deg,#f5f5f4 0 8px,#e7e5e4 8px 16px);color:#78716c;font-size:9pt}
 .cv-art-ribbons{width:100%;height:100%;background:repeating-linear-gradient(160deg,transparent 0 9px,color-mix(in srgb,var(--cv-accent) 30%,transparent) 9px 10px)}
 .tiptap-source-citation{display:inline-block;padding:0 4px;margin:0 1px;border-radius:3px;background:color-mix(in srgb,var(--cv-accent) 25%,transparent);font-size:.75em;vertical-align:super;line-height:1.2}
@@ -65,6 +74,14 @@ function viewsPlugin(imageUrl: CanvasEditorOptions['imageUrl']) {
 }
 
 const FRAME_DRAG = `[data-cv-type="${SHEET_TYPE}"]`
+/** Screen pixels the pointer must travel before a press becomes a drag. */
+export const DRAG_THRESHOLD_PX = 4
+const ARROWS: Record<string, [number, number]> = {
+  ArrowLeft: [-1, 0],
+  ArrowRight: [1, 0],
+  ArrowUp: [0, -1],
+  ArrowDown: [0, 1],
+}
 /** One A4 sheet (210 mm at 96 dpi) plus the canvas margin either side. */
 const FRAME_WIDTH = Math.ceil((210 * 96) / 25.4) + 48
 
@@ -135,7 +152,12 @@ export function createCanvasEditor(
       .filter((c) => c !== cmp && isFrame(c))
       .map((c) => cvOf(c).geo)
     const z = Number.parseInt(String(cmp!.getStyle()['z-index'] ?? frame.z), 10)
-    const geo = snapGeo(geoFrom(cmp!.getStyle() as Record<string, string>, frame.geo), others)
+    // GrapesJS's guides already align edges while dragging; snapping edges again after
+    // release made the frame jump. Only round to half a millimetre.
+    const geo = snapGeo(geoFrom(cmp!.getStyle() as Record<string, string>, frame.geo), others, {
+      grid: 5,
+      threshold: 0,
+    })
     write(cmp!, { ...frame, geo, z: Number.isFinite(z) ? z : frame.z })
     checkOverflow()
     o.onSelect(cvOf(cmp!), cmp!.parent()?.getId() ?? null)
@@ -195,6 +217,10 @@ export function createCanvasEditor(
     else done.component.view?.render()
     o.onTextEditing(null)
     checkOverflow()
+    // The inspector holds a copy of the frame: give it the new text, or its next
+    // change would write the old text back.
+    if (editor.getSelected() === done.component)
+      o.onSelect(cvOf(done.component), done.component.parent()?.getId() ?? null)
     o.onChange()
   }
 
@@ -205,29 +231,173 @@ export function createCanvasEditor(
       .forEach((cmp) => cvOf(cmp) && lockState(cmp, cvOf(cmp)))
   })
 
+  const editText = (target: HTMLElement, cmp: Component, selectAll = false) => {
+    if (editing) stopEditing()
+    cmp.set({ draggable: false })
+    editing = startTextEditing(target, cmp, cvOf(cmp), {
+      onUpdate: checkOverflow,
+      onExit: stopEditing,
+      selectAll,
+    })
+    o.onTextEditing(editing)
+  }
+
+  /** Edits the selected text box, if it is one (Enter, or the inspector's button). */
+  const editSelected = () => {
+    const cmp = editor.getSelected()
+    const el = cmp?.getEl()
+    if (!cmp || !el || !isFrame(cmp) || cvOf(cmp).kind !== 'text' || cvOf(cmp).locked) return false
+    editText(el, cmp)
+    return true
+  }
+
+  /**
+   * Placing a new box, as in a design tool: after choosing a kind, click on a page
+   * to drop it at its default size, or drag to draw it at the size you want.
+   */
+  let placing: { kind: FrameKind; onEnd: () => void } | null = null
+  let drawing: { sheetEl: HTMLElement; x: number; y: number; ghost: HTMLElement } | null = null
+  const setPlacing = (next: typeof placing) => {
+    placing?.onEnd()
+    placing = next
+    editor.Canvas.getBody()?.classList.toggle('cv-placing', Boolean(next))
+  }
+  const sheetPoint = (sheetEl: HTMLElement, event: MouseEvent) => {
+    const box = sheetEl.getBoundingClientRect()
+    return { x: fromPx(event.clientX - box.left), y: fromPx(event.clientY - box.top) }
+  }
+  const finishPlacing = (event: MouseEvent) => {
+    if (!drawing || !placing) return
+    const { sheetEl, x, y, ghost } = drawing
+    ghost.remove()
+    drawing = null
+    const kind = placing.kind
+    setPlacing(null)
+    const sheetCmp = sheets().find((c) => c.getId() === sheetEl.id)
+    const sheet = read().sheets.find((s) => s.id === sheetEl.id)
+    if (!sheetCmp || !sheet) return
+    const end = sheetPoint(sheetEl, event)
+    const dragged = Math.abs(end.x - x) >= 50 && Math.abs(end.y - y) >= 50
+    const size = DEFAULT_SIZE[kind]
+    const geo = clampGeo(
+      dragged
+        ? {
+            x: Math.min(x, end.x),
+            y: Math.min(y, end.y),
+            w: Math.abs(end.x - x),
+            h: Math.abs(end.y - y),
+          }
+        : { x, y, ...size }
+    )
+    const frame = { ...newFrame(kind, sheet, taken()), geo }
+    if (frame.kind === 'text')
+      frame.doc = [{ type: 'paragraph', content: [{ type: 'text', text: 'Type here' }] }]
+    const [added] = sheetCmp.append(frameComponent(frame, 'px') as never)
+    lockState(added, frame)
+    editor.select(added)
+    o.onChange()
+    if (frame.kind === 'text')
+      requestAnimationFrame(() => {
+        const el = added.getEl()
+        if (el) editText(el, added, true)
+      })
+  }
+
+  /** Keyboard nudging: precise moves without the mouse. */
+  const nudge = (event: KeyboardEvent) => {
+    if (event.key === 'Escape' && placing) {
+      drawing?.ghost.remove()
+      drawing = null
+      setPlacing(null)
+      return
+    }
+    if (event.key === 'Enter' && !editing && editSelected()) {
+      event.preventDefault()
+      return
+    }
+    const dir = ARROWS[event.key]
+    if (!dir || editing || event.altKey || event.metaKey || event.ctrlKey) return
+    const target = event.target as HTMLElement | null
+    if (target?.closest('input, textarea, select, [contenteditable="true"]')) return
+    const cmp = editor.getSelected()
+    if (!isFrame(cmp) || cvOf(cmp!).locked) return
+    event.preventDefault()
+    const step = event.shiftKey ? 100 : 10
+    const frame = cvOf(cmp!)
+    write(cmp!, {
+      ...frame,
+      geo: clampGeo({
+        ...frame.geo,
+        x: frame.geo.x + dir[0] * step,
+        y: frame.geo.y + dir[1] * step,
+      }),
+    })
+    editor.trigger('update')
+    o.onSelect(cvOf(cmp!), cmp!.parent()?.getId() ?? null)
+    o.onChange()
+  }
+
+  // Esc cancels placing even when focus is outside the canvas (e.g. on the toolbar).
+  const escapeOutside = (event: KeyboardEvent) => {
+    if (event.key === 'Escape' && placing) nudge(event)
+  }
+  window.addEventListener('keydown', escapeOutside)
+
   const attached = new WeakSet<Document>()
   /** Canvas listeners, once per iframe document (the frame may load before we listen). */
   const attach = () => {
     const doc = editor.Canvas.getDocument()
     if (!doc || attached.has(doc)) return
     attached.add(doc)
-    const editText = (target: HTMLElement, cmp: Component) => {
-      cmp.set({ draggable: false })
-      editing = startTextEditing(target, cmp, cvOf(cmp), {
-        onUpdate: checkOverflow,
-        onExit: stopEditing,
-      })
-      o.onTextEditing(editing)
-    }
 
-    // Press and drag a frame to move it, as in a design tool (GrapesJS only starts
-    // an absolute drag from its toolbar handle by default). A second press on a
-    // text frame edits its text: a drag on the first press would swallow `dblclick`.
+    // Press and drag a frame to move it, as in a design tool. GrapesJS starts a drag
+    // on the press itself, so the slightest hand movement during a click moved the
+    // frame. Like design tools, the drag only starts once the pointer has travelled
+    // past a small threshold (in screen pixels, whatever the zoom); a shorter press
+    // is a click that selects. The drag is then handed to GrapesJS with the original
+    // press, so the frame keeps its offset from the pointer.
+    let pending: { cmp: Component; down: MouseEvent } | null = null
+    // Placing a box: capture the press before GrapesJS sees it, and swallow the click
+    // that follows, which would otherwise select the page instead of the new box.
+    let swallowClick = false
+    doc.addEventListener(
+      'mousedown',
+      (event) => {
+        swallowClick = false
+        if (!placing || event.button !== 0) return
+        event.preventDefault()
+        event.stopPropagation()
+        const sheetEl = (event.target as HTMLElement).closest('.cv-sheet') as HTMLElement | null
+        if (!sheetEl) return
+        const start = sheetPoint(sheetEl, event)
+        const ghost = doc.createElement('div')
+        ghost.className = 'cv-ghost'
+        sheetEl.append(ghost)
+        drawing = { sheetEl, ...start, ghost }
+      },
+      true
+    )
+    doc.addEventListener(
+      'click',
+      (event) => {
+        if (!swallowClick) return
+        swallowClick = false
+        event.stopPropagation()
+        event.preventDefault()
+      },
+      true
+    )
     doc.addEventListener('mousedown', (event) => {
-      if (event.button !== 0 || editing) return
+      pending = null
+      if (event.button !== 0) return
+      if (editing) {
+        // A press outside the box being edited ends editing; inside, Tiptap has it.
+        const el = editing.component.getEl()
+        if (el?.contains(event.target as Node)) return
+        stopEditing()
+      }
       if (event.detail >= 2) {
-        // The first press started a drag, which briefly takes pointer events off the
-        // frame, so the second press is matched to the selected frame by position.
+        // Second press: edit the selected text frame under the pointer.
         const selected = editor.getSelected()
         const el = selected?.getEl()
         const box = el?.getBoundingClientRect()
@@ -253,10 +423,48 @@ export function createCanvasEditor(
       if (!target?.id) return
       const cmp = editor.getWrapper()?.find(`#${target.id}`).at(0)
       if (!cmp) return
-      if (!cmp.get('draggable')) return
       if (editor.getSelected() !== cmp) editor.select(cmp)
-      editor.runCommand('tlb-move', { target: cmp, event })
+      if (!cmp.get('draggable')) return
+      // No text selection while the pointer moves towards the threshold.
+      event.preventDefault()
+      pending = { cmp, down: event }
     })
+    doc.addEventListener('mousemove', (event) => {
+      if (drawing) {
+        const end = sheetPoint(drawing.sheetEl, event)
+        const g = drawing.ghost.style
+        g.left = `${toPx(Math.min(drawing.x, end.x))}px`
+        g.top = `${toPx(Math.min(drawing.y, end.y))}px`
+        g.width = `${toPx(Math.abs(end.x - drawing.x))}px`
+        g.height = `${toPx(Math.abs(end.y - drawing.y))}px`
+        return
+      }
+      if (!pending) return
+      if (event.buttons === 0) {
+        pending = null
+        return
+      }
+      // Canvas pixels are scaled by the zoom on screen.
+      const zoom = editor.Canvas.getZoom() / 100
+      const moved = Math.hypot(
+        event.clientX - pending.down.clientX,
+        event.clientY - pending.down.clientY
+      )
+      if (moved * zoom < DRAG_THRESHOLD_PX) return
+      const { cmp, down } = pending
+      pending = null
+      editor.runCommand('tlb-move', { target: cmp, event: down })
+    })
+    doc.addEventListener('mouseup', (event) => {
+      pending = null
+      if (drawing) {
+        swallowClick = true
+        finishPlacing(event)
+      }
+    })
+
+    // Arrow keys nudge the selected frame 1 mm, or 10 mm with Shift.
+    doc.addEventListener('keydown', nudge)
     setTimeout(checkOverflow, 50)
   }
   editor.on('canvas:frame:load', attach)
@@ -331,6 +539,10 @@ export function createCanvasEditor(
     selectedSheet,
     stopEditing,
     checkOverflow,
+    editSelected,
+    /** Starts placing a new box; `onEnd` runs when it is placed or cancelled. */
+    place: (kind: FrameKind, onEnd: () => void) => setPlacing({ kind, onEnd }),
+    cancelPlacing: () => setPlacing(null),
     selected: () => {
       const s = editor.getSelected()
       return isFrame(s) ? s! : null
@@ -352,6 +564,8 @@ export function createCanvasEditor(
       editor.trigger('update')
     },
     destroy() {
+      window.removeEventListener('keydown', escapeOutside)
+      setPlacing(null)
       stopEditing()
       editor.destroy()
     },

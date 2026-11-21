@@ -16,18 +16,19 @@ import {
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { IconButton } from '@/components/icon_button'
-import { duplicateFrame, newFrame } from '../../../shared/canvas/ops.ts'
+import { Button } from '@/components/ui/button'
+import { duplicateFrame } from '../../../shared/canvas/ops.ts'
 import { frameComponent } from '../../../shared/canvas/grapes.ts'
 import type { FrameKind } from '../../../shared/canvas/model.ts'
 import type { CanvasEditor } from './grapes/create_editor'
 import { cvOf } from './grapes/create_editor'
 
-const INSERT: { kind: FrameKind; label: string; icon: typeof Type }[] = [
-  { kind: 'text', label: 'Add text', icon: Type },
-  { kind: 'figure', label: 'Add a big number', icon: Hash },
-  { kind: 'image', label: 'Add an image', icon: ImageIcon },
-  { kind: 'shape', label: 'Add a shape', icon: Square },
-  { kind: 'art', label: 'Add brand artwork', icon: Sparkle },
+const INSERT: { kind: FrameKind; label: string; name: string; icon: typeof Type }[] = [
+  { kind: 'text', label: 'Text box', name: 'text box', icon: Type },
+  { kind: 'figure', label: 'Number', name: 'big number', icon: Hash },
+  { kind: 'image', label: 'Image', name: 'image', icon: ImageIcon },
+  { kind: 'shape', label: 'Shape', name: 'shape', icon: Square },
+  { kind: 'art', label: 'Artwork', name: 'artwork', icon: Sparkle },
 ]
 
 /** Insert, arrange and history actions for the canvas. */
@@ -52,14 +53,16 @@ export function CanvasToolbar({
     ed?.setZoom(zoom)
   }, [ed, zoom])
 
+  // Choosing a kind arms placement: click on a page to drop the box, or drag to draw it.
+  const [placing, setPlacing] = useState<FrameKind | null>(null)
   const insert = (kind: FrameKind) => {
     if (!ed) return
-    const sheetCmp = ed.selectedSheet() ?? ed.sheets()[0]
-    const sheet = ed.read().sheets.find((s) => s.id === sheetCmp?.getId())
-    if (!sheetCmp || !sheet) return
-    const frame = newFrame(kind, sheet, ed.taken())
-    const [added] = sheetCmp.append(frameComponent(frame, 'px') as never)
-    ed.editor.select(added)
+    if (placing === kind) {
+      ed.cancelPlacing()
+      return
+    }
+    ed.place(kind, () => setPlacing(null))
+    setPlacing(kind)
   }
 
   const withFrame =
@@ -84,15 +87,25 @@ export function CanvasToolbar({
 
   return (
     <div className="flex flex-wrap items-center gap-1.5" role="toolbar" aria-label="Canvas tools">
-      {INSERT.map(({ kind, label, icon }) => (
-        <IconButton
+      {INSERT.map(({ kind, label, icon: Icon }) => (
+        <Button
           key={kind}
-          label={label}
-          icon={icon}
+          type="button"
+          size="sm"
+          variant={placing === kind ? 'secondary' : 'ghost'}
+          aria-pressed={placing === kind}
           disabled={!ed}
           onClick={() => insert(kind)}
-        />
+        >
+          <Icon aria-hidden="true" /> {label}
+        </Button>
       ))}
+      {placing && (
+        <span className="text-xs text-muted-foreground" role="status">
+          Click on a page to add the {INSERT.find((i) => i.kind === placing)?.name}, or drag to draw
+          it. Esc cancels.
+        </span>
+      )}
       <span className="mx-1 h-5 w-px bg-border" aria-hidden="true" />
       <IconButton
         label="Duplicate"
