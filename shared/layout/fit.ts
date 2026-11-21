@@ -71,7 +71,7 @@ function planBlockLines(
     section.blocks.reduce((sum, child) => sum + blockLines(child, width), 0)
   switch (block.type) {
     case 'hero': {
-      // The navy band: wordmark and kicker, headline, subhead; a figure needs a taller band.
+      // The dark brand band: wordmark and kicker, headline, subhead; a figure needs a taller band.
       const title = block.title ? Math.ceil(block.title.length / (cpl * 0.55)) * 1.9 * scale : 0
       const summary = block.summary ? blockLines(block.summary, cpl * (block.figure ? 0.6 : 1)) : 0
       return Math.max(title + summary + 6, block.figure ? 13 : 0)

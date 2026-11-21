@@ -27,7 +27,7 @@ const none: ParsedSection = { paragraphs: [], lists: [], bullets: [], groups: []
 const css = (brand: BrandKit) => {
   const p = brand.palette
   const hl = `color-mix(in srgb,${p.accentText} 76%,#000)`
-  const blue = `color-mix(in srgb,${p.primary} 58%,#2f5fb0)`
+  const blue = `color-mix(in srgb,${p.primary} 58%,#3d3d3d)`
   const grad = `radial-gradient(70% 95% at 100% 100%,color-mix(in srgb,${p.accent} 70%,transparent),transparent 62%),linear-gradient(155deg,${p.primary} 0%,${blue} 100%)`
   return `
 @page{size:A4;margin:0}
@@ -63,7 +63,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 /* cover */
 .cover .in{position:absolute;inset:0;padding:20mm 22mm 24mm;display:flex;flex-direction:column}
 .cover h1{margin-top:auto;font-size:40pt;font-weight:800;line-height:1.02;letter-spacing:-.03em;max-width:150mm;overflow-wrap:anywhere}
-.cover .sub{margin-top:8mm;font-size:19pt;font-weight:300;line-height:1.2;max-width:140mm;color:#e6ebf4}
+.cover .sub{margin-top:8mm;font-size:19pt;font-weight:300;line-height:1.2;max-width:140mm;color:#f2f0e9}
 
 /* proof */
 .proof .col{position:absolute;left:0;top:0;bottom:0;width:68mm;padding:36mm 8mm 22mm 14mm;display:flex;flex-direction:column;gap:9mm;color:#fff;background:linear-gradient(180deg,${p.primary} 0%,${blue} 52%,${p.accent} 100%)}
@@ -139,7 +139,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 .insight .cols h3{font-size:12.5pt;font-weight:700;line-height:1.1;color:${hl};margin-bottom:4mm;letter-spacing:-.01em}
 .insight .cols .rt{font-size:8.2pt;line-height:1.45}
 .insight .col{position:relative}
-.insight .panel{position:absolute;left:0;right:0;bottom:0;height:46%;overflow:hidden;background:#07101f}
+.insight .panel{position:absolute;left:0;right:0;bottom:0;height:46%;overflow:hidden;background:#0c0c0c}
 
 /* recognition */
 .recognition .l1{position:absolute;left:22mm;top:24mm;width:62mm;font-size:27pt;font-weight:800;line-height:.98;letter-spacing:-.035em;color:${hl}}

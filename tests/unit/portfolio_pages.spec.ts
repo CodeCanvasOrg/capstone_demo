@@ -43,9 +43,9 @@ const render = (spec: PageSpec, entries: CollectionEntry[], extra = {}) => {
 
 test.group('Portfolio page renderer', () => {
   test('ribbons are deterministic per name and differ between names', ({ assert }) => {
-    assert.equal(ribbonsSvg('A', '#f6d900'), ribbonsSvg('A', '#f6d900'))
-    assert.notEqual(ribbonsSvg('A', '#f6d900'), ribbonsSvg('B', '#f6d900'))
-    assert.include(ribbonsSvg('A', '#f6d900'), 'stroke="#f6d900"')
+    assert.equal(ribbonsSvg('A', '#ffb902'), ribbonsSvg('A', '#ffb902'))
+    assert.notEqual(ribbonsSvg('A', '#ffb902'), ribbonsSvg('B', '#ffb902'))
+    assert.include(ribbonsSvg('A', '#ffb902'), 'stroke="#ffb902"')
   })
 
   test('the ribbon cover shows the name, the count and the brand, with the name escaped', async ({

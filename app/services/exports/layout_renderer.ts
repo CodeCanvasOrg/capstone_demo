@@ -72,7 +72,7 @@ article>:not(.hero):not(.stat-band){margin-inline:${M}mm}
 .hex{display:inline-block;width:13pt;height:15pt;background:${palette.accent};clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
 .kicker{margin:0 0 5pt;font-size:7.5pt;font-weight:800;letter-spacing:.12em;color:${palette.accent}}
 .hero h1{margin:0 0 7pt;line-height:1.12;color:#fff;font-weight:800;overflow-wrap:anywhere}
-.hero .summary{color:#d5dbe6;font-weight:400}
+.hero .summary{color:#e2e0d8;font-weight:400}
 .hero .summary p{margin:0}
 .hero-figure{margin:0;padding:6pt;background:#fff;border-radius:6pt;break-inside:avoid}
 .hero-figure img{display:block;width:100%;max-height:150pt;object-fit:contain}

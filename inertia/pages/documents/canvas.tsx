@@ -37,13 +37,13 @@ type Props = {
 }
 
 const FALLBACK_PALETTE: BrandKit['palette'] = {
-  primary: '#1f2a44',
-  accent: '#f5b400',
-  accentText: '#8a6500',
-  text: '#1f2937',
+  primary: '#111111',
+  accent: '#ffb902',
+  accentText: '#946500',
+  text: '#111111',
   muted: '#6b7280',
   background: '#ffffff',
-  surface: '#f4f4f5',
+  surface: '#f2f0e9',
 }
 
 const STATUS: Record<SaveStatus, string> = {

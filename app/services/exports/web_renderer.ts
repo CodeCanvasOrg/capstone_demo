@@ -242,7 +242,7 @@ const css = (brand: BrandKit) => {
   const p = brand.palette
   const hl = `color-mix(in srgb,${p.accentText} 76%,#000)`
   const deep = `color-mix(in srgb,${p.primary} 82%,#000)`
-  const blue = `color-mix(in srgb,${p.primary} 58%,#2f5fb0)`
+  const blue = `color-mix(in srgb,${p.primary} 58%,#3d3d3d)`
   return `
 :root{--primary:${p.primary};--accent:${p.accent};--hl:${hl};--text:${p.text};--muted:${p.muted};--bg:${p.background};--surface:${p.surface};--deep:${deep};--pad:clamp(1.25rem,5vw,4rem);--ease:cubic-bezier(.2,.7,.2,1)}
 *,*::before,*::after{box-sizing:border-box}
@@ -374,7 +374,7 @@ sup.ref a{text-decoration:none;color:var(--hl);font-weight:700}
 .side .rt{font-size:.9375rem}
 .side .rt a{color:#fff}
 .glance-why .groups{margin-top:2rem}
-.insight .panel{position:relative;height:clamp(12rem,24vw,18rem);margin-top:clamp(2.5rem,5vw,4rem);background:#07101f;overflow:hidden}
+.insight .panel{position:relative;height:clamp(12rem,24vw,18rem);margin-top:clamp(2.5rem,5vw,4rem);background:#0c0c0c;overflow:hidden}
 .display h2{font-size:clamp(2.5rem,4.5vw + 1rem,4.75rem);line-height:.98;color:var(--hl)!important}
 .contact .cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3rem 4rem}
 .contact h3{font-size:1.25rem;margin-bottom:1rem}
