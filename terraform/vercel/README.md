@@ -13,13 +13,39 @@ The AWS/ECS stack in `../` is independent; use one or the other.
 
 ## Prerequisites
 
-- The Vercel GitHub app and the Railway GitHub app both have access to `github_repo`.
-- The code changes for Vercel (`vercel.json`, `api/`, `bin/vercel.ts`, `scripts/vercel_manifest.mjs`,
-  Redis TLS, serverless Chromium) are pushed to `production_branch` **before** `terraform apply`,
-  because the first deploys build from that branch.
-- Provider credentials exported (see `terraform.tfvars.example`).
+- The Vercel GitHub app has access to `github_repo` (the project is linked to it; auto-deploys are off).
+- An HCP Terraform workspace with execution mode **Local** holds the state (`backend.tf`).
+- Provider credentials exported (see `terraform.tfvars.example`), plus `TF_CLOUD_ORGANIZATION`,
+  `TF_WORKSPACE` and `terraform login`.
 
-## Deploy
+## CI/CD (GitHub Actions)
+
+| Workflow | Trigger | What it does |
+| --- | --- | --- |
+| `.github/workflows/ci.yml` | every pull request | lint, typecheck, tests (unit / functional / browser, with Postgres+pgvector and Redis), Python worker tests, app build + worker Docker build, `terraform fmt`/`validate` |
+| `.github/workflows/deploy.yml` | push to `main` (or manual) | reruns `ci.yml`, then `terraform apply`, `railway up` for the worker (migrations run in its pre-deploy step), then `vercel build` + `vercel deploy --prebuilt --prod` |
+
+Git auto-deploys are off on both platforms (`vercel.json` → `git.deploymentEnabled: false`; the
+Railway service has no source repo), so production only changes after the checks pass.
+
+Configure these on the repo's **`production`** environment (Settings → Environments):
+
+| Secrets | Variables |
+| --- | --- |
+| `TF_API_TOKEN` (HCP Terraform) | `TF_CLOUD_ORGANIZATION`, `TF_WORKSPACE` |
+| `VERCEL_TOKEN` | `VERCEL_TEAM` (empty = personal account) |
+| `RAILWAY_API_TOKEN` (account/workspace token) | `RAILWAY_WORKSPACE_ID` (optional) |
+| `NEON_API_KEY` | `NEON_ORG_ID` (optional) |
+| `UPSTASH_API_KEY` | `UPSTASH_EMAIL` |
+| `OPENROUTER_API_KEY` | `GOOGLE_CLIENT_ID` |
+| `GOOGLE_CLIENT_SECRET` | `SMTP_HOST`, `SMTP_USERNAME`, `MAIL_FROM_ADDRESS` |
+| `SMTP_PASSWORD` | `DOMAIN_NAME` (empty = `<project>.vercel.app`) |
+| `APP_KEY` (optional; generated and kept in state if empty) | |
+
+Other variables keep their defaults from `variables.tf`; add a `TF_VAR_*` line to the apply step to
+override one. Protect `main` with the CI jobs as required status checks.
+
+## Manual deploy
 
 ```bash
 cd terraform/vercel
@@ -30,8 +56,8 @@ terraform output google_oauth_redirect_uri     # add to the Google OAuth client
 terraform output domain_dns                    # create this DNS record if using a custom domain
 ```
 
-After that, pushes to `production_branch` redeploy both Vercel (web) and Railway (worker; it runs
-`node ace migration:run --force` before starting).
+A manual apply creates infrastructure and (with `deploy_on_apply = true`) a Vercel deployment, but
+the Railway worker has no code until `railway up` runs; normally let the deploy workflow do both.
 
 ## Known limits on Vercel
 

@@ -12,6 +12,11 @@ output "vercel_project_id" {
   value = vercel_project.web.id
 }
 
+output "vercel_team_id" {
+  description = "VERCEL_ORG_ID for the Vercel CLI in the deploy workflow."
+  value       = vercel_project.web.team_id
+}
+
 output "vercel_deployment_url" {
   value = try(vercel_deployment.web[0].url, null)
 }
@@ -37,6 +42,14 @@ output "upstash_endpoint" {
 
 output "railway_project_id" {
   value = railway_project.main.id
+}
+
+output "railway_environment_id" {
+  value = railway_project.main.default_environment.id
+}
+
+output "railway_worker_service_id" {
+  value = railway_service.worker.id
 }
 
 output "uploads_bucket" {

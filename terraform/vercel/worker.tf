@@ -2,6 +2,9 @@
 # Vercel can't run long-lived processes, so `node ace queue:work` runs on Railway from the
 # repo's Dockerfile (Playwright Chromium + PyMuPDF included). It also runs migrations
 # before each deploy.
+#
+# The service has no source repo on purpose: Railway would otherwise deploy every push to
+# main before CI passes. .github/workflows/deploy.yml uploads the code with `railway up`.
 resource "railway_project" "main" {
   name         = local.name
   workspace_id = var.railway_workspace_id != "" ? var.railway_workspace_id : null
@@ -15,9 +18,7 @@ resource "railway_service" "worker" {
   name       = "worker"
   project_id = railway_project.main.id
 
-  source_repo        = var.github_repo
-  source_repo_branch = var.production_branch
-  dockerfile_path    = "Dockerfile"
+  dockerfile_path = "Dockerfile"
 
   predeploy_command   = "node ace migration:run --force"
   restart_policy_type = "ALWAYS"

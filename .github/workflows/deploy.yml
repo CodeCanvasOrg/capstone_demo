@@ -1,0 +1,125 @@
+# Deploys main to production with the terraform/vercel stack:
+#   1. the same checks as pull requests (ci.yml)
+#   2. terraform apply  (Vercel project + env, Neon, Upstash, Railway service + env)
+#   3. Railway worker   (railway up; its pre-deploy step runs the migrations)
+#   4. Vercel web       (vercel build + deploy --prebuilt --prod)
+# Git auto-deploys are off on both platforms (vercel.json "git.deploymentEnabled",
+# no source repo on the Railway service), so this workflow is the only path to production.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One production deploy at a time; a newer push waits rather than cancelling a half-applied one.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  checks:
+    uses: ./.github/workflows/ci.yml
+
+  deploy:
+    name: Deploy to production
+    needs: checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment:
+      name: production
+      url: ${{ steps.vercel.outputs.url }}
+
+    env:
+      # HCP Terraform holds the state (terraform/vercel/backend.tf). The workspace must use
+      # the "Local" execution mode so the plan runs here with the credentials below.
+      TF_CLOUD_ORGANIZATION: ${{ vars.TF_CLOUD_ORGANIZATION }}
+      TF_WORKSPACE: ${{ vars.TF_WORKSPACE }}
+      TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}
+      TF_IN_AUTOMATION: 'true'
+      TF_INPUT: '0'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # ------------------------------------------------------------ infrastructure
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
+      - name: Terraform init
+        working-directory: terraform/vercel
+        run: terraform init
+
+      - name: Terraform apply
+        working-directory: terraform/vercel
+        env:
+          VERCEL_API_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+          TF_VAR_github_repo: ${{ github.repository }}
+          TF_VAR_production_branch: main
+          # This workflow deploys the code itself after apply.
+          TF_VAR_deploy_on_apply: 'false'
+          TF_VAR_vercel_team: ${{ vars.VERCEL_TEAM }}
+          TF_VAR_domain_name: ${{ vars.DOMAIN_NAME }}
+          TF_VAR_neon_api_key: ${{ secrets.NEON_API_KEY }}
+          TF_VAR_neon_org_id: ${{ vars.NEON_ORG_ID }}
+          TF_VAR_upstash_email: ${{ vars.UPSTASH_EMAIL }}
+          TF_VAR_upstash_api_key: ${{ secrets.UPSTASH_API_KEY }}
+          TF_VAR_railway_workspace_id: ${{ vars.RAILWAY_WORKSPACE_ID }}
+          TF_VAR_app_key: ${{ secrets.APP_KEY }}
+          TF_VAR_openrouter_api_key: ${{ secrets.OPENROUTER_API_KEY }}
+          TF_VAR_google_client_id: ${{ vars.GOOGLE_CLIENT_ID }}
+          TF_VAR_google_client_secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          TF_VAR_smtp_host: ${{ vars.SMTP_HOST }}
+          TF_VAR_smtp_username: ${{ vars.SMTP_USERNAME }}
+          TF_VAR_smtp_password: ${{ secrets.SMTP_PASSWORD }}
+          TF_VAR_mail_from_address: ${{ vars.MAIL_FROM_ADDRESS }}
+        run: terraform apply -auto-approve -input=false
+
+      - name: Read Terraform outputs
+        id: tf
+        working-directory: terraform/vercel
+        run: |
+          {
+            echo "vercel_project_id=$(terraform output -raw vercel_project_id)"
+            echo "vercel_team_id=$(terraform output -raw vercel_team_id)"
+            echo "railway_project_id=$(terraform output -raw railway_project_id)"
+            echo "railway_environment_id=$(terraform output -raw railway_environment_id)"
+            echo "railway_service_id=$(terraform output -raw railway_worker_service_id)"
+          } >> "$GITHUB_OUTPUT"
+
+      # ------------------------------------------------------------ worker (Railway)
+      # Deployed before the web app so its pre-deploy migrations land first.
+      - name: Deploy worker to Railway
+        env:
+          RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+        run: |
+          npm install -g @railway/cli
+          railway link \
+            --project "${{ steps.tf.outputs.railway_project_id }}" \
+            --environment "${{ steps.tf.outputs.railway_environment_id }}" \
+            --service "${{ steps.tf.outputs.railway_service_id }}"
+          railway up --ci \
+            --service "${{ steps.tf.outputs.railway_service_id }}" \
+            --environment "${{ steps.tf.outputs.railway_environment_id }}"
+
+      # ------------------------------------------------------------ web (Vercel)
+      - uses: ./.github/actions/setup-node-bun
+
+      - name: Deploy web to Vercel
+        id: vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ steps.tf.outputs.vercel_team_id }}
+          VERCEL_PROJECT_ID: ${{ steps.tf.outputs.vercel_project_id }}
+        run: |
+          npm install -g vercel@latest
+          vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+          vercel build --prod --token="$VERCEL_TOKEN"
+          url=$(vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "Deployed $url" >> "$GITHUB_STEP_SUMMARY"

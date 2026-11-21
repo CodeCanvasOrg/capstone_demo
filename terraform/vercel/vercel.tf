@@ -51,8 +51,9 @@ resource "vercel_project_domain" "web" {
   domain     = var.domain_name
 }
 
-# First production deployment, once env vars exist. Afterwards every push to
-# production_branch deploys automatically through the Git integration.
+# Optional production deployment of production_branch once env vars exist (manual applies).
+# Git auto-deploys are disabled in vercel.json; .github/workflows/deploy.yml deploys main
+# with the Vercel CLI and runs apply with deploy_on_apply = false.
 resource "vercel_deployment" "web" {
   count      = var.deploy_on_apply ? 1 : 0
   project_id = vercel_project.web.id
