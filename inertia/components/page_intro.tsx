@@ -13,10 +13,11 @@ export function PageIntro({
   return (
     <header className="mb-6 flex flex-wrap items-end justify-between gap-5">
       <div className="min-w-0 max-w-2xl">
-        {eyebrow && <p className="mb-2 text-xs text-muted-foreground">{eyebrow}</p>}
-        <h1 className="text-xl leading-tight font-semibold tracking-tight">{title}</h1>
+        <span aria-hidden="true" className="page-bar" />
+        {eyebrow && <p className="eyebrow mb-2">{eyebrow}</p>}
+        <h1 className="page-title text-3xl">{title}</h1>
         {description && (
-          <p className="mt-2 max-w-xl text-xs leading-5 text-muted-foreground">{description}</p>
+          <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground">{description}</p>
         )}
       </div>
       {action}

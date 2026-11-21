@@ -16,6 +16,16 @@ export interface ApiDefinition {
     store: typeof routes['session.store']
     destroy: typeof routes['session.destroy']
   }
+  settings: {
+    show: typeof routes['settings.show']
+    profile: typeof routes['settings.profile']
+    preferences: typeof routes['settings.preferences']
+    password: typeof routes['settings.password']
+    credentials: {
+      store: typeof routes['settings.credentials.store']
+      destroy: typeof routes['settings.credentials.destroy']
+    }
+  }
   workspaces: {
     index: typeof routes['workspaces.index']
     store: typeof routes['workspaces.store']
@@ -39,6 +49,7 @@ export interface ApiDefinition {
   }
   documentPreview: {
     show: typeof routes['documentPreview.show']
+    web: typeof routes['documentPreview.web']
   }
   templates: {
     index: typeof routes['templates.index']
@@ -63,6 +74,7 @@ export interface ApiDefinition {
     store: typeof routes['collections.store']
     show: typeof routes['collections.show']
     update: typeof routes['collections.update']
+    arrange: typeof routes['collections.arrange']
     approve: typeof routes['collections.approve']
     preview: typeof routes['collections.preview']
     download: typeof routes['collections.download']
@@ -83,6 +95,7 @@ export interface ApiDefinition {
   exportPdfs: {
     preview: typeof routes['exportPdfs.preview']
     store: typeof routes['exportPdfs.store']
+    web: typeof routes['exportPdfs.web']
     download: typeof routes['exportPdfs.download']
   }
   assets: {
@@ -99,9 +112,20 @@ export interface ApiDefinition {
     update: typeof routes['documents.update']
     destroy: typeof routes['documents.destroy']
   }
+  briefs: {
+    store: typeof routes['briefs.store']
+  }
   documentImages: {
     store: typeof routes['documentImages.store']
     show: typeof routes['documentImages.show']
+  }
+  documentCanvases: {
+    show: typeof routes['documentCanvases.show']
+    project: typeof routes['documentCanvases.project']
+    enable: typeof routes['documentCanvases.enable']
+    disable: typeof routes['documentCanvases.disable']
+    draft: typeof routes['documentCanvases.draft']
+    save: typeof routes['documentCanvases.save']
   }
   documentVersions: {
     store: typeof routes['documentVersions.store']

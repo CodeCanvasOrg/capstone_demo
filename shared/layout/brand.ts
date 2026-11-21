@@ -62,15 +62,15 @@ export const BRAND_KITS: readonly BrandKit[] = deepFreeze([
     version: 1,
     name: 'HumbleBee AI',
     status: 'published',
-    // Navy/yellow is the feedback's starting direction, not a confirmed palette.
+    // HumbleBee brand colours from humblebee.ai: near-black #111, amber #ffb902, cream #f2f0e9.
     palette: {
-      primary: '#0b1f3a',
-      accent: '#f6d900',
-      accentText: '#b58900',
-      text: '#111827',
-      muted: '#4b5563',
+      primary: '#111111',
+      accent: '#ffb902',
+      accentText: '#946500',
+      text: '#111111',
+      muted: '#57554f',
       background: '#ffffff',
-      surface: '#f3f5f9',
+      surface: '#f2f0e9',
     },
     fonts: [manrope(400), manrope(600), manrope(700), manrope(800)],
     logo: { assetId: 'wordmark-text', kind: 'text' },

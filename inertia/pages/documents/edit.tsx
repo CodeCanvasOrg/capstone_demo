@@ -15,6 +15,11 @@ import {
   Trash2,
   Send,
   ListChecks,
+  ChevronDown,
+  FileText,
+  Globe,
+  LayoutTemplate,
+  ArrowRight,
 } from 'lucide-react'
 import { Form, Link } from '@adonisjs/inertia/react'
 import { urlFor } from '@/client'
@@ -44,8 +49,16 @@ import { BeeWorking } from '@/components/bee/bee_working'
 import DocumentEditor from '@/components/documents/editor'
 import { DocumentInspector, MetadataForm, type Action } from '@/components/documents/inspector'
 import { StatusBadge } from '@/components/documents/status'
+import { EditorModeSwitch } from '@/components/canvas/editor_mode_switch'
 
-type Task = { id: string; status: string; error?: string; result?: { downloadUrl?: string } }
+type ExportFormat = 'pdf' | 'web'
+type Task = {
+  id: string
+  status: string
+  error?: string
+  result?: { downloadUrl?: string; format?: ExportFormat }
+}
+const FORMAT_LABEL: Record<ExportFormat, string> = { pdf: 'PDF', web: 'web page' }
 export default function Edit({
   document,
   workflow,
@@ -53,7 +66,10 @@ export default function Edit({
   issues = [],
   projects = [],
   unavailableEvidence = false,
+  canvas,
 }: {
+  /** The canvas editor pilot: shown only when it is on. */
+  canvas?: { enabled: boolean; mode: 'flow' | 'canvas' }
   document: Data.Document
   workflow: Data.DocumentWorkflow
   availableFiles: Data.File[]
@@ -75,6 +91,7 @@ export default function Edit({
   const [approvalOpen, setApprovalOpen] = useState(false)
   const [ack, setAck] = useState<string[]>([])
   const [exportTask, setExportTask] = useState<Task | null>(null)
+  const [exportFormat, setExportFormat] = useState<ExportFormat>('pdf')
   const [pollError, setPollError] = useState<ApiError | null>(null)
   const [refresh, setRefresh] = useState(0)
   const mutation = useRef(new Map<string, { hash: string; id: string }>())
@@ -156,17 +173,22 @@ export default function Edit({
       setGenerateOpen(false)
     } else if (active.current) setError(result.error)
   }
-  async function exportPdf() {
+  async function requestExport(format: ExportFormat) {
     if (inFlight.current) return
     inFlight.current = true
     setBusy(true)
     setError(null)
+    setExportFormat(format)
+    const key = `export:${format}`
     try {
       const result = await api<{ data: Task }>(
-        urlFor('exportPdfs.store', { workspaceId, documentId: document.id }),
+        urlFor(format === 'web' ? 'exportPdfs.web' : 'exportPdfs.store', {
+          workspaceId,
+          documentId: document.id,
+        }),
         'POST',
         intent(
-          'export',
+          key,
           workflow.readiness.reviewRequired
             ? { approvalId: workflow.approval?.id }
             : { baseVersionId: document.currentVersionId }
@@ -175,12 +197,14 @@ export default function Edit({
       if (!result.data?.id || !result.data.status) throw new Error('Unexpected export response')
       if (active.current) {
         setExportTask(result.data)
-        mutation.current.delete('export')
+        mutation.current.delete(key)
         setPollError(null)
       }
     } catch (reason) {
       if (active.current) {
-        setError(feedbackError(reason, 'The PDF could not be prepared. Try again.'))
+        setError(
+          feedbackError(reason, `The ${FORMAT_LABEL[format]} could not be prepared. Try again.`)
+        )
         reload()
       }
     } finally {
@@ -213,7 +237,7 @@ export default function Edit({
       } catch (reason) {
         if (!controller.signal.aborted) {
           failed = true
-          setPollError(feedbackError(reason, 'PDF status could not refresh. Try again.'))
+          setPollError(feedbackError(reason, 'Export status could not refresh. Try again.'))
         }
       } finally {
         polling = false
@@ -279,6 +303,24 @@ export default function Edit({
             {document.title}
           </h1>
           <StatusBadge status={document.status} />
+          {canvas?.enabled && (
+            <EditorModeSwitch
+              workspaceId={workspaceId}
+              documentId={document.id}
+              mode={canvas.mode}
+              current="text"
+              disabledReason={
+                !document.capabilities.edit
+                  ? 'You can view this case study but not change it'
+                  : dirty
+                    ? 'Save your changes first'
+                    : processing
+                      ? 'Wait for the draft to finish'
+                      : null
+              }
+              onError={(message) => setError(new ApiError(message, 409))}
+            />
+          )}
           <IconButton
             icon={SlidersHorizontal}
             label="Details"
@@ -288,14 +330,25 @@ export default function Edit({
             onClick={() => (panel ? setPanel(false) : showDetails())}
           />
           {(!reviewRequired && version) || workflow.readiness.approved ? (
-            <Button
-              size="sm"
-              disabled={disabled || exporting || !workflow.readiness.canExport}
-              onClick={() => void exportPdf()}
-            >
-              <Download />
-              {exporting ? 'Preparing…' : 'Download'}
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button size="sm" disabled={disabled || exporting || !workflow.readiness.canExport}>
+                  <Download />
+                  {exporting ? 'Preparing…' : 'Download'}
+                  <ChevronDown aria-hidden="true" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="min-w-52">
+                <DropdownMenuItem onSelect={() => void requestExport('pdf')}>
+                  <FileText />
+                  PDF document
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => void requestExport('web')}>
+                  <Globe />
+                  Web page (.html)
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : !version ? (
             <Button
               ref={primaryRef}
@@ -368,6 +421,16 @@ export default function Edit({
                 >
                   <Download />
                   Preview document
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem disabled={dirty || !version} asChild>
+                <a
+                  href={urlFor('documentPreview.web', { workspaceId, documentId: document.id })}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Globe />
+                  Preview web page
                 </a>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -531,19 +594,24 @@ export default function Edit({
             {exporting ? (
               <>
                 <LoaderCircle aria-hidden="true" className="size-4 animate-spin" />
-                Preparing PDF…
+                Preparing {FORMAT_LABEL[exportFormat]}…
               </>
             ) : exportTask.status === 'succeeded' && exportTask.result?.downloadUrl ? (
               <>
                 <Check aria-hidden="true" className="size-4" />
-                PDF ready.
+                {exportTask.result.format === 'web' ? 'Web page' : 'PDF'} ready.
                 <Button size="sm" asChild>
-                  <a href={exportTask.result.downloadUrl}>Download PDF</a>
+                  <a href={exportTask.result.downloadUrl}>
+                    Download {FORMAT_LABEL[exportTask.result.format ?? 'pdf']}
+                  </a>
                 </Button>
               </>
             ) : (
               <span className="text-destructive">
-                {safeMessage(exportTask.error, 'PDF preparation stopped. Request a new PDF.')}
+                {safeMessage(
+                  exportTask.error,
+                  `Export stopped. Request a new ${FORMAT_LABEL[exportFormat]}.`
+                )}
               </span>
             )}
           </div>
@@ -562,7 +630,11 @@ export default function Edit({
           library before review.
         </p>
       )}
-      {processing && <BeeWorking />}
+      <BeeWorking
+        documentId={document.id}
+        active={processing}
+        failed={document.generationStatus === 'failed'}
+      />
       {document.generationStatus === 'failed' && (
         <div className="space-y-2 border-b p-4">
           <p role="alert" className="text-xs text-destructive">
@@ -578,15 +650,19 @@ export default function Edit({
         </div>
       )}
       <div className="flex min-w-0 flex-col items-start xl:flex-row">
-        <DocumentEditor
-          key={document.id}
-          title={document.title}
-          generationStatus={document.generationStatus}
-          documentId={document.id}
-          baseVersionId={document.currentVersionId}
-          initialContent={version?.content ?? null}
-          onDirtyChange={onDirty}
-        />
+        {canvas?.enabled && canvas.mode === 'canvas' ? (
+          <CanvasModeNotice workspaceId={workspaceId} documentId={document.id} />
+        ) : (
+          <DocumentEditor
+            key={document.id}
+            title={document.title}
+            generationStatus={document.generationStatus}
+            documentId={document.id}
+            baseVersionId={document.currentVersionId}
+            initialContent={version?.content ?? null}
+            onDirtyChange={onDirty}
+          />
+        )}
         <aside
           ref={inspectorRef}
           id="document-details"
@@ -607,5 +683,30 @@ export default function Edit({
         </aside>
       </div>
     </div>
+  )
+}
+
+/** In canvas mode the pages are edited in the canvas; the text editor would lose the layout. */
+function CanvasModeNotice({
+  workspaceId,
+  documentId,
+}: {
+  workspaceId: string
+  documentId: string
+}) {
+  return (
+    <section className="flex w-full min-w-0 flex-1 flex-col items-center gap-3 px-6 py-20 text-center">
+      <LayoutTemplate aria-hidden="true" className="size-10 text-muted-foreground" />
+      <h2 className="text-base font-semibold">This case study is laid out in the canvas</h2>
+      <p className="max-w-md text-sm text-muted-foreground">
+        Its pages, text and images are edited on A4 sheets. Checks, review and export use what the
+        canvas saved. Switch to Text above to go back to the text editor.
+      </p>
+      <Button asChild>
+        <Link route="documentCanvases.show" routeParams={{ workspaceId, documentId }}>
+          Open the canvas <ArrowRight aria-hidden="true" />
+        </Link>
+      </Button>
+    </section>
   )
 }

@@ -35,6 +35,8 @@ export default class WorkspacesController {
     await bouncer.with(WorkspacePolicy).authorize('update', workspace!)
     const input = await request.validateUsing(createWorkspaceValidator)
     await new WorkspaceService().rename(workspaceAccess!, input.name)
+    if (!request.header('X-Inertia') && request.accepts(['html', 'json']) === 'json')
+      return response.ok({ data: { id: workspace!.id, name: input.name } })
     return response.redirect().toRoute('workspaces.show', { workspaceId: workspace!.id })
   }
   async select({ workspace, workspaceAccess, bouncer, response }: HttpContext) {

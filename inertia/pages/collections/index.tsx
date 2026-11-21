@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { Head } from '@inertiajs/react'
 import {
   ArrowDown,
@@ -14,21 +14,24 @@ import { urlFor } from '@/client'
 import { api, feedbackError, type ApiError } from '@/lib/api'
 import { useWorkspaceId } from '@/providers/workspace_provider'
 import { ActionFeedback } from '@/components/action_feedback'
+import { PageStrip, type StripPage } from '@/components/portfolio/page_strip'
+import { PortfolioBuilder, type BuilderEntry, type Proposal } from '@/components/portfolio/builder'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { PRESETS, type PortfolioDesign, type PresetId } from '../../../shared/layout/portfolio.ts'
 
 type Doc = { id: string; title: string }
 type Summary = { id: string; name: string; status: string }
-type Entry = { entryId: string; title: string; category: string; pages: number; templateId: string }
+type Entry = BuilderEntry & { templateId: string }
 type Detail = {
   id: string
   name: string
   status: string
   manifestHash: string
-  manifest: { wrapper: { about?: string }; entries: Entry[] }
+  manifest: { wrapper: { about?: string }; entries: Entry[]; design?: PortfolioDesign }
   budget: {
     wrapperPages: number
     contentsPages: number
@@ -46,12 +49,18 @@ type Detail = {
     rows: { entryId: string; title: string; category: string; page: number }[]
     converged: boolean
   }
+  pagePlan: {
+    design: PortfolioDesign
+    total: number
+    pages: StripPage[]
+    findings: { code: string; message: string }[]
+  }
   state: { approval: 'none' | 'current' | 'stale'; staleEntries: string[] }
 }
 
 const DEFAULT_TARGET = 20
 
-/** Build, budget and approve a portfolio collection. Entries are pinned revisions. */
+/** Design, budget and approve a portfolio. Entries are pinned revisions; the design is part of what an approval covers. */
 export default function Index({
   collections,
   documents,
@@ -69,6 +78,7 @@ export default function Index({
 
   const [name, setName] = useState('')
   const [about, setAbout] = useState('')
+  const [preset, setPreset] = useState<PresetId>('brochure')
   const [chosen, setChosen] = useState<string[]>([])
 
   const load = useCallback(
@@ -107,6 +117,7 @@ export default function Index({
           name,
           entryIds: chosen,
           wrapper: about.trim() ? { about: about.trim() } : {},
+          preset,
         }
       )
       setList((current) => [
@@ -127,6 +138,25 @@ export default function Index({
       })
       await load(detail!.id, target)
     })
+
+  /** A proposal changes nothing until the reviewer applies it. */
+  async function arrange(): Promise<Proposal | null> {
+    setBusy(true)
+    setError(null)
+    try {
+      const body = await api<{ data: Proposal }>(
+        urlFor('collections.arrange', { workspaceId, collectionId: detail!.id }),
+        'POST',
+        { target }
+      )
+      return body.data
+    } catch (reason) {
+      setError(feedbackError(reason))
+      return null
+    } finally {
+      setBusy(false)
+    }
+  }
 
   const move = (index: number, by: -1 | 1) => {
     const ids = detail!.manifest.entries.map((entry) => entry.entryId)
@@ -149,14 +179,31 @@ export default function Index({
       current.includes(id) ? current.filter((value) => value !== id) : [...current, id]
     )
 
+  const thumbs = useMemo(
+    () =>
+      detail && {
+        name: detail.name,
+        about: detail.manifest.wrapper.about,
+        titles: Object.fromEntries(detail.manifest.entries.map((e) => [e.entryId, e.title])),
+        categories: Object.fromEntries(detail.manifest.entries.map((e) => [e.entryId, e.category])),
+        order: detail.contents.rows.map((row) => row.entryId),
+      },
+    [detail]
+  )
+  // Rules and presets decide entry order; only a custom or AI design keeps it in the page order.
+  const orderedByDesign =
+    detail?.pagePlan.design.source === 'custom' || detail?.pagePlan.design.source === 'ai'
+
   return (
     <div className="minimal-page">
       <Head title="Collections" />
       <header>
-        <h1 className="text-lg font-semibold">Collections</h1>
-        <p className="mt-1 text-xs text-muted-foreground">
-          Group saved case studies into one portfolio. Each entry stays pinned to the version you
-          added, so later edits never change an approved collection by surprise.
+        <span aria-hidden="true" className="page-bar" />
+        <h1 className="page-title text-3xl">Collections</h1>
+        <p className="mt-1 max-w-prose text-xs text-muted-foreground">
+          Turn saved case studies into one portfolio. Start from a template, arrange the pages
+          yourself, or let AI suggest an arrangement. Each case study stays pinned to the version
+          you added, so later edits never change an approved collection by surprise.
         </p>
       </header>
       <div className="mt-6">
@@ -222,6 +269,25 @@ export default function Index({
                 onChange={(event) => setAbout(event.target.value)}
               />
             </div>
+            <div className="space-y-1">
+              <Label htmlFor="collection-template">Template</Label>
+              <select
+                id="collection-template"
+                className="h-9 w-full rounded-md border bg-background px-2 text-sm"
+                value={preset}
+                onChange={(event) => setPreset(event.target.value as PresetId)}
+              >
+                {PRESETS.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.label}
+                  </option>
+                ))}
+              </select>
+              <p className="text-xs text-muted-foreground">
+                {PRESETS.find((item) => item.id === preset)?.description} You can change it, or
+                arrange every page yourself, after you create the collection.
+              </p>
+            </div>
             <fieldset className="space-y-2">
               <legend className="text-xs font-medium">Case studies</legend>
               <ul className="max-h-56 space-y-1 overflow-y-auto">
@@ -252,13 +318,13 @@ export default function Index({
         </div>
 
         <section aria-live="polite" className="min-w-0">
-          {!detail ? (
+          {!detail || !thumbs ? (
             <div className="py-20 text-center">
               <BookOpen aria-hidden="true" className="mx-auto mb-4 size-6 text-muted-foreground" />
               <p className="text-sm">Select or create a collection</p>
             </div>
           ) : (
-            <div className="space-y-6">
+            <div className="space-y-8">
               <div className="flex flex-wrap items-center gap-3">
                 <h2 className="text-base font-semibold">{detail.name}</h2>
                 {detail.state.approval === 'current' && (
@@ -280,6 +346,42 @@ export default function Index({
                   changed since being added. Remove and add them again to pin the latest version.
                 </p>
               )}
+
+              <section aria-label="Pages" className="space-y-3">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <h3 className="text-xs font-semibold">
+                    Pages{' '}
+                    <span className="font-normal text-muted-foreground">
+                      up to {detail.pagePlan.total} in the PDF
+                    </span>
+                  </h3>
+                </div>
+                <PageStrip
+                  key={`${detail.id}-${detail.manifestHash}`}
+                  label="Portfolio pages"
+                  pages={detail.pagePlan.pages}
+                  context={thumbs}
+                />
+                {detail.pagePlan.findings.length > 0 && (
+                  <ul role="alert" className="space-y-1 text-xs text-destructive">
+                    {detail.pagePlan.findings.map((finding) => (
+                      <li key={finding.code + finding.message}>{finding.message}</li>
+                    ))}
+                  </ul>
+                )}
+              </section>
+
+              <PortfolioBuilder
+                name={detail.name}
+                about={detail.manifest.wrapper.about}
+                entries={detail.manifest.entries}
+                design={detail.pagePlan.design}
+                approved={detail.state.approval !== 'none'}
+                busy={busy}
+                error={null}
+                onApply={(change) => update(change)}
+                onArrange={arrange}
+              />
 
               <section aria-label="Page budget" className="space-y-2 rounded-lg border p-4 text-sm">
                 <div className="flex flex-wrap items-end justify-between gap-3">
@@ -304,9 +406,9 @@ export default function Index({
                   </div>
                 </div>
                 <p>
-                  Cover, introduction, contents and back cover {detail.budget.wrapperPages} +
-                  entries {detail.budget.entryPages} = <strong>{detail.budget.total}</strong> of{' '}
-                  {target} pages
+                  Cover, introduction, contents and other portfolio pages{' '}
+                  {detail.budget.wrapperPages} + case studies {detail.budget.entryPages} ={' '}
+                  <strong>{detail.budget.total}</strong> of {target} pages
                 </p>
                 <p className="text-xs text-muted-foreground">
                   Entry pages are each layout&apos;s maximum until a rendered count is available.
@@ -322,13 +424,19 @@ export default function Index({
                             : `Remove ${suggestion.count} of the longest ${suggestion.count === 1 ? 'entry' : 'entries'} (${suggestion.resultingTotal} pages).`}
                         </li>
                       ))}
+                      <li>Switch to the Compact template to drop the introduction and contents.</li>
                     </ul>
                   </div>
                 )}
               </section>
 
               <section aria-label="Entries" className="space-y-2">
-                <h3 className="text-xs font-semibold">Entries and contents</h3>
+                <h3 className="text-xs font-semibold">Case studies and contents</h3>
+                {orderedByDesign && (
+                  <p className="text-xs text-muted-foreground">
+                    This design keeps its own order. Reorder case studies under Build page by page.
+                  </p>
+                )}
                 <ol className="divide-y border-y">
                   {detail.manifest.entries.map((entry, index) => {
                     const row = detail.contents.rows.find((item) => item.entryId === entry.entryId)
@@ -341,24 +449,28 @@ export default function Index({
                         <span className="hidden text-xs text-muted-foreground sm:inline">
                           {entry.category}
                         </span>
-                        <Button
-                          size="icon"
-                          variant="ghost"
-                          aria-label={`Move ${entry.title} up`}
-                          disabled={busy || index === 0}
-                          onClick={() => move(index, -1)}
-                        >
-                          <ArrowUp />
-                        </Button>
-                        <Button
-                          size="icon"
-                          variant="ghost"
-                          aria-label={`Move ${entry.title} down`}
-                          disabled={busy || index === detail.manifest.entries.length - 1}
-                          onClick={() => move(index, 1)}
-                        >
-                          <ArrowDown />
-                        </Button>
+                        {!orderedByDesign && (
+                          <>
+                            <Button
+                              size="icon"
+                              variant="ghost"
+                              aria-label={`Move ${entry.title} up`}
+                              disabled={busy || index === 0}
+                              onClick={() => move(index, -1)}
+                            >
+                              <ArrowUp />
+                            </Button>
+                            <Button
+                              size="icon"
+                              variant="ghost"
+                              aria-label={`Move ${entry.title} down`}
+                              disabled={busy || index === detail.manifest.entries.length - 1}
+                              onClick={() => move(index, 1)}
+                            >
+                              <ArrowDown />
+                            </Button>
+                          </>
+                        )}
                         <Button
                           size="icon"
                           variant="ghost"
@@ -391,15 +503,16 @@ export default function Index({
                   disabled={
                     busy ||
                     detail.state.approval === 'current' ||
-                    detail.state.staleEntries.length > 0
+                    detail.state.staleEntries.length > 0 ||
+                    detail.pagePlan.findings.length > 0
                   }
                   onClick={() => void approve()}
                 >
                   Approve this collection
                 </Button>
                 <p className="text-xs text-muted-foreground">
-                  Approval covers the order, introduction and pinned versions. Any change withdraws
-                  it. Each case study keeps its own approval.
+                  Approval covers the page design, order, introduction and pinned versions. Any
+                  change withdraws it. Each case study keeps its own approval.
                 </p>
               </div>
 

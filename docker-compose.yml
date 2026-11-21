@@ -1,4 +1,4 @@
-# Local services matching .env (Postgres+pgvector :55433, Redis :6380, Mailpit SMTP :1025).
+# Local services matching .env (Postgres+pgvector :55433, Redis :6380, Mailpit SMTP :1025, Adobe S3Mock :9090).
 services:
   postgres:
     image: pgvector/pgvector:pg17
@@ -29,5 +29,19 @@ services:
       - "1025:1025"
       - "8025:8025"
 
+  s3mock:
+    image: adobe/s3mock:latest
+    user: root
+    restart: unless-stopped
+    environment:
+      COM_ADOBE_TESTING_S3MOCK_STORE_INITIAL_BUCKETS: ${S3_BUCKET:-capstone}
+      COM_ADOBE_TESTING_S3MOCK_STORE_ROOT: /data
+      COM_ADOBE_TESTING_S3MOCK_STORE_RETAIN_FILES_ON_EXIT: "true"
+    ports:
+      - "9090:9090"
+    volumes:
+      - s3data:/data
+
 volumes:
   pgdata:
+  s3data:

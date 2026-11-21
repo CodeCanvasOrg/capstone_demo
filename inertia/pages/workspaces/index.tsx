@@ -10,7 +10,7 @@ export default function Index() {
   return (
     <div className="page-wrap max-w-3xl">
       <Head title="Your workspaces" />
-      <h1 className="mb-3 text-3xl font-semibold">Workspaces</h1>
+      <h1 className="page-title mb-3 text-3xl">Workspaces</h1>
       <div className="grid gap-3 sm:grid-cols-2">
         {workspaces.map((workspace) => (
           <Link

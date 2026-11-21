@@ -22,8 +22,11 @@ export default function Index({
   return (
     <div className="minimal-page">
       <Head title="Projects" />
-      <header className="flex items-center justify-between gap-4">
-        <h1 className="text-lg font-semibold">Projects</h1>
+      <header className="flex items-end justify-between gap-4">
+        <div>
+          <span aria-hidden="true" className="page-bar" />
+          <h1 className="page-title text-3xl">Projects</h1>
+        </div>
         <ProjectDialog />
       </header>
       <div className="mt-8 max-w-sm">

@@ -1,0 +1,33 @@
+# Copy to terraform.tfvars (git-ignored) and fill in. Secrets can instead be passed as
+# TF_VAR_<name> environment variables: .env.example has every input in that form.
+#
+# Provider credentials are read from the environment, not from this file:
+#   export VERCEL_API_TOKEN=...        # vercel.com/account/tokens
+#   export TF_VAR_neon_api_key=...     # console.neon.tech > Account settings > API keys
+#   export RAILWAY_TOKEN=...           # railway.com/account/tokens (account or workspace token)
+#   export TF_VAR_upstash_email=...    # console.upstash.com > Account > Management API
+#   export TF_VAR_upstash_api_key=...
+
+project_name = "capstone"
+environment  = "prod"
+github_repo  = "your-github-user/capstone_demo"
+# production_branch = "main"
+
+# vercel_team = "your-team-slug"     # omit for a personal account
+domain_name = "app.example.com"      # strongly recommended; "" uses <project_name>.vercel.app
+
+# neon_org_id = "org-..."            # required if your Neon key belongs to an organization
+
+# Neon region must support Object Storage: aws-us-east-1 | aws-us-east-2 | aws-eu-central-1 | aws-ap-southeast-1
+# neon_region         = "aws-us-east-1"
+# uploads_bucket_name = "uploads"
+
+# Third-party credentials
+openrouter_api_key = "sk-or-..."
+
+# SMTP (e.g. Amazon SES, Resend, Postmark SMTP credentials)
+smtp_host         = "email-smtp.us-east-1.amazonaws.com"
+smtp_port         = 587
+smtp_username     = "..."
+smtp_password     = "..."
+mail_from_address = "hello@example.com"

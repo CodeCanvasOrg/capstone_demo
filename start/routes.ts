@@ -21,6 +21,24 @@ router
 router
   .group(() => {
     router.post('logout', [controllers.Session, 'destroy'])
+    router
+      .group(() => {
+        router.get('/', [controllers.Settings, 'show']).as('settings.show')
+        router.patch('/profile', [controllers.Settings, 'profile']).as('settings.profile')
+        router
+          .patch('/preferences', [controllers.Settings, 'preferences'])
+          .as('settings.preferences')
+        router.put('/password', [controllers.Settings, 'password']).as('settings.password')
+        router
+          .put('/credentials/:kind/:provider', [controllers.Settings, 'storeCredential'])
+          .where('kind', /^(model|connector)$/)
+          .as('settings.credentials.store')
+        router
+          .delete('/credentials/:kind/:provider', [controllers.Settings, 'destroyCredential'])
+          .where('kind', /^(model|connector)$/)
+          .as('settings.credentials.destroy')
+      })
+      .prefix('/settings')
     router.get('/workspaces', [controllers.Workspaces, 'index']).as('workspaces.index')
     router.post('/workspaces', [controllers.Workspaces, 'store']).as('workspaces.store')
     router
@@ -52,6 +70,9 @@ router
         router
           .get('/documents/:documentId/preview', [controllers.ExportPdfs, 'htmlPreview'])
           .as('documentPreview.show')
+        router
+          .get('/documents/:documentId/preview/web', [controllers.ExportPdfs, 'webPreview'])
+          .as('documentPreview.web')
         router.get('/templates', [controllers.Templates, 'index']).as('templates.index')
         router.get('/layout/catalog', [controllers.LayoutCatalog, 'show']).as('layoutCatalog.show')
         router
@@ -90,6 +111,9 @@ router
           .patch('/collections/:collectionId', [controllers.Collections, 'update'])
           .as('collections.update')
         router
+          .post('/collections/:collectionId/arrange', [controllers.Collections, 'arrange'])
+          .as('collections.arrange')
+        router
           .post('/collections/:collectionId/approval', [controllers.Collections, 'approve'])
           .as('collections.approve')
         router
@@ -124,6 +148,9 @@ router
           .post('/documents/:documentId/exports/pdf', [controllers.ExportPdfs, 'handle'])
           .as('exportPdfs.store')
         router
+          .post('/documents/:documentId/exports/web', [controllers.ExportPdfs, 'web'])
+          .as('exportPdfs.web')
+        router
           .get('/documents/:documentId/exports/:taskId/download', [
             controllers.ExportPdfs,
             'download',
@@ -133,12 +160,32 @@ router
           .get('/files/:id/revisions/:revisionId/assets/:assetId', [controllers.Assets, 'derived'])
           .as('assets.derived')
         router.resource('documents', controllers.Documents).except(['show'])
+        router.post('/briefs', [controllers.Briefs, 'store']).as('briefs.store')
         router
           .post('/documents/:documentId/images', [controllers.DocumentImages, 'store'])
           .as('documentImages.store')
         router
           .get('/documents/:documentId/images/:imageId', [controllers.DocumentImages, 'show'])
           .as('documentImages.show')
+        // Canvas editor (CANVAS_EDITOR=pilot; 404 otherwise).
+        router
+          .get('/documents/:documentId/canvas', [controllers.DocumentCanvases, 'show'])
+          .as('documentCanvases.show')
+        router
+          .get('/documents/:documentId/canvas/project', [controllers.DocumentCanvases, 'project'])
+          .as('documentCanvases.project')
+        router
+          .post('/documents/:documentId/canvas/enable', [controllers.DocumentCanvases, 'enable'])
+          .as('documentCanvases.enable')
+        router
+          .post('/documents/:documentId/canvas/disable', [controllers.DocumentCanvases, 'disable'])
+          .as('documentCanvases.disable')
+        router
+          .put('/documents/:documentId/canvas/draft', [controllers.DocumentCanvases, 'draft'])
+          .as('documentCanvases.draft')
+        router
+          .post('/documents/:documentId/canvas/versions', [controllers.DocumentCanvases, 'save'])
+          .as('documentCanvases.save')
         router
           .post('/documents/:documentId/versions', [controllers.DocumentVersions, 'handle'])
           .as('documentVersions.store')

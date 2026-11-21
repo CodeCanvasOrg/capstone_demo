@@ -31,6 +31,26 @@ import { getBrandKit } from '../../../shared/layout/brand.ts'
 import { planLayout } from '../../../shared/layout/plan.ts'
 import { getTemplate } from '../../../shared/layout/templates.ts'
 import type { ClientRenderData } from '../../../shared/publication/client.ts'
+import { lengthWarnings, parsePages } from '../../../shared/brochure/content.ts'
+import { resolveDesigns } from '../../../shared/brochure/designs.ts'
+import { renderBrochureHtml, type BrochurePage } from '#services/exports/brochure_renderer'
+import { renderWebHtml } from '#services/exports/web_renderer'
+import {
+  projectionDocument,
+  renderCanvasHtml,
+  splitProjected,
+} from '#services/exports/canvas_renderer'
+import CanvasService, { canvasEnabled } from '#services/canvas/canvas_service'
+import type { WorkspaceAccessContext as Ctx } from '#services/workspaces/access_service'
+import type { DesignId } from '../../../shared/brochure/designs.ts'
+
+export type ExportFormat = 'pdf' | 'web'
+export const EXPORT_FORMATS = {
+  pdf: { extension: 'pdf', contentType: 'application/pdf' },
+  web: { extension: 'html', contentType: 'text/html; charset=utf-8' },
+} as const satisfies Record<ExportFormat, { extension: string; contentType: string }>
+/** Tasks queued before the web format existed carry no format and are PDFs. */
+export const exportFormat = (value: unknown): ExportFormat => (value === 'web' ? 'web' : 'pdf')
 /** OUT-01 pilot: branded publication layout, off unless enabled. */
 const publicationLayout = () => env.get('PUBLICATION_LAYOUT') === 'pilot'
 
@@ -38,7 +58,12 @@ export default class DocumentExportService {
   async request(
     context: WorkspaceAccessContext,
     documentId: string,
-    input: { approvalId?: string; baseVersionId?: string; mutationId: string }
+    input: {
+      approvalId?: string
+      baseVersionId?: string
+      mutationId: string
+      format?: ExportFormat
+    }
   ) {
     const task = await db.transaction(async (trx) => {
       await Workspace.query({ client: trx })
@@ -70,6 +95,8 @@ export default class DocumentExportService {
           mutationId: input.mutationId,
           payload: {
             exportMode: solo ? 'solo' : 'approved',
+            // PDF payloads keep their original shape so replays across a deploy still match.
+            ...(input.format === 'web' ? { format: 'web' } : {}),
             ...(solo ? { inputHash: reviewInputHash(doc) } : { approvalId: input.approvalId }),
             versionId: doc.currentVersionId!,
             pins: state.pins,
@@ -101,13 +128,27 @@ export default class DocumentExportService {
     )
     await tasks.recordStage(lease, 'validating')
     const client = this.client(content)
-    const layout = await this.layoutPlan(doc, client, { final: true })
-    await tasks.recordStage(lease, 'rendering')
-    const buffer = await ExportPdfService.generate(client, {
-      publication: publicationLayout(),
-      ...(layout ? { layout } : {}),
-    })
-    const key = `workspaces/${lease.context.workspaceId}/exports/${lease.task.id}.pdf`
+    const format = exportFormat(lease.task.payload.format)
+    let buffer: Buffer
+    if (format === 'web') {
+      await tasks.recordStage(lease, 'rendering')
+      buffer = Buffer.from(await this.webHtml(doc, client, { final: true }), 'utf8')
+    } else {
+      // A canvas is drawn as laid out; a brochure has its own renderer; the older
+      // layout rules apply to neither.
+      const canvas = await this.canvasHtml(lease.context, doc, version.id, { final: true })
+      const brochure = canvas ?? (await this.brochureHtml(doc, client, { final: true }))
+      const layout = brochure ? null : await this.layoutPlan(doc, client, { final: true })
+      await tasks.recordStage(lease, 'rendering')
+      buffer = brochure
+        ? Buffer.from(await ExportPdfService.fromHtml(brochure))
+        : await ExportPdfService.generate(client, {
+            publication: publicationLayout(),
+            ...(layout ? { layout } : {}),
+          })
+    }
+    const { extension, contentType } = EXPORT_FORMATS[format]
+    const key = `workspaces/${lease.context.workspaceId}/exports/${lease.task.id}.${extension}`
     try {
       await tasks.finish(
         lease,
@@ -124,11 +165,10 @@ export default class DocumentExportService {
             'Approval changed during rendering'
           )
           await this.assertBundle(current, lease.task.payload, trx)
-          await drive
-            .use()
-            .put(key, buffer, { contentType: 'application/pdf', visibility: 'private' })
+          await drive.use().put(key, buffer, { contentType, visibility: 'private' })
           return {
             artifactKey: key,
+            format,
             exportMode: lease.task.payload.exportMode,
             approvalId: current.activeApprovalId,
             versionId: current.currentVersionId,
@@ -177,13 +217,14 @@ export default class DocumentExportService {
       return {
         stream: await drive.use().getStream(task.result.artifactKey),
         title: doc.title ?? 'Case study',
+        format: exportFormat(task.result.format ?? task.payload.format),
       }
     })
   }
   async preview(
     context: WorkspaceAccessContext,
     documentId: string,
-    format: 'html' | 'pdf' = 'pdf',
+    format: 'html' | 'pdf' | 'web' = 'pdf',
     /**
      * Collections render the revision they pinned. `final` drops the draft
      * banner and applies the final-export fit rules; callers must have checked
@@ -202,12 +243,25 @@ export default class DocumentExportService {
     const content = await this.content(context, documentId, version.content, check)
     await check()
     const client = this.client(content)
-    const layout = await this.layoutPlan(doc, client, { final })
-    const buffer = await ExportPdfService[format === 'html' ? 'html' : 'generate'](client, {
-      preview: !final,
-      publication: publicationLayout(),
-      ...(layout ? { layout } : {}),
-    })
+    const brochure =
+      format === 'web'
+        ? null
+        : ((await this.canvasHtml(context, doc, version.id, { final })) ??
+          (await this.brochureHtml(doc, client, { final })))
+    const layout =
+      brochure || format === 'web' ? null : await this.layoutPlan(doc, client, { final })
+    const buffer =
+      format === 'web'
+        ? await this.webHtml(doc, client, { final })
+        : brochure
+          ? format === 'html'
+            ? brochure
+            : Buffer.from(await ExportPdfService.fromHtml(brochure))
+          : await ExportPdfService[format === 'html' ? 'html' : 'generate'](client, {
+              preview: !final,
+              publication: publicationLayout(),
+              ...(layout ? { layout } : {}),
+            })
     await check()
     const current = await access.document(context, documentId)
     if (!versionId && current.currentVersionId !== version.id)
@@ -237,6 +291,94 @@ export default class DocumentExportService {
     }
   }
   /**
+   * The pages, brand and designs a document renders with. A document with page
+   * designs uses them; any other document reads as a cover followed by article
+   * pages, so the web export works for every document.
+   */
+  private async pages(doc: Document, client: ClientRenderData) {
+    const selection = await new LayoutSelectionService().peek(doc.workspaceId!, doc.id)
+    const chosen = selection.options.brochure
+    const brand = getBrandKit(selection.brandId, selection.brandVersion)
+    if (!brand)
+      throw new Exception('The pinned brand version is not available', {
+        status: 422,
+        code: 'E_LAYOUT_INVALID',
+      })
+    const parsed = parsePages(client)
+    const designs: DesignId[] = chosen
+      ? resolveDesigns(chosen.pages, parsed.length)
+      : parsed.map((_, index) => (index === 0 ? 'cover' : 'article'))
+    const pages: BrochurePage[] = parsed.map((sections, index) => ({
+      design: designs[index],
+      sections,
+    }))
+    return { brochure: !!chosen, brand, pages }
+  }
+
+  /**
+   * The canvas layout of a version, or null when the document is not in the canvas
+   * editor or the version was saved as text. Frame text goes through the same
+   * evidence, image and projection pipeline as every export, in one pass, so
+   * citation numbers follow reading order across the canvas.
+   */
+  private async canvasHtml(
+    context: Ctx,
+    doc: Document,
+    versionId: string,
+    { final }: { final: boolean }
+  ) {
+    if (!canvasEnabled()) return null
+    const service = new CanvasService()
+    if ((await service.mode(context.workspaceId, doc.id)) !== 'canvas') return null
+    const row = await service.forVersion(versionId)
+    if (!row) return null
+    const selection = await new LayoutSelectionService().peek(doc.workspaceId!, doc.id)
+    const brand = getBrandKit(selection.brandId, selection.brandVersion)
+    if (!brand)
+      throw new Exception('The pinned brand version is not available', {
+        status: 422,
+        code: 'E_LAYOUT_INVALID',
+      })
+    const check = () => new EvidenceService().check(context)
+    const projected = this.client(
+      await this.content(context, doc.id, projectionDocument(row.project), check)
+    )
+    return renderCanvasHtml(row.project, brand, {
+      content: splitProjected(row.project, projected.body),
+      sources: projected.sources,
+      preview: !final,
+    })
+  }
+
+  /**
+   * The brochure for a document that has page designs, or null for any other. Pages come
+   * from the page breaks in the text, each drawn in the design pinned for its position.
+   */
+  private async brochureHtml(
+    doc: Document,
+    client: ClientRenderData,
+    { final }: { final: boolean }
+  ) {
+    const { brochure, brand, pages } = await this.pages(doc, client)
+    if (!brochure) return null
+    return renderBrochureHtml(pages, brand, { sources: client.sources, preview: !final })
+  }
+
+  /**
+   * The same content as the PDF, as one responsive web page. Key results appear only
+   * where the PDF shows them (the brochure designs have no place for them).
+   */
+  private async webHtml(doc: Document, client: ClientRenderData, { final }: { final: boolean }) {
+    const { brochure, brand, pages } = await this.pages(doc, client)
+    return renderWebHtml(pages, brand, {
+      title: client.title ?? doc.title ?? undefined,
+      sources: client.sources,
+      results: brochure ? [] : (client.results ?? []),
+      preview: !final,
+    })
+  }
+
+  /**
    * Fit and content findings for the pinned layout, for the picker and review
    * panel. Null when there is nothing renderable yet or the content cannot be
    * projected safely (that case is reported by the preview itself).
@@ -256,6 +398,25 @@ export default class DocumentExportService {
       const selection = await new LayoutSelectionService().peek(context.workspaceId, documentId)
       const template = getTemplate(selection.templateId, selection.templateVersion)!
       const brand = getBrandKit(selection.brandId, selection.brandVersion)!
+      if (selection.options.brochure) {
+        // One sheet per page design; the only findings are text longer than a design holds.
+        const pages = parsePages(client)
+        const designs = resolveDesigns(selection.options.brochure.pages, pages.length)
+        return {
+          pages: pages.length,
+          pageBudget: pages.length,
+          fits: true,
+          density: 'normal' as const,
+          steps: [],
+          findings: pages.flatMap((sections, index) =>
+            lengthWarnings(designs[index], sections, index + 1).map((message) => ({
+              code: 'brochure_text_long',
+              severity: 'warning' as const,
+              message,
+            }))
+          ),
+        }
+      }
       const data = renumberFootnotes(client)
       const fit = fitPlan(planLayout(data, template, brand, selection.options), template)
       return {

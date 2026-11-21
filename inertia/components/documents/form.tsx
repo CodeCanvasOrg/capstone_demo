@@ -1,33 +1,60 @@
-import { useMemo, useState, type CSSProperties } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { useForm } from '@inertiajs/react'
 import type { Data } from '@generated/data'
-import { FolderOpen, LoaderCircle, Sparkles, Wand2 } from 'lucide-react'
+import { FolderOpen, LoaderCircle, Sparkles, Undo2, Wand2 } from 'lucide-react'
 import { urlFor } from '@/client'
+import { api, feedbackError } from '@/lib/api'
 import { useWorkspaceId, useUnsavedChanges } from '@/providers/workspace_provider'
-import { TemplatePreview, PreviewThumb } from '@/components/documents/template_preview'
-import { specFor } from '@/components/documents/template_specs'
-import { outlineSections, type OutlineTemplate } from '../../../shared/templates/outlines.ts'
+import { TemplatePreview } from '@/components/documents/template_preview'
 import { DEFAULT_INSTRUCTIONS, MAX_INSTRUCTIONS } from '../../../shared/templates/instructions.ts'
 import { Disclosure } from '@/components/disclosure'
+import { DesignThumb } from '@/components/brochure/design_thumb'
+import { PageDesigner } from '@/components/brochure/page_designer'
+import {
+  BROCHURE_TEMPLATES,
+  templateSelection,
+  type BrochureSelection,
+} from '../../../shared/brochure/designs.ts'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { SourcePicker, selectable, type SourceChoice } from '@/components/files/source_picker'
-import { RichTextEditor, emptyRichText, type RichText } from '@/components/rich_text_editor'
+import {
+  RichTextEditor,
+  emptyRichText,
+  textToRichText,
+  type RichText,
+} from '@/components/rich_text_editor'
 
 const FREEFORM = 'freeform'
+const BROCHURE = 'brochure'
 
-type Choice = { id: string; name: string; description: string; headings: string[] }
+/**
+ * How the case study is laid out. The first three build a brochure, where every page has its
+ * own design: a full template, a design chosen for each page, or the model's choice. The
+ * model writes the content of every page, and the brochure is edited in the canvas.
+ * `plain` is a text document with no page designs, edited in the text editor.
+ */
+type Mode = 'template' | 'pages' | 'ai' | 'plain'
+const MODES: readonly { id: Mode; label: string; hint: string }[] = [
+  { id: 'template', label: 'Use a template', hint: 'A ready-made set of page designs' },
+  { id: 'pages', label: 'Choose each page', hint: 'Pick a design for every page' },
+  { id: 'ai', label: 'Let AI choose', hint: 'It picks the designs that fit' },
+  { id: 'plain', label: 'Plain text document', hint: 'Just text, no page designs' },
+]
 
-function headingsOf(template: OutlineTemplate) {
-  try {
-    return outlineSections(template.definition.outline)
-      .slice(1)
-      .filter((section) => section.level === 2)
-      .map((section) => section.heading)
-  } catch {
-    return []
+type BriefResult = {
+  data: {
+    brief: string
+    mode: 'all' | 'retrieved'
+    passages: number
+    sources: { fileName: string; passages: number }[]
   }
 }
+type BriefState =
+  | { status: 'idle' }
+  | { status: 'pending' }
+  | { status: 'done'; note: string; previous: { composer: RichText; text: string } }
+  | { status: 'error'; message: string }
 
 function StepLabel({ n, title, hint }: { n: number; title: string; hint?: string }) {
   return (
@@ -42,12 +69,10 @@ function StepLabel({ n, title, hint }: { n: number; title: string; hint?: string
 }
 
 export function DocumentForm({
-  templates = [],
   files = [],
   projects = [],
   initialProjectId = null,
 }: {
-  templates?: OutlineTemplate[]
   files?: Data.File[]
   projects?: Data.Project[]
   initialProjectId?: string | null
@@ -60,26 +85,54 @@ export function DocumentForm({
   const [projectId, setProjectId] = useState(initialProjectId ?? '')
   const [uploads, setUploads] = useState<SourceChoice[]>([])
   const [droppedSources, setDroppedSources] = useState(0)
-  const choices = useMemo<Choice[]>(
-    () => [
-      ...templates.map((template) => ({
-        id: template.id,
-        name: template.definition.name,
-        description: template.definition.description,
-        headings: headingsOf(template),
-      })),
-      {
-        id: FREEFORM,
-        name: 'Freeform',
-        description: 'No fixed structure. The model writes from your brief and sources alone.',
-        headings: [],
-      },
-    ],
-    [templates]
-  )
-  const [templateId, setTemplateId] = useState(choices[0].id)
-  const choice = choices.find((item) => item.id === templateId) ?? choices[0]
-  const spec = specFor(choice.id)
+  const [briefState, setBriefState] = useState<BriefState>({ status: 'idle' })
+  const briefRequest = useRef<AbortController | null>(null)
+  useEffect(() => () => briefRequest.current?.abort(), [])
+  const projectHasFiles =
+    !!projectId && files.some((file) => file.projects?.some((project) => project.id === projectId))
+  const canWriteBrief = selected.length > 0 || projectHasFiles
+  async function writeBrief() {
+    if (!canWriteBrief || briefState.status === 'pending') return
+    briefRequest.current?.abort()
+    const controller = new AbortController()
+    briefRequest.current = controller
+    const previous = { composer, text }
+    setBriefState({ status: 'pending' })
+    try {
+      const result = await api<BriefResult>(
+        urlFor('briefs.store', { workspaceId }),
+        'POST',
+        { projectId: projectId || null, fileIds: selected, draft: text.trim() || null },
+        controller.signal
+      )
+      const { brief, passages, sources, mode } = result.data
+      setComposer(textToRichText(brief))
+      setText(brief)
+      const fileCount = `${sources.length} ${sources.length === 1 ? 'file' : 'files'}`
+      setBriefState({
+        status: 'done',
+        previous,
+        note:
+          mode === 'all'
+            ? `Written from all ${passages} passages in ${fileCount}.`
+            : `Written from the ${passages} most relevant passages in ${fileCount}.`,
+      })
+    } catch (reason) {
+      if (controller.signal.aborted) return
+      setBriefState({
+        status: 'error',
+        message: feedbackError(reason, 'The brief could not be written. Try again.').message,
+      })
+    }
+  }
+  function undoBrief() {
+    if (briefState.status !== 'done') return
+    setComposer(briefState.previous.composer)
+    setText(briefState.previous.text)
+    setBriefState({ status: 'idle' })
+  }
+  const [mode, setMode] = useState<Mode>('template')
+  const [selection, setSelection] = useState<BrochureSelection>(() => templateSelection(BROCHURE)!)
   function changeProject(next: string) {
     const options = new Map([...files, ...uploads].map((file) => [file.id, file]))
     const kept = selected.filter((id) => {
@@ -104,12 +157,18 @@ export function DocumentForm({
     'new-case-study',
     !form.processing && (!!text.trim() || !!instructions.trim() || selected.length > 0)
   )
-  const ready = !!text.trim() && text.length <= 20000 && instructions.length <= MAX_INSTRUCTIONS
-  // The freeform choice sends a null template: the brief alone shapes the case study.
+  const ready =
+    !!text.trim() &&
+    text.length <= 20000 &&
+    instructions.length <= MAX_INSTRUCTIONS &&
+    (mode !== 'pages' || selection.pages.length > 0)
+  // A plain document sends no template: the brief alone shapes the text.
   function generate() {
     if (form.processing || !ready) return
     form.transform(() => ({
-      templateId: choice.id === FREEFORM ? null : choice.id,
+      templateId: mode === 'plain' ? null : BROCHURE,
+      // Absent means the model chooses every page.
+      ...(mode === 'template' || mode === 'pages' ? { brochure: selection } : {}),
       description: text,
       descriptionContent: composer,
       // Empty instructions are replaced with the defaults on the server.
@@ -133,13 +192,17 @@ export function DocumentForm({
       <div className="mx-auto grid w-full max-w-6xl flex-1 gap-x-10 gap-y-10 px-5 py-10 lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] lg:py-14">
         <div className="min-w-0">
           <div className="step-in mb-8" style={{ '--i': 0 } as CSSProperties}>
-            <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">New case study</h1>
+            <h1 className="page-title text-2xl sm:text-3xl">New case study</h1>
             <p className="mt-2 max-w-sm text-sm leading-6 text-muted-foreground">
               Tell us what you worked on, pick a look, and we&rsquo;ll write the first draft.
             </p>
           </div>
 
-          <section className="step-in" style={{ '--i': 1 } as CSSProperties}>
+          <section
+            className="step-in"
+            style={{ '--i': 1 } as CSSProperties}
+            data-tour="create-brief"
+          >
             <StepLabel n={1} title="The brief" />
             <div className="rounded-2xl border bg-sidebar p-4 shadow-xs">
               <RichTextEditor
@@ -147,6 +210,8 @@ export function DocumentForm({
                 onChange={(value, plain) => {
                   setComposer(value)
                   setText(plain)
+                  // Typing over the generated brief makes it yours; undo would discard that.
+                  if (briefState.status !== 'pending') setBriefState({ status: 'idle' })
                 }}
                 error={
                   form.errors.description ||
@@ -158,22 +223,66 @@ export function DocumentForm({
                 compact
                 disabled={form.processing}
               />
-              <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
-                <SourcePicker
-                  files={files}
-                  selected={selected}
-                  onChange={setSelected}
-                  onUploaded={(file) => setUploads((current) => [...current, file])}
-                  projectId={projectId || null}
-                  disabled={form.processing}
-                />
-                <span className="text-xs text-muted-foreground tabular-nums">
+              <div className="mt-4 flex flex-wrap items-center gap-2">
+                <div data-tour="create-sources">
+                  <SourcePicker
+                    files={files}
+                    selected={selected}
+                    onChange={setSelected}
+                    onUploaded={(file) => setUploads((current) => [...current, file])}
+                    projectId={projectId || null}
+                    disabled={form.processing}
+                  />
+                </div>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={writeBrief}
+                  disabled={form.processing || !canWriteBrief || briefState.status === 'pending'}
+                  title={
+                    canWriteBrief
+                      ? 'Write a short brief from your sources'
+                      : 'Add sources or choose a project with files first'
+                  }
+                  data-tour="create-brief-ai"
+                >
+                  {briefState.status === 'pending' ? (
+                    <LoaderCircle aria-hidden="true" className="animate-spin" />
+                  ) : (
+                    <Sparkles aria-hidden="true" />
+                  )}
+                  {briefState.status === 'pending' ? 'Reading sources…' : 'Generate with AI'}
+                </Button>
+                <span className="ml-auto text-xs text-muted-foreground tabular-nums">
                   {selected.length
                     ? `${selected.length} ${selected.length === 1 ? 'source' : 'sources'}`
                     : 'Brief only'}
                 </span>
               </div>
             </div>
+            {briefState.status === 'done' && (
+              <p
+                role="status"
+                className="mt-2 flex items-center gap-2 text-xs text-muted-foreground"
+              >
+                <Sparkles aria-hidden="true" className="size-3.5 shrink-0" />
+                <span className="min-w-0">{briefState.note}</span>
+                <button
+                  type="button"
+                  onClick={undoBrief}
+                  className="inline-flex items-center gap-1 rounded-md px-1.5 py-1 font-medium text-foreground underline-offset-4 hover:underline"
+                >
+                  <Undo2 aria-hidden="true" className="size-3.5" />
+                  Undo
+                </button>
+              </p>
+            )}
+            {briefState.status === 'error' && (
+              <p role="alert" className="mt-2 text-xs text-destructive">
+                {briefState.message}
+              </p>
+            )}
             {text.length > 20000 && (
               <p role="alert" className="mt-2 text-xs text-destructive">
                 Keep the brief under 20,000 characters.
@@ -181,7 +290,11 @@ export function DocumentForm({
             )}
           </section>
 
-          <section className="step-in mt-8" style={{ '--i': 2 } as CSSProperties}>
+          <section
+            className="step-in mt-8"
+            style={{ '--i': 2 } as CSSProperties}
+            data-tour="create-instructions"
+          >
             <StepLabel n={2} title="Instructions" hint="Optional" />
             <Textarea
               aria-label="Generation instructions"
@@ -224,7 +337,11 @@ export function DocumentForm({
           </section>
 
           {projects.length > 0 && (
-            <div className="step-in mt-6 -mx-5" style={{ '--i': 3 } as CSSProperties}>
+            <div
+              className="step-in mt-6 -mx-5"
+              style={{ '--i': 3 } as CSSProperties}
+              data-tour="create-project"
+            >
               <Disclosure
                 title="Project"
                 icon={FolderOpen}
@@ -277,96 +394,115 @@ export function DocumentForm({
           style={{ '--i': 2 } as CSSProperties}
           aria-labelledby="template-heading"
           aria-busy={form.processing}
+          data-tour="create-layout"
         >
           <div id="template-heading">
-            <StepLabel n={3} title="Template" hint="Pick one to preview it" />
+            <StepLabel n={3} title="Layout" />
           </div>
-          {!templates.length && (
-            <p role="status" className="mb-3 text-xs text-muted-foreground">
-              Company templates are unavailable. Reload this page to try again, or write freeform.
-            </p>
-          )}
           <div
             role="radiogroup"
-            aria-label="Template"
-            className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-5"
+            aria-label="How to lay out this case study"
+            className="mb-4 grid gap-2 sm:grid-cols-2 xl:grid-cols-4"
           >
-            {choices.map((item) => (
+            {MODES.map((item) => (
               <label
                 key={item.id}
-                className="template-card group relative flex cursor-pointer flex-col items-center gap-2 rounded-2xl border bg-card p-2.5 pb-2 text-center has-[:checked]:border-foreground/70 has-[:checked]:shadow-md has-[:focus-visible]:ring-3 has-[:focus-visible]:ring-ring/40"
+                className="flex cursor-pointer flex-col gap-0.5 rounded-xl border bg-card px-3 py-2.5 has-[:checked]:border-foreground/70 has-[:checked]:shadow-sm has-[:focus-visible]:ring-3 has-[:focus-visible]:ring-ring/40"
               >
                 <input
                   type="radio"
-                  name="template"
+                  name="layout-mode"
                   value={item.id}
-                  checked={templateId === item.id}
-                  onChange={() => setTemplateId(item.id)}
+                  checked={mode === item.id}
+                  onChange={() => setMode(item.id)}
                   disabled={form.processing}
                   className="sr-only"
                 />
-                <span className="template-thumb rounded-[4px]">
-                  <PreviewThumb id={item.id} width={78} />
-                </span>
-                <span className="line-clamp-2 text-[11px] leading-4 font-semibold">
-                  {item.name}
-                </span>
+                <span className="text-sm font-semibold">{item.label}</span>
+                <span className="text-xs text-muted-foreground">{item.hint}</span>
               </label>
             ))}
           </div>
-
-          <div
-            className="preview-stage relative mt-4 h-[26rem] overflow-hidden rounded-3xl border bg-muted/40 text-foreground shadow-xs sm:h-[30rem]"
-            role="img"
-            aria-label={`Preview of the ${choice.name} template, ${spec.length}`}
-          >
-            <TemplatePreview id={choice.id} />
-          </div>
-
-          <div key={choice.id} className="step-in mt-4" style={{ '--i': 0 } as CSSProperties}>
-            <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
-              <div className="min-w-0 max-w-md">
-                <h3 className="text-base font-semibold tracking-tight">{choice.name}</h3>
-                <p className="mt-1 text-sm leading-6 text-muted-foreground">{choice.description}</p>
-              </div>
-              <dl className="flex items-center gap-4 text-xs text-muted-foreground">
-                <div>
-                  <dt className="sr-only">Colors</dt>
-                  <dd className="flex -space-x-1.5">
-                    {[
-                      spec.palette.primary,
-                      spec.palette.accent,
-                      spec.palette.surface,
-                      spec.palette.bg,
-                    ].map((color, i) => (
-                      <span
-                        key={i}
-                        title={color}
-                        className="size-5 rounded-full ring-2 ring-background"
-                        style={{ background: color, boxShadow: 'inset 0 0 0 1px rgb(0 0 0 / .12)' }}
-                      />
+          {mode === 'template' && (
+            <div
+              role="radiogroup"
+              aria-label="Brochure template"
+              className="step-in grid gap-3 sm:grid-cols-2"
+              style={{ '--i': 0 } as CSSProperties}
+            >
+              {BROCHURE_TEMPLATES.map((template) => (
+                <label
+                  key={template.id}
+                  className="flex cursor-pointer flex-col gap-3 rounded-2xl border bg-card p-3 has-[:checked]:border-foreground/70 has-[:checked]:shadow-md has-[:focus-visible]:ring-3 has-[:focus-visible]:ring-ring/40"
+                >
+                  <input
+                    type="radio"
+                    name="brochure-template"
+                    value={template.id}
+                    checked={selection.template === template.id}
+                    onChange={() => setSelection(templateSelection(template.id)!)}
+                    disabled={form.processing}
+                    className="sr-only"
+                  />
+                  <span className="flex gap-1.5 overflow-hidden" aria-hidden="true">
+                    {template.pages.slice(0, 9).map((design, i) => (
+                      <DesignThumb key={i} design={design} className="w-[2.6rem] shrink-0" />
                     ))}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="font-medium text-foreground">{spec.fontName}</dt>
-                  <dd>{spec.length}</dd>
-                </div>
-              </dl>
+                  </span>
+                  <span>
+                    <span className="block text-sm font-semibold">{template.label}</span>
+                    <span className="block text-xs text-muted-foreground">
+                      {template.description}
+                    </span>
+                  </span>
+                </label>
+              ))}
             </div>
-            {choice.headings.length > 0 && (
-              <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Sections it writes">
-                {choice.headings.map((heading) => (
-                  <li
-                    key={heading}
-                    className="rounded-full border bg-card px-2.5 py-1 text-[11px] leading-none text-muted-foreground"
-                  >
-                    {heading}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+          )}
+          {mode === 'pages' && (
+            <div className="step-in space-y-3" style={{ '--i': 0 } as CSSProperties}>
+              <p className="text-xs text-muted-foreground">
+                Pick a design for every page. The AI writes the content of each one, and can choose
+                the design of any page you leave to it.
+              </p>
+              <PageDesigner value={selection} onChange={setSelection} disabled={form.processing} />
+            </div>
+          )}
+          {mode === 'ai' && (
+            <p
+              className="step-in max-w-prose rounded-xl border bg-card p-4 text-sm leading-6"
+              style={{ '--i': 0 } as CSSProperties}
+            >
+              The AI reads your brief and sources, decides how many pages the brochure needs, picks
+              the page design that best fits each one, and writes the content. You can see and
+              change its choices in the editor afterwards.
+            </p>
+          )}
+          {mode === 'plain' && (
+            <div
+              className="step-in grid gap-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,16rem)]"
+              style={{ '--i': 0 } as CSSProperties}
+            >
+              <div className="max-w-prose rounded-xl border bg-card p-4 text-sm leading-6">
+                <p>
+                  A document of headings, paragraphs and lists, with citations to your sources. The
+                  AI writes it from your brief, and you edit it in the text editor. It has no page
+                  designs and exports as a simple PDF.
+                </p>
+                <p className="mt-2 text-muted-foreground">
+                  For designed pages you can move, resize and restyle, choose one of the other
+                  options: they open in the canvas.
+                </p>
+              </div>
+              <div
+                className="preview-stage relative h-72 overflow-hidden rounded-2xl border bg-muted/40 shadow-xs"
+                role="img"
+                aria-label="Preview of a plain text document"
+              >
+                <TemplatePreview id={FREEFORM} />
+              </div>
+            </div>
+          )}
         </section>
       </div>
 
@@ -389,9 +525,15 @@ export function DocumentForm({
               ? 'Creating your case study…'
               : !text.trim()
                 ? 'Add a brief to get started.'
-                : `${choice.name} · ${selected.length ? `${selected.length} sources` : 'brief only'} · ${instructions.trim() ? 'your instructions' : 'default instructions'}`}
+                : `${mode === 'plain' ? 'Plain text document' : mode === 'template' ? (BROCHURE_TEMPLATES.find((t) => t.id === selection.template)?.label ?? 'Brochure') : mode === 'pages' ? `${selection.pages.length} pages` : 'AI chooses'} · ${selected.length ? `${selected.length} sources` : 'brief only'} · ${instructions.trim() ? 'your instructions' : 'default instructions'}`}
           </p>
-          <Button type="button" size="lg" disabled={form.processing || !ready} onClick={generate}>
+          <Button
+            type="button"
+            size="lg"
+            disabled={form.processing || !ready}
+            onClick={generate}
+            data-tour="create-generate"
+          >
             {form.processing ? (
               <LoaderCircle aria-hidden="true" className="animate-spin" />
             ) : (

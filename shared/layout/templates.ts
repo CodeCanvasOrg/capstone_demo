@@ -1,4 +1,5 @@
 import { isSafeLink } from '../publication/client.ts'
+import { parseSelection, type BrochureSelection } from '../brochure/designs.ts'
 import { ENABLED_DOC_TYPES, type DocType } from '../publication/content.ts'
 
 /**
@@ -147,9 +148,25 @@ export function listTemplates({
   )
 }
 
+/**
+ * How the entry is styled. Absent means the classic design, so documents saved
+ * before this option existed render and hash exactly as they did. It is an
+ * option, not part of a template definition, so it never changes a frozen
+ * template's hash.
+ */
+export const LOOKS = ['classic', 'brochure'] as const
+export type Look = (typeof LOOKS)[number]
+
 export type LayoutOptions = {
   imageMode: 'auto' | 'with' | 'without'
   cta?: { label: string; href: string; headline?: string }
+  look?: Look
+  /**
+   * The page designs of a brochure entry, in order (`auto` pages are resolved by the
+   * model while it writes). Absent for entries that use the older layout templates,
+   * so documents saved before this option existed render and hash exactly as before.
+   */
+  brochure?: BrochureSelection
 }
 export type OptionError = { code: string; field: string; message: string }
 
@@ -162,7 +179,7 @@ export function resolveOptions(template: TemplateDefinition, input: unknown) {
       : {}
   const options: LayoutOptions = { imageMode: 'auto' }
   for (const key of Object.keys(raw))
-    if (!['imageMode', 'cta'].includes(key))
+    if (!['imageMode', 'cta', 'look', 'brochure'].includes(key))
       errors.push({ code: 'unknown_option', field: key, message: 'This option is not supported.' })
   if (raw.imageMode !== undefined) {
     if ((template.options.imageMode as readonly unknown[]).includes(raw.imageMode))
@@ -172,6 +189,22 @@ export function resolveOptions(template: TemplateDefinition, input: unknown) {
         code: 'invalid_option_value',
         field: 'imageMode',
         message: 'Choose auto, with or without images.',
+      })
+  }
+  if (raw.brochure !== undefined) {
+    const parsed = parseSelection(raw.brochure)
+    if (parsed.ok) options.brochure = parsed.selection
+    else errors.push({ code: 'invalid_option_value', field: 'brochure', message: parsed.message })
+  }
+  if (raw.look !== undefined) {
+    if ((LOOKS as readonly unknown[]).includes(raw.look)) {
+      // The classic look is the default; storing it would only change the hash.
+      if (raw.look !== 'classic') options.look = raw.look as Look
+    } else
+      errors.push({
+        code: 'invalid_option_value',
+        field: 'look',
+        message: 'Choose the classic or brochure look.',
       })
   }
   if (raw.cta !== undefined) {

@@ -1,0 +1,71 @@
+# Deploys main to production with the terraform/vercel stack:
+#   1. the same checks as pull requests (ci.yml)
+#   2. Railway worker   (railway up; its pre-deploy step runs the migrations)
+#   3. Vercel web       (vercel build + deploy --prebuilt --prod)
+# Infrastructure is not applied here: Terraform state is kept locally, so run `terraform apply`
+# in terraform/vercel yourself when the infrastructure or env vars change. The project/service
+# IDs below come from `terraform output` and are stored once as repository variables.
+# Git auto-deploys are off on both platforms (vercel.json "git.deploymentEnabled",
+# no source repo on the Railway service), so this workflow is the only path to production.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One production deploy at a time; a newer push waits rather than cancelling a half-applied one.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  checks:
+    uses: ./.github/workflows/ci.yml
+
+  deploy:
+    name: Deploy to production
+    needs: checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment:
+      name: production
+      url: ${{ steps.vercel.outputs.url }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # ------------------------------------------------------------ worker (Railway)
+      # Deployed before the web app so its pre-deploy migrations land first.
+      - name: Deploy worker to Railway
+        env:
+          RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+        run: |
+          npm install -g @railway/cli
+          railway link \
+            --project "${{ vars.RAILWAY_PROJECT_ID }}" \
+            --environment "${{ vars.RAILWAY_ENVIRONMENT_ID }}" \
+            --service "${{ vars.RAILWAY_SERVICE_ID }}"
+          railway up --ci \
+            --service "${{ vars.RAILWAY_SERVICE_ID }}" \
+            --environment "${{ vars.RAILWAY_ENVIRONMENT_ID }}"
+
+      # ------------------------------------------------------------ web (Vercel)
+      - uses: ./.github/actions/setup-node-bun
+
+      - name: Deploy web to Vercel
+        id: vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+        run: |
+          npm install -g vercel@latest
+          vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+          vercel build --prod --token="$VERCEL_TOKEN"
+          url=$(vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "Deployed $url" >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,161 @@
+# Checks every pull request. deploy.yml also calls this workflow, so main is never
+# deployed without passing the same checks.
+name: CI
+
+on:
+  pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-node-bun
+      - run: bun run lint
+
+  typecheck:
+    name: Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-node-bun
+      - run: bun run typecheck
+
+  test:
+    name: Tests (${{ matrix.suite }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [unit, functional, browser]
+
+    services:
+      postgres:
+        image: pgvector/pgvector:pg17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: capstone_tenancy_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+
+    # Values required by start/env.ts. Test-specific overrides (S3, session, OpenRouter key,
+    # generation format) come from the committed .env.test, so they are not repeated here.
+    env:
+      TZ: UTC
+      PORT: '3333'
+      HOST: localhost
+      LOG_LEVEL: warn
+      APP_NAME: CodeCanvas
+      APP_KEY: ci-only-app-key-not-a-secret-0000
+      APP_URL: http://localhost:3333
+      DB_HOST: 127.0.0.1
+      DB_PORT: '5432'
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_DATABASE: capstone_dev
+      # tests/bootstrap.ts refuses to run when these two are the same database.
+      DB_URL: postgres://postgres:postgres@127.0.0.1:5432/capstone_dev
+      # Functional test helpers refuse any database not named capstone_tenancy_test.
+      TEST_DB_URL: postgres://postgres:postgres@127.0.0.1:5432/capstone_tenancy_test
+      # Jobs must run inline: tests call TaskDispatchService.dispatch() and assert on the result.
+      # With redis they would only be enqueued, and no worker runs in this job.
+      QUEUE_DRIVER: sync
+      REDIS_HOST: 127.0.0.1
+      REDIS_PORT: '6379'
+      RAG_PIPELINE_VERSION: '2'
+      RAG_EMBEDDING_DIMENSIONS: '1024'
+      EMBEDDING_PROVIDER: openrouter
+      OPENROUTER_EMBEDDING_MODEL: perplexity/pplx-embed-v1-4b
+      MAIL_MAILER: smtp
+      MAIL_FROM_NAME: HumbleBeeAI
+      MAIL_FROM_ADDRESS: hello@example.test
+      SMTP_HOST: 127.0.0.1
+      SMTP_PORT: '1025'
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-node-bun
+
+      # The PyMuPDF extractor is the default outside production.
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: python/pdf_worker/uv.lock
+      - run: bun run python:setup
+
+      - name: Install Playwright Chromium
+        if: matrix.suite == 'browser'
+        run: npx --no-install playwright install --with-deps chromium
+
+      - name: Create the dev database DB_URL points at
+        run: psql "postgres://postgres:postgres@127.0.0.1:5432/postgres" -c 'CREATE DATABASE capstone_dev'
+
+      - name: Migrate the test database
+        run: node ace migration:run --force
+        env:
+          NODE_ENV: test
+
+      - run: node ace test ${{ matrix.suite }}
+
+  python:
+    name: Python PDF worker
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: python/pdf_worker/uv.lock
+      - run: uv sync --project python/pdf_worker --frozen
+      - run: uv run --project python/pdf_worker --frozen pytest -q python/pdf_worker/tests
+
+  build:
+    name: Build (app + worker image)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-node-bun
+      - name: Build the app
+        run: node ace build --ignore-ts-errors
+      # The image Railway builds for the queue worker.
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  terraform:
+    name: Terraform (fmt + validate)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform/vercel
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+      - run: terraform fmt -check -recursive
+      - run: terraform init -backend=false -input=false
+      - run: terraform validate

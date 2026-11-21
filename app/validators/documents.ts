@@ -30,6 +30,8 @@ export const documentValidator = vine.create({
   ...fields,
   // Optional steering for the model; an empty value falls back to the default instructions.
   instructions: vine.string().trim().maxLength(MAX_INSTRUCTIONS).nullable().optional(),
+  // The brochure's page designs; their exact shape is enforced by the layout options on the server.
+  brochure: vine.any().optional(),
   // Omitted titles are written by the model on the first successful generation.
   title: vine.string().trim().minLength(1).maxLength(255).optional(),
   files: vine

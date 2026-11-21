@@ -5,7 +5,10 @@ import DocumentService, { type DocumentInput } from '#services/documents/documen
 import GenerationService from '#services/documents/generation_service'
 import env from '#start/env'
 import OutlineTemplateService from '#services/documents/outline_template_service'
-import { BRANDED_TEMPLATE_ID } from '../../../shared/templates/outlines.ts'
+import DocumentLayout from '#models/document_layout'
+import { DEFAULT_TEMPLATE_ID } from '../../../shared/layout/templates.ts'
+import { pinLayout } from '#services/layout/layout_validation'
+import { BRANDED_TEMPLATE_ID, BROCHURE_TEMPLATE_ID } from '../../../shared/templates/outlines.ts'
 import { resolveInstructions } from '../../../shared/templates/instructions.ts'
 import { type WorkspaceAccessContext } from '#services/workspaces/access_service'
 export const PENDING_TITLE = 'Untitled case study'
@@ -19,11 +22,13 @@ export default class CreationService {
       title?: string
       templateId?: string | null
       instructions?: string | null
+      /** The brochure's page designs. With no selection the model chooses every page. */
+      brochure?: unknown
     },
     fileIds: string[],
     client?: TransactionClientContract
   ) {
-    const { instructions, ...input } = allInput
+    const { instructions, brochure, ...input } = allInput
     const create = async (trx: TransactionClientContract) => {
       const outline =
         input.templateId === null
@@ -47,6 +52,28 @@ export default class CreationService {
         },
       })
       await doc.save()
+      if (input.templateId === BROCHURE_TEMPLATE_ID) {
+        // Pinned in this transaction, so the generation requested below writes these pages.
+        const pinned = pinLayout({
+          templateId: DEFAULT_TEMPLATE_ID,
+          options: { brochure: brochure ?? { source: 'ai', pages: ['auto'] } },
+        })
+        await DocumentLayout.create(
+          {
+            documentId: doc.id,
+            workspaceId: context.workspaceId,
+            templateId: pinned.templateId,
+            templateVersion: pinned.templateVersion,
+            brandId: pinned.brandId,
+            brandVersion: pinned.brandVersion,
+            options: pinned.options,
+            presetId: null,
+            updatedBy: context.actorId,
+            revision: 1,
+          },
+          { client: trx }
+        )
+      }
       await new GenerationService().request(context, doc.id, randomUUID(), null, trx)
       return doc
     }

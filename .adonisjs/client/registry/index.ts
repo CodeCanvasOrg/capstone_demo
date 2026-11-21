@@ -54,6 +54,42 @@ const routes = {
     tokens: [{"old":"/logout","type":0,"val":"logout","end":""}],
     types: placeholder as Registry['session.destroy']['types'],
   },
+  'settings.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/settings',
+    tokens: [{"old":"/settings","type":0,"val":"settings","end":""}],
+    types: placeholder as Registry['settings.show']['types'],
+  },
+  'settings.profile': {
+    methods: ["PATCH"],
+    pattern: '/settings/profile',
+    tokens: [{"old":"/settings/profile","type":0,"val":"settings","end":""},{"old":"/settings/profile","type":0,"val":"profile","end":""}],
+    types: placeholder as Registry['settings.profile']['types'],
+  },
+  'settings.preferences': {
+    methods: ["PATCH"],
+    pattern: '/settings/preferences',
+    tokens: [{"old":"/settings/preferences","type":0,"val":"settings","end":""},{"old":"/settings/preferences","type":0,"val":"preferences","end":""}],
+    types: placeholder as Registry['settings.preferences']['types'],
+  },
+  'settings.password': {
+    methods: ["PUT"],
+    pattern: '/settings/password',
+    tokens: [{"old":"/settings/password","type":0,"val":"settings","end":""},{"old":"/settings/password","type":0,"val":"password","end":""}],
+    types: placeholder as Registry['settings.password']['types'],
+  },
+  'settings.credentials.store': {
+    methods: ["PUT"],
+    pattern: '/settings/credentials/:kind/:provider',
+    tokens: [{"old":"/settings/credentials/:kind/:provider","type":0,"val":"settings","end":""},{"old":"/settings/credentials/:kind/:provider","type":0,"val":"credentials","end":""},{"old":"/settings/credentials/:kind/:provider","type":1,"val":"kind","end":""},{"old":"/settings/credentials/:kind/:provider","type":1,"val":"provider","end":""}],
+    types: placeholder as Registry['settings.credentials.store']['types'],
+  },
+  'settings.credentials.destroy': {
+    methods: ["DELETE"],
+    pattern: '/settings/credentials/:kind/:provider',
+    tokens: [{"old":"/settings/credentials/:kind/:provider","type":0,"val":"settings","end":""},{"old":"/settings/credentials/:kind/:provider","type":0,"val":"credentials","end":""},{"old":"/settings/credentials/:kind/:provider","type":1,"val":"kind","end":""},{"old":"/settings/credentials/:kind/:provider","type":1,"val":"provider","end":""}],
+    types: placeholder as Registry['settings.credentials.destroy']['types'],
+  },
   'workspaces.index': {
     methods: ["GET","HEAD"],
     pattern: '/workspaces',
@@ -131,6 +167,12 @@ const routes = {
     pattern: '/workspaces/:workspaceId/documents/:documentId/preview',
     tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/preview","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview","type":0,"val":"preview","end":""}],
     types: placeholder as Registry['documentPreview.show']['types'],
+  },
+  'documentPreview.web': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/preview/web',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/preview/web","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview/web","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview/web","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview/web","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview/web","type":0,"val":"preview","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/preview/web","type":0,"val":"web","end":""}],
+    types: placeholder as Registry['documentPreview.web']['types'],
   },
   'templates.index': {
     methods: ["GET","HEAD"],
@@ -216,6 +258,12 @@ const routes = {
     tokens: [{"old":"/workspaces/:workspaceId/collections/:collectionId","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId","type":0,"val":"collections","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId","type":1,"val":"collectionId","end":""}],
     types: placeholder as Registry['collections.update']['types'],
   },
+  'collections.arrange': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/collections/:collectionId/arrange',
+    tokens: [{"old":"/workspaces/:workspaceId/collections/:collectionId/arrange","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/arrange","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/arrange","type":0,"val":"collections","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/arrange","type":1,"val":"collectionId","end":""},{"old":"/workspaces/:workspaceId/collections/:collectionId/arrange","type":0,"val":"arrange","end":""}],
+    types: placeholder as Registry['collections.arrange']['types'],
+  },
   'collections.approve': {
     methods: ["POST"],
     pattern: '/workspaces/:workspaceId/collections/:collectionId/approval',
@@ -294,6 +342,12 @@ const routes = {
     tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/exports/pdf","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/pdf","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/pdf","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/pdf","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/pdf","type":0,"val":"exports","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/pdf","type":0,"val":"pdf","end":""}],
     types: placeholder as Registry['exportPdfs.store']['types'],
   },
+  'exportPdfs.web': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/exports/web',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/exports/web","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/web","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/web","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/web","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/web","type":0,"val":"exports","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/exports/web","type":0,"val":"web","end":""}],
+    types: placeholder as Registry['exportPdfs.web']['types'],
+  },
   'exportPdfs.download': {
     methods: ["GET","HEAD"],
     pattern: '/workspaces/:workspaceId/documents/:documentId/exports/:taskId/download',
@@ -342,6 +396,12 @@ const routes = {
     tokens: [{"old":"/workspaces/:workspaceId/documents/:id","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:id","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:id","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:id","type":1,"val":"id","end":""}],
     types: placeholder as Registry['documents.destroy']['types'],
   },
+  'briefs.store': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/briefs',
+    tokens: [{"old":"/workspaces/:workspaceId/briefs","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/briefs","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/briefs","type":0,"val":"briefs","end":""}],
+    types: placeholder as Registry['briefs.store']['types'],
+  },
   'documentImages.store': {
     methods: ["POST"],
     pattern: '/workspaces/:workspaceId/documents/:documentId/images',
@@ -353,6 +413,42 @@ const routes = {
     pattern: '/workspaces/:workspaceId/documents/:documentId/images/:imageId',
     tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":0,"val":"images","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":1,"val":"imageId","end":""}],
     types: placeholder as Registry['documentImages.show']['types'],
+  },
+  'documentCanvases.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas","type":0,"val":"canvas","end":""}],
+    types: placeholder as Registry['documentCanvases.show']['types'],
+  },
+  'documentCanvases.project': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/project',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/project","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/project","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/project","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/project","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/project","type":0,"val":"canvas","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/project","type":0,"val":"project","end":""}],
+    types: placeholder as Registry['documentCanvases.project']['types'],
+  },
+  'documentCanvases.enable': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/enable',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/enable","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/enable","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/enable","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/enable","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/enable","type":0,"val":"canvas","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/enable","type":0,"val":"enable","end":""}],
+    types: placeholder as Registry['documentCanvases.enable']['types'],
+  },
+  'documentCanvases.disable': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/disable',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/disable","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/disable","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/disable","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/disable","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/disable","type":0,"val":"canvas","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/disable","type":0,"val":"disable","end":""}],
+    types: placeholder as Registry['documentCanvases.disable']['types'],
+  },
+  'documentCanvases.draft': {
+    methods: ["PUT"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/draft',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/draft","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/draft","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/draft","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/draft","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/draft","type":0,"val":"canvas","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/draft","type":0,"val":"draft","end":""}],
+    types: placeholder as Registry['documentCanvases.draft']['types'],
+  },
+  'documentCanvases.save': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/versions',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/versions","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/versions","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/versions","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/versions","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/versions","type":0,"val":"canvas","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/versions","type":0,"val":"versions","end":""}],
+    types: placeholder as Registry['documentCanvases.save']['types'],
   },
   'documentVersions.store': {
     methods: ["POST"],

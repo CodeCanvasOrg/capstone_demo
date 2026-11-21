@@ -2,6 +2,7 @@ import { createHash, randomUUID } from 'node:crypto'
 import { mkdir } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 import path from 'node:path'
+import os from 'node:os'
 import type Stream from 'node:stream'
 
 import drive from '@adonisjs/drive/services/main'
@@ -621,7 +622,10 @@ export default class FileService {
   }
 
   private static async createOcrWorker() {
-    const cachePath = app.tmpPath('tesseract')
+    // The app directory is read-only on Vercel; only the OS temp dir is writable there.
+    const cachePath = process.env.VERCEL
+      ? path.join(os.tmpdir(), 'tesseract')
+      : app.tmpPath('tesseract')
     await mkdir(cachePath, { recursive: true })
 
     return createWorker('eng', undefined, {

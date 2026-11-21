@@ -1,3 +1,4 @@
+import { editorContent, storedContent } from '@/lib/editor_content'
 import { useEffect, useRef, useState } from 'react'
 import type { Editor, JSONContent } from '@tiptap/react'
 import { ArrowUp, LoaderCircle, Undo2, X } from 'lucide-react'
@@ -52,13 +53,13 @@ export function ChangeRequest({
       const result = await api<Revision>(
         urlFor('documentRevisions.store', { workspaceId, documentId }),
         'POST',
-        { content: editor.getJSON(), instruction: request },
+        { content: storedContent(editor), instruction: request },
         controller.current.signal
       )
       if (!result.data?.content) throw new Error('Unexpected revision response')
       if (result.data.changed) {
         // Emitting the update lets the editor autosave it as a normal version.
-        editor.commands.setContent(result.data.content)
+        editor.commands.setContent(editorContent(editor, result.data.content))
         setCanUndo(true)
       }
       setSummary(result.data.changed ? result.data.summary : 'No change was needed.')

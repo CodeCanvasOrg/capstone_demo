@@ -20,6 +20,12 @@ export class ApiError extends Error {
 }
 
 const knownMessages: Record<string, string> = {
+  'That address is already used by another account.':
+    'That address is already used by another account.',
+  'Your current password is incorrect.': 'Your current password is incorrect.',
+  "This doesn't look like a valid key for this provider.":
+    "This doesn't look like a valid key for this provider.",
+  'One of the preferences is not valid.': 'One of the preferences is not valid.',
   'The layout selection changed. Reload it and try again.':
     'The layout was changed elsewhere. Reload it before saving.',
   'The content, layout or brand changed after approval. Review and approve again.':

@@ -11,7 +11,7 @@ Uploads display pending/error states and retain file and description on failure.
 Cancel aborts the client request. Pending uploads participate in unsaved-change
 tracking. Generation/reveal/conflict state disables new insertion.
 
-The existing `supabase` Drive disk is S3-compatible. Images use the configured
+The existing `s3` Drive disk (local Adobe S3Mock) is S3-compatible. Images use the configured
 S3 credentials/bucket and a document-scoped object key with private visibility.
 Application URLs authorize every read. No public/signed bucket URL or object key
 is returned to the client. The new `document_images` table is applied to local

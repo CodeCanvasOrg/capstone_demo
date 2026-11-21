@@ -39,14 +39,6 @@ export default await Env.create(new URL('../', import.meta.url), {
   DB_URL: Env.schema.string(),
   TEST_DB_URL: Env.schema.string.optional(),
 
-  /*
-  |----------------------------------------------------------
-  | Variables for configuring ally package
-  |----------------------------------------------------------
-  */
-  GOOGLE_CLIENT_ID: Env.schema.string(),
-  GOOGLE_CLIENT_SECRET: Env.schema.string(),
-
   // Open Router API key
   OPENROUTER_API_KEY: Env.schema.secret(),
   OPENROUTER_BASE_URL: Env.schema.string.optional({ format: 'url', tld: false }),
@@ -59,12 +51,12 @@ export default await Env.create(new URL('../', import.meta.url), {
   | Variables for configuring the drive package
   |----------------------------------------------------------
   */
-  DRIVE_DISK: Env.schema.enum(['supabase'] as const),
-  SUPABASE_STORAGE_KEY: Env.schema.string(),
-  SUPABASE_STORAGE_SECRET: Env.schema.string(),
-  SUPABASE_STORAGE_REGION: Env.schema.string(),
-  SUPABASE_STORAGE_BUCKET: Env.schema.string(),
-  SUPABASE_ENDPOINT: Env.schema.string(),
+  DRIVE_DISK: Env.schema.enum(['s3'] as const),
+  S3_ACCESS_KEY_ID: Env.schema.string(),
+  S3_SECRET_ACCESS_KEY: Env.schema.string(),
+  S3_REGION: Env.schema.string(),
+  S3_BUCKET: Env.schema.string(),
+  S3_ENDPOINT: Env.schema.string(),
 
   /*
   |----------------------------------------------------------
@@ -76,12 +68,15 @@ export default await Env.create(new URL('../', import.meta.url), {
   REDIS_HOST: Env.schema.string({ format: 'host' }),
   REDIS_PORT: Env.schema.number(),
   REDIS_PASSWORD: Env.schema.secret.optional(),
+  REDIS_TLS: Env.schema.boolean.optional(),
 
   RAG_PIPELINE_VERSION: Env.schema.string(),
   RAG_EMBEDDING_DIMENSIONS: Env.schema.number(),
 
   GENERATION_FORMAT: Env.schema.enum.optional(['branded', 'legacy'] as const),
   PUBLICATION_LAYOUT: Env.schema.enum.optional(['pilot', 'templates'] as const),
+  /** Canvas editor for brochure layouts; off unless `pilot`. */
+  CANVAS_EDITOR: Env.schema.enum.optional(['pilot'] as const),
 
   // PDF extraction worker (see config/pdf_worker.ts)
   PDF_EXTRACTOR: Env.schema.enum.optional(['pymupdf', 'pdf-parse'] as const),

@@ -39,7 +39,7 @@ export default function Show({
       <header className="flex items-start justify-between gap-4">
         <div className="min-w-0">
           <FolderOpen className="mb-4 size-6 text-muted-foreground" />
-          <h1 className="break-words text-2xl font-semibold tracking-tight">{project.name}</h1>
+          <h1 className="page-title break-words text-2xl">{project.name}</h1>
         </div>
         <ProjectDialog project={project} />
       </header>

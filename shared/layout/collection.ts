@@ -1,4 +1,15 @@
 import { hashOf } from './hash.ts'
+import {
+  CONTENTS_ROWS_PER_PAGE,
+  groupEntries,
+  planPages,
+  reconcileDesign,
+  rulesDesign,
+  type PortfolioDesign,
+  type Stat,
+} from './portfolio.ts'
+
+export { CONTENTS_ROWS_PER_PAGE }
 
 /**
  * Portfolio collection manifest, budget and contents (PRT-01/02/03). A manifest
@@ -17,6 +28,12 @@ export type CollectionEntry = {
   pages: number
   /** Private evidence identities, used only for deduplicated statistics. */
   evidenceKeys: string[]
+  /**
+   * Headline figures taken from the entry's own results when it was pinned, so
+   * a highlights page can show them without reading the entry again. Absent
+   * when the entry has none.
+   */
+  stats?: Stat[]
 }
 
 export type Wrapper = {
@@ -31,6 +48,11 @@ export type Manifest = {
   brand: { id: string; version: number }
   wrapper: Wrapper
   entries: CollectionEntry[]
+  /**
+   * The page-by-page design. Absent means the classic arrangement, so a
+   * collection made before designs existed keeps its meaning and its hash.
+   */
+  design?: PortfolioDesign
 }
 
 export const buildManifest = (input: {
@@ -38,30 +60,28 @@ export const buildManifest = (input: {
   entries: CollectionEntry[]
   wrapper: Wrapper
   brand: { id: string; version: number }
+  design?: PortfolioDesign
 }): Manifest => ({
   version: 1,
   ...(input.name ? { name: input.name } : {}),
   brand: { ...input.brand },
   wrapper: structuredClone(input.wrapper),
   entries: input.entries.map((entry) => ({ ...entry })),
+  ...(input.design ? { design: structuredClone(input.design) } : {}),
 })
+
+/** The design a manifest renders: its own, or the classic arrangement. */
+export const effectiveDesign = (
+  manifest: Pick<Manifest, 'design' | 'wrapper'>,
+  entries: CollectionEntry[]
+): PortfolioDesign =>
+  manifest.design
+    ? reconcileDesign(manifest.design, entries, manifest.wrapper)
+    : rulesDesign(entries, manifest.wrapper, 'classic', 'rules')
 
 export const manifestHash = (manifest: Manifest) => hashOf(manifest)
 
-/** Contents rows per page, counting category headings as rows. */
-export const CONTENTS_ROWS_PER_PAGE = 32
-
 type Row = { entryId: string; title: string; category: string; page: number }
-
-const grouped = (entries: CollectionEntry[]) => {
-  const groups = new Map<string, CollectionEntry[]>()
-  for (const entry of entries)
-    groups.set(entry.category, [...(groups.get(entry.category) ?? []), entry])
-  return groups
-}
-
-const contentsPagesFor = (entries: CollectionEntry[]) =>
-  Math.max(1, Math.ceil((entries.length + grouped(entries).size) / CONTENTS_ROWS_PER_PAGE))
 
 /**
  * Category-aware contents with real page numbers. The contents page count
@@ -70,31 +90,32 @@ const contentsPagesFor = (entries: CollectionEntry[]) =>
  */
 export function composeContents(
   entries: CollectionEntry[],
-  { maxPasses = 5, about = true }: { maxPasses?: number; about?: boolean } = {}
+  {
+    maxPasses = 5,
+    about = true,
+    design,
+  }: { maxPasses?: number; about?: boolean; design?: PortfolioDesign } = {}
 ) {
-  const groups = grouped(entries)
-  const ordered = [...groups.values()].flat()
+  const groups = groupEntries(entries)
+  const used =
+    design ?? rulesDesign(entries, { about: about ? 'x' : undefined }, 'classic', 'rules')
+  const plan = planPages(used, entries)
+  // A design without a contents page needs none, which settles like a one-page contents.
+  const needed = plan.contentsPages || 1
   let contentsPages = 1
   let converged = false
   for (let pass = 0; pass < maxPasses; pass++) {
-    const needed = contentsPagesFor(entries)
     if (needed === contentsPages) {
       converged = true
       break
     }
     contentsPages = needed
   }
-  const rows: Row[] = []
-  // Cover, optional about page, contents, then entries.
-  let page = 1 + (about ? 1 : 0) + contentsPages + 1
-  for (const entry of ordered) {
-    rows.push({ entryId: entry.entryId, title: entry.title, category: entry.category, page })
-    page += entry.pages
-  }
+  const rows: Row[] = plan.rows
   return {
     rows,
     converged,
-    contentsPages,
+    contentsPages: plan.contentsPages,
     groups: [...groups].map(([category, items]) => ({
       category,
       entryIds: items.map((item) => item.entryId),
@@ -119,8 +140,8 @@ export function collectionBudget(manifest: Manifest, { target }: { target?: numb
       overBy: 0,
       suggestions: [] as BudgetSuggestion[],
     }
-  const hasAbout = !!manifest.wrapper.about
-  const wrapperFor = (list: CollectionEntry[]) => 2 + (hasAbout ? 1 : 0) + contentsPagesFor(list)
+  const planFor = (list: CollectionEntry[]) => planPages(effectiveDesign(manifest, list), list)
+  const wrapperFor = (list: CollectionEntry[]) => planFor(list).wrapperPages
   const entryPages = entries.reduce((sum, entry) => sum + entry.pages, 0)
   const wrapperPages = wrapperFor(entries)
   const total = wrapperPages + entryPages
@@ -148,7 +169,7 @@ export function collectionBudget(manifest: Manifest, { target }: { target?: numb
   }
   return {
     wrapperPages,
-    contentsPages: contentsPagesFor(entries),
+    contentsPages: planFor(entries).contentsPages,
     entryPages,
     total,
     over,

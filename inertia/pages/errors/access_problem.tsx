@@ -6,7 +6,7 @@ export default function AccessProblem({ status = 404 }: { status?: number }) {
     <section className="mx-auto max-w-lg px-6 py-24">
       <Head title="Access unavailable" />
       <p className="eyebrow">{status} / Access unavailable</p>
-      <h1 className="mt-4 text-3xl font-semibold tracking-tight">This link is unavailable.</h1>
+      <h1 className="page-title mt-4 text-3xl">This link is unavailable.</h1>
       <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
         {status === 410
           ? 'This link expired or was revoked. Request a new invitation.'

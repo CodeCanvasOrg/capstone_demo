@@ -2,7 +2,7 @@ import { useWorkspaceId, useUnsavedChanges } from '@/providers/workspace_provide
 import { router } from '@inertiajs/react'
 import { EditorContent, type JSONContent, useEditor } from '@tiptap/react'
 import Placeholder from '@tiptap/extension-placeholder'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   Save,
   Download,
@@ -40,6 +40,9 @@ import { DocumentImageUpload } from '@/components/documents/image_upload'
 import { ContentValidation } from '@/components/documents/content_validation'
 import { ChangeRequest } from '@/components/documents/change_request'
 import { writingReveal } from '../../../shared/writing_reveal.ts'
+import { BrochurePage } from '@/components/extensions/brochure_page'
+import { storedContent } from '@/lib/editor_content'
+import { toPaged } from '../../../shared/brochure/paged.ts'
 const EMPTY = { type: 'doc', content: [{ type: 'paragraph' }] }
 const palette = getBrandKit('humblebee')!.palette
 /** Brand tokens for the page view come from the same kit the PDF uses. */
@@ -56,14 +59,48 @@ const extensions = [
   Placeholder.configure({ placeholder: 'Tell the story of the work…' }),
 ]
 type Pending = { content: JSONContent; baseVersionId: string | null; mutationId: string }
-export default function DocumentEditor({
+type LayoutSelection = { templateId: string; revision: number; options: unknown }
+type LayoutData = {
+  selection: LayoutSelection
+  catalog: { templates: { id: string; title: string; pageBudget: number }[] }
+}
+const brochureOf = (selection?: LayoutSelection | null) =>
+  !!(selection?.options as { brochure?: unknown } | null | undefined)?.brochure
+
+/** The editor's schema depends on the layout (a brochure is edited as pages), so wait for it. */
+export default function DocumentEditor(props: Parameters<typeof EditorBody>[0]) {
+  const workspaceId = useWorkspaceId()
+  const [initial, setInitial] = useState<LayoutData | null | undefined>(undefined)
+  useEffect(() => {
+    let live = true
+    api<{ data: LayoutData }>(
+      `${urlFor('documentLayouts.show', { workspaceId, documentId: props.documentId })}?report=0`
+    )
+      .then(({ data }) => live && setInitial(data))
+      .catch(() => live && setInitial(null))
+    return () => {
+      live = false
+    }
+  }, [workspaceId, props.documentId])
+  if (initial === undefined)
+    return (
+      <div role="status" className="p-10 text-sm text-muted-foreground">
+        Loading editor…
+      </div>
+    )
+  return <EditorBody {...props} initialLayout={initial} />
+}
+
+function EditorBody({
   documentId,
   initialContent,
   baseVersionId,
   onDirtyChange,
   generationStatus,
   title,
+  initialLayout,
 }: {
+  initialLayout?: LayoutData | null
   documentId: string
   initialContent: JSONContent | null
   baseVersionId: string | null
@@ -105,16 +142,28 @@ export default function DocumentEditor({
   const [pages] = useState<{ budget?: number }>(() => ({}))
   const [stats, setStats] = useState<PageStats | null>(null)
   const [layouts, setLayouts] = useState<LayoutChoice[]>([])
-  const [layout, setLayout] = useState<{
-    templateId: string
-    revision: number
-    options: unknown
-  } | null>(null)
+  const [layout, setLayout] = useState<LayoutSelection | null>(initialLayout?.selection ?? null)
+  // A brochure is edited as one sheet per page; fixed for the life of this editor.
+  const [paged] = useState(() => brochureOf(initialLayout?.selection))
+  const [designs] = useState<{ list: readonly string[] }>(() => ({
+    list:
+      (initialLayout?.selection.options as { brochure?: { pages: string[] } } | null)?.brochure
+        ?.pages ?? [],
+  }))
   const [prefill, setPrefill] = useState('')
-  const [pageExtensions] = useState(() => [
-    ...extensions,
-    LayoutView.configure({ getBudget: () => pages.budget }),
-  ])
+  const brochure = !!(layout?.options as { brochure?: unknown } | null | undefined)?.brochure
+  const [pageExtensions] = useState(() =>
+    paged
+      ? [
+          ...documentExtensions({
+            sourceCitation: SourceCitation,
+            image: ImageExtension,
+            page: BrochurePage.configure({ getDesigns: () => designs.list }),
+          }),
+          Placeholder.configure({ placeholder: 'Write this page…' }),
+        ]
+      : [...extensions, LayoutView.configure({ getBudget: () => pages.budget })]
+  )
   useEffect(() => {
     const load = () =>
       api<{
@@ -129,6 +178,10 @@ export default function DocumentEditor({
           )?.pageBudget
           setLayouts(data.catalog.templates)
           setLayout(data.selection)
+          designs.list =
+            (data.selection.options as { brochure?: { pages: string[] } } | null)?.brochure
+              ?.pages ?? []
+          window.dispatchEvent(new Event('brochure-designs'))
           window.dispatchEvent(new Event('layout-budget'))
         })
         .catch(() => {})
@@ -140,7 +193,7 @@ export default function DocumentEditor({
       window.removeEventListener('layout-changed', load)
       window.removeEventListener('layout-stats', onStats)
     }
-  }, [workspaceId, documentId, pages])
+  }, [workspaceId, documentId, pages, designs])
   async function switchLayout(templateId: string) {
     if (!layout || templateId === layout.templateId) return
     try {
@@ -156,9 +209,10 @@ export default function DocumentEditor({
       setFailure(feedbackError(reason))
     }
   }
+  const wrap = useCallback((content: JSONContent) => (paged ? toPaged(content) : content), [paged])
   const editor = useEditor({
     extensions: pageExtensions,
-    content: initialContent ?? EMPTY,
+    content: wrap(initialContent ?? EMPTY),
     immediatelyRender: false,
     // Without this Tiptap silently drops what the schema rejects, and the next
     // autosave would persist the lossy copy over the stored document.
@@ -202,7 +256,7 @@ export default function DocumentEditor({
       setError('')
       setFailure(null)
       const intent = pending.current ?? {
-        content: editor.getJSON(),
+        content: storedContent(editor),
         baseVersionId: base.current,
         mutationId: crypto.randomUUID(),
       }
@@ -216,7 +270,7 @@ export default function DocumentEditor({
         accepted.current.add(result.data.version.id)
         pending.current = null
         setNeedsReview(result.data.publication?.needsReview ?? 0)
-        changed.current = JSON.stringify(editor.getJSON()) !== JSON.stringify(intent.content)
+        changed.current = JSON.stringify(storedContent(editor)) !== JSON.stringify(intent.content)
         setDirty(changed.current)
         router.reload({ only: ['document', 'workflow', 'recentDocuments'] })
         if (changed.current) timer.current = setTimeout(() => void saveRef.current(), 1000)
@@ -256,7 +310,7 @@ export default function DocumentEditor({
     }
     base.current = baseVersionId
     if (frame.current !== null) cancelAnimationFrame(frame.current)
-    const content = initialContent ?? EMPTY
+    const content = wrap(initialContent ?? EMPTY)
     if (
       waitingForGeneration.current &&
       baseVersionId &&
@@ -279,7 +333,11 @@ export default function DocumentEditor({
           .run()
         setWriting(false)
       }
-      editor.chain().setContent(EMPTY, { emitUpdate: false }).setMeta('addToHistory', false).run()
+      editor
+        .chain()
+        .setContent(wrap(EMPTY), { emitUpdate: false })
+        .setMeta('addToHistory', false)
+        .run()
       const reveal = (now: number) => {
         const progress = Math.min(1, (now - start) / duration)
         if (progress === 1) {
@@ -299,7 +357,7 @@ export default function DocumentEditor({
       setWriting(false)
       editor.chain().setContent(content, { emitUpdate: false }).setMeta('addToHistory', false).run()
     }
-  }, [baseVersionId, initialContent, editor])
+  }, [baseVersionId, initialContent, editor, wrap])
   useEffect(() => {
     mounted.current = true
     return () => {
@@ -320,7 +378,7 @@ export default function DocumentEditor({
   function downloadLocal() {
     if (!editor) return
     const url = URL.createObjectURL(
-      new Blob([JSON.stringify(editor.getJSON(), null, 2)], { type: 'application/json' })
+      new Blob([JSON.stringify(storedContent(editor), null, 2)], { type: 'application/json' })
     )
     const link = document.createElement('a')
     link.href = url
@@ -334,7 +392,7 @@ export default function DocumentEditor({
     pending.current = null
     changed.current = false
     base.current = baseVersionId
-    editor?.commands.setContent(initialContent ?? EMPTY, { emitUpdate: false })
+    editor?.commands.setContent(wrap(initialContent ?? EMPTY), { emitUpdate: false })
     setDirty(false)
     setError('')
     setFailure(null)
@@ -449,12 +507,12 @@ export default function DocumentEditor({
       )}
       <div className="min-h-[85vh] bg-background px-3 py-6 sm:px-7 sm:py-10">
         <div
-          className="document-canvas page-view tiptap-editor mx-auto"
+          className={`document-canvas ${paged ? 'brochure-view' : brochure ? '' : 'page-view'} tiptap-editor mx-auto`}
           style={brandVars}
           aria-busy={writing || generationStatus === 'processing'}
         >
           <div className="mb-10 flex items-center justify-between gap-4 text-[.625rem] font-semibold tracking-widest text-muted-foreground uppercase">
-            <span>Case study</span>
+            <span>{brochure ? 'Brochure' : 'Case study'}</span>
             <span role="status">
               {generationStatus === 'checking_issues'
                 ? 'Loading issues…'
@@ -463,20 +521,28 @@ export default function DocumentEditor({
                   : 'First draft'}
             </span>
           </div>
-          <PageStatus
-            stats={stats}
-            layouts={layouts}
-            selected={layout?.templateId ?? ''}
-            disabled={writing || generationStatus === 'processing' || revising}
-            onSwitch={(id) => void switchLayout(id)}
-            onShorten={(lines) => {
-              setPrefill(shortenRequest(pages.budget ?? 1, lines))
-              setAsking(true)
-            }}
-          />
+          {brochure && (
+            <p className="mb-8 max-w-prose text-xs leading-5 text-muted-foreground">
+              Each sheet is one page. Edit the text right on the page; change a page&apos;s design
+              under Layout and branding and the text stays the same.
+            </p>
+          )}
+          {!brochure && (
+            <PageStatus
+              stats={stats}
+              layouts={layouts}
+              selected={layout?.templateId ?? ''}
+              disabled={writing || generationStatus === 'processing' || revising}
+              onSwitch={(id) => void switchLayout(id)}
+              onShorten={(lines) => {
+                setPrefill(shortenRequest(pages.budget ?? 1, lines))
+                setAsking(true)
+              }}
+            />
+          )}
           {!baseVersionId && (
             <div className="mb-8">
-              <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h1>
+              <h1 className="page-title text-3xl sm:text-4xl">{title}</h1>
               <p className="mt-5 text-sm leading-6 text-muted-foreground">
                 {generationStatus === 'processing'
                   ? 'We’re preparing your story. Your draft will appear here.'

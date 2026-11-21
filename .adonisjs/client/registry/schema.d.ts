@@ -103,6 +103,78 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/session_controller').default['destroy']>>>
     }
   }
+  'settings.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/settings'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['show']>>>
+    }
+  }
+  'settings.profile': {
+    methods: ["PATCH"]
+    pattern: '/settings/profile'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/settings').profileValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/settings').profileValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['profile']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['profile']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'settings.preferences': {
+    methods: ["PATCH"]
+    pattern: '/settings/preferences'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['preferences']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['preferences']>>>
+    }
+  }
+  'settings.password': {
+    methods: ["PUT"]
+    pattern: '/settings/password'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/settings').passwordValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/settings').passwordValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['password']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['password']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'settings.credentials.store': {
+    methods: ["PUT"]
+    pattern: '/settings/credentials/:kind/:provider'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/settings').credentialValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { kind: ParamValue; provider: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/settings').credentialValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['storeCredential']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['storeCredential']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'settings.credentials.destroy': {
+    methods: ["DELETE"]
+    pattern: '/settings/credentials/:kind/:provider'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { kind: ParamValue; provider: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['destroyCredential']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['destroyCredential']>>>
+    }
+  }
   'workspaces.index': {
     methods: ["GET","HEAD"]
     pattern: '/workspaces'
@@ -257,6 +329,18 @@ export interface Registry {
       query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['htmlPreview']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['htmlPreview']>>>
+    }
+  }
+  'documentPreview.web': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/preview/web'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['webPreview']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['webPreview']>>>
     }
   }
   'templates.index': {
@@ -427,6 +511,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'collections.arrange': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/collections/:collectionId/arrange'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/layout').collectionBudgetValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; collectionId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/layout').collectionBudgetValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['arrange']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/collections_controller').default['arrange']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'collections.approve': {
     methods: ["POST"]
     pattern: '/workspaces/:workspaceId/collections/:collectionId/approval'
@@ -575,12 +671,24 @@ export interface Registry {
     methods: ["POST"]
     pattern: '/workspaces/:workspaceId/documents/:documentId/exports/pdf'
     types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/document_review').exportValidator)>>
+      body: {}
       paramsTuple: [ParamValue, ParamValue]
       params: { workspaceId: ParamValue; documentId: ParamValue }
-      query: ExtractQuery<InferInput<(typeof import('#validators/document_review').exportValidator)>>
+      query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['handle']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['handle']>>>
+    }
+  }
+  'exportPdfs.web': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/exports/web'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['web']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/export_pdfs_controller').default['web']>>>
     }
   }
   'exportPdfs.download': {
@@ -679,6 +787,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/documents_controller').default['destroy']>>>
     }
   }
+  'briefs.store': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/briefs'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/brief').briefValidator)>>
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/brief').briefValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/briefs_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/briefs_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'documentImages.store': {
     methods: ["POST"]
     pattern: '/workspaces/:workspaceId/documents/:documentId/images'
@@ -701,6 +821,78 @@ export interface Registry {
       query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_images_controller').default['show']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_images_controller').default['show']>>>
+    }
+  }
+  'documentCanvases.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['show']>>>
+    }
+  }
+  'documentCanvases.project': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/project'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['project']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['project']>>>
+    }
+  }
+  'documentCanvases.enable': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/enable'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/canvas').canvasEnableValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/canvas').canvasEnableValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['enable']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['enable']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'documentCanvases.disable': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/disable'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['disable']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['disable']>>>
+    }
+  }
+  'documentCanvases.draft': {
+    methods: ["PUT"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/draft'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/canvas').canvasDraftValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/canvas').canvasDraftValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['draft']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['draft']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'documentCanvases.save': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/versions'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/canvas').canvasSaveValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/canvas').canvasSaveValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['save']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['save']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'documentVersions.store': {

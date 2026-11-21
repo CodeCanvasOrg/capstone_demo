@@ -5,7 +5,9 @@
 
 export const controllers = {
   Assets: () => import('#controllers/assets_controller'),
+  Briefs: () => import('#controllers/briefs_controller'),
   Collections: () => import('#controllers/collections_controller'),
+  DocumentCanvases: () => import('#controllers/document_canvases_controller'),
   DocumentImages: () => import('#controllers/document_images_controller'),
   DocumentIssues: () => import('#controllers/document_issues_controller'),
   DocumentLayouts: () => import('#controllers/document_layouts_controller'),
@@ -26,6 +28,7 @@ export const controllers = {
   NewAccount: () => import('#controllers/new_account_controller'),
   Projects: () => import('#controllers/projects_controller'),
   Session: () => import('#controllers/session_controller'),
+  Settings: () => import('#controllers/settings_controller'),
   Templates: () => import('#controllers/templates_controller'),
   Uploads: () => import('#controllers/uploads_controller'),
   WorkspaceInvitations: () => import('#controllers/workspace_invitations_controller'),

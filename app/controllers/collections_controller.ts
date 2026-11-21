@@ -54,6 +54,7 @@ export default class CollectionsController {
         ...view(row),
         budget: await service.budget(workspaceAccess!, row.id, { target }),
         contents: await service.contents(workspaceAccess!, row.id),
+        pagePlan: await service.pagePlan(workspaceAccess!, row.id),
         state: await service.state(workspaceAccess!, row.id),
       },
     })
@@ -66,6 +67,16 @@ export default class CollectionsController {
       await request.validateUsing(collectionUpdateValidator)
     )
     return response.ok({ data: view(row) })
+  }
+
+  /** A proposed arrangement. Saves nothing: the reviewer applies it through `update`. */
+  async arrange({ workspaceAccess, params, request, response }: HttpContext) {
+    const { target } = await request.validateUsing(collectionBudgetValidator)
+    return response.ok({
+      data: await new CollectionService().arrange(workspaceAccess!, params.collectionId, {
+        target,
+      }),
+    })
   }
 
   async approve({ workspaceAccess, params, request, response }: HttpContext) {

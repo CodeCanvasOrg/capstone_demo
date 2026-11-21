@@ -7,12 +7,18 @@ import DocumentVersion from '#models/document_version'
 import WorkspaceTask from '#models/workspace_task'
 import config from '#config/open_router'
 import OpenRouterService from '#services/open_router_service'
-import RetrievalService from '#services/documents/retrieval_service'
+import RetrievalService, { type SectionEvidence } from '#services/documents/retrieval_service'
+import { brochureQueries, outlineQueries } from '#services/documents/section_queries'
 import ContentService from '#services/documents/content_service'
 import type { PublicationDocument } from '../../../shared/publication/content.ts'
 import PublicationContentService from '#services/documents/publication_content_service'
 import BrandedEntryService from '#services/documents/branded_entry_service'
 import type { EntrySidecar } from '../../../shared/layout/entry.ts'
+import {
+  parseSelection,
+  type BrochureSelection,
+  type DesignId,
+} from '../../../shared/brochure/designs.ts'
 import { getTemplate } from '../../../shared/layout/templates.ts'
 import LayoutSelectionService from '#services/layout/layout_selection_service'
 import PublicationReviewService from '#services/documents/publication_review_service'
@@ -118,6 +124,8 @@ export default class GenerationService {
             baseVersionId,
             selectionRevision: document.selectionRevision,
             layoutTemplate: { id: layout.templateId, version: layout.templateVersion },
+            // The brochure's page designs, pinned now like the template, so a retry keeps them.
+            ...(layout.options.brochure ? { layoutBrochure: layout.options.brochure } : {}),
           },
         },
         trx
@@ -179,16 +187,41 @@ export default class GenerationService {
     const brief = instructions
       ? `${prompt}\n\nAuthor's writing instructions (follow them unless they conflict with the output rules or the evidence):\n${instructions}`
       : prompt
+    const outline = document.templateSetup?.outline
+    // A payload is data: only a valid selection reaches the model; otherwise the model decides.
+    const parsedSelection = input.layoutBrochure ? parseSelection(input.layoutBrochure) : undefined
+    const selection: BrochureSelection = parsedSelection?.ok
+      ? parsedSelection.selection
+      : { source: 'ai', pages: ['auto'] }
+    // Templates retrieve for each section on its own; freeform output has none, so it uses the brief.
+    const sectionQueries = !outline
+      ? []
+      : outline.definition.format === 'brochure_entry'
+        ? brochureQueries(selection, document.title, prompt)
+        : outlineQueries(outline.definition, document.title, prompt)
     const retrievalStart = performance.now()
-    const chunks = await new RetrievalService().search({
-      context: lease.context,
-      documentId: document.id,
-      pins,
-      query: `${document.title}\n${prompt}`,
-      guard: () => tasks.check(lease),
-    })
+    const retrieval = new RetrievalService()
+    const found = sectionQueries.length
+      ? await retrieval.searchSections({
+          context: lease.context,
+          documentId: document.id,
+          pins,
+          sections: sectionQueries,
+          guard: () => tasks.check(lease),
+        })
+      : {
+          chunks: await retrieval.search({
+            context: lease.context,
+            documentId: document.id,
+            pins,
+            query: `${document.title}\n${prompt}`,
+            guard: () => tasks.check(lease),
+          }),
+          sections: [] as SectionEvidence[],
+        }
+    const chunks = found.chunks
     console.log(
-      `[generation ${document.id}] retrieval finished in ${Math.round(performance.now() - retrievalStart)}ms with ${chunks.length} chunks`
+      `[generation ${document.id}] retrieval finished in ${Math.round(performance.now() - retrievalStart)}ms with ${chunks.length} chunks for ${found.sections.length || 1} queries`
     )
     await tasks.check(lease)
     const provider = new OpenRouterService()
@@ -200,10 +233,25 @@ export default class GenerationService {
     console.log(
       `[generation ${document.id}] generation started (${document.templateSetup?.outline ? 'outline' : 'freeform'})`
     )
-    const outline = document.templateSetup?.outline
     let sidecar: EntrySidecar | undefined
+    // Set when the model chose any design; saved with the document once it is accepted.
+    let chosenDesigns: { selection: BrochureSelection; designs: DesignId[] } | undefined
     let generated: Awaited<ReturnType<OpenRouterService['generateDocumentWithEvidence']>>
-    if (outline?.definition.format === 'branded_entry') {
+    if (outline?.definition.format === 'brochure_entry') {
+      const brochure = await provider.generateBrochure(
+        title ?? 'Untitled',
+        brief,
+        chunks,
+        outline.definition,
+        () => tasks.check(lease),
+        selection,
+        found.sections
+      )
+      generated = brochure.document
+      sidecar = { results: [], notes: brochure.notes }
+      if (selection.source === 'ai' || selection.pages.includes('auto'))
+        chosenDesigns = { selection, designs: brochure.designs }
+    } else if (outline?.definition.format === 'branded_entry') {
       // Structured fields become ordinary editable blocks; evidence labels and
       // reviewer notes travel in the sidecar and land in publication metadata.
       const entry = await provider.generateBrandedEntry(
@@ -212,14 +260,20 @@ export default class GenerationService {
         chunks,
         outline.definition,
         () => tasks.check(lease),
-        input.layoutTemplate && getTemplate(input.layoutTemplate.id, input.layoutTemplate.version)
+        input.layoutTemplate && getTemplate(input.layoutTemplate.id, input.layoutTemplate.version),
+        found.sections
       )
       generated = entry.document
       sidecar = entry.sidecar
     } else {
       generated = outline
-        ? await provider.generateOutlineWithEvidence(title, brief, chunks, outline.definition, () =>
-            tasks.check(lease)
+        ? await provider.generateOutlineWithEvidence(
+            title,
+            brief,
+            chunks,
+            outline.definition,
+            () => tasks.check(lease),
+            found.sections
           )
         : await provider.generateDocumentWithEvidence(title ?? 'Untitled', brief, chunks, () =>
             tasks.check(lease)
@@ -287,7 +341,42 @@ export default class GenerationService {
       await current.save()
       return { versionId: version.id }
     })
+    if (chosenDesigns) await this.saveChosenDesigns(lease.context, document.id, chosenDesigns)
     await this.reviewClaims(lease, document.id, String(accepted.versionId), content)
+  }
+
+  /**
+   * Saves the designs the model chose, so the editor shows them and a regeneration keeps
+   * them. Done after the draft is accepted, because the layout service takes its own locks
+   * on the document. A failure leaves the draft in place and never fails generation.
+   */
+  private async saveChosenDesigns(
+    context: WorkspaceAccessContext,
+    documentId: string,
+    chosen: { selection: BrochureSelection; designs: DesignId[] }
+  ) {
+    try {
+      const layouts = new LayoutSelectionService()
+      const layout = await layouts.peek(context.workspaceId, documentId)
+      await layouts.save(context, documentId, {
+        templateId: layout.templateId,
+        templateVersion: layout.templateVersion,
+        brandId: layout.brandId,
+        brandVersion: layout.brandVersion,
+        options: {
+          ...layout.options,
+          brochure: {
+            source: chosen.selection.source,
+            ...(chosen.selection.template ? { template: chosen.selection.template } : {}),
+            pages: chosen.designs,
+          },
+        },
+        baseRevision: layout.revision,
+        presetId: layout.presetId,
+      })
+    } catch (error) {
+      logger.warn({ err: error, documentId }, 'The model-chosen page designs were not saved')
+    }
   }
   /**
    * Deterministic publication mapping of accepted model output. Model-proposed

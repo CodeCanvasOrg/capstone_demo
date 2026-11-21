@@ -5,7 +5,7 @@ export default function ErrorPage() {
   return (
     <section className="mx-auto max-w-lg px-6 py-24">
       <Head title="Page not found" />
-      <h1 className="text-2xl font-semibold">Page not found</h1>
+      <h1 className="page-title text-2xl">Page not found</h1>
       <p className="mt-3 text-sm text-muted-foreground">
         This page may have moved or is no longer available.
       </p>
