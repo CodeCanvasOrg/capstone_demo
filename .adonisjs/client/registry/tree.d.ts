@@ -16,6 +16,16 @@ export interface ApiDefinition {
     store: typeof routes['session.store']
     destroy: typeof routes['session.destroy']
   }
+  settings: {
+    show: typeof routes['settings.show']
+    profile: typeof routes['settings.profile']
+    preferences: typeof routes['settings.preferences']
+    password: typeof routes['settings.password']
+    credentials: {
+      store: typeof routes['settings.credentials.store']
+      destroy: typeof routes['settings.credentials.destroy']
+    }
+  }
   workspaces: {
     index: typeof routes['workspaces.index']
     store: typeof routes['workspaces.store']
@@ -99,6 +109,9 @@ export interface ApiDefinition {
     edit: typeof routes['documents.edit']
     update: typeof routes['documents.update']
     destroy: typeof routes['documents.destroy']
+  }
+  briefs: {
+    store: typeof routes['briefs.store']
   }
   documentImages: {
     store: typeof routes['documentImages.store']

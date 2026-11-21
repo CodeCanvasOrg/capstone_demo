@@ -21,6 +21,24 @@ router
 router
   .group(() => {
     router.post('logout', [controllers.Session, 'destroy'])
+    router
+      .group(() => {
+        router.get('/', [controllers.Settings, 'show']).as('settings.show')
+        router.patch('/profile', [controllers.Settings, 'profile']).as('settings.profile')
+        router
+          .patch('/preferences', [controllers.Settings, 'preferences'])
+          .as('settings.preferences')
+        router.put('/password', [controllers.Settings, 'password']).as('settings.password')
+        router
+          .put('/credentials/:kind/:provider', [controllers.Settings, 'storeCredential'])
+          .where('kind', /^(model|connector)$/)
+          .as('settings.credentials.store')
+        router
+          .delete('/credentials/:kind/:provider', [controllers.Settings, 'destroyCredential'])
+          .where('kind', /^(model|connector)$/)
+          .as('settings.credentials.destroy')
+      })
+      .prefix('/settings')
     router.get('/workspaces', [controllers.Workspaces, 'index']).as('workspaces.index')
     router.post('/workspaces', [controllers.Workspaces, 'store']).as('workspaces.store')
     router

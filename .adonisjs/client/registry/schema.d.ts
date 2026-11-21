@@ -103,6 +103,78 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/session_controller').default['destroy']>>>
     }
   }
+  'settings.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/settings'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['show']>>>
+    }
+  }
+  'settings.profile': {
+    methods: ["PATCH"]
+    pattern: '/settings/profile'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/settings').profileValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/settings').profileValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['profile']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['profile']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'settings.preferences': {
+    methods: ["PATCH"]
+    pattern: '/settings/preferences'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['preferences']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['preferences']>>>
+    }
+  }
+  'settings.password': {
+    methods: ["PUT"]
+    pattern: '/settings/password'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/settings').passwordValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/settings').passwordValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['password']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['password']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'settings.credentials.store': {
+    methods: ["PUT"]
+    pattern: '/settings/credentials/:kind/:provider'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/settings').credentialValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { kind: ParamValue; provider: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/settings').credentialValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['storeCredential']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['storeCredential']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'settings.credentials.destroy': {
+    methods: ["DELETE"]
+    pattern: '/settings/credentials/:kind/:provider'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { kind: ParamValue; provider: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['destroyCredential']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/settings_controller').default['destroyCredential']>>>
+    }
+  }
   'workspaces.index': {
     methods: ["GET","HEAD"]
     pattern: '/workspaces'
@@ -689,6 +761,18 @@ export interface Registry {
       query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/documents_controller').default['destroy']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/documents_controller').default['destroy']>>>
+    }
+  }
+  'briefs.store': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/briefs'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/brief').briefValidator)>>
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/brief').briefValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/briefs_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/briefs_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'documentImages.store': {

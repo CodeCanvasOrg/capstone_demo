@@ -892,8 +892,33 @@ export class TaskDispatchSchema extends BaseModel {
   declare updatedAt: DateTime
 }
 
+export class UserCredentialSchema extends BaseModel {
+  static $columns = ['createdAt', 'encryptedSecret', 'hint', 'id', 'kind', 'label', 'lastUsedAt', 'provider', 'updatedAt', 'userId'] as const
+  $columns = UserCredentialSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare encryptedSecret: string
+  @column()
+  declare hint: string
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare kind: string
+  @column()
+  declare label: string | null
+  @column.dateTime()
+  declare lastUsedAt: DateTime | null
+  @column()
+  declare provider: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare userId: number
+}
+
 export class UserSchema extends BaseModel {
-  static $columns = ['createdAt', 'email', 'fullName', 'id', 'lastWorkspaceId', 'password', 'updatedAt'] as const
+  static $columns = ['createdAt', 'email', 'fullName', 'id', 'lastWorkspaceId', 'password', 'preferences', 'updatedAt'] as const
   $columns = UserSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -907,6 +932,8 @@ export class UserSchema extends BaseModel {
   declare lastWorkspaceId: string | null
   @column({ serializeAs: null })
   declare password: string
+  @column()
+  declare preferences: any
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }

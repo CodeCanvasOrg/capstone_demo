@@ -12,6 +12,12 @@ export type ScannedRoutes = {
     'session.create': { paramsTuple?: []; params?: {} }
     'session.store': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }
+    'settings.show': { paramsTuple?: []; params?: {} }
+    'settings.profile': { paramsTuple?: []; params?: {} }
+    'settings.preferences': { paramsTuple?: []; params?: {} }
+    'settings.password': { paramsTuple?: []; params?: {} }
+    'settings.credentials.store': { paramsTuple: [ParamValue,ParamValue]; params: {'kind': ParamValue,'provider': ParamValue} }
+    'settings.credentials.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'kind': ParamValue,'provider': ParamValue} }
     'workspaces.index': { paramsTuple?: []; params?: {} }
     'workspaces.store': { paramsTuple?: []; params?: {} }
     'workspaces.show': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
@@ -61,6 +67,7 @@ export type ScannedRoutes = {
     'documents.edit': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue} }
     'documents.update': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue} }
     'documents.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue} }
+    'briefs.store': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'documentImages.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentImages.show': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'imageId': ParamValue} }
     'documentVersions.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
@@ -102,6 +109,7 @@ export type ScannedRoutes = {
     'home': { paramsTuple?: []; params?: {} }
     'new_account.create': { paramsTuple?: []; params?: {} }
     'session.create': { paramsTuple?: []; params?: {} }
+    'settings.show': { paramsTuple?: []; params?: {} }
     'workspaces.index': { paramsTuple?: []; params?: {} }
     'workspaces.show': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'workspace_members.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
@@ -146,6 +154,7 @@ export type ScannedRoutes = {
     'home': { paramsTuple?: []; params?: {} }
     'new_account.create': { paramsTuple?: []; params?: {} }
     'session.create': { paramsTuple?: []; params?: {} }
+    'settings.show': { paramsTuple?: []; params?: {} }
     'workspaces.index': { paramsTuple?: []; params?: {} }
     'workspaces.show': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'workspace_members.index': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
@@ -206,6 +215,7 @@ export type ScannedRoutes = {
     'documentReviews.approve': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'exportPdfs.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documents.store': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
+    'briefs.store': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'documentImages.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentVersions.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentRevisions.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
@@ -221,6 +231,8 @@ export type ScannedRoutes = {
     'legacy.files.mutation': { paramsTuple: [...ParamValue[]]; params: {'*': ParamValue[]} }
   }
   PATCH: {
+    'settings.profile': { paramsTuple?: []; params?: {} }
+    'settings.preferences': { paramsTuple?: []; params?: {} }
     'workspaces.update': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
     'documentIssues.update': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'issueId': ParamValue} }
     'layoutPresets.update': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'presetId': ParamValue} }
@@ -233,7 +245,21 @@ export type ScannedRoutes = {
     'legacy.files.collection': { paramsTuple?: []; params?: {} }
     'legacy.files.mutation': { paramsTuple: [...ParamValue[]]; params: {'*': ParamValue[]} }
   }
+  PUT: {
+    'settings.password': { paramsTuple?: []; params?: {} }
+    'settings.credentials.store': { paramsTuple: [ParamValue,ParamValue]; params: {'kind': ParamValue,'provider': ParamValue} }
+    'documentLayouts.update': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
+    'documents.update': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue} }
+    'documentTasks.sources': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
+    'files.update': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue} }
+    'shares.update': { paramsTuple: [ParamValue,ParamValue]; params: {'documentId': ParamValue,'id': ParamValue} }
+    'legacy.documents.collection': { paramsTuple?: []; params?: {} }
+    'legacy.documents.mutation': { paramsTuple: [...ParamValue[]]; params: {'*': ParamValue[]} }
+    'legacy.files.collection': { paramsTuple?: []; params?: {} }
+    'legacy.files.mutation': { paramsTuple: [...ParamValue[]]; params: {'*': ParamValue[]} }
+  }
   DELETE: {
+    'settings.credentials.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'kind': ParamValue,'provider': ParamValue} }
     'workspace_members.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'membershipId': ParamValue} }
     'workspaceInvitations.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'invitationId': ParamValue} }
     'layoutPresets.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'presetId': ParamValue} }
@@ -241,17 +267,6 @@ export type ScannedRoutes = {
     'fileProjects.destroy': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue,'projectId': ParamValue} }
     'files.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue} }
     'shares.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'documentId': ParamValue,'id': ParamValue} }
-    'legacy.documents.collection': { paramsTuple?: []; params?: {} }
-    'legacy.documents.mutation': { paramsTuple: [...ParamValue[]]; params: {'*': ParamValue[]} }
-    'legacy.files.collection': { paramsTuple?: []; params?: {} }
-    'legacy.files.mutation': { paramsTuple: [...ParamValue[]]; params: {'*': ParamValue[]} }
-  }
-  PUT: {
-    'documentLayouts.update': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
-    'documents.update': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue} }
-    'documentTasks.sources': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
-    'files.update': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue} }
-    'shares.update': { paramsTuple: [ParamValue,ParamValue]; params: {'documentId': ParamValue,'id': ParamValue} }
     'legacy.documents.collection': { paramsTuple?: []; params?: {} }
     'legacy.documents.mutation': { paramsTuple: [...ParamValue[]]; params: {'*': ParamValue[]} }
     'legacy.files.collection': { paramsTuple?: []; params?: {} }

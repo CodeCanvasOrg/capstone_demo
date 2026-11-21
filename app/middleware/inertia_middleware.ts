@@ -7,6 +7,7 @@ import WorkspaceMembership from '#models/workspace_membership'
 import WorkspaceTransformer from '#transformers/workspace_transformer'
 import WorkspaceMembershipTransformer from '#transformers/workspace_membership_transformer'
 import BaseInertiaMiddleware from '@adonisjs/inertia/inertia_middleware'
+import { resolvePreferences } from '../../shared/settings.ts'
 
 export default class InertiaMiddleware extends BaseInertiaMiddleware {
   async share(ctx: HttpContext) {
@@ -50,6 +51,7 @@ export default class InertiaMiddleware extends BaseInertiaMiddleware {
       },
       errors: ctx.inertia.always(this.getValidationErrors(ctx)),
       user: ctx.inertia.always(auth?.user ? UserTransformer.transform(auth.user) : undefined),
+      preferences: auth?.user ? resolvePreferences(auth.user.preferences) : null,
     }
   }
 
