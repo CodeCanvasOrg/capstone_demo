@@ -116,6 +116,7 @@ export interface ApiDefinition {
     store: typeof routes['briefs.store']
   }
   documentImages: {
+    index: typeof routes['documentImages.index']
     store: typeof routes['documentImages.store']
     show: typeof routes['documentImages.show']
   }

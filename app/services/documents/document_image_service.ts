@@ -64,12 +64,45 @@ export default class DocumentImageService {
     throw invalidImage()
   }
 
+  /**
+   * Pixel size from the image header. Only called on bytes `mime` accepted, so the
+   * header is known to be well formed; anything unexpected reads as unknown (null).
+   */
+  static dimensions(mime: string, bytes: Buffer): { width: number; height: number } | null {
+    if (mime === 'image/png' && bytes.length >= 24)
+      return { width: bytes.readUInt32BE(16), height: bytes.readUInt32BE(20) }
+    if (mime !== 'image/jpeg') return null
+    let offset = 2
+    while (offset + 4 <= bytes.length) {
+      if (bytes[offset++] !== 0xff) return null
+      while (offset < bytes.length && bytes[offset] === 0xff) offset++
+      if (offset + 3 > bytes.length) return null
+      const marker = bytes[offset++]
+      const length = bytes.readUInt16BE(offset)
+      if (length < 2 || offset + length > bytes.length) return null
+      if (
+        [0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7, 0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf].includes(
+          marker
+        ) &&
+        length >= 8
+      ) {
+        const height = bytes.readUInt16BE(offset + 3)
+        const width = bytes.readUInt16BE(offset + 5)
+        return width > 0 && height > 0 ? { width, height } : null
+      }
+      offset += length
+    }
+    return null
+  }
+
   receipt(image: DocumentImage) {
     return {
       id: image.id,
       filename: image.filename,
       mime: image.mime,
       byteSize: image.byteSize,
+      width: image.width,
+      height: image.height,
       src: `/workspaces/${image.workspaceId}/documents/${image.documentId}/images/${image.id}`,
     }
   }
@@ -83,6 +116,7 @@ export default class DocumentImageService {
     }
   ) {
     const mime = DocumentImageService.mime(input.filename, input.contents)
+    const size = DocumentImageService.dimensions(mime, input.contents)
     const id = randomUUID()
     const objectKey = `workspaces/${context.workspaceId}/documents/${documentId}/images/${id}.${mime === 'image/png' ? 'png' : 'jpg'}`
     const disk = drive.use()
@@ -106,6 +140,8 @@ export default class DocumentImageService {
             objectKey,
             mime,
             byteSize: input.contents.length,
+            width: size?.width ?? null,
+            height: size?.height ?? null,
             filename: path.basename(input.filename).slice(0, 255),
           },
           { client: trx }
@@ -122,6 +158,46 @@ export default class DocumentImageService {
         })
       throw error
     }
+  }
+
+  /**
+   * Fills in the size of images uploaded before sizes were recorded, reading
+   * each file's header from storage. Maintenance only (`node ace images:measure`):
+   * runs across workspaces, so it never returns image contents.
+   */
+  async measureMissing({ limit = 500, dryRun = false } = {}) {
+    const rows = await DocumentImage.query()
+      .whereNull('width')
+      .orderBy('createdAt', 'asc')
+      .limit(limit)
+    const result = { checked: rows.length, measured: 0, unreadable: [] as string[] }
+    for (const image of rows) {
+      try {
+        const bytes = Buffer.from(await drive.use().getBytes(image.objectKey))
+        const size = DocumentImageService.dimensions(image.mime, bytes)
+        if (!size) {
+          result.unreadable.push(image.id)
+          continue
+        }
+        if (!dryRun) await image.merge(size).save()
+        result.measured++
+      } catch (error) {
+        logger.warn({ err: error, imageId: image.id }, 'Unable to measure document image')
+        result.unreadable.push(image.id)
+      }
+    }
+    return result
+  }
+
+  /** Every image uploaded to a document, newest first: the canvas's image library. */
+  async list(context: WorkspaceAccessContext, documentId: string) {
+    if (!uuid(documentId)) throw missingResource()
+    await new AccessService().document(context, documentId)
+    const images = await DocumentImage.query()
+      .where({ workspaceId: context.workspaceId, documentId })
+      .orderBy('createdAt', 'desc')
+      .orderBy('id', 'asc')
+    return images.map((image) => this.receipt(image))
   }
 
   async asset(context: WorkspaceAccessContext, documentId: string, imageId: string) {

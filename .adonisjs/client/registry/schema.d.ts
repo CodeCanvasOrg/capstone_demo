@@ -799,6 +799,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/briefs_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'documentImages.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/images'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_images_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_images_controller').default['index']>>>
+    }
+  }
   'documentImages.store': {
     methods: ["POST"]
     pattern: '/workspaces/:workspaceId/documents/:documentId/images'

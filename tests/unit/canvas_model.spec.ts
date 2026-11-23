@@ -94,4 +94,15 @@ test.group('canvas model', () => {
     ]
     assert.include(problems(huge).join(' '), 'too large')
   })
+  test('a cleared alt text or label (null from the body parser) reads as empty', ({ assert }) => {
+    const input = minimal() as any
+    input.sheets[0].frames[1].label = null
+    const image = input.sheets[1].frames.find((f: any) => f.kind === 'image')
+    image.alt = null
+    const result = parseCanvas(input, { imageIds: new Set([IMAGE]) })
+    assert.isTrue(result.ok)
+    if (!result.ok) return
+    assert.equal((result.canvas.sheets[0].frames[1] as any).label, '')
+    assert.equal((result.canvas.sheets[1].frames.find((f) => f.kind === 'image') as any).alt, '')
+  })
 })

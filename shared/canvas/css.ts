@@ -124,6 +124,16 @@ export const declarations = (css: Record<string, string>) =>
     .map(([key, value]) => `${key}:${value}`)
     .join(';')
 
+/**
+ * How the picture sits in an image frame: cropped to fill (`cover`, around its
+ * focal point) or whole (`contain`). Inline style for the <img>; editor and
+ * export both use it. Values come from enums and bounded integers only.
+ */
+export function imageCss(frame: Extract<Frame, { kind: 'image' }>): string {
+  const focus = frame.focus ?? { x: 50, y: 50 }
+  return `object-fit:${frame.fit};object-position:${focus.x}% ${focus.y}%`
+}
+
 /** Base styles for sheets and frame content, shared by the editor canvas and exports. */
 export const CANVAS_BASE_CSS = `
 .cv-sheet{position:relative;width:210mm;height:297mm;overflow:hidden;box-sizing:border-box}

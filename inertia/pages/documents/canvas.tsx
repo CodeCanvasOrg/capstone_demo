@@ -123,6 +123,18 @@ function Editor({
     if (result) setSaved(result.version)
   }
 
+  const previewUrl = urlFor('documentPreview.show', { workspaceId, documentId: document.id })
+  /**
+   * The preview draws the autosaved draft, so pending changes (a box just deleted)
+   * are saved first. The tab opens straight away so the browser does not block it.
+   */
+  const preview = async () => {
+    const tab = window.open('about:blank', '_blank')
+    await canvas.flush()
+    if (tab) tab.location.href = previewUrl
+    else window.open(previewUrl, '_blank', 'noreferrer')
+  }
+
   return (
     <div className="flex h-dvh flex-col">
       <header className="flex flex-wrap items-center gap-3 border-b px-4 py-2">
@@ -140,6 +152,12 @@ function Editor({
           disabledReason={busy ? 'Wait for the save to finish' : null}
           onError={setError}
         />
+        {canvas.uploading > 0 && (
+          <span className="flex items-center gap-1 text-xs text-muted-foreground" role="status">
+            <LoaderCircle aria-hidden="true" className="size-3.5 animate-spin" />
+            {canvas.uploading === 1 ? 'Uploading image…' : `Uploading ${canvas.uploading} images…`}
+          </span>
+        )}
         {canvas.overflow.length > 0 && (
           <span className="flex items-center gap-1 text-xs text-destructive" role="status">
             <AlertTriangle aria-hidden="true" className="size-3.5" />
@@ -163,9 +181,13 @@ function Editor({
         </span>
         <Button asChild variant="outline" size="sm">
           <a
-            href={urlFor('documentPreview.show', { workspaceId, documentId: document.id })}
+            href={previewUrl}
             target="_blank"
             rel="noreferrer"
+            onClick={(event) => {
+              event.preventDefault()
+              void preview()
+            }}
           >
             <Eye aria-hidden="true" /> Preview
           </a>
@@ -173,7 +195,9 @@ function Editor({
         <Button
           size="sm"
           onClick={save}
-          disabled={busy || canvas.status === 'conflict' || !canvas.canvasEditor}
+          disabled={
+            busy || canvas.uploading > 0 || canvas.status === 'conflict' || !canvas.canvasEditor
+          }
         >
           {busy ? (
             <LoaderCircle aria-hidden="true" className="animate-spin" />
@@ -253,7 +277,8 @@ function Editor({
             documentId={document.id}
           />
           <p className="mt-6 text-xs text-muted-foreground">
-            Double-click a text box to edit its text. Press Esc when done.
+            Double-click a text box to edit its text. Press Esc when done. Drop or paste an image
+            file on a page to add it.
           </p>
         </aside>
       </div>

@@ -1,5 +1,5 @@
 import { clampGeo } from './geometry.ts'
-import { SHEET, type Frame, type FrameKind, type Geo, type Sheet } from './model.ts'
+import { LIMITS, SHEET, type Frame, type FrameKind, type Geo, type Sheet } from './model.ts'
 
 /**
  * Pure editing operations the editor UI calls: fresh ids, sensible new frames
@@ -88,4 +88,40 @@ export function duplicateFrame(frame: Frame, sheet: Sheet, taken: ReadonlySet<st
     z: Math.min(Math.max(...sheet.frames.map((f) => f.z), frame.z) + 1, 999),
     order: Math.min(Math.max(...sheet.frames.map((f) => f.order), frame.order) + 1, 999),
   }
+}
+
+/** Width a dropped or pasted picture gets on the sheet: 80 mm, at its own proportions. */
+export const IMAGE_WIDTH = 800
+
+/**
+ * A box for a picture of `width` x `height` pixels, centred on `at` (tenths of
+ * a mm), scaled down to fit the sheet. Unknown size gives the default image box.
+ */
+export function imageGeo(
+  at: { x: number; y: number },
+  size: { width: number | null; height: number | null } | null
+): Geo {
+  const ratio = size?.width && size?.height ? size.height / size.width : null
+  let { w, h } = ratio ? { w: IMAGE_WIDTH, h: IMAGE_WIDTH * ratio } : DEFAULT_SIZE.image
+  // Very tall pictures: shrink until they fit the sheet's height.
+  const scale = Math.min(1, SHEET.h / h, SHEET.w / w)
+  w = Math.max(LIMITS.minSide, w * scale)
+  h = Math.max(LIMITS.minSide, h * scale)
+  return clampGeo({ x: at.x - w / 2, y: at.y - h / 2, w, h })
+}
+
+/**
+ * The frame resized to the picture's proportions: same width and top-left
+ * corner, new height (narrower if the height would run off the sheet).
+ */
+export function fitToImage(geo: Geo, size: { width: number; height: number }): Geo {
+  const ratio = size.height / size.width
+  let w = geo.w
+  let h = w * ratio
+  const room = SHEET.h - geo.y
+  if (h > room) {
+    h = room
+    w = h / ratio
+  }
+  return clampGeo({ ...geo, w, h })
 }

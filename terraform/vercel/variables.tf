@@ -39,6 +39,12 @@ variable "domain_name" {
   default     = ""
 }
 
+variable "vercel_function_cpu_type" {
+  description = "standard (1 vCPU / 2 GB, Hobby) | performance (1.7 vCPU / 4 GB, Pro only; better for Chromium PDF rendering)."
+  type        = string
+  default     = "standard"
+}
+
 variable "deploy_on_apply" {
   description = "Create a production deployment of production_branch after env vars are set. Later deploys happen on git push."
   type        = bool
@@ -71,6 +77,12 @@ variable "db_name" {
 variable "db_username" {
   type    = string
   default = "capstone"
+}
+
+variable "neon_history_retention_seconds" {
+  description = "Point-in-time restore window. Free plan max 21600 (6 h); paid plans allow more (e.g. 86400)."
+  type        = number
+  default     = 21600
 }
 
 variable "neon_min_cu" {

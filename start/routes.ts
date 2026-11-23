@@ -162,6 +162,9 @@ router
         router.resource('documents', controllers.Documents).except(['show'])
         router.post('/briefs', [controllers.Briefs, 'store']).as('briefs.store')
         router
+          .get('/documents/:documentId/images', [controllers.DocumentImages, 'index'])
+          .as('documentImages.index')
+        router
           .post('/documents/:documentId/images', [controllers.DocumentImages, 'store'])
           .as('documentImages.store')
         router

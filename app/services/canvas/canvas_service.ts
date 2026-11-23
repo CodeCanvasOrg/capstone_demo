@@ -78,6 +78,31 @@ export default class CanvasService {
     return DocumentCanvas.query({ client: trx }).where('versionId', versionId).first()
   }
 
+  /**
+   * What a preview of `versionId` should draw: the autosaved draft when it was
+   * started from that version (the editor shows it, so the preview must too),
+   * otherwise the version's own canvas. Final exports never call this: they draw
+   * the saved, approved version only.
+   */
+  async previewProject(
+    context: WorkspaceAccessContext,
+    documentId: string,
+    versionId: string
+  ): Promise<{ project: CanvasDocument; draft: boolean } | null> {
+    const draft = await DocumentCanvasDraft.query()
+      .where({ documentId, workspaceId: context.workspaceId, baseVersionId: versionId })
+      .first()
+    if (draft) {
+      // The draft was validated when stored; check again so a rule change can never leak.
+      const parsed = parseCanvas(draft.project, {
+        imageIds: await this.imageIds(context, documentId),
+      })
+      if (parsed.ok) return { project: parsed.canvas, draft: true }
+    }
+    const row = await this.forVersion(versionId)
+    return row ? { project: row.project, draft: false } : null
+  }
+
   async mode(workspaceId: string, documentId: string, trx?: TransactionClientContract) {
     const row = await DocumentLayout.query({ client: trx })
       .where({ workspaceId, documentId })

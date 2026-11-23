@@ -2,6 +2,7 @@ import { generateHTML } from '@tiptap/html'
 import type { JSONContent } from '@tiptap/core'
 import { documentExtensions } from '../../../../shared/editor/schema.ts'
 import type { Frame } from '../../../../shared/canvas/model.ts'
+import { imageCss } from '../../../../shared/canvas/css.ts'
 
 /**
  * What a frame shows inside the editor canvas. Text uses the one document
@@ -35,7 +36,7 @@ export function frameHtml(frame: Frame, imageUrl: (id: string) => string) {
       }`
     case 'image':
       return frame.imageId
-        ? `<img src="${esc(imageUrl(frame.imageId))}" alt="${esc(frame.alt)}" style="object-fit:${frame.fit}" draggable="false" />`
+        ? `<img src="${esc(imageUrl(frame.imageId))}" alt="${esc(frame.alt)}" style="${imageCss(frame)}" draggable="false" />`
         : '<div class="cv-image-empty">Choose an image</div>'
     case 'art':
       return frame.art === 'ribbons' ? '<div class="cv-art-ribbons"></div>' : ''

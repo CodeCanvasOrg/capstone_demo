@@ -5,6 +5,7 @@ import {
   brandVars,
   declarations,
   frameCss,
+  imageCss,
   sheetCss,
 } from '../../../shared/canvas/css.ts'
 import { readingOrder } from '../../../shared/canvas/derive.ts'
@@ -45,7 +46,7 @@ function frameHtml(frame: Frame, content: FrameContent, brand: BrandKit) {
       const src = image?.type === 'image' ? image.src : undefined
       // Only embedded images reach the page; anything else would be a request from the renderer.
       return src?.startsWith('data:image/')
-        ? `${open}<img src="${esc(src)}" alt="${esc(frame.alt)}" style="object-fit:${frame.fit}" /></div>`
+        ? `${open}<img src="${esc(src)}" alt="${esc(frame.alt)}" style="${imageCss(frame)}" /></div>`
         : `${open}</div>`
     }
     case 'art':
@@ -94,7 +95,14 @@ export async function renderCanvasHtml(
     content = new Map(),
     sources = [],
     preview = false,
-  }: { content?: FrameContent; sources?: ClientSource[]; preview?: boolean } = {}
+    unsaved = false,
+  }: {
+    content?: FrameContent
+    sources?: ClientSource[]
+    preview?: boolean
+    /** Drawn from the editor's autosaved draft, not a saved version. */
+    unsaved?: boolean
+  } = {}
 ) {
   const sheets = canvas.sheets
     .map(
@@ -107,7 +115,7 @@ export async function renderCanvasHtml(
     )
     .join('\n')
   const banner = preview
-    ? '<p style="position:fixed;top:4mm;right:4mm;margin:0;padding:3pt 8pt;background:#b42318;color:#fff;font-size:7pt;font-weight:800;z-index:9999">PREVIEW · NOT APPROVED FOR FINAL EXPORT</p>'
+    ? `<p style="position:fixed;top:4mm;right:4mm;margin:0;padding:3pt 8pt;background:#b42318;color:#fff;font-size:7pt;font-weight:800;z-index:9999">PREVIEW · ${unsaved ? 'UNSAVED CHANGES · ' : ''}NOT APPROVED FOR FINAL EXPORT</p>`
     : ''
   return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><style>${await fontFaces(brand)}${css(canvas, brand)}</style></head><body>${banner}${sheets}\n${sourcesSheet(sources)}</body></html>`
 }

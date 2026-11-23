@@ -105,6 +105,18 @@ export const styleSchema = z
   .strip()
 export type FrameStyle = z.infer<typeof styleSchema>
 
+/**
+ * Free text a user may clear. The server's body parser turns an empty string
+ * into null, so a cleared field arrives as null; both mean "no text".
+ */
+const clearable = (max: number) =>
+  z
+    .string()
+    .trim()
+    .max(max)
+    .nullish()
+    .transform((value) => value ?? '')
+
 const tokenId = z.string().regex(/^[a-z][a-z0-9-]{0,39}$/)
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
@@ -185,7 +197,7 @@ export const frameSchema = z.discriminatedUnion('kind', [
       ...base,
       kind: z.literal('figure'),
       value: z.string().trim().min(1).max(12),
-      label: z.string().trim().max(200),
+      label: clearable(200),
       qualifier: z.enum(QUALIFIERS).optional(),
     })
     .strip(),
@@ -195,8 +207,19 @@ export const frameSchema = z.discriminatedUnion('kind', [
       kind: z.literal('image'),
       /** A registered document image; any other source is refused. */
       imageId: z.string().regex(UUID).nullable(),
-      alt: z.string().trim().max(300),
+      alt: clearable(300),
       fit: z.enum(['cover', 'contain']).default('cover'),
+      /**
+       * The point of the picture kept in view when `cover` crops it, as percent
+       * of its width and height (50/50 is the centre, the default).
+       */
+      focus: z
+        .object({
+          x: z.number().int().min(0).max(100),
+          y: z.number().int().min(0).max(100),
+        })
+        .strict()
+        .optional(),
     })
     .strip(),
   z
