@@ -209,6 +209,17 @@ export const frameSchema = z.discriminatedUnion('kind', [
       imageId: z.string().regex(UUID).nullable(),
       alt: clearable(300),
       fit: z.enum(['cover', 'contain']).default('cover'),
+      /**
+       * The point of the picture kept in view when `cover` crops it, as percent
+       * of its width and height (50/50 is the centre, the default).
+       */
+      focus: z
+        .object({
+          x: z.number().int().min(0).max(100),
+          y: z.number().int().min(0).max(100),
+        })
+        .strict()
+        .optional(),
     })
     .strip(),
   z

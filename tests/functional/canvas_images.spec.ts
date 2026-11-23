@@ -1,5 +1,9 @@
 /* eslint-disable @unicorn/no-await-expression-member -- terse assertions on awaited results */
 import { test } from '@japa/runner'
+import { randomUUID } from 'node:crypto'
+import env from '#start/env'
+import type { CanvasDocument } from '../../shared/canvas/model.ts'
+import { imageGeo } from '../../shared/canvas/ops.ts'
 import drive from '@adonisjs/drive/services/main'
 import DocumentImage from '#models/document_image'
 import DocumentImageService from '#services/documents/document_image_service'
@@ -76,5 +80,55 @@ test.group('Canvas images: sizes and library', (group) => {
       await client.get(images(a)).loginAs(b.user).header('accept', 'application/json')
     ).assertStatus(404)
     ;(await client.get(images(a)).header('accept', 'application/json')).assertStatus(401)
+  })
+
+  test('a picture placed in the canvas prints, embedded, at its focal point', async ({
+    client,
+    assert,
+  }) => {
+    env.set('CANVAS_EDITOR', 'pilot')
+    try {
+      const a = await account()
+      const base = `/workspaces/${a.workspace.id}/documents/${a.document.id}`
+      const image = (await upload(client, a, png(40, 20), 'hero.png')).body().data
+      const enabled = await client
+        .post(`${base}/canvas/enable`)
+        .json({ mutationId: randomUUID() })
+        .withCsrfToken()
+        .loginAs(a.user)
+      enabled.assertStatus(200)
+      const state = enabled.body().data as { project: CanvasDocument; baseVersionId: string }
+      const project = structuredClone(state.project)
+      project.sheets[0].frames.push({
+        id: 'hero',
+        kind: 'image',
+        geo: imageGeo({ x: 1050, y: 1500 }, image),
+        z: 90,
+        order: 90,
+        style: {},
+        imageId: image.id,
+        alt: 'Hero',
+        fit: 'cover',
+        focus: { x: 25, y: 75 },
+      })
+      ;(
+        await client
+          .put(`${base}/canvas/draft`)
+          .json({ project, revision: 0, baseVersionId: state.baseVersionId })
+          .withCsrfToken()
+          .loginAs(a.user)
+      ).assertStatus(200)
+      const html = (await client.get(`${base}/preview`).loginAs(a.user)).text()
+      assert.match(
+        html,
+        /<div class="cv-frame cv-image" id="hero"><img src="data:image\/png;base64,/
+      )
+      assert.include(html, 'object-position:25% 75%')
+      assert.include(html, 'alt="Hero"')
+      // The box was placed at the picture's 2:1 proportions.
+      assert.include(html, '#hero{position:absolute;left:65mm;top:130mm;width:80mm;height:40mm')
+    } finally {
+      env.set('CANVAS_EDITOR', undefined as never)
+    }
   })
 })

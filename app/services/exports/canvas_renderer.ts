@@ -5,6 +5,7 @@ import {
   brandVars,
   declarations,
   frameCss,
+  imageCss,
   sheetCss,
 } from '../../../shared/canvas/css.ts'
 import { readingOrder } from '../../../shared/canvas/derive.ts'
@@ -45,7 +46,7 @@ function frameHtml(frame: Frame, content: FrameContent, brand: BrandKit) {
       const src = image?.type === 'image' ? image.src : undefined
       // Only embedded images reach the page; anything else would be a request from the renderer.
       return src?.startsWith('data:image/')
-        ? `${open}<img src="${esc(src)}" alt="${esc(frame.alt)}" style="object-fit:${frame.fit}" /></div>`
+        ? `${open}<img src="${esc(src)}" alt="${esc(frame.alt)}" style="${imageCss(frame)}" /></div>`
         : `${open}</div>`
     }
     case 'art':
