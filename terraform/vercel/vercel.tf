@@ -11,14 +11,14 @@ resource "vercel_project" "web" {
   }
 
   # Node version comes from package.json "engines" (>=24); this provider version only accepts up to 22.x here.
-  serverless_function_region = var.vercel_region
 
   # bin/vercel.ts and pdf_service.ts check process.env.VERCEL at runtime.
   automatically_expose_system_environment_variables = true
 
   resource_config = {
     fluid                     = true
-    function_default_cpu_type = "performance" # 1.7 vCPU / 4 GB: Chromium PDF rendering
+    function_default_regions  = [var.vercel_region]
+    function_default_cpu_type = var.vercel_function_cpu_type
     function_default_timeout  = 300
   }
 
@@ -27,22 +27,24 @@ resource "vercel_project" "web" {
   preview_deployments_disabled = true
 }
 
-resource "vercel_project_environment_variables" "web" {
-  project_id = vercel_project.web.id
-
-  variables = concat(
-    [for k, v in local.web_env : {
-      key    = k
-      value  = v
-      target = ["production"]
-    }],
-    [for k, v in local.web_secret_env : {
-      key       = k
-      value     = v
-      target    = ["production"]
-      sensitive = true
-    }],
+# One resource per variable (not one batch): Vercel's bulk endpoint is not atomic, so a failed
+# batch left half the variables created but untracked. Per-variable resources keep whatever
+# succeeded in state, and the next apply only creates the missing ones.
+locals {
+  vercel_env = merge(
+    { for k, v in local.web_env : k => { value = v, sensitive = false } },
+    { for k, v in local.web_secret_env : k => { value = v, sensitive = true } },
   )
+}
+
+resource "vercel_project_environment_variable" "web" {
+  for_each = nonsensitive(toset(keys(local.vercel_env)))
+
+  project_id = vercel_project.web.id
+  key        = each.key
+  value      = local.vercel_env[each.key].value
+  target     = ["production"]
+  sensitive  = local.vercel_env[each.key].sensitive
 }
 
 resource "vercel_project_domain" "web" {
@@ -60,7 +62,7 @@ resource "vercel_deployment" "web" {
   ref        = var.production_branch
   production = true
 
-  depends_on = [vercel_project_environment_variables.web, vercel_project_domain.web]
+  depends_on = [vercel_project_environment_variable.web, vercel_project_domain.web]
 
   lifecycle {
     ignore_changes = all

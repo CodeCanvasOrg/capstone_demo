@@ -57,7 +57,10 @@ locals {
     S3_SECRET_ACCESS_KEY = local.storage_credential.s3_secret_access_key
   }, var.smtp_password != "" ? { SMTP_PASSWORD = var.smtp_password } : {})
 
-  web_env = merge(local.plain_env, {
+  # Vercel reserves some names (https://vercel.link/reserved-env-variable); its runtime is UTC already.
+  vercel_reserved_env = ["TZ", "AWS_REGION", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_SESSION_TOKEN"]
+
+  web_env = merge({ for k, v in local.plain_env : k => v if !contains(local.vercel_reserved_env, k) }, {
     # The Vercel build has no Python, so PyMuPDF is unavailable there.
     PDF_EXTRACTOR = "pdf-parse"
   })

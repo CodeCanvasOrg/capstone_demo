@@ -12,7 +12,7 @@ resource "neon_project" "main" {
   region_id  = var.neon_region
   pg_version = 17
 
-  history_retention_seconds = 86400
+  history_retention_seconds = var.neon_history_retention_seconds
 
   branch {
     name          = "main"

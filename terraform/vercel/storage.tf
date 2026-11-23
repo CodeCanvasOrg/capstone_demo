@@ -38,11 +38,14 @@ resource "restapi_object" "storage_credential" {
   })
   id_attribute = "token_id"
 
+  # Search by name, not "{id}": restapi 2.0.x does not substitute {id} in search_value, so an
+  # ID search never matched, every refresh saw the credential as deleted, and each apply minted
+  # a new key. The name must therefore stay unique on the branch.
   read_path = "${local.neon_branch_path}/credentials"
   read_search = {
     results_key  = "credentials"
-    search_key   = "token_id"
-    search_value = "{id}"
+    search_key   = "name"
+    search_value = "${local.name}-app"
   }
   destroy_path = "${local.neon_branch_path}/credentials/{id}"
 

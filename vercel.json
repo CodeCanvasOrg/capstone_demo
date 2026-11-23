@@ -7,7 +7,7 @@
   "outputDirectory": "build/public",
   "functions": {
     "api/index.mjs": {
-      "includeFiles": "{build/resources/**,build/public/assets/.vite/**,build/node_modules/@fontsource/**/*.woff2,build/node_modules/@fontsource-variable/**/*.woff2}",
+      "includeFiles": "{build/resources/**,build/node_modules/openai/lib/**/*.js,build/public/assets/.vite/**,build/node_modules/@fontsource/**/*.woff2,build/node_modules/@fontsource-variable/**/*.woff2}",
       "excludeFiles": "{build/node_modules/**/*musl*/**,build/node_modules/better-sqlite3/**}",
       "maxDuration": 300
     }
