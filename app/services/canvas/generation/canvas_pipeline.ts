@@ -248,6 +248,7 @@ export default class CanvasPipeline {
           options,
           pages: plan,
           evidence: imageEvidence,
+          chunks: new Map(found.map((f) => [Number(f.key), f.chunks])),
           guard,
         })
       : new Map<number, ImageChoice>()
@@ -256,6 +257,8 @@ export default class CanvasPipeline {
       if (choices.has(i)) return
       if (p.design === 'figure_text') p.design = 'two_column'
       if (p.design === 'side_figure') p.design = 'essay'
+    })
+    plan.forEach((p, i) => {
       rows.get(i)!.design = p.design
     })
 
@@ -393,8 +396,10 @@ export default class CanvasPipeline {
         unusableOutput: true,
       })
     const sizes = new Map<string, { width: number; height: number }>()
-    for (const choice of choices.values())
-      if (choice.imageId) sizes.set(choice.imageId, { width: choice.width, height: choice.height })
+    for (const [i, image] of placed) {
+      const choice = choices.get(i)
+      if (choice) sizes.set(image.imageId, { width: choice.width, height: choice.height })
+    }
     const report = densityReport(canvas, { images: sizes })
     report.pages.forEach((m, i) => {
       final[i].index = i

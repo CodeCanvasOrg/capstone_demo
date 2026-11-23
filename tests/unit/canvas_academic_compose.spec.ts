@@ -144,7 +144,7 @@ test.group('academic compose', () => {
   for (const design of ACADEMIC_DESIGN_IDS)
     test(`the ${design} layout has not changed`, ({ assert }) => {
       const file = new URL(`${design}.json`, SNAP)
-      const now = `${JSON.stringify(outline(design), null, 1)}\n`
+      const now = `${JSON.stringify(outline(design), null, 2)}\n`
       if (process.env.UPDATE_SNAPSHOTS || !existsSync(file)) {
         mkdirSync(SNAP, { recursive: true })
         writeFileSync(file, now)

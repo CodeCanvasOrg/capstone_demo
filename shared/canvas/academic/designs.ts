@@ -203,11 +203,11 @@ export type AcademicDesignInfo = {
   images: ImageSlot[]
 }
 
-const FIGURE_SLOT = (aspect: ImageSlot['aspect'], optional: boolean): ImageSlot => ({
+const FIGURE_SLOT = (aspect: ImageSlot['aspect'], optional: boolean, minEdge = 600): ImageSlot => ({
   slot: 'figure',
   aspect,
   optional,
-  minEdge: 600,
+  minEdge,
 })
 
 export const ACADEMIC_DESIGNS: Record<AcademicDesignId, AcademicDesignInfo> = {
@@ -310,7 +310,8 @@ export const ACADEMIC_DESIGNS: Record<AcademicDesignId, AcademicDesignInfo> = {
     nominalWords: [380, 500],
     sections: [1, 2],
     callout: true,
-    images: [FIGURE_SLOT('square', true)],
+    // A small picture beside the narrative: a thumbnail slot, so 300 px is enough.
+    images: [FIGURE_SLOT('square', true, 300)],
   },
   comparison: {
     label: 'Comparison',

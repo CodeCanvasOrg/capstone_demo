@@ -10,6 +10,11 @@ export type DocumentImageInfo = {
   byteSize: number
   width: number | null
   height: number | null
+  caption?: string | null
+  altText?: string | null
+  /** Focal point found at upload, percent of width and height. */
+  focus?: { x: number; y: number } | null
+  origin?: 'upload' | 'source'
   src: string
 }
 

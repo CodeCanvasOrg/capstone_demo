@@ -129,7 +129,7 @@ function ImageFields({
           {frame.fit === 'cover' && image && (
             <Field label="Focal point (kept in view when cropped)">
               <FocalPoint
-                src={image.src}
+                src={`${image.src}?variant=thumb`}
                 alt={frame.alt}
                 focus={frame.focus ?? { x: 50, y: 50 }}
                 onChange={(focus) => onChange({ ...frame, focus })}

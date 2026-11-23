@@ -96,7 +96,7 @@ export function ImageLibrary({
                   className={`relative block aspect-square w-full overflow-hidden rounded-md border bg-muted outline-offset-2 focus-visible:outline-2 focus-visible:outline-ring ${selected ? 'ring-2 ring-primary' : 'hover:border-foreground/40'}`}
                 >
                   <img
-                    src={image.src}
+                    src={`${image.src}?variant=thumb`}
                     alt={image.filename}
                     loading="lazy"
                     draggable={false}

@@ -32,7 +32,9 @@ export const projectedFrames = (canvas: CanvasDocument) =>
     readingOrder(sheet).filter((frame) => frame.kind === 'text' || frame.kind === 'image')
   )
 
-function frameHtml(frame: Frame, content: FrameContent, brand: BrandKit) {
+export type ImageFocus = ReadonlyMap<string, { x: number; y: number }>
+
+function frameHtml(frame: Frame, content: FrameContent, brand: BrandKit, focus: ImageFocus) {
   const open = `<div class="cv-frame cv-${frame.kind}" id="${frame.id}">`
   switch (frame.kind) {
     case 'text':
@@ -46,7 +48,12 @@ function frameHtml(frame: Frame, content: FrameContent, brand: BrandKit) {
       const src = image?.type === 'image' ? image.src : undefined
       // Only embedded images reach the page; anything else would be a request from the renderer.
       return src?.startsWith('data:image/')
-        ? `${open}<img src="${esc(src)}" alt="${esc(frame.alt)}" style="${imageCss(frame)}" /></div>`
+        ? `${open}<img src="${esc(src)}" alt="${esc(frame.alt)}" style="${imageCss(
+            // A frame without a focal point of its own uses the one found when the image was uploaded.
+            !frame.focus && frame.imageId && focus.has(frame.imageId)
+              ? { ...frame, focus: focus.get(frame.imageId) }
+              : frame
+          )}" /></div>`
         : `${open}</div>`
     }
     case 'art':
@@ -96,12 +103,15 @@ export async function renderCanvasHtml(
     sources = [],
     preview = false,
     unsaved = false,
+    focus = new Map(),
   }: {
     content?: FrameContent
     sources?: ClientSource[]
     preview?: boolean
     /** Drawn from the editor's autosaved draft, not a saved version. */
     unsaved?: boolean
+    /** Stored focal point of each document image, for image frames that have none. */
+    focus?: ImageFocus
   } = {}
 ) {
   const sheets = canvas.sheets
@@ -110,7 +120,7 @@ export async function renderCanvasHtml(
         `<section class="cv-sheet" id="${sheet.id}">${[...sheet.frames]
           // Painted in stacking order; z-index keeps it right even if a frame is out of order.
           .sort((a, b) => a.z - b.z)
-          .map((frame) => frameHtml(frame, content, brand))
+          .map((frame) => frameHtml(frame, content, brand, focus))
           .join('')}</section>`
     )
     .join('\n')

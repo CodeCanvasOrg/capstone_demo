@@ -1,3 +1,5 @@
+import DocumentImage from '#models/document_image'
+import type { CanvasDocument } from '../../../shared/canvas/model.ts'
 import env from '#start/env'
 import db from '@adonisjs/lucid/services/db'
 import drive from '@adonisjs/drive/services/main'
@@ -53,6 +55,21 @@ export const EXPORT_FORMATS = {
 export const exportFormat = (value: unknown): ExportFormat => (value === 'web' ? 'web' : 'pdf')
 /** OUT-01 pilot: branded publication layout, off unless enabled. */
 const publicationLayout = () => env.get('PUBLICATION_LAYOUT') === 'pilot'
+
+/** The largest frame each document image fills on a canvas, by image id (tenths of a millimetre). */
+export function imageFrameSizes(canvas: CanvasDocument) {
+  const sizes = new Map<string, { w: number; h: number }>()
+  for (const sheet of canvas.sheets)
+    for (const frame of sheet.frames)
+      if (frame.kind === 'image' && frame.imageId) {
+        const seen = sizes.get(frame.imageId)
+        sizes.set(frame.imageId, {
+          w: Math.max(seen?.w ?? 0, frame.geo.w),
+          h: Math.max(seen?.h ?? 0, frame.geo.h),
+        })
+      }
+  return sizes
+}
 
 export default class DocumentExportService {
   async request(
@@ -350,14 +367,29 @@ export default class DocumentExportService {
       })
     const check = () => new EvidenceService().check(context)
     const projected = this.client(
-      await this.content(context, doc.id, projectionDocument(row.project), check)
+      await this.content(context, doc.id, projectionDocument(row.project), check, {
+        imageFrames: imageFrameSizes(row.project),
+      })
     )
     return renderCanvasHtml(row.project, brand, {
       content: splitProjected(row.project, projected.body),
       sources: projected.sources,
       preview: !final,
       unsaved: row.draft,
+      focus: await this.imageFocus(context, doc.id, row.project),
     })
+  }
+
+  /** The focal point stored for each document image a canvas shows. */
+  private async imageFocus(context: Ctx, documentId: string, canvas: CanvasDocument) {
+    const ids = [...imageFrameSizes(canvas).keys()]
+    if (!ids.length) return new Map<string, { x: number; y: number }>()
+    const rows = await DocumentImage.query()
+      .where({ workspaceId: context.workspaceId, documentId })
+      .whereIn('id', ids)
+      .whereNotNull('focusX')
+      .whereNotNull('focusY')
+    return new Map(rows.map((row) => [row.id, { x: row.focusX!, y: row.focusY! }]))
   }
 
   /**
@@ -530,9 +562,20 @@ export default class DocumentExportService {
     context: WorkspaceAccessContext,
     documentId: string,
     value: unknown,
-    guard: () => Promise<void>
+    guard: () => Promise<void>,
+    {
+      imageFrames = new Map<string, { w: number; h: number }>(),
+    }: {
+      /**
+       * Canvas export only: the largest frame each document image fills, in tenths of a
+       * millimetre. Those images are embedded as the print variant resized to the frame
+       * at 300 dpi, not as the original bytes.
+       */
+      imageFrames?: ReadonlyMap<string, { w: number; h: number }>
+    } = {}
   ) {
     const service = new EvidenceService()
+    const resized = new Map<string, { mime: string; bytes: Buffer }>()
     const content = await service.hydrate(
       context,
       documentId,
@@ -545,25 +588,42 @@ export default class DocumentExportService {
           typeof node.attrs?.documentImageId === 'string')
       ) {
         await guard()
-        const asset =
+        const frame =
           typeof node.attrs?.documentImageId === 'string'
-            ? await new DocumentImageService().asset(
-                context,
-                documentId,
-                node.attrs.documentImageId
-              )
-            : await service.asset(context, documentId, node.attrs!.sourceChunkId as string)
-        if (!/^image\/(png|jpeg|gif|webp)$/.test(asset.mime))
-          throw conflict('Unsupported export image')
-        const chunks: Buffer[] = []
-        let size = 0
-        for await (const chunk of asset.stream) {
-          const bytes = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)
-          size += bytes.length
-          if (size > 20000000) throw conflict('Export image is too large')
-          chunks.push(bytes)
+            ? imageFrames.get(node.attrs.documentImageId)
+            : undefined
+        if (frame) {
+          const printed = await new DocumentImageService().exportAsset(
+            context,
+            documentId,
+            node.attrs!.documentImageId as string,
+            frame,
+            resized
+          )
+          if (!/^image\/(png|jpeg|gif|webp)$/.test(printed.mime))
+            throw conflict('Unsupported export image')
+          node.attrs!.src = `data:${printed.mime};base64,${printed.bytes.toString('base64')}`
+        } else {
+          const asset =
+            typeof node.attrs?.documentImageId === 'string'
+              ? await new DocumentImageService().asset(
+                  context,
+                  documentId,
+                  node.attrs.documentImageId
+                )
+              : await service.asset(context, documentId, node.attrs!.sourceChunkId as string)
+          if (!/^image\/(png|jpeg|gif|webp)$/.test(asset.mime))
+            throw conflict('Unsupported export image')
+          const chunks: Buffer[] = []
+          let size = 0
+          for await (const chunk of asset.stream) {
+            const bytes = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)
+            size += bytes.length
+            if (size > 20000000) throw conflict('Export image is too large')
+            chunks.push(bytes)
+          }
+          node.attrs!.src = `data:${asset.mime};base64,${Buffer.concat(chunks).toString('base64')}`
         }
-        node.attrs.src = `data:${asset.mime};base64,${Buffer.concat(chunks).toString('base64')}`
       }
       for (const child of node.content ?? []) await embed(child)
     }

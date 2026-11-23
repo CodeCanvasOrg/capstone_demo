@@ -27,13 +27,14 @@ export default class DocumentImagesController {
     return response.created({ data: image })
   }
 
-  async show({ params, response, workspaceAccess, bouncer }: HttpContext) {
+  async show({ params, request, response, workspaceAccess, bouncer }: HttpContext) {
     const document = await new AccessService().document(workspaceAccess!, params.documentId)
     await bouncer.with(DocumentPolicy).authorize('edit', document)
     const asset = await new DocumentImageService().asset(
       workspaceAccess!,
       document.id,
-      params.imageId
+      params.imageId,
+      request.qs().variant
     )
     return response
       .header('Cache-Control', 'private, no-store')

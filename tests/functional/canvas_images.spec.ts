@@ -121,7 +121,8 @@ test.group('Canvas images: sizes and library', (group) => {
       const html = (await client.get(`${base}/preview`).loginAs(a.user)).text()
       assert.match(
         html,
-        /<div class="cv-frame cv-image" id="hero"><img src="data:image\/png;base64,/
+        // The print copy of an opaque picture is a JPEG (a PNG when it has transparency).
+        /<div class="cv-frame cv-image" id="hero"><img src="data:image\/jpeg;base64,/
       )
       assert.include(html, 'object-position:25% 75%')
       assert.include(html, 'alt="Hero"')
