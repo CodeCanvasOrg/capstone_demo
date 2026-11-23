@@ -1,3 +1,4 @@
+/* eslint-disable @unicorn/no-await-expression-member -- terse assertions on awaited results */
 import { test } from '@japa/runner'
 import drive from '@adonisjs/drive/services/main'
 import { randomUUID } from 'node:crypto'
