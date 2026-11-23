@@ -27,4 +27,4 @@ This page's design
 - essay (Essay): A wide reading column with a margin sidebar for a callout and key terms.
   Best for: Developing one argument in connected prose: background, context, method, or discussion.
   Reads: lead states the page claim. sections are the argument, each a heading and one to three paragraphs. callout (optional) and definitions go in the margin. takeaway closes the page.
-  Words: 250 to 295 in the sections' text at standard depth.
+  Words: 240 to 280 in the sections' text at standard depth.

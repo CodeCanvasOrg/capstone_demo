@@ -2,7 +2,13 @@ import drive from '@adonisjs/drive/services/main'
 import logger from '@adonisjs/core/services/logger'
 import { chromium } from 'playwright'
 import CanvasTemplate from '#models/canvas_template'
-import { renderCanvasHtml } from '#services/exports/canvas_renderer'
+import ContentService from '#services/documents/content_service'
+import PublicationProjectionService from '#services/documents/publication_projection_service'
+import {
+  projectionDocument,
+  renderCanvasHtml,
+  splitProjected,
+} from '#services/exports/canvas_renderer'
 import { defaultLayout } from '#services/layout/layout_validation'
 import { composeAcademicSheet, type AcademicMeta } from '../../../shared/canvas/academic/compose.ts'
 import { templatePage } from '../../../shared/canvas/academic/sample.ts'
@@ -48,6 +54,19 @@ export function templateProject(design: AcademicDesignId): CanvasDocument {
   return { schemaVersion: CANVAS_SCHEMA_VERSION, sheets: [sheet] }
 }
 
+/**
+ * A canvas as the export draws it, for a thumbnail: its text goes through the same
+ * projection every export uses (there is no evidence to resolve in a template).
+ */
+export async function templateHtml(
+  project: CanvasDocument,
+  brand: NonNullable<ReturnType<typeof getBrandKit>>
+) {
+  const content = new ContentService().normalize(projectionDocument(project), { repair: true })
+  const { client } = new PublicationProjectionService().project(content)
+  return renderCanvasHtml(project, brand, { content: splitProjected(project, client.body) })
+}
+
 export default class CanvasTemplateSeeder {
   /** Idempotent upsert of the academic system templates. */
   async seed({ dryRun = false, previews = true } = {}): Promise<SeedResult[]> {
@@ -81,7 +100,7 @@ export default class CanvasTemplateSeeder {
                 viewport: { width: 794, height: 1123 },
                 deviceScaleFactor: 0.6,
               })
-              await page.setContent(await renderCanvasHtml(project, brand))
+              await page.setContent(await templateHtml(project, brand))
               const png = await page.screenshot({
                 type: 'png',
                 clip: { x: 0, y: 0, width: 794, height: 1123 },

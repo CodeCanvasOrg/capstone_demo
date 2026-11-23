@@ -27,7 +27,7 @@ export async function generatable(count = 4) {
     await db
       .from('chunks')
       .where({ id: s.chunkId })
-      .update({ content: `${EVIDENCE} Source ${i}.` })
+      .update({ content: `${EVIDENCE.repeat(6)} Source ${i}.` })
     sources.push(s)
   }
   await new CanvasService().enable(a.context, a.document.id, randomUUID())

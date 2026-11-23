@@ -96,10 +96,14 @@ export function pageMetrics(
     walkNodes(frame.doc, (node) => {
       if (node.type === 'sourceCitation') citations++
     })
+    // Every text frame must hold its text; only the flowing frames count toward how full the page is.
+    const fill = fillRatio(frame.doc as never, frame.geo, frame.style)
     if (FLOW_ROLES.has(role(frame))) {
       used += blocksHeight(frame.doc as never, frame.geo, frame.style)
       room += innerMm(frame.geo, frame.style).h
-      const fill = fillRatio(frame.doc as never, frame.geo, frame.style)
+      maxFrameFill = Math.max(maxFrameFill ?? 0, fill)
+    } else if (fill > FILL.high && room >= 0) {
+      // A sidebar, lead or takeaway that runs past its frame is overflow too.
       maxFrameFill = Math.max(maxFrameFill ?? 0, fill)
     }
   }

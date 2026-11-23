@@ -44,8 +44,8 @@ export function samplePage(design: AcademicDesignId, options: Options = {}): Aca
   const target = Math.round(range.capacity * fill)
   const cite = (n = 0) => (options.uncited ? [] : [chunks[n % chunks.length]])
   const nDefs = info.definitions ? Math.round((info.definitions[0] + info.definitions[1]) / 2) : 0
-  const defWords = design === 'key_concepts' ? 40 : 25
-  const calloutWords = design === 'case_box' ? 110 : 45
+  const defWords = design === 'key_concepts' ? 40 : design === 'side_figure' ? 20 : 25
+  const calloutWords = design === 'case_box' ? 110 : design === 'side_figure' ? 30 : 45
   // Words of each section: an even split, except where a layout's frames differ in size.
   const even = (n: number, total: number) =>
     Array.from({ length: n }, () => Math.max(Math.floor(total / n) - 4, 30))

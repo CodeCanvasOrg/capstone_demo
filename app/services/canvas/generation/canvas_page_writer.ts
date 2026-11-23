@@ -407,7 +407,14 @@ export default class CanvasPageWriter {
     let cut = false
     while (this.measure(next, design, meta, withImage).maxFrame > FILL.high) {
       const last = next.sections.at(-1)
-      if (!last) break
+      if (!last) {
+        // The title page has no sections: an abstract that is too long loses its last sentence.
+        const sentences = next.lead?.text.split(/(?<=[.!?])\s+/) ?? []
+        if (!next.lead || sentences.length < 2) break
+        next.lead = { ...next.lead, text: sentences.slice(0, -1).join(' ') }
+        cut = true
+        continue
+      }
       if (last.bullets.length) last.bullets.pop()
       else if (last.paragraphs.length > 1) last.paragraphs.pop()
       else if (next.sections.length > 1) next.sections.pop()

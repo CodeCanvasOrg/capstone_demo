@@ -100,6 +100,7 @@ Output protocol. Call plan_canvas once.
 Rules
 - The title page, the contents and the references are added by the application. Do not plan them.
 - Questions are used to search the sources, so each must be answerable from the supplied sources. Put anything the sources cannot answer in coverageGaps, never in a page's questions.
+- The user message gives sourceWords, the size of the sources. Plan no more than one content page for every 100 words of sources (and at least two): a page the sources cannot fill is written thin or filled with placeholders.
 - Pages progress from context to concepts to evidence and findings to analysis to implications. Each page has its own purpose; no two pages cover the same ground.
 - Choose the design that fits what the page has to say. Use each design at most twice. The last page is a conclusion.
 - Set wantsImage only where a figure, diagram or photograph from the sources would help the reader, and only for a design that has an image slot.

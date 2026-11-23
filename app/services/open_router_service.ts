@@ -39,6 +39,8 @@ import { isOpenPlan, type BrochureSelection, type DesignId } from '../../shared/
 import ContentService from './documents/content_service.ts'
 import {
   academicPageSchema,
+  modelSchema,
+  parseLenient,
   planSchema,
   type AcademicPage,
   type CanvasPlan,
@@ -524,7 +526,8 @@ export default class OpenRouterService {
     input: { system: string; user: string; model: string; corrections?: string[] },
     guard?: () => Promise<void>
   ): Promise<CanvasPlan> {
-    const chain = this.chat(input.model).withStructuredOutput(planSchema, {
+    // The model is shown the schema's limits; a value only a little too long is cut, not refused.
+    const chain = this.chat(input.model).withStructuredOutput(modelSchema(planSchema), {
       method: 'functionCalling',
       name: 'plan_canvas',
     })
@@ -532,7 +535,7 @@ export default class OpenRouterService {
       label: 'canvas plan',
       timeoutMs: openRouterApiConfig.canvasTimeoutMs,
       validate: (value) => {
-        const parsed = planSchema.safeParse(value)
+        const parsed = parseLenient(planSchema, value)
         if (!parsed.success)
           throw Object.assign(new Error('The model returned an invalid canvas plan.'), {
             status: 422,
@@ -556,7 +559,7 @@ export default class OpenRouterService {
     input: { system: string; user: string; model: string; corrections?: string[] },
     guard?: () => Promise<void>
   ): Promise<AcademicPage> {
-    const chain = this.chat(input.model).withStructuredOutput(academicPageSchema, {
+    const chain = this.chat(input.model).withStructuredOutput(modelSchema(academicPageSchema), {
       method: 'functionCalling',
       name: 'write_canvas_page',
     })
@@ -564,8 +567,16 @@ export default class OpenRouterService {
       label: 'canvas page',
       timeoutMs: openRouterApiConfig.canvasTimeoutMs,
       validate: (value) => {
-        const parsed = academicPageSchema.safeParse(value)
-        if (!parsed.success)
+        const parsed = parseLenient(academicPageSchema, value)
+        if (!parsed.success) {
+          logger.warn(
+            {
+              issues: parsed.error.issues
+                .slice(0, 6)
+                .map((i) => `${i.path.join('.')}: ${i.message}`),
+            },
+            'Canvas page failed its schema'
+          )
           throw Object.assign(new Error('The model returned an invalid canvas page.'), {
             status: 422,
             unusableOutput: true,
@@ -574,6 +585,7 @@ export default class OpenRouterService {
               .map((issue) => issue.path.join('.') || 'root')
               .join(', ')}. Return the whole page again.`,
           })
+        }
         return parsed.data
       },
     })) as AcademicPage

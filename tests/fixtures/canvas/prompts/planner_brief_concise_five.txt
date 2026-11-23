@@ -9,6 +9,7 @@ Output protocol. Call plan_canvas once.
 Rules
 - The title page, the contents and the references are added by the application. Do not plan them.
 - Questions are used to search the sources, so each must be answerable from the supplied sources. Put anything the sources cannot answer in coverageGaps, never in a page's questions.
+- The user message gives sourceWords, the size of the sources. Plan no more than one content page for every 100 words of sources (and at least two): a page the sources cannot fill is written thin or filled with placeholders.
 - Pages progress from context to concepts to evidence and findings to analysis to implications. Each page has its own purpose; no two pages cover the same ground.
 - Choose the design that fits what the page has to say. Use each design at most twice. The last page is a conclusion.
 - Set wantsImage only where a figure, diagram or photograph from the sources would help the reader, and only for a design that has an image slot.
@@ -26,7 +27,7 @@ Designs you may use
 - essay (Essay): A wide reading column with a margin sidebar for a callout and key terms.
   Best for: Developing one argument in connected prose: background, context, method, or discussion.
   Reads: lead states the page claim. sections are the argument, each a heading and one to three paragraphs. callout (optional) and definitions go in the margin. takeaway closes the page.
-  Words: 225 to 260 in the sections' text at concise depth.
+  Words: 215 to 250 in the sections' text at concise depth.
 - case_box (Case or example): A narrative with a shaded case box and a takeaway line.
   Best for: Showing the idea at work through one concrete case or example from the sources.
   Reads: lead states the claim. sections are the narrative (one or two). callout kind "example" is the case box: its title names the case and its text tells it in 100 to 130 words. takeaway is one line. An optional small image sits beside the narrative.
@@ -34,4 +35,4 @@ Designs you may use
 - conclusion (Conclusion): Summary, implications, limitations and further work in a wide column.
   Best for: The last content page: what was established, what follows, what remains uncertain.
   Reads: lead restates the contribution. sections are Summary, Implications, Limitations and Further work (exactly those four headings, one or two paragraphs each). callout kind "limitation" (optional) goes in the margin. takeaway closes the document.
-  Words: 205 to 240 in the sections' text at concise depth.
+  Words: 200 to 230 in the sections' text at concise depth.

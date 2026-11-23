@@ -5,9 +5,12 @@ import {
   bodyWords,
   canvasOptionsSchema,
   checkWordRange,
+  clipWords,
   citedChunks,
   documentFromAcademicPages,
   figureSupported,
+  modelSchema,
+  parseLenient,
   planSchema,
   rangedWords,
   sanitizePage,
@@ -288,5 +291,92 @@ test.group('academic designs table', () => {
     assert.isTrue(ACADEMIC_DESIGNS.case_box.images[0].optional)
     assert.isFalse(ACADEMIC_DESIGNS.figure_text.images[0].optional)
     assert.lengthOf(ACADEMIC_DESIGNS.essay.images, 0)
+  })
+})
+
+test.group('lenient parsing of model output', () => {
+  test('a paragraph written as a bare string is a paragraph with no citation', ({ assert }) => {
+    const page = {
+      ...samplePage('essay'),
+      lead: 'A lead written as a plain string.',
+      sections: [{ heading: 'H', paragraphs: ['A bare paragraph.'], bullets: [] }],
+    }
+    const parsed = academicPageSchema.safeParse(page)
+    assert.isTrue(parsed.success)
+    if (!parsed.success) return
+    assert.deepEqual(parsed.data.lead, { text: 'A lead written as a plain string.', chunks: [] })
+    assert.deepEqual(parsed.data.sections[0].paragraphs[0], {
+      text: 'A bare paragraph.',
+      chunks: [],
+    })
+  })
+
+  test('the schema shown to a model keeps its shape and leaves the length limits to the cut', ({
+    assert,
+  }) => {
+    const shown = JSON.stringify(modelSchema(planSchema))
+    assert.notInclude(shown, 'maxLength')
+    assert.notInclude(shown, 'maxItems')
+    assert.include(shown, 'thesis')
+    const page = JSON.stringify(modelSchema(academicPageSchema))
+    // A paragraph is shown as an object, though a bare string is accepted.
+    assert.include(page, '"chunks"')
+    assert.include(page, '"sections"')
+  })
+
+  test('a string only a little too long is cut at a word, not refused', ({ assert }) => {
+    const long = `${'Combined programmes outperform single measures. '.repeat(12)}end`
+    const parsed = parseLenient(planSchema, { ...plan, thesis: long })
+    assert.isTrue(parsed.success)
+    if (!parsed.success) return
+    assert.isAtMost(parsed.data.thesis.length, 400)
+    // Cut between words: what was kept is the start of the original, and a space follows it.
+    assert.isTrue(long.startsWith(parsed.data.thesis))
+    assert.match(long.slice(parsed.data.thesis.length), /^[\s,;:]/)
+    // The original is not changed.
+    assert.isAbove(long.length, 400)
+  })
+
+  test('lists are cut to their limit, wherever they are', ({ assert }) => {
+    const pages = Array.from({ length: 17 }, () => ({
+      ...plan.pages[0],
+      questions: Array.from({ length: 9 }, (_, i) => `Question ${i}?`),
+    }))
+    const parsed = parseLenient(planSchema, { ...plan, pages })
+    assert.isTrue(parsed.success)
+    if (!parsed.success) return
+    assert.lengthOf(parsed.data.pages, 14)
+    assert.lengthOf(parsed.data.pages[0].questions, 5)
+  })
+
+  test('a value cut to a short limit still passes the page schema', ({ assert }) => {
+    const page = {
+      ...samplePage('data_findings'),
+      figures: [
+        { value: 'about eighty-three percent', label: 'x', qualifier: 'measured', chunks: [] },
+        { value: '12', label: 'y', qualifier: 'measured', chunks: [] },
+      ],
+    }
+    const parsed = parseLenient(academicPageSchema, page)
+    assert.isTrue(parsed.success)
+    if (parsed.success) assert.isAtMost(parsed.data.figures[0].value.length, 12)
+  })
+
+  test('anything else wrong is still an error, with its path', ({ assert }) => {
+    const parsed = parseLenient(planSchema, {
+      ...plan,
+      pages: [{ ...plan.pages[0], design: 'invented' }],
+    })
+    assert.isFalse(parsed.success)
+    if (!parsed.success) assert.deepEqual(parsed.error.issues[0].path, ['pages', 0, 'design'])
+    // Too long and wrong together is not repaired: the model is asked again.
+    const mixed = parseLenient(planSchema, { ...plan, thesis: 'x'.repeat(500), audience: '' })
+    assert.isFalse(mixed.success)
+  })
+
+  test('clipping prefers a word boundary and trims trailing punctuation', ({ assert }) => {
+    assert.equal(clipWords('one two three, four', 14), 'one two three')
+    assert.equal(clipWords('short', 14), 'short')
+    assert.equal(clipWords('supercalifragilistic', 8), 'supercal')
   })
 })

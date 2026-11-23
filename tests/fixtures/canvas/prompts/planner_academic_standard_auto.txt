@@ -9,6 +9,7 @@ Output protocol. Call plan_canvas once.
 Rules
 - The title page, the contents and the references are added by the application. Do not plan them.
 - Questions are used to search the sources, so each must be answerable from the supplied sources. Put anything the sources cannot answer in coverageGaps, never in a page's questions.
+- The user message gives sourceWords, the size of the sources. Plan no more than one content page for every 100 words of sources (and at least two): a page the sources cannot fill is written thin or filled with placeholders.
 - Pages progress from context to concepts to evidence and findings to analysis to implications. Each page has its own purpose; no two pages cover the same ground.
 - Choose the design that fits what the page has to say. Use each design at most twice. The last page is a conclusion.
 - Set wantsImage only where a figure, diagram or photograph from the sources would help the reader, and only for a design that has an image slot.
@@ -18,7 +19,7 @@ Designs you may use
 - essay (Essay): A wide reading column with a margin sidebar for a callout and key terms.
   Best for: Developing one argument in connected prose: background, context, method, or discussion.
   Reads: lead states the page claim. sections are the argument, each a heading and one to three paragraphs. callout (optional) and definitions go in the margin. takeaway closes the page.
-  Words: 250 to 295 in the sections' text at standard depth.
+  Words: 240 to 280 in the sections' text at standard depth.
 - two_column (Two columns): Two justified serif columns under a lead, with an optional callout and takeaway.
   Best for: Dense explanation that has several sub-topics and needs the most words on a page.
   Reads: lead states the page claim. sections are the sub-topics, each a heading and one to three paragraphs; they flow through two columns. callout (optional) runs full width under the columns.
@@ -29,7 +30,7 @@ Designs you may use
   Words: 170 to 200 in the sections' text at standard depth.
 - side_figure (Text with side figure): Text beside a tall figure with a numbered caption and a sidebar.
   Best for: A page with a portrait picture, such as a screenshot or a photo of a person or object.
-  Reads: lead states the claim. sections are the text (two or three). callout (optional) and definitions go under the figure. takeaway closes the page. The application places and captions the image.
+  Reads: lead states the claim. sections are the text (two or three). callout (optional, 35 words at most) and one definition (25 words at most) go under the figure. takeaway closes the page. The application places and captions the image.
   Words: 200 to 235 in the sections' text at standard depth.
 - data_findings (Data and findings): Two to four key figures with qualifiers, an interpretation and a method note.
   Best for: Results the sources state as numbers: measurements, counts, rates, comparisons.
@@ -50,4 +51,4 @@ Designs you may use
 - conclusion (Conclusion): Summary, implications, limitations and further work in a wide column.
   Best for: The last content page: what was established, what follows, what remains uncertain.
   Reads: lead restates the contribution. sections are Summary, Implications, Limitations and Further work (exactly those four headings, one or two paragraphs each). callout kind "limitation" (optional) goes in the margin. takeaway closes the document.
-  Words: 230 to 270 in the sections' text at standard depth.
+  Words: 220 to 260 in the sections' text at standard depth.

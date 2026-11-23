@@ -123,6 +123,8 @@ export type Generated = {
   report: DensityReport
   metrics: CanvasRunMetrics
   models: { planner: string; writer: string }
+  /** Text of every chunk the pages were given, by id: what their citations are checked against. */
+  evidence: Record<string, string>
 }
 
 const NO_RECORDER: Recorder = {
@@ -430,6 +432,7 @@ export default class CanvasPipeline {
       report,
       metrics,
       models,
+      evidence: Object.fromEntries([...known].map(([id, chunk]) => [id, chunk.content])),
     }
   }
 
@@ -493,6 +496,7 @@ export default class CanvasPipeline {
       pages,
       report,
       models,
+      evidence: Object.fromEntries(found.chunks.map((chunk) => [chunk.id, chunk.content])),
       metrics: {
         pages: canvas.sheets.length,
         words: report.words,

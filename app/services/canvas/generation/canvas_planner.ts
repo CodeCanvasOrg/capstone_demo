@@ -8,6 +8,7 @@ import type { SourcePin } from '#services/workspaces/task_service'
 import type { CanvasPlan, PagePlan } from '../../../../shared/canvas/academic/content.ts'
 import type { CanvasOptions } from '../../../../shared/canvas/academic/options.ts'
 import { plannerSystem, contentPageCount, TEMPLATE_DESIGNS } from './canvas_prompts.ts'
+import { wordCount } from '../../../../shared/canvas/fit.ts'
 import { anchor } from './page_queries.ts'
 
 /** What the planner is given beyond the options. */
@@ -36,6 +37,11 @@ export type PlannedDocument = {
 /** The broad retrieval the plan follows: what the sources actually cover. */
 export const PLAN_RETRIEVAL = { chunks: 30, tokens: 6000 } as const
 
+/** Content pages the sources can fill: about one for every 100 words, and at least two. */
+export const SOURCE_WORDS_PER_PAGE = 100
+export const pageLimit = (chunks: SourceChunk[]) =>
+  Math.max(2, Math.floor(wordCount(chunks.map((c) => c.content).join(' ')) / SOURCE_WORDS_PER_PAGE))
+
 const sourcesText = (chunks: SourceChunk[]) =>
   chunks
     .map(
@@ -55,8 +61,12 @@ export { sourcesText }
 export default class CanvasPlanner {
   constructor(private provider = new OpenRouterService()) {}
 
-  problems(plan: CanvasPlan, options: CanvasOptions) {
-    const count = contentPageCount(options.templateSet, options.depth, options.pages)
+  problems(plan: CanvasPlan, options: CanvasOptions, limit = Number.POSITIVE_INFINITY) {
+    const count = bounded(
+      contentPageCount(options.templateSet, options.depth, options.pages),
+      options,
+      limit
+    )
     const allowed = new Set<string>(TEMPLATE_DESIGNS[options.templateSet])
     const found: string[] = []
     if (plan.pages.length < count.min || plan.pages.length > count.max)
@@ -72,8 +82,12 @@ export default class CanvasPlanner {
   }
 
   /** Makes any plan fit the template set: clamps the count, swaps unavailable designs, closes with a conclusion. */
-  repair(plan: CanvasPlan, options: CanvasOptions): CanvasPlan {
-    const count = contentPageCount(options.templateSet, options.depth, options.pages)
+  repair(plan: CanvasPlan, options: CanvasOptions, limit = Number.POSITIVE_INFINITY): CanvasPlan {
+    const count = bounded(
+      contentPageCount(options.templateSet, options.depth, options.pages),
+      options,
+      limit
+    )
     const allowed = TEMPLATE_DESIGNS[options.templateSet]
     const fallback = allowed.includes('essay') ? 'essay' : allowed[0]
     const pages = plan.pages.slice(0, count.max).map((page) => ({
@@ -98,16 +112,18 @@ export default class CanvasPlanner {
       imageMode: 'none',
     })
     const system = plannerSystem(options)
+    const limit = pageLimit(chunks)
     const user = JSON.stringify({
       title: input.title,
       brief: input.brief,
+      sourceWords: wordCount(chunks.map((c) => c.content).join(' ')),
       sources: sourcesText(chunks),
       ...(chunks.length ? {} : { note: 'There are no sources: plan from the brief alone.' }),
     })
     let tokens = countTokens(system) + countTokens(user)
     let plan = await this.provider.planCanvas({ system, user, model }, guard)
     tokens += countTokens(JSON.stringify(plan))
-    const found = this.problems(plan, options)
+    const found = this.problems(plan, options, chunks.length ? limit : undefined)
     if (found.length) {
       const again = await this.provider.planCanvas(
         {
@@ -123,7 +139,7 @@ export default class CanvasPlanner {
       tokens += countTokens(JSON.stringify(again))
       plan = again
     }
-    const repaired = this.repair(plan, options)
+    const repaired = this.repair(plan, options, chunks.length ? limit : undefined)
     const content = repaired.pages
     const pages: PagePlan[] = [
       {
@@ -152,6 +168,13 @@ export default class CanvasPlanner {
       model,
     }
   }
+}
+
+/** The page count the template set allows, held down to what the sources can fill (never when the author fixed it). */
+function bounded(count: { min: number; max: number }, options: CanvasOptions, limit: number) {
+  if (options.pages !== 'auto' || limit >= count.max) return count
+  const max = Math.max(limit, 2)
+  return { min: Math.min(count.min, max), max }
 }
 
 const fixed = (design: 'contents' | 'references', title: string): PagePlan => ({

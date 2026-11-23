@@ -105,10 +105,10 @@ export const SLOTS = {
   title: g(MARGIN, 260, CONTENT_W, 170),
   bar: g(MARGIN, 450, 300, 20),
   lead: g(MARGIN, 520, CONTENT_W, 340),
-  takeaway: g(MARGIN, 2640, CONTENT_W, 150),
+  takeaway: g(MARGIN, 2600, CONTENT_W, 200),
   essay: {
-    body: g(MARGIN, 940, 1250, 1650),
-    side: g(1500, 940, 400, 1650),
+    body: g(MARGIN, 940, 1200, 1650),
+    side: g(1450, 940, 450, 1650),
   },
   two_column: {
     columns: [g(MARGIN, 940, 830, 1380), g(1070, 940, 830, 1380)],
@@ -121,9 +121,9 @@ export const SLOTS = {
   },
   side_figure: {
     body: g(MARGIN, 940, 1000, 1650),
-    image: g(1260, 940, 640, 880),
-    caption: g(1260, 1830, 640, 200),
-    side: g(1260, 2070, 640, 520),
+    image: g(1260, 940, 640, 720),
+    caption: g(1260, 1670, 640, 170),
+    side: g(1260, 1900, 640, 690),
   },
   data_findings: {
     cards: g(MARGIN, 900, CONTENT_W, 440),
@@ -150,8 +150,8 @@ export const SLOTS = {
   },
   title_page: {
     band: g(0, 0, 2100, 980),
-    kicker: g(MARGIN, 300, CONTENT_W, 70),
-    title: g(MARGIN, 400, CONTENT_W, 340),
+    kicker: g(MARGIN, 250, CONTENT_W, 70),
+    title: g(MARGIN, 330, CONTENT_W, 450),
     meta: g(MARGIN, 880, CONTENT_W, 70),
     abstract: g(MARGIN, 1060, CONTENT_W, 1000),
     keywords: g(MARGIN, 2120, CONTENT_W, 130),
@@ -271,10 +271,10 @@ export const ACADEMIC_DESIGNS: Record<AcademicDesignId, AcademicDesignInfo> = {
     bestFor:
       'A page with a portrait picture, such as a screenshot or a photo of a person or object.',
     reads:
-      'lead states the claim. sections are the text (two or three). callout (optional) and definitions go under the figure. takeaway closes the page. The application places and captions the image.',
+      'lead states the claim. sections are the text (two or three). callout (optional, 35 words at most) and one definition (25 words at most) go under the figure. takeaway closes the page. The application places and captions the image.',
     nominalWords: [350, 450],
     sections: [2, 3],
-    definitions: [0, 2],
+    definitions: [0, 1],
     callout: true,
     images: [FIGURE_SLOT('portrait', false)],
   },
