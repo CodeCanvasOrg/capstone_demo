@@ -45,7 +45,6 @@ Configure these on the repo's **`production`** environment (Settings → Environ
 | --- | --- |
 | `VERCEL_TOKEN` | `VERCEL_ORG_ID` = `vercel_team_id` (personal account: your Vercel user ID) |
 | `RAILWAY_TOKEN` (project token for the production environment: Project → Settings → Tokens) | `VERCEL_PROJECT_ID` = `vercel_project_id` |
-| | `RAILWAY_SERVICE_ID` = `railway_worker_service_id` |
 
 The app's own env vars (database, Redis, OpenRouter, SMTP, ...) are not GitHub secrets: Terraform
 writes them straight into Vercel and Railway. Protect `main` with the CI jobs as required status checks.

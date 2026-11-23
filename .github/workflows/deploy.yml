@@ -3,7 +3,7 @@
 #   2. Railway worker   (railway up; its pre-deploy step runs the migrations)
 #   3. Vercel web       (vercel build + deploy --prebuilt --prod)
 # Infrastructure is not applied here: Terraform state is kept locally, so run `terraform apply`
-# in terraform/vercel yourself when the infrastructure or env vars change. The project/service
+# in terraform/vercel yourself when the infrastructure or env vars change. The Vercel
 # IDs below come from `terraform output` and are stored once as repository variables.
 # Git auto-deploys are off on both platforms (vercel.json "git.deploymentEnabled",
 # no source repo on the Railway service), so this workflow is the only path to production.
@@ -58,13 +58,14 @@ jobs:
           fi
 
       # RAILWAY_TOKEN is a project token scoped to the production environment, so it already
-      # identifies the project and environment; no `railway link` needed.
+      # identifies the project and environment; no `railway link` needed. The service is named
+      # "worker" in terraform/vercel/worker.tf.
       - name: Deploy worker to Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
           npm install -g @railway/cli
-          railway up --ci --service "${{ vars.RAILWAY_SERVICE_ID }}"
+          railway up --ci --service worker
 
       # ------------------------------------------------------------ web (Vercel)
       - uses: ./.github/actions/setup-node-bun
