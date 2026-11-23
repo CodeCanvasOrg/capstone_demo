@@ -160,6 +160,35 @@ export default class DocumentImageService {
     }
   }
 
+  /**
+   * Fills in the size of images uploaded before sizes were recorded, reading
+   * each file's header from storage. Maintenance only (`node ace images:measure`):
+   * runs across workspaces, so it never returns image contents.
+   */
+  async measureMissing({ limit = 500, dryRun = false } = {}) {
+    const rows = await DocumentImage.query()
+      .whereNull('width')
+      .orderBy('createdAt', 'asc')
+      .limit(limit)
+    const result = { checked: rows.length, measured: 0, unreadable: [] as string[] }
+    for (const image of rows) {
+      try {
+        const bytes = Buffer.from(await drive.use().getBytes(image.objectKey))
+        const size = DocumentImageService.dimensions(image.mime, bytes)
+        if (!size) {
+          result.unreadable.push(image.id)
+          continue
+        }
+        if (!dryRun) await image.merge(size).save()
+        result.measured++
+      } catch (error) {
+        logger.warn({ err: error, imageId: image.id }, 'Unable to measure document image')
+        result.unreadable.push(image.id)
+      }
+    }
+    return result
+  }
+
   /** Every image uploaded to a document, newest first: the canvas's image library. */
   async list(context: WorkspaceAccessContext, documentId: string) {
     if (!uuid(documentId)) throw missingResource()
