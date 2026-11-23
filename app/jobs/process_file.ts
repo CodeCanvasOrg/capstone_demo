@@ -5,6 +5,7 @@ import ProcessingService from '#services/documents/processing_service'
 import TaskService from '#services/workspaces/task_service'
 import logger from '@adonisjs/core/services/logger'
 import { PdfWorkerError } from '#services/documents/pdf_worker_service'
+import { trackLease } from '#services/workspaces/active_leases'
 export default class ProcessFile extends Job<{ version: 1; taskId: string }> {
   static options: JobOptions = { queue: 'documents', timeout: '20m' }
   async execute() {
@@ -17,6 +18,7 @@ export default class ProcessFile extends Job<{ version: 1; taskId: string }> {
       void tasks.renew(lease).catch(() => {})
     }, workspaceConfig.heartbeatMilliseconds)
     heartbeat.unref()
+    const untrack = trackLease(lease)
     try {
       await new ProcessingService().processRun(lease)
     } catch (error) {
@@ -30,6 +32,7 @@ export default class ProcessFile extends Job<{ version: 1; taskId: string }> {
       else await tasks.fail(lease)
     } finally {
       clearInterval(heartbeat)
+      untrack()
     }
   }
 }

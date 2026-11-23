@@ -22,7 +22,14 @@ import TaskDispatchService from '#services/workspaces/task_dispatch_service'
 
 // Deliver committed intents outside request handling, including the development sync adapter.
 // The lease protocol fences duplicate deliveries across web processes and Redis workers.
+// It also runs inside `ace queue:work`: on serverless hosts the web process is frozen between
+// requests, so without the worker a task whose lease expired (e.g. its worker was replaced by a
+// redeploy) would only be re-queued once someone used the site. Other ace commands (migrations,
+// one-off scripts) skip it.
+const runsHere = app.getEnvironment() === 'web' || process.argv.includes('queue:work')
+
 await app.ready(() => {
+  if (!runsHere) return
   let running = false
   const interval = setInterval(async () => {
     if (running) return

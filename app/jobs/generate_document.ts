@@ -5,6 +5,7 @@ import TaskService from '#services/workspaces/task_service'
 import GenerationService from '#services/documents/generation_service'
 import logger from '@adonisjs/core/services/logger'
 import OpenRouterService from '#services/open_router_service'
+import { trackLease } from '#services/workspaces/active_leases'
 export default class GenerateDocument extends Job<{ version: 1; taskId: string }> {
   static options: JobOptions = { queue: 'documents', timeout: '10m' }
   async execute() {
@@ -16,6 +17,7 @@ export default class GenerateDocument extends Job<{ version: 1; taskId: string }
       void tasks.renew(lease).catch(() => {})
     }, workspaceConfig.heartbeatMilliseconds)
     heartbeat.unref()
+    const untrack = trackLease(lease)
     try {
       await new GenerationService().execute(lease)
     } catch (error) {
@@ -42,6 +44,7 @@ export default class GenerateDocument extends Job<{ version: 1; taskId: string }
       await new GenerationService().failed(lease, error)
     } finally {
       clearInterval(heartbeat)
+      untrack()
     }
   }
 }
