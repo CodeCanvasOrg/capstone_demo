@@ -7,7 +7,7 @@ import { BRAND_KITS } from '../../shared/layout/brand.ts'
 import { IMAGE, minimal } from '../fixtures/canvas/index.ts'
 
 type ImageFrame = Extract<Frame, { kind: 'image' }>
-const imageOf = (canvas: ReturnType<typeof minimal>) =>
+const imageOf = (canvas: ReturnType<typeof minimal>): ImageFrame =>
   canvas.sheets[1].frames.find((f) => f.kind === 'image') as ImageFrame
 
 test.group('canvas images', () => {
@@ -23,12 +23,12 @@ test.group('canvas images', () => {
       { x: 1.5, y: 0 },
       { x: '50%', y: 0 },
     ]) {
-      const bad = minimal() as any
-      imageOf(bad).focus = focus
+      const bad = minimal()
+      ;(imageOf(bad) as any).focus = focus
       assert.isFalse(parseCanvas(bad).ok, JSON.stringify(focus))
     }
-    const extra = minimal() as any
-    imageOf(extra).focus = { x: 1, y: 1, z: 'url(x)' }
+    const extra = minimal()
+    ;(imageOf(extra) as any).focus = { x: 1, y: 1, z: 'url(x)' }
     assert.isFalse(parseCanvas(extra).ok)
   })
 
