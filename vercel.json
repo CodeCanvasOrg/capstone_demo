@@ -7,7 +7,7 @@
   "outputDirectory": "build/public",
   "functions": {
     "api/index.mjs": {
-      "includeFiles": "{build/resources/**,build/node_modules/openai/lib/**/*.js,build/public/assets/.vite/**,build/node_modules/@fontsource/**/*.woff2,build/node_modules/@fontsource-variable/**/*.woff2,build/node_modules/@napi-rs/canvas/**,build/node_modules/@napi-rs/canvas-linux-x64-gnu/**,build/node_modules/pdfjs-dist/standard_fonts/**,build/node_modules/pdfjs-dist/cmaps/**}",
+      "includeFiles": "{build/resources/**,build/public/assets/.vite/**,build/node_modules/{openai/lib/**/*.js,@fontsource/**/*.woff2,@fontsource-variable/**/*.woff2,@napi-rs/canvas/**,@napi-rs/canvas-linux-x64-gnu/**,pdfjs-dist/standard_fonts/**,pdfjs-dist/cmaps/**}}",
       "excludeFiles": "{build/node_modules/**/*musl*/**,build/node_modules/better-sqlite3/**}",
       "maxDuration": 300
     }
