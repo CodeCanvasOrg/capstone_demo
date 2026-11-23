@@ -648,6 +648,7 @@ export default class CanvasPipeline {
       meta,
       figure
     )
+    const report = densityReport(canvas)
     await recorder.pages(
       stored.map((r) => ({
         index: r.pageIndex,
@@ -659,13 +660,17 @@ export default class CanvasPipeline {
         citedChunkIds: r.pageIndex === index ? citedChunks(written.page) : r.citedChunkIds,
         imageIds: r.imageIds,
         content: r.pageIndex === index ? written.page : (r.content as AcademicPage | null),
-        wordCount: r.pageIndex === index ? pageWords(written.page) : r.wordCount,
-        fillRatio: r.fillRatio === null ? null : Number(r.fillRatio),
+        wordCount: r.pageIndex === index ? report.pages[index].words : r.wordCount,
+        fillRatio:
+          r.pageIndex === index
+            ? report.pages[index].fill
+            : r.fillRatio === null
+              ? null
+              : Number(r.fillRatio),
         attempts: r.pageIndex === index ? written.attempts : r.attempts,
         notes: r.pageIndex === index ? written.notes : r.notes,
       }))
     )
-    const report = densityReport(canvas)
     await recorder.plan(previous.plan, {
       planner: previous.plannerModel,
       writer: previous.writerModel,

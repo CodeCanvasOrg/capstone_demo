@@ -221,6 +221,34 @@ export default class DocumentImageService {
     return image
   }
 
+  /** The caption and alt text of a picture, as the author edits them. Blank clears one. */
+  async updateText(
+    context: WorkspaceAccessContext,
+    documentId: string,
+    imageId: string,
+    input: { caption?: string | null; altText?: string | null }
+  ) {
+    if (!uuid(documentId) || !uuid(imageId)) throw missingResource()
+    return db.transaction(async (trx) => {
+      await new AccessService().lock(context, trx)
+      await Document.query({ client: trx })
+        .where({ id: documentId, workspaceId: context.workspaceId })
+        .forUpdate()
+        .firstOrFail()
+      const image = await DocumentImage.query({ client: trx })
+        .where({ id: imageId, workspaceId: context.workspaceId, documentId })
+        .forUpdate()
+        .firstOrFail()
+      const clean = (value: string | null | undefined) => (value?.trim() ? value.trim() : null)
+      image.useTransaction(trx).merge({
+        ...(input.caption !== undefined ? { caption: clean(input.caption) } : {}),
+        ...(input.altText !== undefined ? { altText: clean(input.altText) } : {}),
+      })
+      await image.save()
+      return this.receipt(image)
+    })
+  }
+
   /**
    * Fills in the size of images uploaded before sizes were recorded, reading
    * each file's header from storage. Maintenance only (`node ace images:measure`):

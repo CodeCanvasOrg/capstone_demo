@@ -1,6 +1,10 @@
 import env from '#start/env'
 import type { TransactionClientContract } from '@adonisjs/lucid/types/database'
 import CanvasGenerationPage from '#models/canvas_generation_page'
+import DocumentImage from '#models/document_image'
+import { FIGURE_PLACEHOLDER, PLACEHOLDER } from '../../../../shared/brochure/content.ts'
+import { SLOTS } from '../../../../shared/canvas/academic/designs.ts'
+import { printDpi } from '../../../../shared/canvas/image_rules.ts'
 import CanvasGenerationRun, { ACTIVE_RUN_STATUSES } from '#models/canvas_generation_run'
 import type WorkspaceTask from '#models/workspace_task'
 import config from '#config/open_router'
@@ -26,6 +30,14 @@ import {
   canvasOptionsSchema,
   type CanvasOptions,
 } from '../../../../shared/canvas/academic/options.ts'
+
+/** The picture frame of each design that has one, for the page's print resolution. */
+const IMAGE_GEO: Partial<Record<AcademicDesignId, { w: number; h: number }>> = {
+  figure_text: SLOTS.figure_text.image,
+  side_figure: SLOTS.side_figure.image,
+  case_box: SLOTS.case_box.image,
+  title_page: SLOTS.title_page.image,
+}
 
 /** Academic generation needs the canvas editor and its own switch, so it can roll out separately. */
 export const canvasGenerationEnabled = () =>
@@ -237,6 +249,13 @@ export default class CanvasGenerationService {
     const pages = await CanvasGenerationPage.query()
       .where('runId', run.id)
       .orderBy('pageIndex', 'asc')
+    const imageIds = [...new Set(pages.flatMap((page) => page.imageIds))]
+    const found = imageIds.length
+      ? await DocumentImage.query()
+          .where('workspaceId', context.workspaceId)
+          .whereIn('id', imageIds)
+      : []
+    const images = new Map(found.map((image) => [image.id, image]))
     return {
       id: run.id,
       taskId: run.taskId,
@@ -248,20 +267,36 @@ export default class CanvasGenerationService {
       writerModel: run.writerModel,
       error: run.error,
       resultVersionId: run.resultVersionId,
-      plan: run.plan,
+      plan: run.plan as object | null,
       metrics: run.metrics,
-      createdAt: run.createdAt,
-      pages: pages.map((page) => ({
-        index: page.pageIndex,
-        design: page.designId,
-        status: page.status,
-        purpose: page.purpose,
-        words: page.wordCount,
-        fill: page.fillRatio === null ? null : Number(page.fillRatio),
-        citations: page.citedChunkIds.length,
-        attempts: page.attempts,
-        notes: page.notes,
-      })),
+      createdAt: run.createdAt.toISO(),
+      pages: pages.map((page) => {
+        const text = JSON.stringify(page.content ?? '')
+        const pictures = page.imageIds
+          .map((id) => images.get(id))
+          .filter((image): image is DocumentImage => !!image?.width && !!image.height)
+        const geo = IMAGE_GEO[page.designId as AcademicDesignId]
+        return {
+          index: page.pageIndex,
+          design: page.designId,
+          status: page.status,
+          purpose: page.purpose,
+          words: page.wordCount,
+          fill: page.fillRatio === null ? null : Number(page.fillRatio),
+          citations: page.citedChunkIds.length,
+          placeholders:
+            text.split(PLACEHOLDER).length - 1 + text.split(FIGURE_PLACEHOLDER).length - 1,
+          // The lowest print resolution of the page's pictures, when there are any.
+          dpi:
+            geo && pictures.length
+              ? Math.min(
+                  ...pictures.map((p) => printDpi({ width: p.width!, height: p.height! }, geo))
+                )
+              : null,
+          attempts: page.attempts,
+          notes: page.notes,
+        }
+      }),
     }
   }
 

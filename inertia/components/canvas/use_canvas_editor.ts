@@ -254,6 +254,8 @@ export function useCanvasEditor(options: Options) {
     changed,
     flush,
     saveVersion,
+    /** The version the editor is based on now (it moves when a version is saved). */
+    baseVersion: () => baseVersionId.current,
     dismissError: () => setError(null),
   }
 }

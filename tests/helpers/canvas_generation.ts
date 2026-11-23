@@ -47,11 +47,13 @@ type Options = {
   designs?: AcademicDesignId[]
   /** Share of its capacity a page of this design is written to on its first call. */
   first?: Partial<Record<AcademicDesignId, number>>
-  /** Share on a corrected call (expand or condense). */
-  corrected?: number
+  /** Share on a corrected call (expand or condense); a list is used one call at a time, the last one repeating. */
+  corrected?: number | number[]
   /** Throw for this design's page. */
   fail?: AcademicDesignId
   gaps?: string[]
+  /** The planner waits for this before answering, so a test can watch the run in progress. */
+  gate?: Promise<void>
 }
 
 /** Stand-ins for the planner and the writer. Restored by the returned function. */
@@ -65,9 +67,11 @@ export function installModel(options: Options = {}) {
   }
   const calls: Call[] = []
   const plans: { model: string; corrections: string[] }[] = []
+  let correctedCalls = 0
   EmbeddingService.prototype.embedQuery = async () =>
     Array.from({ length: config.embeddingDimensions }, (_, i) => (i === 0 ? 1 : 0))
   proto.planCanvas = async (input) => {
+    await options.gate
     plans.push({ model: input.model, corrections: input.corrections ?? [] })
     const designs = options.designs ?? ['essay', 'two_column', 'data_findings', 'conclusion']
     return {
@@ -91,7 +95,10 @@ export function installModel(options: Options = {}) {
     if (options.fail === design) throw Object.assign(new Error('boom'), { status: 500 })
     const corrected = (input.corrections ?? []).some((c) => /fills \d+%|exceeds its layout/.test(c))
     const ids = [...String(payload.sources).matchAll(/Source chunk ID: ([^;]+);/g)].map((m) => m[1])
-    const fill = corrected ? (options.corrected ?? 0.85) : (options.first?.[design] ?? 0.85)
+    const sequence = [options.corrected ?? 0.85].flat()
+    const fill = corrected
+      ? sequence[Math.min(correctedCalls++, sequence.length - 1)]
+      : (options.first?.[design] ?? 0.85)
     return samplePage(design, {
       chunks: ids.length ? ids : ['none'],
       fill,

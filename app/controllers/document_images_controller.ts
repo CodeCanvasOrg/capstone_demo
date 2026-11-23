@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises'
 import AccessService from '#services/workspaces/access_service'
 import DocumentImageService from '#services/documents/document_image_service'
 import DocumentPolicy from '#policies/document_policy'
-import { documentImageValidator } from '#validators/document_image'
+import { documentImageTextValidator, documentImageValidator } from '#validators/document_image'
 
 export default class DocumentImagesController {
   /** The document's images, for the canvas image library. */
@@ -25,6 +25,21 @@ export default class DocumentImagesController {
       contents: await readFile(file.tmpPath),
     })
     return response.created({ data: image })
+  }
+
+  /** Caption and alt text, edited in the canvas inspector. */
+  async update({ params, request, response, workspaceAccess, bouncer }: HttpContext) {
+    const document = await new AccessService().document(workspaceAccess!, params.documentId)
+    await bouncer.with(DocumentPolicy).authorize('update', document)
+    const input = await request.validateUsing(documentImageTextValidator)
+    return response.ok({
+      data: await new DocumentImageService().updateText(
+        workspaceAccess!,
+        document.id,
+        params.imageId,
+        input
+      ),
+    })
   }
 
   async show({ params, request, response, workspaceAccess, bouncer }: HttpContext) {

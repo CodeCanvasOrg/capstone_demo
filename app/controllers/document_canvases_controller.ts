@@ -1,5 +1,9 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import CanvasService from '#services/canvas/canvas_service'
+import DocumentImage from '#models/document_image'
+import CanvasGenerationService, {
+  canvasGenerationEnabled,
+} from '#services/canvas/generation/canvas_generation_service'
 import AccessService from '#services/workspaces/access_service'
 import DocumentPolicy from '#policies/document_policy'
 import { getBrandKit } from '../../shared/layout/brand.ts'
@@ -38,7 +42,23 @@ export default class DocumentCanvasesController {
       workspaceId: workspaceAccess!.workspaceId,
       state,
       brand: brand ? { palette: brand.palette, fonts: brand.fonts.map((f) => f.family) } : null,
+      generation: await this.generation(workspaceAccess!, doc.id, selection.options.canvas),
     })
+  }
+
+  /** What the "Generate pages" dialog needs: whether it is on, the last options and the latest run. */
+  private async generation(context: WorkspaceAccessContext, documentId: string, saved: unknown) {
+    if (!canvasGenerationEnabled()) return { enabled: false as const }
+    const service = new CanvasGenerationService()
+    return {
+      enabled: true as const,
+      options: service.options(saved),
+      images: await DocumentImage.query()
+        .where({ workspaceId: context.workspaceId, documentId })
+        .count('* as total')
+        .then((rows) => Number(rows[0].$extras.total)),
+      run: await service.status(context, documentId),
+    }
   }
 
   async project({ workspaceAccess, params, response }: HttpContext) {

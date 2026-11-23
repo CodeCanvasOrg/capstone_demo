@@ -279,6 +279,12 @@ test.group('Canvas generation: HTTP', (group) => {
     assert.lengthOf(model.calls, 1)
     assert.match(model.calls[0].corrections.join('\n'), /fills \d+% of its layout/)
     assert.include(model.calls[0].corrections.join('\n'), 'The page you wrote')
+    // The page's stored quality is that of the new page, not of the one it replaced.
+    const status = await client
+      .get(`${base(g)}/generation`)
+      .header('accept', 'application/json')
+      .loginAs(g.a.user)
+    assert.isAbove(status.body().data.pages[3].fill, 0.9)
     const second = await Document.findOrFail(g.a.document.id)
     model.restore()
     model = installModel({ corrected: 0.75 })

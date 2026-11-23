@@ -66,6 +66,24 @@ export async function uploadImage(params: Params, file: File): Promise<DocumentI
   return res.data
 }
 
+/** Saves the caption and alt text of a picture, and keeps the shared list in step. */
+export async function saveImageText(
+  params: Params,
+  imageId: string,
+  patch: { caption?: string | null; altText?: string | null }
+): Promise<DocumentImageInfo> {
+  const res = await api<{ data: DocumentImageInfo }>(
+    urlFor('documentImages.update', { ...params, imageId }),
+    'PATCH',
+    patch
+  )
+  remember(
+    params.documentId,
+    (store.get(params.documentId) ?? []).map((image) => (image.id === imageId ? res.data : image))
+  )
+  return res.data
+}
+
 /** Looks an image up in what has been loaded; null if not (yet) known. */
 export const knownImage = (documentId: string, imageId: string | null) =>
   (imageId && store.get(documentId)?.find((image) => image.id === imageId)) || null

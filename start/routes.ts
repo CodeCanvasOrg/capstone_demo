@@ -170,6 +170,9 @@ router
         router
           .get('/documents/:documentId/images/:imageId', [controllers.DocumentImages, 'show'])
           .as('documentImages.show')
+        router
+          .patch('/documents/:documentId/images/:imageId', [controllers.DocumentImages, 'update'])
+          .as('documentImages.update')
         // Canvas editor (CANVAS_EDITOR=pilot; 404 otherwise).
         router
           .get('/documents/:documentId/canvas', [controllers.DocumentCanvases, 'show'])
@@ -189,6 +192,15 @@ router
         router
           .post('/documents/:documentId/canvas/versions', [controllers.DocumentCanvases, 'save'])
           .as('documentCanvases.save')
+        router
+          .get('/documents/:documentId/canvas/templates', [controllers.CanvasTemplates, 'index'])
+          .as('canvasTemplates.index')
+        router
+          .get('/documents/:documentId/canvas/templates/:templateId/preview', [
+            controllers.CanvasTemplates,
+            'preview',
+          ])
+          .as('canvasTemplates.preview')
         // Academic page generation for the canvas (CANVAS_EDITOR=pilot and CANVAS_GENERATION=on; 404 otherwise).
         router
           .post('/documents/:documentId/canvas/generate', [controllers.CanvasGenerations, 'store'])

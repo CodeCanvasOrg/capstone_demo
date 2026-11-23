@@ -835,6 +835,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_images_controller').default['show']>>>
     }
   }
+  'documentImages.update': {
+    methods: ["PATCH"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/images/:imageId'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/document_image').documentImageTextValidator)>>
+      paramsTuple: [ParamValue, ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue; imageId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/document_image').documentImageTextValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_images_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_images_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'documentCanvases.show': {
     methods: ["GET","HEAD"]
     pattern: '/workspaces/:workspaceId/documents/:documentId/canvas'
@@ -905,6 +917,78 @@ export interface Registry {
       query: ExtractQuery<InferInput<(typeof import('#validators/canvas').canvasSaveValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['save']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_canvases_controller').default['save']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'canvasTemplates.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/templates'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/canvas_templates_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/canvas_templates_controller').default['index']>>>
+    }
+  }
+  'canvasTemplates.preview': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/templates/:templateId/preview'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue; templateId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/canvas_templates_controller').default['preview']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/canvas_templates_controller').default['preview']>>>
+    }
+  }
+  'canvasGenerations.store': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/generate'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/canvas_generation').canvasGenerateValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/canvas_generation').canvasGenerateValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/canvas_generations_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/canvas_generations_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'canvasGenerations.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/generation'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/canvas_generations_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/canvas_generations_controller').default['show']>>>
+    }
+  }
+  'canvasGenerations.regenerate': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/regenerate'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/canvas_generation').canvasRegenerateValidator)>>
+      paramsTuple: [ParamValue, ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue; index: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/canvas_generation').canvasRegenerateValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/canvas_generations_controller').default['regenerate']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/canvas_generations_controller').default['regenerate']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'canvasGenerations.design': {
+    methods: ["POST"]
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/canvas_generation').canvasDesignValidator)>>
+      paramsTuple: [ParamValue, ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; documentId: ParamValue; index: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/canvas_generation').canvasDesignValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/canvas_generations_controller').default['design']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/canvas_generations_controller').default['design']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'documentVersions.store': {
