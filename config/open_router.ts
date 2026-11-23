@@ -5,6 +5,14 @@ const openRouterApiConfig = {
   apiKey: env.get('OPENROUTER_API_KEY'),
   baseUrl: env.get('OPENROUTER_BASE_URL') ?? 'https://openrouter.ai/api/v1',
   model: env.get('OPENROUTER_MODEL') ?? 'anthropic/claude-haiku-5.5',
+  // The canvas pipeline's own models; each falls back to the one before it.
+  canvasPlannerModel:
+    env.get('CANVAS_PLANNER_MODEL') ?? env.get('OPENROUTER_MODEL') ?? 'anthropic/claude-haiku-5.5',
+  canvasWriterModel:
+    env.get('CANVAS_WRITER_MODEL') ??
+    env.get('CANVAS_PLANNER_MODEL') ??
+    env.get('OPENROUTER_MODEL') ??
+    'anthropic/claude-haiku-5.5',
   // Kept for existing callers; config/embeddings.ts is the source of truth.
   embeddingModel: embeddingsConfig.model,
   embeddingDimensions: embeddingsConfig.dimensions,

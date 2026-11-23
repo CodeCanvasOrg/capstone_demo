@@ -3,6 +3,7 @@ import { column, scope } from '@adonisjs/lucid/orm'
 import type { CanvasDocument } from '../../shared/canvas/model.ts'
 
 export type CanvasTemplateKind = 'sheet' | 'document'
+export type CanvasTemplateCategory = 'brochure' | 'academic'
 
 /** A reusable canvas: one sheet or a whole document. No workspace means a system template. */
 export default class CanvasTemplate extends CanvasTemplateSchema {
@@ -10,6 +11,11 @@ export default class CanvasTemplate extends CanvasTemplateSchema {
   declare project: CanvasDocument
 
   declare kind: CanvasTemplateKind
+
+  declare category: CanvasTemplateCategory
+
+  @column({ prepare: (value: unknown) => JSON.stringify(value) })
+  declare slots: Record<string, unknown>
 
   get isSystem() {
     return this.workspaceId === null
