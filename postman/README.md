@@ -27,3 +27,16 @@ All functional tests require `TEST_DB_URL` pointing to a database named `capston
 Verification (2026-10-28, Postman CLI 1.73.0): the simulation started on port 4900 and the transport test passed with the command above, with both the embedding and chat clients pointed at the simulation.
 
 Template canonical responses are modeled by the same local mock. `tests/functional/workspace_provider_transport.spec.ts` also exercises the real structured outline adapter against it. No live model request is substituted. See `docs/template-generation-verification.md`.
+
+## Canvas generation
+
+`contracts/canvas-generation.yaml` is the local contract for the academic page generation routes of the canvas editor, and `collections/canvas-generation.postman_collection.json` has a "Canvas generation" folder with a request and test script for each: generate, status, regenerate a page and change a page's design. The mock now also answers the structured calls of the canvas pipeline (`plan_canvas`, `write_canvas_page`, `caption_figure`) with synthetic content, so the pipeline can be driven end to end through the local simulation without a provider key.
+
+The routes need a signed-in session and a document open in the canvas editor, so the collection is run against a local dev server (`CANVAS_EDITOR=pilot CANVAS_GENERATION=on`), with `workspaceId`, `documentId`, `baseVersionId` and `csrfToken` set from a browser session:
+
+```bash
+postman collection run postman/collections/canvas-generation.postman_collection.json \
+  --env-var workspaceId=<uuid> --env-var documentId=<uuid> --env-var baseVersionId=<uuid> --env-var csrfToken=<token>
+```
+
+Not run yet: the Postman CLI was not available on the machine this was written on (see `docs/canvas-academic-pipeline-verification.md`). The same behaviour is covered by `tests/functional/canvas_generation_http.spec.ts`.

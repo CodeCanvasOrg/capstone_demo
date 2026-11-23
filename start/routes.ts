@@ -189,6 +189,27 @@ router
         router
           .post('/documents/:documentId/canvas/versions', [controllers.DocumentCanvases, 'save'])
           .as('documentCanvases.save')
+        // Academic page generation for the canvas (CANVAS_EDITOR=pilot and CANVAS_GENERATION=on; 404 otherwise).
+        router
+          .post('/documents/:documentId/canvas/generate', [controllers.CanvasGenerations, 'store'])
+          .as('canvasGenerations.store')
+        router
+          .get('/documents/:documentId/canvas/generation', [controllers.CanvasGenerations, 'show'])
+          .as('canvasGenerations.show')
+        router
+          .post('/documents/:documentId/canvas/pages/:index/regenerate', [
+            controllers.CanvasGenerations,
+            'regenerate',
+          ])
+          .where('index', router.matchers.number())
+          .as('canvasGenerations.regenerate')
+        router
+          .post('/documents/:documentId/canvas/pages/:index/design', [
+            controllers.CanvasGenerations,
+            'design',
+          ])
+          .where('index', router.matchers.number())
+          .as('canvasGenerations.design')
         router
           .post('/documents/:documentId/versions', [controllers.DocumentVersions, 'handle'])
           .as('documentVersions.store')

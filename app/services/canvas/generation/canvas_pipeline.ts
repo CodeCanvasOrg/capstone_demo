@@ -42,6 +42,7 @@ import {
 } from '../../../../shared/canvas/model.ts'
 import type { PipelineStage } from '../../../../shared/ops/stages.ts'
 import CanvasImagePlanner, { type ImageChoice } from './canvas_image_planner.ts'
+import { figureNumber, imageOnSheet, replaceSheet } from './canvas_page_sheet.ts'
 import CanvasPageWriter, { type WriteContext, type Written } from './canvas_page_writer.ts'
 import CanvasPlanner from './canvas_planner.ts'
 import { pageQueries, type PageQuery } from './page_queries.ts'
@@ -505,6 +506,185 @@ export default class CanvasPipeline {
     }
   }
 
+  /**
+   * One page of the current canvas, again: rewritten from fresh retrieval, or the
+   * stored page made deeper or shorter. Only that sheet changes; the other sheets
+   * (which the author may have edited) are carried over exactly.
+   */
+  async regenerate(
+    input: GenerateInput & {
+      run: CanvasGenerationRun
+      baseVersionId: string | null
+      index: number
+      mode: 'rewrite' | 'expand' | 'condense'
+    }
+  ): Promise<Pick<Generated, 'canvas' | 'metrics'>> {
+    const started = performance.now()
+    const { options, guard, index, mode } = input
+    const recorder = input.recorder ?? NO_RECORDER
+    const previous = await CanvasGenerationRun.query()
+      .where({ documentId: input.documentId, status: 'ready' })
+      .whereNot('id', input.run.id)
+      .orderBy('createdAt', 'desc')
+      .firstOrFail()
+    const stored = await CanvasGenerationPage.query()
+      .where('runId', previous.id)
+      .orderBy('pageIndex')
+    const current = input.baseVersionId
+      ? await new CanvasService().forVersion(input.baseVersionId)
+      : null
+    const row = stored.find((r) => r.pageIndex === index)
+    if (!current || !row || stored.length !== current.project.sheets.length)
+      throw Object.assign(new Error('The pages changed after they were generated.'), {
+        status: 422,
+        unusableOutput: true,
+      })
+    const writer = new CanvasPageWriter()
+    const content = row.content as AcademicPage | null
+    const planned = (previous.plan as { pages?: PagePlan[] } | null)?.pages ?? []
+    const page: PagePlan = {
+      design: row.designId as AcademicDesignId,
+      title: content?.title ?? planned[index]?.title ?? `Page ${index + 1}`,
+      purpose: row.purpose,
+      questions: row.queries.slice(1),
+      keyTerms: planned[index]?.keyTerms ?? [],
+      wantsImage: false,
+    }
+    // A fixed page count: a regenerated page never turns into two.
+    const ctx: WriteContext = {
+      title: input.title,
+      thesis: (previous.plan as { thesis?: string } | null)?.thesis ?? '',
+      audience: (previous.plan as { audience?: string } | null)?.audience ?? '',
+      outline: stored.map((r) => ({
+        design: r.designId as AcademicDesignId,
+        title: (r.content as AcademicPage | null)?.title ?? r.purpose,
+        purpose: r.purpose,
+      })),
+      options: { ...options, pages: 8 },
+      guard,
+    }
+    const meta: AcademicMeta = {
+      title: input.title,
+      label: LABELS[options.templateSet],
+      keywords: [],
+      references: [],
+    }
+    const earlier = stored
+      .filter((r) => r.pageIndex < index && r.content)
+      .map((r) => ({
+        page: r.pageIndex + 1,
+        title: (r.content as AcademicPage).title,
+        summary: (r.content as AcademicPage).summary,
+      }))
+    const image = await imageOnSheet(
+      input.context.workspaceId,
+      input.documentId,
+      current.project,
+      index
+    )
+    const withImage = !!image && ACADEMIC_DESIGNS[page.design].images.length > 0
+    await recorder.stage('retrieving')
+    const [found] = await new RetrievalService().searchPages({
+      context: input.context,
+      documentId: input.documentId,
+      pins: input.pins,
+      guard,
+      pages: [{ key: '0', label: page.title, queries: row.queries }],
+      tokenBudget: DEPTH_TOKENS[options.depth],
+    })
+    const chunks = found?.chunks ?? []
+    await recorder.stage('writing')
+    let written: Written
+    if (mode === 'rewrite' || !content) {
+      const first = await writer.write(ctx, page, index, chunks, earlier)
+      await recorder.stage('fitting')
+      const fitted = await writer.fit(
+        ctx,
+        page,
+        index,
+        first,
+        found?.extra ?? [],
+        earlier,
+        meta,
+        undefined,
+        withImage
+      )
+      written = fitted.pages[0]
+    } else {
+      await recorder.stage('fitting')
+      const base: Written = {
+        page: content,
+        attempts: row.attempts,
+        tokens: 0,
+        notes: row.notes,
+        supplied: chunks,
+      }
+      written = await writer.adjust(
+        ctx,
+        page,
+        index,
+        base,
+        found?.extra ?? [],
+        earlier,
+        mode,
+        meta,
+        undefined,
+        withImage
+      )
+    }
+    await recorder.stage('composing')
+    const figure = figureNumber(
+      stored.map((r) => ({
+        index: r.pageIndex,
+        design: r.designId,
+        imageIds: r.imageIds,
+      })),
+      index
+    )
+    const canvas = replaceSheet(
+      current.project,
+      index,
+      { design: page.design, page: written.page, image },
+      meta,
+      figure
+    )
+    await recorder.pages(
+      stored.map((r) => ({
+        index: r.pageIndex,
+        design: r.designId,
+        status: 'fitted' as const,
+        purpose: r.purpose,
+        queries: r.queries,
+        chunkIds: r.pageIndex === index ? chunks.map((c) => c.id) : r.chunkIds,
+        citedChunkIds: r.pageIndex === index ? citedChunks(written.page) : r.citedChunkIds,
+        imageIds: r.imageIds,
+        content: r.pageIndex === index ? written.page : (r.content as AcademicPage | null),
+        wordCount: r.pageIndex === index ? pageWords(written.page) : r.wordCount,
+        fillRatio: r.fillRatio === null ? null : Number(r.fillRatio),
+        attempts: r.pageIndex === index ? written.attempts : r.attempts,
+        notes: r.pageIndex === index ? written.notes : r.notes,
+      }))
+    )
+    const report = densityReport(canvas)
+    await recorder.plan(previous.plan, {
+      planner: previous.plannerModel,
+      writer: previous.writerModel,
+    })
+    return {
+      canvas,
+      metrics: {
+        pages: canvas.sheets.length,
+        words: report.words,
+        avgFill: report.avgFill,
+        citations: report.citations,
+        placeholders: report.placeholders,
+        lowDpiImages: report.lowDpiImages,
+        durationMs: Math.round(performance.now() - started),
+        tokens: written.tokens,
+      },
+    }
+  }
+
   /** The task path: runs the pipeline with progress rows, then saves the result as a new version. */
   async execute(input: {
     lease: TaskLease
@@ -521,7 +701,7 @@ export default class CanvasPipeline {
     const run = await CanvasGenerationRun.query().where('taskId', lease.task.id).firstOrFail()
     const recorder = new RunRecorder(run, lease, tasks)
     await recorder.start()
-    const generated = await this.generate({
+    const common = {
       context: lease.context,
       documentId: document.id,
       title: input.title,
@@ -530,7 +710,17 @@ export default class CanvasPipeline {
       options,
       guard: () => tasks.check(lease),
       recorder,
-    })
+    }
+    const target = lease.task.payload.canvasPage
+    const generated: Pick<Generated, 'canvas' | 'metrics'> = target
+      ? await this.regenerate({
+          ...common,
+          run,
+          baseVersionId: lease.task.payload.baseVersionId ?? null,
+          index: Number(target.index),
+          mode: target.mode as 'rewrite' | 'expand' | 'condense',
+        })
+      : await this.generate(common)
     await tasks.check(lease)
     const saved = await new CanvasService().saveGenerated(lease.context, document.id, {
       canvas: generated.canvas,
@@ -563,7 +753,7 @@ export default class CanvasPipeline {
         })
       return { versionId: saved.version.id, runId: run.id }
     })
-    await this.rememberOptions(lease.context, document.id, options)
+    if (!target) await this.rememberOptions(lease.context, document.id, options)
     await input.review(String(accepted.versionId), saved.version.content)
   }
 
@@ -641,29 +831,33 @@ export class RunRecorder implements Recorder {
 
   /** Replaces the run's page rows: indexes shift when a page is split or added. */
   async pages(rows: PageRecord[]) {
-    await db.transaction(async (trx) => {
-      await CanvasGenerationPage.query({ client: trx }).where('runId', this.run.id).delete()
-      for (const row of rows)
-        await CanvasGenerationPage.create(
-          {
-            runId: this.run.id,
-            workspaceId: this.run.workspaceId,
-            pageIndex: row.index,
-            designId: row.design,
-            status: row.status,
-            purpose: row.purpose,
-            queries: row.queries,
-            chunkIds: row.chunkIds,
-            citedChunkIds: row.citedChunkIds,
-            imageIds: row.imageIds,
-            content: row.content,
-            wordCount: row.wordCount,
-            fillRatio: row.fillRatio === null ? null : String(Math.min(row.fillRatio, 9.999)),
-            attempts: Math.max(row.attempts, 1),
-            notes: row.notes,
-          },
-          { client: trx }
-        )
-    })
+    await writePageRows(this.run, rows)
   }
+}
+
+export async function writePageRows(run: CanvasGenerationRun, rows: PageRecord[]) {
+  await db.transaction(async (trx) => {
+    await CanvasGenerationPage.query({ client: trx }).where('runId', run.id).delete()
+    for (const row of rows)
+      await CanvasGenerationPage.create(
+        {
+          runId: run.id,
+          workspaceId: run.workspaceId,
+          pageIndex: row.index,
+          designId: row.design,
+          status: row.status,
+          purpose: row.purpose,
+          queries: row.queries,
+          chunkIds: row.chunkIds,
+          citedChunkIds: row.citedChunkIds,
+          imageIds: row.imageIds,
+          content: row.content,
+          wordCount: row.wordCount,
+          fillRatio: row.fillRatio === null ? null : String(Math.min(row.fillRatio, 9.999)),
+          attempts: Math.max(row.attempts, 1),
+          notes: row.notes,
+        },
+        { client: trx }
+      )
+  })
 }

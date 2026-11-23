@@ -1,0 +1,189 @@
+openapi: 3.0.3
+info:
+  title: Canvas generation (CodeCanvas)
+  version: 1.0.0
+  description: |
+    Academic page generation for the canvas editor (docs/canvas-academic-pipeline-plan.md).
+    Every route needs CANVAS_EDITOR=pilot and CANVAS_GENERATION=on (404 otherwise), a signed-in
+    member of the workspace and, except GET, permission to change the document.
+    This is a local test contract refined from `start/routes.ts`, `app/validators/canvas_generation.ts`
+    and `tests/functional/canvas_generation_http.spec.ts`; it is not a published API.
+servers:
+  - url: http://localhost:3333
+security:
+  - session: []
+paths:
+  /workspaces/{workspaceId}/documents/{documentId}/canvas/generate:
+    post:
+      operationId: generateCanvasPages
+      summary: Queue the generation of a document's pages
+      parameters: [{ $ref: '#/components/parameters/workspaceId' }, { $ref: '#/components/parameters/documentId' }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/GenerateRequest' }
+      responses:
+        '202':
+          description: Queued. The task runs on the worker; poll the generation resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { $ref: '#/components/schemas/Queued' }
+        '404': { description: Flags off, or no such document in this workspace }
+        '409': { description: Stale baseVersionId, a generation already running, or a reused mutationId }
+        '422': { description: Options the dialog does not offer }
+  /workspaces/{workspaceId}/documents/{documentId}/canvas/generation:
+    get:
+      operationId: getCanvasGeneration
+      summary: The latest run of the document
+      parameters: [{ $ref: '#/components/parameters/workspaceId' }, { $ref: '#/components/parameters/documentId' }]
+      responses:
+        '200':
+          description: The latest run, or null before the first
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    nullable: true
+                    allOf: [{ $ref: '#/components/schemas/Run' }]
+        '404': { description: Flags off, or no such document }
+  /workspaces/{workspaceId}/documents/{documentId}/canvas/pages/{index}/regenerate:
+    post:
+      operationId: regenerateCanvasPage
+      summary: Rewrite, deepen or shorten one page (a new version where only that sheet changes)
+      parameters:
+        - { $ref: '#/components/parameters/workspaceId' }
+        - { $ref: '#/components/parameters/documentId' }
+        - { $ref: '#/components/parameters/index' }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [mutationId, baseVersionId, mode]
+              properties:
+                mutationId: { type: string, minLength: 8, maxLength: 100 }
+                baseVersionId: { type: string, format: uuid, nullable: true }
+                mode: { type: string, enum: [rewrite, expand, condense] }
+      responses:
+        '202':
+          description: Queued
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { $ref: '#/components/schemas/Queued' }
+        '404': { description: Flags off, or no such page }
+        '409': { description: No generated pages, pages rearranged since, or a page the application writes (contents, references) }
+        '422': { description: Unknown mode }
+  /workspaces/{workspaceId}/documents/{documentId}/canvas/pages/{index}/design:
+    post:
+      operationId: changeCanvasPageDesign
+      summary: Lay one page's stored content out in another design (no model call)
+      parameters:
+        - { $ref: '#/components/parameters/workspaceId' }
+        - { $ref: '#/components/parameters/documentId' }
+        - { $ref: '#/components/parameters/index' }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [mutationId, baseVersionId, design]
+              properties:
+                mutationId: { type: string, minLength: 8, maxLength: 100 }
+                baseVersionId: { type: string, format: uuid, nullable: true }
+                design:
+                  type: string
+                  enum: [essay, two_column, figure_text, side_figure, data_findings, key_concepts, case_box, comparison, conclusion]
+      responses:
+        '200':
+          description: The new version
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      versionId: { type: string, format: uuid }
+                      version: { type: integer }
+        '409': { description: Same causes as regenerate }
+        '422': { description: A design the planner may not choose }
+components:
+  securitySchemes:
+    session: { type: apiKey, in: cookie, name: adonis-session }
+  parameters:
+    workspaceId: { name: workspaceId, in: path, required: true, schema: { type: string, format: uuid } }
+    documentId: { name: documentId, in: path, required: true, schema: { type: string, format: uuid } }
+    index: { name: index, in: path, required: true, schema: { type: integer, minimum: 0 } }
+  schemas:
+    Options:
+      type: object
+      properties:
+        profile: { type: string, enum: [academic, informative], default: academic }
+        depth: { type: string, enum: [concise, standard, detailed], default: standard }
+        templateSet: { type: string, enum: [academic_report, research_brief, brochure], default: academic_report }
+        pages: { oneOf: [{ type: string, enum: [auto] }, { type: integer, minimum: 3, maximum: 16 }], default: auto }
+        images: { type: boolean, default: true }
+    GenerateRequest:
+      type: object
+      required: [mutationId, baseVersionId]
+      properties:
+        mutationId: { type: string, minLength: 8, maxLength: 100 }
+        baseVersionId: { type: string, format: uuid, nullable: true }
+        options: { $ref: '#/components/schemas/Options' }
+    Queued:
+      type: object
+      properties:
+        taskId: { type: string, format: uuid }
+        runId: { type: string, format: uuid }
+    Run:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        taskId: { type: string, format: uuid, nullable: true }
+        status: { type: string, enum: [queued, planning, retrieving, writing, fitting, images, composing, ready, failed] }
+        profile: { type: string }
+        depth: { type: string }
+        templateSet: { type: string }
+        plannerModel: { type: string }
+        writerModel: { type: string }
+        error: { type: string, nullable: true }
+        resultVersionId: { type: string, format: uuid, nullable: true }
+        plan: { type: object, nullable: true }
+        metrics:
+          type: object
+          nullable: true
+          properties:
+            pages: { type: integer }
+            words: { type: integer }
+            avgFill: { type: number }
+            citations: { type: integer }
+            placeholders: { type: integer }
+            lowDpiImages: { type: integer }
+            durationMs: { type: integer }
+            tokens: { type: integer }
+        pages:
+          type: array
+          items:
+            type: object
+            properties:
+              index: { type: integer }
+              design: { type: string }
+              status: { type: string, enum: [pending, written, fitted, failed] }
+              purpose: { type: string }
+              words: { type: integer, nullable: true }
+              fill: { type: number, nullable: true }
+              citations: { type: integer }
+              attempts: { type: integer }
+              notes: { type: array, items: { type: string } }

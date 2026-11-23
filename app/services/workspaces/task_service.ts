@@ -41,6 +41,8 @@ export type TaskPayload = {
   target?: 'canvas'
   /** The canvas options chosen at request time. Parsed again before use. */
   canvas?: unknown
+  /** Regenerates one page of the current canvas instead of the whole document. Parsed again before use. */
+  canvasPage?: { index: number; mode: string }
 }
 export type TaskLease = { task: WorkspaceTask; context: WorkspaceAccessContext; token: string }
 const canonical = (value: unknown): unknown =>

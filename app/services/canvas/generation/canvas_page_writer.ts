@@ -314,6 +314,58 @@ export default class CanvasPageWriter {
   }
 
   /**
+   * Asked for by the author ("Add depth", "Make shorter"): one expand or condense call
+   * on a page as it stands, whatever its fill is. Citations and figures are kept.
+   */
+  async adjust(
+    ctx: WriteContext,
+    plan: PagePlan,
+    index: number,
+    written: Written,
+    extra: SourceChunk[],
+    earlier: { page: number; title: string; summary: string }[],
+    mode: 'expand' | 'condense',
+    meta: AcademicMeta,
+    figure?: string,
+    withImage = false
+  ): Promise<Written> {
+    const design = plan.design
+    const m = this.measure(written.page, design, meta, withImage)
+    const target = (DEPTH_FILL[ctx.options.depth][0] + DEPTH_FILL[ctx.options.depth][1]) / 2
+    const chunks = mode === 'expand' ? [...written.supplied, ...extra] : written.supplied
+    const correction =
+      mode === 'expand'
+        ? expandCorrective(
+            Math.min(m.fill, FILL.low - 0.01),
+            Math.max(40, Math.round((target - m.fill) * pageCapacity(design)))
+          )
+        : condenseCorrective(
+            Math.max(m.maxFrame - 1, 0.1),
+            wordRange(design, ctx.options.depth).max
+          )
+    const made = await this.produce(
+      ctx,
+      plan,
+      index,
+      chunks,
+      earlier,
+      [`The page you wrote:\n${JSON.stringify(written.page)}`, correction],
+      figure
+    )
+    const trimmed =
+      this.measure(made.page, design, meta, withImage).maxFrame > FILL.high
+        ? this.trim(made.page, design, meta, withImage).page
+        : made.page
+    return {
+      page: trimmed,
+      attempts: written.attempts + made.calls,
+      tokens: written.tokens + made.tokens,
+      notes: [...written.notes, ...made.notes],
+      supplied: chunks,
+    }
+  }
+
+  /**
    * A continuation page: the sections that fit stay, the rest move to a second page
    * of the same design, which also takes the takeaway. Null when the first section
    * alone is too long to split.

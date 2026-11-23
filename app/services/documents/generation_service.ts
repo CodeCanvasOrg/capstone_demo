@@ -61,7 +61,9 @@ export default class GenerationService {
     baseVersionId: string | null,
     client?: TransactionClientContract,
     /** Explicit canvas options (the canvas "Generate pages" dialog). Otherwise a canvas-mode document follows its saved ones. */
-    canvasOptions?: CanvasOptions
+    canvasOptions?: CanvasOptions,
+    /** One page of the current canvas to regenerate (needs `canvasOptions`). */
+    canvasPage?: { index: number; mode: string }
   ) {
     const request = async (trx: TransactionClientContract) => {
       await new AccessService().lock(context, trx)
@@ -140,7 +142,13 @@ export default class GenerationService {
             layoutTemplate: { id: layout.templateId, version: layout.templateVersion },
             // The brochure's page designs, pinned now like the template, so a retry keeps them.
             ...(layout.options.brochure ? { layoutBrochure: layout.options.brochure } : {}),
-            ...(canvas ? { target: 'canvas' as const, canvas } : {}),
+            ...(canvas
+              ? {
+                  target: 'canvas' as const,
+                  canvas,
+                  ...(canvasPage ? { canvasPage } : {}),
+                }
+              : {}),
           },
         },
         trx

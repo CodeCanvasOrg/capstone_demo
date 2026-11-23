@@ -11,7 +11,21 @@ import AccessService, {
   type WorkspaceAccessContext,
 } from '#services/workspaces/access_service'
 import { PIPELINE_VERSION } from '#services/canvas/generation/canvas_pipeline'
-import type { CanvasOptions } from '../../../../shared/canvas/academic/options.ts'
+import { Exception } from '@adonisjs/core/exceptions'
+import {
+  figureNumber,
+  imageOnSheet,
+  replaceSheet,
+} from '#services/canvas/generation/canvas_page_sheet'
+import type { AcademicPage } from '../../../../shared/canvas/academic/content.ts'
+import {
+  PLANNABLE_DESIGN_IDS,
+  type AcademicDesignId,
+} from '../../../../shared/canvas/academic/designs.ts'
+import {
+  canvasOptionsSchema,
+  type CanvasOptions,
+} from '../../../../shared/canvas/academic/options.ts'
 
 /** Academic generation needs the canvas editor and its own switch, so it can roll out separately. */
 export const canvasGenerationEnabled = () =>
@@ -43,8 +57,11 @@ export default class CanvasGenerationService {
       .whereIn('status', ACTIVE_RUN_STATUSES)
       .first()
     if (active) throw conflict('Pages are already being generated for this document')
+    // A page regeneration carries the plan of the run it builds on.
+    const base = task.payload.canvasPage ? await this.latestReady(task.documentId!, trx) : null
     return CanvasGenerationRun.create(
       {
+        plan: base?.plan ?? null,
         workspaceId: context.workspaceId,
         documentId: task.documentId!,
         taskId: task.id,
@@ -61,6 +78,24 @@ export default class CanvasGenerationService {
       },
       { client: trx }
     )
+  }
+
+  private latestReady(documentId: string, client?: TransactionClientContract) {
+    return CanvasGenerationRun.query({ client })
+      .where({ documentId, status: 'ready' })
+      .orderBy('createdAt', 'desc')
+      .first()
+  }
+
+  /** Options from the request body: checked against the one schema the dialog and the CLI share. */
+  options(raw: unknown): CanvasOptions {
+    const parsed = canvasOptionsSchema.safeParse(raw ?? {})
+    if (!parsed.success)
+      throw new Exception('Choose a style, depth, template set and page count the canvas offers.', {
+        status: 422,
+        code: 'E_CANVAS_OPTIONS',
+      })
+    return parsed.data
   }
 
   /** Queues a canvas generation for a document open in the canvas editor. */
@@ -85,6 +120,109 @@ export default class CanvasGenerationService {
     )
     const run = await CanvasGenerationRun.query().where('taskId', task.id).firstOrFail()
     return { taskId: task.id, runId: run.id }
+  }
+
+  /**
+   * The run and stored pages a page action works on, checked against the current
+   * canvas: the pages must still be the ones that were generated.
+   */
+  private async pageTarget(context: WorkspaceAccessContext, documentId: string, index: number) {
+    this.assertEnabled()
+    const doc = await new AccessService().document(context, documentId)
+    if ((await new CanvasService().mode(context.workspaceId, documentId)) !== 'canvas')
+      throw conflict('Open the document in the canvas editor first')
+    const run = await this.latestReady(documentId)
+    if (!run) throw conflict('Generate the pages first')
+    if (run.templateSet === 'brochure')
+      throw conflict('Pages of a brochure-style canvas are not regenerated one by one')
+    const canvas = doc.currentVersionId
+      ? await new CanvasService().forVersion(doc.currentVersionId)
+      : null
+    const rows = await CanvasGenerationPage.query().where('runId', run.id).orderBy('pageIndex')
+    if (!canvas || rows.length !== canvas.sheetCount)
+      throw conflict('The pages were rearranged after they were generated. Generate them again.')
+    const row = rows.find((r) => r.pageIndex === index)
+    if (!row) throw missingResource()
+    if (row.designId === 'contents' || row.designId === 'references')
+      throw conflict('The application writes this page; there is nothing to regenerate.')
+    return { doc, run, canvas, rows, row }
+  }
+
+  /** Queues the regeneration of one page of the current canvas. */
+  async requestRegenerate(
+    context: WorkspaceAccessContext,
+    documentId: string,
+    index: number,
+    input: {
+      mutationId: string
+      baseVersionId: string | null
+      mode: 'rewrite' | 'expand' | 'condense'
+    }
+  ) {
+    const { run } = await this.pageTarget(context, documentId, index)
+    const { default: GenerationService } = await import('#services/documents/generation_service')
+    const task = await new GenerationService().request(
+      context,
+      documentId,
+      input.mutationId,
+      input.baseVersionId,
+      undefined,
+      this.options({
+        profile: run.profile,
+        depth: run.depth,
+        templateSet: run.templateSet,
+      }),
+      { index, mode: input.mode }
+    )
+    const created = await CanvasGenerationRun.query().where('taskId', task.id).firstOrFail()
+    return { taskId: task.id, runId: created.id }
+  }
+
+  /**
+   * "Change design": the stored page content laid out in another design, with no
+   * model call. Only that sheet changes, in a new version.
+   */
+  async changeDesign(
+    context: WorkspaceAccessContext,
+    documentId: string,
+    index: number,
+    input: { mutationId: string; baseVersionId: string | null; design: string }
+  ) {
+    const { doc, run, canvas, row } = await this.pageTarget(context, documentId, index)
+    if (!(PLANNABLE_DESIGN_IDS as readonly string[]).includes(input.design))
+      throw new Exception('Choose one of the page designs', {
+        status: 422,
+        code: 'E_CANVAS_DESIGN',
+      })
+    const content = row.content as AcademicPage | null
+    if (!content) throw conflict('This page has no stored content to lay out again.')
+    const image = await imageOnSheet(context.workspaceId, documentId, canvas.project, index)
+    const rows = await CanvasGenerationPage.query().where('runId', run.id).orderBy('pageIndex')
+    const next = replaceSheet(
+      canvas.project,
+      index,
+      { design: input.design as AcademicDesignId, page: content, image },
+      {
+        title: doc.title ?? 'Untitled',
+        label: 'Report',
+        keywords: [],
+        references: [],
+      },
+      figureNumber(
+        rows.map((r) => ({ index: r.pageIndex, design: r.designId, imageIds: r.imageIds })),
+        index
+      )
+    )
+    const saved = await new CanvasService().saveGenerated(context, documentId, {
+      canvas: next,
+      baseVersionId: input.baseVersionId,
+      mutationId: input.mutationId,
+      generationRunId: run.id,
+    })
+    await CanvasGenerationPage.query()
+      .where({ runId: run.id, pageIndex: index })
+      .update({ design_id: input.design })
+    return { versionId: saved.version.id, version: saved.version.version }
   }
 
   /** The latest run of a document: status, stage, plan and the quality of each page. */
