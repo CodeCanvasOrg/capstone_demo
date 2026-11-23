@@ -40,6 +40,23 @@ jobs:
 
       # ------------------------------------------------------------ worker (Railway)
       # Deployed before the web app so its pre-deploy migrations land first.
+      # The Railway CLI reports an empty token as "Invalid RAILWAY_TOKEN", the same as a wrong
+      # one, so check it arrived first. Prints only the length, never the value.
+      - name: Check Railway token
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          if [ -z "$RAILWAY_TOKEN" ]; then
+            echo "::error::secrets.RAILWAY_TOKEN is empty in this job. Add it as an Actions secret, on the repository or on the 'production' environment."
+            exit 1
+          fi
+          trimmed=$(printf '%s' "$RAILWAY_TOKEN" | tr -d '[:space:]')
+          echo "RAILWAY_TOKEN is set (${#RAILWAY_TOKEN} characters)."
+          if [ "$trimmed" != "$RAILWAY_TOKEN" ]; then
+            echo "::error::RAILWAY_TOKEN contains spaces or newlines; paste the token again without them."
+            exit 1
+          fi
+
       # RAILWAY_TOKEN is a project token scoped to the production environment, so it already
       # identifies the project and environment; no `railway link` needed.
       - name: Deploy worker to Railway
