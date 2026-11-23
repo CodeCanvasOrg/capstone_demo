@@ -1,3 +1,4 @@
+import { canvasOptionsSchema, type CanvasOptions } from '../canvas/academic/options.ts'
 import { isSafeLink } from '../publication/client.ts'
 import { parseSelection, type BrochureSelection } from '../brochure/designs.ts'
 import { ENABLED_DOC_TYPES, type DocType } from '../publication/content.ts'
@@ -167,6 +168,8 @@ export type LayoutOptions = {
    * so documents saved before this option existed render and hash exactly as before.
    */
   brochure?: BrochureSelection
+  /** What the author last chose in the canvas's "Generate pages" dialog; absent until then. */
+  canvas?: CanvasOptions
 }
 export type OptionError = { code: string; field: string; message: string }
 
@@ -179,7 +182,7 @@ export function resolveOptions(template: TemplateDefinition, input: unknown) {
       : {}
   const options: LayoutOptions = { imageMode: 'auto' }
   for (const key of Object.keys(raw))
-    if (!['imageMode', 'cta', 'look', 'brochure'].includes(key))
+    if (!['imageMode', 'cta', 'look', 'brochure', 'canvas'].includes(key))
       errors.push({ code: 'unknown_option', field: key, message: 'This option is not supported.' })
   if (raw.imageMode !== undefined) {
     if ((template.options.imageMode as readonly unknown[]).includes(raw.imageMode))
@@ -195,6 +198,16 @@ export function resolveOptions(template: TemplateDefinition, input: unknown) {
     const parsed = parseSelection(raw.brochure)
     if (parsed.ok) options.brochure = parsed.selection
     else errors.push({ code: 'invalid_option_value', field: 'brochure', message: parsed.message })
+  }
+  if (raw.canvas !== undefined) {
+    const parsed = canvasOptionsSchema.safeParse(raw.canvas)
+    if (parsed.success) options.canvas = parsed.data
+    else
+      errors.push({
+        code: 'invalid_option_value',
+        field: 'canvas',
+        message: 'Choose a style, depth, template set and page count the canvas offers.',
+      })
   }
   if (raw.look !== undefined) {
     if ((LOOKS as readonly unknown[]).includes(raw.look)) {

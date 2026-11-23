@@ -7,10 +7,29 @@ import EvidenceService, { type EvidenceRow } from '#services/documents/evidence_
 import type { WorkspaceAccessContext } from '#services/workspaces/access_service'
 import type { SourcePin } from '#services/workspaces/task_service'
 import type { SourceChunk } from '#services/documents/chunk_metadata_service'
+import { fuse, type PageQuery } from '#services/canvas/generation/page_queries'
 /** One part of the output (an outline section or a brochure page) and what to look for in the sources. */
 export type SectionQuery = { key: string; label: string; query: string }
 /** The chunks that were retrieved for one section, by id. */
 export type SectionEvidence = { key: string; label: string; chunkIds: string[] }
+
+/** What was retrieved for one page of a canvas document. */
+export type PageEvidence = {
+  key: string
+  /** Text chunks the page's first write reads, best first. */
+  chunks: SourceChunk[]
+  /** The next best text chunks, given only when the page has to be expanded. */
+  extra: SourceChunk[]
+  /** Image chunks that matched, for the image planner. */
+  images: ImageEvidence[]
+}
+export type ImageEvidence = {
+  chunk: SourceChunk
+  fileId: string
+  fileKey: string | null
+  /** Fused retrieval score, 0 to 1 within the page. */
+  score: number
+}
 
 type Params = {
   context: WorkspaceAccessContext
@@ -23,14 +42,103 @@ type Params = {
 
 export default class RetrievalService {
   /** One query for the whole document: freeform output, where there are no sections to retrieve for. */
-  async search({ query, ...params }: Params & { query: string }): Promise<SourceChunk[]> {
+  async search({
+    query,
+    maxText = 20,
+    ...params
+  }: Params & { query: string; maxText?: number }): Promise<SourceChunk[]> {
     const result = await this.retrieve({
       ...params,
       sections: [{ key: 'all', label: 'all', query }],
-      perSection: 40,
-      maxText: 20,
+      perSection: Math.max(40, maxText),
+      maxText,
     })
     return result.chunks
+  }
+
+  /**
+   * Retrieval for each page of a canvas document, on its own budget. A page has
+   * several queries (its subject and each research question); their results are
+   * fused. Pages are served in order, and a chunk an earlier page took counts for
+   * half on later ones, so each page reaches for new evidence. Each page keeps up
+   * to `maxText` text chunks within `tokenBudget`, plus `extra` more for an
+   * expansion, and up to `imageLimit` image chunks.
+   */
+  async searchPages({
+    context,
+    documentId,
+    pins,
+    guard,
+    pages,
+    tokenBudget = 3500,
+    perQuery = 12,
+    maxText = 10,
+    extra = 4,
+    imageLimit = 3,
+  }: Omit<Params, 'imageMode' | 'tokenBudget'> & {
+    pages: PageQuery[]
+    tokenBudget?: number
+    perQuery?: number
+    maxText?: number
+    extra?: number
+    imageLimit?: number
+  }): Promise<PageEvidence[]> {
+    if (!pins.length || !pages.length)
+      return pages.map((page) => ({ key: page.key, chunks: [], extra: [], images: [] }))
+    const evidence = new EvidenceService()
+    await guard()
+    await evidence.rows(context, documentId, [], pins) // Validates route and membership.
+    const embedding = new EmbeddingService()
+    const eligible = evidence.eligible(context, documentId, pins)
+    const width = Math.trunc(config.embeddingDimensions)
+    const vectors = new Map<string, string>()
+    const used = new Set<string>()
+    const out: PageEvidence[] = []
+    for (const page of pages) {
+      const lists: EvidenceRow[][] = []
+      for (const query of page.queries.filter((q) => q.trim())) {
+        if (!vectors.has(query))
+          vectors.set(query, JSON.stringify(await embedding.embedQuery(query, guard)))
+        lists.push(await this.rank(context, eligible, vectors.get(query)!, query, perQuery, width))
+        await guard()
+      }
+      const rows = new Map(lists.flat().map((row) => [row.id, row]))
+      const fused = fuse(lists, used)
+      const top = fused[0]?.score ?? 1
+      const text: EvidenceRow[] = []
+      const more: EvidenceRow[] = []
+      const images: ImageEvidence[] = []
+      let tokens = 0
+      for (const { id, score } of fused) {
+        const row = rows.get(id)!
+        if (row.kind === 'image') {
+          if (images.length < imageLimit)
+            images.push({
+              chunk: evidence.source(context, documentId, row),
+              fileId: row.file_id,
+              fileKey: row.file_key,
+              score: Number((score / top).toFixed(3)),
+            })
+          continue
+        }
+        const cost = countTokens(`${row.file_name}\n${row.content}`)
+        if (text.length < maxText && tokens + cost <= tokenBudget) {
+          text.push(row)
+          tokens += cost
+        } else if (more.length < extra && tokens + cost <= tokenBudget * 1.5) {
+          more.push(row)
+          tokens += cost
+        }
+      }
+      for (const row of text) used.add(row.id)
+      out.push({
+        key: page.key,
+        chunks: text.map((row) => evidence.source(context, documentId, row)),
+        extra: more.map((row) => evidence.source(context, documentId, row)),
+        images,
+      })
+    }
+    return out
   }
 
   /**
@@ -53,6 +161,38 @@ export default class RetrievalService {
       perSection,
       maxText: Math.min(40, 6 + 3 * sections.length),
     })
+  }
+
+  /** One query's best chunks: dense and lexical lists fused by reciprocal rank. */
+  private async rank(
+    context: WorkspaceAccessContext,
+    eligible: ReturnType<EvidenceService['eligible']>,
+    vector: string,
+    query: string,
+    limit: number,
+    width: number
+  ) {
+    const result = await db.rawQuery<{ rows: (EvidenceRow & { score: number })[] }>(
+      `WITH eligible AS (${eligible.sql}),
+      dense AS (SELECT e.id,row_number() OVER(ORDER BY ce.embedding::vector(${width}) <=> ?::vector(${width})) AS rank FROM eligible e JOIN chunk_embeddings ce ON ce.chunk_id=e.id AND ce.workspace_id=? WHERE ce.model=? AND ce.version=? AND ce.dimensions=? ORDER BY ce.embedding::vector(${width}) <=> ?::vector(${width}) LIMIT 40),
+      lexical AS (SELECT e.id,row_number() OVER(ORDER BY ts_rank_cd(e.content_tsv,plainto_tsquery('english',?)) DESC) AS rank FROM eligible e WHERE e.content_tsv @@ plainto_tsquery('english',?) ORDER BY ts_rank_cd(e.content_tsv,plainto_tsquery('english',?)) DESC LIMIT 40),
+      scores AS (SELECT id,SUM(1.0/(60+rank)) AS score FROM (SELECT * FROM dense UNION ALL SELECT * FROM lexical) candidates GROUP BY id)
+      SELECT e.*,s.score FROM scores s JOIN eligible e ON e.id=s.id ORDER BY s.score DESC,e.id LIMIT ?`,
+      [
+        ...eligible.bindings,
+        vector,
+        context.workspaceId,
+        config.embeddingModel,
+        config.pipelineVersion,
+        config.embeddingDimensions,
+        vector,
+        query,
+        query,
+        query,
+        limit,
+      ]
+    )
+    return result.rows
   }
 
   private async retrieve({
@@ -83,28 +223,8 @@ export default class RetrievalService {
     const ranked: EvidenceRow[][] = []
     for (const [index, section] of live.entries()) {
       const vector = vectors[index]
-      const query = section.query
-      const result = await db.rawQuery<{ rows: (EvidenceRow & { score: number })[] }>(
-        `WITH eligible AS (${eligible.sql}),
-      dense AS (SELECT e.id,row_number() OVER(ORDER BY ce.embedding::vector(${width}) <=> ?::vector(${width})) AS rank FROM eligible e JOIN chunk_embeddings ce ON ce.chunk_id=e.id AND ce.workspace_id=? WHERE ce.model=? AND ce.version=? AND ce.dimensions=? ORDER BY ce.embedding::vector(${width}) <=> ?::vector(${width}) LIMIT 40),
-      lexical AS (SELECT e.id,row_number() OVER(ORDER BY ts_rank_cd(e.content_tsv,plainto_tsquery('english',?)) DESC) AS rank FROM eligible e WHERE e.content_tsv @@ plainto_tsquery('english',?) ORDER BY ts_rank_cd(e.content_tsv,plainto_tsquery('english',?)) DESC LIMIT 40),
-      scores AS (SELECT id,SUM(1.0/(60+rank)) AS score FROM (SELECT * FROM dense UNION ALL SELECT * FROM lexical) candidates GROUP BY id)
-      SELECT e.*,s.score FROM scores s JOIN eligible e ON e.id=s.id ORDER BY s.score DESC,e.id LIMIT ?`,
-        [
-          ...eligible.bindings,
-          vector,
-          context.workspaceId,
-          config.embeddingModel,
-          config.pipelineVersion,
-          config.embeddingDimensions,
-          vector,
-          query,
-          query,
-          query,
-          perSection,
-        ]
-      )
-      ranked.push(result.rows)
+      const rows = await this.rank(context, eligible, vector, section.query, perSection, width)
+      ranked.push(rows)
       await guard()
     }
     // Supplemental visual evidence is constrained by precisely the same relation and immutable pins.

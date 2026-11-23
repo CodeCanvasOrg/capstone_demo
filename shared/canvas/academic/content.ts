@@ -6,9 +6,6 @@ import {
   ACADEMIC_DESIGNS,
   PLANNABLE_DESIGN_IDS,
   ACADEMIC_DESIGN_IDS,
-  DEPTHS,
-  PROFILES,
-  TEMPLATE_SETS,
   wordRange,
   type AcademicDesignId,
   type Depth,
@@ -106,16 +103,7 @@ export const academicPageSchema = z.object({
 export type AcademicPage = z.infer<typeof academicPageSchema>
 export type AcademicSection = AcademicPage['sections'][number]
 
-// ----------------------------------------------------------------- options
-
-export const canvasOptionsSchema = z.object({
-  profile: z.enum(PROFILES).default('academic'),
-  depth: z.enum(DEPTHS).default('standard'),
-  templateSet: z.enum(TEMPLATE_SETS).default('academic_report'),
-  pages: z.union([z.literal('auto'), z.number().int().min(3).max(16)]).default('auto'),
-  images: z.boolean().default(true),
-})
-export type CanvasOptions = z.infer<typeof canvasOptionsSchema>
+export { canvasOptionsSchema, type CanvasOptions } from './options.ts'
 
 // ------------------------------------------------------------- word counts
 

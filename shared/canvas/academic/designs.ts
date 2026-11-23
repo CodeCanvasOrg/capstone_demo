@@ -1,5 +1,6 @@
 import { capacityWords } from '../fit.ts'
 import type { FrameStyle, Geo } from '../model.ts'
+import { DEPTHS, type Depth } from './options.ts'
 
 /**
  * The academic page designs: what each one is for, what it reads from a page,
@@ -34,12 +35,8 @@ export const PLANNABLE_DESIGN_IDS = ACADEMIC_DESIGN_IDS.filter(
 export const isAcademicDesign = (value: unknown): value is AcademicDesignId =>
   (ACADEMIC_DESIGN_IDS as readonly unknown[]).includes(value)
 
-export const DEPTHS = ['concise', 'standard', 'detailed'] as const
-export type Depth = (typeof DEPTHS)[number]
-export const PROFILES = ['academic', 'informative'] as const
-export type Profile = (typeof PROFILES)[number]
-export const TEMPLATE_SETS = ['academic_report', 'research_brief', 'brochure'] as const
-export type TemplateSet = (typeof TEMPLATE_SETS)[number]
+export { DEPTHS, PROFILES, TEMPLATE_SETS } from './options.ts'
+export type { Depth, Profile, TemplateSet } from './options.ts'
 
 /**
  * How full a page is aimed to be, as a share of its measured capacity. Depth sets

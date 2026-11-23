@@ -22,6 +22,8 @@ const openRouterApiConfig = {
   // retried once, so the worst case (title 2x + document 2x) stays inside the 10-minute job limit.
   timeoutMs: env.get('OPENROUTER_TIMEOUT_MS') ?? 180_000,
   titleTimeoutMs: 60_000,
+  // One canvas page or plan: a few thousand tokens of structured prose, so shorter than a whole case study.
+  canvasTimeoutMs: env.get('OPENROUTER_TIMEOUT_MS') ?? 120_000,
   images: {
     maxInputBytes: 20 * 1024 * 1024,
     maxInputPixels: 100_000_000,
