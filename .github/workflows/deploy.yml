@@ -77,6 +77,14 @@ jobs:
           VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
         run: |
+          # Without both IDs, `vercel pull --yes` silently creates and deploys to a new, empty
+          # project named after the checkout instead of the Terraform-managed one.
+          for name in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID; do
+            if [ -z "${!name}" ]; then
+              echo "::error::$name is empty in this job. See terraform/vercel/README.md (CI/CD) for where to set it."
+              exit 1
+            fi
+          done
           npm install -g vercel@latest
           vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
           vercel build --prod --token="$VERCEL_TOKEN"
