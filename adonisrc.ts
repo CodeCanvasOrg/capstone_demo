@@ -83,8 +83,9 @@ export default defineConfig({
     () => import('#start/kernel'),
     () => import('#start/validator'),
     {
+      // Web servers and the queue worker (`ace queue:work`); start/scheduler.ts skips other commands.
       file: () => import('#start/scheduler'),
-      environment: ['web'],
+      environment: ['web', 'console'],
     },
   ],
 

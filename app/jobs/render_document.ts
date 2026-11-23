@@ -4,6 +4,7 @@ import { Job } from '@adonisjs/queue'
 import type { JobOptions } from '@adonisjs/queue/types'
 import TaskService from '#services/workspaces/task_service'
 import DocumentExportService from '#services/exports/document_export_service'
+import { trackLease } from '#services/workspaces/active_leases'
 export default class RenderDocument extends Job<{ version: 1; taskId: string }> {
   static options: JobOptions = { queue: 'documents', timeout: '5m' }
   async execute() {
@@ -15,6 +16,7 @@ export default class RenderDocument extends Job<{ version: 1; taskId: string }> 
       void service.renew(lease).catch(() => {})
     }, workspaceConfig.heartbeatMilliseconds)
     heartbeat.unref()
+    const untrack = trackLease(lease)
     try {
       await new DocumentExportService().render(lease)
     } catch (error) {
@@ -26,6 +28,7 @@ export default class RenderDocument extends Job<{ version: 1; taskId: string }> 
       )
     } finally {
       clearInterval(heartbeat)
+      untrack()
     }
   }
 }
