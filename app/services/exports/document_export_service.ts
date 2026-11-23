@@ -246,8 +246,12 @@ export default class DocumentExportService {
     const brochure =
       format === 'web'
         ? null
-        : ((await this.canvasHtml(context, doc, version.id, { final })) ??
-          (await this.brochureHtml(doc, client, { final })))
+        : ((await this.canvasHtml(context, doc, version.id, {
+            final,
+            // A preview of the current version shows the editor's unsaved draft too, so a
+            // box deleted in the canvas is gone from the preview before "Save version".
+            draft: !final && !versionId,
+          })) ?? (await this.brochureHtml(doc, client, { final })))
     const layout =
       brochure || format === 'web' ? null : await this.layoutPlan(doc, client, { final })
     const buffer =
@@ -319,18 +323,23 @@ export default class DocumentExportService {
    * The canvas layout of a version, or null when the document is not in the canvas
    * editor or the version was saved as text. Frame text goes through the same
    * evidence, image and projection pipeline as every export, in one pass, so
-   * citation numbers follow reading order across the canvas.
+   * citation numbers follow reading order across the canvas. With `draft`, the
+   * editor's autosaved draft of that version is drawn instead, when there is one.
    */
   private async canvasHtml(
     context: Ctx,
     doc: Document,
     versionId: string,
-    { final }: { final: boolean }
+    { final, draft = false }: { final: boolean; draft?: boolean }
   ) {
     if (!canvasEnabled()) return null
     const service = new CanvasService()
     if ((await service.mode(context.workspaceId, doc.id)) !== 'canvas') return null
-    const row = await service.forVersion(versionId)
+    const row = draft
+      ? await service.previewProject(context, doc.id, versionId)
+      : await service
+          .forVersion(versionId)
+          .then((r) => (r ? { project: r.project, draft: false } : null))
     if (!row) return null
     const selection = await new LayoutSelectionService().peek(doc.workspaceId!, doc.id)
     const brand = getBrandKit(selection.brandId, selection.brandVersion)
@@ -347,6 +356,7 @@ export default class DocumentExportService {
       content: splitProjected(row.project, projected.body),
       sources: projected.sources,
       preview: !final,
+      unsaved: row.draft,
     })
   }
 

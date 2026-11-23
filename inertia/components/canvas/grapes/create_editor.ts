@@ -185,8 +185,13 @@ export function createCanvasEditor(
     setTimeout(checkOverflow, 0)
   })
 
+  let destroyed = false
   editor.on('update', () => {
-    if (!syncing) o.onChange()
+    if (!syncing && !destroyed) o.onChange()
+  })
+  // A deleted box or page must always reach the autosaved draft, and so the preview.
+  editor.on('component:remove', () => {
+    if (!syncing && !destroyed) o.onChange()
   })
 
   /** Text frames whose text runs past their box, marked in the canvas and reported. */
@@ -564,6 +569,7 @@ export function createCanvasEditor(
       editor.trigger('update')
     },
     destroy() {
+      destroyed = true
       window.removeEventListener('keydown', escapeOutside)
       setPlacing(null)
       stopEditing()

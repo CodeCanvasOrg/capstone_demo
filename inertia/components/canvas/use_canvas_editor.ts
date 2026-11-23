@@ -43,6 +43,7 @@ export function useCanvasEditor(options: Options) {
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const statusRef = useRef<SaveStatus>('saved')
   const editorRef = useRef<CanvasEditor | null>(null)
+  const inflight = useRef<Promise<void> | null>(null)
   const params = { workspaceId: options.workspaceId, documentId: options.documentId }
 
   const setBoth = (next: SaveStatus) => {
@@ -60,7 +61,8 @@ export function useCanvasEditor(options: Options) {
     return null
   }, [])
 
-  const autosave = useCallback(async () => {
+  /** One autosave of the draft; `autosave` runs these one at a time. */
+  const saveDraft = async () => {
     if (statusRef.current === 'conflict') return
     const project = current()
     if (!project) return setBoth('error')
@@ -85,8 +87,30 @@ export function useCanvasEditor(options: Options) {
         setError(feedbackError(err).message)
       }
     }
+  }
+
+  const autosave = useCallback(() => {
+    const run = (inflight.current ?? Promise.resolve()).then(() => saveDraft())
+    inflight.current = run.finally(() => {
+      if (inflight.current === run) inflight.current = null
+    })
+    return run
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [current, options.workspaceId, options.documentId])
+  }, [])
+
+  /**
+   * Saves what is waiting for the autosave timer now, and waits for a save in
+   * flight. The preview draws the saved draft, so it calls this first: a box
+   * deleted a moment ago is gone from the preview too.
+   */
+  const flush = useCallback(async () => {
+    editorRef.current?.stopEditing()
+    if (statusRef.current === 'unsaved') {
+      clearTimeout(timer.current)
+      await autosave()
+    } else if (inflight.current) await inflight.current
+    return statusRef.current === 'saved'
+  }, [autosave])
 
   const changed = useCallback(() => {
     if (statusRef.current === 'conflict') return
@@ -176,6 +200,7 @@ export function useCanvasEditor(options: Options) {
     error,
     sheetIds,
     changed,
+    flush,
     saveVersion,
     dismissError: () => setError(null),
   }
