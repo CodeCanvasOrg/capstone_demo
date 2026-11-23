@@ -6,6 +6,15 @@ import DocumentPolicy from '#policies/document_policy'
 import { documentImageValidator } from '#validators/document_image'
 
 export default class DocumentImagesController {
+  /** The document's images, for the canvas image library. */
+  async index({ params, response, workspaceAccess, bouncer }: HttpContext) {
+    const document = await new AccessService().document(workspaceAccess!, params.documentId)
+    await bouncer.with(DocumentPolicy).authorize('edit', document)
+    return response.ok({
+      data: await new DocumentImageService().list(workspaceAccess!, document.id),
+    })
+  }
+
   async store({ params, request, response, workspaceAccess, bouncer }: HttpContext) {
     const document = await new AccessService().document(workspaceAccess!, params.documentId)
     await bouncer.with(DocumentPolicy).authorize('update', document)

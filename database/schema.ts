@@ -574,11 +574,13 @@ export class DocumentImageSchema extends BaseModel {
     'createdAt',
     'documentId',
     'filename',
+    'height',
     'id',
     'mime',
     'objectKey',
     'updatedAt',
     'uploaderId',
+    'width',
     'workspaceId',
   ] as const
   $columns = DocumentImageSchema.$columns
@@ -590,6 +592,8 @@ export class DocumentImageSchema extends BaseModel {
   declare documentId: string
   @column()
   declare filename: string
+  @column()
+  declare height: number | null
   @column({ isPrimary: true })
   declare id: string
   @column()
@@ -600,6 +604,8 @@ export class DocumentImageSchema extends BaseModel {
   declare updatedAt: DateTime
   @column()
   declare uploaderId: number
+  @column()
+  declare width: number | null
   @column()
   declare workspaceId: string
 }
