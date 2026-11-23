@@ -4,7 +4,7 @@ import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import type { CanvasDocument } from '../../shared/canvas/model.ts'
 import DocumentVersion from './document_version.ts'
 
-export type CanvasSource = 'composed' | 'edited' | 'template'
+export type CanvasSource = 'composed' | 'edited' | 'template' | 'generated'
 
 /** The canvas of one saved version. Rows are never updated. */
 export default class DocumentCanvas extends DocumentCanvasSchema {

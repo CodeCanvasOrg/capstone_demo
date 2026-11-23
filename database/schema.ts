@@ -7,22 +7,150 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class CanvasGenerationPageSchema extends BaseModel {
+  static $columns = [
+    'attempts',
+    'chunkIds',
+    'citedChunkIds',
+    'content',
+    'createdAt',
+    'designId',
+    'fillRatio',
+    'id',
+    'imageIds',
+    'notes',
+    'pageIndex',
+    'purpose',
+    'queries',
+    'runId',
+    'status',
+    'updatedAt',
+    'wordCount',
+    'workspaceId',
+  ] as const
+  $columns = CanvasGenerationPageSchema.$columns
+  @column()
+  declare attempts: number
+  @column()
+  declare chunkIds: any
+  @column()
+  declare citedChunkIds: any
+  @column()
+  declare content: any | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare designId: string
+  @column()
+  declare fillRatio: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare imageIds: any
+  @column()
+  declare notes: any
+  @column()
+  declare pageIndex: number
+  @column()
+  declare purpose: string
+  @column()
+  declare queries: any
+  @column()
+  declare runId: string
+  @column()
+  declare status: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare wordCount: number | null
+  @column()
+  declare workspaceId: string
+}
+
+export class CanvasGenerationRunSchema extends BaseModel {
+  static $columns = [
+    'baseVersionId',
+    'createdAt',
+    'createdBy',
+    'depth',
+    'documentId',
+    'error',
+    'id',
+    'metrics',
+    'pipelineVersion',
+    'plan',
+    'plannerModel',
+    'profile',
+    'resultVersionId',
+    'status',
+    'taskId',
+    'templateSet',
+    'updatedAt',
+    'workspaceId',
+    'writerModel',
+  ] as const
+  $columns = CanvasGenerationRunSchema.$columns
+  @column()
+  declare baseVersionId: string | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare createdBy: number | null
+  @column()
+  declare depth: string
+  @column()
+  declare documentId: string
+  @column()
+  declare error: string | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare metrics: any | null
+  @column()
+  declare pipelineVersion: string
+  @column()
+  declare plan: any | null
+  @column()
+  declare plannerModel: string
+  @column()
+  declare profile: string
+  @column()
+  declare resultVersionId: string | null
+  @column()
+  declare status: string
+  @column()
+  declare taskId: string | null
+  @column()
+  declare templateSet: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare workspaceId: string
+  @column()
+  declare writerModel: string
+}
+
 export class CanvasTemplateSchema extends BaseModel {
   static $columns = [
+    'category',
     'createdAt',
     'createdBy',
     'designId',
     'id',
     'kind',
     'name',
+    'previewKey',
     'project',
     'projectHash',
     'schemaVersion',
+    'slots',
     'updatedAt',
     'version',
     'workspaceId',
   ] as const
   $columns = CanvasTemplateSchema.$columns
+  @column()
+  declare category: string
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
   @column()
@@ -36,11 +164,15 @@ export class CanvasTemplateSchema extends BaseModel {
   @column()
   declare name: string
   @column()
+  declare previewKey: string | null
+  @column()
   declare project: any
   @column()
   declare projectHash: string
   @column()
   declare schemaVersion: number
+  @column()
+  declare slots: any
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
   @column()
@@ -330,6 +462,7 @@ export class DocumentCanvasSchema extends BaseModel {
     'createdAt',
     'createdBy',
     'documentId',
+    'generationRunId',
     'id',
     'project',
     'projectHash',
@@ -347,6 +480,8 @@ export class DocumentCanvasSchema extends BaseModel {
   declare createdBy: number | null
   @column()
   declare documentId: string
+  @column()
+  declare generationRunId: string | null
   @column({ isPrimary: true })
   declare id: string
   @column()
@@ -568,16 +703,59 @@ export class DocumentGenerationCandidateSchema extends BaseModel {
   declare workspaceId: string
 }
 
+export class DocumentImageVariantSchema extends BaseModel {
+  static $columns = [
+    'bytes',
+    'createdAt',
+    'format',
+    'height',
+    'id',
+    'imageId',
+    'key',
+    'purpose',
+    'width',
+    'workspaceId',
+  ] as const
+  $columns = DocumentImageVariantSchema.$columns
+  @column()
+  declare bytes: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare format: string
+  @column()
+  declare height: number
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare imageId: string
+  @column()
+  declare key: string
+  @column()
+  declare purpose: string
+  @column()
+  declare width: number
+  @column()
+  declare workspaceId: string
+}
+
 export class DocumentImageSchema extends BaseModel {
   static $columns = [
+    'altText',
     'byteSize',
+    'caption',
     'createdAt',
     'documentId',
     'filename',
+    'focusX',
+    'focusY',
     'height',
     'id',
     'mime',
     'objectKey',
+    'origin',
+    'phash',
+    'sourceChunkId',
     'updatedAt',
     'uploaderId',
     'width',
@@ -585,13 +763,21 @@ export class DocumentImageSchema extends BaseModel {
   ] as const
   $columns = DocumentImageSchema.$columns
   @column()
+  declare altText: string | null
+  @column()
   declare byteSize: number
+  @column()
+  declare caption: string | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
   @column()
   declare documentId: string
   @column()
   declare filename: string
+  @column()
+  declare focusX: number | null
+  @column()
+  declare focusY: number | null
   @column()
   declare height: number | null
   @column({ isPrimary: true })
@@ -600,6 +786,12 @@ export class DocumentImageSchema extends BaseModel {
   declare mime: string
   @column()
   declare objectKey: string
+  @column()
+  declare origin: string
+  @column()
+  declare phash: string | null
+  @column()
+  declare sourceChunkId: string | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
   @column()

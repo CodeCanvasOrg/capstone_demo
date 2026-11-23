@@ -77,6 +77,12 @@ export default await Env.create(new URL('../', import.meta.url), {
   PUBLICATION_LAYOUT: Env.schema.enum.optional(['pilot', 'templates'] as const),
   /** Canvas editor for brochure layouts; off unless `pilot`. */
   CANVAS_EDITOR: Env.schema.enum.optional(['pilot'] as const),
+  /** Multi-stage academic page generation for the canvas; needs CANVAS_EDITOR=pilot too. */
+  CANVAS_GENERATION: Env.schema.enum.optional(['on'] as const),
+  /** Model for the canvas plan and captions; defaults to OPENROUTER_MODEL. */
+  CANVAS_PLANNER_MODEL: Env.schema.string.optional(),
+  /** Model for canvas page prose; defaults to the planner model. A Sonnet-class model is recommended. */
+  CANVAS_WRITER_MODEL: Env.schema.string.optional(),
 
   // PDF extraction worker (see config/pdf_worker.ts)
   PDF_EXTRACTOR: Env.schema.enum.optional(['pymupdf', 'pdf-parse'] as const),
