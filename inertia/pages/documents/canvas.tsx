@@ -152,6 +152,12 @@ function Editor({
           disabledReason={busy ? 'Wait for the save to finish' : null}
           onError={setError}
         />
+        {canvas.uploading > 0 && (
+          <span className="flex items-center gap-1 text-xs text-muted-foreground" role="status">
+            <LoaderCircle aria-hidden="true" className="size-3.5 animate-spin" />
+            {canvas.uploading === 1 ? 'Uploading image…' : `Uploading ${canvas.uploading} images…`}
+          </span>
+        )}
         {canvas.overflow.length > 0 && (
           <span className="flex items-center gap-1 text-xs text-destructive" role="status">
             <AlertTriangle aria-hidden="true" className="size-3.5" />
@@ -189,7 +195,9 @@ function Editor({
         <Button
           size="sm"
           onClick={save}
-          disabled={busy || canvas.status === 'conflict' || !canvas.canvasEditor}
+          disabled={
+            busy || canvas.uploading > 0 || canvas.status === 'conflict' || !canvas.canvasEditor
+          }
         >
           {busy ? (
             <LoaderCircle aria-hidden="true" className="animate-spin" />
@@ -269,7 +277,8 @@ function Editor({
             documentId={document.id}
           />
           <p className="mt-6 text-xs text-muted-foreground">
-            Double-click a text box to edit its text. Press Esc when done.
+            Double-click a text box to edit its text. Press Esc when done. Drop or paste an image
+            file on a page to add it.
           </p>
         </aside>
       </div>

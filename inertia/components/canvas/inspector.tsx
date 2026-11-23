@@ -8,18 +8,19 @@ import {
   AlignVerticalJustifyStart,
   type Bold,
   CaseUpper,
+  Crosshair,
+  ImageOff,
   Italic,
   Lock,
   Pencil,
+  Scaling,
   Unlock,
-  Upload,
 } from 'lucide-react'
-import { useRef, useState, type ReactNode } from 'react'
-import { urlFor } from '@/client'
-import { api, feedbackError } from '@/lib/api'
+import type { ReactNode } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { clampGeo } from '../../../shared/canvas/geometry.ts'
+import { fitToImage } from '../../../shared/canvas/ops.ts'
 import {
   BORDER_STYLES,
   FONT_FAMILIES,
@@ -35,6 +36,9 @@ import {
 } from '../../../shared/canvas/model.ts'
 import type { BrandKit } from '../../../shared/layout/brand.ts'
 import { ColorPicker } from './color_picker'
+import { FocalPoint } from './focal_point'
+import { ImageLibrary } from './image_library'
+import { useDocumentImages, type DocumentImageInfo } from './images'
 import type { CanvasEditor } from './grapes/create_editor'
 import { cvOf } from './grapes/create_editor'
 
@@ -101,54 +105,69 @@ function ImageFields({
   documentId: string
   onChange: (next: Frame) => void
 }) {
-  const input = useRef<HTMLInputElement>(null)
-  const [busy, setBusy] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const upload = async (file: File) => {
-    setBusy(true)
-    setError(null)
-    try {
-      const data = new FormData()
-      data.append('file', file)
-      const res = await api<{ data: { id: string } }>(
-        urlFor('documentImages.store', { workspaceId, documentId }),
-        'POST',
-        data
-      )
-      onChange({
-        ...frame,
-        imageId: res.data.id,
-        alt: frame.alt || file.name.replace(/\.\w+$/, ''),
-      })
-    } catch (err) {
-      setError(feedbackError(err).message)
-    } finally {
-      setBusy(false)
-    }
-  }
+  const { images } = useDocumentImages({ workspaceId, documentId })
+  const image = images.find((i) => i.id === frame.imageId) ?? null
+  const size = image?.width && image.height ? { width: image.width, height: image.height } : null
+  const pick = (picked: DocumentImageInfo) =>
+    onChange({
+      ...frame,
+      imageId: picked.id,
+      // A new picture starts centred; its file name is a first description.
+      focus: picked.id === frame.imageId ? frame.focus : undefined,
+      alt: frame.alt || picked.filename.replace(/\.\w+$/, ''),
+    })
   return (
     <div className="flex flex-col gap-3">
-      <input
-        ref={input}
-        type="file"
-        accept="image/png,image/jpeg"
-        className="hidden"
-        onChange={(event) => {
-          const file = event.target.files?.[0]
-          if (file) void upload(file)
-          event.target.value = ''
-        }}
+      <ImageLibrary
+        workspaceId={workspaceId}
+        documentId={documentId}
+        selectedId={frame.imageId}
+        onPick={pick}
       />
-      <Button
-        type="button"
-        variant="outline"
-        size="sm"
-        disabled={busy}
-        onClick={() => input.current?.click()}
-      >
-        <Upload aria-hidden="true" /> {frame.imageId ? 'Replace image' : 'Upload image'}
-      </Button>
-      {error && <p className="text-xs text-destructive">{error}</p>}
+      {frame.imageId && (
+        <>
+          {frame.fit === 'cover' && image && (
+            <Field label="Focal point (kept in view when cropped)">
+              <FocalPoint
+                src={image.src}
+                alt={frame.alt}
+                focus={frame.focus ?? { x: 50, y: 50 }}
+                onChange={(focus) => onChange({ ...frame, focus })}
+              />
+            </Field>
+          )}
+          <div className="flex flex-wrap gap-1.5">
+            <Button
+              type="button"
+              variant="outline"
+              size="xs"
+              disabled={!size}
+              title={size ? undefined : 'The size of this image is not known'}
+              onClick={() => size && onChange({ ...frame, geo: fitToImage(frame.geo, size) })}
+            >
+              <Scaling aria-hidden="true" /> Fit box to picture
+            </Button>
+            {frame.focus && (
+              <Button
+                type="button"
+                variant="ghost"
+                size="xs"
+                onClick={() => onChange({ ...frame, focus: undefined })}
+              >
+                <Crosshair aria-hidden="true" /> Centre
+              </Button>
+            )}
+            <Button
+              type="button"
+              variant="ghost"
+              size="xs"
+              onClick={() => onChange({ ...frame, imageId: null, focus: undefined })}
+            >
+              <ImageOff aria-hidden="true" /> Remove picture
+            </Button>
+          </div>
+        </>
+      )}
       <Field label="Description (alt text)">
         <Input
           value={frame.alt}

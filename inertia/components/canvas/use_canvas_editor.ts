@@ -3,7 +3,8 @@ import { urlFor } from '@/client'
 import { api, ApiError, feedbackError } from '@/lib/api'
 import { parseCanvas, type CanvasDocument, type Frame } from '../../../shared/canvas/model.ts'
 import type { BrandKit } from '../../../shared/layout/brand.ts'
-import type { CanvasEditor } from './grapes/create_editor'
+import type { CanvasEditor, ImageTarget } from './grapes/create_editor'
+import { uploadImage } from './images'
 import type { TextEditing } from './grapes/text_editing'
 
 export type SaveStatus = 'saved' | 'unsaved' | 'saving' | 'conflict' | 'error'
@@ -37,6 +38,8 @@ export function useCanvasEditor(options: Options) {
   const [textEditing, setTextEditing] = useState<TextEditing | null>(null)
   const [status, setStatus] = useState<SaveStatus>('saved')
   const [error, setError] = useState<string | null>(null)
+  /** Pictures dropped or pasted on the canvas still uploading. */
+  const [uploading, setUploading] = useState(0)
   const [sheetIds, setSheetIds] = useState<string[]>(options.canvas.sheets.map((s) => s.id))
   const revision = useRef(options.revision)
   const baseVersionId = useRef(options.baseVersionId)
@@ -115,10 +118,55 @@ export function useCanvasEditor(options: Options) {
   const changed = useCallback(() => {
     if (statusRef.current === 'conflict') return
     setBoth('unsaved')
-    setSheetIds(editorRef.current?.sheets().map((s) => s.getId()) ?? [])
+    const ed = editorRef.current
+    if (ed) setSheetIds(ed.sheets().map((s) => s.getId()))
     clearTimeout(timer.current)
     timer.current = setTimeout(autosave, AUTOSAVE_MS)
   }, [autosave])
+
+  /**
+   * Dropped or pasted pictures: each is uploaded, then put in the target image
+   * box (the first file) or added to the page, cascading so they do not stack.
+   */
+  const placeImages = useCallback(
+    async (files: File[], target: ImageTarget) => {
+      setUploading((n) => n + files.length)
+      for (const [i, file] of files.entries()) {
+        try {
+          const image = await uploadImage(params, file)
+          const ed = editorRef.current
+          if (!ed) return
+          const alt = file.name.replace(/\.\w+$/, '')
+          const placed =
+            'frameId' in target && i === 0
+              ? ed.setImage(target.frameId, { id: image.id, alt })
+              : ed.addImage(
+                  'sheetId' in target ? target.sheetId : (ed.selectedSheet()?.getId() ?? ''),
+                  'sheetId' in target
+                    ? { x: target.at.x + i * 50, y: target.at.y + i * 50 }
+                    : { x: 1050 + i * 50, y: 1485 + i * 50 },
+                  { ...image, alt }
+                )
+          if (!placed)
+            setError(
+              'frameId' in target && i === 0
+                ? 'That image box is locked. Unlock it to change its picture.'
+                : 'This page is full: remove a box before adding another image.'
+            )
+        } catch (err) {
+          setError(`${file.name}: ${feedbackError(err).message}`)
+        } finally {
+          setUploading((n) => n - 1)
+        }
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [options.workspaceId, options.documentId]
+  )
+  const placeImagesRef = useRef(placeImages)
+  useEffect(() => {
+    placeImagesRef.current = placeImages
+  }, [placeImages])
 
   const changedRef = useRef(changed)
   useEffect(() => {
@@ -144,6 +192,7 @@ export function useCanvasEditor(options: Options) {
         onSelect: (frame, sheetId) => setSelected({ frame, sheetId }),
         onOverflow: setOverflow,
         onTextEditing: setTextEditing,
+        onImageFiles: (files, target) => void placeImagesRef.current(files, target),
       })
       editorRef.current = instance
       setCanvasEditor(instance)
@@ -198,6 +247,7 @@ export function useCanvasEditor(options: Options) {
     textEditing,
     status,
     error,
+    uploading,
     sheetIds,
     changed,
     flush,

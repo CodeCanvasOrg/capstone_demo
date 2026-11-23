@@ -402,6 +402,12 @@ const routes = {
     tokens: [{"old":"/workspaces/:workspaceId/briefs","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/briefs","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/briefs","type":0,"val":"briefs","end":""}],
     types: placeholder as Registry['briefs.store']['types'],
   },
+  'documentImages.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/images',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/images","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images","type":0,"val":"images","end":""}],
+    types: placeholder as Registry['documentImages.index']['types'],
+  },
   'documentImages.store': {
     methods: ["POST"],
     pattern: '/workspaces/:workspaceId/documents/:documentId/images',

@@ -15,8 +15,15 @@ import {
 } from '../../../../shared/canvas/grapes.ts'
 import { canvasTypes, FRAME_KINDS } from '../../../../shared/canvas/grapes_types.ts'
 import { clampGeo, fromPx, snapGeo, toPx } from '../../../../shared/canvas/geometry.ts'
-import { DEFAULT_SIZE, newFrame } from '../../../../shared/canvas/ops.ts'
-import type { CanvasDocument, Frame, FrameKind, Sheet } from '../../../../shared/canvas/model.ts'
+import { DEFAULT_SIZE, imageGeo, newFrame } from '../../../../shared/canvas/ops.ts'
+import {
+  LIMITS,
+  SHEET,
+  type CanvasDocument,
+  type Frame,
+  type FrameKind,
+  type Sheet,
+} from '../../../../shared/canvas/model.ts'
 import type { BrandKit } from '../../../../shared/layout/brand.ts'
 import { frameHtml } from './frame_html'
 import { startTextEditing, type TextEditing } from './text_editing'
@@ -34,7 +41,17 @@ export type CanvasEditorOptions = {
   onSelect: (frame: Frame | null, sheetId: string | null) => void
   onOverflow: (frameIds: string[]) => void
   onTextEditing: (editing: TextEditing | null) => void
+  /** Image files dropped or pasted on the canvas; the caller uploads and places them. */
+  onImageFiles?: (files: File[], target: ImageTarget) => void
 }
+
+/** Where dropped or pasted pictures go: into an image box, or onto a page at a point. */
+export type ImageTarget = { frameId: string } | { sheetId: string; at: { x: number; y: number } }
+
+/** Image files in a drop or paste; other files and text are left alone. */
+const imageFiles = (data: DataTransfer | null) =>
+  [...(data?.files ?? [])].filter((file) => file.type.startsWith('image/'))
+const carriesFiles = (data: DataTransfer | null) => !!data?.types.includes('Files')
 
 const EDITOR_CSS = `
 html,body{background:#e7e5e4;margin:0}
@@ -45,6 +62,8 @@ body{padding:24px 24px 64px;font-family:var(--cv-font),Arial,sans-serif;color:va
 .cv-frame.cv-editing{outline:2px solid #2563eb!important;cursor:text}
 .cv-frame .ProseMirror{outline:none;min-height:100%}
 body.cv-placing,body.cv-placing .cv-frame{cursor:crosshair!important}
+.cv-sheet.cv-drop-target{outline:3px dashed #2563eb;outline-offset:-3px}
+.cv-frame.cv-drop-target{outline:3px solid #2563eb!important;outline-offset:-3px}
 .cv-ghost{position:absolute;border:1.5px dashed #2563eb;background:rgba(37,99,235,.06);pointer-events:none;z-index:1000}
 .cv-image-empty{display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:repeating-linear-gradient(45deg,#f5f5f4 0 8px,#e7e5e4 8px 16px);color:#78716c;font-size:9pt}
 .cv-art-ribbons{width:100%;height:100%;background:repeating-linear-gradient(160deg,transparent 0 9px,color-mix(in srgb,var(--cv-accent) 30%,transparent) 9px 10px)}
@@ -190,9 +209,12 @@ export function createCanvasEditor(
     if (!syncing && !destroyed) o.onChange()
   })
   // A deleted box or page must always reach the autosaved draft, and so the preview.
-  editor.on('component:remove', () => {
-    if (!syncing && !destroyed) o.onChange()
-  })
+  // Only once loaded: loading the project removes GrapesJS's own starting content.
+  editor.onReady(() =>
+    editor.on('component:remove', () => {
+      if (!syncing && !destroyed) o.onChange()
+    })
+  )
 
   /** Text frames whose text runs past their box, marked in the canvas and reported. */
   const checkOverflow = () => {
@@ -348,6 +370,33 @@ export function createCanvasEditor(
   }
   window.addEventListener('keydown', escapeOutside)
 
+  /**
+   * A pasted picture (e.g. a screenshot) goes into the selected image box, or
+   * onto the selected page (the first page if none), centred. Pasting text, or
+   * pasting while typing in a box or a field, is left alone.
+   */
+  const pasteImages = (event: ClipboardEvent) => {
+    if (editing || !o.onImageFiles) return
+    const el = event.target as HTMLElement | null
+    if (el?.closest?.('input, textarea, select, [contenteditable="true"]')) return
+    const files = imageFiles(event.clipboardData)
+    if (!files.length) return
+    event.preventDefault()
+    const selected = editor.getSelected()
+    if (isFrame(selected) && cvOf(selected!).kind === 'image' && !cvOf(selected!).locked)
+      return o.onImageFiles(files, { frameId: selected!.getId() })
+    const sheet = selectedSheet() ?? sheets()[0]
+    if (sheet)
+      o.onImageFiles(files, { sheetId: sheet.getId(), at: { x: SHEET.w / 2, y: SHEET.h / 2 } })
+  }
+  window.addEventListener('paste', pasteImages)
+  // A file dropped beside the canvas must not make the browser open it instead.
+  const swallowFileDrop = (event: DragEvent) => {
+    if (carriesFiles(event.dataTransfer)) event.preventDefault()
+  }
+  o.container.addEventListener('dragover', swallowFileDrop)
+  o.container.addEventListener('drop', swallowFileDrop)
+
   const attached = new WeakSet<Document>()
   /** Canvas listeners, once per iframe document (the frame may load before we listen). */
   const attach = () => {
@@ -468,12 +517,106 @@ export function createCanvasEditor(
       }
     })
 
+    // Image files dragged in from the desktop: onto an image box replaces its picture,
+    // anywhere else on a page adds a new image box there. Captured before GrapesJS,
+    // which would otherwise treat the drop as one of its own.
+    let dropTarget: HTMLElement | null = null
+    const highlight = (el: HTMLElement | null) => {
+      if (dropTarget === el) return
+      dropTarget?.classList.remove('cv-drop-target')
+      dropTarget = el
+      el?.classList.add('cv-drop-target')
+    }
+    const dropTargetOf = (event: DragEvent) => {
+      const el = event.target as HTMLElement
+      const frameEl = el.closest('.cv-image') as HTMLElement | null
+      if (frameEl?.id && !(find(frameEl.id) && cvOf(find(frameEl.id)!).locked)) return frameEl
+      return el.closest('.cv-sheet') as HTMLElement | null
+    }
+    doc.addEventListener(
+      'dragover',
+      (event) => {
+        if (!carriesFiles(event.dataTransfer)) return
+        event.preventDefault()
+        event.stopPropagation()
+        event.dataTransfer!.dropEffect = 'copy'
+        highlight(dropTargetOf(event))
+      },
+      true
+    )
+    doc.addEventListener('dragleave', (event) => {
+      if (!event.relatedTarget) highlight(null)
+    })
+    doc.addEventListener(
+      'drop',
+      (event) => {
+        if (!carriesFiles(event.dataTransfer)) return
+        event.preventDefault()
+        event.stopPropagation()
+        const target = dropTargetOf(event)
+        highlight(null)
+        const files = imageFiles(event.dataTransfer)
+        if (!target || !files.length || !o.onImageFiles) return
+        if (target.classList.contains('cv-image')) o.onImageFiles(files, { frameId: target.id })
+        else o.onImageFiles(files, { sheetId: target.id, at: sheetPoint(target, event) })
+      },
+      true
+    )
+    doc.addEventListener('paste', pasteImages)
+
     // Arrow keys nudge the selected frame 1 mm, or 10 mm with Shift.
     doc.addEventListener('keydown', nudge)
     setTimeout(checkOverflow, 50)
   }
   editor.on('canvas:frame:load', attach)
   editor.onReady(attach)
+
+  const find = (id: string) => editor.getWrapper()?.find(`#${id}`).at(0) ?? null
+
+  /**
+   * A new image box for an uploaded picture, centred on `at` at the picture's
+   * proportions. Returns false when the page is full.
+   */
+  const addImage = (
+    sheetId: string,
+    at: { x: number; y: number },
+    image: { id: string; width: number | null; height: number | null; alt: string }
+  ) => {
+    const sheetCmp = sheets().find((c) => c.getId() === sheetId)
+    const sheet = read().sheets.find((s) => s.id === sheetId)
+    if (!sheetCmp || !sheet || sheet.frames.length >= LIMITS.framesPerSheet) return false
+    const base = newFrame('image', sheet, taken())
+    if (base.kind !== 'image') return false
+    const frame: Frame = {
+      ...base,
+      geo: imageGeo(at, image),
+      imageId: image.id,
+      alt: image.alt.slice(0, 300),
+    }
+    const [added] = sheetCmp.append(frameComponent(frame, 'px') as never)
+    lockState(added, frame)
+    editor.select(added)
+    o.onChange()
+    return true
+  }
+
+  /** Puts an uploaded picture into an existing image box, centred again. */
+  const setImage = (frameId: string, image: { id: string; alt: string }) => {
+    const cmp = find(frameId)
+    if (!cmp || !isFrame(cmp)) return false
+    const frame = cvOf(cmp)
+    if (frame.kind !== 'image' || frame.locked) return false
+    write(cmp, {
+      ...frame,
+      imageId: image.id,
+      focus: undefined,
+      alt: frame.alt || image.alt.slice(0, 300),
+    })
+    editor.trigger('update')
+    o.onSelect(cvOf(cmp), cmp.parent()?.getId() ?? null)
+    o.onChange()
+    return true
+  }
 
   const taken = () => {
     const ids = new Set<string>()
@@ -552,7 +695,9 @@ export function createCanvasEditor(
       const s = editor.getSelected()
       return isFrame(s) ? s! : null
     },
-    find: (id: string) => editor.getWrapper()?.find(`#${id}`).at(0) ?? null,
+    find,
+    addImage,
+    setImage,
     updateFrame(cmp: Component, patch: (frame: Frame) => Frame) {
       write(cmp, patch(cvOf(cmp)))
       editor.trigger('update')
@@ -571,6 +716,9 @@ export function createCanvasEditor(
     destroy() {
       destroyed = true
       window.removeEventListener('keydown', escapeOutside)
+      window.removeEventListener('paste', pasteImages)
+      o.container.removeEventListener('dragover', swallowFileDrop)
+      o.container.removeEventListener('drop', swallowFileDrop)
       setPlacing(null)
       stopEditing()
       editor.destroy()
