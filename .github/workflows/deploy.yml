@@ -40,18 +40,14 @@ jobs:
 
       # ------------------------------------------------------------ worker (Railway)
       # Deployed before the web app so its pre-deploy migrations land first.
+      # RAILWAY_TOKEN is a project token scoped to the production environment, so it already
+      # identifies the project and environment; no `railway link` needed.
       - name: Deploy worker to Railway
         env:
-          RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
           npm install -g @railway/cli
-          railway link \
-            --project "${{ vars.RAILWAY_PROJECT_ID }}" \
-            --environment "${{ vars.RAILWAY_ENVIRONMENT_ID }}" \
-            --service "${{ vars.RAILWAY_SERVICE_ID }}"
-          railway up --ci \
-            --service "${{ vars.RAILWAY_SERVICE_ID }}" \
-            --environment "${{ vars.RAILWAY_ENVIRONMENT_ID }}"
+          railway up --ci --service "${{ vars.RAILWAY_SERVICE_ID }}"
 
       # ------------------------------------------------------------ web (Vercel)
       - uses: ./.github/actions/setup-node-bun
