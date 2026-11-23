@@ -16,7 +16,9 @@ WORKDIR /app
 RUN npm install -g bun@1
 
 COPY package.json bun.lock ./
-RUN --mount=type=cache,target=/root/.bun/install/cache bun install --frozen-lockfile
+# Railway only accepts cache mounts whose id is `s/<service id>-<target>`; 52cd682d-... is the
+# worker service (terraform output railway_worker_service_id). Plain Docker accepts any id.
+RUN --mount=type=cache,id=s/52cd682d-cc43-46ca-94bd-44a5ad9d1104-/root/.bun/install/cache,target=/root/.bun/install/cache bun install --frozen-lockfile
 
 COPY . .
 # `node ace build` compiles the server + Vite assets into /app/build.
@@ -28,7 +30,7 @@ RUN node ace build --ignore-ts-errors
 
 # Production-only dependencies for the compiled app.
 WORKDIR /app/build
-RUN --mount=type=cache,target=/root/.bun/install/cache bun install --frozen-lockfile --production
+RUN --mount=type=cache,id=s/52cd682d-cc43-46ca-94bd-44a5ad9d1104-/root/.bun/install/cache,target=/root/.bun/install/cache bun install --frozen-lockfile --production
 
 # ---------------------------------------------------------------- runtime
 FROM node:${NODE_VERSION}-bookworm-slim AS runtime
