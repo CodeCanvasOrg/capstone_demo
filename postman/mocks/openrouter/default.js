@@ -42,6 +42,59 @@ http
           })),
         }
       }
+      // Canvas generation (docs/canvas-academic-pipeline-plan.md): synthetic plan, pages and caption.
+      const lastJson = () =>
+        JSON.parse(
+          body.messages
+            .flatMap((message) =>
+              typeof message.content === 'string'
+                ? [message.content]
+                : (message.content ?? [])
+                    .filter((part) => part.type === 'text')
+                    .map((part) => part.text)
+            )
+            .find((text) => text.startsWith('{')) ?? '{}'
+        )
+      if (name === 'plan_canvas') {
+        const page = (design, n) => ({
+          design,
+          title: `Synthetic page ${n}`,
+          purpose: `Synthetic purpose ${n}, for transport verification only.`,
+          questions: [`Synthetic question ${n}a?`, `Synthetic question ${n}b?`],
+          keyTerms: [`term ${n}`],
+          wantsImage: false,
+        })
+        generated = {
+          thesis: 'Synthetic thesis for transport verification only.',
+          audience: 'Synthetic audience',
+          pages: [page('essay', 1), page('two_column', 2), page('data_findings', 3), page('conclusion', 4)],
+          coverageGaps: [],
+        }
+      }
+      if (name === 'write_canvas_page') {
+        const input = lastJson()
+        const words = (n) => Array.from({ length: n }, () => 'synthetic').join(' ')
+        const ids = [...String(input.sources ?? '').matchAll(/Source chunk ID: ([^;]+);/g)].map((m) => m[1])
+        const chunks = ids.slice(0, 1)
+        const para = (n) => ({ text: `${words(n)}.`, chunks })
+        generated = {
+          design: input.page?.design ?? 'essay',
+          title: input.page?.title ?? 'Synthetic page',
+          lead: { text: `${words(50)}.`, chunks },
+          sections: [
+            { heading: 'Synthetic section', paragraphs: [para(120), para(120)], bullets: [] },
+            { heading: 'Another synthetic section', paragraphs: [para(100)], bullets: [] },
+          ],
+          definitions: [],
+          figures: [],
+          callout: null,
+          takeaway: `${words(20)}.`,
+          summary: 'Synthetic summary.',
+          reviewer_notes: ['Synthetic output: not a quality assertion.'],
+        }
+      }
+      if (name === 'caption_figure')
+        generated = { caption: 'Synthetic caption.', alt: 'Synthetic alt text.' }
       if (name === 'fill_document_outline') {
         const raw = body.messages
           .flatMap((message) =>

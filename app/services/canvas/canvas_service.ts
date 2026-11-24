@@ -310,6 +310,31 @@ export default class CanvasService {
     return this.saveCanvas(context, documentId, { ...input, canvas, source: 'edited' })
   }
 
+  /**
+   * Saves a canvas the generation pipeline composed, as a normal version (so review,
+   * approval, history and export treat it like any other) linked to its run. The
+   * caller has already checked the task's lease; the save still refuses a stale base.
+   */
+  async saveGenerated(
+    context: WorkspaceAccessContext,
+    documentId: string,
+    input: {
+      canvas: unknown
+      baseVersionId: string | null
+      mutationId: string
+      generationRunId: string
+    }
+  ) {
+    const canvas = await this.validate(context, documentId, input.canvas)
+    return this.saveCanvas(context, documentId, {
+      canvas,
+      baseVersionId: input.baseVersionId,
+      mutationId: input.mutationId,
+      source: 'generated',
+      generationRunId: input.generationRunId,
+    })
+  }
+
   private async saveCanvas(
     context: WorkspaceAccessContext,
     documentId: string,
@@ -319,6 +344,8 @@ export default class CanvasService {
       mutationId: string
       source: CanvasSource
       templateId?: string | null
+      /** The generation run that wrote this canvas (`source` is `generated`). */
+      generationRunId?: string | null
     }
   ) {
     const hash = hashOf(input.canvas)
@@ -343,6 +370,7 @@ export default class CanvasService {
             sheetCount: input.canvas.sheets.length,
             source: input.source,
             templateId: input.templateId ?? null,
+            generationRunId: input.generationRunId ?? null,
             createdBy: context.actorId,
           },
           { client: trx }

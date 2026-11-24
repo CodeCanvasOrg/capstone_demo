@@ -16,7 +16,7 @@ import {
   Scaling,
   Unlock,
 } from 'lucide-react'
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { clampGeo } from '../../../shared/canvas/geometry.ts'
@@ -38,7 +38,8 @@ import type { BrandKit } from '../../../shared/layout/brand.ts'
 import { ColorPicker } from './color_picker'
 import { FocalPoint } from './focal_point'
 import { ImageLibrary } from './image_library'
-import { useDocumentImages, type DocumentImageInfo } from './images'
+import { saveImageText, useDocumentImages, type DocumentImageInfo } from './images'
+import { printDpi } from '../../../shared/canvas/image_rules.ts'
 import type { CanvasEditor } from './grapes/create_editor'
 import { cvOf } from './grapes/create_editor'
 
@@ -94,20 +95,47 @@ function GeoFields({ geo, onChange }: { geo: Geo; onChange: (next: Geo) => void 
   )
 }
 
+/** Ids of the document images the canvas shows, to offer the others as suggestions. */
+const usedImageIds = (canvasEditor: CanvasEditor | null) =>
+  new Set(
+    (canvasEditor?.read().sheets ?? []).flatMap((sheet) =>
+      sheet.frames.flatMap((f) => (f.kind === 'image' && f.imageId ? [f.imageId] : []))
+    )
+  )
+
 function ImageFields({
   frame,
   workspaceId,
   documentId,
+  canvasEditor,
   onChange,
 }: {
   frame: Extract<Frame, { kind: 'image' }>
   workspaceId: string
   documentId: string
+  canvasEditor: CanvasEditor | null
   onChange: (next: Frame) => void
 }) {
   const { images } = useDocumentImages({ workspaceId, documentId })
+  const [caption, setCaption] = useState<string | null>(null)
+  const [saving, setSaving] = useState<string | null>(null)
   const image = images.find((i) => i.id === frame.imageId) ?? null
   const size = image?.width && image.height ? { width: image.width, height: image.height } : null
+  // Effective resolution of the picture at this box size, and what to do about a soft one.
+  const dpi = size ? printDpi(size, frame.geo) : null
+  const unused = usedImageIds(canvasEditor)
+  const suggestions = images.filter((i) => !unused.has(i.id)).slice(0, 6)
+  const params = { workspaceId, documentId }
+  const saveText = async (patch: { caption?: string | null; altText?: string | null }) => {
+    if (!image) return
+    setSaving('Saving…')
+    try {
+      await saveImageText(params, image.id, patch)
+      setSaving(null)
+    } catch {
+      setSaving('Not saved')
+    }
+  }
   const pick = (picked: DocumentImageInfo) =>
     onChange({
       ...frame,
@@ -129,7 +157,7 @@ function ImageFields({
           {frame.fit === 'cover' && image && (
             <Field label="Focal point (kept in view when cropped)">
               <FocalPoint
-                src={image.src}
+                src={`${image.src}?variant=thumb`}
                 alt={frame.alt}
                 focus={frame.focus ?? { x: 50, y: 50 }}
                 onChange={(focus) => onChange({ ...frame, focus })}
@@ -168,13 +196,65 @@ function ImageFields({
           </div>
         </>
       )}
+      {image && (
+        <Field label="Caption (printed as “Figure n.”)">
+          <Input
+            value={caption ?? image.caption ?? ''}
+            maxLength={400}
+            onChange={(e) => setCaption(e.target.value)}
+            onBlur={() => {
+              if (caption !== null && caption !== (image.caption ?? ''))
+                void saveText({ caption: caption || null })
+              setCaption(null)
+            }}
+          />
+        </Field>
+      )}
       <Field label="Description (alt text)">
         <Input
           value={frame.alt}
           maxLength={300}
           onChange={(e) => onChange({ ...frame, alt: e.target.value })}
+          onBlur={() => {
+            if (image && frame.alt !== (image.altText ?? ''))
+              void saveText({ altText: frame.alt || null })
+          }}
         />
       </Field>
+      {dpi !== null && (
+        <p
+          data-testid="image-dpi"
+          className={`text-xs ${dpi < 200 ? 'text-amber-700 dark:text-amber-400' : 'text-muted-foreground'}`}
+        >
+          {dpi} dpi at this size
+          {dpi < 200
+            ? ': below 200 it prints soft. Make the box smaller or choose a larger picture.'
+            : ''}
+          {saving ? ` · ${saving}` : ''}
+        </p>
+      )}
+      {suggestions.length > 0 && (
+        <Field label="Suggested images (not on any page yet)">
+          <ul className="grid grid-cols-3 gap-1.5" aria-label="Suggested images">
+            {suggestions.map((s) => (
+              <li key={s.id}>
+                <button
+                  type="button"
+                  className="block aspect-square w-full overflow-hidden rounded-md border"
+                  title={s.caption ?? s.filename}
+                  onClick={() => pick(s)}
+                >
+                  <img
+                    src={`${s.src}?variant=thumb`}
+                    alt={s.caption ?? s.filename}
+                    className="size-full object-cover"
+                  />
+                </button>
+              </li>
+            ))}
+          </ul>
+        </Field>
+      )}
       <Field label="Fit">
         <select
           className={select}
@@ -559,6 +639,7 @@ export function Inspector({
               frame={frame}
               workspaceId={workspaceId}
               documentId={documentId}
+              canvasEditor={canvasEditor}
               onChange={update}
             />
           </Section>

@@ -1,5 +1,19 @@
-import { ArrowDown, ArrowUp, Copy, Plus, Trash2 } from 'lucide-react'
+import { ArrowDown, ArrowUp, Copy, MoreHorizontal, Plus, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown_menu'
+import { ACADEMIC_DESIGNS, PLANNABLE_DESIGN_IDS } from '../../../shared/canvas/academic/designs.ts'
+import type { RunPage } from './generation'
+import { PageQualityBadge } from './page_quality_badge'
 import { duplicateSheet, newSheet } from '../../../shared/canvas/ops.ts'
 import { sheetComponent } from '../../../shared/canvas/grapes.ts'
 import { LIMITS, type Sheet } from '../../../shared/canvas/model.ts'
@@ -10,16 +24,30 @@ import type { CanvasEditor } from './grapes/create_editor'
  * Sheets are rebuilt from their stored data when moved, so nothing depends on
  * GrapesJS keeping styles across a move.
  */
+export type PageAction = 'rewrite' | 'expand' | 'condense'
+
 export function PageStrip({
   canvasEditor,
   sheetIds,
   selectedSheetId,
   onChange,
+  generated,
+  onAction,
+  onDesign,
+  actionsBlocked,
 }: {
   canvasEditor: CanvasEditor | null
   sheetIds: string[]
   selectedSheetId: string | null
   onChange: () => void
+  /** The latest run's pages, by position, when they still line up with the sheets. */
+  generated?: RunPage[] | null
+  /** Rewrite, deepen or shorten a generated page. */
+  onAction?: (index: number, action: PageAction) => void
+  /** Lay a generated page out in another design. */
+  onDesign?: (index: number, design: string) => void
+  /** Why the page actions are unavailable right now (unsaved edits, a run in progress). */
+  actionsBlocked?: string | null
 }) {
   const ed = canvasEditor
   const wrapper = () => ed?.editor.getWrapper()
@@ -78,56 +106,122 @@ export function PageStrip({
         {sheetIds.map((id, index) => (
           <li
             key={id}
-            className={`group flex items-center gap-1.5 rounded-lg border p-1 ${
+            className={`group flex flex-col gap-1 rounded-lg border p-1 ${
               id === selectedSheetId ? 'border-primary bg-primary/5' : 'border-border'
             }`}
           >
-            <button
-              type="button"
-              onClick={() => select(id)}
-              className="flex min-w-0 flex-1 items-center gap-2 text-left text-xs whitespace-nowrap"
-              aria-current={id === selectedSheetId ? 'page' : undefined}
-              aria-label={`Page ${index + 1}`}
-            >
-              <span
-                aria-hidden="true"
-                className="flex h-9 w-6.5 shrink-0 items-center justify-center rounded-sm border bg-white text-[10px] text-muted-foreground shadow-xs"
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={() => select(id)}
+                className="flex min-w-0 flex-1 items-center gap-2 text-left text-xs whitespace-nowrap"
+                aria-current={id === selectedSheetId ? 'page' : undefined}
+                aria-label={`Page ${index + 1}`}
               >
-                {index + 1}
-              </span>
-              <span className="truncate">Page {index + 1}</span>
-            </button>
-            <div className="flex opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100">
-              {(
-                [
-                  [`Move page ${index + 1} up`, ArrowUp, index === 0, () => move(id, index, -1)],
-                  [
-                    `Move page ${index + 1} down`,
-                    ArrowDown,
-                    index === sheetIds.length - 1,
-                    () => move(id, index, 1),
-                  ],
-                  [`Duplicate page ${index + 1}`, Copy, false, () => duplicate(id, index)],
-                  [`Delete page ${index + 1}`, Trash2, sheetIds.length <= 1, () => remove(id)],
-                ] as const
-              ).map(([label, icon, disabled, run]) => (
-                <Button
-                  key={label}
-                  type="button"
-                  variant="ghost"
-                  size="icon-xs"
-                  aria-label={label}
-                  title={label}
-                  disabled={disabled}
-                  onClick={run}
+                <span
+                  aria-hidden="true"
+                  className="flex h-9 w-6.5 shrink-0 items-center justify-center rounded-sm border bg-white text-[10px] text-muted-foreground shadow-xs"
                 >
-                  {(() => {
-                    const Icon = icon
-                    return <Icon aria-hidden="true" />
-                  })()}
-                </Button>
-              ))}
+                  {index + 1}
+                </span>
+                <span className="truncate">
+                  Page {index + 1}
+                  {generated?.[index] && (
+                    <span className="text-muted-foreground">
+                      {' · '}
+                      {generated[index].design.replaceAll('_', ' ')}
+                    </span>
+                  )}
+                </span>
+              </button>
+              <div className="flex opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100">
+                {(
+                  [
+                    [`Move page ${index + 1} up`, ArrowUp, index === 0, () => move(id, index, -1)],
+                    [
+                      `Move page ${index + 1} down`,
+                      ArrowDown,
+                      index === sheetIds.length - 1,
+                      () => move(id, index, 1),
+                    ],
+                    [`Duplicate page ${index + 1}`, Copy, false, () => duplicate(id, index)],
+                    [`Delete page ${index + 1}`, Trash2, sheetIds.length <= 1, () => remove(id)],
+                  ] as const
+                ).map(([label, icon, disabled, run]) => (
+                  <Button
+                    key={label}
+                    type="button"
+                    variant="ghost"
+                    size="icon-xs"
+                    aria-label={label}
+                    title={label}
+                    disabled={disabled}
+                    onClick={run}
+                  >
+                    {(() => {
+                      const Icon = icon
+                      return <Icon aria-hidden="true" />
+                    })()}
+                  </Button>
+                ))}
+                {generated?.[index] &&
+                  onAction &&
+                  onDesign &&
+                  !['contents', 'references'].includes(generated[index].design) && (
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon-xs"
+                          aria-label={`Page ${index + 1} actions`}
+                          title="Page actions"
+                        >
+                          <MoreHorizontal aria-hidden="true" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="start" className="w-52">
+                        <DropdownMenuLabel className="text-xs text-muted-foreground">
+                          {actionsBlocked ?? 'Generated page'}
+                        </DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        {(
+                          [
+                            ['rewrite', 'Rewrite page'],
+                            ['expand', 'Add depth'],
+                            ['condense', 'Make shorter'],
+                          ] as const
+                        ).map(([action, label]) => (
+                          <DropdownMenuItem
+                            key={action}
+                            disabled={!!actionsBlocked}
+                            onSelect={() => onAction(index, action)}
+                          >
+                            {label}
+                          </DropdownMenuItem>
+                        ))}
+                        <DropdownMenuSub>
+                          <DropdownMenuSubTrigger disabled={!!actionsBlocked}>
+                            Change design
+                          </DropdownMenuSubTrigger>
+                          <DropdownMenuSubContent className="w-52">
+                            {PLANNABLE_DESIGN_IDS.map((design) => (
+                              <DropdownMenuItem
+                                key={design}
+                                disabled={design === generated[index].design}
+                                onSelect={() => onDesign(index, design)}
+                              >
+                                {ACADEMIC_DESIGNS[design].label}
+                              </DropdownMenuItem>
+                            ))}
+                          </DropdownMenuSubContent>
+                        </DropdownMenuSub>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  )}
+              </div>
             </div>
+            {generated?.[index] && <PageQualityBadge page={generated[index]} />}
           </li>
         ))}
       </ol>

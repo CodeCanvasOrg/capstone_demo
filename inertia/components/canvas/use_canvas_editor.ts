@@ -187,7 +187,9 @@ export function useCanvasEditor(options: Options) {
         container,
         canvas: options.canvas,
         brand: options.brand,
-        imageUrl: (imageId) => urlFor('documentImages.show', { ...params, imageId }),
+        // The editor shows the screen copy (1600 px); the original and print copy are for exports.
+        imageUrl: (imageId) =>
+          `${urlFor('documentImages.show', { ...params, imageId })}?variant=screen`,
         onChange: () => changedRef.current(),
         onSelect: (frame, sheetId) => setSelected({ frame, sheetId }),
         onOverflow: setOverflow,
@@ -252,6 +254,8 @@ export function useCanvasEditor(options: Options) {
     changed,
     flush,
     saveVersion,
+    /** The version the editor is based on now (it moves when a version is saved). */
+    baseVersion: () => baseVersionId.current,
     dismissError: () => setError(null),
   }
 }

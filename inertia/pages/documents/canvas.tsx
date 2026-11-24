@@ -7,16 +7,26 @@ import {
   LayoutTemplate,
   LoaderCircle,
   Save,
+  Sparkles,
 } from 'lucide-react'
 import { useState } from 'react'
+import { toast } from 'sonner'
 import { Link } from '@adonisjs/inertia/react'
 import { urlFor } from '@/client'
-import { api, feedbackError } from '@/lib/api'
+import { api, ApiError, feedbackError } from '@/lib/api'
 import { Button } from '@/components/ui/button'
 import { EditorModeSwitch } from '@/components/canvas/editor_mode_switch'
 import { CanvasToolbar } from '@/components/canvas/canvas_toolbar'
 import { Inspector } from '@/components/canvas/inspector'
-import { PageStrip } from '@/components/canvas/page_strip'
+import { GenerateDialog } from '@/components/canvas/generate_dialog'
+import {
+  isActive,
+  useGenerationRun,
+  type GenerationOptions,
+  type Run,
+} from '@/components/canvas/generation'
+import { GenerationProgress } from '@/components/canvas/generation_progress'
+import { PageStrip, type PageAction } from '@/components/canvas/page_strip'
 import { TextToolbar } from '@/components/canvas/text_toolbar'
 import { useCanvasEditor, type SaveStatus } from '@/components/canvas/use_canvas_editor'
 import type { CanvasDocument } from '../../../shared/canvas/model.ts'
@@ -34,6 +44,10 @@ type Props = {
     baseVersionId: string | null
   }
   brand: { palette: BrandKit['palette']; fonts: string[] } | null
+  /** Academic page generation: off, or the last options, the picture count and the latest run. */
+  generation:
+    | { enabled: false }
+    | { enabled: true; options: GenerationOptions; images: number; run: Run | null }
 }
 
 const FALLBACK_PALETTE: BrandKit['palette'] = {
@@ -104,6 +118,7 @@ function Editor({
   workspaceId,
   state,
   brand,
+  generation,
 }: Props & { state: { project: CanvasDocument } }) {
   const palette = brand?.palette ?? FALLBACK_PALETTE
   const { setContainer, ...canvas } = useCanvasEditor({
@@ -118,9 +133,67 @@ function Editor({
   const [error, setError] = useState<string | null>(null)
   const busy = canvas.status === 'saving'
 
+  // Page generation: the dialog, the run being followed and what the pages are worth.
+  const [dialog, setDialog] = useState(false)
+  const [announce, setAnnounce] = useState(false)
+  const params = { workspaceId, documentId: document.id }
+  const generating = useGenerationRun(params, generation.enabled ? generation.run : null)
+  const run = generating.run
+  // An autosaved draft is still not a version: generating or regenerating replaces it.
+  const [edited, setEdited] = useState(state.source === 'draft')
+  const [lastStatus, setLastStatus] = useState(canvas.status)
+  if (canvas.status !== lastStatus) {
+    setLastStatus(canvas.status)
+    if (canvas.status === 'unsaved' || canvas.status === 'saving') setEdited(true)
+  }
+  const unsavedEdits = canvas.status !== 'saved' || edited
+
   const save = async () => {
     const result = await canvas.saveVersion()
-    if (result) setSaved(result.version)
+    if (result) {
+      setSaved(result.version)
+      setEdited(false)
+    }
+  }
+
+  const started = () => {
+    setAnnounce(true)
+    generating.watch()
+  }
+  const generated =
+    run?.status === 'ready' && run.pages.length === canvas.sheetIds.length ? run.pages : null
+  const blocked = unsavedEdits
+    ? 'Save your changes first'
+    : isActive(run)
+      ? 'Pages are being generated'
+      : null
+  const pageAction = async (index: number, mode: PageAction) => {
+    try {
+      await api(urlFor('canvasGenerations.regenerate', { ...params, index }), 'POST', {
+        mutationId: crypto.randomUUID(),
+        baseVersionId: canvas.baseVersion(),
+        mode,
+      })
+      started()
+    } catch (err) {
+      toast.error(
+        err instanceof ApiError && err.status === 409
+          ? 'This page cannot be regenerated now. Reload the canvas and try again.'
+          : feedbackError(err).message
+      )
+    }
+  }
+  const pageDesign = async (index: number, design: string) => {
+    try {
+      await api(urlFor('canvasGenerations.design', { ...params, index }), 'POST', {
+        mutationId: crypto.randomUUID(),
+        baseVersionId: canvas.baseVersion(),
+        design,
+      })
+      window.location.reload()
+    } catch (err) {
+      toast.error(feedbackError(err).message)
+    }
   }
 
   const previewUrl = urlFor('documentPreview.show', { workspaceId, documentId: document.id })
@@ -179,6 +252,17 @@ function Editor({
             STATUS[canvas.status]
           )}
         </span>
+        {generation.enabled && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setDialog(true)}
+            disabled={isActive(run)}
+            data-testid="generate-pages"
+          >
+            <Sparkles aria-hidden="true" /> Generate pages
+          </Button>
+        )}
         <Button asChild variant="outline" size="sm">
           <a
             href={previewUrl}
@@ -207,6 +291,15 @@ function Editor({
           Save version
         </Button>
       </header>
+
+      {generation.enabled && (
+        <GenerationProgress
+          run={run}
+          announce={announce}
+          onRetry={() => setDialog(true)}
+          onShow={() => window.location.reload()}
+        />
+      )}
 
       <div className="flex flex-wrap items-center gap-3 border-b px-4 py-1.5">
         <CanvasToolbar canvasEditor={canvas.canvasEditor} hasFrame={!!canvas.selected.frame} />
@@ -251,11 +344,26 @@ function Editor({
 
       <div className="grid min-h-0 flex-1 grid-cols-[220px_minmax(0,1fr)_300px]">
         <aside className="overflow-y-auto border-r p-3">
+          {generation.enabled && !run && canvas.sheetIds.length <= 2 && (
+            <div className="mb-3 flex flex-col gap-2 rounded-lg border border-dashed p-3 text-xs">
+              <p className="text-muted-foreground">
+                This case study has only a page or two. Write detailed, cited pages from your
+                sources.
+              </p>
+              <Button size="xs" onClick={() => setDialog(true)}>
+                <Sparkles aria-hidden="true" /> Generate pages
+              </Button>
+            </div>
+          )}
           <PageStrip
             canvasEditor={canvas.canvasEditor}
             sheetIds={canvas.sheetIds}
             selectedSheetId={canvas.selected.sheetId}
             onChange={canvas.changed}
+            generated={generated}
+            onAction={pageAction}
+            onDesign={pageDesign}
+            actionsBlocked={blocked}
           />
         </aside>
         <div className="relative min-h-0">
@@ -282,6 +390,19 @@ function Editor({
           </p>
         </aside>
       </div>
+      {generation.enabled && (
+        <GenerateDialog
+          open={dialog}
+          onOpenChange={setDialog}
+          workspaceId={workspaceId}
+          documentId={document.id}
+          baseVersionId={canvas.baseVersion}
+          initial={generation.options}
+          imageCount={generation.images}
+          unsaved={unsavedEdits}
+          onStarted={started}
+        />
+      )}
     </div>
   )
 }

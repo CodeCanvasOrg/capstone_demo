@@ -1,0 +1,137 @@
+{
+  "renderer": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36",
+  "summary": {
+    "serif": 0.501,
+    "sans": 0.501
+  },
+  "cases": [
+    {
+      "family": "serif",
+      "font": "sm",
+      "width": 830,
+      "measuredMm": 183.62,
+      "words": 299,
+      "glyph": 0.501
+    },
+    {
+      "family": "serif",
+      "font": "sm",
+      "width": 1000,
+      "measuredMm": 148.7,
+      "words": 299,
+      "glyph": 0.475
+    },
+    {
+      "family": "serif",
+      "font": "sm",
+      "width": 1360,
+      "measuredMm": 114.04,
+      "words": 299,
+      "glyph": 0.485
+    },
+    {
+      "family": "serif",
+      "font": "sm",
+      "width": 1700,
+      "measuredMm": 92.34,
+      "words": 299,
+      "glyph": 0.456
+    },
+    {
+      "family": "serif",
+      "font": "md",
+      "width": 830,
+      "measuredMm": 229.39,
+      "words": 299,
+      "glyph": 0.523
+    },
+    {
+      "family": "serif",
+      "font": "md",
+      "width": 1000,
+      "measuredMm": 190.5,
+      "words": 299,
+      "glyph": 0.516
+    },
+    {
+      "family": "serif",
+      "font": "md",
+      "width": 1360,
+      "measuredMm": 146.84,
+      "words": 299,
+      "glyph": 0.506
+    },
+    {
+      "family": "serif",
+      "font": "md",
+      "width": 1700,
+      "measuredMm": 117.74,
+      "words": 299,
+      "glyph": 0.501
+    },
+    {
+      "family": "sans",
+      "font": "sm",
+      "width": 830,
+      "measuredMm": 183.62,
+      "words": 299,
+      "glyph": 0.501
+    },
+    {
+      "family": "sans",
+      "font": "sm",
+      "width": 1000,
+      "measuredMm": 148.7,
+      "words": 299,
+      "glyph": 0.475
+    },
+    {
+      "family": "sans",
+      "font": "sm",
+      "width": 1360,
+      "measuredMm": 114.04,
+      "words": 299,
+      "glyph": 0.485
+    },
+    {
+      "family": "sans",
+      "font": "sm",
+      "width": 1700,
+      "measuredMm": 92.34,
+      "words": 299,
+      "glyph": 0.456
+    },
+    {
+      "family": "sans",
+      "font": "md",
+      "width": 830,
+      "measuredMm": 229.39,
+      "words": 299,
+      "glyph": 0.523
+    },
+    {
+      "family": "sans",
+      "font": "md",
+      "width": 1000,
+      "measuredMm": 190.5,
+      "words": 299,
+      "glyph": 0.516
+    },
+    {
+      "family": "sans",
+      "font": "md",
+      "width": 1360,
+      "measuredMm": 146.84,
+      "words": 299,
+      "glyph": 0.506
+    },
+    {
+      "family": "sans",
+      "font": "md",
+      "width": 1700,
+      "measuredMm": 117.74,
+      "words": 299,
+      "glyph": 0.501
+    }
+  ]
+}

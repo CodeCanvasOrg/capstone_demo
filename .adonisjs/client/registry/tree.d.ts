@@ -119,6 +119,7 @@ export interface ApiDefinition {
     index: typeof routes['documentImages.index']
     store: typeof routes['documentImages.store']
     show: typeof routes['documentImages.show']
+    update: typeof routes['documentImages.update']
   }
   documentCanvases: {
     show: typeof routes['documentCanvases.show']
@@ -127,6 +128,16 @@ export interface ApiDefinition {
     disable: typeof routes['documentCanvases.disable']
     draft: typeof routes['documentCanvases.draft']
     save: typeof routes['documentCanvases.save']
+  }
+  canvasTemplates: {
+    index: typeof routes['canvasTemplates.index']
+    preview: typeof routes['canvasTemplates.preview']
+  }
+  canvasGenerations: {
+    store: typeof routes['canvasGenerations.store']
+    show: typeof routes['canvasGenerations.show']
+    regenerate: typeof routes['canvasGenerations.regenerate']
+    design: typeof routes['canvasGenerations.design']
   }
   documentVersions: {
     store: typeof routes['documentVersions.store']

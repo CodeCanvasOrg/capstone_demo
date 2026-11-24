@@ -100,7 +100,8 @@ test.group('Canvas editor: images and deletions', (group) => {
     // The preview prints it, embedded, without a Save version.
     const preview = async () => (await page.request.get(`${base}/preview`)).text()
     const withImage = await preview()
-    assert.include(withImage, `id="${image.id}"><img src="data:image/png;base64,`)
+    // The print copy of an opaque picture is a JPEG (a PNG when it has transparency).
+    assert.include(withImage, `id="${image.id}"><img src="data:image/jpeg;base64,`)
     assert.include(withImage, 'object-position:45% 45%')
 
     // Delete it and preview at once: the pending change is saved first.

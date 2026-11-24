@@ -6,6 +6,10 @@ import db from '@adonisjs/lucid/services/db'
 import drive from '@adonisjs/drive/services/main'
 import Document from '#models/document'
 import DocumentImage from '#models/document_image'
+import DocumentImageVariant from '#models/document_image_variant'
+import ImageVariantService, { variantMime } from '#services/documents/image_variant_service'
+import sharp from 'sharp'
+import { chooseVariant, coverSize } from '../../../shared/canvas/image_rules.ts'
 import AccessService, {
   missingResource,
   uuid,
@@ -103,6 +107,13 @@ export default class DocumentImageService {
       byteSize: image.byteSize,
       width: image.width,
       height: image.height,
+      caption: image.caption,
+      altText: image.altText,
+      focus:
+        image.focusX !== null && image.focusY !== null
+          ? { x: image.focusX, y: image.focusY }
+          : null,
+      origin: image.origin,
       src: `/workspaces/${image.workspaceId}/documents/${image.documentId}/images/${image.id}`,
     }
   }
@@ -115,14 +126,53 @@ export default class DocumentImageService {
       contents: Buffer
     }
   ) {
+    return this.receipt(await this.store(context, documentId, input))
+  }
+
+  /**
+   * Registers a picture from a source file as a document image, once: the canvas may
+   * only show document images, so a source picture is promoted when it is placed.
+   * The same source chunk is never promoted twice for one document.
+   */
+  async promote(
+    context: WorkspaceAccessContext,
+    documentId: string,
+    input: {
+      filename: string
+      contents: Buffer
+      chunkId: string
+      caption?: string | null
+      altText?: string | null
+    }
+  ) {
+    const existing = await DocumentImage.query()
+      .where({ workspaceId: context.workspaceId, documentId, sourceChunkId: input.chunkId })
+      .first()
+    if (existing) return existing
+    return this.store(context, documentId, { ...input, origin: 'source' })
+  }
+
+  private async store(
+    context: WorkspaceAccessContext,
+    documentId: string,
+    input: {
+      filename: string
+      contents: Buffer
+      origin?: 'upload' | 'source'
+      chunkId?: string
+      caption?: string | null
+      altText?: string | null
+    }
+  ) {
     const mime = DocumentImageService.mime(input.filename, input.contents)
     const size = DocumentImageService.dimensions(mime, input.contents)
     const id = randomUUID()
     const objectKey = `workspaces/${context.workspaceId}/documents/${documentId}/images/${id}.${mime === 'image/png' ? 'png' : 'jpg'}`
     const disk = drive.use()
     let written = false
+    let image: DocumentImage
     try {
-      const image = await db.transaction(async (trx) => {
+      image = await db.transaction(async (trx) => {
         await new AccessService().lock(context, trx)
         if (!uuid(documentId)) throw missingResource()
         await Document.query({ client: trx })
@@ -143,11 +193,14 @@ export default class DocumentImageService {
             width: size?.width ?? null,
             height: size?.height ?? null,
             filename: path.basename(input.filename).slice(0, 255),
+            origin: input.origin ?? 'upload',
+            sourceChunkId: input.chunkId ?? null,
+            caption: input.caption?.slice(0, 400) ?? null,
+            altText: input.altText?.slice(0, 300) ?? null,
           },
           { client: trx }
         )
       })
-      return this.receipt(image)
     } catch (error) {
       if (written)
         await disk.delete(objectKey).catch((cleanupError) => {
@@ -158,6 +211,42 @@ export default class DocumentImageService {
         })
       throw error
     }
+    // Copies for the library, the editor and print, made once. A failure never fails the
+    // upload: `node ace images:optimize` builds what is missing.
+    try {
+      await new ImageVariantService().build(image, input.contents)
+    } catch (error) {
+      logger.warn({ err: error, documentId, imageId: id }, 'Unable to build image variants')
+    }
+    return image
+  }
+
+  /** The caption and alt text of a picture, as the author edits them. Blank clears one. */
+  async updateText(
+    context: WorkspaceAccessContext,
+    documentId: string,
+    imageId: string,
+    input: { caption?: string | null; altText?: string | null }
+  ) {
+    if (!uuid(documentId) || !uuid(imageId)) throw missingResource()
+    return db.transaction(async (trx) => {
+      await new AccessService().lock(context, trx)
+      await Document.query({ client: trx })
+        .where({ id: documentId, workspaceId: context.workspaceId })
+        .forUpdate()
+        .firstOrFail()
+      const image = await DocumentImage.query({ client: trx })
+        .where({ id: imageId, workspaceId: context.workspaceId, documentId })
+        .forUpdate()
+        .firstOrFail()
+      const clean = (value: string | null | undefined) => (value?.trim() ? value.trim() : null)
+      image.useTransaction(trx).merge({
+        ...(input.caption !== undefined ? { caption: clean(input.caption) } : {}),
+        ...(input.altText !== undefined ? { altText: clean(input.altText) } : {}),
+      })
+      await image.save()
+      return this.receipt(image)
+    })
   }
 
   /**
@@ -200,7 +289,16 @@ export default class DocumentImageService {
     return images.map((image) => this.receipt(image))
   }
 
-  async asset(context: WorkspaceAccessContext, documentId: string, imageId: string) {
+  /**
+   * The picture's bytes for a reader: the original, or the `thumb` or `screen` copy
+   * when asked for and made (an image without it falls back to the original).
+   */
+  async asset(
+    context: WorkspaceAccessContext,
+    documentId: string,
+    imageId: string,
+    variant?: string
+  ) {
     if (!uuid(documentId) || !uuid(imageId)) throw missingResource()
     return db.transaction(async (trx) => {
       await new AccessService().lock(context, trx)
@@ -210,8 +308,75 @@ export default class DocumentImageService {
       const image = await DocumentImage.query({ client: trx })
         .where({ id: imageId, workspaceId: context.workspaceId, documentId })
         .firstOrFail()
+      const wanted = variant === 'thumb' || variant === 'screen' ? variant : null
+      const copy = wanted
+        ? await DocumentImageVariant.query({ client: trx })
+            .where({ imageId: image.id, purpose: wanted })
+            .first()
+        : null
+      if (copy)
+        return { mime: variantMime(copy.format), stream: await drive.use().getStream(copy.key) }
       return { mime: image.mime, stream: await drive.use().getStream(image.objectKey) }
     })
+  }
+
+  /**
+   * The picture for a print export of a frame `frame` tenths of a millimetre wide
+   * and tall: the smallest variant with the pixels the frame needs at 300 dpi,
+   * resized to exactly that (never enlarged), as PNG when it has transparency and
+   * JPEG otherwise. `cache` holds the resized bytes for the length of one export,
+   * keyed by variant and size. An image with no variants falls back to its original.
+   */
+  async exportAsset(
+    context: WorkspaceAccessContext,
+    documentId: string,
+    imageId: string,
+    frame: { w: number; h: number },
+    cache: Map<string, { mime: string; bytes: Buffer }> = new Map()
+  ) {
+    if (!uuid(documentId) || !uuid(imageId)) throw missingResource()
+    await new AccessService().document(context, documentId)
+    const image = await DocumentImage.query()
+      .where({ id: imageId, workspaceId: context.workspaceId, documentId })
+      .firstOrFail()
+    const variants = await DocumentImageVariant.query().where('imageId', image.id)
+    const chosen = chooseVariant(variants, frame)
+    const key = chosen?.key ?? image.objectKey
+    const known = chosen
+      ? { width: chosen.width, height: chosen.height }
+      : image.width && image.height
+        ? { width: image.width, height: image.height }
+        : null
+    const size = known ? coverSize(known, frame) : null
+    const id = `${key}:${size?.width ?? 0}x${size?.height ?? 0}`
+    const hit = cache.get(id)
+    if (hit) return hit
+    const bytes = Buffer.from(await drive.use().getBytes(key))
+    const mime = chosen ? variantMime(chosen.format) : image.mime
+    let made: { mime: string; bytes: Buffer } = { mime, bytes }
+    if (size && known && (size.width < known.width || size.height < known.height)) {
+      const resized = sharp(bytes, { pages: 1 }).resize({ width: size.width, height: size.height })
+      made =
+        mime === 'image/png'
+          ? { mime, bytes: await resized.png({ compressionLevel: 9 }).toBuffer() }
+          : {
+              mime: 'image/jpeg',
+              bytes: await resized
+                .flatten({ background: '#ffffff' })
+                .jpeg({ quality: 85, mozjpeg: true })
+                .toBuffer(),
+            }
+    } else if (mime === 'image/webp') {
+      made = {
+        mime: 'image/jpeg',
+        bytes: await sharp(bytes)
+          .flatten({ background: '#ffffff' })
+          .jpeg({ quality: 85 })
+          .toBuffer(),
+      }
+    }
+    cache.set(id, made)
+    return made
   }
 
   async references(context: WorkspaceAccessContext, documentId: string, value: TipTapDocument) {

@@ -420,6 +420,12 @@ const routes = {
     tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":0,"val":"images","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":1,"val":"imageId","end":""}],
     types: placeholder as Registry['documentImages.show']['types'],
   },
+  'documentImages.update': {
+    methods: ["PATCH"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/images/:imageId',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":0,"val":"images","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":1,"val":"imageId","end":""}],
+    types: placeholder as Registry['documentImages.update']['types'],
+  },
   'documentCanvases.show': {
     methods: ["GET","HEAD"],
     pattern: '/workspaces/:workspaceId/documents/:documentId/canvas',
@@ -455,6 +461,42 @@ const routes = {
     pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/versions',
     tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/versions","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/versions","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/versions","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/versions","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/versions","type":0,"val":"canvas","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/versions","type":0,"val":"versions","end":""}],
     types: placeholder as Registry['documentCanvases.save']['types'],
+  },
+  'canvasTemplates.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/templates',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/templates","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/templates","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/templates","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/templates","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/templates","type":0,"val":"canvas","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/templates","type":0,"val":"templates","end":""}],
+    types: placeholder as Registry['canvasTemplates.index']['types'],
+  },
+  'canvasTemplates.preview': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/templates/:templateId/preview',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/templates/:templateId/preview","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/templates/:templateId/preview","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/templates/:templateId/preview","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/templates/:templateId/preview","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/templates/:templateId/preview","type":0,"val":"canvas","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/templates/:templateId/preview","type":0,"val":"templates","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/templates/:templateId/preview","type":1,"val":"templateId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/templates/:templateId/preview","type":0,"val":"preview","end":""}],
+    types: placeholder as Registry['canvasTemplates.preview']['types'],
+  },
+  'canvasGenerations.store': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/generate',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/generate","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/generate","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/generate","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/generate","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/generate","type":0,"val":"canvas","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/generate","type":0,"val":"generate","end":""}],
+    types: placeholder as Registry['canvasGenerations.store']['types'],
+  },
+  'canvasGenerations.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/generation',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/generation","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/generation","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/generation","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/generation","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/generation","type":0,"val":"canvas","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/generation","type":0,"val":"generation","end":""}],
+    types: placeholder as Registry['canvasGenerations.show']['types'],
+  },
+  'canvasGenerations.regenerate': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/regenerate',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/regenerate","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/regenerate","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/regenerate","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/regenerate","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/regenerate","type":0,"val":"canvas","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/regenerate","type":0,"val":"pages","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/regenerate","type":1,"val":"index","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/regenerate","type":0,"val":"regenerate","end":""}],
+    types: placeholder as Registry['canvasGenerations.regenerate']['types'],
+  },
+  'canvasGenerations.design': {
+    methods: ["POST"],
+    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design',
+    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design","type":0,"val":"canvas","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design","type":0,"val":"pages","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design","type":1,"val":"index","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design","type":0,"val":"design","end":""}],
+    types: placeholder as Registry['canvasGenerations.design']['types'],
   },
   'documentVersions.store': {
     methods: ["POST"],

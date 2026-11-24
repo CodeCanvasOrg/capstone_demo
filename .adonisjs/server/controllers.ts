@@ -6,6 +6,8 @@
 export const controllers = {
   Assets: () => import('#controllers/assets_controller'),
   Briefs: () => import('#controllers/briefs_controller'),
+  CanvasGenerations: () => import('#controllers/canvas_generations_controller'),
+  CanvasTemplates: () => import('#controllers/canvas_templates_controller'),
   Collections: () => import('#controllers/collections_controller'),
   DocumentCanvases: () => import('#controllers/document_canvases_controller'),
   DocumentImages: () => import('#controllers/document_images_controller'),
