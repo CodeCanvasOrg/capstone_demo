@@ -31,6 +31,7 @@ import {
   writerSystem,
 } from './canvas_prompts.ts'
 import { sourcesText } from './canvas_planner.ts'
+import { cleanCopy, copyProblems } from './copy_clean.ts'
 
 /** Pages that may continue on a second page of the same design when they overflow. */
 export const SPLITTABLE: readonly AcademicDesignId[] = ['essay', 'two_column']
@@ -45,6 +46,8 @@ export type WriteContext = {
   /** Every planned page, titles and purposes only, so pages do not repeat each other. */
   outline: { design: AcademicDesignId; title: string; purpose: string }[]
   options: CanvasOptions
+  /** The brand's name as it must be written everywhere; other spellings are corrected. */
+  brand?: string
   guard: () => Promise<void>
 }
 
@@ -143,6 +146,7 @@ export default class CanvasPageWriter {
     let calls = 0
     let page: AcademicPage | undefined
     let problems: PageProblem[] = []
+    let copy: { code: string; field: string; detail?: string }[] = []
     const notes: string[] = []
     for (let round = 0; round <= ROUNDS; round++) {
       const raw = await this.provider.writeCanvasPage(
@@ -156,15 +160,18 @@ export default class CanvasPageWriter {
         corrections.reduce((n, c) => n + countTokens(c), 0) +
         countTokens(JSON.stringify(raw))
       const clean = sanitizePage({ ...raw, design: plan.design }, allowed)
-      page = clean.page
+      const tidy = cleanCopy(clean.page, ctx.brand)
+      page = tidy.page
+      notes.push(...tidy.gaps)
       problems = validateAcademicPage(page, { design: plan.design, evidence })
+      copy = copyProblems(page, plan.design)
       if (clean.dropped)
         notes.push('A citation pointed at a source that was not supplied and was removed.')
-      if (!problems.length) break
+      if (!problems.length && !copy.length) break
       corrections = [
         ...extra,
         `The previous page was:\n${JSON.stringify(page)}`,
-        problemCorrective(problems),
+        problemCorrective([...problems, ...copy]),
       ]
     }
     // Repairs after the last round.

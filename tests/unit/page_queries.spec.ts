@@ -4,6 +4,7 @@ import {
   REUSE_PENALTY,
   anchor,
   asSectionQueries,
+  distinctQueries,
   fuse,
   pageQueries,
 } from '#services/canvas/generation/page_queries'
@@ -97,5 +98,20 @@ test.group('fusing retrieval results', () => {
   test('ties break by id, so the order is stable', ({ assert }) => {
     assert.deepEqual(ids(fuse([[], [{ id: 'b' }], [{ id: 'a' }]])), ['a', 'b'])
     assert.deepEqual(ids(fuse([])), [])
+  })
+})
+
+test.group('page queries: key terms and repeats', () => {
+  test('key terms form one lexical query and repeats are dropped', ({ assert }) => {
+    const p = {
+      ...page('Heat', ['What is albedo?', 'what is albedo']),
+      keyTerms: ['albedo', 'urban canopy'],
+    }
+    const [q] = pageQueries([p], 'T', 'brief')
+    assert.deepEqual(q.queries.slice(1), ['What is albedo?', 'albedo urban canopy'])
+  })
+
+  test('distinctQueries ignores case and punctuation', ({ assert }) => {
+    assert.deepEqual(distinctQueries(['A b?', 'a B', '', '  ', 'c']), ['A b?', 'c'])
   })
 })

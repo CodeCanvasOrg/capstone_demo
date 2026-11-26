@@ -83,14 +83,14 @@ test.group('canvas prompts', () => {
     assert,
   }) => {
     for (const phrase of [
-      'Cite every factual paragraph',
+      'Support every factual paragraph',
       'Never create ids',
       'Never invent figures',
-      '[insert text here]',
       '70 to 180 words',
       'upper half of the range',
     ])
       assert.include(SHARED_RULES, phrase)
+    assert.notInclude(SHARED_RULES, '[insert text here]')
   })
 
   test('the design guide is generated from the table, so it cannot drift', ({ assert }) => {
@@ -153,5 +153,52 @@ test.group('canvas prompts', () => {
     assert.include(expandCorrective(0.5, 120), 'Add 120 words')
     assert.include(condenseCorrective(0.2, 300), 'exceeds its layout by 20%')
     assert.include(condenseCorrective(0.2, 300), 'Reduce to 300 words')
+  })
+})
+
+test.group('client copy rules in the writer prompt', () => {
+  const rules: [string, RegExp][] = [
+    ['no inline citation markers', /Never write chunk ids, bracketed numbers/],
+    ['footnote markers come from ids', /superscript footnote markers and a sources list/],
+    ['gaps go to reviewer notes', /put every gap in reviewer_notes/],
+    ['no gap sentences', /The source does not provide/],
+    ['empty fields are dropped', /Drop empty fields/],
+    ['short headlines that sell', /Headlines are short and sell/],
+    ['no repeated phrases in titles', /three or more words/],
+    [
+      'numbers go to figures with a qualifier',
+      /measured .*estimated .*client_reported .*design_target/,
+    ],
+    ['one brand spelling', /one spelling of the brand/],
+  ]
+  for (const [name, pattern] of rules)
+    test(name, ({ assert }) => {
+      assert.match(SHARED_RULES, pattern)
+      assert.match(
+        writerSystem({ profile: 'academic', depth: 'standard', design: 'essay' }),
+        pattern
+      )
+    })
+
+  test('slot budgets become length targets', ({ assert }) => {
+    const text = writerSystem({
+      profile: 'informative',
+      depth: 'standard',
+      design: 'essay',
+      slots: [{ name: 'headline', maxChars: 40 }],
+    })
+    assert.include(text, 'headline: about 34 characters, at least 24, never more than 40')
+    assert.notInclude(
+      writerSystem({ profile: 'informative', depth: 'standard', design: 'essay' }),
+      'Length per slot'
+    )
+  })
+
+  test('the retry names copy problems', ({ assert }) => {
+    assert.include(
+      problemCorrective([{ code: 'repeated_title', field: 'title', detail: 'x' }]),
+      'repeated_title'
+    )
+    assert.include(problemCorrective([]), 'move numbers into figures')
   })
 })

@@ -8,6 +8,11 @@ import {
   type Profile,
   type TemplateSet,
 } from '../../../../shared/canvas/academic/designs.ts'
+import {
+  lengthRules,
+  lengthTargets,
+  type SlotBudget,
+} from '../../../../shared/canvas/copy_rules.ts'
 
 /**
  * All prompt text of the canvas pipeline. Design guides and word ranges are
@@ -20,9 +25,16 @@ import {
 export const SHARED_RULES = `You write pages for a laid-out document. The application draws each page; you supply its content.
 
 Evidence
-- Use only the supplied sources. Cite every factual paragraph by listing the chunk ids that support it, copied exactly. Never create ids. Never mention sources, files, chunks or "the document".
+- Use only the supplied sources. Support every factual paragraph by listing the chunk ids that back it in its "chunks" field, copied exactly. Never create ids. The application turns those ids into superscript footnote markers and a sources list.
+- Never write chunk ids, bracketed numbers, "(source: ...)" or footnote markers inside the text. Never mention sources, files, chunks or "the document" in the text.
 - Never invent figures, names, dates, awards or quotations. A figure must appear in a cited chunk.
-- Where the sources do not support something the page needs, write "[insert text here]" and add a reviewer note. Never pad with generic statements.
+
+Client copy
+- Write only text a client would read on the page. Where the sources do not support something, leave that field out. Never write sentences such as "The source does not provide..." or "No information is available"; put every gap in reviewer_notes instead.
+- Drop empty fields. Do not explain a missing field, and never fill one with "n/a", "TBD" or a placeholder sentence.
+- Headlines are short and sell the outcome for the reader, not the topic. No two titles or headings may share a phrase of three or more words with each other.
+- Pull numbers out of the prose into figures. Each figure has a value, a label and a qualifier: measured (observed), estimated (derived or projected), client_reported (stated by the client) or design_target (a goal, not a result). Choose the weakest qualifier the source supports. Do not repeat a figure's number in the paragraphs.
+- Use one spelling of the brand and product names, exactly as the sources and the brief write them.
 
 Structure
 - One page develops one idea, stated in the lead. Each section advances it; no section restates another page (the plan and earlier page summaries are given to you).
@@ -115,7 +127,10 @@ export function writerSystem(options: {
   profile: Profile
   depth: Depth
   design: AcademicDesignId
+  /** Slots of the page's layout by name; the text is sized to fit them the first time. */
+  slots?: readonly SlotBudget[]
 }) {
+  const targets = lengthTargets(options.slots ?? [])
   return `${SHARED_RULES}
 
 ${addendum(options.profile)}
@@ -125,9 +140,14 @@ Output protocol. Call write_canvas_page once with this page only.
 - summary is one line stating what this page established; later pages are told it so they do not repeat you.
 - reviewer_notes are private notes for the reviewer (gaps, doubts); never part of the page.
 - A figure's value is the figure only ("83%", "12", "2 weeks"); what it measures goes in its label.
+- reviewer_notes also take every gap: facts the page needs that the sources lack.
 
 This page's design
-${designGuide(options.design, options.depth)}`
+${designGuide(options.design, options.depth)}${
+    targets.length
+      ? `\n\nLength per slot. Write to these lengths so the text fits without cutting.\n${lengthRules(targets)}`
+      : ''
+  }`
 }
 
 /** The abstract is written last, from the summaries of every page. */
@@ -146,4 +166,4 @@ export const problemCorrective = (problems: { code: string; field: string; detai
     .map((p) => `${p.field} (${p.code}${p.detail ? `: ${p.detail}` : ''})`)
     .join(
       '; '
-    )}. Return the whole page again with every problem fixed. Cite every factual paragraph with supplied chunk ids, and use only figures that appear in the chunks you cite.`
+    )}. Return the whole page again with every problem fixed. List supplied chunk ids for every factual paragraph (never inside the text), keep titles short and distinct, move numbers into figures, and use only figures that appear in the chunks you cite.`
