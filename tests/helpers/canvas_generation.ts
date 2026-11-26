@@ -16,6 +16,17 @@ type Account = Awaited<ReturnType<typeof account>>
 export const EVIDENCE =
   'Surface temperatures fell by 83% across 12 monitored districts, which is 2.4x the baseline reduction. Planners review the results every summer against a baseline.'
 
+/** Chunks that say different things: near-identical chunks are merged by retrieval. */
+const DISTINCT = [
+  EVIDENCE,
+  'Permeable paving lets rain soak into the ground instead of running off into drains. Surface temperatures fell by 83% across 12 monitored districts, which is 2.4x the baseline reduction. ',
+  'Wind corridors carry cool evening air through dense districts and lower night temperatures. Surface temperatures fell by 83% across 12 monitored districts, which is 2.4x the baseline reduction. ',
+  'Street trees need soil volume and irrigation for decades before the canopy matures. Surface temperatures fell by 83% across 12 monitored districts, which is 2.4x the baseline reduction. ',
+]
+
+/** Repeats a sentence up to the length of the standard evidence block. */
+const padded = (text: string) => text.repeat(Math.ceil((EVIDENCE.length * 6) / text.length))
+
 /** An account whose document has `count` prepared sources, is open in the canvas editor and can be generated. */
 export async function generatable(count = 4) {
   env.set('CANVAS_EDITOR', 'pilot')
@@ -27,7 +38,7 @@ export async function generatable(count = 4) {
     await db
       .from('chunks')
       .where({ id: s.chunkId })
-      .update({ content: `${EVIDENCE.repeat(6)} Source ${i}.` })
+      .update({ content: `${padded(DISTINCT[i] ?? EVIDENCE)} Source ${i}.` })
     sources.push(s)
   }
   await new CanvasService().enable(a.context, a.document.id, randomUUID())

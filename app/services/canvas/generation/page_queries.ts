@@ -23,12 +23,33 @@ export function pageQueries(
   return pages.map((page, index) => ({
     key: String(index),
     label: page.title,
-    queries: [
+    queries: distinctQueries([
       // The page's own subject leads; the anchor only places it in its project.
       `${page.title}\n${page.purpose}\n${context}`.trim(),
       ...page.questions.map((question) => question.trim()).filter(Boolean),
-    ],
+      // Key terms catch the lexical side of retrieval: names, numbers and jargon.
+      page.keyTerms.length ? page.keyTerms.join(' ') : '',
+    ]),
   }))
+}
+
+const squash = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .trim()
+
+/** Drops empty queries and repeats (ignoring case and punctuation), keeping order. */
+export function distinctQueries(queries: readonly string[]): string[] {
+  const seen = new Set<string>()
+  return queries
+    .map((q) => q.trim())
+    .filter((q) => {
+      const key = squash(q)
+      if (!key || seen.has(key)) return false
+      seen.add(key)
+      return true
+    })
 }
 
 /** The same queries as brochure-style section queries, for `canvas:plan` and tests. */
