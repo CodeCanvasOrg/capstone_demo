@@ -370,6 +370,8 @@ export default class CanvasService {
             sheetCount: input.canvas.sheets.length,
             source: input.source,
             templateId: input.templateId ?? null,
+            templateKey: input.canvas.template?.id ?? null,
+            templateVersion: input.canvas.template?.version ?? null,
             generationRunId: input.generationRunId ?? null,
             createdBy: context.actorId,
           },

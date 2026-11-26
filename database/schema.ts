@@ -142,8 +142,10 @@ export class CanvasTemplateSchema extends BaseModel {
     'previewKey',
     'project',
     'projectHash',
+    'retiredAt',
     'schemaVersion',
     'slots',
+    'templateKey',
     'updatedAt',
     'version',
     'workspaceId',
@@ -169,10 +171,14 @@ export class CanvasTemplateSchema extends BaseModel {
   declare project: any
   @column()
   declare projectHash: string
+  @column.dateTime()
+  declare retiredAt: DateTime | null
   @column()
   declare schemaVersion: number
   @column()
   declare slots: any
+  @column()
+  declare templateKey: string | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
   @column()
@@ -470,6 +476,8 @@ export class DocumentCanvasSchema extends BaseModel {
     'sheetCount',
     'source',
     'templateId',
+    'templateKey',
+    'templateVersion',
     'versionId',
     'workspaceId',
   ] as const
@@ -496,6 +504,10 @@ export class DocumentCanvasSchema extends BaseModel {
   declare source: string
   @column()
   declare templateId: string | null
+  @column()
+  declare templateKey: string | null
+  @column()
+  declare templateVersion: number | null
   @column()
   declare versionId: string
   @column()

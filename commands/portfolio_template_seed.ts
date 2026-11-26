@@ -1,13 +1,44 @@
-import { BaseCommand } from '@adonisjs/core/ace'
+import { BaseCommand, flags } from '@adonisjs/core/ace'
 import type { CommandOptions } from '@adonisjs/core/types/ace'
 
+/**
+ * Upserts the portfolio template (the sample document and one row per page design) into
+ * `canvas_templates`, retires the academic system templates, and renders the thumbnails with
+ * Chromium. Idempotent: a template whose layout has not changed is left alone; one whose layout
+ * hash changed is updated and its version bumped, so a canvas pinned to the old version never
+ * changes under it.
+ */
 export default class PortfolioTemplateSeed extends BaseCommand {
   static commandName = 'portfolio:template:seed'
-  static description = ''
+  static description = 'Create or update the portfolio canvas template and retire the academic ones'
 
-  static options: CommandOptions = {}
+  static options: CommandOptions = { startApp: true }
+
+  @flags.boolean({ description: 'Print what would change, but write nothing' })
+  declare dryRun?: boolean
+
+  @flags.boolean({
+    description: 'Render preview thumbnails with Chromium (--no-previews skips them)',
+    default: true,
+    showNegatedVariantInHelp: true,
+  })
+  declare previews: boolean
 
   async run() {
-    this.logger.info('Hello world from "PortfolioTemplateSeed"')
+    const { default: CanvasTemplateSeeder } =
+      await import('#services/canvas/canvas_template_seeder')
+    const { results, retired } = await new CanvasTemplateSeeder().seed({
+      dryRun: !!this.dryRun,
+      previews: this.previews,
+    })
+    for (const r of results)
+      this.logger.log(
+        `${r.action.padEnd(9)} ${r.design.padEnd(10)} v${r.version}${r.preview ? '  preview' : ''}`
+      )
+    const changed = results.filter((r) => r.action !== 'unchanged').length
+    const verb = this.dryRun ? 'Would change' : 'Changed'
+    this.logger.success(
+      `${verb} ${changed} of ${results.length} templates; ${retired} academic templates retired.`
+    )
   }
 }

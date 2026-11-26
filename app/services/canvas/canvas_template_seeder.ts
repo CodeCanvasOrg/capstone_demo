@@ -1,6 +1,6 @@
 import drive from '@adonisjs/drive/services/main'
 import logger from '@adonisjs/core/services/logger'
-import { chromium } from 'playwright'
+import { DateTime } from 'luxon'
 import CanvasTemplate from '#models/canvas_template'
 import ContentService from '#services/documents/content_service'
 import PublicationProjectionService from '#services/documents/publication_projection_service'
@@ -9,49 +9,60 @@ import {
   renderCanvasHtml,
   splitProjected,
 } from '#services/exports/canvas_renderer'
-import { defaultLayout } from '#services/layout/layout_validation'
-import { composeAcademicSheet, type AcademicMeta } from '../../../shared/canvas/academic/compose.ts'
-import { templatePage } from '../../../shared/canvas/academic/sample.ts'
-import {
-  ACADEMIC_DESIGN_IDS,
-  ACADEMIC_DESIGNS,
-  designSlots,
-  type AcademicDesignId,
-} from '../../../shared/canvas/academic/designs.ts'
+import PortfolioRenderService, {
+  sampleCanvas,
+} from '#services/canvas/portfolio/portfolio_render_service'
+import { entrySlotBudgets, coverSlotBudgets } from '../../../shared/canvas/portfolio/content.ts'
+import { TEMPLATE_ID, TEMPLATE_VERSION } from '../../../shared/canvas/portfolio/tokens.ts'
 import { getBrandKit } from '../../../shared/layout/brand.ts'
 import { hashOf } from '../../../shared/layout/hash.ts'
 import { CANVAS_SCHEMA_VERSION, type CanvasDocument } from '../../../shared/canvas/model.ts'
 
+/** The page designs of the portfolio template, in the order of its sample document. */
+export const PORTFOLIO_DESIGNS = ['cover', 'entry', 'sources'] as const
+export type PortfolioDesign = (typeof PORTFOLIO_DESIGNS)[number]
+
 export type SeedResult = {
-  design: AcademicDesignId
+  design: PortfolioDesign | 'portfolio'
   action: 'created' | 'updated' | 'unchanged'
   version: number
   preview: boolean
 }
 
-const META: AcademicMeta = {
-  title: 'Document title',
-  label: 'Academic report',
-  keywords: ['keyword one', 'keyword two'],
-  references: [{ label: 'source.pdf', pages: 'p. 1' }],
+export type SeedSummary = { results: SeedResult[]; retired: number }
+
+const NAMES = {
+  portfolio: 'Navy and gold portfolio',
+  cover: 'Portfolio cover',
+  entry: 'Portfolio entry',
+  sources: 'Portfolio sources',
+} as const
+
+/** The sample as one canvas, and as one one-sheet canvas per page design. */
+export function templateProjects(): Record<'portfolio' | PortfolioDesign, CanvasDocument> {
+  const sample = sampleCanvas()
+  const page = (index: number): CanvasDocument => ({
+    schemaVersion: CANVAS_SCHEMA_VERSION,
+    template: sample.template,
+    sheets: [sample.sheets[index]],
+  })
+  return { portfolio: sample, cover: page(0), entry: page(1), sources: page(2) }
 }
 
-/** The one-sheet canvas of a design: guidance text in its slots, no pictures. */
-export function templateProject(design: AcademicDesignId): CanvasDocument {
-  const sheet = composeAcademicSheet(
-    design === 'contents' || design === 'references'
-      ? { design }
-      : { design, page: templatePage(design), image: null },
-    0,
-    META,
-    {
-      contents: [
-        { title: 'First page', page: 3 },
-        { title: 'Second page', page: 4 },
-      ],
-    }
-  )
-  return { schemaVersion: CANVAS_SCHEMA_VERSION, sheets: [sheet] }
+/** What the gallery and the generator read about a template: the page designs and their text budgets. */
+function slotsOf(design: 'portfolio' | PortfolioDesign) {
+  return {
+    template: TEMPLATE_ID,
+    version: TEMPLATE_VERSION,
+    designs: design === 'portfolio' ? PORTFOLIO_DESIGNS : [design],
+    ...(design === 'cover' || design === 'portfolio' ? { cover: coverSlotBudgets() } : {}),
+    ...(design === 'entry' || design === 'portfolio'
+      ? { entry: { rows: { min: 3, max: 8 }, images: { max: 4 }, budgets: entrySlotBudgets(8) } }
+      : {}),
+    ...(design === 'sources' || design === 'portfolio'
+      ? { sources: { referencesPerPage: 4, evidenceRows: { max: 3 } } }
+      : {}),
+  }
 }
 
 /**
@@ -67,86 +78,70 @@ export async function templateHtml(
   return renderCanvasHtml(project, brand, { content: splitProjected(project, client.body) })
 }
 
+/**
+ * Seeds the portfolio template: one `document` row (the sample: cover, entry and sources) and
+ * one `sheet` row per page design. A row whose layout hash is unchanged is left alone; a changed
+ * layout bumps its version. The academic system templates are retired.
+ */
 export default class CanvasTemplateSeeder {
-  /** Idempotent upsert of the academic system templates. */
-  async seed({ dryRun = false, previews = true } = {}): Promise<SeedResult[]> {
-    const layout = defaultLayout()
-    const brand = getBrandKit(layout.brandId, layout.brandVersion)
+  async seed({ dryRun = false, previews = true } = {}): Promise<SeedSummary> {
+    const projects = templateProjects()
+    const designs = ['portfolio', ...PORTFOLIO_DESIGNS] as const
     const results: SeedResult[] = []
-    let browser: Awaited<ReturnType<typeof chromium.launch>> | null = null
-    try {
-      for (const design of ACADEMIC_DESIGN_IDS) {
-        const project = templateProject(design)
-        const projectHash = hashOf(project)
-        const slots = designSlots(design)
-        const found = await CanvasTemplate.query()
-          .whereNull('workspaceId')
-          .where({ category: 'academic', designId: design })
-          .first()
-        const unchanged = !!found && found.projectHash === projectHash
-        const action: SeedResult['action'] = !found
-          ? 'created'
-          : unchanged
-            ? 'unchanged'
-            : 'updated'
-        let version = found ? (unchanged ? found.version : found.version + 1) : 1
-        let preview = !!found?.previewKey && unchanged
-        if (!dryRun && (!unchanged || (previews && !found?.previewKey))) {
-          let previewKey = unchanged ? (found?.previewKey ?? null) : null
-          if (previews && brand) {
-            try {
-              browser ??= await chromium.launch()
-              const page = await browser.newPage({
-                viewport: { width: 794, height: 1123 },
-                deviceScaleFactor: 0.6,
-              })
-              await page.setContent(await templateHtml(project, brand))
-              const png = await page.screenshot({
-                type: 'png',
-                clip: { x: 0, y: 0, width: 794, height: 1123 },
-              })
-              await page.close()
-              previewKey = `canvas-templates/academic/${design}.v${version}.png`
-              await drive
-                .use()
-                .put(previewKey, png, { contentType: 'image/png', visibility: 'private' })
-              preview = true
-            } catch (error) {
-              logger.warn({ err: error, design }, 'Template preview was not rendered')
-            }
-          }
-          const values = {
-            kind: 'sheet' as const,
-            designId: design,
-            category: 'academic' as const,
-            version,
-            schemaVersion: CANVAS_SCHEMA_VERSION,
-            project,
-            projectHash,
-            slots,
-            previewKey,
-          }
-          if (found) await found.merge(values).save()
-          else {
-            // Names are unique among system templates, whatever their case.
-            const taken = await CanvasTemplate.query()
-              .whereNull('workspaceId')
-              .whereRaw('lower(name) = ?', [ACADEMIC_DESIGNS[design].label.toLowerCase()])
-              .first()
-            await CanvasTemplate.create({
-              ...values,
-              name: taken
-                ? `Academic ${ACADEMIC_DESIGNS[design].label}`
-                : ACADEMIC_DESIGNS[design].label,
-            })
+    let thumbnails: Buffer[] | null = null
+    for (const design of designs) {
+      const project = projects[design]
+      const projectHash = hashOf(project)
+      const found = await CanvasTemplate.query()
+        .whereNull('workspaceId')
+        .whereNull('retiredAt')
+        .where({ templateKey: TEMPLATE_ID, designId: design })
+        .first()
+      const unchanged = !!found && found.projectHash === projectHash
+      const action: SeedResult['action'] = !found ? 'created' : unchanged ? 'unchanged' : 'updated'
+      let version = found ? (unchanged ? found.version : found.version + 1) : 1
+      let preview = !!found?.previewKey && unchanged
+      if (!dryRun && (!unchanged || (previews && !found?.previewKey))) {
+        let previewKey = unchanged ? (found?.previewKey ?? null) : null
+        if (previews) {
+          try {
+            thumbnails ??= await new PortfolioRenderService().pages(projects.portfolio)
+            const png = thumbnails[design === 'portfolio' ? 0 : PORTFOLIO_DESIGNS.indexOf(design)]
+            previewKey = `canvas-templates/${TEMPLATE_ID}/${design}.v${version}.png`
+            await drive
+              .use()
+              .put(previewKey, png, { contentType: 'image/png', visibility: 'private' })
+            preview = true
+          } catch (error) {
+            logger.warn({ err: error, design }, 'Template preview was not rendered')
           }
         }
-        if (dryRun) version = found && !unchanged ? found.version + 1 : (found?.version ?? 1)
-        results.push({ design, action, version, preview })
+        const values = {
+          kind: design === 'portfolio' ? ('document' as const) : ('sheet' as const),
+          designId: design,
+          category: 'portfolio' as const,
+          templateKey: TEMPLATE_ID,
+          version,
+          schemaVersion: CANVAS_SCHEMA_VERSION,
+          project,
+          projectHash,
+          slots: slotsOf(design),
+          previewKey,
+        }
+        if (found) await found.merge(values).save()
+        else await CanvasTemplate.create({ ...values, name: NAMES[design] })
       }
-    } finally {
-      await browser?.close()
+      if (dryRun) version = found && !unchanged ? found.version + 1 : (found?.version ?? 1)
+      results.push({ design, action, version, preview })
     }
-    return results
+    const stale = () =>
+      CanvasTemplate.query()
+        .whereNull('workspaceId')
+        .where('category', 'academic')
+        .whereNull('retiredAt')
+    const retired = dryRun
+      ? Number((await stale().count('* as total'))[0].$extras.total)
+      : Number((await stale().update({ retired_at: DateTime.utc().toSQL() }))[0] ?? 0)
+    return { results, retired }
   }
 }
