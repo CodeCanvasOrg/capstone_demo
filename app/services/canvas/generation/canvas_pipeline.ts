@@ -93,7 +93,8 @@ export type PageRecord = {
   chunkIds: string[]
   citedChunkIds: string[]
   imageIds: string[]
-  content: AcademicPage | null
+  /** The validated page content before compose: an academic page, or a portfolio cover or entry. */
+  content: unknown
   wordCount: number | null
   fillRatio: number | null
   attempts: number
@@ -117,7 +118,7 @@ export type Generated = {
     thesis: string
     audience: string
     coverageGaps: string[]
-    pages: PagePlan[]
+    pages: (Omit<PagePlan, 'design'> & { design: string })[]
   }
   pages: PageRecord[]
   report: DensityReport
@@ -134,6 +135,7 @@ const NO_RECORDER: Recorder = {
 }
 
 const LABELS = {
+  portfolio: 'Portfolio',
   academic_report: 'Academic report',
   research_brief: 'Research brief',
   brochure: 'Report',
@@ -174,6 +176,11 @@ const WRITTEN_DESIGNS = (design: AcademicDesignId) =>
  */
 export default class CanvasPipeline {
   async generate(input: GenerateInput): Promise<Generated> {
+    // The portfolio is the one template; the legacy sets below are reached only by direct calls.
+    if (input.options.templateSet === 'portfolio') {
+      const { default: PortfolioPipeline } = await import('../portfolio/portfolio_pipeline.ts')
+      return new PortfolioPipeline().generate(input)
+    }
     if (input.options.templateSet === 'brochure') return this.generateBrochure(input)
     const started = performance.now()
     const { options, guard } = input
@@ -523,6 +530,10 @@ export default class CanvasPipeline {
       mode: 'rewrite' | 'expand' | 'condense'
     }
   ): Promise<Pick<Generated, 'canvas' | 'metrics'>> {
+    if (input.options.templateSet === 'portfolio') {
+      const { default: PortfolioPipeline } = await import('../portfolio/portfolio_pipeline.ts')
+      return new PortfolioPipeline().regenerate(input)
+    }
     const started = performance.now()
     const { options, guard, index, mode } = input
     const recorder = input.recorder ?? NO_RECORDER

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { EVIDENCE_KINDS } from '../copy_rules.ts'
+import { EVIDENCE_KINDS, evidenceKind } from '../copy_rules.ts'
 import { charsPerLine, lineCount, trimToLines, hasOverlongWord } from './measure.ts'
 import { COVER, ENTRY, HEADER, TYPE, rowLines } from './tokens.ts'
 import type { SlotBudget } from '../copy_rules.ts'
@@ -66,7 +66,10 @@ export const claimSchema = z.object({
   claim: text(60),
   /** The row (1 based) the claim comes from; its sources are the claim's. */
   row: z.number().int().min(1).max(8),
-  kind: z.enum(EVIDENCE_KINDS).default('measured'),
+  // Models say "target" or "reported"; the stored kind is one of the four.
+  kind: z
+    .preprocess((v) => (typeof v === 'string' ? evidenceKind(v) : v), z.enum(EVIDENCE_KINDS))
+    .default('measured'),
   /** Wording for the evidence type when the kind's own label is not right. */
   label: optional(32),
 })
@@ -317,17 +320,47 @@ export function sanitizeEntry(page: EntryPage, allowed: ReadonlySet<string>) {
   return { page: next, dropped }
 }
 
-export type EntryProblem = { code: 'uncited' | 'too_few_rows'; field: string; detail?: string }
+export type EntryProblem = {
+  code: 'uncited' | 'too_few_rows' | 'unsupported_number'
+  field: string
+  detail?: string
+}
 
-/** What the model must fix on a retry: rows with no source (when there are sources) and too few rows. */
-export function validateEntry(page: EntryPage, hasEvidence: boolean): EntryProblem[] {
+const digits = (value: string) =>
+  (value.match(/\d[\d.,]*/g) ?? []).map((n) => n.replace(/[.,]+$/, '').replaceAll(',', ''))
+
+/**
+ * What the model must fix on a retry: rows with facts and no source (when there are sources), too few
+ * rows, and numbers in a row that its cited chunks do not contain.
+ */
+export function validateEntry(
+  page: EntryPage,
+  evidence: ReadonlyMap<string, string>
+): EntryProblem[] {
   const found: EntryProblem[] = []
   const rows = printedRows(page.rows)
   if (rows.length < ENTRY.minRows)
     found.push({ code: 'too_few_rows', field: 'rows', detail: `need at least ${ENTRY.minRows}` })
-  if (hasEvidence)
-    rows.forEach((row, i) => {
-      if (!row.chunks.length) found.push({ code: 'uncited', field: `rows[${i}]` })
-    })
+  if (!evidence.size) return found
+  rows.forEach((row, i) => {
+    if (!row.chunks.length) return void found.push({ code: 'uncited', field: `rows[${i}]` })
+    const have = new Set(digits(row.chunks.map((id) => evidence.get(id) ?? '').join('\n')))
+    const missing = digits(rowText(row)).filter((n) => !have.has(n))
+    if (missing.length)
+      found.push({ code: 'unsupported_number', field: `rows[${i}]`, detail: missing.join(', ') })
+  })
   return found
+}
+
+/** How full an entry's rows are: lines used over lines budgeted, 0 to 1 (a row cannot use more than its budget once fitted). */
+export function entryFill(page: Pick<EntryPage, 'rows'>): number {
+  const rows = printedRows(page.rows)
+  if (!rows.length) return 0
+  const budgets = rowLines(rows.length)
+  const used = rows.reduce(
+    (n, row, i) => n + Math.min(rowBodyLines(row, rows.length, i), budgets[i]),
+    0
+  )
+  const room = budgets.reduce((a, b) => a + b, 0)
+  return Number((used / room).toFixed(3))
 }

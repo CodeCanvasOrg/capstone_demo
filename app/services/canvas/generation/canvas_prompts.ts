@@ -72,6 +72,7 @@ export function designGuide(id: AcademicDesignId, depth: Depth = 'standard') {
 
 /** Designs a template set lets the planner use; the last content page is always a conclusion. */
 export const TEMPLATE_DESIGNS: Record<TemplateSet, readonly AcademicDesignId[]> = {
+  portfolio: [],
   academic_report: PLANNABLE_DESIGN_IDS,
   research_brief: ['figure_text', 'data_findings', 'essay', 'case_box', 'conclusion'],
   brochure: PLANNABLE_DESIGN_IDS,

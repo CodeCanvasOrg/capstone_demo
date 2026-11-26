@@ -1,3 +1,11 @@
+import {
+  coverPageSchema,
+  entryPageSchema,
+  portfolioPlanSchema,
+  type CoverPage,
+  type EntryPage,
+  type PortfolioPlan,
+} from '../../shared/canvas/portfolio/content.ts'
 import type { SectionEvidence } from '#services/documents/retrieval_service'
 import { z } from 'zod'
 import { outlineSections, type OutlineDefinition } from '../../shared/templates/outlines.ts'
@@ -589,6 +597,73 @@ export default class OpenRouterService {
         return parsed.data
       },
     })) as AcademicPage
+  }
+
+  /**
+   * The portfolio pipeline's structured calls: the plan, one entry page and the cover. The caller
+   * builds the prompts (portfolio_prompts.ts) and checks budgets; these only guarantee the schema.
+   */
+  private async portfolioCall<T>(
+    name: string,
+    label: string,
+    schema: z.ZodType<T>,
+    input: { system: string; user: string; model: string; corrections?: string[] },
+    guard?: () => Promise<void>
+  ): Promise<T> {
+    const chain = this.chat(input.model).withStructuredOutput(modelSchema(schema), {
+      method: 'functionCalling',
+      name,
+    })
+    return (await this.runGeneration(chain, this.canvasMessages(input), guard, {
+      label,
+      timeoutMs: openRouterApiConfig.canvasTimeoutMs,
+      validate: (value) => {
+        const parsed = parseLenient(schema, value)
+        if (!parsed.success)
+          throw Object.assign(new Error(`The model returned an invalid ${label}.`), {
+            status: 422,
+            unusableOutput: true,
+            corrective: `The previous ${label} broke the schema at: ${parsed.error.issues
+              .slice(0, 8)
+              .map((issue) => issue.path.join('.') || 'root')
+              .join(', ')}. Return the whole ${label} again.`,
+          })
+        return parsed.data
+      },
+    })) as T
+  }
+
+  planPortfolio(
+    input: { system: string; user: string; model: string; corrections?: string[] },
+    guard?: () => Promise<void>
+  ): Promise<PortfolioPlan> {
+    return this.portfolioCall('plan_portfolio', 'portfolio plan', portfolioPlanSchema, input, guard)
+  }
+
+  writePortfolioEntry(
+    input: { system: string; user: string; model: string; corrections?: string[] },
+    guard?: () => Promise<void>
+  ): Promise<EntryPage> {
+    return this.portfolioCall(
+      'write_portfolio_entry',
+      'portfolio entry',
+      entryPageSchema,
+      input,
+      guard
+    )
+  }
+
+  writePortfolioCover(
+    input: { system: string; user: string; model: string; corrections?: string[] },
+    guard?: () => Promise<void>
+  ): Promise<CoverPage> {
+    return this.portfolioCall(
+      'write_portfolio_cover',
+      'portfolio cover',
+      coverPageSchema,
+      input,
+      guard
+    )
   }
 
   /** A numbered-figure caption and alt text for a picture, from the text around it. */

@@ -142,7 +142,7 @@ export default class EvalCanvas extends BaseCommand {
 
         const content = generated.report.pages.filter((p) => p.kind === 'content')
         const invented = generated.pages.flatMap((row) =>
-          (row.content?.figures ?? []).filter(
+          ((row.content as { figures?: { value: string }[] } | null)?.figures ?? []).filter(
             (f) =>
               !figureSupported(
                 f.value,
