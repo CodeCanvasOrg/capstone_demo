@@ -129,7 +129,6 @@ export default defineConfig({
   */
   metaFiles: [
     { pattern: 'resources/document_templates/**/*.md', reloadServer: true },
-    { pattern: 'resources/fonts/portfolio/*.ttf', reloadServer: false },
     {
       pattern: 'resources/views/**/*.edge',
       reloadServer: false,
