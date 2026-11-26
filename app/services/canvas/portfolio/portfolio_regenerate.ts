@@ -26,7 +26,8 @@ import PortfolioWriter, {
   type WriteContext,
   type Written,
 } from './portfolio_writer.ts'
-import { coverMeta, portfolioReport, sourceInfo, type StoredPlan } from './portfolio_pipeline.ts'
+import { portfolioReport } from '../../../../shared/canvas/portfolio/quality.ts'
+import { coverMeta, sourceInfo, type StoredPlan } from './portfolio_pipeline.ts'
 
 const unusable = (message: string) =>
   Object.assign(new Error(message), { status: 422, unusableOutput: true })
@@ -191,11 +192,7 @@ export default class PortfolioRegenerate {
       index
     )
     if (!parseCanvas(canvas).ok) throw unusable('The composed canvas was not valid.')
-    const entrySheets = this.entrySheets(entries, sources)
-    const report = portfolioReport(
-      canvas,
-      entrySheets.map((sheet, j) => ({ sheet, page: entries[j].page }))
-    )
+    const report = portfolioReport(canvas)
     // Rows follow the new structure: the cover, then each entry with its sources pages.
     const records: Partial<PageRecord>[] = [
       {
@@ -281,18 +278,6 @@ export default class PortfolioRegenerate {
           if (node.content?.[0]?.text) return node.content[0].text
         }
     return 'Portfolio'
-  }
-
-  /** Sheet index of each entry's entry page, in the composed canvas. */
-  private entrySheets(entries: EntryInput[], sources: ReadonlyMap<string, SourceInfo>) {
-    const plans = pagePlan(entries, sources)
-    const sheets: number[] = []
-    let at = 1
-    for (const count of plans) {
-      sheets.push(at)
-      at += count
-    }
-    return sheets
   }
 
   /**

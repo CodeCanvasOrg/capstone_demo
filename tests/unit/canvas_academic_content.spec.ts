@@ -87,8 +87,9 @@ test.group('canvas plan schema', () => {
       pages: 'auto',
       images: true,
     })
-    for (const retired of ['academic_report', 'research_brief', 'brochure', 'nonsense'])
+    for (const retired of ['academic_report', 'research_brief', 'brochure'])
       assert.equal(canvasOptionsSchema.parse({ templateSet: retired }).templateSet, 'portfolio')
+    assert.isFalse(canvasOptionsSchema.safeParse({ templateSet: 'poster' }).success)
     assert.isFalse(canvasOptionsSchema.safeParse({ entries: 7 }).success)
     assert.isTrue(canvasOptionsSchema.safeParse({ entries: 6 }).success)
     assert.isFalse(canvasOptionsSchema.safeParse({ pages: 2 }).success)

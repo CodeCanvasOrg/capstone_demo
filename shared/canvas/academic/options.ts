@@ -21,7 +21,6 @@ export const canvasOptionsSchema = z.object({
   depth: z.enum(DEPTHS).default('standard'),
   templateSet: z
     .enum(TEMPLATE_SETS)
-    .catch('portfolio')
     .default('portfolio')
     .transform((): TemplateSet => 'portfolio'),
   /** Entries of the portfolio: `auto` lets the planner decide; a number is exact, 1 to 6. */

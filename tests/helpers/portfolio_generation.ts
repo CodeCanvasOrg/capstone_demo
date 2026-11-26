@@ -30,14 +30,14 @@ const LABELS = [
 ]
 /** A body that fits `lines` lines of a row (about 56 characters a line) and uses numbers the test chunks contain. */
 const BODIES = [
-  'Surface temperatures fell by 83% across 12 monitored districts in the pilot years.',
-  'Planners review the results every summer against a baseline, district by district.',
-  'Heat reached its peak where tree cover was thinnest, across 12 of the districts.',
-  'Map the districts and plant first.',
-  'Permeable paving and street trees cut surface temperatures by 83% in the pilot.',
-  'Planners compared 12 districts against the baseline reduction of 2.4x each summer.',
-  'Results are from the pilot only.',
-  'Extend the programme to the districts that were not monitored in the first summer.',
+  'Surface temperatures fell by 83% across 12 monitored districts in the pilot years. Planners reviewed the results every summer against the baseline.',
+  'Planners review the results every summer against a baseline, district by district, and compare each year with the one before it for the whole city.',
+  'Heat reached its peak where tree cover was thinnest, across 12 of the districts. The warmest streets were also the ones with the least shade at noon.',
+  'Map the districts and plant first, then pave with permeable surfaces where the ground floods, and measure again at the end of each summer season.',
+  'Permeable paving and street trees cut surface temperatures by 83% in the pilot. The planners kept the cooling measures that worked in each district.',
+  'Planners compared 12 districts against the baseline reduction of 2.4x each summer, using the same sensors in every district through the whole pilot.',
+  'Results are from the pilot only, and the planners will confirm them over a longer period and across more of the districts in the city.',
+  'Extend the programme to the districts that were not monitored in the first summer, and review the results every summer against the baseline.',
 ]
 
 export type PortfolioModelOptions = {
@@ -46,6 +46,8 @@ export type PortfolioModelOptions = {
   overflow?: boolean
   /** Never fix the over-long row: the deterministic cut must. */
   stubborn?: boolean
+  /** A different first row, so a rewrite changes the page. */
+  alternate?: boolean
   /** Throw for the entry writer. */
   fail?: boolean
   gaps?: string[]
@@ -106,6 +108,7 @@ export function installPortfolioModel(options: PortfolioModelOptions = {}) {
       body: BODIES[i % BODIES.length],
       chunks: ids.length ? [ids[i % ids.length]] : [],
     }))
+    if (options.alternate) rows[0].body = 'Planners review the results every summer.'
     if (options.overflow && (!condensed || options.stubborn))
       rows[0].body = `${BODIES[0]} ${BODIES[1]} ${BODIES[2]} ${BODIES[4]} Surface temperatures fell by 83% everywhere.`
     return {

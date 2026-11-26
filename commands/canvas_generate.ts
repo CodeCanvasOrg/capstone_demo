@@ -2,7 +2,7 @@ import { BaseCommand, flags } from '@adonisjs/core/ace'
 import type { CommandOptions } from '@adonisjs/core/types/ace'
 
 /**
- * Runs the whole canvas pipeline for one document, synchronously, in this process:
+ * Runs the whole portfolio pipeline for one document, synchronously, in this process:
  * for operators and for debugging prompts. With --dry-run it prints the plan, the
  * pages and the quality metrics and saves nothing (the eval in tests/eval uses this);
  * without it the result is saved as a new version, exactly as the "Generate pages"
@@ -18,17 +18,16 @@ export default class CanvasGenerate extends BaseCommand {
   declare workspace: string
   @flags.string({ description: 'Document UUID' })
   declare document: string
-  @flags.string({ description: 'academic | informative', default: 'academic' })
-  declare profile: string
   @flags.string({ description: 'concise | standard | detailed', default: 'standard' })
   declare depth: string
-  @flags.string({
-    description: 'academic_report | research_brief | brochure',
-    default: 'academic_report',
+  @flags.string({ description: 'auto, or the number of entries from 1 to 6', default: 'auto' })
+  declare entries: string
+  @flags.boolean({
+    description: 'Place pictures beside the entries (--no-images skips them)',
+    default: true,
+    showNegatedVariantInHelp: true,
   })
-  declare templateSet: string
-  @flags.string({ description: 'auto, or a page count from 3 to 16', default: 'auto' })
-  declare pages: string
+  declare images: boolean
   @flags.boolean({ description: 'Generate and print metrics, but save nothing' })
   declare dryRun?: boolean
   @flags.boolean({ description: 'Print the report as JSON' })
@@ -44,15 +43,15 @@ export default class CanvasGenerate extends BaseCommand {
       await import('#services/canvas/generation/canvas_generation_service')
     const { default: CanvasOperator } = await import('#services/canvas/generation/canvas_operator')
     const { default: CanvasPipeline } = await import('#services/canvas/generation/canvas_pipeline')
-    const { pageProblems } = await import('../shared/canvas/density.ts')
+    const { portfolioProblems, portfolioReport } =
+      await import('../shared/canvas/portfolio/quality.ts')
 
     let options
     try {
       options = new CanvasGenerationService().options({
-        profile: this.profile,
         depth: this.depth,
-        templateSet: this.templateSet,
-        pages: this.pages === 'auto' ? 'auto' : Number(this.pages),
+        entries: this.entries === 'auto' ? 'auto' : Number(this.entries),
+        images: this.images,
       })
     } catch (error) {
       this.logger.error((error as Error).message)
@@ -71,7 +70,8 @@ export default class CanvasGenerate extends BaseCommand {
       options,
       guard: async () => {},
     })
-    const problems = generated.report.pages.flatMap((page) => pageProblems(page))
+    const report = portfolioReport(generated.canvas)
+    const problems = report.pages.flatMap((page) => portfolioProblems(page))
     let versionId: string | null = null
     if (!this.dryRun) {
       const saved = await operator.save(context, input.document, generated, options)
@@ -87,7 +87,7 @@ export default class CanvasGenerate extends BaseCommand {
             options,
             models: generated.models,
             metrics: generated.metrics,
-            density: generated.report,
+            density: report,
             problems,
             plan: generated.plan,
           },
@@ -106,9 +106,9 @@ export default class CanvasGenerate extends BaseCommand {
     this.logger.log(
       `  ${m.pages} pages, ${m.words} words, average fill ${Math.round(m.avgFill * 100)}%, ${m.citations} citations, ${m.placeholders} placeholders, ${m.lowDpiImages} low-resolution images, ${Math.round(m.durationMs / 1000)} s, ~${m.tokens} tokens`
     )
-    for (const page of generated.report.pages)
+    for (const page of report.pages)
       this.logger.log(
-        `  page ${page.index + 1}  ${page.kind.padEnd(10)} ${String(page.words).padStart(4)} words  fill ${
+        `  page ${page.index + 1}  ${(page.portfolio ?? 'page').padEnd(10)} ${String(page.words).padStart(4)} words  fill ${
           page.fill === null ? '   -' : `${String(Math.round(page.fill * 100)).padStart(3)}%`
         }  ${page.citations} cited`
       )

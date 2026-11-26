@@ -7,29 +7,29 @@ import env from '#start/env'
 import CanvasTemplate from '#models/canvas_template'
 import DocumentImage from '#models/document_image'
 import DocumentImageService from '#services/documents/document_image_service'
-import CanvasTemplatesSeed from '../../commands/canvas_templates_seed.ts'
+import PortfolioTemplateSeed from '../../commands/portfolio_template_seed.ts'
 import { png } from '../fixtures/document_image.ts'
 import { account, reset } from '../helpers/workspaces.ts'
 import { flagsOff } from '../helpers/canvas_generation.ts'
 
 const json = { accept: 'application/json' }
 
-test.group('Canvas generation: templates and image text', (group) => {
+test.group('Portfolio template gallery and image text', (group) => {
   group.each.setup(async () => {
     await reset()
     drive.fake()
     env.set('CANVAS_EDITOR', 'pilot')
-    await ace.create(CanvasTemplatesSeed, ['--no-previews']).then((c) => c.exec())
+    await ace.create(PortfolioTemplateSeed, ['--no-previews']).then((c) => c.exec())
   })
   group.each.teardown(() => {
     drive.restore()
     flagsOff()
     return async () => {
-      await CanvasTemplate.query().whereNull('workspaceId').where('category', 'academic').delete()
+      await CanvasTemplate.query().whereNull('workspaceId').where('category', 'portfolio').delete()
     }
   })
 
-  test('the gallery lists the system academic templates, each with its slots', async ({
+  test('the gallery lists the one portfolio template and its three page designs, with their slots', async ({
     client,
     assert,
   }) => {
@@ -37,15 +37,27 @@ test.group('Canvas generation: templates and image text', (group) => {
     const base = `/workspaces/${a.workspace.id}/documents/${a.document.id}/canvas/templates`
     const res = await client.get(base).headers(json).loginAs(a.user)
     res.assertStatus(200)
-    const academic = res.body().data.filter((t: any) => t.category === 'academic')
-    assert.lengthOf(academic, 12)
-    const essay = academic.find((t: any) => t.designId === 'essay')
-    assert.isTrue(essay.system)
-    assert.isNull(essay.previewUrl)
-    assert.exists(essay.slots.words)
-    assert.notProperty(essay, 'project')
+    const portfolio = res.body().data.filter((t: any) => t.category === 'portfolio')
+    // The whole sample first, then cover, entry and sources in reading order.
+    assert.deepEqual(
+      portfolio.map((t: any) => [t.kind, t.designId]),
+      [
+        ['document', 'portfolio'],
+        ['sheet', 'cover'],
+        ['sheet', 'entry'],
+        ['sheet', 'sources'],
+      ]
+    )
+    const entry = portfolio.find((t: any) => t.designId === 'entry')
+    assert.isTrue(entry.system)
+    assert.equal(entry.templateKey, 'portfolio')
+    assert.isNull(entry.previewUrl)
+    assert.deepInclude(entry.slots.entry.rows, { min: 3, max: 8 })
+    assert.notProperty(entry, 'project')
+    // No academic page design is offered any more.
+    assert.isEmpty(res.body().data.filter((t: any) => t.category === 'academic'))
     const only = await client.get(`${base}?category=brochure`).headers(json).loginAs(a.user)
-    assert.isEmpty(only.body().data.filter((t: any) => t.category === 'academic'))
+    assert.isEmpty(only.body().data.filter((t: any) => t.category === 'portfolio'))
   })
 
   test('a template preview is served to the workspace and to nobody else', async ({
@@ -56,10 +68,11 @@ test.group('Canvas generation: templates and image text', (group) => {
     const b = await account('bob@example.test')
     const row = await CanvasTemplate.query()
       .whereNull('workspaceId')
-      .where('designId', 'essay')
+      .where('designId', 'cover')
+      .where('kind', 'sheet')
       .firstOrFail()
-    await drive.use().put('canvas-templates/academic/essay.v1.png', png(30, 40))
-    row.merge({ previewKey: 'canvas-templates/academic/essay.v1.png' })
+    await drive.use().put('canvas-templates/portfolio/cover.v1.png', png(30, 40))
+    row.merge({ previewKey: 'canvas-templates/portfolio/cover.v1.png' })
     await row.save()
     const base = `/workspaces/${a.workspace.id}/documents/${a.document.id}/canvas/templates`
     const list = await client.get(base).headers(json).loginAs(a.user)

@@ -10,9 +10,8 @@ import RetrievalService, { type ImageEvidence } from '#services/documents/retrie
 import type { SourceChunk } from '#services/documents/chunk_metadata_service'
 import type { WorkspaceAccessContext } from '#services/workspaces/access_service'
 import { DEPTH_TOKENS } from '../../../../shared/canvas/academic/designs.ts'
-import { densityReport, type DensityReport } from '../../../../shared/canvas/density.ts'
-import { fitOf } from '../../../../shared/canvas/fit.ts'
-import { parseCanvas, type CanvasDocument } from '../../../../shared/canvas/model.ts'
+import { portfolioReport } from '../../../../shared/canvas/portfolio/quality.ts'
+import { parseCanvas } from '../../../../shared/canvas/model.ts'
 import {
   composePortfolio,
   pagePlan,
@@ -25,7 +24,6 @@ import {
   citedChunks,
   entryFill,
   type CoverPage,
-  type EntryPage,
   type PlanEntry,
 } from '../../../../shared/canvas/portfolio/content.ts'
 import { getBrandKit } from '../../../../shared/layout/brand.ts'
@@ -141,26 +139,6 @@ async function brandName(context: WorkspaceAccessContext, documentId: string) {
     )
     return undefined
   }
-}
-
-/** The report of a composed portfolio: the density report, with each entry's fill from its rows. */
-export function portfolioReport(
-  canvas: CanvasDocument,
-  entries: { sheet: number; page: EntryPage }[],
-  images: ReadonlyMap<string, { width: number; height: number }> = new Map()
-): DensityReport {
-  const report = densityReport(canvas, { images })
-  for (const { sheet, page } of entries) {
-    const fill = entryFill(page)
-    report.pages[sheet].fill = fill
-    report.pages[sheet].fit = fitOf(fill)
-    report.pages[sheet].kind = 'content'
-  }
-  const filled = entries.map(({ sheet }) => report.pages[sheet].fill ?? 0)
-  report.avgFill = filled.length
-    ? Number((filled.reduce((a, b) => a + b, 0) / filled.length).toFixed(3))
-    : 0
-  return report
 }
 
 /**
@@ -317,7 +295,7 @@ export default class PortfolioPipeline {
         status: 422,
         unusableOutput: true,
       })
-    const { records, entrySheets } = this.records(
+    const { records } = this.records(
       entries,
       inputs,
       written,
@@ -328,10 +306,7 @@ export default class PortfolioPipeline {
       evidence,
       cover.cover
     )
-    const report = portfolioReport(
-      canvas,
-      entrySheets.map((sheet, i) => ({ sheet, page: inputs[i].page }))
-    )
+    const report = portfolioReport(canvas)
     report.pages.forEach((m, i) => {
       if (records[i].fillRatio === null || records[i].fillRatio === undefined)
         records[i].fillRatio = m.fill
@@ -393,10 +368,8 @@ export default class PortfolioPipeline {
         notes: cover.reviewer_notes,
       },
     ]
-    const entrySheets: number[] = []
     entries.forEach((entry, i) => {
       const w = written.get(i)!
-      entrySheets.push(records.length)
       records.push({
         design: 'entry',
         status: 'fitted',
@@ -428,7 +401,7 @@ export default class PortfolioPipeline {
           notes: [],
         })
     })
-    return { records, entrySheets }
+    return { records }
   }
 
   /**
