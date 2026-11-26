@@ -1,5 +1,8 @@
 # Canvas academic pipeline: implementation plan
 
+> Superseded for generation by `docs/portfolio-template-plan.md`: the canvas now has one portfolio template.
+> This document still describes the shared stages (plan, per-page retrieval, write, fit, images, compose).
+
 Status: proposed, 23 Nov 2026. Branch: `feature/canvas-academic-pipeline` (plain branch from `dev`,
 no worktree). Builds on `canvas-editor-implementation-plan.md` and `canvas-images-and-delete-sync.md`.
 

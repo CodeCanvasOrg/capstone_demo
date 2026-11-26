@@ -93,6 +93,51 @@ http
           reviewer_notes: ['Synthetic output: not a quality assertion.'],
         }
       }
+      // Portfolio pipeline (docs/portfolio-template-plan.md): synthetic plan, entry and cover.
+      if (name === 'plan_portfolio') {
+        const entry = (n) => ({
+          title: `Synthetic entry ${n}`,
+          category: 'Synthetic category',
+          purpose: `Synthetic purpose ${n}, for transport verification only.`,
+          questions: [`Synthetic question ${n}a?`, `Synthetic question ${n}b?`],
+          keyTerms: [],
+          wantsImages: false,
+        })
+        generated = {
+          title: 'Synthetic portfolio for transport verification',
+          eyebrow: 'Synthetic portfolio',
+          thesis: 'Synthetic thesis for transport verification only.',
+          audience: 'Synthetic audience',
+          entries: [entry(1), entry(2)],
+          coverageGaps: [],
+        }
+      }
+      if (name === 'write_portfolio_entry') {
+        const input = lastJson()
+        const ids = [...String(input.sources ?? '').matchAll(/Source chunk ID: ([^;]+);/g)].map((m) => m[1])
+        const labels = ['Context', 'Research', 'Challenge', 'Approach', 'Solution', 'Evaluation']
+        generated = {
+          title: input.entry?.title ?? 'Synthetic entry',
+          category: input.entry?.category ?? 'Synthetic category',
+          intro: 'Synthetic introduction for transport verification only.',
+          rows: labels.map((label) => ({
+            label,
+            body: 'Synthetic row text for transport verification only.',
+            chunks: ids.slice(0, 1),
+          })),
+          claims: [],
+          sourceNotes: [],
+          summary: 'Synthetic summary.',
+          reviewer_notes: ['Synthetic output: not a quality assertion.'],
+        }
+      }
+      if (name === 'write_portfolio_cover')
+        generated = {
+          eyebrow: 'Synthetic portfolio',
+          title: 'Synthetic portfolio for transport verification',
+          subtitle: 'Synthetic subtitle for transport verification only.',
+          reviewer_notes: [],
+        }
       if (name === 'caption_figure')
         generated = { caption: 'Synthetic caption.', alt: 'Synthetic alt text.' }
       if (name === 'fill_document_outline') {

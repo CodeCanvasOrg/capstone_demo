@@ -3,11 +3,12 @@ info:
   title: Canvas generation (CodeCanvas)
   version: 1.0.0
   description: |
-    Academic page generation for the canvas editor (docs/canvas-academic-pipeline-plan.md).
+    Portfolio page generation for the canvas editor (docs/portfolio-template-plan.md; the academic
+    pipeline in docs/canvas-academic-pipeline-plan.md is retired).
     Every route needs CANVAS_EDITOR=pilot and CANVAS_GENERATION=on (404 otherwise), a signed-in
     member of the workspace and, except GET, permission to change the document.
     This is a local test contract refined from `start/routes.ts`, `app/validators/canvas_generation.ts`
-    and `tests/functional/canvas_generation_http.spec.ts`; it is not a published API.
+    and `tests/functional/portfolio_generation_http.spec.ts`; it is not a published API.
 servers:
   - url: http://localhost:3333
 security:
@@ -55,7 +56,7 @@ paths:
   /workspaces/{workspaceId}/documents/{documentId}/canvas/pages/{index}/regenerate:
     post:
       operationId: regenerateCanvasPage
-      summary: Rewrite, deepen or shorten one page (a new version where only that sheet changes)
+      summary: Rewrite, deepen or shorten an entry, or rewrite the cover (a new version; the sources pages are recomposed)
       parameters:
         - { $ref: '#/components/parameters/workspaceId' }
         - { $ref: '#/components/parameters/documentId' }
@@ -81,44 +82,8 @@ paths:
                 properties:
                   data: { $ref: '#/components/schemas/Queued' }
         '404': { description: Flags off, or no such page }
-        '409': { description: No generated pages, pages rearranged since, or a page the application writes (contents, references) }
+        '409': { description: No generated pages, pages rearranged since, or a sources page, which the application writes, or pages made by a retired template }
         '422': { description: Unknown mode }
-  /workspaces/{workspaceId}/documents/{documentId}/canvas/pages/{index}/design:
-    post:
-      operationId: changeCanvasPageDesign
-      summary: Lay one page's stored content out in another design (no model call)
-      parameters:
-        - { $ref: '#/components/parameters/workspaceId' }
-        - { $ref: '#/components/parameters/documentId' }
-        - { $ref: '#/components/parameters/index' }
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required: [mutationId, baseVersionId, design]
-              properties:
-                mutationId: { type: string, minLength: 8, maxLength: 100 }
-                baseVersionId: { type: string, format: uuid, nullable: true }
-                design:
-                  type: string
-                  enum: [essay, two_column, figure_text, side_figure, data_findings, key_concepts, case_box, comparison, conclusion]
-      responses:
-        '200':
-          description: The new version
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      versionId: { type: string, format: uuid }
-                      version: { type: integer }
-        '409': { description: Same causes as regenerate }
-        '422': { description: A design the planner may not choose }
 components:
   securitySchemes:
     session: { type: apiKey, in: cookie, name: adonis-session }
@@ -129,11 +94,15 @@ components:
   schemas:
     Options:
       type: object
+      description: |
+        The portfolio template is the only template. The retired `templateSet` values
+        (academic_report, research_brief, brochure) are still accepted and mean the portfolio;
+        anything else is a 422.
       properties:
-        profile: { type: string, enum: [academic, informative], default: academic }
-        depth: { type: string, enum: [concise, standard, detailed], default: standard }
-        templateSet: { type: string, enum: [academic_report, research_brief, brochure], default: academic_report }
-        pages: { oneOf: [{ type: string, enum: [auto] }, { type: integer, minimum: 3, maximum: 16 }], default: auto }
+        depth: { type: string, enum: [concise, standard, detailed], default: standard, description: 'Rows an entry carries: 4 to 5, 6 to 7, 8' }
+        entries: { oneOf: [{ type: string, enum: [auto] }, { type: integer, minimum: 1, maximum: 6 }], default: auto }
+        templateSet: { type: string, enum: [portfolio, academic_report, research_brief, brochure], default: portfolio }
+        profile: { type: string, enum: [academic, informative], default: informative }
         images: { type: boolean, default: true }
     GenerateRequest:
       type: object
@@ -179,7 +148,7 @@ components:
             type: object
             properties:
               index: { type: integer }
-              design: { type: string }
+              design: { type: string, enum: [cover, entry, sources] }
               status: { type: string, enum: [pending, written, fitted, failed] }
               purpose: { type: string }
               words: { type: integer, nullable: true }
