@@ -237,7 +237,13 @@ export const frameSchema = z.discriminatedUnion('kind', [
     })
     .strip(),
   /** Generated brand artwork; drawn by the renderer, never uploaded. */
-  z.object({ ...base, kind: z.literal('art'), art: z.enum(['ribbons', 'glow', 'hexagons', 'thumbnails']) }).strip(),
+  z
+    .object({
+      ...base,
+      kind: z.literal('art'),
+      art: z.enum(['ribbons', 'glow', 'hexagons', 'thumbnails']),
+    })
+    .strip(),
 ])
 export type Frame = z.infer<typeof frameSchema>
 export type FrameKind = Frame['kind']
@@ -254,7 +260,10 @@ export type Sheet = z.infer<typeof sheetSchema>
 
 /** The template a canvas was made from, so the editor and the export use its brand and rules. */
 export const templateMarkerSchema = z
-  .object({ id: z.string().regex(/^[a-z][a-z0-9_]{0,31}$/), version: z.number().int().min(1).max(9999) })
+  .object({
+    id: z.string().regex(/^[a-z][a-z0-9_]{0,31}$/),
+    version: z.number().int().min(1).max(9999),
+  })
   .strict()
 export type TemplateMarker = z.infer<typeof templateMarkerSchema>
 

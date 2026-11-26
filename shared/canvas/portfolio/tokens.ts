@@ -322,3 +322,6 @@ export function thumbnailsSvg() {
   }
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 221.25 309.75" role="img" aria-label="Four sample project document thumbnails">${doc(3, 3, false)}${doc(113, 3, false)}${doc(3, 156, true)}${doc(113, 156, false)}</svg>`
 }
+
+/** Millimetres per point, for sizing figure cells against picture pixels. */
+export const ENTRY_FIGURE = { mmPerPt: 25.4 / 72 } as const

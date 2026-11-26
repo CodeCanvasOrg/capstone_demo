@@ -39,7 +39,8 @@ export const sampleCanvas = (input: PortfolioInput = SAMPLE): CanvasDocument =>
 export default class PortfolioRenderService {
   /** The canvas as one printable HTML page. There is no evidence to resolve in a template. */
   async html(canvas: CanvasDocument) {
-    const pinned = getBrandKit(defaultLayout().brandId, defaultLayout().brandVersion)!
+    const layout = defaultLayout()
+    const pinned = getBrandKit(layout.brandId, layout.brandVersion)!
     const brand = brandForCanvas(canvas, pinned)
     const content = new ContentService().normalize(projectionDocument(canvas), { repair: true })
     const { client } = new PublicationProjectionService().project(content)
@@ -59,7 +60,8 @@ export default class PortfolioRenderService {
       await writeFile(join(dir, 'doc.pdf'), pdf)
       try {
         await run('pdftoppm', ['-r', String(dpi), '-png', join(dir, 'doc.pdf'), join(dir, 'page')])
-        const files = (await readdir(dir)).filter((f) => f.endsWith('.png')).sort()
+        const listed = await readdir(dir)
+        const files = listed.filter((f) => f.endsWith('.png')).sort()
         return Promise.all(files.map((f) => readFile(join(dir, f))))
       } catch {
         return await this.screenshots(html, dpi)

@@ -14,7 +14,7 @@ import PortfolioRenderService, {
 } from '#services/canvas/portfolio/portfolio_render_service'
 import { entrySlotBudgets, coverSlotBudgets } from '../../../shared/canvas/portfolio/content.ts'
 import { TEMPLATE_ID, TEMPLATE_VERSION } from '../../../shared/canvas/portfolio/tokens.ts'
-import { getBrandKit } from '../../../shared/layout/brand.ts'
+import { type getBrandKit } from '../../../shared/layout/brand.ts'
 import { hashOf } from '../../../shared/layout/hash.ts'
 import { CANVAS_SCHEMA_VERSION, type CanvasDocument } from '../../../shared/canvas/model.ts'
 
@@ -139,9 +139,14 @@ export default class CanvasTemplateSeeder {
         .whereNull('workspaceId')
         .where('category', 'academic')
         .whereNull('retiredAt')
-    const retired = dryRun
-      ? Number((await stale().count('* as total'))[0].$extras.total)
-      : Number((await stale().update({ retired_at: DateTime.utc().toSQL() }))[0] ?? 0)
+    let retired = 0
+    if (dryRun) {
+      const counted = await stale().count('* as total').first()
+      retired = Number(counted?.$extras.total ?? 0)
+    } else {
+      const updated = await stale().update({ retired_at: DateTime.utc().toSQL() })
+      retired = Number(updated.at(0) ?? 0)
+    }
     return { results, retired }
   }
 }

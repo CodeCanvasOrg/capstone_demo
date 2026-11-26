@@ -10,7 +10,7 @@ export type BrandFont = {
   file: string
   /** Variable fonts are rejected for published kits: Chromium may emit Type 3 for them. */
   variable?: boolean
-  /** `truetype` for a file in this repository (`resources/fonts/...`); woff2 packages otherwise. */
+  /** `truetype` for a file in this repository (`public/fonts/...`); woff2 packages otherwise. */
   format?: 'woff2' | 'truetype'
 }
 
@@ -60,11 +60,11 @@ const manrope = (weight: number): BrandFont => ({
   file: `@fontsource/manrope/files/manrope-latin-${weight}-normal.woff2`,
 })
 
-/** Static Inter instances shipped in `resources/fonts/portfolio` (opsz 14 text, opsz 32 display). */
+/** Static Inter instances shipped in `public/fonts/portfolio` (opsz 14 text, opsz 32 display). */
 const inter = (family: string, weight: number, optical: number): BrandFont => ({
   family,
   weight,
-  file: `resources/fonts/portfolio/Inter-${weight}-${optical}.ttf`,
+  file: `public/fonts/portfolio/Inter-${weight}-${optical}.ttf`,
   format: 'truetype',
 })
 

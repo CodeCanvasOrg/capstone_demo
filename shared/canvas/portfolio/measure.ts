@@ -89,10 +89,10 @@ export function balanceLines(
   for (let k = 1; k <= maxLines; k++)
     for (let j = 1; j <= n; j++)
       for (let i = k - 1; i < j; i++) {
-        const width_ = w(i, j)
-        if (width_ > width || best[k - 1][i] === Infinity) continue
+        const lineWidth = w(i, j)
+        if (lineWidth > width || best[k - 1][i] === Infinity) continue
         // The last line may be short; the others should be near the full measure.
-        const slack = k === maxLines || j === n ? 0 : (width - width_) ** 2
+        const slack = k === maxLines || j === n ? 0 : (width - lineWidth) ** 2
         const cost = best[k - 1][i] + slack
         if (cost < best[k][j]) {
           best[k][j] = cost

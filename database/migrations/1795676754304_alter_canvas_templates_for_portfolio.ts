@@ -19,7 +19,7 @@ export default class extends BaseSchema {
     })
     // One live system row per family and page design.
     this.schema.raw(
-      "CREATE UNIQUE INDEX canvas_templates_system_family_key ON canvas_templates (template_key, design_id) WHERE workspace_id IS NULL AND retired_at IS NULL AND template_key IS NOT NULL"
+      'CREATE UNIQUE INDEX canvas_templates_system_family_key ON canvas_templates (template_key, design_id) WHERE workspace_id IS NULL AND retired_at IS NULL AND template_key IS NOT NULL'
     )
     // The academic page designs are retired, not deleted.
     this.schema.raw(

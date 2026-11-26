@@ -201,7 +201,7 @@ router
             'preview',
           ])
           .as('canvasTemplates.preview')
-        // Academic page generation for the canvas (CANVAS_EDITOR=pilot and CANVAS_GENERATION=on; 404 otherwise).
+        // Portfolio page generation for the canvas (CANVAS_EDITOR=pilot and CANVAS_GENERATION=on; 404 otherwise).
         router
           .post('/documents/:documentId/canvas/generate', [controllers.CanvasGenerations, 'store'])
           .as('canvasGenerations.store')
@@ -215,13 +215,6 @@ router
           ])
           .where('index', router.matchers.number())
           .as('canvasGenerations.regenerate')
-        router
-          .post('/documents/:documentId/canvas/pages/:index/design', [
-            controllers.CanvasGenerations,
-            'design',
-          ])
-          .where('index', router.matchers.number())
-          .as('canvasGenerations.design')
         router
           .post('/documents/:documentId/versions', [controllers.DocumentVersions, 'handle'])
           .as('documentVersions.store')

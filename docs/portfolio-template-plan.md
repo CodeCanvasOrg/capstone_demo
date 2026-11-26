@@ -64,7 +64,7 @@ hyphens and the sheet prefix (`s2-entry-rows-3-body`), so a frame can be traced 
   red `#b23a3a`, light `#c9d0e0`, hairline `#e3e0d6`, secondary ink `#3a4560`, the four hexagon golds) are
   constants in `shared/canvas/portfolio/tokens.ts` and are written into frame styles as hex.
 * Fonts: Inter static instances (`Inter-400-14`, `600-14`, `700-14` as family `Inter`; `700-32` as family
-  `Inter Display`), copied from the design folder to `resources/fonts/portfolio/`. The export embeds them as
+  `Inter Display`), copied from the design folder to `public/fonts/portfolio/`. The export embeds them as
   TrueType (the font loader learns `.ttf`); the editor loads the same files with `@font-face`. Static files
   keep the PDF free of Type 3 fonts from variable instances.
 * Type scale and spacing are `tokens.ts` constants (`TYPE.cover`, `TYPE.row`, ...) from `type_scale` and

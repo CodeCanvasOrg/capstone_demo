@@ -19,9 +19,3 @@ export const canvasRegenerateValidator = vine.create({
   baseVersionId,
   mode: vine.enum(['rewrite', 'expand', 'condense'] as const),
 })
-
-export const canvasDesignValidator = vine.create({
-  mutationId,
-  baseVersionId,
-  design: vine.string().trim().minLength(1).maxLength(32),
-})

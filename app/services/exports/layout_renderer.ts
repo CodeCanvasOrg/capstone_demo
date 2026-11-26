@@ -27,7 +27,8 @@ export async function fontFaces(brand: BrandKit) {
         const url = truetype
           ? new URL(`../../../${font.file}`, import.meta.url)
           : new URL(import.meta.resolve(font.file))
-        data = (await readFile(url)).toString('base64')
+        const bytes = await readFile(url)
+        data = bytes.toString('base64')
         fontCache.set(font.file, data)
       }
       return truetype

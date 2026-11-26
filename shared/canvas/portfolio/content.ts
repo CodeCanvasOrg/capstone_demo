@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { EVIDENCE_KINDS, evidenceKind } from '../copy_rules.ts'
 import { charsPerLine, lineCount, trimToLines, hasOverlongWord } from './measure.ts'
-import { COVER, ENTRY, HEADER, TYPE, rowLines } from './tokens.ts'
+import { COVER, ENTRY, HEADER, rowLines, type TYPE } from './tokens.ts'
 import type { SlotBudget } from '../copy_rules.ts'
 
 /**
