@@ -20,13 +20,19 @@ const fontCache = new Map<string, string>()
 export async function fontFaces(brand: BrandKit) {
   const faces = await Promise.all(
     brand.fonts.map(async (font) => {
+      const truetype = font.format === 'truetype'
       let data = fontCache.get(font.file)
       if (!data) {
-        const bytes = await readFile(new URL(import.meta.resolve(font.file)))
-        data = bytes.toString('base64')
+        // Repository fonts sit under the application root; packaged ones resolve like imports.
+        const url = truetype
+          ? new URL(`../../../${font.file}`, import.meta.url)
+          : new URL(import.meta.resolve(font.file))
+        data = (await readFile(url)).toString('base64')
         fontCache.set(font.file, data)
       }
-      return `@font-face{font-family:"${font.family}";font-style:normal;font-weight:${font.weight};font-display:block;src:url(data:font/woff2;base64,${data}) format("woff2");}`
+      return truetype
+        ? `@font-face{font-family:"${font.family}";font-style:normal;font-weight:${font.weight};font-display:block;src:url(data:font/ttf;base64,${data}) format("truetype");}`
+        : `@font-face{font-family:"${font.family}";font-style:normal;font-weight:${font.weight};font-display:block;src:url(data:font/woff2;base64,${data}) format("woff2");}`
     })
   )
   return faces.join('')

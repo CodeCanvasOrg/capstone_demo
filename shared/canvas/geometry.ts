@@ -29,10 +29,15 @@ export function parseLength(value: string | number | undefined, axis: 'w' | 'h')
   }
 }
 
-/** Keeps a frame at least the minimum size and fully inside its sheet. */
-export function clampGeo(geo: Geo): Geo {
-  const w = Math.min(Math.max(Math.round(geo.w), LIMITS.minSide), SHEET.w)
-  const h = Math.min(Math.max(Math.round(geo.h), LIMITS.minSide), SHEET.h)
+/**
+ * Keeps a frame at least the minimum size and fully inside its sheet. A frame a template
+ * drew thinner than the minimum (a hairline) keeps its own thickness: pass it as `floor`.
+ */
+export function clampGeo(geo: Geo, floor: Partial<Pick<Geo, 'w' | 'h'>> = {}): Geo {
+  const minW = Math.min(floor.w ?? LIMITS.minSide, LIMITS.minSide)
+  const minH = Math.min(floor.h ?? LIMITS.minSide, LIMITS.minSide)
+  const w = Math.min(Math.max(Math.round(geo.w), minW), SHEET.w)
+  const h = Math.min(Math.max(Math.round(geo.h), minH), SHEET.h)
   const x = Math.min(Math.max(Math.round(geo.x), 0), SHEET.w - w)
   const y = Math.min(Math.max(Math.round(geo.y), 0), SHEET.h - h)
   return { x, y, w, h }

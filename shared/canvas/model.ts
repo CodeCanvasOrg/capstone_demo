@@ -18,8 +18,10 @@ export const SHEET = { w: 2100, h: 2970 } as const
 export const LIMITS = {
   sheets: 24,
   framesPerSheet: 60,
-  /** Smallest frame side: 2 mm. */
+  /** Smallest frame side an author can drag to: 2 mm. */
   minSide: 20,
+  /** Smallest stored frame side: 0.2 mm, so templates can draw hairlines. */
+  minStroke: 2,
   /** Serialised size the server accepts. */
   bytes: 2_000_000,
 } as const
@@ -48,10 +50,10 @@ const tenths = (min: number, max: number) => z.number().int().min(min).max(max)
 
 export const geoSchema = z
   .object({
-    x: tenths(0, SHEET.w - LIMITS.minSide),
-    y: tenths(0, SHEET.h - LIMITS.minSide),
-    w: tenths(LIMITS.minSide, SHEET.w),
-    h: tenths(LIMITS.minSide, SHEET.h),
+    x: tenths(0, SHEET.w - LIMITS.minStroke),
+    y: tenths(0, SHEET.h - LIMITS.minStroke),
+    w: tenths(LIMITS.minStroke, SHEET.w),
+    h: tenths(LIMITS.minStroke, SHEET.h),
   })
   .refine((g) => g.x + g.w <= SHEET.w && g.y + g.h <= SHEET.h, {
     message: 'Frame must stay inside its sheet',
@@ -59,7 +61,7 @@ export const geoSchema = z
 export type Geo = z.infer<typeof geoSchema>
 
 /** Font families a frame may use: names only, mapped to safe font stacks in css.ts. */
-export const FONT_FAMILIES = ['brand', 'sans', 'serif', 'mono'] as const
+export const FONT_FAMILIES = ['brand', 'sans', 'serif', 'mono', 'display'] as const
 export type FontFamily = (typeof FONT_FAMILIES)[number]
 export const FONT_WEIGHTS = [400, 600, 700, 800] as const
 export const SHADOWS = ['sm', 'md', 'lg'] as const
@@ -78,17 +80,22 @@ export const styleSchema = z
     /** 0 to 100. */
     opacity: z.number().int().min(0).max(100).optional(),
     font: z.enum(Object.keys(FONT_SCALE) as [FontScale, ...FontScale[]]).optional(),
-    /** Exact size in points; wins over `font`. */
-    size: z.number().min(5).max(200).multipleOf(0.5).optional(),
+    /** Exact size in points, to a tenth; wins over `font`. */
+    size: z.number().min(5).max(200).multipleOf(0.1).optional(),
     family: z.enum(FONT_FAMILIES).optional(),
     weight: z.union([z.literal(400), z.literal(600), z.literal(700), z.literal(800)]).optional(),
     italic: z.boolean().optional(),
     /** Capitals. */
     caps: z.boolean().optional(),
-    /** Line height, percent of the type size. */
-    lineHeight: z.number().int().min(80).max(300).optional(),
+    /** Line height, percent of the type size, to a tenth. */
+    lineHeight: z.number().min(80).max(300).multipleOf(0.1).optional(),
     /** Letter spacing, thousandths of an em. */
     tracking: z.number().int().min(-100).max(500).optional(),
+    /** Colour of bold runs: a template's way to show an explicit constraint. */
+    strongColor: colorSchema.optional(),
+    /** Colour and size (points) of the superscript that marks a citation. */
+    citeColor: colorSchema.optional(),
+    citeSize: z.number().min(4).max(20).multipleOf(0.1).optional(),
     align: z.enum(['left', 'center', 'right', 'justify']).optional(),
     valign: z.enum(['top', 'middle', 'bottom']).optional(),
     border: z
@@ -230,7 +237,7 @@ export const frameSchema = z.discriminatedUnion('kind', [
     })
     .strip(),
   /** Generated brand artwork; drawn by the renderer, never uploaded. */
-  z.object({ ...base, kind: z.literal('art'), art: z.enum(['ribbons', 'glow']) }).strip(),
+  z.object({ ...base, kind: z.literal('art'), art: z.enum(['ribbons', 'glow', 'hexagons']) }).strip(),
 ])
 export type Frame = z.infer<typeof frameSchema>
 export type FrameKind = Frame['kind']
@@ -245,9 +252,16 @@ export const sheetSchema = z
   .strip()
 export type Sheet = z.infer<typeof sheetSchema>
 
+/** The template a canvas was made from, so the editor and the export use its brand and rules. */
+export const templateMarkerSchema = z
+  .object({ id: z.string().regex(/^[a-z][a-z0-9_]{0,31}$/), version: z.number().int().min(1).max(9999) })
+  .strict()
+export type TemplateMarker = z.infer<typeof templateMarkerSchema>
+
 export const canvasSchema = z
   .object({
     schemaVersion: z.literal(CANVAS_SCHEMA_VERSION),
+    template: templateMarkerSchema.optional(),
     sheets: z.array(sheetSchema).min(1).max(LIMITS.sheets),
   })
   .strip()
