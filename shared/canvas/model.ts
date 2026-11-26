@@ -237,7 +237,7 @@ export const frameSchema = z.discriminatedUnion('kind', [
     })
     .strip(),
   /** Generated brand artwork; drawn by the renderer, never uploaded. */
-  z.object({ ...base, kind: z.literal('art'), art: z.enum(['ribbons', 'glow', 'hexagons']) }).strip(),
+  z.object({ ...base, kind: z.literal('art'), art: z.enum(['ribbons', 'glow', 'hexagons', 'thumbnails']) }).strip(),
 ])
 export type Frame = z.infer<typeof frameSchema>
 export type FrameKind = Frame['kind']

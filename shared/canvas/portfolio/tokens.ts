@@ -267,9 +267,7 @@ export const HEXAGONS = {
 
 /** The hexagons as inline SVG, for the editor and the export. No script, no external reference. */
 export function hexagonsSvg() {
-  const stroke = HEXAGONS.paths
-    .map((p) => `<path stroke="${p.color}" d="${p.d}"/>`)
-    .join('')
+  const stroke = HEXAGONS.paths.map((p) => `<path stroke="${p.color}" d="${p.d}"/>`).join('')
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${HEXAGONS.viewBox}" aria-hidden="true"><g fill="none" stroke-width="${HEXAGONS.strokeWidth}">${stroke}</g><path fill="${HEXAGONS.fill.color}" d="${HEXAGONS.fill.d}"/></svg>`
 }
 
@@ -280,3 +278,47 @@ export const DEFAULT_NOTE = {
   title: 'Reading the evidence',
   body: 'Superscript numbers in the entry match the documents listed above. Locators give the pages and chunks each statement rests on. Anything marked as an objective or estimate is not a measured result.',
 } as const
+
+// ------------------------------------------------------------ sample thumbnails
+
+/**
+ * The design's sample figure: four project-document thumbnails drawn in SVG, in the
+ * figure frame's own 221.25 x 309.75 pt box. Only the template's sample uses it; a generated
+ * entry shows the document's real pictures.
+ */
+export function thumbnailsSvg() {
+  const rect = (x: number, y: number, w: number, h: number, fill: string, extra = '') =>
+    `<rect x="${+x.toFixed(2)}" y="${+y.toFixed(2)}" width="${w}" height="${h}" fill="${fill}"${extra}/>`
+  const widths = [86, 82, 78, 74, 70]
+  const lines = (x: number, y: number, count: number) =>
+    Array.from({ length: count }, (_, i) => {
+      const heading = i % 7 === 0
+      return rect(
+        x,
+        y + i * 4.8,
+        widths[i % 5],
+        heading ? 1.8 : 1,
+        COLORS.inkSecondary,
+        ` opacity="${heading ? 0.8 : 0.4}"`
+      )
+    }).join('')
+  const doc = (x: number, y: number, chart: boolean) => {
+    const page = `<rect x="${x}" y="${y}" width="105" height="150" fill="${COLORS.white}" stroke="${COLORS.line}" stroke-width=".5"/>`
+    const gold = rect(x + 9, y + 12, 86, 1, COLORS.gold)
+    const bars =
+      rect(x + 9, y + 18, 78, 2.3, COLORS.navy) + rect(x + 9, y + 23, 62, 2.3, COLORS.navy)
+    if (!chart) return page + gold + bars + lines(x + 9, y + 35, 20)
+    const plot =
+      rect(x + 12, y + 26, 78, 42, COLORS.paper, ' rx="2"') +
+      [
+        [22, 48, 14],
+        [37, 39, 23],
+        [52, 44, 18],
+        [67, 30, 32],
+      ]
+        .map(([bx, by, bh]) => rect(x + bx, y + by, 8, bh, COLORS.gold))
+        .join('')
+    return page + gold + plot + bars + lines(x + 9, y + 82, 13)
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 221.25 309.75" role="img" aria-label="Four sample project document thumbnails">${doc(3, 3, false)}${doc(113, 3, false)}${doc(3, 156, true)}${doc(113, 156, false)}</svg>`
+}

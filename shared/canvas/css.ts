@@ -69,7 +69,11 @@ export function lookCss(frame: Frame): Record<string, string> {
   if (s.fill && s.fillAlpha !== undefined && s.fillAlpha < 100)
     css.background = `color-mix(in srgb,${color(s.fill)} ${s.fillAlpha}%,transparent)`
   if (s.color) css.color = color(s.color)!
-  if (s.strongColor) css['--cv-strong'] = color(s.strongColor)!
+  if (s.strongColor) {
+    css['--cv-strong'] = color(s.strongColor)!
+    // Bold runs only change colour: the frame's own weight stays.
+    css['--cv-strong-weight'] = 'inherit'
+  }
   if (s.citeColor) css['--cv-cite'] = color(s.citeColor)!
   if (s.citeSize) css['--cv-cite-size'] = `${s.citeSize}pt`
   // A template that sets the superscript sets it exactly: no extra space before it.
@@ -153,7 +157,7 @@ export const CANVAS_BASE_CSS = `
 .cv-frame li{margin:0 0 .25em}
 .cv-frame li>p{margin:0}
 .cv-frame a{color:inherit}
-.cv-frame strong{color:var(--cv-strong,inherit)}
+.cv-frame strong{color:var(--cv-strong,inherit);font-weight:var(--cv-strong-weight,bolder)}
 .cv-frame sup.ref{color:var(--cv-cite,inherit);font-size:var(--cv-cite-size,.65em);line-height:0;vertical-align:super;font-weight:600;margin-left:var(--cv-cite-gap,1px)}
 .cv-frame img{max-width:100%;height:auto;display:block}
 .cv-figure .cv-figure-label{display:block;margin-top:.25em;font-size:9.5pt;font-weight:400;line-height:1.35}

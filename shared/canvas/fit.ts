@@ -18,7 +18,7 @@ export const FIT = {
   /** Millimetres per typographic point. */
   ptMm: 0.3528,
   /** Average advance of a character (letters and spaces) as a fraction of the font size. */
-  glyph: { brand: 0.52, sans: 0.5, serif: 0.5, mono: 0.6 },
+  glyph: { brand: 0.52, sans: 0.5, serif: 0.5, mono: 0.6, display: 0.52 },
   /** Characters per word, including the space after it. */
   wordChars: 6,
   /** Bold text sets wider than regular text by about this much. */
