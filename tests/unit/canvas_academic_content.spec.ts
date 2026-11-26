@@ -76,14 +76,21 @@ test.group('canvas plan schema', () => {
     assert.isFalse(planSchema.safeParse({ ...plan, pages: [] }).success)
   })
 
-  test('options default to a standard academic report', ({ assert }) => {
+  test('options default to a standard portfolio, and every retired set means the portfolio', ({
+    assert,
+  }) => {
     assert.deepEqual(canvasOptionsSchema.parse({}), {
-      profile: 'academic',
+      profile: 'informative',
       depth: 'standard',
-      templateSet: 'academic_report',
+      templateSet: 'portfolio',
+      entries: 'auto',
       pages: 'auto',
       images: true,
     })
+    for (const retired of ['academic_report', 'research_brief', 'brochure', 'nonsense'])
+      assert.equal(canvasOptionsSchema.parse({ templateSet: retired }).templateSet, 'portfolio')
+    assert.isFalse(canvasOptionsSchema.safeParse({ entries: 7 }).success)
+    assert.isTrue(canvasOptionsSchema.safeParse({ entries: 6 }).success)
     assert.isFalse(canvasOptionsSchema.safeParse({ pages: 2 }).success)
     assert.isFalse(canvasOptionsSchema.safeParse({ pages: 17 }).success)
     assert.isTrue(canvasOptionsSchema.safeParse({ pages: 16 }).success)

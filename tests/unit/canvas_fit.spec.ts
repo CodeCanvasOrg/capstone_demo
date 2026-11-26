@@ -19,7 +19,7 @@ const para = (text: string) => ({ type: 'paragraph', content: [{ type: 'text', t
 test.group('canvas fit estimator', () => {
   test('the calibrated constants are pinned', ({ assert }) => {
     // Changing a constant changes every page's capacity: re-run scripts/calibrate_fit.ts first.
-    assert.deepEqual(FIT.glyph, { brand: 0.52, sans: 0.5, serif: 0.5, mono: 0.6 })
+    assert.deepEqual(FIT.glyph, { brand: 0.52, sans: 0.5, serif: 0.5, mono: 0.6, display: 0.52 })
     assert.equal(FIT.wordChars, 6)
     assert.equal(FIT.paragraphGap, 0.6)
     assert.equal(FIT.ptMm, 0.3528)

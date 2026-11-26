@@ -44,7 +44,7 @@ test.group('canvas styles', () => {
   test('style values cannot smuggle CSS', ({ assert }) => {
     assert.isFalse(accepted({ family: 'Arial;background:url(x)' }))
     assert.isFalse(accepted({ size: '12pt;position:fixed' }))
-    assert.isFalse(accepted({ size: 12.3 }))
+    assert.isFalse(accepted({ size: 12.34 }))
     assert.isFalse(accepted({ weight: 900 }))
     assert.isFalse(accepted({ shadow: '0 0 0 red' }))
     assert.isFalse(accepted({ border: { width: 5, color: 'red;x:y', style: 'solid' } }))

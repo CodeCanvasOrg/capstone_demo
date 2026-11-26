@@ -27,7 +27,12 @@ const plan = (designs: AcademicDesignId[]): CanvasPlan => ({
   })),
   coverageGaps: [],
 })
-const options = canvasOptionsSchema.parse({})
+// The planner under test is the legacy academic one: its options name the retired set directly.
+const options = {
+  ...canvasOptionsSchema.parse({}),
+  profile: 'academic' as const,
+  templateSet: 'academic_report' as const,
+}
 const planner = new CanvasPlanner({} as never)
 
 test.group('canvas planner', () => {
@@ -73,7 +78,7 @@ test.group('canvas planner', () => {
   }) => {
     const four = plan(['essay', 'two_column', 'data_findings', 'conclusion'])
     assert.lengthOf(planner.repair(four, options, 50).pages, 4)
-    const fixed = canvasOptionsSchema.parse({ pages: 8 })
+    const fixed = { ...options, pages: 8 }
     const five = plan(['essay', 'two_column', 'data_findings', 'case_box', 'conclusion'])
     // Eight pages is five content pages, however little the sources say.
     assert.deepEqual(planner.problems(five, fixed, 2), [])
