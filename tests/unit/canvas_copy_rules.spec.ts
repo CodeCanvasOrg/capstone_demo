@@ -12,6 +12,7 @@ import {
   lengthTargets,
   numbersInProse,
   overBudget,
+  sentences,
   slotChars,
   stripGapSentences,
   stripInlineCitations,
@@ -267,5 +268,19 @@ test.group('copy cleaning of a page', () => {
       'data_findings'
     )
     assert.deepEqual(problems.map((p) => p.code).sort(), ['numbers_in_prose', 'repeated_title'])
+  })
+})
+
+test.group('sentences and decimals', () => {
+  test('a decimal point does not end a sentence, so no figure is cut in half', ({ assert }) => {
+    assert.deepEqual(sentences('It rose 2.4x in 3.5 years. Then it held.'), [
+      'It rose 2.4x in 3.5 years.',
+      'Then it held.',
+    ])
+    assert.equal(
+      stripGapSentences('Planners compared 12 districts against a reduction of 2.4x each summer.')
+        .text,
+      'Planners compared 12 districts against a reduction of 2.4x each summer.'
+    )
   })
 })

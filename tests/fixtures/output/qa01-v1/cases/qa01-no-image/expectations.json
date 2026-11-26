@@ -1,12 +1,8 @@
 {
   "schemaVersion": 1,
   "description": "No image nodes, no invented illustration or empty image block.",
-  "requiredText": [
-    "text message and email"
-  ],
-  "forbiddenPatterns": [
-    "<img"
-  ],
+  "requiredText": ["text message and email"],
+  "forbiddenPatterns": ["<img"],
   "imageCount": 0,
   "referenceCount": 2
 }

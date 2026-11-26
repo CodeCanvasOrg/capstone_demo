@@ -110,10 +110,14 @@ const GAP = [
 
 export const isGapSentence = (sentence: string) => GAP.some((p) => p.test(sentence))
 
-/** Splits text into sentences without losing their closing punctuation. */
+/**
+ * Splits text into sentences without losing their closing punctuation. A full stop inside a
+ * number or an abbreviation ("2.4x", "e.g.x") does not end a sentence: only one followed by
+ * a space or the end of the text does.
+ */
 export const sentences = (value: string) =>
   value
-    .match(/[^.!?]+(?:[.!?]+(?=\s|$)|$)/g)
+    .match(/(?:[^.!?]|[.!?](?!\s|$))+(?:[.!?]+(?=\s|$)|$)/g)
     ?.map((s) => s.trim())
     .filter(Boolean) ?? []
 
