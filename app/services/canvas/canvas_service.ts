@@ -8,6 +8,7 @@ import DocumentImage from '#models/document_image'
 import DocumentLayout from '#models/document_layout'
 import DocumentVersion from '#models/document_version'
 import VersionService, { type AttachedVersionData } from '#services/documents/version_service'
+import PublicationContentService from '#services/documents/publication_content_service'
 import LayoutSelectionService from '#services/layout/layout_selection_service'
 import { defaultLayout } from '#services/layout/layout_validation'
 import AccessService, {
@@ -17,7 +18,7 @@ import AccessService, {
 } from '#services/workspaces/access_service'
 import { resolveDesigns, type DesignId } from '../../../shared/brochure/designs.ts'
 import { composeCanvas, splitSheets } from '../../../shared/canvas/compose.ts'
-import { deriveDocument } from '../../../shared/canvas/derive.ts'
+import { deriveDocument, heroFrames } from '../../../shared/canvas/derive.ts'
 import {
   CANVAS_SCHEMA_VERSION,
   parseCanvas,
@@ -25,6 +26,7 @@ import {
   type TipTapBlock,
 } from '../../../shared/canvas/model.ts'
 import { hashOf } from '../../../shared/layout/hash.ts'
+import type { PublicationDocument } from '../../../shared/publication/content.ts'
 import type { TransactionClientContract } from '@adonisjs/lucid/types/database'
 
 export const canvasEnabled = () => env.get('CANVAS_EDITOR') === 'pilot'
@@ -350,7 +352,8 @@ export default class CanvasService {
   ) {
     const hash = hashOf(input.canvas)
     const latest = input.baseVersionId ? await DocumentVersion.find(input.baseVersionId) : null
-    // Publication metadata (hero, results) refers to blocks by id; the frames keep those ids.
+    // Publication metadata (hero, results) refers to blocks by id. The projected blocks get new
+    // ids, so the hero is rebound to them; reconcile prunes or flags the other anchors on save.
     const attrs = (latest?.content as { attrs?: Record<string, unknown> } | null)?.attrs
     const attached: AttachedVersionData = {
       hash,
@@ -379,8 +382,18 @@ export default class CanvasService {
         )
       },
     }
+    // The hero follows the canvas' own title and summary frames (derived blocks are those frames' blocks).
+    const derived = deriveDocument(input.canvas, attrs)
+    const hero = heroFrames(input.canvas)
+    const at = (frame?: { doc: unknown[] }) =>
+      frame ? derived.content.indexOf(frame.doc[0] as TipTapBlock) : -1
+    const rebound = new PublicationContentService().rebindHero(
+      derived as PublicationDocument,
+      `${documentId}:${hash}`,
+      { title: at(hero.title), summary: at(hero.summary) }
+    )
     const version = await new VersionService().save(context, documentId, {
-      content: deriveDocument(input.canvas, attrs) as { content: TipTapBlock[] },
+      content: rebound as { content: TipTapBlock[] },
       baseVersionId: input.baseVersionId,
       mutationId: input.mutationId,
       attached,

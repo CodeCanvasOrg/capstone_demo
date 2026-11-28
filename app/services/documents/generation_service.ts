@@ -1,4 +1,5 @@
 import ModelImageException from '#exceptions/model_image_exception'
+import { Exception } from '@adonisjs/core/exceptions'
 import WorkflowService from '#services/documents/workflow_service'
 import TaskConflictException from '#exceptions/task_conflict_exception'
 import db from '@adonisjs/lucid/services/db'
@@ -487,18 +488,25 @@ export default class GenerationService {
     const localConflict = error instanceof TaskConflictException
     const imageFailure = error instanceof ModelImageException
     const unusableOutput = OpenRouterService.isUnusableOutput(error)
+    // The app's own content checks (E_PUBLICATION_CONTENT, E_INVALID_CONTENT) also answer 422;
+    // their status must not be read as a provider failure ("the model could not process ...").
+    const contentRejected =
+      error instanceof Exception &&
+      ['E_PUBLICATION_CONTENT', 'E_INVALID_CONTENT'].includes(error.code ?? '')
     const status = localConflict ? undefined : OpenRouterService.status(error)
     const message = localConflict
       ? error.safeMessage
       : imageFailure
         ? error.message
-        : unusableOutput
-          ? 'The model returned incomplete or unreadable content. Your previous draft is unchanged. Try generating again.'
-          : status
-            ? config.failureMessages[status]
-            : OpenRouterService.isTimeout(error)
-              ? 'The model took too long to respond. Try again in a moment.'
-              : undefined
+        : contentRejected
+          ? 'The generated content could not be saved. Your previous version is unchanged. Try generating again.'
+          : unusableOutput
+            ? 'The model returned incomplete or unreadable content. Your previous draft is unchanged. Try generating again.'
+            : status
+              ? config.failureMessages[status]
+              : OpenRouterService.isTimeout(error)
+                ? 'The model took too long to respond. Try again in a moment.'
+                : undefined
     const tasks = new TaskService()
     await tasks.fail(
       lease,
