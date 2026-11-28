@@ -2,19 +2,11 @@ import drive from '@adonisjs/drive/services/main'
 import logger from '@adonisjs/core/services/logger'
 import { DateTime } from 'luxon'
 import CanvasTemplate from '#models/canvas_template'
-import ContentService from '#services/documents/content_service'
-import PublicationProjectionService from '#services/documents/publication_projection_service'
-import {
-  projectionDocument,
-  renderCanvasHtml,
-  splitProjected,
-} from '#services/exports/canvas_renderer'
 import PortfolioRenderService, {
   sampleCanvas,
 } from '#services/canvas/portfolio/portfolio_render_service'
 import { entrySlotBudgets, coverSlotBudgets } from '../../../shared/canvas/portfolio/content.ts'
 import { TEMPLATE_ID, TEMPLATE_VERSION } from '../../../shared/canvas/portfolio/tokens.ts'
-import { type getBrandKit } from '../../../shared/layout/brand.ts'
 import { hashOf } from '../../../shared/layout/hash.ts'
 import { CANVAS_SCHEMA_VERSION, type CanvasDocument } from '../../../shared/canvas/model.ts'
 
@@ -66,19 +58,6 @@ function slotsOf(design: 'portfolio' | PortfolioDesign) {
 }
 
 /**
- * A canvas as the export draws it, for a thumbnail: its text goes through the same
- * projection every export uses (there is no evidence to resolve in a template).
- */
-export async function templateHtml(
-  project: CanvasDocument,
-  brand: NonNullable<ReturnType<typeof getBrandKit>>
-) {
-  const content = new ContentService().normalize(projectionDocument(project), { repair: true })
-  const { client } = new PublicationProjectionService().project(content)
-  return renderCanvasHtml(project, brand, { content: splitProjected(project, client.body) })
-}
-
-/**
  * Seeds the portfolio template: one `document` row (the sample: cover, entry and sources) and
  * one `sheet` row per page design. A row whose layout hash is unchanged is left alone; a changed
  * layout bumps its version. The academic system templates are retired.
@@ -107,10 +86,9 @@ export default class CanvasTemplateSeeder {
           try {
             thumbnails ??= await new PortfolioRenderService().pages(projects.portfolio)
             const png = thumbnails[design === 'portfolio' ? 0 : PORTFOLIO_DESIGNS.indexOf(design)]
-            previewKey = `canvas-templates/${TEMPLATE_ID}/${design}.v${version}.png`
-            await drive
-              .use()
-              .put(previewKey, png, { contentType: 'image/png', visibility: 'private' })
+            const key = `canvas-templates/${TEMPLATE_ID}/${design}.v${version}.png`
+            await drive.use().put(key, png, { contentType: 'image/png', visibility: 'private' })
+            previewKey = key
             preview = true
           } catch (error) {
             logger.warn({ err: error, design }, 'Template preview was not rendered')
