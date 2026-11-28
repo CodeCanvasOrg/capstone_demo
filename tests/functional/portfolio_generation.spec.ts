@@ -7,6 +7,8 @@ import Document from '#models/document'
 import DocumentCanvas from '#models/document_canvas'
 import DocumentVersion from '#models/document_version'
 import PortfolioRenderService from '#services/canvas/portfolio/portfolio_render_service'
+import GenerationService from '#services/documents/generation_service'
+import LayoutSelectionService from '#services/layout/layout_selection_service'
 import CanvasGenerationService from '#services/canvas/generation/canvas_generation_service'
 import TaskDispatchService from '#services/workspaces/task_dispatch_service'
 import { canvasOptionsSchema } from '../../shared/canvas/options.ts'
@@ -62,6 +64,44 @@ test.group('Portfolio generation', (group) => {
     assert.equal(row.pipelineVersion, 'portfolio-1')
     assert.equal(row.depth, 'detailed')
     assert.equal(row.status, 'queued')
+  })
+
+  test('an ordinary regeneration with stored legacy options follows the portfolio pipeline', async ({
+    assert,
+  }) => {
+    model = installPortfolioModel()
+    const g = await portfolioGeneratable()
+    // Stored the way CanvasPipeline.rememberOptions saves them: the retired set is still read.
+    const layouts = new LayoutSelectionService()
+    const layout = await layouts.peek(g.a.context.workspaceId, g.a.document.id)
+    await layouts.save(g.a.context, g.a.document.id, {
+      templateId: layout.templateId,
+      templateVersion: layout.templateVersion,
+      brandId: layout.brandId,
+      brandVersion: layout.brandVersion,
+      options: {
+        ...layout.options,
+        canvas: {
+          profile: 'academic',
+          templateSet: 'academic_report',
+          depth: 'standard',
+          pages: 'auto',
+        },
+      },
+      baseRevision: layout.revision,
+      presetId: layout.presetId,
+    })
+    const task = await new GenerationService().request(
+      g.a.context,
+      g.a.document.id,
+      randomUUID(),
+      g.baseVersionId
+    )
+    const payload = task.payload as { target: string; canvas: { templateSet: string } }
+    assert.equal(payload.target, 'canvas')
+    assert.equal(payload.canvas.templateSet, 'portfolio')
+    const row = await CanvasGenerationRun.query().where('taskId', task.id).firstOrFail()
+    assert.equal(row.templateSet, 'portfolio')
   })
 
   test('executing the task saves a portfolio: a cover, then each entry with its sources page', async ({
