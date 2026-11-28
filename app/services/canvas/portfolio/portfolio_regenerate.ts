@@ -175,7 +175,15 @@ export default class PortfolioRegenerate {
       page,
       images: entryRows[j].imageIds.flatMap((id): PortfolioImage[] => {
         const image = byId.get(id)
-        return image ? [{ imageId: id, alt: image.altText ?? image.caption ?? image.filename }] : []
+        return image
+          ? [
+              {
+                imageId: id,
+                alt: image.altText ?? image.caption ?? image.filename,
+                ...(image.origin === 'generated' ? { generated: true } : {}),
+              },
+            ]
+          : []
       }),
     }))
     const cited = new Set(entries.flatMap((e) => citedChunks(e.page)))
