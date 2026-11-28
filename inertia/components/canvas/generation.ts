@@ -64,9 +64,20 @@ export const STEPS = [
   { key: 'composing', label: 'Laying out' },
 ] as const
 
+/** What "Let AI choose" runs call the steps: the model designs the pages, then writes into them. */
+const AI_STEP_LABELS: Record<(typeof STEPS)[number]['key'], string> = {
+  planning: 'Designing the pages',
+  retrieving: 'Gathering evidence',
+  images: 'Choosing pictures',
+  writing: 'Writing into the layout',
+  fitting: 'Fitting the text',
+  composing: 'Laying out',
+}
+
 /** "Writing entry 2 of 4": the entries written so far, counted from the run's page rows. */
 export function stepLabel(run: Run, key: (typeof STEPS)[number]['key']) {
   const step = STEPS.find((s) => s.key === key)!
+  if (run.templateSet === 'ai_design') return AI_STEP_LABELS[key]
   if (key !== 'writing') return step.label
   const entries = run.pages.filter((p) => p.design === 'entry')
   const done = entries.filter((p) => p.status !== 'pending').length
@@ -82,6 +93,9 @@ export function stepLabel(run: Run, key: (typeof STEPS)[number]['key']) {
 export function pageLabel(pages: readonly Pick<RunPage, 'design'>[], index: number) {
   const design = pages[index]?.design
   if (design === 'cover') return 'Cover'
+  if (design === 'ai_page') return `Page ${index + 1}`
+  if (design === 'sources' && pages.some((p) => p.design === 'ai_page'))
+    return `Sources${pages.slice(0, index).some((p) => p.design === 'sources') ? ` (${pages.slice(0, index + 1).filter((p) => p.design === 'sources').length})` : ''}`
   if (design !== 'entry' && design !== 'sources') return (design ?? '').replaceAll('_', ' ')
   const entry = pages.slice(0, index + 1).filter((p) => p.design === 'entry').length
   const part =

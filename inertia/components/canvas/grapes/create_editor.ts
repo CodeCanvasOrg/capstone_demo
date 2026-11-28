@@ -109,6 +109,9 @@ function viewsPlugin(imageUrl: CanvasEditorOptions['imageUrl'], numbered: boolea
   }
 }
 
+/** The portfolio and the AI-designed canvas draw with the shipped Inter files and number their footnotes. */
+const usesInter = (id: string | undefined) => id === 'portfolio' || id === 'ai_design'
+
 const FRAME_DRAG = `[data-cv-type="${SHEET_TYPE}"]`
 /** Screen pixels the pointer must travel before a press becomes a drag. */
 export const DRAG_THRESHOLD_PX = 4
@@ -156,12 +159,12 @@ export function createCanvasEditor(
     layerManager: { custom: true },
     traitManager: { custom: true },
     showOffsets: false,
-    canvasCss: `${o.canvas.template?.id === 'portfolio' ? portfolioFontCss() : ''}:root{${declarations(vars)}}${CANVAS_BASE_CSS}${EDITOR_CSS}`,
+    canvasCss: `${usesInter(o.canvas.template?.id) ? portfolioFontCss() : ''}:root{${declarations(vars)}}${CANVAS_BASE_CSS}${EDITOR_CSS}`,
     protectedCss: '*{box-sizing:border-box}',
     parser: {
       optionsHtml: { allowScripts: false, allowUnsafeAttr: false, allowUnsafeAttrValue: false },
     },
-    plugins: [canvasTypes as never, viewsPlugin(o.imageUrl, o.canvas.template?.id === 'portfolio')],
+    plugins: [canvasTypes as never, viewsPlugin(o.imageUrl, usesInter(o.canvas.template?.id))],
     projectData: toGrapes(o.canvas, 'px'),
   } as never) as Editor
 

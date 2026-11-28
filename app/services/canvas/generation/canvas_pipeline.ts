@@ -75,7 +75,13 @@ export type Generated = {
   models: { planner: string; writer: string }
   /** Text of every chunk the pages were given, by id: what their citations are checked against. */
   evidence: Record<string, string>
+  /** Set when "Let AI choose" could not use the model's design and made the portfolio instead. */
+  fallback?: { reason: string }
 }
+
+/** What a page action on an AI-designed page answers. */
+export const AI_PAGE_ACTIONS =
+  'AI-designed pages are generated again as a whole; use Generate pages.'
 
 const STAGE: Record<CanvasRunStatus, PipelineStage | null> = {
   queued: null,
@@ -90,8 +96,9 @@ const STAGE: Record<CanvasRunStatus, PipelineStage | null> = {
 }
 
 /**
- * The canvas pipeline. The portfolio is the one template, so `generate` and `regenerate` only
- * dispatch to `PortfolioPipeline`. Stored legacy option values (`academic_report`,
+ * The canvas pipeline. `generate` dispatches `ai_design` ("Let AI choose") to `AiDesignPipeline` and
+ * everything else to `PortfolioPipeline`; `regenerate` is the portfolio's only (AI-designed pages are
+ * generated again as a whole). Stored legacy option values (`academic_report`,
  * `research_brief`, `brochure`) are coerced to `portfolio` by the options schema; runs made with
  * a retired template are never regenerated (`CanvasGenerationService` answers 409). `generate`
  * saves nothing (the CLI's `--dry-run` is exactly this); `execute` wraps it for a queued task:
@@ -99,6 +106,10 @@ const STAGE: Record<CanvasRunStatus, PipelineStage | null> = {
  */
 export default class CanvasPipeline {
   async generate(input: GenerateInput): Promise<Generated> {
+    if (input.options.templateSet === 'ai_design') {
+      const { default: AiDesignPipeline } = await import('../ai_design/ai_design_pipeline.ts')
+      return new AiDesignPipeline().generate(input)
+    }
     const { default: PortfolioPipeline } = await import('../portfolio/portfolio_pipeline.ts')
     return new PortfolioPipeline().generate(input)
   }
@@ -112,6 +123,8 @@ export default class CanvasPipeline {
       mode: 'rewrite' | 'expand' | 'condense'
     }
   ): Promise<Pick<Generated, 'canvas' | 'metrics'>> {
+    if (input.options.templateSet === 'ai_design')
+      throw Object.assign(new Error(AI_PAGE_ACTIONS), { status: 409, unusableOutput: true })
     const { default: PortfolioPipeline } = await import('../portfolio/portfolio_pipeline.ts')
     return new PortfolioPipeline().regenerate(input)
   }
@@ -153,6 +166,12 @@ export default class CanvasPipeline {
         })
       : await this.generate(common)
     await tasks.check(lease)
+    // A design the model could not deliver became the portfolio: the run says so, and its page actions are the portfolio's.
+    if ('fallback' in generated && generated.fallback) {
+      const { PORTFOLIO_PIPELINE_VERSION } = await import('../portfolio/portfolio_pipeline.ts')
+      run.merge({ templateSet: 'portfolio', pipelineVersion: PORTFOLIO_PIPELINE_VERSION })
+      await run.save()
+    }
     const saved = await new CanvasService().saveGenerated(lease.context, document.id, {
       canvas: generated.canvas,
       baseVersionId: lease.task.payload.baseVersionId ?? null,
