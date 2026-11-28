@@ -153,13 +153,15 @@ export default class PortfolioImagePlanner {
           score: scoreCandidate({ similarity: ev.score }),
         })
       }
-      const best = found
-        .filter((c) => c.score >= MIN_SCORE)
-        .sort((a, b) => b.score - a.score)
-        .filter((c) => !isDuplicate(c.phash, used.hashes))
-        .slice(0, MAX_PICTURES)
-      for (const c of best) {
-        used.keys.add(c.imageId ? `upload:${c.imageId}` : `chunk:${c.chunkId}`)
+      // Taken one by one, so a near-duplicate within this entry is skipped as well.
+      const best: PictureChoice[] = []
+      const ranked = found.filter((c) => c.score >= MIN_SCORE).sort((a, b) => b.score - a.score)
+      for (const c of ranked) {
+        if (best.length >= MAX_PICTURES) break
+        const key = c.imageId ? `upload:${c.imageId}` : `chunk:${c.chunkId}`
+        if (used.keys.has(key) || (c.phash && isDuplicate(c.phash, used.hashes))) continue
+        best.push(c)
+        used.keys.add(key)
         if (c.phash) used.hashes.push(c.phash)
       }
       if (best.length) choices.set(index, best)
@@ -176,9 +178,9 @@ export default class PortfolioImagePlanner {
   }): Promise<Map<number, (PortfolioImage & { dpi: number })[]>> {
     const placed = new Map<number, (PortfolioImage & { dpi: number })[]>()
     for (const [index, list] of input.choices) {
-      const cells = figureCells(list.length)
-      const pictures: (PortfolioImage & { dpi: number })[] = []
-      for (const [i, choice] of list.entries()) {
+      // Resolve every choice first, so the cells match the pictures that are actually placed.
+      const resolved: { image: DocumentImage; choice: PictureChoice; text: string }[] = []
+      for (const choice of list) {
         await input.guard()
         let image: DocumentImage | null = null
         const text = choice.description.replace(/\s+/g, ' ').trim()
@@ -193,6 +195,11 @@ export default class PortfolioImagePlanner {
           })
         if (!image) continue
         choice.imageId = image.id
+        resolved.push({ image, choice, text })
+      }
+      const cells = figureCells(resolved.length)
+      const pictures: (PortfolioImage & { dpi: number })[] = []
+      for (const [i, { image, choice, text }] of resolved.entries()) {
         const cell = cells[i] ?? cells[0]
         pictures.push({
           imageId: image.id,
