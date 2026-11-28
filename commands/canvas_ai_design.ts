@@ -60,8 +60,8 @@ export default class CanvasAiDesign extends BaseCommand {
       this.exitCode = 1
       return
     }
-    const workspaceId =
-      this.workspace ?? (await Document.find(this.documentId).catch(() => null))?.workspaceId
+    const found = this.workspace ? null : await Document.find(this.documentId).catch(() => null)
+    const workspaceId = this.workspace ?? found?.workspaceId
     if (!workspaceId) {
       this.logger.error(`No document ${this.documentId}`)
       this.exitCode = 1
