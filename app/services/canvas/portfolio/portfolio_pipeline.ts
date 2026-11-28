@@ -254,6 +254,20 @@ export default class PortfolioPipeline {
     tokens += cover.tokens
     await guard()
 
+    // Entries with no usable source picture get a labelled AI illustration when that is switched on.
+    if (options.images) {
+      const illustrated = await pictures.illustrate({
+        context: input.context,
+        documentId: input.documentId,
+        pages: entries.map((_, i) => written.get(i)!.page),
+        choices,
+        guard,
+      })
+      for (const [i, notes] of illustrated)
+        rows.set(i, { ...rows.get(i), notes: [...(rows.get(i)?.notes ?? []), ...notes] })
+    }
+    await guard()
+
     const placed = options.images
       ? await pictures.place({
           context: input.context,

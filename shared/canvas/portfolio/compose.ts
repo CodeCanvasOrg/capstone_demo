@@ -36,6 +36,8 @@ import {
   rowHeights,
   rowLines,
   style,
+  ILLUSTRATION_LABEL,
+  TYPE,
   tone,
   type TypeRole,
 } from './tokens.ts'
@@ -57,7 +59,8 @@ export type SourceInfo = {
   unit?: string
 }
 
-export type PortfolioImage = { imageId: string; alt: string }
+/** `generated` marks an AI illustration: the figure prints its label and it is never evidence. */
+export type PortfolioImage = { imageId: string; alt: string; generated?: boolean }
 
 export type EntryInput = {
   page: EntryPage
@@ -405,6 +408,21 @@ export function composeEntry(
       figureCells(images.length).forEach((cell, i) =>
         b.image(`figure-${i + 1}`, f.x + cell.x, f.y + cell.y, cell.w, cell.h, images[i])
       )
+    // An AI illustration says so, in a strip along the foot of the figure.
+    if (!entry.sampleFigure && images.some((image) => image.generated)) {
+      const strip = 12
+      const y = f.y + f.h - 3 - strip
+      b.rect('figure-label-bg', f.x + 3, y, f.w - 6, strip, { fill: 'white' })
+      b.text(
+        'figure-label',
+        f.x + 6,
+        y + (strip - TYPE.footer.line) / 2,
+        f.w - 12,
+        TYPE.footer.line,
+        [paragraph(ILLUSTRATION_LABEL)],
+        style('footer')
+      )
+    }
   }
   const x = wide ? MARGIN : ENTRY.rowsX
   const w = wide ? CONTENT_W : ENTRY.rowsW

@@ -77,6 +77,8 @@ type TextContent = {
 }
 
 const MAX_SOURCE_IMAGES = 4
+/** One picture from an image model: they take 10 to 90 s, so the deadline is generous. */
+const IMAGE_TIMEOUT_MS = 150_000
 
 export default class OpenRouterService {
   /** Structured output that failed its schema or contradicted itself. */
@@ -914,6 +916,81 @@ export default class OpenRouterService {
 
         throw error
       }
+    }
+  }
+
+  /**
+   * One picture from an image-output model, through chat completions with `modalities: ["image",
+   * "text"]` (docs/image-generation-research.md). Reference pictures go in as `image_url` parts.
+   * Never retried here: a call costs money and takes up to a minute or more, so the caller decides.
+   * Throws an error with `status` for a provider failure and `unusableOutput` when the model
+   * answered without a picture (a refusal or a filter).
+   */
+  async generateImage(input: {
+    model: string
+    prompt: string
+    references?: { bytes: Buffer; mime: string }[]
+    aspectRatio?: string
+    imageSize?: string
+    timeoutMs?: number
+    guard?: () => Promise<void>
+  }): Promise<{
+    bytes: Buffer
+    mime: string
+    costUsd: number | null
+    latencyMs: number
+    text: string | null
+  }> {
+    await input.guard?.()
+    const started = performance.now()
+    const content: (TextContent | ImageUrlContent)[] = [
+      { type: 'text', text: input.prompt },
+      ...(input.references ?? []).map((r): ImageUrlContent => ({
+        type: 'image_url',
+        image_url: { url: `data:${r.mime};base64,${r.bytes.toString('base64')}`, detail: 'auto' },
+      })),
+    ]
+    const response = await fetch(`${openRouterApiConfig.baseUrl}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'authorization': `Bearer ${openRouterApiConfig.apiKey.release()}`,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: input.model,
+        modalities: ['image', 'text'],
+        image_config: {
+          aspect_ratio: input.aspectRatio ?? '3:4',
+          image_size: input.imageSize ?? '1K',
+        },
+        messages: [{ role: 'user', content }],
+      }),
+      signal: AbortSignal.timeout(input.timeoutMs ?? IMAGE_TIMEOUT_MS),
+    })
+    if (!response.ok)
+      throw Object.assign(new Error(`Image generation failed (${response.status}).`), {
+        status: response.status,
+      })
+    const body = (await response.json()) as {
+      choices?: {
+        message?: { content?: string | null; images?: { image_url?: { url?: string } }[] }
+      }[]
+      usage?: { cost?: number }
+    }
+    const message = body.choices?.[0]?.message
+    const url = message?.images?.find((image) => image.image_url?.url)?.image_url?.url
+    const match = url ? /^data:(image\/[a-z+.-]+);base64,(.+)$/is.exec(url) : null
+    if (!match)
+      throw Object.assign(new Error('The model returned no picture.'), {
+        unusableOutput: true,
+        text: typeof message?.content === 'string' ? message.content.slice(0, 300) : null,
+      })
+    return {
+      bytes: Buffer.from(match[2], 'base64'),
+      mime: match[1].toLowerCase(),
+      costUsd: typeof body.usage?.cost === 'number' ? body.usage.cost : null,
+      latencyMs: Math.round(performance.now() - started),
+      text: typeof message?.content === 'string' ? message.content : null,
     }
   }
 

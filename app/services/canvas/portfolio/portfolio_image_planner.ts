@@ -1,3 +1,4 @@
+import logger from '@adonisjs/core/services/logger'
 import drive from '@adonisjs/drive/services/main'
 import sharp from 'sharp'
 import DocumentImage from '#models/document_image'
@@ -11,6 +12,10 @@ import {
   rejection,
   scoreCandidate,
 } from '../../../../shared/canvas/image_rules.ts'
+import ImageGenerationService, {
+  ILLUSTRATION_LABEL,
+  ImageGenerationFailure,
+} from '#services/canvas/image_generation_service'
 import type { PortfolioImage } from '../../../../shared/canvas/portfolio/compose.ts'
 import type { PlanEntry } from '../../../../shared/canvas/portfolio/content.ts'
 import { figureCells } from '../../../../shared/canvas/portfolio/tokens.ts'
@@ -24,7 +29,7 @@ const MIN_SCORE = 0.3
 
 export type PictureChoice = {
   imageId: string | null
-  origin: 'upload' | 'source'
+  origin: 'upload' | 'source' | 'generated'
   description: string
   width: number
   height: number
@@ -52,6 +57,12 @@ function overlap(page: string, picture: string) {
   for (const w of b) if (a.has(w)) shared++
   return Math.min(1, shared / Math.min(b.size, 6))
 }
+
+/** Entries illustrated at once: each call takes up to a minute, and each costs a few cents. */
+const GENERATION_CONCURRENCY = 3
+
+/** The page fields an entry's illustration is made from. */
+export type IllustrationSubject = { title: string; intro?: string; category?: string }
 
 const EXTENSION: Record<string, string> = { 'image/png': 'png', 'image/jpeg': 'jpg' }
 
@@ -169,6 +180,64 @@ export default class PortfolioImagePlanner {
     return choices
   }
 
+  /**
+   * When `CANVAS_IMAGE_GENERATION=on`, one illustrative AI picture for each entry that has no
+   * usable source or uploaded picture, from the entry's title, intro and category. Adds them to
+   * `choices` and never touches an entry that already has a picture. A picture that cannot be made
+   * leaves the entry without a figure frame and returns a reviewer note; this never throws for a
+   * provider failure. The pictures are stored as `generated` document images, with no source
+   * chunk, so they stay out of citations, the sources pages and claim review.
+   */
+  async illustrate(input: {
+    context: WorkspaceAccessContext
+    documentId: string
+    pages: readonly IllustrationSubject[]
+    choices: Map<number, PictureChoice[]>
+    guard: () => Promise<void>
+    service?: ImageGenerationService
+  }): Promise<Map<number, string[]>> {
+    const notes = new Map<number, string[]>()
+    if (!ImageGenerationService.enabled()) return notes
+    const service = input.service ?? new ImageGenerationService()
+    const missing = input.pages.map((_, i) => i).filter((i) => !input.choices.has(i))
+    const make = async (i: number) => {
+      await input.guard()
+      const page = input.pages[i]
+      try {
+        const image = await service.generateAndStore(input.context, input.documentId, {
+          prompt: ImageGenerationService.illustrationPrompt(page),
+          altText: sentence(page.title, 200),
+        })
+        input.choices.set(i, [
+          {
+            imageId: image.id,
+            origin: 'generated',
+            description: ILLUSTRATION_LABEL,
+            width: image.width ?? 0,
+            height: image.height ?? 0,
+            score: 1,
+            phash: image.phash,
+          },
+        ])
+        notes.set(i, [
+          'This entry has no source picture. Its figure is an AI-generated illustration, not evidence.',
+        ])
+      } catch (error) {
+        const reason =
+          error instanceof ImageGenerationFailure
+            ? error.message
+            : 'the picture could not be stored'
+        logger.warn({ documentId: input.documentId, entry: i, reason }, 'Illustration failed')
+        notes.set(i, [
+          `This entry has no source picture and an AI illustration could not be made (${reason}). The figure frame was left out.`,
+        ])
+      }
+    }
+    for (let n = 0; n < missing.length; n += GENERATION_CONCURRENCY)
+      await Promise.all(missing.slice(n, n + GENERATION_CONCURRENCY).map(make))
+    return notes
+  }
+
   /** Registers the chosen source pictures as document images and returns the entries' pictures. */
   async place(input: {
     context: WorkspaceAccessContext
@@ -204,6 +273,7 @@ export default class PortfolioImagePlanner {
         pictures.push({
           imageId: image.id,
           alt: image.altText ?? image.caption ?? sentence(text, 250),
+          ...(image.origin === 'generated' ? { generated: true as const } : {}),
           dpi: printDpi(choice, { w: cell.w * 3.5278, h: cell.h * 3.5278 }),
         })
       }
