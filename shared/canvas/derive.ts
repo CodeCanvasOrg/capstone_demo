@@ -1,6 +1,13 @@
 import { STAT_SEPARATOR } from '../brochure/content.ts'
 import { readingCompare } from './geometry.ts'
-import type { CanvasDocument, Frame, Sheet, TipTapBlock } from './model.ts'
+import {
+  FONT_SCALE,
+  type CanvasDocument,
+  type Frame,
+  type Sheet,
+  type TextFrame,
+  type TipTapBlock,
+} from './model.ts'
 
 /**
  * The text of a canvas as an ordinary stored document: sheets in order, frames
@@ -34,6 +41,36 @@ function blocksOf(frame: Frame): TipTapBlock[] {
     default:
       return []
   }
+}
+
+/** All the text of a frame's blocks, for picking frames by what they say. */
+const frameText = (frame: TextFrame): string => {
+  const parts: string[] = []
+  const visit = (node: { text?: string; content?: unknown[] }) => {
+    if (typeof node.text === 'string') parts.push(node.text)
+    node.content?.forEach((child) => visit(child as typeof node))
+  }
+  frame.doc.forEach((block) => visit(block as { text?: string; content?: unknown[] }))
+  return parts.join('').trim()
+}
+
+/**
+ * The frames a document's hero should point at: the largest type on the first sheet is the title,
+ * the next text frame in reading order its summary. Works for any layout (the portfolio cover, an
+ * AI-designed first page), so a generated canvas can rebind publication metadata to them.
+ */
+export function heroFrames(canvas: CanvasDocument): { title?: TextFrame; summary?: TextFrame } {
+  const first = canvas.sheets[0]
+  if (!first) return {}
+  const texts = readingOrder(first).filter(
+    (frame): frame is TextFrame => frame.kind === 'text' && frameText(frame) !== ''
+  )
+  const size = (frame: TextFrame) =>
+    frame.style?.size ?? (frame.style?.font ? FONT_SCALE[frame.style.font] : FONT_SCALE.md)
+  let title: TextFrame | undefined
+  for (const frame of texts) if (!title || size(frame) > size(title)) title = frame
+  const summary = title ? texts[texts.indexOf(title) + 1] : undefined
+  return { title, summary }
 }
 
 export function deriveDocument(

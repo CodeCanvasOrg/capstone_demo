@@ -1,6 +1,9 @@
 /* eslint-disable @unicorn/no-await-expression-member -- terse assertions on awaited results */
 import { test } from '@japa/runner'
 import { randomUUID } from 'node:crypto'
+import db from '@adonisjs/lucid/services/db'
+import PublicationContentService from '#services/documents/publication_content_service'
+import type { PublicationDocument } from '../../shared/publication/content.ts'
 import CanvasGenerationPage from '#models/canvas_generation_page'
 import CanvasGenerationRun from '#models/canvas_generation_run'
 import Document from '#models/document'
@@ -163,6 +166,62 @@ test.group('Portfolio generation', (group) => {
     assert.equal((row.plan as { pages: unknown[] }).pages.length, 2)
     const version = await DocumentVersion.findOrFail(doc.currentVersionId!)
     assert.include(JSON.stringify(version.content), 'Cooling district 1')
+  })
+
+  test('a document with publication metadata saves its generated portfolio, the hero rebound to the cover', async ({
+    assert,
+  }) => {
+    model = installPortfolioModel({ entries: 2 })
+    const g = await portfolioGeneratable()
+    // A case study written by the publication flow: its hero and sections point at blocks of the
+    // text version (valid there), none of which survive into the generated canvas.
+    const base = await DocumentVersion.findOrFail(g.baseVersionId)
+    const textVersion = {
+      type: 'doc',
+      content: [
+        { type: 'heading', attrs: { level: 1 }, content: [{ type: 'text', text: 'Old title' }] },
+        { type: 'paragraph', content: [{ type: 'text', text: 'Old summary of the case study.' }] },
+      ],
+    } as PublicationDocument
+    const identified = new PublicationContentService().assignIds(textVersion, 'text-version')
+    const [titleId, summaryId] = identified.content.map((block) => block.attrs!.nodeId as string)
+    await db
+      .from('document_versions')
+      .where({ id: base.id })
+      .update({
+        content: JSON.stringify({
+          ...identified,
+          attrs: {
+            publication: {
+              schemaVersion: 1,
+              docType: 'case_study',
+              hero: { title: { nodeId: titleId }, summary: { nodeId: summaryId } },
+              sections: [{ id: randomUUID(), type: 'narrative', nodeIds: [summaryId] }],
+            },
+          },
+        }),
+      })
+    await request(g)
+    const { doc, row } = await run(g)
+    assert.equal(row.status, 'ready', row.error ?? '')
+    const version = await DocumentVersion.findOrFail(doc.currentVersionId!)
+    const saved = version.content as {
+      attrs: { publication: { hero: { title: { nodeId: string }; summary?: { nodeId: string } } } }
+      content: { type: string; attrs?: { nodeId?: string } }[]
+    }
+    const ids = new Set(saved.content.map((block) => block.attrs?.nodeId))
+    const hero = saved.attrs.publication.hero
+    assert.isTrue(ids.has(hero.title.nodeId))
+    if (hero.summary) assert.isTrue(ids.has(hero.summary.nodeId))
+    // The title is the cover's title frame, not its eyebrow or an entry title.
+    const canvas = await DocumentCanvas.query().where('versionId', version.id).firstOrFail()
+    const coverTitle = canvas.project.sheets[0].frames.find((f) => f.id === 's0-cover-title')
+    assert.exists(coverTitle)
+    const block = saved.content.find((b) => b.attrs?.nodeId === hero.title.nodeId) as {
+      content?: unknown
+    }
+    const frameBlock = (coverTitle as TextFrame).doc[0] as { content?: unknown }
+    assert.deepEqual(block.content, frameBlock.content)
   })
 
   test('a fixed number of entries is kept exactly', async ({ assert }) => {

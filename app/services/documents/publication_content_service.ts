@@ -176,6 +176,63 @@ export default class PublicationContentService {
   }
 
   /**
+   * For content rebuilt wholesale (a canvas projected to blocks, a generated canvas): block ids
+   * are new, so the hero would point at blocks that no longer exist and every save would fail.
+   * Gives the blocks ids, then rebinds a dangling hero title to the preferred block (else the first
+   * heading, else the first non-empty block) and a dangling summary to the preferred block (else the
+   * next non-empty paragraph), or drops it.
+   * Other anchors are left to `reconcile`. With no text block to hold a title, the publication
+   * metadata cannot be satisfied and is removed.
+   */
+  rebindHero(
+    document: PublicationDocument,
+    seed: string,
+    /** Top-level block indexes to prefer (a canvas' title and summary frames); -1 for none. */
+    prefer: { title?: number; summary?: number } = {}
+  ): PublicationDocument {
+    const meta = document.attrs?.publication as PublicationMetadataV1 | undefined
+    if (!meta || typeof meta !== 'object' || !meta.hero) return document
+    const next = this.assignIds(document, seed)
+    const hero = (next.attrs!.publication as PublicationMetadataV1).hero
+    const blocks: PublicationNode[] = []
+    walk(next.content, (node) => {
+      if (
+        TEXT_BLOCKS.has(node.type) &&
+        node.type !== 'codeBlock' &&
+        typeof node.attrs?.nodeId === 'string' &&
+        flattenText(node).trim()
+      )
+        blocks.push(node)
+    })
+    const exists = (id: unknown) => blocks.some((node) => node.attrs?.nodeId === id)
+    const preferred = (index?: number) => {
+      const node = index === undefined || index < 0 ? undefined : next.content[index]
+      return node && blocks.includes(node) ? node : undefined
+    }
+    if (!exists(hero.title?.nodeId)) {
+      const title =
+        preferred(prefer.title) ?? blocks.find((node) => node.type === 'heading') ?? blocks[0]
+      if (!title) {
+        const attrs = { ...next.attrs }
+        delete attrs.publication
+        return { ...next, attrs } as PublicationDocument
+      }
+      hero.title = { nodeId: title.attrs!.nodeId as string }
+    }
+    if (hero.summary && !exists(hero.summary.nodeId)) {
+      const after = blocks.findIndex((node) => node.attrs?.nodeId === hero.title.nodeId)
+      const candidate = preferred(prefer.summary)
+      const summary =
+        candidate && candidate.attrs?.nodeId !== hero.title.nodeId
+          ? candidate
+          : blocks.slice(after + 1).find((node) => node.type === 'paragraph')
+      if (summary) hero.summary = { nodeId: summary.attrs!.nodeId as string }
+      else delete hero.summary
+    }
+    return next
+  }
+
+  /**
    * Safe reconciliation of an ordinary editor transaction: stale anchors become
    * `needs_review` and dangling section refs are pruned. Nothing is rebound to
    * different words and no prose is removed.
