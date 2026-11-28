@@ -10,6 +10,8 @@ import CanvasService from '#services/canvas/canvas_service'
 import TaskDispatchService from '#services/workspaces/task_dispatch_service'
 import { templateSelection } from '../../shared/brochure/designs.ts'
 import { reset } from '../helpers/workspaces.ts'
+import { PENDING_TITLE } from '#services/documents/creation_service'
+import { coverTitle } from '#services/canvas/generation/canvas_pipeline'
 import { installAiDesignModel } from '../helpers/ai_design.ts'
 import {
   flagsOff,
@@ -151,6 +153,34 @@ test.group('New case study: the portfolio layout', (group) => {
       .where('versionId', doc.currentVersionId!)
       .firstOrFail()
     assert.equal(saved.templateKey, 'ai_design')
+  }).timeout(30_000)
+
+  test('a case study created without a title is named after its generated cover', async ({
+    client,
+    assert,
+  }) => {
+    model = installPortfolioModel({ entries: 1 })
+    const g = await portfolioGeneratable(1)
+    const canvas = { templateSet: 'portfolio', entries: 1, depth: 'standard', images: false }
+    const response = await create(client, g, { title: '', canvas })
+    response.assertStatus(302)
+    const doc = await Document.query().orderBy('createdAt', 'desc').firstOrFail()
+    assert.equal(doc.title, PENDING_TITLE)
+    assert.isTrue(doc.templateSetup?.generateTitle)
+
+    await new TaskDispatchService().dispatch()
+    await doc.refresh()
+    assert.equal(doc.generationStatus, 'ready')
+    const saved = await DocumentCanvas.query()
+      .where('versionId', doc.currentVersionId!)
+      .firstOrFail()
+    const expected = coverTitle(saved.project)
+    assert.isString(expected)
+    assert.equal(doc.title, expected)
+    assert.notEqual(doc.title, PENDING_TITLE)
+    assert.isUndefined(doc.templateSetup?.generateTitle)
+    // The placeholder never reached the cover.
+    assert.notInclude(JSON.stringify(saved.project), PENDING_TITLE)
   }).timeout(30_000)
 
   test('canvas options the portfolio does not offer are rejected, and nothing is created', async ({
