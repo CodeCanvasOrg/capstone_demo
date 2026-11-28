@@ -78,14 +78,14 @@ frames and four images.
 
 **Validation** (`shared/canvas/ai_design/validate.ts`) rejects with a message the model can act on:
 
-| Code       | Rule                                                                                                   |
-| ---------- | ------------------------------------------------------------------------------------------------------ |
-| `pages`    | the page count is not the requested one; a page has no text frame                                      |
-| `size`     | type below 8 pt (captions, labels and footers: 7 pt); above 120 pt                                     |
+| Code       | Rule                                                                                                                                   |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `pages`    | the page count is not the requested one; a page has no text frame                                                                      |
+| `size`     | type below 8 pt (captions, labels and footers: 7 pt); above 120 pt                                                                     |
 | `contrast` | text against the colour behind it (page, shapes under it, its own fill) below WCAG AA: 4.5, or 3 for large text (18 pt, or 14 pt bold) |
-| `overlap`  | two text frames, two images, or text and an image or art overlap (shapes may sit behind text)          |
-| `font`     | a family that is not available (`brand` without a brand font)                                          |
-| `palette`  | body ink on paper below AA                                                                             |
+| `overlap`  | two text frames, two images, or text and an image or art overlap (shapes may sit behind text)                                          |
+| `font`     | a family that is not available (`brand` without a brand font)                                                                          |
+| `palette`  | body ink on paper below AA                                                                                                             |
 
 One corrective retry sends the previous design and the full problem list. If the design is still invalid, the
 pipeline **falls back**: it generates with `PortfolioPipeline` (the portfolio template, so the layout is
@@ -131,7 +131,7 @@ footnotes as for the portfolio. Design colours that equal a brand palette value 
 
 Rewrite, add depth and shorten are **not available** on AI-designed pages: the route answers 409 "AI-designed
 pages are generated again as a whole; use Generate pages." (`CanvasGenerationService.pageTarget`). The page strip
-labels the pages `Page 2`, `Sources 1` and the progress steps are renamed ("Designing the pages", "Fitting the
+labels the pages `Cover`, `Page 2`, `Sources` and the progress steps are renamed ("Designing the pages", "Fitting the
 text"). A run that fell back is stored as `portfolio`, so its page actions are the portfolio's.
 
 ## Models and configuration
@@ -149,12 +149,24 @@ and any validation problems) without saving anything. Without it, it generates t
 
 ## Tests
 
-| Level      | What                                                                                                                                                                              |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Unit       | options coercion, design schema, clamping, overlap, contrast, size, count and font rejection, text fit and trim, compose (marker, ids, citation numbers, sources pages), capability parsing, prompt content |
+| Level      | What                                                                                                                                                                                                                                                                            |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Unit       | options coercion, design schema, clamping, overlap, contrast, size, count and font rejection, text fit and trim, compose (marker, ids, citation numbers, sources pages), capability parsing, prompt content                                                                     |
 | Functional | generation through the pipeline with stubbed `designCanvas` and `writeDesignPage` (saved canvas, run rows, models, fit, citations, images), the corrective retry, the fallback, a 409 page action, export renders the sheets and fonts, the multimodal capability gate, the CLI |
 
 Postman: the mock answers `design_canvas` and `write_design_page`; the contract's `Options` gains `ai_design`.
+
+## Implementation notes
+
+- Files: `shared/canvas/ai_design/` (`schema`, `normalize`, `validate`, `style`, `fit`, `compose`, `color`),
+  `app/services/canvas/ai_design/` (`ai_design_pipeline`, `_digest`, `_designer`, `_writer`, `_images`, `_prompts`,
+  `capabilities`), `commands/canvas_ai_design.ts`, and three new methods on `OpenRouterService` (`designCanvas`,
+  `writeDesignPage`, `acceptsImageInput`).
+- Run page rows use the design ids `cover`, `ai_page` and `sources`; the run's plan is `{ kind: 'ai_design', design, pages, sources }`.
+- Pictures: the model's `imageRef` wins when that picture is free; otherwise the score is 0.6 times the portfolio's
+  `scoreCandidate` (frame subject against caption) plus 0.4 times how close the picture's shape is to the frame's,
+  with the same 0.3 floor. Registration of source pictures is the portfolio image planner's `place`.
+- A run that fell back is saved as a `portfolio` run (`templateSet`, `pipelineVersion`), also by the CLI.
 
 ## Known limits
 
