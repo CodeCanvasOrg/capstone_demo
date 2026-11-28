@@ -44,6 +44,9 @@ export const plugins: Config['plugins'] = [
 export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
   setup: [
     () => {
+      // Opt-in features a developer switches on in .env (paid AI illustrations) start off in tests;
+      // a test that needs one sets it itself.
+      env.set('CANVAS_IMAGE_GENERATION', undefined as never)
       if (env.get('TEST_DB_URL') === env.get('DB_URL'))
         throw new Error(
           'Development and tests must use separate databases; refusing to reset shared data'
