@@ -116,3 +116,67 @@ Generated images are illustrations, never evidence:
 - Gemini API pricing and image generation: https://aistudio.google.com/docs/pricing and https://aistudio.google.com/docs/image-generation
 - The chat-completions image-output shape was confirmed by the probe, not by the current docs page,
   which now documents the Images API.
+
+## Implementation (off by default)
+
+Flags: `CANVAS_IMAGE_GENERATION=on` and `CANVAS_IMAGE_MODEL` (default
+`google/gemini-3.1-flash-image`), declared in `start/env.ts` and `.env.example`.
+
+- `OpenRouterService.generateImage` makes the chat-completions call and returns the bytes, cost and
+  latency. It never retries (a call costs money) and has a 150 s deadline.
+- `ImageGenerationService` (`app/services/canvas/image_generation_service.ts`) builds the
+  Navy/Gold, no-text prompt, calls the provider, validates the picture (a real image, short edge at
+  least 640 px, enlarged no more than 1.6x) and fits it to the single-picture figure cell at 300
+  dpi (897 x 1266 px) by a cover crop and Lanczos resize. `generateAndStore` registers it as a
+  document image with origin `generated`, no source chunk, the caption "AI-generated illustration"
+  and a `generation` JSON record (model, prompt, cost, latency, source size, time). Thumb, screen
+  and print variants are built exactly as for uploads. Migration
+  `1795800000000_alter_document_images_for_generated_origin.ts` widens the origin check and adds
+  the column; a check keeps `generation` set exactly for generated rows.
+- `PortfolioImagePlanner.illustrate` runs after the entries are written (it needs each page's
+  title, intro and category) and before `place`. It only touches entries that have no choice, so a
+  source or uploaded picture always wins, and it adds a reviewer note: one on success ("not
+  evidence") and one on failure (the frame is left out and the entry page uses the wide layout). A
+  provider failure, a refusal or an unusable picture never fails the run. Entries are illustrated
+  three at a time.
+- The composer (`shared/canvas/portfolio/compose.ts`) prints "AI-generated illustration" in a strip
+  along the foot of the figure when a picture is marked `generated`; regeneration of one page
+  keeps the mark because it reads the image origin.
+- Citations come from page content, and claim review reads cited text blocks, so images never enter
+  either. The planner's upload pool is filtered to origin `upload`, so a generated picture is never
+  re-used as if the author had supplied it.
+- The Postman mock (`postman/mocks/openrouter/default.js`) answers a `modalities` request with a
+  synthetic 24 x 32 PNG, and the contract documents the request.
+
+Cost: about $0.07 per entry at the default model. A 10-entry portfolio with no source pictures is
+about $0.70 and, three at a time, a few minutes of extra run time.
+
+### Integration note for the AI design pipeline
+
+```ts
+import ImageGenerationService, {
+  ImageGenerationFailure,
+  ILLUSTRATION_LABEL,
+} from '#services/canvas/image_generation_service'
+
+if (ImageGenerationService.enabled()) {
+  try {
+    const image = await new ImageGenerationService().generateAndStore(context, documentId, {
+      prompt: ImageGenerationService.illustrationPrompt({ title, intro, category }),
+      altText: 'what the picture shows',
+      references: [], // optional { bytes, mime }[] for multimodal input
+    })
+    // image.id is a document image (origin 'generated'); place it as an image frame.
+  } catch (error) {
+    if (!(error instanceof ImageGenerationFailure)) throw error
+    // provider, refused or unusable: leave the frame out and add a reviewer note.
+  }
+}
+```
+
+Rules for callers: call it only where no real source or uploaded picture exists; print
+`ILLUSTRATION_LABEL` with the picture (the composer's `PortfolioImage.generated` flag does this for
+the portfolio template, and any other layout must do the equivalent); never attach a chunk id or a
+citation to it; keep generations off the request path (they take 10 to 90 s); and run them a few at
+a time. `PortfolioImagePlanner.illustrate({ context, documentId, pages, choices, guard })` does all
+of this for the entries of a portfolio and can be called as it is.
