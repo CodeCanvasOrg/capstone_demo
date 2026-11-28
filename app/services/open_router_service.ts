@@ -46,6 +46,13 @@ import {
 import { isOpenPlan, type BrochureSelection, type DesignId } from '../../shared/brochure/designs.ts'
 import ContentService from './documents/content_service.ts'
 import { modelSchema, parseLenient } from '../../shared/canvas/model_output.ts'
+import {
+  canvasDesignSchema,
+  designPageContentSchema,
+  type CanvasDesign,
+  type DesignPageContent,
+} from '../../shared/canvas/ai_design/schema.ts'
+import { modelAcceptsImages } from './canvas/ai_design/capabilities.ts'
 import { getInitPrompt, getStructuredOutput } from './structured_model_output_service.ts'
 
 type Chunk = SourceChunk & {
@@ -580,6 +587,97 @@ export default class OpenRouterService {
       'write_portfolio_cover',
       'portfolio cover',
       coverPageSchema,
+      input,
+      guard
+    )
+  }
+
+  // ---------------------------------------------------------------- AI design
+
+  private static imageCapability = new Map<string, boolean>()
+
+  /**
+   * Whether `model` accepts pictures, from OpenRouter's model list. Cached per model; a list that
+   * cannot be read, or a model it does not name, means no pictures are sent.
+   */
+  async acceptsImageInput(model: string): Promise<boolean> {
+    const cached = OpenRouterService.imageCapability.get(model)
+    if (cached !== undefined) return cached
+    let accepts = false
+    try {
+      const response = await fetch(`${openRouterApiConfig.baseUrl}/models`, {
+        headers: { Authorization: `Bearer ${openRouterApiConfig.apiKey.release()}` },
+        signal: AbortSignal.timeout(8000),
+      })
+      if (response.ok) accepts = modelAcceptsImages(await response.json(), model)
+    } catch (error) {
+      logger.warn(
+        { err: error },
+        'The model list was not read; no pictures are sent to the designer'
+      )
+    }
+    OpenRouterService.imageCapability.set(model, accepts)
+    return accepts
+  }
+
+  /**
+   * "Let AI choose": the design system and a frame layout for every page. With `images` (only for a
+   * model that accepts them) the reference pictures are sent after the brief, each labelled by its ref.
+   */
+  async designCanvas(
+    input: {
+      system: string
+      user: string
+      model: string
+      corrections?: string[]
+      images?: { ref: string; url: string }[]
+    },
+    guard?: () => Promise<void>
+  ): Promise<CanvasDesign> {
+    const label = 'canvas design'
+    const chain = this.chat(input.model).withStructuredOutput(modelSchema(canvasDesignSchema), {
+      method: 'functionCalling',
+      name: 'design_canvas',
+    })
+    const content: Array<TextContent | ImageUrlContent> = [{ type: 'text', text: input.user }]
+    for (const image of input.images ?? [])
+      content.push(
+        { type: 'text', text: `Reference picture ${image.ref}.` },
+        { type: 'image_url', image_url: { url: image.url, detail: 'auto' } }
+      )
+    const messages = [
+      new SystemMessage(input.system),
+      new HumanMessage(input.images?.length ? { content: content as never } : input.user),
+      ...(input.corrections ?? []).map((text) => new HumanMessage(text)),
+    ]
+    return (await this.runGeneration(chain, messages, guard, {
+      label,
+      timeoutMs: openRouterApiConfig.canvasTimeoutMs,
+      validate: (value) => {
+        const parsed = parseLenient(canvasDesignSchema, value)
+        if (!parsed.success)
+          throw Object.assign(new Error(`The model returned an invalid ${label}.`), {
+            status: 422,
+            unusableOutput: true,
+            corrective: `The previous ${label} broke the schema at: ${parsed.error.issues
+              .slice(0, 8)
+              .map((issue) => issue.path.join('.') || 'root')
+              .join(', ')}. Return the whole design again.`,
+          })
+        return parsed.data
+      },
+    })) as CanvasDesign
+  }
+
+  /** The text of every text frame of one designed page. */
+  writeDesignPage(
+    input: { system: string; user: string; model: string; corrections?: string[] },
+    guard?: () => Promise<void>
+  ): Promise<DesignPageContent> {
+    return this.portfolioCall(
+      'write_design_page',
+      'design page text',
+      designPageContentSchema,
       input,
       guard
     )
