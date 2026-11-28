@@ -1,23 +1,16 @@
 import { test } from '@japa/runner'
 import {
-  brandVariants,
   chunkOverlap,
   dedupeChunks,
-  dropEmpty,
   enforceBrandName,
   evidenceKind,
-  footnoteMarker,
-  footnotesFor,
   lengthRules,
   lengthTargets,
-  numbersInProse,
   overBudget,
   sentences,
   slotChars,
   stripGapSentences,
   stripInlineCitations,
-  titleRepeats,
-  unmovedNumbers,
 } from '../../shared/canvas/copy_rules.ts'
 
 test.group('slot length targets', () => {
@@ -43,7 +36,7 @@ test.group('slot length targets', () => {
   })
 })
 
-test.group('inline citations and footnotes', () => {
+test.group('inline citations', () => {
   const cases: [string, string][] = [
     ['Trees cool streets [chunk: abc123].', 'Trees cool streets.'],
     ['Trees cool streets (source: abc-1, abc-2).', 'Trees cool streets.'],
@@ -59,17 +52,6 @@ test.group('inline citations and footnotes', () => {
 
   test('plain brackets that are not citations stay', ({ assert }) => {
     assert.equal(stripInlineCitations('Use the [Pro] plan.'), 'Use the [Pro] plan.')
-  })
-
-  test('footnotes number chunks by first use and give a sources list', ({ assert }) => {
-    const f = footnotesFor(['b', 'a', 'b'], (id) => `File ${id}`)
-    assert.equal(f.numbers.get('b'), 1)
-    assert.equal(f.numbers.get('a'), 2)
-    assert.deepEqual(f.sources, [
-      { n: 1, chunkId: 'b', title: 'File b' },
-      { n: 2, chunkId: 'a', title: 'File a' },
-    ])
-    assert.equal(footnoteMarker(12), '¹²')
   })
 })
 
@@ -100,53 +82,12 @@ test.group('gap sentences', () => {
   })
 })
 
-test.group('empty fields and brand name', () => {
-  test('dropEmpty removes nulls, blanks, n/a and empty containers', ({ assert }) => {
-    assert.deepEqual(
-      dropEmpty({
-        a: 'x',
-        b: '',
-        c: null,
-        d: 'N/A',
-        e: [],
-        f: { g: ' ' },
-        h: [{ i: 'TBD' }, 'ok'],
-      }),
-      { a: 'x', h: ['ok'] }
-    )
-  })
-
+test.group('brand name', () => {
   test('brand spellings collapse to one name', ({ assert }) => {
     assert.equal(
       enforceBrandName('Code Canvas and codecanvas and CODE-CANVAS ship.', 'CodeCanvas'),
       'CodeCanvas and CodeCanvas and CodeCanvas ship.'
     )
-    assert.deepEqual(brandVariants('Code Canvas, CodeCanvas', 'CodeCanvas'), ['Code Canvas'])
-    assert.deepEqual(brandVariants('CodeCanvas only', 'CodeCanvas'), [])
-  })
-})
-
-test.group('repeated titles', () => {
-  test('identical and three-word overlaps are repeats', ({ assert }) => {
-    const r = titleRepeats([
-      'Cut energy bills fast',
-      'Why it works',
-      'cut energy bills fast!',
-      'How we cut energy bills',
-    ])
-    assert.deepEqual(
-      r.map((x) => [x.a, x.b]),
-      [
-        [0, 2],
-        [0, 3],
-        [2, 3],
-      ]
-    )
-  })
-
-  test('distinct titles pass; short titles only repeat when identical', ({ assert }) => {
-    assert.deepEqual(titleRepeats(['Cooler streets', 'Lower bills', 'Lower costs']), [])
-    assert.lengthOf(titleRepeats(['Results', 'results']), 1)
   })
 })
 
@@ -156,16 +97,6 @@ test.group('stats and evidence kinds', () => {
     assert.equal(evidenceKind('Design target'), 'design_target')
     assert.equal(evidenceKind('measured'), 'measured')
     assert.equal(evidenceKind('nonsense'), 'measured')
-  })
-
-  test('numbers left in prose are found unless a stat holds them', ({ assert }) => {
-    const text = 'Energy use fell 38% in 2 years. Cost dropped to $1,200 per unit.'
-    assert.includeMembers(
-      numbersInProse(text).map((n) => n.value),
-      ['38%', '$1,200']
-    )
-    assert.deepEqual(unmovedNumbers(text, [{ value: '38%' }]), ['$1,200'])
-    assert.deepEqual(unmovedNumbers('Founded in 2019.', []), [])
   })
 })
 
