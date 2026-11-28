@@ -147,6 +147,9 @@ export const HEADER = {
   intro: { y: 127.99, w: 430, lines: 4 },
 } as const
 
+/** The label an AI-generated picture carries on the page and in the image library. */
+export const ILLUSTRATION_LABEL = 'AI-generated illustration'
+
 export const ENTRY = {
   bodyTop: 207,
   figure: { x: MARGIN, y: 207, w: 221.25, h: 309.75, radius: 3.5, hairline: 0.75 },
