@@ -10,6 +10,7 @@ import CanvasService from '#services/canvas/canvas_service'
 import TaskDispatchService from '#services/workspaces/task_dispatch_service'
 import { templateSelection } from '../../shared/brochure/designs.ts'
 import { reset } from '../helpers/workspaces.ts'
+import { installAiDesignModel } from '../helpers/ai_design.ts'
 import {
   flagsOff,
   installPortfolioModel,
@@ -108,11 +109,11 @@ test.group('New case study: the portfolio layout', (group) => {
     )
   }).timeout(30_000)
 
-  test('"Let AI choose" stores the AI options as sent and routes to the canvas', async ({
+  test('"Let AI choose" stores the AI options, lands on the canvas and saves an AI-designed canvas', async ({
     client,
     assert,
   }) => {
-    model = installPortfolioModel()
+    const design = installAiDesignModel()
     const g = await portfolioGeneratable(1)
     const canvas = { templateSet: 'ai_design', entries: 3, depth: 'concise', images: true }
     const response = await create(client, g, { canvas })
@@ -133,7 +134,24 @@ test.group('New case study: the portfolio layout', (group) => {
         .then((r) => r.status),
       'queued'
     )
-  })
+
+    // With ai_design in the options schema, the canvas page opens on the queued run.
+    const before = await page(client, g, `/documents/${doc.id}/canvas`)
+    before.assertStatus(200)
+    assert.equal(before.body().props.generation.run.status, 'queued')
+
+    try {
+      await new TaskDispatchService().dispatch()
+    } finally {
+      design.restore()
+    }
+    await doc.refresh()
+    assert.equal(doc.generationStatus, 'ready')
+    const saved = await DocumentCanvas.query()
+      .where('versionId', doc.currentVersionId!)
+      .firstOrFail()
+    assert.equal(saved.templateKey, 'ai_design')
+  }).timeout(30_000)
 
   test('canvas options the portfolio does not offer are rejected, and nothing is created', async ({
     client,
