@@ -12,12 +12,15 @@ export default function Create({
   files,
   projects,
   initialProjectId,
+  canvasGeneration = false,
 }: {
   /** Still sent by the server; the outline templates are no longer offered here. */
   templates?: OutlineTemplate[]
   files: Data.File[]
   projects: Data.Project[]
   initialProjectId?: string | null
+  /** Canvas page generation is on: template and AI case studies are generated in the canvas. */
+  canvasGeneration?: boolean
 }) {
   const workspaceId = useWorkspaceId()
   return (
@@ -34,7 +37,12 @@ export default function Create({
           </Link>
         </Button>
       </header>
-      <DocumentForm files={files} projects={projects} initialProjectId={initialProjectId} />
+      <DocumentForm
+        files={files}
+        projects={projects}
+        initialProjectId={initialProjectId}
+        canvasGeneration={canvasGeneration}
+      />
       <BeeCreateTour />
     </div>
   )
