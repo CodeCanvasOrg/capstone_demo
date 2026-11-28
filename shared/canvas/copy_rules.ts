@@ -77,27 +77,6 @@ export function stripInlineCitations(value: string): string {
     .trim()
 }
 
-const SUPERSCRIPT = '⁰¹²³⁴⁵⁶⁷⁸⁹'
-/** 12 -> "¹²": the footnote marker the layout shows for the n-th source. */
-export const footnoteMarker = (n: number) =>
-  String(Math.max(Math.trunc(n), 0))
-    .split('')
-    .map((d) => SUPERSCRIPT[Number(d)])
-    .join('')
-
-/**
- * Footnote numbers for the chunks a page cites, in first-use order, and the sources list
- * that goes with them. Pass the ids in reading order (repeats are fine).
- */
-export function footnotesFor(chunkIds: readonly string[], titleOf: (id: string) => string) {
-  const order: string[] = []
-  for (const id of chunkIds) if (!order.includes(id)) order.push(id)
-  return {
-    numbers: new Map(order.map((id, i) => [id, i + 1])),
-    sources: order.map((id, i) => ({ n: i + 1, chunkId: id, title: titleOf(id) })),
-  }
-}
-
 // -------------------------------------------------------- gap sentences
 
 const GAP = [
@@ -132,53 +111,6 @@ export function stripGapSentences(value: string): { text: string; gaps: string[]
   return { text: keep.join(' ').trim(), gaps }
 }
 
-// ------------------------------------------------------- empty fields
-
-const isEmpty = (v: unknown) =>
-  v === null ||
-  v === undefined ||
-  (typeof v === 'string' &&
-    (!v.trim() || /^(n\/a|none|tbd|null|undefined|-|—)$/i.test(v.trim()))) ||
-  (Array.isArray(v) && !v.length)
-
-/** Drops fields that carry no content, so a missing fact leaves no explanation behind. */
-export function dropEmpty<T>(value: T): T {
-  if (Array.isArray(value))
-    return value
-      .map(dropEmpty)
-      .filter((v) => !isEmpty(v) && !(isRecord(v) && !Object.keys(v).length)) as T
-  if (isRecord(value)) {
-    const out: Record<string, unknown> = {}
-    for (const [key, item] of Object.entries(value)) {
-      const next = dropEmpty(item)
-      if (!isEmpty(next) && !(isRecord(next) && !Object.keys(next).length)) out[key] = next
-    }
-    return out as T
-  }
-  return value
-}
-const isRecord = (v: unknown): v is Record<string, unknown> =>
-  !!v && typeof v === 'object' && !Array.isArray(v)
-
-/**
- * Applies `fn` to every string in a structure, except keys listed in `skip` (ids, enums).
- * Returns a copy.
- */
-export function mapStrings<T>(
-  value: T,
-  fn: (s: string, key: string) => string,
-  skip: readonly string[] = [],
-  key = ''
-): T {
-  if (typeof value === 'string') return fn(value, key) as T
-  if (Array.isArray(value)) return value.map((v) => mapStrings(v, fn, skip, key)) as T
-  if (isRecord(value))
-    return Object.fromEntries(
-      Object.entries(value).map(([k, v]) => [k, skip.includes(k) ? v : mapStrings(v, fn, skip, k)])
-    ) as T
-  return value
-}
-
 // ----------------------------------------------------------- brand name
 
 const squash = (s: string) => s.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '')
@@ -194,17 +126,7 @@ export function enforceBrandName(value: string, brand: string): string {
   return value.replace(pattern, (m) => (squash(m) === key ? brand : m))
 }
 
-/** Distinct spellings of the brand found in the text that differ from `brand`. */
-export function brandVariants(value: string, brand: string): string[] {
-  const out = new Set<string>()
-  const fixed = enforceBrandName(value, brand)
-  if (fixed === value) return []
-  const pattern = new RegExp(`\\b${[...squash(brand)].join('[\\s\\-_.]?')}\\b`, 'gi')
-  for (const m of value.matchAll(pattern)) if (m[0] !== brand) out.add(m[0])
-  return [...out]
-}
-
-// ------------------------------------------------------- repeated titles
+// ------------------------------------------------------- word splitting
 
 const words = (s: string) =>
   s
@@ -212,52 +134,12 @@ const words = (s: string) =>
     .split(/[^\p{L}\p{N}]+/u)
     .filter(Boolean)
 
-const STOP = new Set(
-  'a an and are as at be but by for from how in into is it its of on or our that the their this to we what when where which who why with you your'.split(
-    ' '
-  )
-)
-/** Words that carry meaning: a repeated "of the" is not a repeated title. */
-const content = (s: string) => words(s).filter((w) => !STOP.has(w))
-
 const grams = (s: string, n: number, only = words) => {
   const w = only(s)
   const out = new Set<string>()
   if (w.length < n) return out
   for (let i = 0; i + n <= w.length; i++) out.add(w.slice(i, i + n).join(' '))
   return out
-}
-
-/** Longest run of words two titles share, as a share of the shorter title. */
-export function titleOverlap(a: string, b: string, n = 3): number {
-  const wa = content(a)
-  const wb = content(b)
-  if (!wa.length || !wb.length) return 0
-  const size = Math.min(n, wa.length, wb.length)
-  const x = grams(a, size, content)
-  const y = grams(b, size, content)
-  let shared = 0
-  for (const g of x) if (y.has(g)) shared++
-  return shared / Math.min(x.size, y.size)
-}
-
-export type TitleRepeat = { a: number; b: number; titles: [string, string] }
-
-/**
- * Titles (headlines, page titles, section headings) that repeat each other: identical, or
- * sharing a run of `n` meaningful words. Returns index pairs so the caller can ask for a rewrite.
- */
-export function titleRepeats(titles: readonly string[], n = 3): TitleRepeat[] {
-  const found: TitleRepeat[] = []
-  for (let i = 0; i < titles.length; i++)
-    for (let j = i + 1; j < titles.length; j++) {
-      const a = titles[i]
-      const b = titles[j]
-      if (!a?.trim() || !b?.trim()) continue
-      if (words(a).join(' ') === words(b).join(' ') || titleOverlap(a, b, n) > 0)
-        found.push({ a: i, b: j, titles: [a, b] })
-    }
-  return found
 }
 
 // ------------------------------------------------------- stats and evidence
@@ -282,32 +164,6 @@ const KIND_ALIASES: Record<string, EvidenceKind> = {
 }
 export const evidenceKind = (value: string | null | undefined): EvidenceKind =>
   KIND_ALIASES[(value ?? '').toLowerCase().trim()] ?? 'measured'
-
-export type Stat = { value: string; label: string; kind: EvidenceKind }
-
-const NUMBER =
-  /(?:[~≈<>]\s?)?[$€£]?\d[\d.,]*\s?(?:%|x|×|ms|s|k|m|bn|million|billion|thousand|days?|weeks?|months?|years?|hours?|minutes?)?/giu
-
-/** Numbers in running prose that deserve a stat field: the value and the words before it. */
-export function numbersInProse(text: string): { value: string; context: string }[] {
-  const out: { value: string; context: string }[] = []
-  for (const sentence of sentences(text))
-    for (const m of sentence.matchAll(NUMBER)) {
-      const value = m[0].trim().replace(/[.,]+$/, '')
-      if (!/\d/.test(value) || /^\d{4}$/.test(value)) continue
-      if (!/[%x×$€£]|[a-z]/i.test(value) && value.replace(/\D/g, '').length < 2) continue
-      out.push({ value, context: sentence })
-    }
-  return out
-}
-
-/** Whether prose still carries a number that is not in any stat: the model should have moved it. */
-export function unmovedNumbers(text: string, stats: readonly Pick<Stat, 'value'>[]): string[] {
-  const have = new Set(stats.map((s) => s.value.replace(/\s/g, '')))
-  return numbersInProse(text)
-    .map((n) => n.value)
-    .filter((v) => /%|[x×$€£]|\d{2,}/.test(v) && !have.has(v.replace(/\s/g, '')))
-}
 
 // ------------------------------------------------------ chunk dedupe
 
