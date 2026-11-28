@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { urlFor } from '@/client'
 import { api } from '@/lib/api'
-import type { CanvasOptions } from '../../../shared/canvas/academic/options.ts'
+import type { CanvasOptions } from '../../../shared/canvas/options.ts'
 
 /** What "Generate pages" sends and remembers. */
 export type GenerationOptions = CanvasOptions
@@ -56,23 +56,45 @@ export const isActive = (run: Run | null) => !!run && ACTIVE.includes(run.status
 
 /** The steps the progress shows, in order; "writing" names the page being written. */
 export const STEPS = [
-  { key: 'planning', label: 'Planning' },
+  { key: 'planning', label: 'Planning the entries' },
   { key: 'retrieving', label: 'Gathering evidence' },
+  { key: 'images', label: 'Choosing pictures' },
   { key: 'writing', label: 'Writing' },
-  { key: 'fitting', label: 'Fitting' },
-  { key: 'images', label: 'Placing images' },
+  { key: 'fitting', label: 'Writing the cover' },
   { key: 'composing', label: 'Laying out' },
 ] as const
 
-/** "Writing page 3 of 8": the pages written so far, counted from the run's page rows. */
+/** "Writing entry 2 of 4": the entries written so far, counted from the run's page rows. */
 export function stepLabel(run: Run, key: (typeof STEPS)[number]['key']) {
   const step = STEPS.find((s) => s.key === key)!
   if (key !== 'writing') return step.label
-  const total = run.pages.filter((p) => !['contents', 'references'].includes(p.design)).length
-  const done = run.pages.filter((p) => p.status !== 'pending').length
-  return total && run.status === 'writing'
-    ? `Writing page ${Math.min(done + 1, total)} of ${total}`
+  const entries = run.pages.filter((p) => p.design === 'entry')
+  const done = entries.filter((p) => p.status !== 'pending').length
+  return entries.length && run.status === 'writing'
+    ? `Writing entry ${Math.min(done + 1, entries.length)} of ${entries.length}`
     : step.label
+}
+
+/**
+ * What a page is called in the strip: the cover, Entry 2, and the Sources of that entry.
+ * Entries are counted in page order, so a sources page takes the number of the entry before it.
+ */
+export function pageLabel(pages: readonly Pick<RunPage, 'design'>[], index: number) {
+  const design = pages[index]?.design
+  if (design === 'cover') return 'Cover'
+  if (design !== 'entry' && design !== 'sources') return (design ?? '').replaceAll('_', ' ')
+  const entry = pages.slice(0, index + 1).filter((p) => p.design === 'entry').length
+  const part =
+    design === 'sources'
+      ? pages
+          .slice(0, index)
+          .filter(
+            (p, i) =>
+              p.design === 'sources' &&
+              pages.slice(0, i).filter((q) => q.design === 'entry').length === entry
+          ).length
+      : 0
+  return design === 'entry' ? `Entry ${entry}` : `Sources ${entry}${part ? ` (${part + 1})` : ''}`
 }
 
 /** Index of the run's current step, or -1 before it starts. */
@@ -86,12 +108,12 @@ export const stepIndex = (run: Run) =>
 export type Quality = { level: 'ok' | 'warn' | 'bad'; reasons: string[] }
 
 /**
- * Amber when a page is under 70% full, cites fewer than two sources or has a picture
- * under 200 dpi; red when it has placeholders to fill in. Pages the application
- * writes (contents, references) have no quality to show.
+ * Amber when an entry uses under 70% of its rows' space, cites fewer than two sources or has a
+ * picture under 200 dpi; red when it has placeholders to fill in. The cover and the sources
+ * pages (which the application writes) have no quality to show.
  */
 export function quality(page: RunPage): Quality | null {
-  if (['contents', 'references'].includes(page.design)) return null
+  if (page.design !== 'entry') return null
   const reasons: string[] = []
   let level: Quality['level'] = 'ok'
   if (page.placeholders > 0) {
@@ -103,8 +125,7 @@ export function quality(page: RunPage): Quality | null {
     reasons.push(reason)
   }
   if (page.fill !== null && page.fill < 0.7) warn(`${Math.round(page.fill * 100)}% full`)
-  if (page.design !== 'title_page' && page.citations < 2)
-    warn(page.citations ? 'One citation' : 'No citations')
+  if (page.citations < 2) warn(page.citations ? 'One citation' : 'No citations')
   if (page.dpi !== null && page.dpi < 200)
     warn(`Picture is ${page.dpi} dpi (200 or more prints sharp)`)
   return { level, reasons }

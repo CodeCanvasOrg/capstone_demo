@@ -1,96 +1,62 @@
 import { test } from '@japa/runner'
-import { PLACEHOLDER } from '../../shared/brochure/content.ts'
 import {
-  composeAcademic,
-  composeAcademicSheet,
-  type AcademicMeta,
-} from '../../shared/canvas/academic/compose.ts'
-import {
-  DEFAULT_THRESHOLDS,
   densityReport,
   overlap,
+  pageKind,
   pageMetrics,
   pageProblems,
+  DEFAULT_THRESHOLDS,
 } from '../../shared/canvas/density.ts'
-import { IMAGE } from '../fixtures/canvas/index.ts'
-import { prose, samplePage } from '../fixtures/canvas/academic.ts'
+import {
+  CANVAS_SCHEMA_VERSION,
+  type CanvasDocument,
+  type Sheet,
+} from '../../shared/canvas/model.ts'
+import { PLACEHOLDER } from '../../shared/brochure/content.ts'
+import { CHUNK, IMAGE, minimal } from '../fixtures/canvas/index.ts'
+import { PROSE } from '../fixtures/canvas/prose.ts'
 
-const meta: AcademicMeta = { title: 'T', label: 'Report', keywords: [], references: [] }
-const image = { imageId: IMAGE, alt: 'a', caption: 'c' }
+const paragraphs = (texts: string[], cited = false) =>
+  texts.map((value, i) => ({
+    type: 'paragraph',
+    content: [
+      { type: 'text', text: value },
+      ...(cited && i === 0 ? [{ type: 'sourceCitation', attrs: { sourceChunkId: CHUNK } }] : []),
+    ],
+  }))
 
+const textFrame = (
+  id: string,
+  geo: { x: number; y: number; w: number; h: number },
+  doc: unknown[]
+) => ({
+  id,
+  kind: 'text',
+  geo,
+  z: 1,
+  order: 0,
+  style: {},
+  doc,
+})
+
+const sheetOf = (id: string, frames: unknown[]) =>
+  ({ id, background: 'white', frames }) as unknown as Sheet
+
+const TITLE_GEO = { x: 200, y: 200, w: 1700, h: 300 }
+const BODY_GEO = { x: 200, y: 600, w: 1700, h: 2000 }
+
+/** A content page: a title and a flowing body, cited or not. */
+const contentSheet = (id: string, texts: string[], cited = true) =>
+  sheetOf(id, [
+    textFrame(`${id}-ttl`, TITLE_GEO, paragraphs(['Heading'])),
+    textFrame(`${id}-body`, BODY_GEO, paragraphs(texts, cited)),
+  ])
+
+// The density report still measures saved canvases made before the portfolio template
+// (`canvas:density`); portfolio canvases use `portfolioReport`.
 test.group('canvas density', () => {
-  test('a well filled page passes every threshold', ({ assert }) => {
-    const m = pageMetrics(
-      composeAcademicSheet({ design: 'essay', page: samplePage('essay') }, 2, meta),
-      2
-    )
-    assert.equal(m.kind, 'content')
-    assert.isAtLeast(m.words, DEFAULT_THRESHOLDS.minWords)
-    assert.isAtLeast(m.fill ?? 0, 0.7)
-    assert.isAtLeast(m.citations, 2)
-    assert.equal(m.placeholders, 0)
-    assert.deepEqual(pageProblems(m), [])
-  })
-
-  test('a thin page is reported with its words and fill', ({ assert }) => {
-    const page = samplePage('essay', { fill: 0.1 })
-    const m = pageMetrics(composeAcademicSheet({ design: 'essay', page }, 2, meta), 2)
-    const codes = pageProblems(m).map((p) => p.code)
-    assert.include(codes, 'fill')
-    assert.include(
-      pageProblems(m, { ...DEFAULT_THRESHOLDS, minWords: m.words + 1 }).map((p) => p.code),
-      'words'
-    )
-    assert.equal(m.fit, 'thin')
-  })
-
-  test('an overflowing frame is reported', ({ assert }) => {
-    const page = samplePage('essay', { fill: 1.6 })
-    const m = pageMetrics(composeAcademicSheet({ design: 'essay', page }, 2, meta), 2)
-    assert.equal(m.fit, 'over')
-    assert.include(
-      pageProblems(m).map((p) => p.code),
-      'overflow'
-    )
-  })
-
-  test('uncited pages and placeholders are reported', ({ assert }) => {
-    const page = samplePage('essay', { uncited: true })
-    page.sections[0].paragraphs[0].text = PLACEHOLDER
-    const m = pageMetrics(composeAcademicSheet({ design: 'essay', page }, 2, meta), 2)
-    assert.equal(m.citations, 0)
-    assert.equal(m.placeholders, 1)
-    const codes = pageProblems(m).map((p) => p.code)
-    assert.includeMembers(codes, ['citations', 'placeholders'])
-  })
-
-  test('title, contents and references are exempt from the content thresholds', ({ assert }) => {
-    const canvas = composeAcademic(
-      [
-        { design: 'title_page', page: samplePage('title_page') },
-        { design: 'contents' },
-        { design: 'references' },
-      ],
-      { ...meta, references: [{ label: 'source.pdf', pages: 'p. 1' }] }
-    )
-    const report = densityReport(canvas)
-    assert.deepEqual(
-      report.pages.map((p) => p.kind),
-      ['title', 'contents', 'references']
-    )
-    assert.deepEqual(
-      report.pages.flatMap((p) => pageProblems(p)),
-      []
-    )
-    assert.equal(report.avgFill, 0)
-  })
-
   test('image resolution comes from the pixel size and the frame', ({ assert }) => {
-    const sheet = composeAcademicSheet(
-      { design: 'figure_text', page: samplePage('figure_text'), image },
-      2,
-      meta
-    )
+    const sheet = minimal().sheets[1]
     const sharp = pageMetrics(sheet, 2, {
       images: new Map([[IMAGE, { width: 2400, height: 1600 }]]),
     })
@@ -99,46 +65,118 @@ test.group('canvas density', () => {
     const soft = pageMetrics(sheet, 2, { images: new Map([[IMAGE, { width: 600, height: 400 }]]) })
     assert.isBelow(soft.images[0].dpi ?? 999, 200)
     assert.equal(soft.lowDpiImages, 1)
-    assert.include(
-      pageProblems(soft).map((p) => p.code),
-      'dpi'
-    )
     // An image whose size is unknown is not guessed at.
     assert.isNull(pageMetrics(sheet, 2).images[0].dpi)
   })
 
+  test('citations are counted', ({ assert }) => {
+    assert.equal(pageMetrics(minimal().sheets[0], 1).citations, 1)
+  })
+
   test('the document report totals its pages', ({ assert }) => {
-    const canvas = composeAcademic(
-      [
-        { design: 'essay', page: samplePage('essay') },
-        { design: 'two_column', page: samplePage('two_column') },
-      ],
-      meta
-    )
-    const report = densityReport(canvas)
+    const report = densityReport(minimal())
     assert.equal(report.pages.length, 2)
     assert.equal(report.words, report.pages[0].words + report.pages[1].words)
-    assert.isAbove(report.avgFill, 0.7)
-    assert.isAbove(report.citations, 4)
+    assert.equal(report.citations, 1)
   })
 
   test('phrase overlap finds repeated pages and ignores different ones', ({ assert }) => {
-    assert.isAbove(overlap(prose(120), prose(120)), 0.9)
+    assert.isAbove(overlap(PROSE[0], PROSE[0]), 0.9)
     assert.isBelow(
-      overlap(
-        prose(60, 0),
-        'Quite different words appear here and nothing is repeated at all today'
-      ),
+      overlap(PROSE[0], 'Quite different words appear here and nothing is repeated at all today'),
       0.05
     )
-    assert.equal(overlap('', prose(20)), 0)
-    const same = composeAcademic(
-      [
-        { design: 'essay', page: samplePage('essay') },
-        { design: 'essay', page: samplePage('essay') },
-      ],
-      meta
+    assert.equal(overlap('', PROSE[1]), 0)
+  })
+
+  test('pageKind reads the roles of the frames', ({ assert }) => {
+    assert.equal(pageKind(sheetOf('s0', [textFrame('s0-band', TITLE_GEO, [])])), 'title')
+    assert.equal(pageKind(sheetOf('s0', [textFrame('s0-titles', TITLE_GEO, [])])), 'contents')
+    assert.equal(pageKind(sheetOf('s0', [textFrame('s0-list', TITLE_GEO, [])])), 'references')
+    assert.equal(pageKind(contentSheet('s0', [PROSE[0]])), 'content')
+    assert.equal(pageKind(sheetOf('s0', [textFrame('s0-f0', TITLE_GEO, [])])), 'other')
+  })
+
+  test('pageProblems reports a nearly empty body as fill', ({ assert }) => {
+    const page = pageMetrics(contentSheet('s0', ['A short note.']), 0)
+    assert.include(
+      pageProblems(page, { ...DEFAULT_THRESHOLDS, minWords: 0, minCitations: 0 }).map(
+        (p) => p.code
+      ),
+      'fill'
     )
-    assert.isAbove(densityReport(same).maxOverlap, 0.15)
+  })
+
+  test('pageProblems reports words when minWords is above the page', ({ assert }) => {
+    const page = pageMetrics(contentSheet('s0', PROSE.slice(0, 2)), 0)
+    const codes = (minWords: number) =>
+      pageProblems(page, { minWords, minFill: 0, minCitations: 0 }).map((p) => p.code)
+    assert.include(codes(page.words + 1), 'words')
+    assert.notInclude(codes(page.words), 'words')
+  })
+
+  test('pageProblems reports overflow for text far over its frame', ({ assert }) => {
+    const sheet = sheetOf('s0', [
+      textFrame('s0-ttl', TITLE_GEO, paragraphs(['Heading'])),
+      textFrame('s0-body', { x: 200, y: 600, w: 400, h: 200 }, paragraphs(PROSE, true)),
+    ])
+    const page = pageMetrics(sheet, 0)
+    assert.isAbove(page.maxFrameFill ?? 0, 1)
+    assert.include(
+      pageProblems(page, { minWords: 0, minFill: 0, minCitations: 0 }).map((p) => p.code),
+      'overflow'
+    )
+  })
+
+  test('pageProblems reports citations and placeholders for an uncited placeholder body', ({
+    assert,
+  }) => {
+    const page = pageMetrics(contentSheet('s0', [PLACEHOLDER], false), 0)
+    const codes = pageProblems(page).map((p) => p.code)
+    assert.include(codes, 'citations')
+    assert.include(codes, 'placeholders')
+  })
+
+  test('pageProblems reports dpi for the 600x400 image', ({ assert }) => {
+    const sheet = sheetOf('s0', [
+      textFrame('s0-ttl', TITLE_GEO, paragraphs(['Heading'])),
+      textFrame('s0-body', BODY_GEO, paragraphs(PROSE, true)),
+      {
+        id: 's0-pic',
+        kind: 'image',
+        geo: { x: 200, y: 200, w: 1000, h: 800 },
+        z: 2,
+        order: 2,
+        style: {},
+        imageId: IMAGE,
+        alt: 'A scanner',
+        fit: 'cover',
+      },
+    ])
+    const page = pageMetrics(sheet, 0, {
+      images: new Map([[IMAGE, { width: 600, height: 400 }]]),
+    })
+    assert.include(
+      pageProblems(page).map((p) => p.code),
+      'dpi'
+    )
+  })
+
+  test('title, contents and references pages produce no problems', ({ assert }) => {
+    for (const role of ['band', 'titles', 'list']) {
+      const sheet = sheetOf('s0', [
+        textFrame(`s0-${role}`, TITLE_GEO, paragraphs(['Heading'])),
+        textFrame('s0-body', BODY_GEO, paragraphs([PLACEHOLDER])),
+      ])
+      assert.deepEqual(pageProblems(pageMetrics(sheet, 0)), [], role)
+    }
+  })
+
+  test('densityReport finds a page that repeats an earlier page', ({ assert }) => {
+    const report = densityReport({
+      schemaVersion: CANVAS_SCHEMA_VERSION,
+      sheets: [contentSheet('s0', [PROSE[0]]), contentSheet('s1', [PROSE[0]])],
+    } as CanvasDocument)
+    assert.isAbove(report.maxOverlap, 0.15)
   })
 })

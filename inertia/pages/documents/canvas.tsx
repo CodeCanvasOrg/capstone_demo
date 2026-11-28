@@ -44,7 +44,7 @@ type Props = {
     baseVersionId: string | null
   }
   brand: { palette: BrandKit['palette']; fonts: string[] } | null
-  /** Academic page generation: off, or the last options, the picture count and the latest run. */
+  /** Portfolio page generation: off, or the last options, the picture count and the latest run. */
   generation:
     | { enabled: false }
     | { enabled: true; options: GenerationOptions; images: number; run: Run | null }
@@ -183,19 +183,6 @@ function Editor({
       )
     }
   }
-  const pageDesign = async (index: number, design: string) => {
-    try {
-      await api(urlFor('canvasGenerations.design', { ...params, index }), 'POST', {
-        mutationId: crypto.randomUUID(),
-        baseVersionId: canvas.baseVersion(),
-        design,
-      })
-      window.location.reload()
-    } catch (err) {
-      toast.error(feedbackError(err).message)
-    }
-  }
-
   const previewUrl = urlFor('documentPreview.show', { workspaceId, documentId: document.id })
   /**
    * The preview draws the autosaved draft, so pending changes (a box just deleted)
@@ -362,7 +349,6 @@ function Editor({
             onChange={canvas.changed}
             generated={generated}
             onAction={pageAction}
-            onDesign={pageDesign}
             actionsBlocked={blocked}
           />
         </aside>

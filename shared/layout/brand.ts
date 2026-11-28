@@ -10,6 +10,8 @@ export type BrandFont = {
   file: string
   /** Variable fonts are rejected for published kits: Chromium may emit Type 3 for them. */
   variable?: boolean
+  /** `truetype` for a file in this repository (`public/fonts/...`); woff2 packages otherwise. */
+  format?: 'woff2' | 'truetype'
 }
 
 export type BrandKit = {
@@ -34,6 +36,8 @@ export type BrandKit = {
   contact: { email?: string; website?: string; phone?: string }
   /** Who confirmed the identity values; null until marketing signs off (D-BRAND). */
   confirmedBy: string | null
+  /** Owned by a canvas template, never offered as a layout brand. */
+  templateOnly?: boolean
 }
 
 export type BrandFinding = {
@@ -54,6 +58,14 @@ const manrope = (weight: number): BrandFont => ({
   family: 'Manrope',
   weight,
   file: `@fontsource/manrope/files/manrope-latin-${weight}-normal.woff2`,
+})
+
+/** Static Inter instances shipped in `public/fonts/portfolio` (opsz 14 text, opsz 32 display). */
+const inter = (family: string, weight: number, optical: number): BrandFont => ({
+  family,
+  weight,
+  file: `public/fonts/portfolio/Inter-${weight}-${optical}.ttf`,
+  format: 'truetype',
 })
 
 export const BRAND_KITS: readonly BrandKit[] = deepFreeze([
@@ -88,6 +100,33 @@ export const BRAND_KITS: readonly BrandKit[] = deepFreeze([
     ],
     contact: {},
     confirmedBy: null,
+  },
+  {
+    // The navy and gold portfolio template's own kit (docs/design/portfolio-template/tokens.json).
+    id: 'portfolio',
+    version: 1,
+    name: 'Navy and gold portfolio',
+    status: 'published',
+    palette: {
+      primary: '#14213d',
+      accent: '#f2a900',
+      accentText: '#8a6a10',
+      text: '#14213d',
+      muted: '#6b7280',
+      background: '#ffffff',
+      surface: '#f6f4ee',
+    },
+    fonts: [
+      inter('Inter', 400, 14),
+      inter('Inter', 600, 14),
+      inter('Inter', 700, 14),
+      inter('Inter Display', 700, 32),
+    ],
+    logo: { assetId: 'wordmark-text', kind: 'text' },
+    glossary: [],
+    contact: {},
+    confirmedBy: null,
+    templateOnly: true,
   },
 ])
 

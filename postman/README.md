@@ -30,7 +30,7 @@ Template canonical responses are modeled by the same local mock. `tests/function
 
 ## Canvas generation
 
-`contracts/canvas-generation.yaml` is the local contract for the academic page generation routes of the canvas editor, and `collections/canvas-generation.postman_collection.json` has a "Canvas generation" folder with a request and test script for each: generate, status, regenerate a page and change a page's design. The mock now also answers the structured calls of the canvas pipeline (`plan_canvas`, `write_canvas_page`, `caption_figure`) with synthetic content, so the pipeline can be driven end to end through the local simulation without a provider key.
+`contracts/canvas-generation.yaml` is the local contract for the portfolio page generation routes of the canvas editor (`docs/portfolio-template-plan.md`), and `collections/canvas-generation.postman_collection.json` has a request and test script for each: generate (defaults, detailed with three entries and no images, invalid options), status, rewrite or add depth to entry 1, rewrite the cover, and the refusal of a sources page. The "change a page's design" route no longer exists: the portfolio has one design per page kind. The mock answers the structured calls of the portfolio pipeline (`plan_portfolio`, `write_portfolio_entry`, `write_portfolio_cover`) with synthetic content, so the pipeline can be driven end to end through the local simulation without a provider key.
 
 The routes need a signed-in session and a document open in the canvas editor, so the collection is run against a local dev server (`CANVAS_EDITOR=pilot CANVAS_GENERATION=on`), with `workspaceId`, `documentId`, `baseVersionId` and `csrfToken` set from a browser session:
 
@@ -39,4 +39,4 @@ postman collection run postman/collections/canvas-generation.postman_collection.
   --env-var workspaceId=<uuid> --env-var documentId=<uuid> --env-var baseVersionId=<uuid> --env-var csrfToken=<token>
 ```
 
-Not run yet: the Postman CLI was not available on the machine this was written on (see `docs/canvas-academic-pipeline-verification.md`). The same behaviour is covered by `tests/functional/canvas_generation_http.spec.ts`.
+The same behaviour is covered by `tests/functional/portfolio_generation_http.spec.ts`. The design checks (`node ace portfolio:template:check`) are not HTTP and are not in the collection.

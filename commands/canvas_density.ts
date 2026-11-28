@@ -36,6 +36,8 @@ export default class CanvasDensity extends BaseCommand {
     }
     const { default: CanvasOperator } = await import('#services/canvas/generation/canvas_operator')
     const { DEFAULT_THRESHOLDS, pageProblems } = await import('../shared/canvas/density.ts')
+    const { PORTFOLIO_THRESHOLDS, portfolioProblems } =
+      await import('../shared/canvas/portfolio/quality.ts')
     const thresholds = { ...DEFAULT_THRESHOLDS, minWords: this.minWords, minFill: this.minFill }
     const operator = new CanvasOperator()
     const documents = await operator.canvasDocuments(this.workspace, this.document)
@@ -43,7 +45,12 @@ export default class CanvasDensity extends BaseCommand {
     for (const document of documents) {
       const report = await operator.density(document)
       if (!report) continue
-      const problems = report.pages.flatMap((page) => pageProblems(page, thresholds))
+      // A portfolio's entry pages are measured by their rows; words are not a threshold there.
+      const problems = report.pages.flatMap((page) =>
+        'portfolio' in page
+          ? portfolioProblems(page as never, { ...PORTFOLIO_THRESHOLDS, minFill: this.minFill })
+          : pageProblems(page, thresholds)
+      )
       reports.push({ documentId: document.id, title: document.title, report, problems })
     }
     const failing = reports.some((r) => r.problems.length)
@@ -65,7 +72,7 @@ export default class CanvasDensity extends BaseCommand {
       )
       for (const page of report.pages)
         this.logger.log(
-          `  page ${page.index + 1}  ${page.kind.padEnd(10)} ${String(page.words).padStart(4)} words  fill ${
+          `  page ${page.index + 1}  ${('portfolio' in page && page.portfolio ? String(page.portfolio) : page.kind).padEnd(10)} ${String(page.words).padStart(4)} words  fill ${
             page.fill === null ? '   -' : `${String(Math.round(page.fill * 100)).padStart(3)}%`
           }  ${page.citations} cited`
         )

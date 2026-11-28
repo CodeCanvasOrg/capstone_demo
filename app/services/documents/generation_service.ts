@@ -29,7 +29,7 @@ import CanvasService from '#services/canvas/canvas_service'
 import CanvasGenerationService, {
   canvasGenerationEnabled,
 } from '#services/canvas/generation/canvas_generation_service'
-import { canvasOptionsSchema, type CanvasOptions } from '../../../shared/canvas/academic/options.ts'
+import { canvasOptionsSchema, type CanvasOptions } from '../../../shared/canvas/options.ts'
 import { DateTime } from 'luxon'
 import AccessService, {
   conflict,

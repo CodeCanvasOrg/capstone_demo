@@ -4,6 +4,7 @@ import { FONT_SCALE, type CanvasColor, type FontFamily, type Frame, type Sheet }
 
 /** Safe font stacks; `brand` inherits the brand font set on the page. */
 export const FONT_STACKS: Record<Exclude<FontFamily, 'brand'>, string> = {
+  display: '"Inter Display",Inter,"Helvetica Neue",Arial,sans-serif',
   sans: 'Inter,"Helvetica Neue",Arial,sans-serif',
   serif: 'Georgia,"Times New Roman",serif',
   mono: '"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace',
@@ -68,6 +69,15 @@ export function lookCss(frame: Frame): Record<string, string> {
   if (s.fill && s.fillAlpha !== undefined && s.fillAlpha < 100)
     css.background = `color-mix(in srgb,${color(s.fill)} ${s.fillAlpha}%,transparent)`
   if (s.color) css.color = color(s.color)!
+  if (s.strongColor) {
+    css['--cv-strong'] = color(s.strongColor)!
+    // Bold runs only change colour: the frame's own weight stays.
+    css['--cv-strong-weight'] = 'inherit'
+  }
+  if (s.citeColor) css['--cv-cite'] = color(s.citeColor)!
+  if (s.citeSize) css['--cv-cite-size'] = `${s.citeSize}pt`
+  // A template that sets the superscript sets it exactly: no extra space before it.
+  if (s.citeColor || s.citeSize) css['--cv-cite-gap'] = '0px'
   if (s.radius !== undefined && (frame.kind !== 'shape' || frame.shape === 'rect'))
     css['border-radius'] = mm(s.radius)
   if (s.padding !== undefined) css.padding = mm(s.padding)
@@ -78,7 +88,7 @@ export function lookCss(frame: Frame): Record<string, string> {
   if (s.weight) css['font-weight'] = String(s.weight)
   if (s.italic) css['font-style'] = 'italic'
   if (s.caps) css['text-transform'] = 'uppercase'
-  if (s.lineHeight) css['line-height'] = String(s.lineHeight / 100)
+  if (s.lineHeight) css['line-height'] = String(Number((s.lineHeight / 100).toFixed(4)))
   if (s.tracking) css['letter-spacing'] = `${s.tracking / 1000}em`
   if (s.align) css['text-align'] = s.align
   if (s.border) css.border = `${mm(s.border.width)} ${s.border.style} ${color(s.border.color)}`
@@ -147,6 +157,8 @@ export const CANVAS_BASE_CSS = `
 .cv-frame li{margin:0 0 .25em}
 .cv-frame li>p{margin:0}
 .cv-frame a{color:inherit}
+.cv-frame strong{color:var(--cv-strong,inherit);font-weight:var(--cv-strong-weight,bolder)}
+.cv-frame sup.ref{color:var(--cv-cite,inherit);font-size:var(--cv-cite-size,.65em);line-height:0;vertical-align:super;font-weight:600;margin-left:var(--cv-cite-gap,1px)}
 .cv-frame img{max-width:100%;height:auto;display:block}
 .cv-figure .cv-figure-label{display:block;margin-top:.25em;font-size:9.5pt;font-weight:400;line-height:1.35}
 .cv-image img{width:100%;height:100%;display:block}

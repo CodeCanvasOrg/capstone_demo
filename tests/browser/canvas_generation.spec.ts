@@ -1,16 +1,23 @@
 /* eslint-disable @unicorn/no-await-expression-member -- terse assertions on awaited results */
 import { test } from '@japa/runner'
+import ace from '@adonisjs/core/services/ace'
 import drive from '@adonisjs/drive/services/main'
 import CanvasGenerationRun from '#models/canvas_generation_run'
 import TaskDispatchService from '#services/workspaces/task_dispatch_service'
+import PortfolioTemplateSeed from '../../commands/portfolio_template_seed.ts'
 import { reset } from '../helpers/workspaces.ts'
-import { flagsOff, generatable, installModel } from '../helpers/canvas_generation.ts'
+import {
+  flagsOff,
+  installPortfolioModel,
+  portfolioGeneratable,
+} from '../helpers/portfolio_generation.ts'
 
-test.group('Canvas generation: the dialog, progress and page actions', (group) => {
-  let model: ReturnType<typeof installModel> | undefined
+test.group('Portfolio generation: the dialog, progress and page actions', (group) => {
+  let model: ReturnType<typeof installPortfolioModel> | undefined
   group.each.setup(async () => {
     await reset()
     drive.fake()
+    await ace.create(PortfolioTemplateSeed, ['--no-previews']).then((c) => c.exec())
   })
   group.each.teardown(() => {
     model?.restore()
@@ -18,37 +25,47 @@ test.group('Canvas generation: the dialog, progress and page actions', (group) =
     flagsOff()
   })
 
-  test('choose Academic and Detailed, watch the stepper, see badges, add depth to a page', async ({
+  test('the dialog shows the one template; choose two entries and Detailed, watch the stepper, add depth to an entry', async ({
     browserContext,
     visit,
     assert,
   }) => {
     let release!: () => void
     const gate = new Promise<void>((resolve) => (release = resolve))
-    // The second page is written thin, so "Add depth" has something to do.
-    model = installModel({ gate, first: { two_column: 0.45 }, corrected: [0.45, 0.9] })
-    const g = await generatable()
+    model = installPortfolioModel({ gate, entries: 2 })
+    const g = await portfolioGeneratable()
     await browserContext.loginAs(g.a.user)
     const page = await visit(`/workspaces/${g.a.workspace.id}/documents/${g.a.document.id}/canvas`)
     const errors: string[] = []
     page.on('pageerror', (error) => errors.push(error.message))
     await page.frameLocator('iframe.gjs-frame').locator('.cv-sheet').first().waitFor()
 
-    // The dialog: Academic and Detailed, with the words a page shown.
+    // The dialog: one template with its three page designs, and the choices that shape it.
     await page.getByTestId('generate-pages').click()
     const dialog = page.getByRole('dialog', { name: 'Generate pages' })
     await dialog.waitFor()
+    const gallery = dialog.getByTestId('template-gallery')
+    await gallery.waitFor()
+    assert.include(await gallery.innerText(), 'Navy and gold portfolio')
+    for (const label of ['Cover', 'Entry', 'Sources'])
+      assert.equal(
+        await gallery.getByRole('img', { name: `${label} page of the portfolio template` }).count(),
+        1
+      )
+    // No set, style or page-count choice remains.
+    assert.equal(await dialog.getByRole('radiogroup', { name: 'Template set' }).count(), 0)
+    assert.equal(await dialog.getByRole('radiogroup', { name: 'Style' }).count(), 0)
     await dialog
-      .getByRole('radiogroup', { name: 'Style' })
-      .getByRole('radio', { name: /Academic/ })
+      .getByRole('radiogroup', { name: 'Entries' })
+      .getByRole('radio', { name: '2' })
       .click()
     await dialog
       .getByRole('radiogroup', { name: 'Depth' })
       .getByRole('radio', { name: /Detailed/ })
       .click()
-    assert.match(
-      (await dialog.getByRole('radio', { name: /Detailed/ }).innerText()).replace(/\s+/g, ' '),
-      /≈ \d+ words a page/
+    assert.include(
+      await dialog.innerText(),
+      'A cover and 2 entries with their sources pages: about 5 pages.'
     )
     assert.equal(
       await dialog
@@ -65,45 +82,48 @@ test.group('Canvas generation: the dialog, progress and page actions', (group) =
     await progress.waitFor()
     const run = await CanvasGenerationRun.query().where('documentId', g.a.document.id).firstOrFail()
     assert.equal(run.depth, 'detailed')
-    assert.equal(run.profile, 'academic')
+    assert.equal(run.templateSet, 'portfolio')
     const working = new TaskDispatchService().dispatch()
-    await page.getByRole('listitem').filter({ hasText: 'Planning' }).first().waitFor()
+    await page.getByRole('listitem').filter({ hasText: 'Planning the entries' }).first().waitFor()
     assert.equal(
       await progress
         .locator('[aria-current="step"]')
         .innerText()
         .then((t) => t.trim()),
-      'Planning'
+      'Planning the entries'
     )
     release()
     await working
 
-    // Pages are ready: the toast and the stepper offer them; reloading shows the badges.
-    await page
-      .getByTestId('generation-progress')
-      .getByRole('button', { name: 'Show pages' })
-      .click()
+    // Pages are ready: the stepper offers them; the strip names each page; entries carry a badge.
+    await progress.getByRole('button', { name: 'Show pages' }).click()
     await page.waitForLoadState('load')
-    await page.frameLocator('iframe.gjs-frame').locator('.cv-sheet').nth(6).waitFor()
-    const badges = page.getByTestId('page-quality')
-    await badges.first().waitFor()
-    // Five content pages carry a badge: the title page and four content pages.
-    assert.equal(await badges.count(), 5)
-    assert.equal(
-      await page.getByRole('navigation', { name: 'Pages' }).getByRole('listitem').count(),
-      7
-    )
-    const thin = page
-      .getByRole('listitem')
-      .filter({ hasText: 'two column' })
-      .getByTestId('page-quality')
-    assert.equal(await thin.getAttribute('data-level'), 'warn')
-    const before = Number(/(\d+)w/.exec(await thin.innerText())![1])
+    await page.frameLocator('iframe.gjs-frame').locator('.cv-sheet').nth(4).waitFor()
+    const strip = page.getByRole('navigation', { name: 'Pages' })
+    assert.equal(await strip.getByRole('listitem').count(), 5)
+    const text = await strip.innerText()
+    for (const label of ['Cover', 'Entry 1', 'Sources 1', 'Entry 2', 'Sources 2'])
+      assert.include(text, label)
+    assert.equal(await page.getByTestId('page-quality').count(), 2)
 
-    // "Add depth" on the thin page: a new run, and its badge improves.
-    const strip = page.getByRole('listitem').filter({ hasText: 'two column' })
-    await strip.hover()
-    await strip.getByRole('button', { name: /Page 4 actions/ }).click()
+    // The canvas draws the template: Inter, and footnotes as gold superscript numbers.
+    const frame = page.frameLocator('iframe.gjs-frame')
+    const body = frame.locator('[id$="-entry-rows-1-body"]').first()
+    await body.waitFor()
+    assert.match(await body.evaluate((el) => getComputedStyle(el).fontFamily), /Inter/)
+    const sup = body.locator('sup.ref')
+    assert.equal((await sup.first().innerText()).trim(), '1')
+    assert.equal(
+      await sup.first().evaluate((el) => getComputedStyle(el).color),
+      'rgb(138, 106, 16)'
+    )
+    assert.equal(await frame.locator('.tiptap-source-citation').count(), 0)
+
+    // "Add depth" on an entry: a new run, only entries have it; the sources page has no menu.
+    const entryItem = page.getByRole('listitem').filter({ hasText: 'Entry 1' })
+    await entryItem.hover()
+    await entryItem.getByRole('button', { name: /Page 2 actions/ }).click()
+    assert.equal(await page.getByRole('menuitem', { name: 'Change design' }).count(), 0)
     await page.getByRole('menuitem', { name: 'Add depth' }).click()
     await page.getByTestId('generation-progress').waitFor()
     await new TaskDispatchService().dispatch()
@@ -112,14 +132,10 @@ test.group('Canvas generation: the dialog, progress and page actions', (group) =
       .getByRole('button', { name: 'Show pages' })
       .click()
     await page.waitForLoadState('load')
-    await page.frameLocator('iframe.gjs-frame').locator('.cv-sheet').nth(6).waitFor()
-    const after = page
-      .getByRole('listitem')
-      .filter({ hasText: 'two column' })
-      .getByTestId('page-quality')
-    await after.waitFor()
-    assert.isAbove(Number(/(\d+)w/.exec(await after.innerText())![1]), before)
-    assert.equal(await after.getAttribute('data-level'), 'ok')
+    await page.frameLocator('iframe.gjs-frame').locator('.cv-sheet').nth(4).waitFor()
+    const sources = page.getByRole('listitem').filter({ hasText: 'Sources 1' })
+    await sources.hover()
+    assert.equal(await sources.getByRole('button', { name: /actions/ }).count(), 0)
     assert.deepEqual(errors, [])
   })
 
@@ -128,13 +144,13 @@ test.group('Canvas generation: the dialog, progress and page actions', (group) =
     visit,
     assert,
   }) => {
-    model = installModel()
-    const g = await generatable()
+    model = installPortfolioModel()
+    const g = await portfolioGeneratable()
     ;(await import('#start/env')).default.set('CANVAS_GENERATION', undefined as never)
     await browserContext.loginAs(g.a.user)
     const page = await visit(`/workspaces/${g.a.workspace.id}/documents/${g.a.document.id}/canvas`)
     await page.frameLocator('iframe.gjs-frame').locator('.cv-sheet').first().waitFor()
     assert.equal(await page.getByTestId('generate-pages').count(), 0)
-    assert.equal(await page.getByText('Write detailed, cited pages').count(), 0)
+    assert.equal(await page.getByText('Writes a cited portfolio').count(), 0)
   })
 })

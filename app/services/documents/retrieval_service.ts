@@ -8,6 +8,7 @@ import type { WorkspaceAccessContext } from '#services/workspaces/access_service
 import type { SourcePin } from '#services/workspaces/task_service'
 import type { SourceChunk } from '#services/documents/chunk_metadata_service'
 import { fuse, type PageQuery } from '#services/canvas/generation/page_queries'
+import { dedupeChunks } from '../../../shared/canvas/copy_rules.ts'
 /** One part of the output (an outline section or a brochure page) and what to look for in the sources. */
 export type SectionQuery = { key: string; label: string; query: string }
 /** The chunks that were retrieved for one section, by id. */
@@ -109,8 +110,15 @@ export default class RetrievalService {
       const more: EvidenceRow[] = []
       const images: ImageEvidence[] = []
       let tokens = 0
+      // Near-identical text chunks (the same passage in two files) are sent once.
+      const distinct = new Set(
+        dedupeChunks(
+          fused.map(({ id }) => rows.get(id)!).filter((row) => row.kind !== 'image')
+        ).map((row) => row.id)
+      )
       for (const { id, score } of fused) {
         const row = rows.get(id)!
+        if (row.kind !== 'image' && !distinct.has(id)) continue
         if (row.kind === 'image') {
           if (images.length < imageLimit)
             images.push({

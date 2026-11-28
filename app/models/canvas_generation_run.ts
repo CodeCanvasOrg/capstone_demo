@@ -33,7 +33,7 @@ export type CanvasRunMetrics = {
   tokens: number
 }
 
-/** One canvas generation (the academic pipeline): options, plan and quality metrics. */
+/** One canvas generation (the portfolio pipeline; older runs by the retired academic one): options, plan and quality metrics. */
 export default class CanvasGenerationRun extends CanvasGenerationRunSchema {
   declare status: CanvasRunStatus
 

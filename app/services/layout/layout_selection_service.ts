@@ -100,6 +100,7 @@ export default class LayoutSelectionService {
       })),
       brands: BRAND_KITS.filter(
         (kit) =>
+          !kit.templateOnly &&
           kit.status === 'published' &&
           !validateBrandKit(kit).some((finding) => finding.severity === 'error')
       ).map((kit) => ({

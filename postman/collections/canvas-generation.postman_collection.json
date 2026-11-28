@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "CodeCanvas local API",
-    "description": "Requests for the canvas academic page generation (docs/canvas-academic-pipeline-plan.md). Needs a running dev server with CANVAS_EDITOR=pilot and CANVAS_GENERATION=on, a signed-in session cookie, and a document already open in the canvas editor. Set the collection variables first.",
+    "description": "Requests for the canvas portfolio page generation (docs/portfolio-template-plan.md). Needs a running dev server with CANVAS_EDITOR=pilot and CANVAS_GENERATION=on, a signed-in session cookie, and a document already open in the canvas editor. Set the collection variables first.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -28,7 +28,7 @@
   ],
   "item": [
     {
-      "name": "Canvas generation",
+      "name": "Canvas generation (portfolio)",
       "item": [
         {
           "name": "Generate pages (defaults)",
@@ -83,7 +83,7 @@
           ]
         },
         {
-          "name": "Generate pages (detailed academic report, 8 pages)",
+          "name": "Generate pages (detailed, 3 entries, no images)",
           "request": {
             "method": "POST",
             "header": [
@@ -116,7 +116,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"options\": {\n    \"profile\": \"academic\",\n    \"depth\": \"detailed\",\n    \"templateSet\": \"academic_report\",\n    \"pages\": 8,\n    \"images\": true\n  }\n}"
+              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"options\": {\n    \"depth\": \"detailed\",\n    \"entries\": 3,\n    \"images\": false\n  }\n}"
             }
           },
           "event": [
@@ -165,7 +165,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"options\": {\n    \"depth\": \"huge\",\n    \"pages\": 2\n  }\n}"
+              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"options\": {\n    \"depth\": \"huge\",\n    \"entries\": 9\n  }\n}"
             }
           },
           "event": [
@@ -229,7 +229,160 @@
           ]
         },
         {
-          "name": "Regenerate page 3 (rewrite)",
+          "name": "Regenerate entry 1 (rewrite)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents/{{documentId}}/canvas/pages/1/regenerate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "workspaces",
+                "{{workspaceId}}",
+                "documents",
+                "{{documentId}}",
+                "canvas",
+                "pages",
+                "1",
+                "regenerate"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"mode\": \"rewrite\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('queued or refused', () => pm.expect([202, 409]).to.include(pm.response.code))"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Regenerate entry 1 (add depth)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents/{{documentId}}/canvas/pages/1/regenerate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "workspaces",
+                "{{workspaceId}}",
+                "documents",
+                "{{documentId}}",
+                "canvas",
+                "pages",
+                "1",
+                "regenerate"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"mode\": \"expand\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('queued or refused', () => pm.expect([202, 409]).to.include(pm.response.code))"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Regenerate the cover (rewrite)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents/{{documentId}}/canvas/pages/0/regenerate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "workspaces",
+                "{{workspaceId}}",
+                "documents",
+                "{{documentId}}",
+                "canvas",
+                "pages",
+                "0",
+                "regenerate"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"mode\": \"rewrite\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('queued or refused', () => pm.expect([202, 409]).to.include(pm.response.code))"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Regenerate a sources page (refused: written by the application)",
           "request": {
             "method": "POST",
             "header": [
@@ -273,109 +426,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test('queued or refused', () => pm.expect([202, 409]).to.include(pm.response.code))"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "Regenerate page 3 (add depth)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "X-XSRF-TOKEN",
-                "value": "{{csrfToken}}"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents/{{documentId}}/canvas/pages/2/regenerate",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "workspaces",
-                "{{workspaceId}}",
-                "documents",
-                "{{documentId}}",
-                "canvas",
-                "pages",
-                "2",
-                "regenerate"
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"mode\": \"expand\"\n}"
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('queued or refused', () => pm.expect([202, 409]).to.include(pm.response.code))"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "Change page 3 design (no model call)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "X-XSRF-TOKEN",
-                "value": "{{csrfToken}}"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents/{{documentId}}/canvas/pages/2/design",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "workspaces",
-                "{{workspaceId}}",
-                "documents",
-                "{{documentId}}",
-                "canvas",
-                "pages",
-                "2",
-                "design"
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"design\": \"two_column\"\n}"
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('changed or refused', () => pm.expect([200, 409]).to.include(pm.response.code))"
+                  "pm.test('the application writes sources pages', () => pm.expect(pm.response.code).to.eql(409))"
                 ]
               }
             }

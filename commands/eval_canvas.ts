@@ -4,7 +4,7 @@ import { BaseCommand, flags } from '@adonisjs/core/ace'
 import type { CommandOptions } from '@adonisjs/core/types/ace'
 
 type Thresholds = {
-  minWords: number
+  minRows: number
   minAvgFill: number
   maxAvgFill: number
   minCitations: number
@@ -22,7 +22,7 @@ type SourceSet = {
 type Corpus = { thresholds: Thresholds; sets: SourceSet[] }
 
 /**
- * Real-model evaluation of the canvas pipeline on the source sets in
+ * Real-model evaluation of the portfolio pipeline on the source sets in
  * tests/eval/canvas_density.json. For each set it prepares the PDFs in a throwaway
  * workspace (real extraction and embedding), runs the pipeline as `canvas:generate
  * --dry-run` does and checks the result against the thresholds. Calls the configured
@@ -66,8 +66,9 @@ export default class EvalCanvas extends BaseCommand {
     const { default: CanvasPipeline } = await import('#services/canvas/generation/canvas_pipeline')
     const { default: CanvasGenerationService } =
       await import('#services/canvas/generation/canvas_generation_service')
-    const { figureSupported } = await import('../shared/canvas/academic/content.ts')
-    const { pageProblems } = await import('../shared/canvas/density.ts')
+    const { portfolioProblems, portfolioReport } =
+      await import('../shared/canvas/portfolio/quality.ts')
+    const { validateEntry } = await import('../shared/canvas/portfolio/content.ts')
     const { randomUUID } = await import('node:crypto')
 
     const corpus = JSON.parse(await readFile(app.makePath(this.corpus), 'utf8')) as Corpus
@@ -140,47 +141,47 @@ export default class EvalCanvas extends BaseCommand {
           guard: async () => {},
         })
 
-        const content = generated.report.pages.filter((p) => p.kind === 'content')
-        const invented = generated.pages.flatMap((row) =>
-          (row.content?.figures ?? []).filter(
-            (f) =>
-              !figureSupported(
-                f.value,
-                row.citedChunkIds.map((id) => generated.evidence[id]).filter(Boolean)
-              )
+        const report = portfolioReport(generated.canvas)
+        const entries = report.pages.filter((p) => p.portfolio === 'entry')
+        // A number in a row that the chunks it cites do not contain is an invented figure.
+        const invented = generated.pages
+          .filter((row) => row.design === 'entry')
+          .flatMap((row) =>
+            validateEntry(row.content as never, new Map(Object.entries(generated.evidence))).filter(
+              (problem) => problem.code === 'unsupported_number'
+            )
           )
-        )
         const checks = [
-          ['every content page has at least minWords', content.every((p) => p.words >= t.minWords)],
+          ['every entry has at least minRows rows', entries.every((p) => p.rows >= t.minRows)],
           [
             'average fill is within the band',
-            generated.report.avgFill >= t.minAvgFill && generated.report.avgFill <= t.maxAvgFill,
+            report.avgFill >= t.minAvgFill && report.avgFill <= t.maxAvgFill,
           ],
           [
-            'every content page cites at least minCitations',
-            content.every((p) => p.citations >= t.minCitations),
+            'every entry cites at least minCitations',
+            entries.every((p) => p.citations >= t.minCitations),
           ],
           ['no invented figures', invented.length <= t.maxInventedFigures],
           [
             'placeholders within the limit',
-            !set.sourcesCoverBrief || generated.report.placeholders <= t.maxPlaceholders,
+            !set.sourcesCoverBrief || report.placeholders <= t.maxPlaceholders,
           ],
         ] as const
         results.push({
           set: set.name,
           options,
           metrics: generated.metrics,
-          pages: generated.report.pages.map((p) => ({
+          pages: report.pages.map((p) => ({
             page: p.index + 1,
-            kind: p.kind,
+            kind: p.portfolio ?? p.kind,
             words: p.words,
             fill: p.fill,
             citations: p.citations,
             placeholders: p.placeholders,
           })),
-          problems: generated.report.pages.flatMap((p) => pageProblems(p)),
+          problems: report.pages.flatMap((p) => portfolioProblems(p)),
           coverageGaps: generated.plan.coverageGaps,
-          maxOverlap: generated.report.maxOverlap,
+          maxOverlap: report.maxOverlap,
           checks: checks.map(([name, ok]) => ({ name, ok })),
         })
         await db

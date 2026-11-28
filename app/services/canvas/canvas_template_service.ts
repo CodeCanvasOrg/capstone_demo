@@ -14,17 +14,19 @@ export default class CanvasTemplateService {
     await new AccessService().document(context, documentId)
     const rows = await CanvasTemplate.query()
       .withScopes((scopes) => scopes.visibleTo(context.workspaceId))
-      .if(category === 'academic' || category === 'brochure', (query) =>
+      .if(category === 'academic' || category === 'brochure' || category === 'portfolio', (query) =>
         query.where('category', category!)
       )
       .orderBy('category')
-      .orderBy('name')
+      // The whole sample first, then its pages in reading order (cover, entry, sources).
+      .orderByRaw("kind asc, array_position(array['cover','entry','sources'], design_id), name")
     return rows.map((row) => ({
       id: row.id,
       name: row.name,
       kind: row.kind,
       category: row.category,
       designId: row.designId,
+      templateKey: row.templateKey,
       version: row.version,
       system: row.isSystem,
       slots: row.slots,

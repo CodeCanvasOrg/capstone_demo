@@ -979,18 +979,6 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/canvas_generations_controller').default['regenerate']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
-  'canvasGenerations.design': {
-    methods: ["POST"]
-    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design'
-    types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/canvas_generation').canvasDesignValidator)>>
-      paramsTuple: [ParamValue, ParamValue, ParamValue]
-      params: { workspaceId: ParamValue; documentId: ParamValue; index: ParamValue }
-      query: ExtractQuery<InferInput<(typeof import('#validators/canvas_generation').canvasDesignValidator)>>
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/canvas_generations_controller').default['design']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/canvas_generations_controller').default['design']>>> | { status: 422; response: { errors: SimpleError[] } }
-    }
-  }
   'documentVersions.store': {
     methods: ["POST"]
     pattern: '/workspaces/:workspaceId/documents/:documentId/versions'

@@ -7,12 +7,10 @@ import db from '@adonisjs/lucid/services/db'
 import { randomUUID } from 'node:crypto'
 import CanvasGenerationRun from '#models/canvas_generation_run'
 import CanvasService from '#services/canvas/canvas_service'
-import {
-  PIPELINE_VERSION,
-  writePageRows,
-  type Generated,
-} from '#services/canvas/generation/canvas_pipeline'
-import type { CanvasOptions } from '../../../../shared/canvas/academic/options.ts'
+import { writePageRows, type Generated } from '#services/canvas/generation/canvas_pipeline'
+import { PORTFOLIO_PIPELINE_VERSION } from '#services/canvas/portfolio/portfolio_pipeline'
+import { isPortfolio, portfolioReport } from '../../../../shared/canvas/portfolio/quality.ts'
+import type { CanvasOptions } from '../../../../shared/canvas/options.ts'
 import AccessService, {
   missingResource,
   type WorkspaceAccessContext,
@@ -118,7 +116,9 @@ export default class CanvasOperator {
     const sizes = new Map<string, ImageSize>(
       images.map((i) => [i.id, { width: i.width!, height: i.height! }])
     )
-    return densityReport(canvas.project, { images: sizes })
+    return isPortfolio(canvas.project)
+      ? portfolioReport(canvas.project, { images: sizes })
+      : densityReport(canvas.project, { images: sizes })
   }
 
   /**
@@ -143,7 +143,7 @@ export default class CanvasOperator {
       status: 'composing',
       plannerModel: generated.models.planner,
       writerModel: generated.models.writer,
-      pipelineVersion: PIPELINE_VERSION,
+      pipelineVersion: PORTFOLIO_PIPELINE_VERSION,
       plan: generated.plan,
       createdBy: context.actorId,
     })

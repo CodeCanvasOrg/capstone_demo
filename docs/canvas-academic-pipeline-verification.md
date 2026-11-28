@@ -1,5 +1,7 @@
 # Canvas academic pipeline: verification
 
+> The academic pipeline this records has since been removed; see `docs/legacy-cleanup.md`.
+
 Verified 23 Nov 2026 on `dev` against `docs/canvas-academic-pipeline-plan.md`. This records what was run, what it
 showed, what was not done and why. Nothing here is claimed that was not run.
 

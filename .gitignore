@@ -35,3 +35,4 @@ __pycache__/
 
 # QA-01 generated run output
 output/qa01/
+output/portfolio-template/

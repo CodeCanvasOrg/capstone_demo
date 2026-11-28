@@ -105,12 +105,16 @@ export function geoFrom(style: StyleMap, stored: unknown): Geo {
   const fallback = (stored ?? {}) as Partial<Geo>
   const read = (key: string, axis: 'w' | 'h', current: number | undefined) =>
     parseLength(style[key], axis) ?? current ?? 0
-  return clampGeo({
-    x: read('left', 'w', fallback.x),
-    y: read('top', 'h', fallback.y),
-    w: read('width', 'w', fallback.w),
-    h: read('height', 'h', fallback.h),
-  })
+  return clampGeo(
+    {
+      x: read('left', 'w', fallback.x),
+      y: read('top', 'h', fallback.y),
+      w: read('width', 'w', fallback.w),
+      h: read('height', 'h', fallback.h),
+    },
+    // A hairline stays a hairline when only its position changed.
+    { w: fallback.w, h: fallback.h }
+  )
 }
 
 export function fromGrapes(project: GrapesProject): unknown {

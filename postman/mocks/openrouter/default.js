@@ -42,7 +42,6 @@ http
           })),
         }
       }
-      // Canvas generation (docs/canvas-academic-pipeline-plan.md): synthetic plan, pages and caption.
       const lastJson = () =>
         JSON.parse(
           body.messages
@@ -55,46 +54,51 @@ http
             )
             .find((text) => text.startsWith('{')) ?? '{}'
         )
-      if (name === 'plan_canvas') {
-        const page = (design, n) => ({
-          design,
-          title: `Synthetic page ${n}`,
+      // Portfolio pipeline (docs/portfolio-template-plan.md): synthetic plan, entry and cover.
+      if (name === 'plan_portfolio') {
+        const entry = (n) => ({
+          title: `Synthetic entry ${n}`,
+          category: 'Synthetic category',
           purpose: `Synthetic purpose ${n}, for transport verification only.`,
           questions: [`Synthetic question ${n}a?`, `Synthetic question ${n}b?`],
-          keyTerms: [`term ${n}`],
-          wantsImage: false,
+          keyTerms: [],
+          wantsImages: false,
         })
         generated = {
+          title: 'Synthetic portfolio for transport verification',
+          eyebrow: 'Synthetic portfolio',
           thesis: 'Synthetic thesis for transport verification only.',
           audience: 'Synthetic audience',
-          pages: [page('essay', 1), page('two_column', 2), page('data_findings', 3), page('conclusion', 4)],
+          entries: [entry(1), entry(2)],
           coverageGaps: [],
         }
       }
-      if (name === 'write_canvas_page') {
+      if (name === 'write_portfolio_entry') {
         const input = lastJson()
-        const words = (n) => Array.from({ length: n }, () => 'synthetic').join(' ')
         const ids = [...String(input.sources ?? '').matchAll(/Source chunk ID: ([^;]+);/g)].map((m) => m[1])
-        const chunks = ids.slice(0, 1)
-        const para = (n) => ({ text: `${words(n)}.`, chunks })
+        const labels = ['Context', 'Research', 'Challenge', 'Approach', 'Solution', 'Evaluation']
         generated = {
-          design: input.page?.design ?? 'essay',
-          title: input.page?.title ?? 'Synthetic page',
-          lead: { text: `${words(50)}.`, chunks },
-          sections: [
-            { heading: 'Synthetic section', paragraphs: [para(120), para(120)], bullets: [] },
-            { heading: 'Another synthetic section', paragraphs: [para(100)], bullets: [] },
-          ],
-          definitions: [],
-          figures: [],
-          callout: null,
-          takeaway: `${words(20)}.`,
+          title: input.entry?.title ?? 'Synthetic entry',
+          category: input.entry?.category ?? 'Synthetic category',
+          intro: 'Synthetic introduction for transport verification only.',
+          rows: labels.map((label) => ({
+            label,
+            body: 'Synthetic row text for transport verification only.',
+            chunks: ids.slice(0, 1),
+          })),
+          claims: [],
+          sourceNotes: [],
           summary: 'Synthetic summary.',
           reviewer_notes: ['Synthetic output: not a quality assertion.'],
         }
       }
-      if (name === 'caption_figure')
-        generated = { caption: 'Synthetic caption.', alt: 'Synthetic alt text.' }
+      if (name === 'write_portfolio_cover')
+        generated = {
+          eyebrow: 'Synthetic portfolio',
+          title: 'Synthetic portfolio for transport verification',
+          subtitle: 'Synthetic subtitle for transport verification only.',
+          reviewer_notes: [],
+        }
       if (name === 'fill_document_outline') {
         const raw = body.messages
           .flatMap((message) =>

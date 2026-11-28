@@ -39,6 +39,7 @@ import { renderBrochureHtml, type BrochurePage } from '#services/exports/brochur
 import { renderWebHtml } from '#services/exports/web_renderer'
 import {
   projectionDocument,
+  brandForCanvas,
   renderCanvasHtml,
   splitProjected,
 } from '#services/exports/canvas_renderer'
@@ -371,7 +372,7 @@ export default class DocumentExportService {
         imageFrames: imageFrameSizes(row.project),
       })
     )
-    return renderCanvasHtml(row.project, brand, {
+    return renderCanvasHtml(row.project, brandForCanvas(row.project, brand), {
       content: splitProjected(row.project, projected.body),
       sources: projected.sources,
       preview: !final,

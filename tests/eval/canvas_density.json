@@ -1,7 +1,7 @@
 {
-  "description": "Real-model evaluation of the canvas pipeline: three short synthetic source sets (built by tests/fixtures/pdf/src/make_canvas_eval_pdfs.py). Run manually before merging changes to the prompts, designs or fit estimator: `DB_URL=$TEST_DB_URL node ace eval:canvas`. It uses the configured OpenRouter key and models, so it costs credits. The sources are about 500 to 600 words each; a source set this short cannot support detailed pages, so the placeholders and thin pages it reports are the pipeline behaving as designed (it writes [insert text here] instead of padding). Replace or extend with real, consented case-study PDFs to measure what the thresholds below are meant to measure.",
+  "description": "Real-model evaluation of the portfolio pipeline: three short synthetic source sets (built by tests/fixtures/pdf/src/make_canvas_eval_pdfs.py). Run manually before merging changes to the prompts, the template or the measure: `DB_URL=$TEST_DB_URL node ace eval:canvas`. It uses the configured OpenRouter key and models, so it costs credits. The sources are about 500 to 600 words each; a source set this short cannot support detailed pages, so the placeholders and thin pages it reports are the pipeline behaving as designed (it leaves rows empty (they are dropped) instead of padding). Replace or extend with real, consented case-study PDFs to measure what the thresholds below are meant to measure.",
   "thresholds": {
-    "minWords": 280,
+    "minRows": 3,
     "minAvgFill": 0.75,
     "maxAvgFill": 0.95,
     "minCitations": 2,
@@ -15,10 +15,8 @@
       "brief": "A report on a three-summer heat mitigation pilot in a dense district: what was done, how temperature and health outcomes changed, what the evidence cannot show, and what comes next.",
       "files": ["tests/fixtures/pdf/canvas_heat.pdf"],
       "options": {
-        "profile": "academic",
         "depth": "standard",
-        "templateSet": "academic_report",
-        "pages": "auto",
+        "entries": "auto",
         "images": false
       },
       "sourcesCoverBrief": true
@@ -29,10 +27,8 @@
       "brief": "A case study of rolling a barcode stock-count app out across four warehouses: the problem, the build, the rollout and the measured results after a year.",
       "files": ["tests/fixtures/pdf/canvas_stock.pdf", "tests/fixtures/pdf/sections.pdf"],
       "options": {
-        "profile": "informative",
         "depth": "detailed",
-        "templateSet": "academic_report",
-        "pages": "auto",
+        "entries": "auto",
         "images": false
       },
       "sourcesCoverBrief": true
@@ -43,10 +39,8 @@
       "brief": "A research brief on a twelve-month evening video consultation service: the need, the service, the findings and what they do and do not show.",
       "files": ["tests/fixtures/pdf/canvas_clinic.pdf"],
       "options": {
-        "profile": "academic",
         "depth": "standard",
-        "templateSet": "research_brief",
-        "pages": "auto",
+        "entries": "auto",
         "images": false
       },
       "sourcesCoverBrief": true
