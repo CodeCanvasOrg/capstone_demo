@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "CodeCanvas local API",
-    "description": "Requests for the canvas academic page generation (docs/canvas-academic-pipeline-plan.md). Needs a running dev server with CANVAS_EDITOR=pilot and CANVAS_GENERATION=on, a signed-in session cookie, and a document already open in the canvas editor. Set the collection variables first.",
+    "description": "Requests for the canvas portfolio page generation (docs/portfolio-template-plan.md). Needs a running dev server with CANVAS_EDITOR=pilot and CANVAS_GENERATION=on, a signed-in session cookie, and a document already open in the canvas editor. Set the collection variables first.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
