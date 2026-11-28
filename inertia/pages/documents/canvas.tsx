@@ -26,6 +26,7 @@ import {
   type Run,
 } from '@/components/canvas/generation'
 import { GenerationProgress } from '@/components/canvas/generation_progress'
+import { BeeWorking } from '@/components/bee/bee_working'
 import { PageStrip, type PageAction } from '@/components/canvas/page_strip'
 import { TextToolbar } from '@/components/canvas/text_toolbar'
 import { useCanvasEditor, type SaveStatus } from '@/components/canvas/use_canvas_editor'
@@ -137,6 +138,13 @@ function FirstGeneration({
         <h1 className="min-w-0 flex-1 truncate text-sm font-semibold">{document.title}</h1>
       </header>
       <GenerationProgress run={run} announce onRetry={() => {}} onShow={() => router.reload()} />
+      {/* Bo pollinates the screen while the first pages are written, as in the text editor. */}
+      <BeeWorking
+        documentId={document.id}
+        active={!failed && run?.status !== 'ready'}
+        failed={failed}
+        design="cover"
+      />
       <div className="mx-auto flex max-w-md flex-1 flex-col items-center justify-center gap-3 px-6 py-20 text-center">
         {failed ? (
           <>
@@ -159,10 +167,6 @@ function FirstGeneration({
           </>
         ) : (
           <>
-            <LoaderCircle
-              aria-hidden="true"
-              className="size-10 animate-spin text-muted-foreground"
-            />
             <h2 className="text-base font-semibold">Writing your portfolio</h2>
             <p className="text-sm text-muted-foreground">
               Reading your sources, writing each entry and laying out the pages. This takes a few
@@ -218,8 +222,12 @@ function Editor({
     }
   }
 
-  const started = () => {
+  // Bo covers a whole-document generation (the dialog, or one already running when the page
+  // opens); a single page's rewrite keeps the editor visible.
+  const [swarm, setSwarm] = useState(() => isActive(generation.enabled ? generation.run : null))
+  const started = (whole = false) => {
     setAnnounce(true)
+    setSwarm(whole)
     generating.watch()
   }
   const generated =
@@ -439,17 +447,25 @@ function Editor({
         </aside>
       </div>
       {generation.enabled && (
-        <GenerateDialog
-          open={dialog}
-          onOpenChange={setDialog}
-          workspaceId={workspaceId}
-          documentId={document.id}
-          baseVersionId={canvas.baseVersion}
-          initial={generation.options}
-          imageCount={generation.images}
-          unsaved={unsavedEdits}
-          onStarted={started}
-        />
+        <>
+          <BeeWorking
+            documentId={document.id}
+            active={swarm && isActive(run)}
+            failed={swarm && run?.status === 'failed'}
+            design="cover"
+          />
+          <GenerateDialog
+            open={dialog}
+            onOpenChange={setDialog}
+            workspaceId={workspaceId}
+            documentId={document.id}
+            baseVersionId={canvas.baseVersion}
+            initial={generation.options}
+            imageCount={generation.images}
+            unsaved={unsavedEdits}
+            onStarted={() => started(true)}
+          />
+        </>
       )}
     </div>
   )

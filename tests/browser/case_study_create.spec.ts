@@ -90,6 +90,8 @@ test.group('New case study: the portfolio layout', (group) => {
     const progress = page.getByTestId('generation-progress')
     await progress.waitFor()
     await page.getByRole('heading', { name: 'Writing your portfolio' }).waitFor()
+    // Bo pollinates the screen while the pages are written, as in the text editor.
+    await page.locator('.bee-stage[data-open="true"]').waitFor()
     const doc = await Document.query().orderBy('createdAt', 'desc').firstOrFail()
     const layoutRow = await new LayoutSelectionService().peek(g.a.workspace.id, doc.id)
     assert.deepInclude(layoutRow.options.canvas as object, {

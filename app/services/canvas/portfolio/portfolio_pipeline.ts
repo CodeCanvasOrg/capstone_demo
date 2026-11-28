@@ -107,6 +107,9 @@ const summaries = (
 const clip = (value: string, max: number) =>
   value.length > max ? `${value.slice(0, max - 1).trimEnd()}…` : value
 
+/** A cover title set on composed lines, as one line of text. */
+export const oneLine = (text: string) => text.replace(/\s+/g, ' ').trim()
+
 /** The cover's three facts: project, author and date; a column with no value is dropped by the composer. */
 export async function coverMeta(
   context: WorkspaceAccessContext,
@@ -292,7 +295,13 @@ export default class PortfolioPipeline {
         eyebrow: cover.cover.eyebrow ?? planned.eyebrow ?? 'Selected project portfolio',
         title: cover.cover.title || planned.title,
         subtitle: cover.cover.subtitle,
-        meta: await coverMeta(input.context, input.title, entries.length, sourceCount),
+        // An untitled case study gets its title from this cover, so the cover names the project itself.
+        meta: await coverMeta(
+          input.context,
+          input.title || oneLine(cover.cover.title || planned.title),
+          entries.length,
+          sourceCount
+        ),
       },
       entries: inputs,
       sources,

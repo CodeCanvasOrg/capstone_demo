@@ -80,6 +80,8 @@ test.group('Portfolio generation: the dialog, progress and page actions', (group
     // The run is queued and the stepper shows it. The worker (the test) picks it up.
     const progress = page.getByTestId('generation-progress')
     await progress.waitFor()
+    // A whole-document generation brings Bo over the screen; it never blocks the stepper.
+    await page.locator('.bee-stage[data-open="true"]').waitFor()
     const run = await CanvasGenerationRun.query().where('documentId', g.a.document.id).firstOrFail()
     assert.equal(run.depth, 'detailed')
     assert.equal(run.templateSet, 'portfolio')
@@ -126,6 +128,8 @@ test.group('Portfolio generation: the dialog, progress and page actions', (group
     assert.equal(await page.getByRole('menuitem', { name: 'Change design' }).count(), 0)
     await page.getByRole('menuitem', { name: 'Add depth' }).click()
     await page.getByTestId('generation-progress').waitFor()
+    // One page's rewrite keeps the editor in view: no swarm.
+    assert.equal(await page.locator('.bee-stage').count(), 0)
     await new TaskDispatchService().dispatch()
     await page
       .getByTestId('generation-progress')

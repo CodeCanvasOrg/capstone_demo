@@ -219,7 +219,8 @@ export default class GenerationService {
       await new CanvasPipeline().execute({
         lease,
         document,
-        title: document.title ?? 'Untitled',
+        // An untitled case study is named by its generated cover; the placeholder never reaches the model.
+        title: document.templateSetup?.generateTitle ? '' : (document.title ?? 'Untitled'),
         brief,
         pins,
         generationInput,
