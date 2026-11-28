@@ -426,6 +426,18 @@ const routes = {
     tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":0,"val":"images","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/images/:imageId","type":1,"val":"imageId","end":""}],
     types: placeholder as Registry['documentImages.update']['types'],
   },
+  'canvasTemplates.workspaceIndex': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/canvas-templates',
+    tokens: [{"old":"/workspaces/:workspaceId/canvas-templates","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/canvas-templates","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/canvas-templates","type":0,"val":"canvas-templates","end":""}],
+    types: placeholder as Registry['canvasTemplates.workspaceIndex']['types'],
+  },
+  'canvasTemplates.workspacePreview': {
+    methods: ["GET","HEAD"],
+    pattern: '/workspaces/:workspaceId/canvas-templates/:templateId/preview',
+    tokens: [{"old":"/workspaces/:workspaceId/canvas-templates/:templateId/preview","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/canvas-templates/:templateId/preview","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/canvas-templates/:templateId/preview","type":0,"val":"canvas-templates","end":""},{"old":"/workspaces/:workspaceId/canvas-templates/:templateId/preview","type":1,"val":"templateId","end":""},{"old":"/workspaces/:workspaceId/canvas-templates/:templateId/preview","type":0,"val":"preview","end":""}],
+    types: placeholder as Registry['canvasTemplates.workspacePreview']['types'],
+  },
   'documentCanvases.show': {
     methods: ["GET","HEAD"],
     pattern: '/workspaces/:workspaceId/documents/:documentId/canvas',

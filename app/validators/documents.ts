@@ -32,6 +32,8 @@ export const documentValidator = vine.create({
   instructions: vine.string().trim().maxLength(MAX_INSTRUCTIONS).nullable().optional(),
   // The brochure's page designs; their exact shape is enforced by the layout options on the server.
   brochure: vine.any().optional(),
+  // Canvas options of "Use a template" and "Let AI choose"; checked by the creation service.
+  canvas: vine.any().optional(),
   // Omitted titles are written by the model on the first successful generation.
   title: vine.string().trim().minLength(1).maxLength(255).optional(),
   files: vine

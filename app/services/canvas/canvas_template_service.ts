@@ -9,9 +9,10 @@ import AccessService, {
 
 /** The templates a canvas offers: system ones and the workspace's own, with their previews. */
 export default class CanvasTemplateService {
-  async list(context: WorkspaceAccessContext, documentId: string, category?: string) {
+  /** Without a document (the New case study form) the previews are served by the workspace-level route. */
+  async list(context: WorkspaceAccessContext, documentId: string | null, category?: string) {
     new CanvasService().assertEnabled()
-    await new AccessService().document(context, documentId)
+    if (documentId) await new AccessService().document(context, documentId)
     const rows = await CanvasTemplate.query()
       .withScopes((scopes) => scopes.visibleTo(context.workspaceId))
       .if(category === 'academic' || category === 'brochure' || category === 'portfolio', (query) =>
@@ -31,16 +32,16 @@ export default class CanvasTemplateService {
       system: row.isSystem,
       slots: row.slots,
       previewUrl: row.previewKey
-        ? `/workspaces/${context.workspaceId}/documents/${documentId}/canvas/templates/${row.id}/preview`
+        ? `/workspaces/${context.workspaceId}${documentId ? `/documents/${documentId}` : ''}/canvas/templates/${row.id}/preview`
         : null,
     }))
   }
 
   /** The thumbnail image of a template the workspace may see. */
-  async preview(context: WorkspaceAccessContext, documentId: string, templateId: string) {
+  async preview(context: WorkspaceAccessContext, documentId: string | null, templateId: string) {
     new CanvasService().assertEnabled()
     if (!uuid(templateId)) throw missingResource()
-    await new AccessService().document(context, documentId)
+    if (documentId) await new AccessService().document(context, documentId)
     const row = await CanvasTemplate.query()
       .withScopes((scopes) => scopes.visibleTo(context.workspaceId))
       .where('id', templateId)

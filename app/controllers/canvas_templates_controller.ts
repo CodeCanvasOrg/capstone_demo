@@ -17,6 +17,29 @@ export default class CanvasTemplatesController {
     })
   }
 
+  /** The templates for a workspace's New case study form, which has no document yet. */
+  async workspaceIndex({ workspaceAccess, request, response, bouncer }: HttpContext) {
+    await bouncer.with(DocumentPolicy).authorize('create', workspaceAccess!.workspaceId)
+    return response.ok({
+      data: await new CanvasTemplateService().list(workspaceAccess!, null, request.qs().category),
+    })
+  }
+
+  /** The thumbnail of one template, for the New case study form. */
+  async workspacePreview({ workspaceAccess, params, response, bouncer }: HttpContext) {
+    await bouncer.with(DocumentPolicy).authorize('create', workspaceAccess!.workspaceId)
+    const preview = await new CanvasTemplateService().preview(
+      workspaceAccess!,
+      null,
+      params.templateId
+    )
+    return response
+      .header('Cache-Control', 'private, max-age=300')
+      .header('X-Content-Type-Options', 'nosniff')
+      .header('Content-Type', 'image/png')
+      .stream(preview.stream)
+  }
+
   /** The thumbnail of one template. */
   async preview({ workspaceAccess, params, response, bouncer }: HttpContext) {
     const doc = await new AccessService().document(workspaceAccess!, params.documentId)

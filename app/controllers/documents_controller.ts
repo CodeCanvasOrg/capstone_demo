@@ -17,7 +17,8 @@ import FileTransformer from '#transformers/file_transformer'
 import ProjectTransformer from '#transformers/project_transformer'
 import { documentValidator, documentUpdateValidator } from '#validators/documents'
 import DocumentService from '#services/documents/document_service'
-import CreationService from '#services/documents/creation_service'
+import CreationService, { creationCanvas } from '#services/documents/creation_service'
+import { canvasGenerationEnabled } from '#services/canvas/generation/canvas_generation_service'
 import AccessService from '#services/workspaces/access_service'
 import SourceScopeService from '#services/files/source_scope_service'
 import type { HttpContext } from '@adonisjs/core/http'
@@ -69,6 +70,7 @@ export default class DocumentsController {
     if (projectId) await new AccessService().project(workspaceAccess!, projectId)
     return inertia.render('documents/create', {
       templates: await new OutlineTemplateService().list(workspaceAccess!),
+      canvasGeneration: canvasGenerationEnabled(),
       initialProjectId: projectId ?? null,
       files: FileTransformer.transform(files, workspaceAccess!.actorId),
       projects: ProjectTransformer.transform(projects),
@@ -82,6 +84,12 @@ export default class DocumentsController {
       input,
       files?.map((file) => file.id) ?? []
     )
+    // A canvas-generated case study lands where the run's progress is shown.
+    if (creationCanvas(input))
+      return response.redirect().toRoute('documentCanvases.show', {
+        workspaceId: document.workspaceId!,
+        documentId: document.id,
+      })
     return response
       .redirect()
       .toRoute('documents.edit', { workspaceId: document.workspaceId!, id: document.id })
