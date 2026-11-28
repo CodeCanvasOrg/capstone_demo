@@ -492,12 +492,6 @@ const routes = {
     tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/regenerate","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/regenerate","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/regenerate","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/regenerate","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/regenerate","type":0,"val":"canvas","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/regenerate","type":0,"val":"pages","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/regenerate","type":1,"val":"index","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/regenerate","type":0,"val":"regenerate","end":""}],
     types: placeholder as Registry['canvasGenerations.regenerate']['types'],
   },
-  'canvasGenerations.design': {
-    methods: ["POST"],
-    pattern: '/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design',
-    tokens: [{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design","type":0,"val":"workspaces","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design","type":1,"val":"workspaceId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design","type":0,"val":"documents","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design","type":1,"val":"documentId","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design","type":0,"val":"canvas","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design","type":0,"val":"pages","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design","type":1,"val":"index","end":""},{"old":"/workspaces/:workspaceId/documents/:documentId/canvas/pages/:index/design","type":0,"val":"design","end":""}],
-    types: placeholder as Registry['canvasGenerations.design']['types'],
-  },
   'documentVersions.store': {
     methods: ["POST"],
     pattern: '/workspaces/:workspaceId/documents/:documentId/versions',

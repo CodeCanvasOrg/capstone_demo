@@ -137,7 +137,6 @@ export interface ApiDefinition {
     store: typeof routes['canvasGenerations.store']
     show: typeof routes['canvasGenerations.show']
     regenerate: typeof routes['canvasGenerations.regenerate']
-    design: typeof routes['canvasGenerations.design']
   }
   documentVersions: {
     store: typeof routes['documentVersions.store']
