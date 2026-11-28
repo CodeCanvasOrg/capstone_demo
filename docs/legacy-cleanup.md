@@ -51,7 +51,7 @@ Deleting them now would break the canvas pipeline or the default editor.
 
 - `shared/brochure/*` (`FIGURE_PLACEHOLDER`, `PLACEHOLDER`, `STAT_SEPARATOR`, `DesignId`), used by `shared/canvas/*` and the canvas pipeline.
 - `shared/layout/*`, `LayoutSelectionService`, `layout_validation`, `layout_renderer` (`fontFaces`), `collection_html` (`ribbonsSvg`), used by `canvas_service`, `canvas_renderer` and the pipeline.
-- `shared/templates/outlines.ts` (`BROCHURE_TEMPLATE_ID`), used by `canvas_pipeline`.
+- `shared/templates/outlines.ts` (`BROCHURE_TEMPLATE_ID`), used by `creation_service` and `outline_template_service`.
 - `LegacyTemplateService.history`, used by `DocumentsController`; `.convert` is still covered by `outline_templates.spec.ts`.
 - Brochure, web and layout renderers, layout presets, collections and the layout picker: still the default (non-canvas) export and editing path.
 

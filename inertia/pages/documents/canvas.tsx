@@ -44,7 +44,7 @@ type Props = {
     baseVersionId: string | null
   }
   brand: { palette: BrandKit['palette']; fonts: string[] } | null
-  /** Academic page generation: off, or the last options, the picture count and the latest run. */
+  /** Portfolio page generation: off, or the last options, the picture count and the latest run. */
   generation:
     | { enabled: false }
     | { enabled: true; options: GenerationOptions; images: number; run: Run | null }
