@@ -13,6 +13,12 @@ const openRouterApiConfig = {
     env.get('CANVAS_PLANNER_MODEL') ??
     env.get('OPENROUTER_MODEL') ??
     'anthropic/claude-haiku-5.5',
+  // The model that designs the pages for "Let AI choose"; falls back like the planner.
+  canvasDesignModel:
+    env.get('CANVAS_DESIGN_MODEL') ??
+    env.get('CANVAS_PLANNER_MODEL') ??
+    env.get('OPENROUTER_MODEL') ??
+    'anthropic/claude-haiku-5.5',
   // Kept for existing callers; config/embeddings.ts is the source of truth.
   embeddingModel: embeddingsConfig.model,
   embeddingDimensions: embeddingsConfig.dimensions,

@@ -361,6 +361,7 @@ const FAMILY_LABELS: Record<FontFamily, string> = {
   sans: 'Sans serif',
   serif: 'Serif',
   mono: 'Monospace',
+  display: 'Display (large headings)',
 }
 const WEIGHT_LABELS: Record<(typeof FONT_WEIGHTS)[number], string> = {
   400: 'Regular',

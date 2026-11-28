@@ -8,13 +8,10 @@ import { useWorkspaceId, useUnsavedChanges } from '@/providers/workspace_provide
 import { TemplatePreview } from '@/components/documents/template_preview'
 import { DEFAULT_INSTRUCTIONS, MAX_INSTRUCTIONS } from '../../../shared/templates/instructions.ts'
 import { Disclosure } from '@/components/disclosure'
-import { DesignThumb } from '@/components/brochure/design_thumb'
-import { PageDesigner } from '@/components/brochure/page_designer'
-import {
-  BROCHURE_TEMPLATES,
-  templateSelection,
-  type BrochureSelection,
-} from '../../../shared/brochure/designs.ts'
+import { PortfolioOptions } from '@/components/canvas/portfolio_options'
+import { TemplateGallery, useTemplates } from '@/components/canvas/template_gallery'
+import type { GenerationOptions } from '@/components/canvas/generation'
+import { templateSelection } from '../../../shared/brochure/designs.ts'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { SourcePicker, selectable, type SourceChoice } from '@/components/files/source_picker'
@@ -29,18 +26,32 @@ const FREEFORM = 'freeform'
 const BROCHURE = 'brochure'
 
 /**
- * How the case study is laid out. The first three build a brochure, where every page has its
- * own design: a full template, a design chosen for each page, or the model's choice. The
- * model writes the content of every page, and the brochure is edited in the canvas.
- * `plain` is a text document with no page designs, edited in the text editor.
+ * How the case study is laid out. "Use a template" is the Navy and gold portfolio (a cover,
+ * then an entry and a sources page for each project), "Let AI choose" has the model design
+ * every page, and both open in the canvas. `plain` is a text document with no page designs,
+ * edited in the text editor. With canvas generation off the first two are written as the
+ * older brochure instead, and the hints say so.
  */
-type Mode = 'template' | 'pages' | 'ai' | 'plain'
-const MODES: readonly { id: Mode; label: string; hint: string }[] = [
-  { id: 'template', label: 'Use a template', hint: 'A ready-made set of page designs' },
-  { id: 'pages', label: 'Choose each page', hint: 'Pick a design for every page' },
-  { id: 'ai', label: 'Let AI choose', hint: 'It picks the designs that fit' },
+type Mode = 'template' | 'ai' | 'plain'
+const modes = (canvasGeneration: boolean): readonly { id: Mode; label: string; hint: string }[] => [
+  {
+    id: 'template',
+    label: 'Use a template',
+    hint: canvasGeneration ? 'The Navy and gold portfolio' : 'A ready-made brochure',
+  },
+  {
+    id: 'ai',
+    label: 'Let AI choose',
+    hint: canvasGeneration
+      ? 'AI designs every page from your materials'
+      : 'It picks the designs that fit',
+  },
   { id: 'plain', label: 'Plain text document', hint: 'Just text, no page designs' },
 ]
+
+/** What the portfolio options start as, and what the form sends for each mode. */
+type Choices = Pick<GenerationOptions, 'entries' | 'depth' | 'images'>
+const DEFAULT_CHOICES: Choices = { entries: 'auto', depth: 'standard', images: true }
 
 type BriefResult = {
   data: {
@@ -72,12 +83,16 @@ export function DocumentForm({
   files = [],
   projects = [],
   initialProjectId = null,
+  canvasGeneration = false,
 }: {
   files?: Data.File[]
   projects?: Data.Project[]
   initialProjectId?: string | null
+  /** Canvas page generation is on: template and AI case studies open in the canvas. */
+  canvasGeneration?: boolean
 }) {
   const workspaceId = useWorkspaceId()
+  const { templates } = useTemplates(workspaceId, null, canvasGeneration)
   const [composer, setComposer] = useState<RichText>(emptyRichText)
   const [text, setText] = useState('')
   const [instructions, setInstructions] = useState('')
@@ -132,7 +147,7 @@ export function DocumentForm({
     setBriefState({ status: 'idle' })
   }
   const [mode, setMode] = useState<Mode>('template')
-  const [selection, setSelection] = useState<BrochureSelection>(() => templateSelection(BROCHURE)!)
+  const [choices, setChoices] = useState<Choices>(DEFAULT_CHOICES)
   function changeProject(next: string) {
     const options = new Map([...files, ...uploads].map((file) => [file.id, file]))
     const kept = selected.filter((id) => {
@@ -157,18 +172,20 @@ export function DocumentForm({
     'new-case-study',
     !form.processing && (!!text.trim() || !!instructions.trim() || selected.length > 0)
   )
-  const ready =
-    !!text.trim() &&
-    text.length <= 20000 &&
-    instructions.length <= MAX_INSTRUCTIONS &&
-    (mode !== 'pages' || selection.pages.length > 0)
+  const ready = !!text.trim() && text.length <= 20000 && instructions.length <= MAX_INSTRUCTIONS
   // A plain document sends no template: the brief alone shapes the text.
   function generate() {
     if (form.processing || !ready) return
     form.transform(() => ({
       templateId: mode === 'plain' ? null : BROCHURE,
-      // Absent means the model chooses every page.
-      ...(mode === 'template' || mode === 'pages' ? { brochure: selection } : {}),
+      // The canvas pipeline's options. The server uses the brochure below instead when canvas
+      // generation is off (absent there means the model chooses every page).
+      ...(mode === 'plain'
+        ? {}
+        : {
+            canvas: { templateSet: mode === 'ai' ? 'ai_design' : 'portfolio', ...choices },
+            ...(mode === 'template' ? { brochure: templateSelection(BROCHURE)! } : {}),
+          }),
       description: text,
       descriptionContent: composer,
       // Empty instructions are replaced with the defaults on the server.
@@ -402,9 +419,9 @@ export function DocumentForm({
           <div
             role="radiogroup"
             aria-label="How to lay out this case study"
-            className="mb-4 grid gap-2 sm:grid-cols-2 xl:grid-cols-4"
+            className="mb-4 grid gap-2 sm:grid-cols-3"
           >
-            {MODES.map((item) => (
+            {modes(canvasGeneration).map((item) => (
               <label
                 key={item.id}
                 className="flex cursor-pointer flex-col gap-0.5 rounded-xl border bg-card px-3 py-2.5 has-[:checked]:border-foreground/70 has-[:checked]:shadow-sm has-[:focus-visible]:ring-3 has-[:focus-visible]:ring-ring/40"
@@ -423,60 +440,35 @@ export function DocumentForm({
               </label>
             ))}
           </div>
-          {mode === 'template' && (
+          {(mode === 'template' || mode === 'ai') && (
             <div
-              role="radiogroup"
-              aria-label="Brochure template"
-              className="step-in grid gap-3 sm:grid-cols-2"
+              className="step-in flex flex-col gap-5"
               style={{ '--i': 0 } as CSSProperties}
+              data-testid="portfolio-layout"
             >
-              {BROCHURE_TEMPLATES.map((template) => (
-                <label
-                  key={template.id}
-                  className="flex cursor-pointer flex-col gap-3 rounded-2xl border bg-card p-3 has-[:checked]:border-foreground/70 has-[:checked]:shadow-md has-[:focus-visible]:ring-3 has-[:focus-visible]:ring-ring/40"
-                >
-                  <input
-                    type="radio"
-                    name="brochure-template"
-                    value={template.id}
-                    checked={selection.template === template.id}
-                    onChange={() => setSelection(templateSelection(template.id)!)}
-                    disabled={form.processing}
-                    className="sr-only"
-                  />
-                  <span className="flex gap-1.5 overflow-hidden" aria-hidden="true">
-                    {template.pages.slice(0, 9).map((design, i) => (
-                      <DesignThumb key={i} design={design} className="w-[2.6rem] shrink-0" />
-                    ))}
-                  </span>
-                  <span>
-                    <span className="block text-sm font-semibold">{template.label}</span>
-                    <span className="block text-xs text-muted-foreground">
-                      {template.description}
-                    </span>
-                  </span>
-                </label>
-              ))}
+              {mode === 'template' ? (
+                <TemplateGallery templates={templates} />
+              ) : (
+                <p className="max-w-prose rounded-xl border bg-card p-4 text-sm leading-6">
+                  The AI reads your brief and sources, then designs every page of the portfolio and
+                  writes it. You can see and change its choices in the canvas afterwards.
+                </p>
+              )}
+              <PortfolioOptions
+                value={choices}
+                onChange={(next) => setChoices((current) => ({ ...current, ...next }))}
+                imageCount={null}
+                disabled={form.processing}
+                idPrefix="create"
+              />
+              {!canvasGeneration && (
+                <p role="note" className="text-xs text-muted-foreground">
+                  Canvas page generation is off in this workspace, so this is written as a{' '}
+                  {mode === 'template' ? 'brochure with the default template' : 'brochure'} instead,
+                  and these choices are not used.
+                </p>
+              )}
             </div>
-          )}
-          {mode === 'pages' && (
-            <div className="step-in space-y-3" style={{ '--i': 0 } as CSSProperties}>
-              <p className="text-xs text-muted-foreground">
-                Pick a design for every page. The AI writes the content of each one, and can choose
-                the design of any page you leave to it.
-              </p>
-              <PageDesigner value={selection} onChange={setSelection} disabled={form.processing} />
-            </div>
-          )}
-          {mode === 'ai' && (
-            <p
-              className="step-in max-w-prose rounded-xl border bg-card p-4 text-sm leading-6"
-              style={{ '--i': 0 } as CSSProperties}
-            >
-              The AI reads your brief and sources, decides how many pages the brochure needs, picks
-              the page design that best fits each one, and writes the content. You can see and
-              change its choices in the editor afterwards.
-            </p>
           )}
           {mode === 'plain' && (
             <div
@@ -525,7 +517,7 @@ export function DocumentForm({
               ? 'Creating your case study…'
               : !text.trim()
                 ? 'Add a brief to get started.'
-                : `${mode === 'plain' ? 'Plain text document' : mode === 'template' ? (BROCHURE_TEMPLATES.find((t) => t.id === selection.template)?.label ?? 'Brochure') : mode === 'pages' ? `${selection.pages.length} pages` : 'AI chooses'} · ${selected.length ? `${selected.length} sources` : 'brief only'} · ${instructions.trim() ? 'your instructions' : 'default instructions'}`}
+                : `${mode === 'plain' ? 'Plain text document' : mode === 'template' ? 'Navy and gold portfolio' : 'AI designs the pages'} · ${selected.length ? `${selected.length} sources` : 'brief only'} · ${instructions.trim() ? 'your instructions' : 'default instructions'}`}
           </p>
           <Button
             type="button"

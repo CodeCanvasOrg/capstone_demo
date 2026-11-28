@@ -43,6 +43,7 @@ paths:
                 model: { type: string }
                 messages: { type: array, items: { type: object } }
                 tools: { type: array, items: { type: object } }
+                modalities: { type: array, items: { type: string }, description: 'With image in the list the call asks an image-output model for a picture (CANVAS_IMAGE_GENERATION); the 200 response carries choices[0].message.images[].image_url.url as a base64 data URL and needs no tools.' }
       responses:
         '200':
           description: Chat completion with structured function call. Company guides use fill_document_outline with sections containing key and ordinary TipTap content; application assembles headings from the frozen guide. Untitled documents first call generate_document_title, returning a title string. With CONTEXTUALIZER=openrouter, source preparation calls contextualize_chunks with a JSON payload {title, document, chunks[{id,text}]} and receives contexts[{chunkId, context}].

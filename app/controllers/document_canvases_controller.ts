@@ -6,6 +6,7 @@ import CanvasGenerationService, {
 } from '#services/canvas/generation/canvas_generation_service'
 import AccessService from '#services/workspaces/access_service'
 import DocumentPolicy from '#policies/document_policy'
+import { brandForCanvas } from '#services/exports/canvas_renderer'
 import { getBrandKit } from '../../shared/layout/brand.ts'
 import LayoutSelectionService from '#services/layout/layout_selection_service'
 import type { WorkspaceAccessContext } from '#services/workspaces/access_service'
@@ -36,7 +37,8 @@ export default class DocumentCanvasesController {
       workspaceAccess!.workspaceId,
       params.documentId
     )
-    const brand = getBrandKit(selection.brandId, selection.brandVersion)
+    const pinned = getBrandKit(selection.brandId, selection.brandVersion)
+    const brand = pinned ? brandForCanvas(state.project ?? {}, pinned) : null
     return inertia.render('documents/canvas', {
       document: { id: doc.id, title: doc.title },
       workspaceId: workspaceAccess!.workspaceId,

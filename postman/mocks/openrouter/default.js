@@ -1,4 +1,39 @@
 const http = require('http')
+const zlib = require('zlib')
+
+// A valid solid-navy PNG, built here so the fixture needs no binary file. Synthetic only.
+function syntheticPng(width, height) {
+  const crcTable = Array.from({ length: 256 }, (_, n) => {
+    let c = n
+    for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1
+    return c >>> 0
+  })
+  const crc = (buf) => {
+    let c = 0xffffffff
+    for (const byte of buf) c = crcTable[(c ^ byte) & 0xff] ^ (c >>> 8)
+    return (c ^ 0xffffffff) >>> 0
+  }
+  const chunk = (type, data) => {
+    const body = Buffer.concat([Buffer.from(type), data])
+    const out = Buffer.alloc(body.length + 8)
+    out.writeUInt32BE(data.length, 0)
+    body.copy(out, 4)
+    out.writeUInt32BE(crc(body), body.length + 4)
+    return out
+  }
+  const header = Buffer.alloc(13)
+  header.writeUInt32BE(width, 0)
+  header.writeUInt32BE(height, 4)
+  header.set([8, 2, 0, 0, 0], 8)
+  const row = Buffer.concat([Buffer.from([0]), Buffer.from(Array.from({ length: width }, () => [0x14, 0x21, 0x3d]).flat())])
+  const raw = Buffer.concat(Array.from({ length: height }, () => row))
+  return Buffer.concat([
+    Buffer.from('89504e470d0a1a0a', 'hex'),
+    chunk('IHDR', header),
+    chunk('IDAT', zlib.deflateSync(raw)),
+    chunk('IEND', Buffer.alloc(0)),
+  ])
+}
 // The fixture validates only the client paths exercised by this repository.
 // All content is synthetic; it is never a case-study quality assertion.
 http
@@ -25,6 +60,30 @@ http
         usage: { prompt_tokens: 10, total_tokens: 10 },
       })
     }
+    if (req.url === '/api/v1/chat/completions' && Array.isArray(body.modalities) && body.modalities.includes('image')) {
+      // Image output (docs/image-generation-research.md): one synthetic picture in message.images.
+      if (!Array.isArray(body.messages) || !body.messages.length)
+        return send(400, { error: { message: 'messages are required' } })
+      const png = syntheticPng(24, 32)
+      return send(200, {
+        id: 'synthetic-image',
+        model: body.model,
+        choices: [
+          {
+            index: 0,
+            finish_reason: 'stop',
+            message: {
+              role: 'assistant',
+              content: null,
+              images: [
+                { type: 'image_url', image_url: { url: `data:image/png;base64,${png.toString('base64')}` } },
+              ],
+            },
+          },
+        ],
+        usage: { prompt_tokens: 10, completion_tokens: 1120, total_tokens: 1130, cost: 0 },
+      })
+    }
     if (req.url === '/api/v1/chat/completions') {
       const name = body.tools?.[0]?.function?.name
       if (!Array.isArray(body.messages) || !name)
@@ -42,7 +101,6 @@ http
           })),
         }
       }
-      // Canvas generation (docs/canvas-academic-pipeline-plan.md): synthetic plan, pages and caption.
       const lastJson = () =>
         JSON.parse(
           body.messages
@@ -55,46 +113,103 @@ http
             )
             .find((text) => text.startsWith('{')) ?? '{}'
         )
-      if (name === 'plan_canvas') {
-        const page = (design, n) => ({
-          design,
-          title: `Synthetic page ${n}`,
+      // Portfolio pipeline (docs/portfolio-template-plan.md): synthetic plan, entry and cover.
+      if (name === 'plan_portfolio') {
+        const entry = (n) => ({
+          title: `Synthetic entry ${n}`,
+          category: 'Synthetic category',
           purpose: `Synthetic purpose ${n}, for transport verification only.`,
           questions: [`Synthetic question ${n}a?`, `Synthetic question ${n}b?`],
-          keyTerms: [`term ${n}`],
-          wantsImage: false,
+          keyTerms: [],
+          wantsImages: false,
         })
         generated = {
+          title: 'Synthetic portfolio for transport verification',
+          eyebrow: 'Synthetic portfolio',
           thesis: 'Synthetic thesis for transport verification only.',
           audience: 'Synthetic audience',
-          pages: [page('essay', 1), page('two_column', 2), page('data_findings', 3), page('conclusion', 4)],
+          entries: [entry(1), entry(2)],
           coverageGaps: [],
         }
       }
-      if (name === 'write_canvas_page') {
+      if (name === 'write_portfolio_entry') {
         const input = lastJson()
-        const words = (n) => Array.from({ length: n }, () => 'synthetic').join(' ')
         const ids = [...String(input.sources ?? '').matchAll(/Source chunk ID: ([^;]+);/g)].map((m) => m[1])
-        const chunks = ids.slice(0, 1)
-        const para = (n) => ({ text: `${words(n)}.`, chunks })
+        const labels = ['Context', 'Research', 'Challenge', 'Approach', 'Solution', 'Evaluation']
         generated = {
-          design: input.page?.design ?? 'essay',
-          title: input.page?.title ?? 'Synthetic page',
-          lead: { text: `${words(50)}.`, chunks },
-          sections: [
-            { heading: 'Synthetic section', paragraphs: [para(120), para(120)], bullets: [] },
-            { heading: 'Another synthetic section', paragraphs: [para(100)], bullets: [] },
-          ],
-          definitions: [],
-          figures: [],
-          callout: null,
-          takeaway: `${words(20)}.`,
+          title: input.entry?.title ?? 'Synthetic entry',
+          category: input.entry?.category ?? 'Synthetic category',
+          intro: 'Synthetic introduction for transport verification only.',
+          rows: labels.map((label) => ({
+            label,
+            body: 'Synthetic row text for transport verification only.',
+            chunks: ids.slice(0, 1),
+          })),
+          claims: [],
+          sourceNotes: [],
           summary: 'Synthetic summary.',
           reviewer_notes: ['Synthetic output: not a quality assertion.'],
         }
       }
-      if (name === 'caption_figure')
-        generated = { caption: 'Synthetic caption.', alt: 'Synthetic alt text.' }
+      if (name === 'write_portfolio_cover')
+        generated = {
+          eyebrow: 'Synthetic portfolio',
+          title: 'Synthetic portfolio for transport verification',
+          subtitle: 'Synthetic subtitle for transport verification only.',
+          reviewer_notes: [],
+        }
+      // "Let AI choose" (docs/ai-design-plan.md): a synthetic design and the text of a designed page.
+      if (name === 'design_canvas') {
+        const input = lastJson()
+        const count = Math.min(Math.max(Number(input.pages) || 3, 1), 16)
+        const text = (id, role, x, y, w, h, style = {}) => ({
+          id, kind: 'text', role, x, y, w, h, style, brief: `Synthetic ${role} for transport verification only.`,
+        })
+        const cover = {
+          purpose: 'Synthetic cover for transport verification only.',
+          questions: ['Synthetic question?'],
+          background: 'paper',
+          frames: [
+            { id: 'band', kind: 'shape', role: 'panel', x: 0, y: 0, w: 2100, h: 1700, shape: 'rect', style: { fill: 'primary' } },
+            text('title', 'title', 200, 480, 1500, 760, { color: 'paper', size: 40 }),
+            text('subtitle', 'subtitle', 200, 1300, 1400, 260, { color: 'paper', size: 13 }),
+          ],
+        }
+        const page = (n) => ({
+          purpose: `Synthetic page ${n} for transport verification only.`,
+          questions: [`Synthetic question ${n}?`],
+          background: 'paper',
+          frames: [
+            text('heading', 'heading', 200, 200, 1700, 300, { size: 26 }),
+            text('body', 'body', 200, 700, 1700, 1500, { size: 10 }),
+          ],
+        })
+        generated = {
+          system: {
+            name: 'Synthetic system',
+            palette: { ink: '#14213d', paper: '#f6f4ee', surface: '#ebe7dc', primary: '#14213d', accent: '#f2a900', muted: '#4b5563' },
+            fonts: { heading: 'display', body: 'sans' },
+            scale: { caption: 8, body: 10, lead: 12, heading: 26, title: 40 },
+            grid: { margin: 200, columns: 6, gutter: 60 },
+          },
+          pages: [cover, ...Array.from({ length: count - 1 }, (_, i) => page(i + 2))],
+          reviewer_notes: ['Synthetic output: not a quality assertion.'],
+        }
+      }
+      if (name === 'write_design_page') {
+        const input = lastJson()
+        const ids = [...String(input.sources ?? '').matchAll(/Source chunk ID: ([^;]+);/g)].map((m) => m[1])
+        generated = {
+          frames: (input.frames ?? []).map((frame) => ({
+            id: frame.id,
+            text: 'Synthetic text for transport verification only.',
+            chunks: frame.cite ? ids.slice(0, 1) : [],
+          })),
+          claims: [],
+          summary: 'Synthetic summary.',
+          reviewer_notes: ['Synthetic output: not a quality assertion.'],
+        }
+      }
       if (name === 'fill_document_outline') {
         const raw = body.messages
           .flatMap((message) =>

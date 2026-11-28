@@ -1,14 +1,8 @@
 {
   "schemaVersion": 1,
   "description": "Qualitative content stays; no invented number, percentage or result row.",
-  "requiredText": [
-    "easier to use",
-    "No volume, cost or time figures"
-  ],
-  "forbiddenPatterns": [
-    "\\d\\s?%",
-    "[$€£]\\s?\\d"
-  ],
+  "requiredText": ["easier to use", "No volume, cost or time figures"],
+  "forbiddenPatterns": ["\\d\\s?%", "[$€£]\\s?\\d"],
   "imageCount": 0,
   "referenceCount": 2
 }

@@ -3,7 +3,7 @@ import type { TransactionClientContract } from '@adonisjs/lucid/types/database'
 import CanvasGenerationPage from '#models/canvas_generation_page'
 import DocumentImage from '#models/document_image'
 import { FIGURE_PLACEHOLDER, PLACEHOLDER } from '../../../../shared/brochure/content.ts'
-import { SLOTS } from '../../../../shared/canvas/academic/designs.ts'
+import { figureCells, ENTRY_FIGURE } from '../../../../shared/canvas/portfolio/tokens.ts'
 import { printDpi } from '../../../../shared/canvas/image_rules.ts'
 import CanvasGenerationRun, { ACTIVE_RUN_STATUSES } from '#models/canvas_generation_run'
 import type WorkspaceTask from '#models/workspace_task'
@@ -14,32 +14,13 @@ import AccessService, {
   missingResource,
   type WorkspaceAccessContext,
 } from '#services/workspaces/access_service'
-import { PIPELINE_VERSION } from '#services/canvas/generation/canvas_pipeline'
+import { PORTFOLIO_PIPELINE_VERSION } from '#services/canvas/portfolio/portfolio_pipeline'
+import { AI_DESIGN_PIPELINE_VERSION } from '#services/canvas/ai_design/ai_design_pipeline'
+import { AI_PAGE_ACTIONS } from '#services/canvas/generation/canvas_pipeline'
 import { Exception } from '@adonisjs/core/exceptions'
-import {
-  figureNumber,
-  imageOnSheet,
-  replaceSheet,
-} from '#services/canvas/generation/canvas_page_sheet'
-import type { AcademicPage } from '../../../../shared/canvas/academic/content.ts'
-import {
-  PLANNABLE_DESIGN_IDS,
-  type AcademicDesignId,
-} from '../../../../shared/canvas/academic/designs.ts'
-import {
-  canvasOptionsSchema,
-  type CanvasOptions,
-} from '../../../../shared/canvas/academic/options.ts'
+import { canvasOptionsSchema, type CanvasOptions } from '../../../../shared/canvas/options.ts'
 
-/** The picture frame of each design that has one, for the page's print resolution. */
-const IMAGE_GEO: Partial<Record<AcademicDesignId, { w: number; h: number }>> = {
-  figure_text: SLOTS.figure_text.image,
-  side_figure: SLOTS.side_figure.image,
-  case_box: SLOTS.case_box.image,
-  title_page: SLOTS.title_page.image,
-}
-
-/** Academic generation needs the canvas editor and its own switch, so it can roll out separately. */
+/** Page generation needs the canvas editor and its own switch, so it can roll out separately. */
 export const canvasGenerationEnabled = () =>
   canvasEnabled() && env.get('CANVAS_GENERATION') === 'on'
 
@@ -82,10 +63,16 @@ export default class CanvasGenerationService {
         depth: options.depth,
         templateSet: options.templateSet,
         status: 'queued',
-        plannerModel: config.canvasPlannerModel,
+        plannerModel:
+          options.templateSet === 'ai_design'
+            ? config.canvasDesignModel
+            : config.canvasPlannerModel,
         writerModel:
           options.depth === 'concise' ? config.canvasPlannerModel : config.canvasWriterModel,
-        pipelineVersion: PIPELINE_VERSION,
+        pipelineVersion:
+          options.templateSet === 'ai_design'
+            ? AI_DESIGN_PIPELINE_VERSION
+            : PORTFOLIO_PIPELINE_VERSION,
         createdBy: context.actorId,
       },
       { client: trx }
@@ -103,10 +90,13 @@ export default class CanvasGenerationService {
   options(raw: unknown): CanvasOptions {
     const parsed = canvasOptionsSchema.safeParse(raw ?? {})
     if (!parsed.success)
-      throw new Exception('Choose a style, depth, template set and page count the canvas offers.', {
-        status: 422,
-        code: 'E_CANVAS_OPTIONS',
-      })
+      throw new Exception(
+        'Choose a depth, an entry count and images setting the portfolio offers.',
+        {
+          status: 422,
+          code: 'E_CANVAS_OPTIONS',
+        }
+      )
     return parsed.data
   }
 
@@ -145,8 +135,10 @@ export default class CanvasGenerationService {
       throw conflict('Open the document in the canvas editor first')
     const run = await this.latestReady(documentId)
     if (!run) throw conflict('Generate the pages first')
-    if (run.templateSet === 'brochure')
-      throw conflict('Pages of a brochure-style canvas are not regenerated one by one')
+    if (run.templateSet === 'ai_design') throw conflict(AI_PAGE_ACTIONS)
+    // Pages made by a retired template (academic report, research brief, brochure) are generated again, not patched.
+    if (run.templateSet !== 'portfolio')
+      throw conflict('These pages were made with a retired template. Generate them again.')
     const canvas = doc.currentVersionId
       ? await new CanvasService().forVersion(doc.currentVersionId)
       : null
@@ -155,7 +147,7 @@ export default class CanvasGenerationService {
       throw conflict('The pages were rearranged after they were generated. Generate them again.')
     const row = rows.find((r) => r.pageIndex === index)
     if (!row) throw missingResource()
-    if (row.designId === 'contents' || row.designId === 'references')
+    if (row.designId !== 'cover' && row.designId !== 'entry')
       throw conflict('The application writes this page; there is nothing to regenerate.')
     return { doc, run, canvas, rows, row }
   }
@@ -188,53 +180,6 @@ export default class CanvasGenerationService {
     )
     const created = await CanvasGenerationRun.query().where('taskId', task.id).firstOrFail()
     return { taskId: task.id, runId: created.id }
-  }
-
-  /**
-   * "Change design": the stored page content laid out in another design, with no
-   * model call. Only that sheet changes, in a new version.
-   */
-  async changeDesign(
-    context: WorkspaceAccessContext,
-    documentId: string,
-    index: number,
-    input: { mutationId: string; baseVersionId: string | null; design: string }
-  ) {
-    const { doc, run, canvas, row } = await this.pageTarget(context, documentId, index)
-    if (!(PLANNABLE_DESIGN_IDS as readonly string[]).includes(input.design))
-      throw new Exception('Choose one of the page designs', {
-        status: 422,
-        code: 'E_CANVAS_DESIGN',
-      })
-    const content = row.content as AcademicPage | null
-    if (!content) throw conflict('This page has no stored content to lay out again.')
-    const image = await imageOnSheet(context.workspaceId, documentId, canvas.project, index)
-    const rows = await CanvasGenerationPage.query().where('runId', run.id).orderBy('pageIndex')
-    const next = replaceSheet(
-      canvas.project,
-      index,
-      { design: input.design as AcademicDesignId, page: content, image },
-      {
-        title: doc.title ?? 'Untitled',
-        label: 'Report',
-        keywords: [],
-        references: [],
-      },
-      figureNumber(
-        rows.map((r) => ({ index: r.pageIndex, design: r.designId, imageIds: r.imageIds })),
-        index
-      )
-    )
-    const saved = await new CanvasService().saveGenerated(context, documentId, {
-      canvas: next,
-      baseVersionId: input.baseVersionId,
-      mutationId: input.mutationId,
-      generationRunId: run.id,
-    })
-    await CanvasGenerationPage.query()
-      .where({ runId: run.id, pageIndex: index })
-      .update({ design_id: input.design })
-    return { versionId: saved.version.id, version: saved.version.version }
   }
 
   /** The latest run of a document: status, stage, plan and the quality of each page. */
@@ -275,7 +220,7 @@ export default class CanvasGenerationService {
         const pictures = page.imageIds
           .map((id) => images.get(id))
           .filter((image): image is DocumentImage => !!image?.width && !!image.height)
-        const geo = IMAGE_GEO[page.designId as AcademicDesignId]
+        const cells = figureCells(pictures.length)
         return {
           index: page.pageIndex,
           design: page.designId,
@@ -288,9 +233,17 @@ export default class CanvasGenerationService {
             text.split(PLACEHOLDER).length - 1 + text.split(FIGURE_PLACEHOLDER).length - 1,
           // The lowest print resolution of the page's pictures, when there are any.
           dpi:
-            geo && pictures.length
+            page.designId === 'entry' && pictures.length
               ? Math.min(
-                  ...pictures.map((p) => printDpi({ width: p.width!, height: p.height! }, geo))
+                  ...pictures.map((p, i) =>
+                    printDpi(
+                      { width: p.width!, height: p.height! },
+                      {
+                        w: (cells[i] ?? cells[0]).w * ENTRY_FIGURE.mmPerPt * 10,
+                        h: (cells[i] ?? cells[0]).h * ENTRY_FIGURE.mmPerPt * 10,
+                      }
+                    )
+                  )
                 )
               : null,
           attempts: page.attempts,

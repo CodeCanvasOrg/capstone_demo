@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
-import { isActive, STEPS, stepIndex, stepLabel, type Run } from './generation'
+import { isActive, pageLabel, STEPS, stepIndex, stepLabel, type Run } from './generation'
 
 /**
  * The run's progress: a stepper (planning, gathering evidence, writing page 3 of 8,
@@ -118,7 +118,7 @@ export function GenerationProgress({
                     : 'border-emerald-600/40 text-foreground'
               }`}
             >
-              {page.index + 1}. {page.design.replaceAll('_', ' ')}
+              {page.index + 1}. {pageLabel(run.pages, page.index)}
             </li>
           ))}
         </ul>

@@ -1,4 +1,5 @@
-import type { BrandKit } from '../../../shared/layout/brand.ts'
+import { getBrandKit, type BrandKit } from '../../../shared/layout/brand.ts'
+import { hexagonsSvg, thumbnailsSvg } from '../../../shared/canvas/portfolio/tokens.ts'
 import type { ClientBlock, ClientSource } from '../../../shared/publication/client.ts'
 import {
   CANVAS_BASE_CSS,
@@ -57,12 +58,33 @@ function frameHtml(frame: Frame, content: FrameContent, brand: BrandKit, focus: 
         : `${open}</div>`
     }
     case 'art':
+      if (frame.art === 'hexagons') return `${open}${hexagonsSvg()}</div>`
+      if (frame.art === 'thumbnails') return `${open}${thumbnailsSvg()}</div>`
       return frame.art === 'ribbons'
         ? `${open}${ribbonsSvg(frame.id, brand.palette.accent)}</div>`
         : `<div class="cv-frame cv-art cv-art-glow" id="${frame.id}"></div>`
     case 'shape':
       return `${open}</div>`
   }
+}
+
+/**
+ * The brand a canvas is drawn with: a template's own kit when the canvas carries the template's
+ * marker, otherwise the one pinned to the document's layout. An AI-designed canvas is drawn with the
+ * pinned brand plus the shipped Inter files, the fonts its design may use.
+ */
+export function brandForCanvas(canvas: Pick<CanvasDocument, 'template'>, pinned: BrandKit) {
+  const own = canvas.template ? getBrandKit(canvas.template.id) : undefined
+  if (own?.templateOnly) return own
+  const inter = canvas.template?.id === 'ai_design' ? getBrandKit('portfolio') : undefined
+  if (!inter) return pinned
+  const fonts = [
+    ...pinned.fonts,
+    ...inter.fonts.filter(
+      (f) => !pinned.fonts.some((p) => p.family === f.family && p.weight === f.weight)
+    ),
+  ]
+  return { ...pinned, fonts }
 }
 
 const sourcesSheet = (sources: ClientSource[]) =>
@@ -127,7 +149,7 @@ export async function renderCanvasHtml(
   const banner = preview
     ? `<p style="position:fixed;top:4mm;right:4mm;margin:0;padding:3pt 8pt;background:#b42318;color:#fff;font-size:7pt;font-weight:800;z-index:9999">PREVIEW · ${unsaved ? 'UNSAVED CHANGES · ' : ''}NOT APPROVED FOR FINAL EXPORT</p>`
     : ''
-  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><style>${await fontFaces(brand)}${css(canvas, brand)}</style></head><body>${banner}${sheets}\n${sourcesSheet(sources)}</body></html>`
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><style>${await fontFaces(brand)}${css(canvas, brand)}</style></head><body>${banner}${sheets}\n${canvas.template ? '' : sourcesSheet(sources)}</body></html>`
 }
 
 /**

@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "CodeCanvas local API",
-    "description": "Requests for the canvas academic page generation (docs/canvas-academic-pipeline-plan.md). Needs a running dev server with CANVAS_EDITOR=pilot and CANVAS_GENERATION=on, a signed-in session cookie, and a document already open in the canvas editor. Set the collection variables first.",
+    "description": "Requests for the canvas portfolio page generation (docs/portfolio-template-plan.md). Needs a running dev server with CANVAS_EDITOR=pilot and CANVAS_GENERATION=on, a signed-in session cookie, and a document already open in the canvas editor. Set the collection variables first.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -28,7 +28,7 @@
   ],
   "item": [
     {
-      "name": "Canvas generation",
+      "name": "Canvas generation (portfolio)",
       "item": [
         {
           "name": "Generate pages (defaults)",
@@ -83,7 +83,7 @@
           ]
         },
         {
-          "name": "Generate pages (detailed academic report, 8 pages)",
+          "name": "Generate pages (detailed, 3 entries, no images)",
           "request": {
             "method": "POST",
             "header": [
@@ -116,7 +116,56 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"options\": {\n    \"profile\": \"academic\",\n    \"depth\": \"detailed\",\n    \"templateSet\": \"academic_report\",\n    \"pages\": 8,\n    \"images\": true\n  }\n}"
+              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"options\": {\n    \"depth\": \"detailed\",\n    \"entries\": 3,\n    \"images\": false\n  }\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('queued or refused while another run is active', () => pm.expect([202, 409]).to.include(pm.response.code))"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Generate pages (Let AI choose: ai_design, 3 entries)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents/{{documentId}}/canvas/generate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "workspaces",
+                "{{workspaceId}}",
+                "documents",
+                "{{documentId}}",
+                "canvas",
+                "generate"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"options\": {\n    \"templateSet\": \"ai_design\",\n    \"depth\": \"standard\",\n    \"entries\": 3,\n    \"images\": true\n  }\n}"
             }
           },
           "event": [
@@ -165,7 +214,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"options\": {\n    \"depth\": \"huge\",\n    \"pages\": 2\n  }\n}"
+              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"options\": {\n    \"depth\": \"huge\",\n    \"entries\": 9\n  }\n}"
             }
           },
           "event": [
@@ -229,7 +278,160 @@
           ]
         },
         {
-          "name": "Regenerate page 3 (rewrite)",
+          "name": "Regenerate entry 1 (rewrite)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents/{{documentId}}/canvas/pages/1/regenerate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "workspaces",
+                "{{workspaceId}}",
+                "documents",
+                "{{documentId}}",
+                "canvas",
+                "pages",
+                "1",
+                "regenerate"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"mode\": \"rewrite\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('queued or refused', () => pm.expect([202, 409]).to.include(pm.response.code))"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Regenerate entry 1 (add depth)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents/{{documentId}}/canvas/pages/1/regenerate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "workspaces",
+                "{{workspaceId}}",
+                "documents",
+                "{{documentId}}",
+                "canvas",
+                "pages",
+                "1",
+                "regenerate"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"mode\": \"expand\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('queued or refused', () => pm.expect([202, 409]).to.include(pm.response.code))"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Regenerate the cover (rewrite)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents/{{documentId}}/canvas/pages/0/regenerate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "workspaces",
+                "{{workspaceId}}",
+                "documents",
+                "{{documentId}}",
+                "canvas",
+                "pages",
+                "0",
+                "regenerate"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"mode\": \"rewrite\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('queued or refused', () => pm.expect([202, 409]).to.include(pm.response.code))"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Regenerate a sources page (refused: written by the application)",
           "request": {
             "method": "POST",
             "header": [
@@ -273,14 +475,14 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test('queued or refused', () => pm.expect([202, 409]).to.include(pm.response.code))"
+                  "pm.test('the application writes sources pages', () => pm.expect(pm.response.code).to.eql(409))"
                 ]
               }
             }
           ]
         },
         {
-          "name": "Regenerate page 3 (add depth)",
+          "name": "Regenerate a page of an AI-designed canvas (refused: 409)",
           "request": {
             "method": "POST",
             "header": [
@@ -298,7 +500,7 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents/{{documentId}}/canvas/pages/2/regenerate",
+              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents/{{documentId}}/canvas/pages/1/regenerate",
               "host": [
                 "{{baseUrl}}"
               ],
@@ -309,13 +511,13 @@
                 "{{documentId}}",
                 "canvas",
                 "pages",
-                "2",
+                "1",
                 "regenerate"
               ]
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"mode\": \"expand\"\n}"
+              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"mode\": \"rewrite\"\n}"
             }
           },
           "event": [
@@ -324,14 +526,19 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test('queued or refused', () => pm.expect([202, 409]).to.include(pm.response.code))"
+                  "pm.test('AI-designed pages are generated again as a whole', () => pm.expect([409, 404]).to.include(pm.response.code))"
                 ]
               }
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "Create a case study (New case study form)",
+      "item": [
         {
-          "name": "Change page 3 design (no model call)",
+          "name": "Create: Use a template (portfolio)",
           "request": {
             "method": "POST",
             "header": [
@@ -349,24 +556,19 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents/{{documentId}}/canvas/pages/2/design",
+              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "workspaces",
                 "{{workspaceId}}",
-                "documents",
-                "{{documentId}}",
-                "canvas",
-                "pages",
-                "2",
-                "design"
+                "documents"
               ]
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"design\": \"two_column\"\n}"
+              "raw": "{\n  \"title\": \"Postman case study\",\n  \"description\": \"A brief written from Postman.\",\n  \"sourceMode\": \"input_only\",\n  \"templateId\": \"brochure\",\n  \"canvas\": {\n    \"templateSet\": \"portfolio\",\n    \"entries\": 2,\n    \"depth\": \"standard\",\n    \"images\": true\n  }\n}"
             }
           },
           "event": [
@@ -375,7 +577,99 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test('changed or refused', () => pm.expect([200, 409]).to.include(pm.response.code))"
+                  "pm.test('created (redirect followed or 302)', () => pm.expect([200,302]).to.include(pm.response.code))"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create: Let AI choose (ai_design)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "workspaces",
+                "{{workspaceId}}",
+                "documents"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Postman case study\",\n  \"description\": \"A brief written from Postman.\",\n  \"sourceMode\": \"input_only\",\n  \"templateId\": \"brochure\",\n  \"canvas\": {\n    \"templateSet\": \"ai_design\",\n    \"entries\": \"auto\",\n    \"depth\": \"standard\",\n    \"images\": true\n  }\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('created (redirect followed or 302)', () => pm.expect([200,302]).to.include(pm.response.code))"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create: invalid canvas options",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "workspaces",
+                "{{workspaceId}}",
+                "documents"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Postman case study\",\n  \"description\": \"A brief written from Postman.\",\n  \"sourceMode\": \"input_only\",\n  \"templateId\": \"brochure\",\n  \"canvas\": {\n    \"templateSet\": \"portfolio\",\n    \"entries\": 9\n  }\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('refused', () => pm.expect(pm.response.code).to.eql(422))"
                 ]
               }
             }

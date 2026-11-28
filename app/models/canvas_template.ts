@@ -3,7 +3,7 @@ import { column, scope } from '@adonisjs/lucid/orm'
 import type { CanvasDocument } from '../../shared/canvas/model.ts'
 
 export type CanvasTemplateKind = 'sheet' | 'document'
-export type CanvasTemplateCategory = 'brochure' | 'academic'
+export type CanvasTemplateCategory = 'brochure' | 'academic' | 'portfolio'
 
 /** A reusable canvas: one sheet or a whole document. No workspace means a system template. */
 export default class CanvasTemplate extends CanvasTemplateSchema {
@@ -21,8 +21,10 @@ export default class CanvasTemplate extends CanvasTemplateSchema {
     return this.workspaceId === null
   }
 
-  /** System templates plus the workspace's own. */
+  /** System templates plus the workspace's own; retired templates are not offered. */
   static visibleTo = scope((query, workspaceId: string) => {
-    query.where((q) => q.whereNull('workspace_id').orWhere('workspace_id', workspaceId))
+    query
+      .whereNull('retired_at')
+      .where((q) => q.whereNull('workspace_id').orWhere('workspace_id', workspaceId))
   })
 }

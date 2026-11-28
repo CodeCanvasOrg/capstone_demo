@@ -173,6 +173,16 @@ router
         router
           .patch('/documents/:documentId/images/:imageId', [controllers.DocumentImages, 'update'])
           .as('documentImages.update')
+        // Template thumbnails for the New case study form, which has no document yet (404 without the pilot).
+        router
+          .get('/canvas-templates', [controllers.CanvasTemplates, 'workspaceIndex'])
+          .as('canvasTemplates.workspaceIndex')
+        router
+          .get('/canvas-templates/:templateId/preview', [
+            controllers.CanvasTemplates,
+            'workspacePreview',
+          ])
+          .as('canvasTemplates.workspacePreview')
         // Canvas editor (CANVAS_EDITOR=pilot; 404 otherwise).
         router
           .get('/documents/:documentId/canvas', [controllers.DocumentCanvases, 'show'])
@@ -201,7 +211,7 @@ router
             'preview',
           ])
           .as('canvasTemplates.preview')
-        // Academic page generation for the canvas (CANVAS_EDITOR=pilot and CANVAS_GENERATION=on; 404 otherwise).
+        // Portfolio page generation for the canvas (CANVAS_EDITOR=pilot and CANVAS_GENERATION=on; 404 otherwise).
         router
           .post('/documents/:documentId/canvas/generate', [controllers.CanvasGenerations, 'store'])
           .as('canvasGenerations.store')
@@ -215,13 +225,6 @@ router
           ])
           .where('index', router.matchers.number())
           .as('canvasGenerations.regenerate')
-        router
-          .post('/documents/:documentId/canvas/pages/:index/design', [
-            controllers.CanvasGenerations,
-            'design',
-          ])
-          .where('index', router.matchers.number())
-          .as('canvasGenerations.design')
         router
           .post('/documents/:documentId/versions', [controllers.DocumentVersions, 'handle'])
           .as('documentVersions.store')

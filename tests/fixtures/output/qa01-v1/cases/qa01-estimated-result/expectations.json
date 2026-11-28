@@ -6,9 +6,7 @@
     "no deployment measurement",
     "desk review of five sample invoices"
   ],
-  "forbiddenPatterns": [
-    "[Mm]easured 30%"
-  ],
+  "forbiddenPatterns": ["[Mm]easured 30%"],
   "imageCount": 0,
   "referenceCount": 2
 }

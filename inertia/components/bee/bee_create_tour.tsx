@@ -39,7 +39,7 @@ const STEPS: TourStep[] = [
   },
   {
     title: 'Pick a look',
-    body: 'Use a ready-made template, choose a design for each page, or let me pick the designs that fit your story.',
+    body: 'Use the Navy and gold portfolio template and tune how many entries it has and how deep each one goes, let me design every page from your materials, or keep it as a plain text document.',
     mood: 'think',
     target: ['[data-tour=create-layout]'],
   },

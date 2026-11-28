@@ -25,7 +25,9 @@ import {
   type Sheet,
 } from '../../../../shared/canvas/model.ts'
 import type { BrandKit } from '../../../../shared/layout/brand.ts'
+import { citationNumbers } from '../../../../shared/canvas/portfolio/citations.ts'
 import { frameHtml } from './frame_html'
+import { portfolioFontCss } from './portfolio_fonts'
 import { startTextEditing, type TextEditing } from './text_editing'
 
 /**
@@ -67,6 +69,7 @@ body.cv-placing,body.cv-placing .cv-frame{cursor:crosshair!important}
 .cv-ghost{position:absolute;border:1.5px dashed #2563eb;background:rgba(37,99,235,.06);pointer-events:none;z-index:1000}
 .cv-image-empty{display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:repeating-linear-gradient(45deg,#f5f5f4 0 8px,#e7e5e4 8px 16px);color:#78716c;font-size:9pt}
 .cv-art-ribbons{width:100%;height:100%;background:repeating-linear-gradient(160deg,transparent 0 9px,color-mix(in srgb,var(--cv-accent) 30%,transparent) 9px 10px)}
+.cv-frame sup.ref{cursor:default}
 .tiptap-source-citation{display:inline-block;padding:0 4px;margin:0 1px;border-radius:3px;background:color-mix(in srgb,var(--cv-accent) 25%,transparent);font-size:.75em;vertical-align:super;line-height:1.2}
 `
 
@@ -75,8 +78,22 @@ export const cvOf = <T = Frame>(cmp: Component) => cmp.get('cv') as T
 const isFrame = (cmp?: Component | null) =>
   !!cmp && String(cmp.get('type')).startsWith('cv-') && cmp.get('type') !== SHEET_TYPE
 
-function viewsPlugin(imageUrl: CanvasEditorOptions['imageUrl']) {
+function viewsPlugin(imageUrl: CanvasEditorOptions['imageUrl'], numbered: boolean) {
   return (editor: Editor) => {
+    /** Footnote numbers of the canvas as it stands, for a template that numbers its citations. */
+    const cites = () => {
+      if (!numbered) return undefined
+      const sheets = (editor.getWrapper()?.components().models ?? [])
+        .filter((c) => c.get('type') === SHEET_TYPE)
+        .map((sheet) => ({
+          ...(sheet.get('cv') as object),
+          frames: sheet
+            .components()
+            .models.map((f) => f.get('cv'))
+            .filter(Boolean),
+        }))
+      return citationNumbers(sheets as never)
+    }
     for (const kind of FRAME_KINDS)
       editor.Components.addType(`cv-${kind}`, {
         view: {
@@ -85,12 +102,15 @@ function viewsPlugin(imageUrl: CanvasEditorOptions['imageUrl']) {
           },
           onRender({ el, model }) {
             const frame = model.get('cv') as Frame | null
-            if (frame) el.innerHTML = frameHtml(frame, imageUrl)
+            if (frame) el.innerHTML = frameHtml(frame, imageUrl, cites())
           },
         },
       })
   }
 }
+
+/** The portfolio and the AI-designed canvas draw with the shipped Inter files and number their footnotes. */
+const usesInter = (id: string | undefined) => id === 'portfolio' || id === 'ai_design'
 
 const FRAME_DRAG = `[data-cv-type="${SHEET_TYPE}"]`
 /** Screen pixels the pointer must travel before a press becomes a drag. */
@@ -139,12 +159,12 @@ export function createCanvasEditor(
     layerManager: { custom: true },
     traitManager: { custom: true },
     showOffsets: false,
-    canvasCss: `:root{${declarations(vars)}}${CANVAS_BASE_CSS}${EDITOR_CSS}`,
+    canvasCss: `${usesInter(o.canvas.template?.id) ? portfolioFontCss() : ''}:root{${declarations(vars)}}${CANVAS_BASE_CSS}${EDITOR_CSS}`,
     protectedCss: '*{box-sizing:border-box}',
     parser: {
       optionsHtml: { allowScripts: false, allowUnsafeAttr: false, allowUnsafeAttrValue: false },
     },
-    plugins: [canvasTypes as never, viewsPlugin(o.imageUrl)],
+    plugins: [canvasTypes as never, viewsPlugin(o.imageUrl, usesInter(o.canvas.template?.id))],
     projectData: toGrapes(o.canvas, 'px'),
   } as never) as Editor
 
@@ -628,7 +648,11 @@ export function createCanvasEditor(
   }
 
   /** The canvas as stored, candidate only: callers validate with parseCanvas. */
-  const read = () => fromGrapes(editor.getProjectData() as never) as CanvasDocument
+  const read = () => {
+    const stored = fromGrapes(editor.getProjectData() as never) as CanvasDocument
+    // The template marker is the canvas', not a component's: it travels with every save.
+    return o.canvas.template ? { ...stored, template: o.canvas.template } : stored
+  }
 
   const sheets = () =>
     (editor.getWrapper()?.components().models ?? []).filter((c) => c.get('type') === SHEET_TYPE)

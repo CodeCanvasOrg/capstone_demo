@@ -1,1 +1,0 @@
-The previous page broke these rules: sections[0].paragraphs[1] (uncited); figures[0] (invented_figure: 97%). Return the whole page again with every problem fixed. Cite every factual paragraph with supplied chunk ids, and use only figures that appear in the chunks you cite.

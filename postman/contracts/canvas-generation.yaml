@@ -3,16 +3,46 @@ info:
   title: Canvas generation (CodeCanvas)
   version: 1.0.0
   description: |
-    Academic page generation for the canvas editor (docs/canvas-academic-pipeline-plan.md).
+    Portfolio page generation for the canvas editor (docs/portfolio-template-plan.md; the academic
+    pipeline in docs/canvas-academic-pipeline-plan.md is retired).
     Every route needs CANVAS_EDITOR=pilot and CANVAS_GENERATION=on (404 otherwise), a signed-in
     member of the workspace and, except GET, permission to change the document.
     This is a local test contract refined from `start/routes.ts`, `app/validators/canvas_generation.ts`
-    and `tests/functional/canvas_generation_http.spec.ts`; it is not a published API.
+    and `tests/functional/portfolio_generation_http.spec.ts`; it is not a published API.
 servers:
   - url: http://localhost:3333
 security:
   - session: []
 paths:
+  /workspaces/{workspaceId}/documents:
+    post:
+      operationId: createCaseStudy
+      summary: Create a case study (the New case study form)
+      description: |
+        With `templateId: brochure` and a `canvas` object, and canvas generation on, the case study is
+        created in canvas mode with `canvas` stored as its layout options, and its first generation is
+        a canvas run ("Use a template" sends `templateSet: portfolio`, "Let AI choose" sends
+        `templateSet: ai_design`). The redirect is to `/documents/{id}/canvas`. With canvas generation
+        off, `canvas` is ignored and the `brochure` selection is used as before (redirect to `.../edit`).
+        `templateId: null` is a plain text document. Form posts answer 302; a JSON client gets 422 for options
+        the portfolio does not offer.
+      parameters: [{ $ref: '#/components/parameters/workspaceId' }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CreateCaseStudyRequest' }
+      responses:
+        '302': { description: Created; Location is the canvas page (canvas path) or the case study page }
+        '422': { description: Canvas options the portfolio does not offer, or an invalid brief }
+  /workspaces/{workspaceId}/canvas-templates:
+    get:
+      operationId: listWorkspaceCanvasTemplates
+      summary: The page-design thumbnails the New case study form shows (no document needed)
+      parameters: [{ $ref: '#/components/parameters/workspaceId' }]
+      responses:
+        '200': { description: 'The templates, each with a previewUrl under /workspaces/:id/canvas-templates/:templateId/preview' }
+        '404': { description: CANVAS_EDITOR is not pilot }
   /workspaces/{workspaceId}/documents/{documentId}/canvas/generate:
     post:
       operationId: generateCanvasPages
@@ -55,7 +85,7 @@ paths:
   /workspaces/{workspaceId}/documents/{documentId}/canvas/pages/{index}/regenerate:
     post:
       operationId: regenerateCanvasPage
-      summary: Rewrite, deepen or shorten one page (a new version where only that sheet changes)
+      summary: Rewrite, deepen or shorten an entry, or rewrite the cover (a new version; the sources pages are recomposed)
       parameters:
         - { $ref: '#/components/parameters/workspaceId' }
         - { $ref: '#/components/parameters/documentId' }
@@ -81,44 +111,8 @@ paths:
                 properties:
                   data: { $ref: '#/components/schemas/Queued' }
         '404': { description: Flags off, or no such page }
-        '409': { description: No generated pages, pages rearranged since, or a page the application writes (contents, references) }
+        '409': { description: No generated pages, pages rearranged since, or a sources page, which the application writes, or pages made by a retired template }
         '422': { description: Unknown mode }
-  /workspaces/{workspaceId}/documents/{documentId}/canvas/pages/{index}/design:
-    post:
-      operationId: changeCanvasPageDesign
-      summary: Lay one page's stored content out in another design (no model call)
-      parameters:
-        - { $ref: '#/components/parameters/workspaceId' }
-        - { $ref: '#/components/parameters/documentId' }
-        - { $ref: '#/components/parameters/index' }
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required: [mutationId, baseVersionId, design]
-              properties:
-                mutationId: { type: string, minLength: 8, maxLength: 100 }
-                baseVersionId: { type: string, format: uuid, nullable: true }
-                design:
-                  type: string
-                  enum: [essay, two_column, figure_text, side_figure, data_findings, key_concepts, case_box, comparison, conclusion]
-      responses:
-        '200':
-          description: The new version
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      versionId: { type: string, format: uuid }
-                      version: { type: integer }
-        '409': { description: Same causes as regenerate }
-        '422': { description: A design the planner may not choose }
 components:
   securitySchemes:
     session: { type: apiKey, in: cookie, name: adonis-session }
@@ -127,13 +121,38 @@ components:
     documentId: { name: documentId, in: path, required: true, schema: { type: string, format: uuid } }
     index: { name: index, in: path, required: true, schema: { type: integer, minimum: 0 } }
   schemas:
+    CreateCaseStudyRequest:
+      type: object
+      required: [description, sourceMode]
+      properties:
+        title: { type: string, maxLength: 255 }
+        description: { type: string, maxLength: 20000 }
+        sourceMode: { type: string, enum: [files, input_only] }
+        files: { type: array, items: { type: object, properties: { id: { type: string, format: uuid } } } }
+        templateId: { type: string, nullable: true, description: '`brochure` for the layouts below; null for a plain text document' }
+        canvas:
+          type: object
+          description: Stored as the layout's canvas options when canvas generation is on
+          properties:
+            templateSet: { type: string, enum: [portfolio, ai_design], default: portfolio }
+            entries: { oneOf: [{ type: string, enum: [auto] }, { type: integer, minimum: 1, maximum: 6 }], default: auto }
+            depth: { type: string, enum: [concise, standard, detailed], default: standard }
+            images: { type: boolean, default: true }
+        brochure: { type: object, description: 'Used instead of `canvas` when canvas generation is off' }
     Options:
       type: object
+      description: |
+        `portfolio` is the fixed template; `ai_design` ("Let AI choose") has the model design the
+        pages (docs/ai-design-plan.md). The retired `templateSet` values (academic_report,
+        research_brief, brochure) are still accepted and mean the portfolio; anything else is a 422.
+        With `ai_design`, `entries` N means a cover and N pages (else `pages`, else the depth decides),
+        and page actions on the result answer 409 ("AI-designed pages are generated again as a whole").
       properties:
-        profile: { type: string, enum: [academic, informative], default: academic }
-        depth: { type: string, enum: [concise, standard, detailed], default: standard }
-        templateSet: { type: string, enum: [academic_report, research_brief, brochure], default: academic_report }
-        pages: { oneOf: [{ type: string, enum: [auto] }, { type: integer, minimum: 3, maximum: 16 }], default: auto }
+        depth: { type: string, enum: [concise, standard, detailed], default: standard, description: 'Rows an entry carries: 4 to 5, 6 to 7, 8' }
+        entries: { oneOf: [{ type: string, enum: [auto] }, { type: integer, minimum: 1, maximum: 6 }], default: auto }
+        templateSet: { type: string, enum: [portfolio, ai_design, academic_report, research_brief, brochure], default: portfolio }
+        profile: { type: string, enum: [academic, informative], default: informative }
+        pages: { oneOf: [{ type: string, enum: [auto] }, { type: integer, minimum: 3, maximum: 16 }], default: auto, description: 'ai_design only: the exact number of designed pages' }
         images: { type: boolean, default: true }
     GenerateRequest:
       type: object
@@ -179,7 +198,7 @@ components:
             type: object
             properties:
               index: { type: integer }
-              design: { type: string }
+              design: { type: string, enum: [cover, entry, sources] }
               status: { type: string, enum: [pending, written, fitted, failed] }
               purpose: { type: string }
               words: { type: integer, nullable: true }

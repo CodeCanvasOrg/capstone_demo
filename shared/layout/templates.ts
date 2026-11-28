@@ -1,4 +1,4 @@
-import { canvasOptionsSchema, type CanvasOptions } from '../canvas/academic/options.ts'
+import { canvasOptionsSchema, type CanvasOptions } from '../canvas/options.ts'
 import { isSafeLink } from '../publication/client.ts'
 import { parseSelection, type BrochureSelection } from '../brochure/designs.ts'
 import { ENABLED_DOC_TYPES, type DocType } from '../publication/content.ts'

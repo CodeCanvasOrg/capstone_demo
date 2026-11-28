@@ -74,6 +74,8 @@ export type ScannedRoutes = {
     'documentImages.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentImages.show': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'imageId': ParamValue} }
     'documentImages.update': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'imageId': ParamValue} }
+    'canvasTemplates.workspaceIndex': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
+    'canvasTemplates.workspacePreview': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'templateId': ParamValue} }
     'documentCanvases.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentCanvases.project': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentCanvases.enable': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
@@ -85,7 +87,6 @@ export type ScannedRoutes = {
     'canvasGenerations.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'canvasGenerations.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'canvasGenerations.regenerate': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'index': ParamValue} }
-    'canvasGenerations.design': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'index': ParamValue} }
     'documentVersions.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentRevisions.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentTasks.generate': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
@@ -151,6 +152,8 @@ export type ScannedRoutes = {
     'documents.edit': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue} }
     'documentImages.index': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentImages.show': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'imageId': ParamValue} }
+    'canvasTemplates.workspaceIndex': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
+    'canvasTemplates.workspacePreview': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'templateId': ParamValue} }
     'documentCanvases.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentCanvases.project': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'canvasTemplates.index': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
@@ -203,6 +206,8 @@ export type ScannedRoutes = {
     'documents.edit': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'id': ParamValue} }
     'documentImages.index': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentImages.show': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'imageId': ParamValue} }
+    'canvasTemplates.workspaceIndex': { paramsTuple: [ParamValue]; params: {'workspaceId': ParamValue} }
+    'canvasTemplates.workspacePreview': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'templateId': ParamValue} }
     'documentCanvases.show': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentCanvases.project': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'canvasTemplates.index': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
@@ -253,7 +258,6 @@ export type ScannedRoutes = {
     'documentCanvases.save': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'canvasGenerations.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'canvasGenerations.regenerate': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'index': ParamValue} }
-    'canvasGenerations.design': { paramsTuple: [ParamValue,ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue,'index': ParamValue} }
     'documentVersions.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentRevisions.store': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }
     'documentTasks.generate': { paramsTuple: [ParamValue,ParamValue]; params: {'workspaceId': ParamValue,'documentId': ParamValue} }

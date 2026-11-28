@@ -6,13 +6,9 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown_menu'
-import { ACADEMIC_DESIGNS, PLANNABLE_DESIGN_IDS } from '../../../shared/canvas/academic/designs.ts'
-import type { RunPage } from './generation'
+import { pageLabel, type RunPage } from './generation'
 import { PageQualityBadge } from './page_quality_badge'
 import { duplicateSheet, newSheet } from '../../../shared/canvas/ops.ts'
 import { sheetComponent } from '../../../shared/canvas/grapes.ts'
@@ -33,7 +29,6 @@ export function PageStrip({
   onChange,
   generated,
   onAction,
-  onDesign,
   actionsBlocked,
 }: {
   canvasEditor: CanvasEditor | null
@@ -44,8 +39,6 @@ export function PageStrip({
   generated?: RunPage[] | null
   /** Rewrite, deepen or shorten a generated page. */
   onAction?: (index: number, action: PageAction) => void
-  /** Lay a generated page out in another design. */
-  onDesign?: (index: number, design: string) => void
   /** Why the page actions are unavailable right now (unsaved edits, a run in progress). */
   actionsBlocked?: string | null
 }) {
@@ -129,7 +122,7 @@ export function PageStrip({
                   {generated?.[index] && (
                     <span className="text-muted-foreground">
                       {' · '}
-                      {generated[index].design.replaceAll('_', ' ')}
+                      {pageLabel(generated, index)}
                     </span>
                   )}
                 </span>
@@ -166,8 +159,7 @@ export function PageStrip({
                 ))}
                 {generated?.[index] &&
                   onAction &&
-                  onDesign &&
-                  !['contents', 'references'].includes(generated[index].design) && (
+                  ['cover', 'entry'].includes(generated[index].design) && (
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button
@@ -191,31 +183,21 @@ export function PageStrip({
                             ['expand', 'Add depth'],
                             ['condense', 'Make shorter'],
                           ] as const
-                        ).map(([action, label]) => (
-                          <DropdownMenuItem
-                            key={action}
-                            disabled={!!actionsBlocked}
-                            onSelect={() => onAction(index, action)}
-                          >
-                            {label}
-                          </DropdownMenuItem>
-                        ))}
-                        <DropdownMenuSub>
-                          <DropdownMenuSubTrigger disabled={!!actionsBlocked}>
-                            Change design
-                          </DropdownMenuSubTrigger>
-                          <DropdownMenuSubContent className="w-52">
-                            {PLANNABLE_DESIGN_IDS.map((design) => (
-                              <DropdownMenuItem
-                                key={design}
-                                disabled={design === generated[index].design}
-                                onSelect={() => onDesign(index, design)}
-                              >
-                                {ACADEMIC_DESIGNS[design].label}
-                              </DropdownMenuItem>
-                            ))}
-                          </DropdownMenuSubContent>
-                        </DropdownMenuSub>
+                        )
+                          // The cover has one text to rewrite; depth and length are an entry's.
+                          .filter(
+                            ([action]) =>
+                              generated[index].design === 'entry' || action === 'rewrite'
+                          )
+                          .map(([action, label]) => (
+                            <DropdownMenuItem
+                              key={action}
+                              disabled={!!actionsBlocked}
+                              onSelect={() => onAction(index, action)}
+                            >
+                              {label}
+                            </DropdownMenuItem>
+                          ))}
                       </DropdownMenuContent>
                     </DropdownMenu>
                   )}
