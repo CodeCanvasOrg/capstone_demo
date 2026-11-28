@@ -31,8 +31,11 @@ export default class CanvasTemplateService {
       version: row.version,
       system: row.isSystem,
       slots: row.slots,
+      // A document's gallery and the New case study form (no document) have their own routes.
       previewUrl: row.previewKey
-        ? `/workspaces/${context.workspaceId}${documentId ? `/documents/${documentId}` : ''}/canvas/templates/${row.id}/preview`
+        ? documentId
+          ? `/workspaces/${context.workspaceId}/documents/${documentId}/canvas/templates/${row.id}/preview`
+          : `/workspaces/${context.workspaceId}/canvas-templates/${row.id}/preview`
         : null,
     }))
   }
