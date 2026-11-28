@@ -3,11 +3,13 @@ import CanvasGenerationRun from '#models/canvas_generation_run'
 import DocumentImage from '#models/document_image'
 import CanvasService from '#services/canvas/canvas_service'
 import RetrievalService from '#services/documents/retrieval_service'
+import EvidenceService from '#services/documents/evidence_service'
 import { DEPTH_TOKENS } from '../../../../shared/canvas/options.ts'
 import { parseCanvas, type CanvasDocument, type Sheet } from '../../../../shared/canvas/model.ts'
 import {
   composePortfolio,
   pagePlan,
+  representatives,
   type EntryInput,
   type PortfolioImage,
   type SourceInfo,
@@ -27,7 +29,7 @@ import PortfolioWriter, {
   type Written,
 } from './portfolio_writer.ts'
 import { portfolioReport } from '../../../../shared/canvas/portfolio/quality.ts'
-import { coverMeta, sourceInfo, type StoredPlan } from './portfolio_pipeline.ts'
+import { brandName, coverMeta, sourceInfo, type StoredPlan } from './portfolio_pipeline.ts'
 
 const unusable = (message: string) =>
   Object.assign(new Error(message), { status: 422, unusableOutput: true })
@@ -68,6 +70,7 @@ export default class PortfolioRegenerate {
     const plan = previous.plan as StoredPlan
     const entryRows = stored.filter((r) => r.designId === 'entry')
     const contents = entryRows.map((r) => r.content as EntryPage)
+    const previousEntries = entryRows.map((r) => ({ page: r.content as EntryPage }))
     const sources = new Map<string, SourceInfo>(Object.entries(plan.sources ?? {}))
     const writer = new PortfolioWriter()
     const ctx: WriteContext = {
@@ -76,6 +79,7 @@ export default class PortfolioRegenerate {
       audience: plan.audience,
       outline: plan.pages.map(({ title, purpose }) => ({ title, purpose })),
       options,
+      brand: await brandName(input.context, input.documentId),
       guard,
     }
     const summariesBefore = (j: number): Earlier[] =>
@@ -133,12 +137,18 @@ export default class PortfolioRegenerate {
       if (mode === 'rewrite')
         written = await writer.write(ctx, entry, j, chunks, summariesBefore(j), extra)
       else {
+        // The entry keeps the evidence it already cites, even where this retrieval does not return it.
+        const ids = [...new Set([...row.chunkIds, ...citedChunks(contents[j])])]
+        const ev = new EvidenceService()
+        const rows = await ev.rows(input.context, input.documentId, ids, input.pins)
+        const kept = rows.map((r) => ev.source(input.context, input.documentId, r))
+        for (const c of kept) sources.set(c.id, sourceInfo(c))
         const base: Written = {
           page: contents[j],
           attempts: row.attempts,
           tokens: 0,
           notes: row.notes,
-          supplied: chunks,
+          supplied: [...new Map([...kept, ...chunks].map((c) => [c.id, c])).values()],
         }
         written = await writer.adjust(ctx, entry, j, base, extra, summariesBefore(j), mode)
       }
@@ -188,6 +198,7 @@ export default class PortfolioRegenerate {
       stored,
       plan.pages.length,
       entries,
+      previousEntries,
       sources,
       index
     )
@@ -290,6 +301,7 @@ export default class PortfolioRegenerate {
     stored: CanvasGenerationPage[],
     entryCount: number,
     entries: EntryInput[],
+    previousEntries: Pick<EntryInput, 'page'>[],
     sources: ReadonlyMap<string, SourceInfo>,
     index: number
   ): CanvasDocument {
@@ -305,6 +317,13 @@ export default class PortfolioRegenerate {
         )
       })
     if (!sameStructure) return composed
+    // A kept sheet cites its documents by the chunk the earlier compose chose; the sources pages
+    // use the chunk chosen now. Where those differ, every sheet is composed again.
+    const before = representatives(previousEntries, sources)
+    const after = representatives(entries, sources)
+    const sameCitations =
+      before.size === after.size && [...after].every(([file, id]) => before.get(file) === id)
+    if (!sameCitations) return composed
     const sheets: Sheet[] = composed.sheets.map((sheet, i) => {
       const design = stored[i].designId
       return (design === 'entry' || design === 'cover') && i !== index ? current.sheets[i] : sheet

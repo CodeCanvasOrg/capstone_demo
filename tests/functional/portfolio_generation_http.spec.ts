@@ -3,10 +3,13 @@ import { test } from '@japa/runner'
 import { randomUUID } from 'node:crypto'
 import db from '@adonisjs/lucid/services/db'
 import env from '#start/env'
+import CanvasGenerationPage from '#models/canvas_generation_page'
 import CanvasGenerationRun from '#models/canvas_generation_run'
 import Document from '#models/document'
 import DocumentCanvas from '#models/document_canvas'
 import WorkspaceTask from '#models/workspace_task'
+import CanvasService from '#services/canvas/canvas_service'
+import RetrievalService from '#services/documents/retrieval_service'
 import TaskDispatchService from '#services/workspaces/task_dispatch_service'
 import { hashOf } from '../../shared/layout/hash.ts'
 import { account, reset } from '../helpers/workspaces.ts'
@@ -309,5 +312,72 @@ test.group('Portfolio generation: HTTP', (group) => {
         design: 'entry',
       })
     ).assertStatus(404)
+  })
+
+  test('"Make shorter" keeps the citations the entry has when the new retrieval does not return them', async ({
+    client,
+    assert,
+  }) => {
+    model = installPortfolioModel({ entries: 2 })
+    const g = await portfolioGeneratable()
+    const first = await generated(client, g)
+    const firstRun = await CanvasGenerationRun.query()
+      .where('documentId', g.a.document.id)
+      .where('status', 'ready')
+      .orderBy('createdAt', 'desc')
+      .firstOrFail()
+    const stored = await CanvasGenerationPage.query()
+      .where('runId', firstRun.id)
+      .where('pageIndex', 1)
+      .firstOrFail()
+    const original = stored.citedChunkIds
+    assert.isAbove(original.length, 0)
+    model.restore()
+    model = installPortfolioModel({ entries: 2 })
+    // Retrieval finds nothing for this entry now, so only the evidence the entry already has can back its citations.
+    const searchPages = RetrievalService.prototype.searchPages
+    RetrievalService.prototype.searchPages = async (input) =>
+      input.pages.map((page) => ({ key: page.key, chunks: [], extra: [], images: [] }))
+    try {
+      const res = await post(client, g, '/pages/1/regenerate', {
+        mutationId: randomUUID(),
+        baseVersionId: first.currentVersionId,
+        mode: 'condense',
+      })
+      res.assertStatus(202)
+      await new TaskDispatchService().dispatch()
+      const run = await CanvasGenerationRun.findOrFail(res.body().data.runId)
+      assert.equal(run.status, 'ready')
+      const after = await CanvasGenerationPage.query()
+        .where('runId', run.id)
+        .where('pageIndex', 1)
+        .firstOrFail()
+      for (const id of original) assert.include(after.citedChunkIds, id)
+    } finally {
+      RetrievalService.prototype.searchPages = searchPages
+    }
+  })
+
+  test('a page action is refused when the author has rearranged the pages since they were generated', async ({
+    client,
+    assert,
+  }) => {
+    model = installPortfolioModel({ entries: 2 })
+    const g = await portfolioGeneratable()
+    const doc = await generated(client, g)
+    const saved = (await canvasOf(doc.currentVersionId!)).project
+    saved.sheets.splice(3, 1)
+    const { version } = await new CanvasService().save(g.a.context, g.a.document.id, {
+      project: saved,
+      baseVersionId: doc.currentVersionId,
+      mutationId: randomUUID(),
+    })
+    const stale = await post(client, g, '/pages/1/regenerate', {
+      mutationId: randomUUID(),
+      baseVersionId: version.id,
+      mode: 'condense',
+    })
+    stale.assertStatus(409)
+    assert.match(stale.body().error.message, /rearranged/)
   })
 })

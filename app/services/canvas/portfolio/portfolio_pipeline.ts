@@ -127,7 +127,7 @@ export async function coverMeta(
 }
 
 /** The brand's name, so every spelling of it in the copy is corrected. The template's own kit is not a company. */
-async function brandName(context: WorkspaceAccessContext, documentId: string) {
+export async function brandName(context: WorkspaceAccessContext, documentId: string) {
   try {
     const selection = await new LayoutSelectionService().peek(context.workspaceId, documentId)
     const kit = getBrandKit(selection.brandId, selection.brandVersion)
