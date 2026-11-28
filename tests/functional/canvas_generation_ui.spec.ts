@@ -91,6 +91,32 @@ test.group('Portfolio template gallery and image text', (group) => {
     )
   })
 
+  test('the New case study form gets thumbnail URLs that serve the image', async ({
+    client,
+    assert,
+  }) => {
+    const a = await account()
+    const b = await account('bob@example.test')
+    const row = await CanvasTemplate.query()
+      .whereNull('workspaceId')
+      .where('designId', 'entry')
+      .where('kind', 'sheet')
+      .firstOrFail()
+    await drive.use().put('canvas-templates/portfolio/entry.v1.png', png(30, 40))
+    row.merge({ previewKey: 'canvas-templates/portfolio/entry.v1.png' })
+    await row.save()
+    const base = `/workspaces/${a.workspace.id}/canvas-templates`
+    const list = await client.get(base).headers(json).loginAs(a.user)
+    list.assertStatus(200)
+    const url = list.body().data.find((t: any) => t.id === row.id).previewUrl
+    assert.equal(url, `${base}/${row.id}/preview`)
+    const image = await client.get(url).loginAs(a.user)
+    image.assertStatus(200)
+    image.assertHeader('content-type', 'image/png')
+    assert.deepEqual(image.response.body, png(30, 40))
+    ;(await client.get(url).headers(json).loginAs(b.user)).assertStatus(404)
+  })
+
   test('the gallery is not there without the canvas pilot', async ({ client }) => {
     const a = await account()
     env.set('CANVAS_EDITOR', undefined as never)
