@@ -221,7 +221,7 @@ Postman: the HTTP surface changes by one route removal (`.../pages/:index/design
    - _Thin frames and decimal sizes_ loosen the canvas schema; they only widen what validates, so old
      canvases still parse. Interactive resizing still clamps to 2 mm.
    - _Sources pages go stale if an author edits the citations by hand_; "rewrite" of the entry recomposes them.
-   - _Legacy `TemplateSet` values_ still exist in `shared/canvas/academic/options.ts`; adding `portfolio` to that
+   - _Legacy `TemplateSet` values_ still exist in `shared/canvas/options.ts` (moved from `academic/options.ts`); adding `portfolio` to that
      tuple forces one new key in `TEMPLATE_DESIGNS` in `canvas_prompts.ts`. That is a one-line edit kept in its
      own commit so the merge with `feature/legacy-cleanup` is trivial.
 
@@ -238,4 +238,7 @@ Postman: the HTTP surface changes by one route removal (`.../pages/:index/design
   the legacy modules are otherwise untouched and unreachable from the options, the routes and the UI.
 - The "change design" route, validator, service method and menu are removed; its Postman request with them.
 - Follow-up after both branches merge: delete `shared/canvas/academic/*`, the academic generation modules and
-  their unit tests.
+  their unit tests. **Done** on `feature/remove-academic-canvas`: see "Academic canvas pipeline" in
+  `docs/legacy-cleanup.md`. The shared pieces the portfolio used moved to `shared/canvas/options.ts`,
+  `shared/canvas/model_output.ts` and the portfolio modules, `CanvasPipeline` dispatches only to
+  `PortfolioPipeline`, and the legacy `templateSet` values still coerce to `portfolio`.
