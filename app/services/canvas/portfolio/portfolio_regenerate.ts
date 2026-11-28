@@ -29,7 +29,7 @@ import PortfolioWriter, {
   type Written,
 } from './portfolio_writer.ts'
 import { portfolioReport } from '../../../../shared/canvas/portfolio/quality.ts'
-import { brandName, coverMeta, sourceInfo, type StoredPlan } from './portfolio_pipeline.ts'
+import { brandName, coverMeta, oneLine, sourceInfo, type StoredPlan } from './portfolio_pipeline.ts'
 
 const unusable = (message: string) =>
   Object.assign(new Error(message), { status: 422, unusableOutput: true })
@@ -194,7 +194,12 @@ export default class PortfolioRegenerate {
         eyebrow: cover.eyebrow ?? plan.eyebrow ?? 'Selected project portfolio',
         title: cover.title,
         subtitle: cover.subtitle,
-        meta: await coverMeta(input.context, input.title, entries.length, sourceCount),
+        meta: await coverMeta(
+          input.context,
+          input.title || oneLine(cover.title),
+          entries.length,
+          sourceCount
+        ),
       },
       entries,
       sources,

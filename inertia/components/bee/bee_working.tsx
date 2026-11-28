@@ -74,16 +74,20 @@ export function BeeWorking({
   documentId,
   active,
   failed = false,
+  design: fixedDesign,
 }: {
   documentId: string
   active: boolean
   failed?: boolean
+  /** The page the swarm forms. Given by callers that already know it (the canvas: its cover). */
+  design?: DesignId
 }) {
   const [mounted, setMounted] = useState(active)
   const [open, setOpen] = useState(false)
   const [index, setIndex] = useState(0)
   const closeTimer = useRef<number | undefined>(undefined)
-  const design = useFirstPageDesign(documentId, mounted)
+  const fetched = useFirstPageDesign(documentId, mounted && !fixedDesign)
+  const design = fixedDesign ?? fetched
 
   if (active && !mounted) setMounted(true)
 

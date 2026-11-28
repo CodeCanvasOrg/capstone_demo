@@ -14,6 +14,25 @@ import type { WorkspaceAccessContext } from '#services/workspaces/access_service
 import { canvasOptionsSchema, type CanvasOptions } from '../../../../shared/canvas/options.ts'
 import { type DensityReport } from '../../../../shared/canvas/density.ts'
 import { type CanvasDocument } from '../../../../shared/canvas/model.ts'
+import { heroFrames } from '../../../../shared/canvas/derive.ts'
+
+/** The title text of a canvas' cover (its largest type), on one line; null when there is none. */
+export function coverTitle(canvas: CanvasDocument): string | null {
+  const frame = heroFrames(canvas).title
+  if (!frame) return null
+  const parts: string[] = []
+  const visit = (node: { type?: string; text?: string; content?: unknown[] }) => {
+    if (typeof node.text === 'string') parts.push(node.text)
+    else if (node.type === 'hardBreak') parts.push(' ')
+    node.content?.forEach((child) => visit(child as typeof node))
+  }
+  frame.doc.forEach((block) => {
+    visit(block as Parameters<typeof visit>[0])
+    parts.push(' ')
+  })
+  const title = parts.join('').replace(/\s+/g, ' ').trim()
+  return title ? title.slice(0, 255) : null
+}
 import type { PipelineStage } from '../../../../shared/ops/stages.ts'
 
 /** Entries written at once. Each entry is its own model call, so this is the call concurrency. */
@@ -178,6 +197,11 @@ export default class CanvasPipeline {
       mutationId: lease.task.mutationId,
       generationRunId: run.id,
     })
+    // A case study created without a title takes the generated cover's title, as the text path does.
+    const named =
+      !target && document.templateSetup?.generateTitle ? coverTitle(generated.canvas) : null
+    const templateSetup = { ...document.templateSetup }
+    delete templateSetup.generateTitle
     const accepted = await tasks.finish(lease, async (trx) => {
       await trx
         .from('canvas_generation_runs')
@@ -196,6 +220,7 @@ export default class CanvasPipeline {
           generation_task_id: lease.task.id,
         })
         .update({
+          ...(named ? { title: named, template_setup: JSON.stringify(templateSetup) } : {}),
           // The draft is shown right away; issue checks run next while the editor stays usable.
           generation_status: 'checking_issues',
           generation_error: null,
