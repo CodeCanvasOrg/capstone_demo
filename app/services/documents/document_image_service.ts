@@ -5,7 +5,7 @@ import logger from '@adonisjs/core/services/logger'
 import db from '@adonisjs/lucid/services/db'
 import drive from '@adonisjs/drive/services/main'
 import Document from '#models/document'
-import DocumentImage from '#models/document_image'
+import DocumentImage, { type GenerationRecord } from '#models/document_image'
 import DocumentImageVariant from '#models/document_image_variant'
 import ImageVariantService, { variantMime } from '#services/documents/image_variant_service'
 import sharp from 'sharp'
@@ -152,13 +152,32 @@ export default class DocumentImageService {
     return this.store(context, documentId, { ...input, origin: 'source' })
   }
 
+  /**
+   * Registers a picture an image model made, with its audit record. A generated picture has no
+   * source chunk: it is an illustration, never evidence, and no citation can point at it.
+   */
+  async storeGenerated(
+    context: WorkspaceAccessContext,
+    documentId: string,
+    input: {
+      filename: string
+      contents: Buffer
+      caption: string
+      altText: string
+      generation: GenerationRecord
+    }
+  ) {
+    return this.store(context, documentId, { ...input, origin: 'generated' })
+  }
+
   private async store(
     context: WorkspaceAccessContext,
     documentId: string,
     input: {
       filename: string
       contents: Buffer
-      origin?: 'upload' | 'source'
+      origin?: 'upload' | 'source' | 'generated'
+      generation?: GenerationRecord
       chunkId?: string
       caption?: string | null
       altText?: string | null
@@ -195,6 +214,7 @@ export default class DocumentImageService {
             filename: path.basename(input.filename).slice(0, 255),
             origin: input.origin ?? 'upload',
             sourceChunkId: input.chunkId ?? null,
+            generation: input.generation ?? null,
             caption: input.caption?.slice(0, 400) ?? null,
             altText: input.altText?.slice(0, 300) ?? null,
           },

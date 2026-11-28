@@ -761,6 +761,7 @@ export class DocumentImageSchema extends BaseModel {
     'filename',
     'focusX',
     'focusY',
+    'generation',
     'height',
     'id',
     'mime',
@@ -790,6 +791,8 @@ export class DocumentImageSchema extends BaseModel {
   declare focusX: number | null
   @column()
   declare focusY: number | null
+  @column()
+  declare generation: any | null
   @column()
   declare height: number | null
   @column({ isPrimary: true })

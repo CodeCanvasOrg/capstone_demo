@@ -79,6 +79,13 @@ export default await Env.create(new URL('../', import.meta.url), {
   CANVAS_EDITOR: Env.schema.enum.optional(['pilot'] as const),
   /** Multi-stage portfolio page generation for the canvas; needs CANVAS_EDITOR=pilot too. */
   CANVAS_GENERATION: Env.schema.enum.optional(['on'] as const),
+  /**
+   * Illustrative AI-generated pictures for portfolio entries that have no usable source picture.
+   * Off unless `on`; needs OPENROUTER_API_KEY. Generated pictures are labelled and never evidence.
+   */
+  CANVAS_IMAGE_GENERATION: Env.schema.enum.optional(['on'] as const),
+  /** OpenRouter image-output model for those pictures; defaults to google/gemini-3.1-flash-image. */
+  CANVAS_IMAGE_MODEL: Env.schema.string.optional(),
   /** Model for the portfolio plan; defaults to OPENROUTER_MODEL. */
   CANVAS_PLANNER_MODEL: Env.schema.string.optional(),
   /** Model for canvas page prose; defaults to the planner model. A Sonnet-class model is recommended. */
