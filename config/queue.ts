@@ -14,6 +14,12 @@ export default defineConfig({
   worker: {
     concurrency: 5,
     idleDelay: '2s',
+    // On a redeploy, hand still-running tasks back shortly before the platform kills this
+    // process, so the new deployment re-runs them instead of leaving them stuck.
+    onShutdownSignal: async () => {
+      const { releaseBeforeKill } = await import('#services/workspaces/active_leases')
+      releaseBeforeKill()
+    },
   },
 
   locations: ['./app/jobs/**/*.{ts,js}'],
