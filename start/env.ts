@@ -83,6 +83,8 @@ export default await Env.create(new URL('../', import.meta.url), {
   CANVAS_PLANNER_MODEL: Env.schema.string.optional(),
   /** Model for canvas page prose; defaults to the planner model. A Sonnet-class model is recommended. */
   CANVAS_WRITER_MODEL: Env.schema.string.optional(),
+  /** Model that designs the pages for "Let AI choose"; defaults to the planner model. A model that accepts images sees reference pictures. */
+  CANVAS_DESIGN_MODEL: Env.schema.string.optional(),
 
   // PDF extraction worker (see config/pdf_worker.ts)
   PDF_EXTRACTOR: Env.schema.enum.optional(['pymupdf', 'pdf-parse'] as const),

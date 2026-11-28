@@ -95,14 +95,17 @@ components:
     Options:
       type: object
       description: |
-        The portfolio template is the only template. The retired `templateSet` values
-        (academic_report, research_brief, brochure) are still accepted and mean the portfolio;
-        anything else is a 422.
+        `portfolio` is the fixed template; `ai_design` ("Let AI choose") has the model design the
+        pages (docs/ai-design-plan.md). The retired `templateSet` values (academic_report,
+        research_brief, brochure) are still accepted and mean the portfolio; anything else is a 422.
+        With `ai_design`, `entries` N means a cover and N pages (else `pages`, else the depth decides),
+        and page actions on the result answer 409 ("AI-designed pages are generated again as a whole").
       properties:
         depth: { type: string, enum: [concise, standard, detailed], default: standard, description: 'Rows an entry carries: 4 to 5, 6 to 7, 8' }
         entries: { oneOf: [{ type: string, enum: [auto] }, { type: integer, minimum: 1, maximum: 6 }], default: auto }
-        templateSet: { type: string, enum: [portfolio, academic_report, research_brief, brochure], default: portfolio }
+        templateSet: { type: string, enum: [portfolio, ai_design, academic_report, research_brief, brochure], default: portfolio }
         profile: { type: string, enum: [academic, informative], default: informative }
+        pages: { oneOf: [{ type: string, enum: [auto] }, { type: integer, minimum: 3, maximum: 16 }], default: auto, description: 'ai_design only: the exact number of designed pages' }
         images: { type: boolean, default: true }
     GenerateRequest:
       type: object

@@ -132,6 +132,55 @@
           ]
         },
         {
+          "name": "Generate pages (Let AI choose: ai_design, 3 entries)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents/{{documentId}}/canvas/generate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "workspaces",
+                "{{workspaceId}}",
+                "documents",
+                "{{documentId}}",
+                "canvas",
+                "generate"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"options\": {\n    \"templateSet\": \"ai_design\",\n    \"depth\": \"standard\",\n    \"entries\": 3,\n    \"images\": true\n  }\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('queued or refused while another run is active', () => pm.expect([202, 409]).to.include(pm.response.code))"
+                ]
+              }
+            }
+          ]
+        },
+        {
           "name": "Generate pages (invalid options)",
           "request": {
             "method": "POST",
@@ -427,6 +476,57 @@
                 "type": "text/javascript",
                 "exec": [
                   "pm.test('the application writes sources pages', () => pm.expect(pm.response.code).to.eql(409))"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Regenerate a page of an AI-designed canvas (refused: 409)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents/{{documentId}}/canvas/pages/1/regenerate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "workspaces",
+                "{{workspaceId}}",
+                "documents",
+                "{{documentId}}",
+                "canvas",
+                "pages",
+                "1",
+                "regenerate"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mutationId\": \"{{$guid}}\",\n  \"baseVersionId\": \"{{baseVersionId}}\",\n  \"mode\": \"rewrite\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('AI-designed pages are generated again as a whole', () => pm.expect([409, 404]).to.include(pm.response.code))"
                 ]
               }
             }

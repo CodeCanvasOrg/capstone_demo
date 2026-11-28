@@ -70,11 +70,21 @@ function frameHtml(frame: Frame, content: FrameContent, brand: BrandKit, focus: 
 
 /**
  * The brand a canvas is drawn with: a template's own kit when the canvas carries the template's
- * marker, otherwise the one pinned to the document's layout.
+ * marker, otherwise the one pinned to the document's layout. An AI-designed canvas is drawn with the
+ * pinned brand plus the shipped Inter files, the fonts its design may use.
  */
 export function brandForCanvas(canvas: Pick<CanvasDocument, 'template'>, pinned: BrandKit) {
   const own = canvas.template ? getBrandKit(canvas.template.id) : undefined
-  return own?.templateOnly ? own : pinned
+  if (own?.templateOnly) return own
+  const inter = canvas.template?.id === 'ai_design' ? getBrandKit('portfolio') : undefined
+  if (!inter) return pinned
+  const fonts = [
+    ...pinned.fonts,
+    ...inter.fonts.filter(
+      (f) => !pinned.fonts.some((p) => p.family === f.family && p.weight === f.weight)
+    ),
+  ]
+  return { ...pinned, fonts }
 }
 
 const sourcesSheet = (sources: ClientSource[]) =>

@@ -99,6 +99,58 @@ http
           subtitle: 'Synthetic subtitle for transport verification only.',
           reviewer_notes: [],
         }
+      // "Let AI choose" (docs/ai-design-plan.md): a synthetic design and the text of a designed page.
+      if (name === 'design_canvas') {
+        const input = lastJson()
+        const count = Math.min(Math.max(Number(input.pages) || 3, 1), 16)
+        const text = (id, role, x, y, w, h, style = {}) => ({
+          id, kind: 'text', role, x, y, w, h, style, brief: `Synthetic ${role} for transport verification only.`,
+        })
+        const cover = {
+          purpose: 'Synthetic cover for transport verification only.',
+          questions: ['Synthetic question?'],
+          background: 'paper',
+          frames: [
+            { id: 'band', kind: 'shape', role: 'panel', x: 0, y: 0, w: 2100, h: 1700, shape: 'rect', style: { fill: 'primary' } },
+            text('title', 'title', 200, 480, 1500, 760, { color: 'paper', size: 40 }),
+            text('subtitle', 'subtitle', 200, 1300, 1400, 260, { color: 'paper', size: 13 }),
+          ],
+        }
+        const page = (n) => ({
+          purpose: `Synthetic page ${n} for transport verification only.`,
+          questions: [`Synthetic question ${n}?`],
+          background: 'paper',
+          frames: [
+            text('heading', 'heading', 200, 200, 1700, 300, { size: 26 }),
+            text('body', 'body', 200, 700, 1700, 1500, { size: 10 }),
+          ],
+        })
+        generated = {
+          system: {
+            name: 'Synthetic system',
+            palette: { ink: '#14213d', paper: '#f6f4ee', surface: '#ebe7dc', primary: '#14213d', accent: '#f2a900', muted: '#4b5563' },
+            fonts: { heading: 'display', body: 'sans' },
+            scale: { caption: 8, body: 10, lead: 12, heading: 26, title: 40 },
+            grid: { margin: 200, columns: 6, gutter: 60 },
+          },
+          pages: [cover, ...Array.from({ length: count - 1 }, (_, i) => page(i + 2))],
+          reviewer_notes: ['Synthetic output: not a quality assertion.'],
+        }
+      }
+      if (name === 'write_design_page') {
+        const input = lastJson()
+        const ids = [...String(input.sources ?? '').matchAll(/Source chunk ID: ([^;]+);/g)].map((m) => m[1])
+        generated = {
+          frames: (input.frames ?? []).map((frame) => ({
+            id: frame.id,
+            text: 'Synthetic text for transport verification only.',
+            chunks: frame.cite ? ids.slice(0, 1) : [],
+          })),
+          claims: [],
+          summary: 'Synthetic summary.',
+          reviewer_notes: ['Synthetic output: not a quality assertion.'],
+        }
+      }
       if (name === 'fill_document_outline') {
         const raw = body.messages
           .flatMap((message) =>

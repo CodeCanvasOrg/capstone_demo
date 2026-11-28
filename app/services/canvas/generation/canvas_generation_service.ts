@@ -15,6 +15,8 @@ import AccessService, {
   type WorkspaceAccessContext,
 } from '#services/workspaces/access_service'
 import { PORTFOLIO_PIPELINE_VERSION } from '#services/canvas/portfolio/portfolio_pipeline'
+import { AI_DESIGN_PIPELINE_VERSION } from '#services/canvas/ai_design/ai_design_pipeline'
+import { AI_PAGE_ACTIONS } from '#services/canvas/generation/canvas_pipeline'
 import { Exception } from '@adonisjs/core/exceptions'
 import { canvasOptionsSchema, type CanvasOptions } from '../../../../shared/canvas/options.ts'
 
@@ -61,10 +63,16 @@ export default class CanvasGenerationService {
         depth: options.depth,
         templateSet: options.templateSet,
         status: 'queued',
-        plannerModel: config.canvasPlannerModel,
+        plannerModel:
+          options.templateSet === 'ai_design'
+            ? config.canvasDesignModel
+            : config.canvasPlannerModel,
         writerModel:
           options.depth === 'concise' ? config.canvasPlannerModel : config.canvasWriterModel,
-        pipelineVersion: PORTFOLIO_PIPELINE_VERSION,
+        pipelineVersion:
+          options.templateSet === 'ai_design'
+            ? AI_DESIGN_PIPELINE_VERSION
+            : PORTFOLIO_PIPELINE_VERSION,
         createdBy: context.actorId,
       },
       { client: trx }
@@ -127,6 +135,7 @@ export default class CanvasGenerationService {
       throw conflict('Open the document in the canvas editor first')
     const run = await this.latestReady(documentId)
     if (!run) throw conflict('Generate the pages first')
+    if (run.templateSet === 'ai_design') throw conflict(AI_PAGE_ACTIONS)
     // Pages made by a retired template (academic report, research brief, brochure) are generated again, not patched.
     if (run.templateSet !== 'portfolio')
       throw conflict('These pages were made with a retired template. Generate them again.')

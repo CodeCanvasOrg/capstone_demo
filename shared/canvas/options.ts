@@ -10,10 +10,17 @@ export type Depth = (typeof DEPTHS)[number]
 export const PROFILES = ['academic', 'informative'] as const
 export type Profile = (typeof PROFILES)[number]
 /**
- * `portfolio` is the one template the canvas offers. The other values are the retired sets: they
- * are still read (stored layout options, old requests) and always mean `portfolio`.
+ * `portfolio` is the fixed template the canvas offers; `ai_design` ("Let AI choose") has the model
+ * design the pages. The other values are the retired sets: they are still read (stored layout
+ * options, old requests) and always mean `portfolio`.
  */
-export const TEMPLATE_SETS = ['portfolio', 'academic_report', 'research_brief', 'brochure'] as const
+export const TEMPLATE_SETS = [
+  'portfolio',
+  'ai_design',
+  'academic_report',
+  'research_brief',
+  'brochure',
+] as const
 export type TemplateSet = (typeof TEMPLATE_SETS)[number]
 
 export const canvasOptionsSchema = z.object({
@@ -22,7 +29,7 @@ export const canvasOptionsSchema = z.object({
   templateSet: z
     .enum(TEMPLATE_SETS)
     .default('portfolio')
-    .transform((): TemplateSet => 'portfolio'),
+    .transform((value): TemplateSet => (value === 'ai_design' ? 'ai_design' : 'portfolio')),
   /** Entries of the portfolio: `auto` lets the planner decide; a number is exact, 1 to 6. */
   entries: z.union([z.literal('auto'), z.number().int().min(1).max(6)]).default('auto'),
   /** `auto` lets the planner decide; a number is the exact page count, 3 to 16. */

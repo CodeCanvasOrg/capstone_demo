@@ -9,6 +9,7 @@ import CanvasGenerationRun from '#models/canvas_generation_run'
 import CanvasService from '#services/canvas/canvas_service'
 import { writePageRows, type Generated } from '#services/canvas/generation/canvas_pipeline'
 import { PORTFOLIO_PIPELINE_VERSION } from '#services/canvas/portfolio/portfolio_pipeline'
+import { AI_DESIGN_PIPELINE_VERSION } from '#services/canvas/ai_design/ai_design_pipeline'
 import { isPortfolio, portfolioReport } from '../../../../shared/canvas/portfolio/quality.ts'
 import type { CanvasOptions } from '../../../../shared/canvas/options.ts'
 import AccessService, {
@@ -139,11 +140,15 @@ export default class CanvasOperator {
       baseVersionId: document.currentVersionId,
       profile: options.profile,
       depth: options.depth,
-      templateSet: options.templateSet,
+      // A "Let AI choose" run that fell back to the portfolio is a portfolio run.
+      templateSet: generated.fallback ? 'portfolio' : options.templateSet,
       status: 'composing',
       plannerModel: generated.models.planner,
       writerModel: generated.models.writer,
-      pipelineVersion: PORTFOLIO_PIPELINE_VERSION,
+      pipelineVersion:
+        options.templateSet === 'ai_design' && !generated.fallback
+          ? AI_DESIGN_PIPELINE_VERSION
+          : PORTFOLIO_PIPELINE_VERSION,
       plan: generated.plan,
       createdBy: context.actorId,
     })
