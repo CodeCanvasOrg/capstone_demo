@@ -10,7 +10,7 @@ import DocumentImageService from '#services/documents/document_image_service'
 import PortfolioTemplateSeed from '../../commands/portfolio_template_seed.ts'
 import { png } from '../fixtures/document_image.ts'
 import { account, reset } from '../helpers/workspaces.ts'
-import { flagsOff } from '../helpers/canvas_generation.ts'
+import { flagsOff } from '../helpers/portfolio_generation.ts'
 
 const json = { accept: 'application/json' }
 

@@ -30,3 +30,6 @@ export const canvasOptionsSchema = z.object({
   images: z.boolean().default(true),
 })
 export type CanvasOptions = z.infer<typeof canvasOptionsSchema>
+
+/** Evidence tokens each page may read, set by depth. */
+export const DEPTH_TOKENS: Record<Depth, number> = { concise: 2000, standard: 3500, detailed: 5000 }

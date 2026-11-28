@@ -9,7 +9,7 @@ import LayoutSelectionService from '#services/layout/layout_selection_service'
 import RetrievalService, { type ImageEvidence } from '#services/documents/retrieval_service'
 import type { SourceChunk } from '#services/documents/chunk_metadata_service'
 import type { WorkspaceAccessContext } from '#services/workspaces/access_service'
-import { DEPTH_TOKENS } from '../../../../shared/canvas/academic/designs.ts'
+import { DEPTH_TOKENS } from '../../../../shared/canvas/options.ts'
 import { portfolioReport } from '../../../../shared/canvas/portfolio/quality.ts'
 import { parseCanvas } from '../../../../shared/canvas/model.ts'
 import {
@@ -144,7 +144,7 @@ async function brandName(context: WorkspaceAccessContext, documentId: string) {
 /**
  * The portfolio pipeline: plan the entries, retrieve per entry, choose pictures, write entry by
  * entry, fit every field to its slot, write the cover from the summaries, compose. Same stages and
- * records as the academic pipeline it replaces, so a run, its progress and its saved version work
+ * records as the academic pipeline it replaced, so a run, its progress and its saved version work
  * unchanged.
  */
 export default class PortfolioPipeline {

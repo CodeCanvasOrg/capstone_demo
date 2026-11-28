@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { urlFor } from '@/client'
 import { api } from '@/lib/api'
-import type { CanvasOptions } from '../../../shared/canvas/academic/options.ts'
+import type { CanvasOptions } from '../../../shared/canvas/options.ts'
 
 /** What "Generate pages" sends and remembers. */
 export type GenerationOptions = CanvasOptions

@@ -2,7 +2,7 @@ import vine from '@vinejs/vine'
 
 /**
  * Envelopes only. The options are checked by `canvasOptionsSchema`
- * (shared/canvas/academic/options.ts), the one schema the dialog, the layout
+ * (shared/canvas/options.ts), the one schema the dialog, the layout
  * options and the CLI share, so they can never disagree.
  */
 const mutationId = vine.string().trim().minLength(8).maxLength(100)

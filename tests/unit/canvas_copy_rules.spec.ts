@@ -19,22 +19,6 @@ import {
   titleRepeats,
   unmovedNumbers,
 } from '../../shared/canvas/copy_rules.ts'
-import { cleanCopy, copyProblems } from '#services/canvas/generation/copy_clean'
-import type { AcademicPage } from '../../shared/canvas/academic/content.ts'
-
-const page = (over: Partial<AcademicPage> = {}): AcademicPage => ({
-  design: 'essay',
-  title: 'Cooler streets',
-  lead: { text: 'Trees cool streets.', chunks: ['a'] },
-  sections: [],
-  definitions: [],
-  figures: [],
-  callout: null,
-  takeaway: null,
-  summary: 's',
-  reviewer_notes: [],
-  ...over,
-})
 
 test.group('slot length targets', () => {
   test('lines times characters per line caps a slot', ({ assert }) => {
@@ -216,58 +200,6 @@ test.group('chunk dedupe', () => {
       chunkOverlap(text, 'completely different words about something else entirely here'),
       0
     )
-  })
-})
-
-test.group('copy cleaning of a page', () => {
-  test('citations and gap sentences leave the text and go to notes', ({ assert }) => {
-    const { page: out, gaps } = cleanCopy(
-      page({
-        lead: {
-          text: 'Trees cool streets [chunk: a]. The source does not provide costs.',
-          chunks: ['a'],
-        },
-        sections: [
-          {
-            heading: 'Why Code Canvas',
-            paragraphs: [
-              { text: 'No information is available on cost.', chunks: [] },
-              { text: 'Shade lowers air temperature.', chunks: ['a'] },
-            ],
-            bullets: ['', 'Cheap to plant'],
-          },
-        ],
-      }),
-      'CodeCanvas'
-    )
-    assert.equal(out.lead?.text, 'Trees cool streets.')
-    assert.equal(out.sections[0].heading, 'Why CodeCanvas')
-    assert.lengthOf(out.sections[0].paragraphs, 1)
-    assert.deepEqual(out.sections[0].bullets, ['Cheap to plant'])
-    assert.lengthOf(gaps, 2)
-  })
-
-  test('a page whose only text was a gap loses the field', ({ assert }) => {
-    const { page: out } = cleanCopy(
-      page({
-        lead: { text: 'The source does not provide this.', chunks: [] },
-        takeaway: 'No data is available.',
-      })
-    )
-    assert.isNull(out.lead)
-    assert.isNull(out.takeaway)
-  })
-
-  test('repeated titles and numbers left in prose are problems', ({ assert }) => {
-    const problems = copyProblems(
-      page({
-        title: 'Cut energy bills fast',
-        lead: { text: 'Bills fell 38% and use fell 12% overall.', chunks: ['a'] },
-        sections: [{ heading: 'How to cut energy bills', paragraphs: [], bullets: [] }],
-      }),
-      'data_findings'
-    )
-    assert.deepEqual(problems.map((p) => p.code).sort(), ['numbers_in_prose', 'repeated_title'])
   })
 })
 

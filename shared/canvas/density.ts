@@ -42,7 +42,7 @@ const role = (frame: Frame) => frame.id.slice(frame.id.indexOf('-') + 1).replace
 const FLOW_ROLES = new Set(['body', 'col', 'card'])
 const CHROME_ROLES = new Set(['run', 'folio'])
 
-/** The page's purpose, read from the roles its frames carry (see academic/compose.ts). */
+/** The page's purpose, read from the roles its frames carry (set by the retired academic composer, still present in old canvases). */
 export function pageKind(sheet: Sheet): PageKind {
   const roles = new Set(sheet.frames.map(role))
   if (roles.has('band')) return 'title'

@@ -19,9 +19,8 @@ import {
   type EntryPage,
   type PlanEntry,
 } from '../../../../shared/canvas/portfolio/content.ts'
-import type { CanvasOptions } from '../../../../shared/canvas/academic/options.ts'
+import type { CanvasOptions } from '../../../../shared/canvas/options.ts'
 import { ENTRY } from '../../../../shared/canvas/portfolio/tokens.ts'
-import { sourcesText } from '../generation/canvas_planner.ts'
 import {
   condenseCorrective,
   coverSystem,
@@ -29,6 +28,7 @@ import {
   expandCorrective,
   problemCorrective,
   ROWS_BY_DEPTH,
+  sourcesText,
 } from './portfolio_prompts.ts'
 
 /** Model rounds an entry may spend repairing structure and citations before the fixes below apply. */

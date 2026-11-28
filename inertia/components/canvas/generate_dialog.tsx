@@ -12,7 +12,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Switch } from '@/components/ui/switch'
-import type { Depth } from '../../../shared/canvas/academic/options.ts'
+import type { Depth } from '../../../shared/canvas/options.ts'
 import type { GenerationOptions } from './generation'
 import { TemplateGallery, useTemplates } from './template_gallery'
 

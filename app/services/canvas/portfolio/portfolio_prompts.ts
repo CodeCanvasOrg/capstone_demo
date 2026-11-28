@@ -1,7 +1,8 @@
+import type { SourceChunk } from '#services/documents/chunk_metadata_service'
 import { lengthRules, lengthTargets } from '../../../../shared/canvas/copy_rules.ts'
 import { coverSlotBudgets, entrySlotBudgets } from '../../../../shared/canvas/portfolio/content.ts'
 import { ENTRY } from '../../../../shared/canvas/portfolio/tokens.ts'
-import type { Depth } from '../../../../shared/canvas/academic/options.ts'
+import type { Depth } from '../../../../shared/canvas/options.ts'
 
 /**
  * All prompt text of the portfolio pipeline. The length lines are generated from the template's
@@ -109,3 +110,12 @@ export const problemCorrective = (problems: { code: string; field: string; detai
 
 export const expandCorrective = (rows: number, min: number) =>
   `The entry has ${rows} rows with content; write at least ${min}, using the additional sources, and keep every existing chunk id.`
+
+/** The retrieved chunks as the model reads them: one labelled block per chunk. */
+export const sourcesText = (chunks: SourceChunk[]) =>
+  chunks
+    .map(
+      (chunk) =>
+        `[Source chunk ID: ${chunk.id}; File: ${chunk.fileName}; Chunk: ${chunk.chunkIndex + 1}${chunk.pageNumber ? `; Page: ${chunk.pageNumber}` : ''}${chunk.section ? `; Section: ${chunk.section}` : ''}]\n${chunk.content}`
+    )
+    .join('\n\n')

@@ -16,10 +16,7 @@ import AccessService, {
 } from '#services/workspaces/access_service'
 import { PORTFOLIO_PIPELINE_VERSION } from '#services/canvas/portfolio/portfolio_pipeline'
 import { Exception } from '@adonisjs/core/exceptions'
-import {
-  canvasOptionsSchema,
-  type CanvasOptions,
-} from '../../../../shared/canvas/academic/options.ts'
+import { canvasOptionsSchema, type CanvasOptions } from '../../../../shared/canvas/options.ts'
 
 /** Page generation needs the canvas editor and its own switch, so it can roll out separately. */
 export const canvasGenerationEnabled = () =>

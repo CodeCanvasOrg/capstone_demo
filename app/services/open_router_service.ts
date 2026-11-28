@@ -45,14 +45,7 @@ import {
 } from '../../shared/brochure/content.ts'
 import { isOpenPlan, type BrochureSelection, type DesignId } from '../../shared/brochure/designs.ts'
 import ContentService from './documents/content_service.ts'
-import {
-  academicPageSchema,
-  modelSchema,
-  parseLenient,
-  planSchema,
-  type AcademicPage,
-  type CanvasPlan,
-} from '../../shared/canvas/academic/content.ts'
+import { modelSchema, parseLenient } from '../../shared/canvas/model_output.ts'
 import { getInitPrompt, getStructuredOutput } from './structured_model_output_service.ts'
 
 type Chunk = SourceChunk & {
@@ -523,80 +516,6 @@ export default class OpenRouterService {
       new HumanMessage(input.user),
       ...(input.corrections ?? []).map((text) => new HumanMessage(text)),
     ]
-  }
-
-  /**
-   * Stage 1 of the canvas pipeline: the plan of the document's pages. The caller
-   * builds the prompts (canvas_prompts.ts) and checks the plan against the template
-   * set; this call only guarantees the plan matches its schema.
-   */
-  async planCanvas(
-    input: { system: string; user: string; model: string; corrections?: string[] },
-    guard?: () => Promise<void>
-  ): Promise<CanvasPlan> {
-    // The model is shown the schema's limits; a value only a little too long is cut, not refused.
-    const chain = this.chat(input.model).withStructuredOutput(modelSchema(planSchema), {
-      method: 'functionCalling',
-      name: 'plan_canvas',
-    })
-    return (await this.runGeneration(chain, this.canvasMessages(input), guard, {
-      label: 'canvas plan',
-      timeoutMs: openRouterApiConfig.canvasTimeoutMs,
-      validate: (value) => {
-        const parsed = parseLenient(planSchema, value)
-        if (!parsed.success)
-          throw Object.assign(new Error('The model returned an invalid canvas plan.'), {
-            status: 422,
-            unusableOutput: true,
-            corrective: `The previous plan broke the schema at: ${parsed.error.issues
-              .slice(0, 8)
-              .map((issue) => issue.path.join('.') || 'root')
-              .join(', ')}. Return the whole plan again.`,
-          })
-        return parsed.data
-      },
-    })) as CanvasPlan
-  }
-
-  /**
-   * Stage 3: one page of a canvas document, written from its own evidence. Schema
-   * checked here; chunk ids, citations and figures are checked by the page writer,
-   * which asks again with a corrective when they fail.
-   */
-  async writeCanvasPage(
-    input: { system: string; user: string; model: string; corrections?: string[] },
-    guard?: () => Promise<void>
-  ): Promise<AcademicPage> {
-    const chain = this.chat(input.model).withStructuredOutput(modelSchema(academicPageSchema), {
-      method: 'functionCalling',
-      name: 'write_canvas_page',
-    })
-    return (await this.runGeneration(chain, this.canvasMessages(input), guard, {
-      label: 'canvas page',
-      timeoutMs: openRouterApiConfig.canvasTimeoutMs,
-      validate: (value) => {
-        const parsed = parseLenient(academicPageSchema, value)
-        if (!parsed.success) {
-          logger.warn(
-            {
-              issues: parsed.error.issues
-                .slice(0, 6)
-                .map((i) => `${i.path.join('.')}: ${i.message}`),
-            },
-            'Canvas page failed its schema'
-          )
-          throw Object.assign(new Error('The model returned an invalid canvas page.'), {
-            status: 422,
-            unusableOutput: true,
-            corrective: `The previous page broke the schema at: ${parsed.error.issues
-              .slice(0, 8)
-              .map((issue) => issue.path.join('.') || 'root')
-              .join(', ')}. Return the whole page again.`,
-          })
-        }
-        return parsed.data
-      },
-    })) as AcademicPage
   }
 
   /**

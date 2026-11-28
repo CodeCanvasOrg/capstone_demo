@@ -36,7 +36,7 @@ export default class CanvasPlan extends BaseCommand {
       await import('#services/canvas/portfolio/portfolio_planner')
     const { default: RetrievalService } = await import('#services/documents/retrieval_service')
     const { entryQueries } = await import('#services/canvas/portfolio/portfolio_pipeline')
-    const { DEPTH_TOKENS } = await import('../shared/canvas/academic/designs.ts')
+    const { DEPTH_TOKENS } = await import('../shared/canvas/options.ts')
     const { countTokens } = await import('gpt-tokenizer')
 
     let options

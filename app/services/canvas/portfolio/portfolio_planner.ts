@@ -6,11 +6,10 @@ import type { SourceChunk } from '#services/documents/chunk_metadata_service'
 import type { WorkspaceAccessContext } from '#services/workspaces/access_service'
 import type { SourcePin } from '#services/workspaces/task_service'
 import { wordCount } from '../../../../shared/canvas/fit.ts'
-import type { CanvasOptions } from '../../../../shared/canvas/academic/options.ts'
+import type { CanvasOptions } from '../../../../shared/canvas/options.ts'
 import type { PlanEntry, PortfolioPlan } from '../../../../shared/canvas/portfolio/content.ts'
-import { sourcesText } from '../generation/canvas_planner.ts'
 import { anchor } from '../generation/page_queries.ts'
-import { entryCount, plannerSystem } from './portfolio_prompts.ts'
+import { entryCount, plannerSystem, sourcesText } from './portfolio_prompts.ts'
 
 export type PlannerInput = {
   context: WorkspaceAccessContext

@@ -1,11 +1,55 @@
+import { randomUUID } from 'node:crypto'
 import db from '@adonisjs/lucid/services/db'
+import env from '#start/env'
+import Document from '#models/document'
+import CanvasService from '#services/canvas/canvas_service'
 import config from '#config/open_router'
 import EmbeddingService from '#services/documents/embedding_service'
 import OpenRouterService from '#services/open_router_service'
 import type { CoverPage, EntryPage, PortfolioPlan } from '../../shared/canvas/portfolio/content.ts'
-import { generatable } from './canvas_generation.ts'
+import { account, source } from './workspaces.ts'
 
-export { flagsOff, generatable } from './canvas_generation.ts'
+type Account = Awaited<ReturnType<typeof account>>
+
+export const EVIDENCE =
+  'Surface temperatures fell by 83% across 12 monitored districts, which is 2.4x the baseline reduction. Planners review the results every summer against a baseline.'
+
+/** Chunks that say different things: near-identical chunks are merged by retrieval. */
+const DISTINCT = [
+  EVIDENCE,
+  'Permeable paving lets rain soak into the ground instead of running off into drains. Surface temperatures fell by 83% across 12 monitored districts, which is 2.4x the baseline reduction. ',
+  'Wind corridors carry cool evening air through dense districts and lower night temperatures. Surface temperatures fell by 83% across 12 monitored districts, which is 2.4x the baseline reduction. ',
+  'Street trees need soil volume and irrigation for decades before the canopy matures. Surface temperatures fell by 83% across 12 monitored districts, which is 2.4x the baseline reduction. ',
+]
+
+/** Repeats a sentence up to the length of the standard evidence block. */
+const padded = (text: string) => text.repeat(Math.ceil((EVIDENCE.length * 6) / text.length))
+
+/** An account whose document has `count` prepared sources, is open in the canvas editor and can be generated. */
+export async function generatable(count = 4) {
+  env.set('CANVAS_EDITOR', 'pilot')
+  env.set('CANVAS_GENERATION', 'on')
+  const a = await account()
+  const sources = []
+  for (let i = 0; i < count; i++) {
+    const s = await source(a)
+    await db
+      .from('chunks')
+      .where({ id: s.chunkId })
+      .update({ content: `${padded(DISTINCT[i] ?? EVIDENCE)} Source ${i}.` })
+    sources.push(s)
+  }
+  await new CanvasService().enable(a.context, a.document.id, randomUUID())
+  const doc = await Document.findOrFail(a.document.id)
+  return { a, sources, baseVersionId: doc.currentVersionId!, pins: sources.map((s) => s.pin) }
+}
+
+export function flagsOff() {
+  env.set('CANVAS_EDITOR', undefined as never)
+  env.set('CANVAS_GENERATION', undefined as never)
+}
+
+export type { Account }
 
 /** Like `generatable`, with each source its own named document (the sources pages list documents by file name). */
 export async function portfolioGeneratable(count = 4) {

@@ -1,51 +1,7 @@
 import { test } from '@japa/runner'
-import {
-  ANCHOR_CHARS,
-  REUSE_PENALTY,
-  anchor,
-  asSectionQueries,
-  distinctQueries,
-  fuse,
-  pageQueries,
-} from '#services/canvas/generation/page_queries'
-import type { PagePlan } from '../../shared/canvas/academic/content.ts'
-
-const page = (title: string, questions: string[]): PagePlan => ({
-  design: 'essay',
-  title,
-  purpose: `Establish ${title}.`,
-  questions,
-  keyTerms: [],
-  wantsImage: false,
-})
+import { ANCHOR_CHARS, REUSE_PENALTY, anchor, fuse } from '#services/canvas/generation/page_queries'
 
 test.group('page queries', () => {
-  test('a page queries its subject first, then each research question', ({ assert }) => {
-    const [q] = pageQueries(
-      [page('Heat islands', ['What is albedo?', ' Why trees? '])],
-      'Cooling',
-      'A brief.'
-    )
-    assert.lengthOf(q.queries, 3)
-    assert.include(q.queries[0], 'Heat islands')
-    assert.include(q.queries[0], 'Establish Heat islands.')
-    assert.deepEqual(q.queries.slice(1), ['What is albedo?', 'Why trees?'])
-    assert.equal(q.label, 'Heat islands')
-  })
-
-  test('each page has its own key and queries', ({ assert }) => {
-    const queries = pageQueries(
-      [page('A', ['a1?', 'a2?']), page('B', ['b1?', 'b2?'])],
-      'T',
-      'brief'
-    )
-    assert.deepEqual(
-      queries.map((q) => q.key),
-      ['0', '1']
-    )
-    assert.notDeepEqual(queries[0].queries, queries[1].queries)
-  })
-
   test('the brief anchor is truncated and collapsed', ({ assert }) => {
     const long = `${'word '.repeat(200)}END`
     const text = anchor('Title', long)
@@ -53,14 +9,6 @@ test.group('page queries', () => {
     assert.notInclude(text, 'END')
     assert.equal(anchor(null, '  a \n b  '), 'a b')
     assert.equal(anchor('Only title', ''), 'Only title')
-    const [q] = pageQueries([page('P', ['q1?', 'q2?'])], 'T', long)
-    assert.notInclude(q.queries[0], 'END')
-  })
-
-  test('section queries join a page for the brochure-style views', ({ assert }) => {
-    const [s] = asSectionQueries(pageQueries([page('P', ['q1?', 'q2?'])], 'T', 'b'))
-    assert.equal(s.key, '0')
-    assert.include(s.query, 'q2?')
   })
 })
 
@@ -98,20 +46,5 @@ test.group('fusing retrieval results', () => {
   test('ties break by id, so the order is stable', ({ assert }) => {
     assert.deepEqual(ids(fuse([[], [{ id: 'b' }], [{ id: 'a' }]])), ['a', 'b'])
     assert.deepEqual(ids(fuse([])), [])
-  })
-})
-
-test.group('page queries: key terms and repeats', () => {
-  test('key terms form one lexical query and repeats are dropped', ({ assert }) => {
-    const p = {
-      ...page('Heat', ['What is albedo?', 'what is albedo']),
-      keyTerms: ['albedo', 'urban canopy'],
-    }
-    const [q] = pageQueries([p], 'T', 'brief')
-    assert.deepEqual(q.queries.slice(1), ['What is albedo?', 'albedo urban canopy'])
-  })
-
-  test('distinctQueries ignores case and punctuation', ({ assert }) => {
-    assert.deepEqual(distinctQueries(['A b?', 'a B', '', '  ', 'c']), ['A b?', 'c'])
   })
 })

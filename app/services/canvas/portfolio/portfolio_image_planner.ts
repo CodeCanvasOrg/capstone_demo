@@ -14,7 +14,6 @@ import {
 import type { PortfolioImage } from '../../../../shared/canvas/portfolio/compose.ts'
 import type { PlanEntry } from '../../../../shared/canvas/portfolio/content.ts'
 import { figureCells } from '../../../../shared/canvas/portfolio/tokens.ts'
-import { overlap } from '../generation/canvas_image_planner.ts'
 
 /** Pictures an entry's figure frame holds. */
 export const MAX_PICTURES = 4
@@ -34,6 +33,24 @@ export type PictureChoice = {
   chunkId?: string
   contents?: Buffer
   filename?: string
+}
+
+const words = (text: string) =>
+  new Set(
+    text
+      .toLowerCase()
+      .split(/[^\p{L}\p{N}]+/u)
+      .filter((w) => w.length > 3)
+  )
+
+/** Share of the page's words that also describe the picture, 0 to 1. */
+function overlap(page: string, picture: string) {
+  const a = words(page)
+  const b = words(picture)
+  if (!a.size || !b.size) return 0
+  let shared = 0
+  for (const w of b) if (a.has(w)) shared++
+  return Math.min(1, shared / Math.min(b.size, 6))
 }
 
 const EXTENSION: Record<string, string> = { 'image/png': 'png', 'image/jpeg': 'jpg' }

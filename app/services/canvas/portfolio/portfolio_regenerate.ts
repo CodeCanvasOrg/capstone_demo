@@ -3,7 +3,7 @@ import CanvasGenerationRun from '#models/canvas_generation_run'
 import DocumentImage from '#models/document_image'
 import CanvasService from '#services/canvas/canvas_service'
 import RetrievalService from '#services/documents/retrieval_service'
-import { DEPTH_TOKENS } from '../../../../shared/canvas/academic/designs.ts'
+import { DEPTH_TOKENS } from '../../../../shared/canvas/options.ts'
 import { parseCanvas, type CanvasDocument, type Sheet } from '../../../../shared/canvas/model.ts'
 import {
   composePortfolio,
