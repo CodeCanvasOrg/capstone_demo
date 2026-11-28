@@ -40,3 +40,5 @@ postman collection run postman/collections/canvas-generation.postman_collection.
 ```
 
 The same behaviour is covered by `tests/functional/portfolio_generation_http.spec.ts`. The design checks (`node ace portfolio:template:check`) are not HTTP and are not in the collection.
+
+The same collection has a "Create a case study" folder for the New case study form (`POST /workspaces/{workspaceId}/documents` with a `canvas` object: `templateSet: portfolio` for "Use a template", `ai_design` for "Let AI choose"; see `docs/case-study-portfolio.md`), and the contract lists the workspace-level `GET /canvas-templates` the form reads its thumbnails from. The Postman CLI is not installed on every machine (`which postman`); these files were edited by hand and are not run by it here.
