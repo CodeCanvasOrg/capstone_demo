@@ -23,13 +23,17 @@ export const PORTFOLIO_PAGES = [
 ] as const
 
 /** The templates of a document's workspace, once. */
-export function useTemplates(workspaceId: string, documentId: string, enabled = true) {
+export function useTemplates(workspaceId: string, documentId: string | null, enabled = true) {
   const [templates, setTemplates] = useState<TemplateInfo[] | null>(null)
   const [error, setError] = useState(false)
   useEffect(() => {
     if (!enabled || templates) return
     let cancelled = false
-    api<{ data: TemplateInfo[] }>(urlFor('canvasTemplates.index', { workspaceId, documentId }))
+    api<{ data: TemplateInfo[] }>(
+      documentId
+        ? urlFor('canvasTemplates.index', { workspaceId, documentId })
+        : urlFor('canvasTemplates.workspaceIndex', { workspaceId })
+    )
       .then((res) => !cancelled && setTemplates(res.data))
       .catch(() => !cancelled && setError(true))
     return () => {

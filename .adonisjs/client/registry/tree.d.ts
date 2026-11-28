@@ -121,6 +121,12 @@ export interface ApiDefinition {
     show: typeof routes['documentImages.show']
     update: typeof routes['documentImages.update']
   }
+  canvasTemplates: {
+    workspaceIndex: typeof routes['canvasTemplates.workspaceIndex']
+    workspacePreview: typeof routes['canvasTemplates.workspacePreview']
+    index: typeof routes['canvasTemplates.index']
+    preview: typeof routes['canvasTemplates.preview']
+  }
   documentCanvases: {
     show: typeof routes['documentCanvases.show']
     project: typeof routes['documentCanvases.project']
@@ -128,10 +134,6 @@ export interface ApiDefinition {
     disable: typeof routes['documentCanvases.disable']
     draft: typeof routes['documentCanvases.draft']
     save: typeof routes['documentCanvases.save']
-  }
-  canvasTemplates: {
-    index: typeof routes['canvasTemplates.index']
-    preview: typeof routes['canvasTemplates.preview']
   }
   canvasGenerations: {
     store: typeof routes['canvasGenerations.store']

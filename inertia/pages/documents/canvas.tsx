@@ -113,6 +113,68 @@ function OpenCanvas({ document, workspaceId }: Pick<Props, 'document' | 'workspa
   )
 }
 
+/**
+ * A case study created from the form is in canvas mode before it has any pages. While its first
+ * run is going the progress shows here, and the editor opens when the pages are ready; if the run
+ * fails the case study page has the retry.
+ */
+function FirstGeneration({
+  document,
+  workspaceId,
+  run: initial,
+}: Pick<Props, 'document' | 'workspaceId'> & { run: Run }) {
+  const params = { workspaceId, documentId: document.id }
+  const { run } = useGenerationRun(params, initial)
+  const failed = run?.status === 'failed'
+  return (
+    <main className="flex min-h-dvh flex-col">
+      <header className="flex items-center gap-3 border-b px-4 py-2">
+        <Button asChild variant="ghost" size="sm">
+          <Link route="documents.edit" routeParams={{ workspaceId, id: document.id }}>
+            <ArrowLeft aria-hidden="true" /> Case study
+          </Link>
+        </Button>
+        <h1 className="min-w-0 flex-1 truncate text-sm font-semibold">{document.title}</h1>
+      </header>
+      <GenerationProgress run={run} announce onRetry={() => {}} onShow={() => router.reload()} />
+      <div className="mx-auto flex max-w-md flex-1 flex-col items-center justify-center gap-3 px-6 py-20 text-center">
+        {failed ? (
+          <>
+            <AlertTriangle aria-hidden="true" className="size-10 text-destructive" />
+            <h2 className="text-base font-semibold">The pages could not be generated</h2>
+            <p className="text-sm text-muted-foreground">
+              Your brief and sources are saved. Open the case study to try again.
+            </p>
+            <Button asChild>
+              <Link route="documents.edit" routeParams={{ workspaceId, id: document.id }}>
+                Open the case study
+              </Link>
+            </Button>
+          </>
+        ) : run?.status === 'ready' ? (
+          <>
+            <Check aria-hidden="true" className="size-10 text-muted-foreground" />
+            <h2 className="text-base font-semibold">Your pages are ready</h2>
+            <Button onClick={() => router.reload()}>Show pages</Button>
+          </>
+        ) : (
+          <>
+            <LoaderCircle
+              aria-hidden="true"
+              className="size-10 animate-spin text-muted-foreground"
+            />
+            <h2 className="text-base font-semibold">Writing your portfolio</h2>
+            <p className="text-sm text-muted-foreground">
+              Reading your sources, writing each entry and laying out the pages. This takes a few
+              minutes, and you can leave this page: it keeps going.
+            </p>
+          </>
+        )}
+      </div>
+    </main>
+  )
+}
+
 function Editor({
   document,
   workspaceId,
@@ -401,6 +463,18 @@ export default function CanvasPage(props: Props) {
       <Head title={`${document.title} · Canvas`} />
       {state.mode === 'canvas' && state.project ? (
         <Editor {...props} state={{ ...state, project: state.project as CanvasDocument }} />
+      ) : state.mode === 'canvas' &&
+        props.generation.enabled &&
+        props.generation.run &&
+        (isActive(props.generation.run) ||
+          props.generation.run.status === 'ready' ||
+          props.generation.run.status === 'failed') &&
+        !state.baseVersionId ? (
+        <FirstGeneration
+          document={document}
+          workspaceId={props.workspaceId}
+          run={props.generation.run}
+        />
       ) : (
         <OpenCanvas document={document} workspaceId={props.workspaceId} />
       )}

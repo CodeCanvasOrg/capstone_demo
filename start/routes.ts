@@ -173,6 +173,16 @@ router
         router
           .patch('/documents/:documentId/images/:imageId', [controllers.DocumentImages, 'update'])
           .as('documentImages.update')
+        // Template thumbnails for the New case study form, which has no document yet (404 without the pilot).
+        router
+          .get('/canvas-templates', [controllers.CanvasTemplates, 'workspaceIndex'])
+          .as('canvasTemplates.workspaceIndex')
+        router
+          .get('/canvas-templates/:templateId/preview', [
+            controllers.CanvasTemplates,
+            'workspacePreview',
+          ])
+          .as('canvasTemplates.workspacePreview')
         // Canvas editor (CANVAS_EDITOR=pilot; 404 otherwise).
         router
           .get('/documents/:documentId/canvas', [controllers.DocumentCanvases, 'show'])

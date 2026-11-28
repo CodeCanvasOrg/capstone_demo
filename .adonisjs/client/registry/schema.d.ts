@@ -847,6 +847,30 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/document_images_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'canvasTemplates.workspaceIndex': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/canvas-templates'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { workspaceId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/canvas_templates_controller').default['workspaceIndex']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/canvas_templates_controller').default['workspaceIndex']>>>
+    }
+  }
+  'canvasTemplates.workspacePreview': {
+    methods: ["GET","HEAD"]
+    pattern: '/workspaces/:workspaceId/canvas-templates/:templateId/preview'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { workspaceId: ParamValue; templateId: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/canvas_templates_controller').default['workspacePreview']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/canvas_templates_controller').default['workspacePreview']>>>
+    }
+  }
   'documentCanvases.show': {
     methods: ["GET","HEAD"]
     pattern: '/workspaces/:workspaceId/documents/:documentId/canvas'

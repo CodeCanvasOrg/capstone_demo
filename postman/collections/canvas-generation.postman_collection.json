@@ -533,6 +533,149 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Create a case study (New case study form)",
+      "item": [
+        {
+          "name": "Create: Use a template (portfolio)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "workspaces",
+                "{{workspaceId}}",
+                "documents"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Postman case study\",\n  \"description\": \"A brief written from Postman.\",\n  \"sourceMode\": \"input_only\",\n  \"templateId\": \"brochure\",\n  \"canvas\": {\n    \"templateSet\": \"portfolio\",\n    \"entries\": 2,\n    \"depth\": \"standard\",\n    \"images\": true\n  }\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('created (redirect followed or 302)', () => pm.expect([200,302]).to.include(pm.response.code))"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create: Let AI choose (ai_design)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "workspaces",
+                "{{workspaceId}}",
+                "documents"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Postman case study\",\n  \"description\": \"A brief written from Postman.\",\n  \"sourceMode\": \"input_only\",\n  \"templateId\": \"brochure\",\n  \"canvas\": {\n    \"templateSet\": \"ai_design\",\n    \"entries\": \"auto\",\n    \"depth\": \"standard\",\n    \"images\": true\n  }\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('created (redirect followed or 302)', () => pm.expect([200,302]).to.include(pm.response.code))"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create: invalid canvas options",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/workspaces/{{workspaceId}}/documents",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "workspaces",
+                "{{workspaceId}}",
+                "documents"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Postman case study\",\n  \"description\": \"A brief written from Postman.\",\n  \"sourceMode\": \"input_only\",\n  \"templateId\": \"brochure\",\n  \"canvas\": {\n    \"templateSet\": \"portfolio\",\n    \"entries\": 9\n  }\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('refused', () => pm.expect(pm.response.code).to.eql(422))"
+                ]
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -14,6 +14,35 @@ servers:
 security:
   - session: []
 paths:
+  /workspaces/{workspaceId}/documents:
+    post:
+      operationId: createCaseStudy
+      summary: Create a case study (the New case study form)
+      description: |
+        With `templateId: brochure` and a `canvas` object, and canvas generation on, the case study is
+        created in canvas mode with `canvas` stored as its layout options, and its first generation is
+        a canvas run ("Use a template" sends `templateSet: portfolio`, "Let AI choose" sends
+        `templateSet: ai_design`). The redirect is to `/documents/{id}/canvas`. With canvas generation
+        off, `canvas` is ignored and the `brochure` selection is used as before (redirect to `.../edit`).
+        `templateId: null` is a plain text document. Form posts answer 302; a JSON client gets 422 for options
+        the portfolio does not offer.
+      parameters: [{ $ref: '#/components/parameters/workspaceId' }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CreateCaseStudyRequest' }
+      responses:
+        '302': { description: Created; Location is the canvas page (canvas path) or the case study page }
+        '422': { description: Canvas options the portfolio does not offer, or an invalid brief }
+  /workspaces/{workspaceId}/canvas-templates:
+    get:
+      operationId: listWorkspaceCanvasTemplates
+      summary: The page-design thumbnails the New case study form shows (no document needed)
+      parameters: [{ $ref: '#/components/parameters/workspaceId' }]
+      responses:
+        '200': { description: 'The templates, each with a previewUrl under /workspaces/:id/canvas-templates/:templateId/preview' }
+        '404': { description: CANVAS_EDITOR is not pilot }
   /workspaces/{workspaceId}/documents/{documentId}/canvas/generate:
     post:
       operationId: generateCanvasPages
@@ -92,6 +121,24 @@ components:
     documentId: { name: documentId, in: path, required: true, schema: { type: string, format: uuid } }
     index: { name: index, in: path, required: true, schema: { type: integer, minimum: 0 } }
   schemas:
+    CreateCaseStudyRequest:
+      type: object
+      required: [description, sourceMode]
+      properties:
+        title: { type: string, maxLength: 255 }
+        description: { type: string, maxLength: 20000 }
+        sourceMode: { type: string, enum: [files, input_only] }
+        files: { type: array, items: { type: object, properties: { id: { type: string, format: uuid } } } }
+        templateId: { type: string, nullable: true, description: '`brochure` for the layouts below; null for a plain text document' }
+        canvas:
+          type: object
+          description: Stored as the layout's canvas options when canvas generation is on
+          properties:
+            templateSet: { type: string, enum: [portfolio, ai_design], default: portfolio }
+            entries: { oneOf: [{ type: string, enum: [auto] }, { type: integer, minimum: 1, maximum: 6 }], default: auto }
+            depth: { type: string, enum: [concise, standard, detailed], default: standard }
+            images: { type: boolean, default: true }
+        brochure: { type: object, description: 'Used instead of `canvas` when canvas generation is off' }
     Options:
       type: object
       description: |
