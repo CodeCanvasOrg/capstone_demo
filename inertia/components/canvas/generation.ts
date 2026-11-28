@@ -82,6 +82,7 @@ export function stepLabel(run: Run, key: (typeof STEPS)[number]['key']) {
 export function pageLabel(pages: readonly Pick<RunPage, 'design'>[], index: number) {
   const design = pages[index]?.design
   if (design === 'cover') return 'Cover'
+  if (design !== 'entry' && design !== 'sources') return (design ?? '').replaceAll('_', ' ')
   const entry = pages.slice(0, index + 1).filter((p) => p.design === 'entry').length
   const part =
     design === 'sources'
